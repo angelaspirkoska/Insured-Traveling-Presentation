@@ -1,0 +1,281 @@
+﻿@{HtmlHelper.UnobtrusiveJavaScriptEnabled = true;}
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<br />
+<br />
+
+<ul class="nav nav-pills">
+    <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">Полиси</a></li>
+    <li id="clients"><a href="#" onclick="ShowClients()">Клиенти</a></li>
+</ul>
+
+
+<!--Table search result of policies -->
+<div class="col-md-12 col-sm-12 container" id="searchPolycies">
+    <br />
+    <br />
+    <div class="col-md-12">
+        <form method="get" data-otf-ajax="true" data-otf-target="#rstList" action="@Url.Action("SearchPolyciesJson")" data-ajax-method="get" data-ajax-update="rstList">
+            <div class="row">
+                <input type="search" name="name" class="input-sm" placeholder="Search by name" />
+                <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" />
+                <input type="search" name="land" class="input-sm" placeholder="Search by Land" />
+                <input type="search" name="address" class="input-sm" placeholder="Search by Address" />
+                <input type="search" name="agency" class="input-sm" placeholder="Search by Agency" />
+                <div class="form-inline row">
+                    <div class="form-group">
+                        <label for="vidPolisa">Вид полиса :</label>
+                        <select class="form-control" name="TypePolycies" id="TypePolycies">
+                            <option>--Select type of policies--</option>
+                            <option value="comfort">Comfort</option>
+                            <option value="normal">Normal</option>
+                            <option value="visa">Visa</option>
+                            <option value="visagr">VisaGr</option>
+                            <option value="visaSosedi">VisaSosedi</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="startDate">Датум на важење од:</label>
+                        <input type="date" name="startDate" class="form-control placeholder" id="startDate" />
+                        <select name="operatorStartDate">
+                            <option>&lt</option>
+                            <option>=</option>
+                            <option>&gt</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="endDate">Датум на завршување на важење:</label>
+                        <input type="date" name="endDate" class="form-control" id="endDate" />
+                        <select name="operatorEndDate">
+                            <option>&lt</option>
+                            <option>=</option>
+                            <option>&gt</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-inline row">
+                    <div class="form-group col-sm-3">
+                        <label for="startDate">Датум на издавање:</label>
+                        <input type="date" name="dateI" class="form-control placeholder" id="DateI" />
+                        <select name="operatorDateI">
+                            <option>&lt</option>
+                            <option>=</option>
+                            <option>&gt</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="endDate">Датум на сторнирање:</label>
+                        <input type="date" name="dateS" class="form-control" id="DateS" />
+                        <select name="operatorDateS">
+                            <option>&lt</option>
+                            <option>=</option>
+                            <option>&gt</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchPolycies()" type="submit" />
+            <br />
+        </form>
+    </div>
+    <br />
+    <br />
+    <br />
+    <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePolicies">
+        <thead>
+            <tr>
+                <th>Број на полиса</th>
+                <th>Име и презиме</th>
+                <th>Матичен број</th>
+                <th>Земја на патување</th>
+                <th>Вид полиса</th>
+                <th>Важи од</th>
+                <th>Важи до</th>
+                <th>Адреса</th>
+                <th>Овластена агенција</th>
+                <th>Датум на издавање</th>
+                <th>Датум на сторнирање</th>
+                <th>Статус</th>
+                <th>Референт</th>
+            </tr>
+        </thead>
+        <tbody id="searchResultPolycies"></tbody>
+    </table>
+</div>
+
+<!--Table search result of clients -->
+<div class="col-md-12 col-sm-12 container" id="searchClients">
+    <br />
+    <br />
+    <div class="col-md-12">
+        <form method="get" data-otf-ajax="true" data-otf-target="#rstList" action="@Url.Action("SearchClientsJson")" data-ajax-method="get" data-ajax-update="rstList">
+            <div class="row">
+                <input type="search" name="name" class="input-sm" placeholder="Search by name" />
+                <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" />
+                <input type="search" name="address" class="input-sm" placeholder="Search by Address" />
+                <input type="search" name="city" class="input-sm" placeholder="Search by City" />
+                <input type="search" name="postal_code" class="input-sm" placeholder="Search by postal code" />
+                <input type="search" name="phone" class="input-sm" placeholder="Search by phone number" />
+                <input type="search" name="email" class="input-sm" placeholder="Search by email" />
+                <input type="search" name="passport" class="input-sm" placeholder="Search by passport" />
+            </div>
+            <br />
+            <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchClients()" type="submit" />
+            <br />
+        </form>
+    </div>
+    <br />
+    <br />
+    <br />
+    <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableClients">
+        <thead>
+            <tr>
+                <th>Број на клиент</th>
+                <th>Име и презиме</th>
+                <th>Матичен број</th>
+                <th>Улица</th>
+                <th>Град</th>
+                <th>Поштенски број</th>
+                <th>Телефонски број</th>
+                <th>Емаил адресa</th>
+                <th>Број на пасош</th>
+            </tr>
+        </thead>
+        <tbody id="searchResultClients"></tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+
+                    $(document).ready(function () {
+                        var nowDate = new Date();
+                        var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
+                        $("#searchClients").hide();
+                        $("#tablePolicies").tablesorter();
+                    });
+
+                    $("#DateI").focusout(function () {
+                        var Sdat = $("#DateI").val();
+                        $("#startDate").attr('min', Sdat);
+                        $("#endDate").attr('min', Sdat);
+                        $("#DateS").attr('min', Sdat);
+
+                    });
+
+                    $("#endDate").focusout(function () {
+                        var Edat = $("#endDate").val();
+                        $("#DateS").attr('max', Edat);
+                        $("#startDate").attr('max', Edat);
+                    });
+
+                    function ShowClients() {
+                        $("#searchPolycies").hide();
+                        $("#searchClients").show();
+                        $("#polycies").removeAttr("class");
+                        $("#clients").attr("class", "active");
+                        $("#searchResultClients").empty();
+                    };
+
+                    function ShowPolycies() {
+                        $("#searchPolycies").show();
+                        $("#searchClients").hide();
+                        $("#clients").removeAttr("class");
+                        $("#polycies").attr("class", "active");
+                        $("#searchResultPolycies").empty();
+                    };
+
+                    function SearchPolycies(){
+                        var ajaxFormSubmit = function () {
+                            var $form = $(this);
+                            var options = {
+                                url: $form.attr("action"),
+                                type: $form.attr("method"),
+                                data: $form.serialize()
+                            };
+
+                         $.ajax(options).done(function (data) {
+                                var $target = $($form.attr("data-otf-target"));
+                                //  $target.replaceWith(data);
+                                var person1 = data.responseText.Data;
+                                //  alert(person1.Data[0].Adresa)
+                                var output = $("#searchResultPolycies");
+                                output.empty();
+                                for (var i = 0; i < person1.length ; i++) {
+                                    var person = person1[i];
+                                    output.append("<tr><td>"
+                                        + person.Polisa_Broj + "</td><td>"
+                                        + person.Ime_I_Prezime + "</td><td>"
+                                        + person.EMBG + "</td><td>"
+                                        + person.Zemja_Na_Patuvanje + "</td><td>"
+                                        + person.Vid_Polisa + "</td><td>"
+                                        + person.Zapocnuva_Na + "</td><td>"
+                                        + person.Zavrsuva_Na + "</td><td>"
+                                        + person.Adresa + "</td><td>"
+                                        + person.Ovlastena_Agencija + "</td><td>"
+                                        + person.Datum_Na_Izdavanje + "</td><td>"
+                                        + person.Datum_Na_Storniranje + "</td><td>"
+                                        + person.Status + "</td><td>"
+                                        + person.Referent + "</td> </tr>");
+                                }
+                            });
+                            return false;
+                        }
+
+                        $("form[data-otf-ajax='true']").submit(ajaxFormSubmit);
+
+                    };
+
+                    function SearchClients() {
+                        var ajaxFormSubmit = function () {
+                            var $form = $(this);
+                            var options = {
+                                url: $form.attr("action"),
+                                type: $form.attr("method"),
+                                data: $form.serialize()
+                            };
+
+                            $.ajax(options).done(function (data) {
+                                var $target = $($form.attr("data-otf-target"));
+                                //  $target.replaceWith(data);
+                                var person1 = data.responseText.Data;
+                                //  alert(person1.Data[0].Adresa)
+                                var output = $("#searchResultClients");
+                                output.empty();
+                                for (var i = 0; i < person1.length ; i++) {
+                                    var person = person1[i];
+                                    output.append("<tr><td>"
+                                        + person.id + "</td><td>"
+                                        + person.FirstLastName + "</td><td>"
+                                        + person.EMBG + "</td><td>"
+                                        + person.StreetNumber + "</td><td>"
+                                        + person.City + "</td><td>"
+                                        + person.PostalCode + "</td><td>"
+                                        + person.PhoneNumber + "</td><td>"
+                                        + person.MailAdress + "</td><td>"
+                                        + person.PassportNumber + "</td> </tr>");
+                                }
+                            });
+                            return false;
+                        }
+
+                        $("form[data-otf-ajax='true']").submit(ajaxFormSubmit);
+
+                    };
+
+</script>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+
+

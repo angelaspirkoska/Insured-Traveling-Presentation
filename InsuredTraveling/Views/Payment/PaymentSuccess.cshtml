@@ -1,0 +1,22 @@
+﻿@model Authentication.WEB.Models.PaymentSuccessModel
+
+@{
+    ViewBag.Title = "PaymentSuccess";
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<div class="col-md-12 text-center ">
+    <h2>Успешна трансакција </h2>
+    <br />
+    <p>
+        Трансакцијата е успешна.
+
+
+    </p>
+    <br />
+    <label value="">Број на нарачка: </label>   <label value=""> @Model.TransId </label> <br />
+    <label value=""> Број на трансакција:</label> <label value=""> @Model.oid</label>  <br />
+    <label value=""> Код за автентикација: </label> <label value=""> @Model.AuthCode</label>  <br />
+    <label value=""> Сума: </label> <label value=""> @Model.amount</label>  <br />
+</div>

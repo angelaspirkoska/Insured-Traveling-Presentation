@@ -1,0 +1,192 @@
+﻿@model Authentication.WEB.Models.PaymentModel
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6">&nbsp;</div>
+        <div class="col-xs-6">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="row">
+                        <div class="col-xs-12 borderedContent" style="height: 40px;">
+                            <h6 class="centeredUnderlined">Date of issuance</h6>
+                            <p class="smallFont" style="text-align:center">@Model.Pat.Zapocnuva_Na.ToString().Substring(0, 10)</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 borderedContent" style="height: 25px;">
+                            <p class="smallFont" style="font-weight:bold; text-align:center">Visa </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4 borderedContent" style="height: 65px; padding-top: 2px;">
+                    @{ bool? individual = Model.Pat.Vid_Poedinecno, group = Model.Pat.Vid_Grupno, family = Model.Pat.Vid_Familijarno; }
+                    @if(individual == true) {   <input style="margin: 0;" checked type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Individual</span><br />  }
+                   else { <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Individual</span><br /> }
+                    @if (group == true)
+                    {
+                        <input style="margin: 0;" type="checkbox" checked /><span style="margin-left: 2px;" class="smallFont">Group</span><br /> }
+                    else
+                    { <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Group</span><br />
+                    }
+                    @if (family == true)
+                    {
+                        <input style="margin: 0;" type="checkbox" checked /><span style="margin-left: 2px;" class="smallFont">Family</span> }
+                    else
+                    { <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Family</span> }
+                </div>
+                <div class="col-xs-4 borderedContent" style="height: 65px; padding-top: 2px;">
+                    @{ bool? singleTrip = Model.Pat.Pat_Edno, MultiTrip = Model.Pat.Pat_Poveke;}
+                    @if(singleTrip == true) {   <input style="margin: 0;" type="checkbox" checked /><span style="margin-left: 2px;" class="smallFont">Single trip</span><br />                         }
+                    else {
+                        <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Single trip</span><br /> }
+                    @if (MultiTrip == true)
+                    {  <input style="margin: 0;" type="checkbox" checked /><span style="margin-left: 2px;" class="smallFont">Multi trip</span> }
+                    else
+                 {   <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Multi trip</span> }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="row">
+                <div class="col-xs-6 borderedContent" style="height: 100px;">
+                    <h6 class="centeredUnderlined">Insured</h6>
+                    <div class="row">
+                        <div class="col-xs-6" style="text-align: left;">
+                            <p class="smallFont">Name and surname</p>
+                            <p class="smallFont">Address</p>
+                            <p class="smallFont">Personal ID No.</p>
+                            <p class="smallFont">Passport No.</p>
+                        </div>
+                        <div class="col-xs-6" style="text-align: left">
+                            <p class="smallFont">@Model.Pat.Ime_I_Prezime</p>
+                            <p class="smallFont">@Model.Pat.Adresa</p>
+                            <p class="smallFont">@Model.Pat.EMBG</p>
+                            <p class="smallFont">@Model.Pat.Broj_Pasos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 borderedContent" style="height: 100px;">
+                    <h6 class="centeredUnderlined">Duration of policy</h6>
+                    <div class="row">
+                        <div class="col-xs-6" style="text-align: left;">
+                            <p class="smallFont">Valid from</p>
+                            <p class="smallFont">Valid till</p>
+                            <p class="smallFont">Insured days</p>
+                        </div>
+                        <div class="col-xs-6" style="text-align: left">
+                            <p class="smallFont"> @Model.Pat.Zapocnuva_Na.ToString().Substring(0, 10)</p>
+                            <p class="smallFont">@Model.Pat.Zavrsuva_Na.ToString().Substring(0, 10)</p>
+                            <p class="smallFont">@Model.Pat.Vazi_Denovi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 borderedContent" style="height: 150px;">
+                    <h6 class="centeredUnderlined">Family policy</h6>
+                    <div class="row">
+                        <div class="col-xs-6" style="text-align: left;">
+                            <h6 class="centeredUnderlined" style="font-weight: normal;">Name and surname</h6>
+                            <p class="smallFont">@Model.Pat.Osigurenik1_Ime_I_Prezime</p>
+                            <p class="smallFont">@Model.Pat.Osigurenik2_Ime_I_Prezime</p>
+                            <p class="smallFont">@Model.Pat.Osigurenik3_Ime_I_Prezime</p>
+                            <p class="smallFont">@Model.Pat.Osigurenik4_Ime_I_Prezime</p>
+                            <p class="smallFont">@Model.Pat.Osigurenik5_Ime_I_Prezime</p>
+                            <p class="smallFont">@Model.Pat.Osigurenik6_Ime_I_Prezime</p>
+                        </div>
+                        <div class="col-xs-6" style="text-align: left">
+                            <h6 class="centeredUnderlined" style="font-weight: normal;">Personal ID No.</h6>
+                            <p class="smallFont">@Model.Pat.Osigurenik1_EMBG</p>
+                            <p class="smallFont">@Model.Pat.Osigurenik2_EMBG</p>
+                            <p class="smallFont">@Model.Pat.Osigurenik3_EMBG</p>
+                            <p class="smallFont">@Model.Pat.Osigurenik4_EMBG</p>
+                            <p class="smallFont">@Model.Pat.Osigurenik5_EMBG</p>
+                            <p class="smallFont">@Model.Pat.Osigurenik6_EMBG</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-12 borderedContent" style="height: 75px;">
+                            <h6 class="centeredUnderlined">Group policy</h6>
+                            <div class="row">
+                                <div class="col-xs-6" style="text-align: left;">
+                                    <p class="smallFont">Number of insured</p>
+                                    <p class="smallFont">Премија</p>
+                                </div>
+                                <div class="col-xs-6" style="text-align: left">
+                                    <p class="smallFont">@Model.Pat.Grupa</p>
+                                    <p class="smallFont">@Model.Pat.Grupna_Vkupna_Premija</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 borderedContent" style="height: 75px;">
+                            <h6 class="centeredUnderlined">Issued by</h6>
+                            <div class="row">
+                                <div class="col-xs-6" style="text-align: left;">
+                                    <p class="smallFont">Agency</p>
+                                    <p class="smallFont">Code</p>
+                                    <p class="smallFont">Name</p>
+                                </div>
+                                <div class="col-xs-6" style="text-align: left">
+                                    <p class="smallFont">@Model.Pat.Ovlastena_Agencija</p>
+                                    <p class="smallFont">@Model.Pat.Sifra</p>
+                                    <p class="smallFont">@Model.Pat.Ime_I_Prezime</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="row">
+                <div class="col-xs-12 borderedContent" style="height: 100px;">
+                    <h6 class="centeredUnderlined">Calculations</h6>
+                    <div class="row">
+                        <div class="col-xs-6" style="text-align: left;">
+                            <p class="smallFont">Доплаток 1</p>
+                            <p class="smallFont">Доплаток 2</p>
+                            <p class="smallFont">Премија</p>
+                        </div>
+                        <div class="col-xs-6" style="text-align: left">
+                            <p class="smallFont">@Model.Pat.Doplatok_1 </p>
+                            <p class="smallFont">@Model.Pat.Doplatok_2</p>
+                            <p class="smallFont" style="font-weight: bold;">@Model.Pat.Vkupna_Premija</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 borderedContent" style="height: 75px;">
+                    <h6 class="centeredUnderlined">Deductible</h6>
+                </div>
+                <div class="col-xs-12 borderedContent" style="height: 75px;">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <h6 class="centeredUnderlined">Insured</h6>
+                        </div>
+                        <div class="col-xs-4">
+                            <h6 class="centeredUnderlined">Agent</h6>
+                        </div>
+                        <div class="col-xs-4">
+                            <h6 class="centeredUnderlined">Company</h6>
+                            <p class="smallFont" style="font-weight: bold;">@Model.Pat.Ovlastena_Agencija</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 borderedContent">
+            <p style="font-size: 10px; margin:0;">
+                Овластувам болница, лекар или друго лице кое ме придружува или испитува, да побара од
+                Осигурителот или негов претставник, податоци за мојата здравствена состојба и лекување. Го овластувам Осигурителот
+                да побара податоци за мојата здравствена состојба и лекување, во врска со договорот за осигурување. Го ослободувам
+                од обврската за чување на професионална тајна и ги овластувам здравствените институции да ги дадат бараните податоци на Осигурителот.
+            </p>
+        </div>
+    </div>
+</div>

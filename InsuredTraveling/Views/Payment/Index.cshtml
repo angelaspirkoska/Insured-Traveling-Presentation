@@ -1,0 +1,63 @@
+﻿@model Authentication.WEB.Models.PaymentModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="col-md-12 text-center">
+
+    <h2> Преглед на полиса </h2>
+
+</div>
+
+<br />
+<br />
+
+
+@{ Html.RenderPartial("../Policy/_PolicyPrint", Model);  }     <!--               -->
+<form id="paymentForm" target="output_frame" method="post" action="https://entegrasyon.asseco-see.com.tr/fim/est3Dgate">
+    <center>
+        <h1>
+            Плати ја полисата
+        </h1>
+        <br />
+
+
+        <table class="tableClass">
+            <tr class="trHeader"></tr>
+            <tr>
+                <td align="center" colspan="2">
+                    <input type="submit" id="button" value="Плати полиса" class="button  btn btn-lg btn-primary " />
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="clientid" value="@Model.clientId" />
+        <input type="hidden" name="amount" value="@Model.amount" />
+        <input type="hidden" name="oid" value="@Model.oid" />
+        <input type="hidden" name="okUrl" value="@Model.okUrl" />
+        <input type="hidden" name="failUrl" value="@Model.failUrl" />
+        <input type="hidden" name="islemtipi" value="@Model.transactionType" />
+        <input type="hidden" name="taksit" value="@Model.taksit" />
+        <input type="hidden" name="rnd" value="@Model.rnd" />
+        <input type="hidden" name="hash" value="@Model.hash" />
+        <input type="hidden" name="currency" value="@Model.currency" />
+        <input type="hidden" name="storetype" value="3d_pay_hosting" />
+        <input type="hidden" name="refreshtime" value="10" />
+    </center>
+</form>
+<iframe id="output_frame" height="700px" name="output_frame" class="col-sm-12 col-md-12 col-lg-12" frameborder="0">
+    <p>Your browser does not support iframes.</p>
+</iframe>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#output_frame").hide();
+
+    });
+
+    $("#button").click(function (){
+        $("#output_frame").show();
+    });
+
+</script>

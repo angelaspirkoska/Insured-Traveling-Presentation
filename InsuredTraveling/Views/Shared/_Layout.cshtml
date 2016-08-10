@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Insured Travel</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-2.2.3.js"></script>
+</head>
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="btn btn-success navbar-toggle">
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+                @Html.ActionLink("Insured Travel", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" id="welcome">Welcome</a></li>
+                    <li><a href="http://localhost:19655/Login" id="logOut" onclick="func()">Logout</a></li>
+                    <li><a href="http://localhost:19655/Login" id="login">Login</a></li>
+                    <li><a href="http://localhost:19655/SignUp" id="signup">Sign up</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-2.2.3.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            if (localStorage.getItem("username") != null) {
+                $("#welcome").text("Welcome " + localStorage.getItem("username"));
+                $("#signup").attr("class", "hidden");
+                $("#login").attr("class", "hidden");
+                $("#welcome").removeAttr("class");
+                $("#logOut").removeAttr("class");
+            } else {
+                $("#welcome").attr("class", "hidden");
+                $("#logOut").attr("class", "hidden");
+            }
+        });
+
+        function func() {
+            localStorage.clear();
+        }
+
+    </script>
+</body>
+</html>

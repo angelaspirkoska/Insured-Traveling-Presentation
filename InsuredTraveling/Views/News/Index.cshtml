@@ -1,0 +1,137 @@
+﻿@model IQueryable<Authentication.WEB.news_all>
+
+<div class="container">
+    <div class="row" style="margin-top: 20px;">
+        <h3>Add news</h3>
+        <hr />
+        <div col-sm-12>
+            <div class="col-sm-3 col-md-3 "></div>
+            <div class="col-md-6">
+                <form id="newsForm">
+                    <div class="form-group">
+                        <label for="newsTitle">Title</label>
+                        <input type="text" class="form-control" name="newsTitle" id="newsTitle" placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                        <label for="newsImage">Image</label>
+                        <input type="file" id="newsImage" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="newsContent">Content</label>
+                        <textarea class="form-control " name="newsContent" id="newsContent" rows="10" placeholder="Content"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsIsNotification">Is Notification</label>
+                        <input type="checkbox" id="newsIsNotification" name="newsIsNotification" />
+                    </div>
+                    <button style="width:100px;" type="button" id="addNewsBtn" class="btn btn-lg btn-success">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @if (Model == null || Model.Count() == 0)
+        {
+            <h3>There are no news in the moment</h3>
+        }
+        else
+        {
+            <br />
+            <h3>News:</h3>
+            <hr />
+            foreach (var news in Model)
+            {
+            <div class="row">
+                <div class="col-sm-1">
+                    <a href="#">
+                        <img style="width: 74px; height: 74px;" class="media-object" src="~/Images/savaLogo.png" alt="broken link">
+                    </a>
+                </div>
+                <div id="buttons" class="col-sm-1">
+                    <span hidden id="newsId">@news.ID</span>
+                    <button onclick="editNews(this)" style="width: 50px;" class="btn btn-xs btn-info btnEditNews">edit</button>
+                    <button onclick="saveNews(this)" style="display:none; width: 50px;" class="btn btn-xs btn-success btnSaveNews">save</button>
+                    <button onclick="deleteNews(this)" style="margin-top: 2px; width: 50px;" class="btn btn-xs btn-danger btnDeleteNews">delete</button>
+                </div>
+                <div class="col-sm-10">
+                    <h4 class="media-heading">@news.Title</h4>
+                    <p class="media-content">@news.Content</p>
+                </div>
+            </div>
+            <hr />
+            }
+        }
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+
+    function saveNews(element) {
+        $(element).parent().find(".btnEditNews").show();
+        $(element).hide();
+    }
+
+    function editNews(element) {
+        $(element).parent().find(".btnSaveNews").show();
+        $(element).hide();
+    }
+
+    function deleteNews(element) {
+        var newsId = $(element).parents("#buttons").find("#newsId").html();
+        $.ajax({
+            type: "POST",
+            url: "../SavaNews/DeleteNews",
+            data: {
+                "newsId": newsId
+            },
+            dataType: "json",
+            success: function (status) {
+                if (status["Success"] == "True") {
+                    alert("Sucessfully deleted");
+                    location.reload();
+                }
+                else {
+                    alert(status["Message"]);
+                }
+            },
+            error: function () {
+                alert("Something went wrong!");
+            }
+        });
+    }
+
+    $(function () {
+
+        $("#addNewsBtn").click(function () {
+
+            var newsTitle = $("#newsTitle").val();
+            var newsContent = $("#newsContent").val();
+            var newsIsNotification = $("#newsIsNotification").is(":checked");
+
+            $.ajax({
+                type: "POST",
+                url: "../SavaNews/AddNews",
+                data: {
+                    "newsTitle": newsTitle,
+                    "newsContent": newsContent,
+                    "newsIsNotification": newsIsNotification,
+                },
+                dataType: "json",
+                success: function (status) {
+                    if (status["Success"] == "True") {
+                        alert("Sucessfully added");
+                        location.reload();
+                    }
+                    else {
+                        alert(status["Message"]);
+                    }
+                },
+                error: function () {
+                    alert("Something went wrong!");
+                }
+            });
+        });
+
+    })
+</script>

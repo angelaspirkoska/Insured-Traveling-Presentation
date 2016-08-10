@@ -1,0 +1,77 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+
+#loginForm, #SignUpForm {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 180px;
+}
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*CSS text form create*/
+.form-group {
+    margin-left: 20px!important;
+    margin-top: 20px;
+}
+
+input[type='text'], textarea, select, #lblAlert { 
+	border: solid 1px #999;
+}
+input[type='text'].focus, textarea.focus, select.focus { 
+	border-color: #000 !important; 
+}
+input[type='text'].invalid, textarea.invalid, select.invalid, #lblAlert { 
+	border-color: red;
+}
+input[type='text'].inactive, textarea.inactive, select.inactive, option.inactive { 
+	color: #999;
+	font-style: italic;
+}
+input[type='text'].required, textarea.required { 
+	background: url(required-input.png) right 5px no-repeat;
+}
+
+form.cmxform label.error, label.error {
+	/* remove the next line when you have trouble in IE6 with labels in list */
+	color: red;
+	font-style: italic
+}
+
+div.error { display: none; }
+input {	border: 1px solid black; }
+input.checkbox { border: none }
+input:focus { border: 1px dotted black; }
+input.error { border: 1px dotted red; }
+form.cmxform .gray * { color: gray; }
+
+.borderedContent {
+    border: solid 1px #646464;
+}
+
+.smallFont {
+    font-size: 12px;
+    margin: 0;
+}
+
+.centeredUnderlined {
+    text-align: center;
+    text-decoration: underline;
+    font-weight: bold;
+    margin: 5px;
+}
+

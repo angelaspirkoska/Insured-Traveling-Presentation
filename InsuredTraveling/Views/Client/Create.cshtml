@@ -1,0 +1,89 @@
+﻿@model Authentication.WEB.Models.CreateClientModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@Html.Raw(ViewBag.MyMessageToUsers)
+
+<h2>Креирај нов корисник</h2>
+
+<div class="container col-md-12 col-sm-12 row ">
+
+    <form role="form" method="post" class="col-md-12 row" id="CreateForm">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="ImeIprezime">Име и презиме</label>
+                <input type="text" class="form-control " name="NameSurename" id="ImeIprezime" placeholder="Име и презиме" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Емаил:</label>
+                <input type="email" class="form-control required" name="email" id="email" placeholder="Внесете email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="PhoneNumber">Телефонски број</label>
+                <input type="tel" class="form-control required" name="Number" id="PhoneNumber" placeholder="Телефонски број" required>
+            </div>
+            <div class="form-group">
+                <label for="StreetNuum">Адреса:</label>
+                <input type="text" class="form-control" name="Adress" id="StreetNum" placeholder="Адреса" required>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="City">Град:</label>
+                <input type="text" class="form-control" name="City" id="City" placeholder="Град" required>
+            </div>
+            <div class="form-group">
+                <label for="PostCode">Поштенски код:</label>
+                <input type="number" class="form-control" name="PostCode" id="PostCode" placeholder="Поштенски код" required>
+            </div>
+            <div class="form-group">
+                <label for="Passport">Број на пaсош:</label>
+                <input type="text" class="form-control" name="Passport" id="Passport" placeholder="Број на пасош" required>
+            </div>
+            <div class="form-group">
+                <label for="EMBGt">Единствен матичен број:</label>
+                <input type="text" class="form-control" name="EMBG" id="EMBG" placeholder="Матичен број">
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="col-md-4"></div>
+        <br />
+        <button type="submit" class="btn btn-default  btn-primary">Креирај корисник</button>
+    </form>
+    <br /><br />
+</div>
+
+<br /><br />
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
+<script type="text/javascript" src="~/Scripts/additional-methods.js"></script>
+<!-- macedonian language-->
+<script src="~/Scripts/messages_is.js"></script>
+<script>
+    $("#CreateForm").validate({
+        rules: {
+            lang: 'is',
+            EMBG: {
+                required: true,
+                number: true,
+                minlength: 13,
+                maxlength: 13
+            },
+            osigurenik1MaticenBroj: {
+                required: true,
+                number: true,
+                minlength: 13,
+                maxlength: 13
+            }
+        }
+    });
+
+</script>

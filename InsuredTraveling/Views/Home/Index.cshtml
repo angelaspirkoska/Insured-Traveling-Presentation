@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+}
+
+<div class="row">
+    <div class="container">
+        <div class="jumbotron">
+            <h2>Вие сте брокер: </h2>
+            <p>
+                Притисте на копчете за да креирате нова полиса или да ја промените постоечката .
+            </p>
+            <br />
+            <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-lg btn-primary " id="btnNovaPolisa"> Нова полиса</button>
+            <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-lg btn-primary" id="dodadiKlient"> Нов клиент</button>
+            <button onclick="@("window.location.href='" + @Url.Action("Index", "News") + "'");" class="btn btn-lg btn-primary" id="dodadiKlient"> Новости</button>
+            <button onclick="@("window.location.href='" + @Url.Action("Index","Search") + "'")" class="btn btn-lg btn-primary" id="postIt">Пребарај</button>
+
+        </div>
+    </div>
+</div>
+
+
