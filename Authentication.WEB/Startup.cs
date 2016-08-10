@@ -19,6 +19,7 @@ namespace InsuredTraveling
 {
     public class Startup
     {
+        
         public void Configuration(IAppBuilder app)
         {
             HttpConfiguration config = new HttpConfiguration();

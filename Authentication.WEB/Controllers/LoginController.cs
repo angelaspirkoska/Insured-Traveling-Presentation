@@ -30,13 +30,9 @@ namespace InsuredTraveling.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            if (HttpContext.Request.Cookies["token"] != null)
+            if (HttpContext.Request.Cookies["token"] != null && System.Web.HttpContext.Current.User!=null)
             {
-                HttpCookie c = HttpContext.Request.Cookies["token"];
-                c.Expires = DateTime.Now.AddYears(-1);
-                HttpContext.Response.Cookies.Remove("token");
-                Response.Cookies.Clear();
-                HttpContext.Response.Cookies.Set(c);
+                Response.Redirect("http://localhost:19655/Home");
             }
 
             l_user = new LoginUser();

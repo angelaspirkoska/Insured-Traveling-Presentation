@@ -1,5 +1,6 @@
 ﻿using Authentication.WEB.Models;
 using Authentication.WEB.Services;
+using InsuredTraveling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace Authentication.WEB.Controllers
             klient.City = model.City;
             if (validationService.ClientFormValidate(klient))
             {
-                entities.client.Add(klient);
+                entities.clients.Add(klient);
                 entities.SaveChanges();
             } // else return false
             else

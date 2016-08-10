@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Mvc;
+using InsuredTraveling;
 
 namespace Authentication.WEB.Controllers
 {
@@ -60,8 +61,8 @@ namespace Authentication.WEB.Controllers
             if (valid)
             {
 
-                long ID = (entityDB.patnicko.OrderByDescending(p => p.Polisa_Broj).Select(r => r.Polisa_Broj).FirstOrDefault() + 1);
-                string ID_Company = entityDB.patnicko.OrderByDescending(p => p.Polisa_Broj).Select(r => r.BRoj_Polisa_Kompanija).FirstOrDefault();
+                long ID = (entityDB.patnickoes.OrderByDescending(p => p.Polisa_Broj).Select(r => r.Polisa_Broj).FirstOrDefault() + 1);
+                string ID_Company = entityDB.patnickoes.OrderByDescending(p => p.Polisa_Broj).Select(r => r.BRoj_Polisa_Kompanija).FirstOrDefault();
                 int tempID;
                 if (ID_Company == null)
                 {
@@ -140,7 +141,7 @@ namespace Authentication.WEB.Controllers
 
 
 
-                entityDB.patnicko.Add(polisaEntity);
+                entityDB.patnickoes.Add(polisaEntity);
                 entityDB.SaveChanges();
             }
 
@@ -154,7 +155,7 @@ namespace Authentication.WEB.Controllers
             int id = 2;
 
             PaymentModel pat = new PaymentModel();
-            pat.Pat = entities.patnicko.Where(x => x.Polisa_Broj == id).FirstOrDefault();
+            pat.Pat = entities.patnickoes.Where(x => x.Polisa_Broj == id).FirstOrDefault();
             return new ViewAsPdf("Print", pat);
         }
     }

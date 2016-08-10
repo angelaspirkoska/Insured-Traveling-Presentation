@@ -5,14 +5,14 @@ namespace InsuredTraveling.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Authentication.WEB.InsuredTravelingEntity>
+    internal sealed class Configuration : DbMigrationsConfiguration<InsuredTraveling.InsuredTravelingEntity>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Authentication.WEB.InsuredTravelingEntity context)
+        protected override void Seed(InsuredTraveling.InsuredTravelingEntity context)
         {
             //  This method will be called after migrating to the latest version.
 

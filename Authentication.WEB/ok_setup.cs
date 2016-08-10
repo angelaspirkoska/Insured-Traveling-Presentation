@@ -12,10 +12,10 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class p_vozrast
+    public partial class ok_setup
     {
-        public int ID { get; set; }
-        public Nullable<double> Vozrast { get; set; }
-        public Nullable<double> P_Vozrast1 { get; set; }
+        public int id { get; set; }
+        public int Sms_Code_Seconds { get; set; }
+        public int NumberOfAttemps { get; set; }
     }
 }

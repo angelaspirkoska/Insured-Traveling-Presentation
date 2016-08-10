@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
 using System.Web.Mvc;
@@ -157,6 +158,18 @@ namespace InsuredTraveling.Controllers
             }
 
             return Ok();
+        }
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("DeleteToken")]
+        public IHttpActionResult DeleteToken()
+        {
+            if (HttpContext.Current.Request.Cookies["token"] == null) return Redirect("http://localhost:19655/Login");
+            var c = HttpContext.Current.Request.Cookies["token"];
+            c.Expires = DateTime.Now.AddYears(-1);
+            HttpContext.Current.Response.Cookies.Remove("token");
+            HttpContext.Current.Response.Cookies.Clear();
+            HttpContext.Current.Response.Cookies.Set(c);
+            return Redirect("http://localhost:19655/Login");
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

@@ -12,10 +12,9 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class p_vozrast
+    public partial class aspnetrole
     {
-        public int ID { get; set; }
-        public Nullable<double> Vozrast { get; set; }
-        public Nullable<double> P_Vozrast1 { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }

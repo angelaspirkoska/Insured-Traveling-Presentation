@@ -1,4 +1,5 @@
 ﻿using Authentication.WEB.Models;
+using InsuredTraveling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,8 +31,8 @@ namespace Authentication.WEB.Controllers
             news_all news = new news_all();
             news.Title = newsTitle;
             news.Content = newsContent;
-            news.IsNotification = newsIsNotification;
-            news.DateCreated = DateTime.Now;
+            news.isNotification = newsIsNotification;
+            news.DataCreated = DateTime.Now;
             // entities.savanews.Add(news);
             entities.news_all.Add(news);
             try
@@ -51,7 +52,7 @@ namespace Authentication.WEB.Controllers
             //SavaNewsEntities entities = new SavaNewsEntities();
             //savanews newsForDelete = entities.savanews.Where(x => x.ID == newsId).FirstOrDefault();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            news_all newsForDelete = entities.news_all.Where(x => x.ID == newsId).FirstOrDefault();
+            news_all newsForDelete = entities.news_all.Where(x => x.ID == newsId.ToString()).FirstOrDefault();
             if (newsForDelete == null)
                 return Json(new { Success = "False", Message = "Database problem" }, JsonRequestBehavior.AllowGet);
 

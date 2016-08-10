@@ -1,4 +1,5 @@
 ﻿using Authentication.WEB.Models;
+using InsuredTraveling;
 using System;
 using System.Collections.Generic;
 using System.Linq;

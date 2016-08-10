@@ -4,7 +4,76 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="travelModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="db_9eb138_travelModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="aspnetroles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnetuserclaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="longtext" />
+          <Property Name="ClaimValue" Type="longtext" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="aspnetuserlogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnetuserroles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnetusers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="longtext" Nullable="false" />
+          <Property Name="LastName" Type="longtext" Nullable="false" />
+          <Property Name="EMBG" Type="longtext" />
+          <Property Name="Address" Type="longtext" />
+          <Property Name="Municipality" Type="longtext" />
+          <Property Name="InsuranceCompany" Type="longtext" />
+          <Property Name="ActivationCodeMail" Type="longtext" />
+          <Property Name="ActivationCodeSMS" Type="longtext" />
+          <Property Name="IsValidMail" Type="bool" Nullable="false" />
+          <Property Name="GroupID" Type="longtext" />
+          <Property Name="Email" Type="varchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bool" Nullable="false" />
+          <Property Name="PasswordHash" Type="longtext" />
+          <Property Name="SecurityStamp" Type="longtext" />
+          <Property Name="PhoneNumber" Type="longtext" />
+          <Property Name="PhoneNumberConfirmed" Type="bool" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bool" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" Precision="0" />
+          <Property Name="LockoutEnabled" Type="bool" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="MobilePhoneNumber" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="256" />
+          <Property Name="PassportNumber" Type="varchar" MaxLength="256" />
+          <Property Name="City" Type="varchar" MaxLength="128" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="client">
           <Key>
             <PropertyRef Name="id" />
@@ -19,6 +88,18 @@
           <Property Name="PassportNumber" Type="text" />
           <Property Name="EMBG" Type="text" />
         </EntityType>
+        <EntityType Name="clients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Secret" Type="longtext" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ApplicationType" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bool" Nullable="false" />
+          <Property Name="RefreshTokenLifeTime" Type="int" Nullable="false" />
+          <Property Name="AllowedOrigin" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="eurolinkusers">
           <Key>
             <PropertyRef Name="ID" />
@@ -32,15 +113,23 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="ImageLocation" Type="text" />
           <Property Name="Content" Type="text" Nullable="false" />
-          <Property Name="IsNotification" Type="bool" Nullable="false" />
-          <Property Name="DateCreated" Type="date" />
-          <Property Name="InsurenceCompany" Type="varchar" MaxLength="100" />
-          <Property Name="GroupID" Type="varchar" MaxLength="50" />
-          <Property Name="UserID" Type="varchar" MaxLength="50" />
+          <Property Name="isNotification" Type="bool" Nullable="false" />
+          <Property Name="DataCreated" Type="date" Nullable="false" />
+          <Property Name="InsuranceCompany" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="GroupID" Type="text" />
+          <Property Name="UserID" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="ok_setup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sms_Code_Seconds" Type="int" Nullable="false" />
+          <Property Name="NumberOfAttemps" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="p_den">
           <Key>
@@ -163,7 +252,6 @@
             <PropertyRef Name="Polisa_Broj" />
           </Key>
           <Property Name="Polisa_Broj" Type="bigint" Nullable="false" />
-          <Property Name="BRoj_Polisa_Kompanija" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Kurs" Type="double" />
           <Property Name="Zemja_Na_Patuvanje" Type="text" />
           <Property Name="Procent_Zemja_Na_Patuvanje" Type="double" />
@@ -225,6 +313,7 @@
           <Property Name="Datum_Na_Izdavanje" Type="date" />
           <Property Name="Status" Type="int" />
           <Property Name="Datum_Na_Storniranje" Type="date" />
+          <Property Name="BRoj_Polisa_Kompanija" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="patnicko_vid">
           <Key>
@@ -233,25 +322,52 @@
           <Property Name="Vid_Polisa" Type="text" Nullable="false" />
           <Property Name="Vid" Type="bigint" />
         </EntityType>
+        <EntityType Name="refreshtokens">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Subject" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClientId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IssuedUtc" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="ExpiresUtc" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="ProtectedTicket" Type="longtext" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="transaction">
           <Key>
             <PropertyRef Name="OrderID" />
+            <PropertyRef Name="TRANID" />
+            <PropertyRef Name="islemtipi" />
+            <PropertyRef Name="merchantID" />
+            <PropertyRef Name="amount" />
+            <PropertyRef Name="sID" />
+            <PropertyRef Name="ACQBIN" />
+            <PropertyRef Name="xid" />
+            <PropertyRef Name="mdStatus" />
+            <PropertyRef Name="ProcReturnCode" />
+            <PropertyRef Name="Response" />
+            <PropertyRef Name="mdErrorMsg" />
+            <PropertyRef Name="ErrMsg" />
+            <PropertyRef Name="HASH" />
+            <PropertyRef Name="Ime_I_ Prezime" />
           </Key>
-          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TRANID" Type="varchar" MaxLength="64" />
-          <Property Name="islemtipi" Type="varchar" MaxLength="100" />
-          <Property Name="merchantID" Type="varchar" MaxLength="100" />
-          <Property Name="amount" Type="mediumtext" />
-          <Property Name="sID" Type="varchar" MaxLength="10" />
-          <Property Name="ACQBIN" Type="varchar" MaxLength="20" />
-          <Property Name="xid" Type="varchar" MaxLength="30" />
-          <Property Name="mdStatus" Type="varchar" MaxLength="10" />
-          <Property Name="ProcReturnCode" Type="varchar" MaxLength="10" />
-          <Property Name="Response" Type="varchar" MaxLength="15" />
-          <Property Name="mdErrorMsg" Type="varchar" MaxLength="512" />
-          <Property Name="ErrMsg" Type="varchar" MaxLength="300" />
-          <Property Name="HASH" Type="varchar" MaxLength="30" />
-          <Property Name="Ime i Prezime" Type="varchar" MaxLength="100" />
+          <Property Name="OrderID" Type="text" Nullable="false" />
+          <Property Name="TRANID" Type="text" Nullable="false" />
+          <Property Name="islemtipi" Type="text" Nullable="false" />
+          <Property Name="merchantID" Type="text" Nullable="false" />
+          <Property Name="amount" Type="text" Nullable="false" />
+          <Property Name="sID" Type="text" Nullable="false" />
+          <Property Name="ACQBIN" Type="text" Nullable="false" />
+          <Property Name="xid" Type="text" Nullable="false" />
+          <Property Name="mdStatus" Type="text" Nullable="false" />
+          <Property Name="ProcReturnCode" Type="text" Nullable="false" />
+          <Property Name="Response" Type="text" Nullable="false" />
+          <Property Name="mdErrorMsg" Type="text" Nullable="false" />
+          <Property Name="ErrMsg" Type="text" Nullable="false" />
+          <Property Name="HASH" Type="text" Nullable="false" />
+          <Property Name="Ime_I_ Prezime" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -262,32 +378,16 @@
           <Property Name="Password" Type="text" Nullable="false" />
           <Property Name="Roles" Type="text" Nullable="false" />
         </EntityType>
-        <EntityType Name="user_all">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Username" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Roles" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="100" />
-          <Property Name="Surname" Type="varchar" MaxLength="100" />
-          <Property Name="GroupID" Type="varchar" MaxLength="50" />
-          <Property Name="InsurenceCompany" Type="varchar" MaxLength="100" />
-          <Property Name="PhoneNo:" Type="varchar" MaxLength="50" />
-          <Property Name="Address" Type="varchar" MaxLength="100" />
-          <Property Name="EMBG" Type="varchar" MaxLength="20" />
-          <Property Name="email" Type="varchar" MaxLength="30" />
-          <Property Name="ActivationCode" Type="varchar" MaxLength="65" />
-          <Property Name="ActivationCodeSMS" Type="varchar" MaxLength="50" />
-          <Property Name="IsValidSMS" Type="bool" />
-          <Property Name="IsValidEmail" Type="bool" />
-          <Property Name="DateTimer" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityContainer Name="travelModelStoreContainer">
+        <EntityContainer Name="db_9eb138_travelModelStoreContainer">
+          <EntitySet Name="aspnetroles" EntityType="Self.aspnetroles" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaims" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="aspnetuserroles" EntityType="Self.aspnetuserroles" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="aspnetusers" EntityType="Self.aspnetusers" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="client" EntityType="Self.client" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="clients" EntityType="Self.clients" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="eurolinkusers" EntityType="Self.eurolinkusers" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="news_all" EntityType="Self.news_all" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="ok_setup" EntityType="Self.ok_setup" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="p_den" EntityType="Self.p_den" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="p_denovi" EntityType="Self.p_denovi" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="p_doplatoci" EntityType="Self.p_doplatoci" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -303,14 +403,97 @@
           <EntitySet Name="p_zemja_na_patuvanje" EntityType="Self.p_zemja_na_patuvanje" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="patnicko" EntityType="Self.patnicko" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="patnicko_vid" EntityType="Self.patnicko_vid" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="transaction" EntityType="Self.transaction" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="refreshtokens" EntityType="Self.refreshtokens" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="user_all" EntityType="Self.user_all" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogins" store:Type="Tables" store:Schema="db_9eb138_travel">
+            <DefiningQuery>SELECT
+`aspnetuserlogins`.`LoginProvider`, 
+`aspnetuserlogins`.`ProviderKey`, 
+`aspnetuserlogins`.`UserId`
+FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="transaction" EntityType="Self.transaction" store:Type="Tables" store:Schema="db_9eb138_travel">
+            <DefiningQuery>SELECT
+`transaction`.`OrderID`, 
+`transaction`.`TRANID`, 
+`transaction`.`islemtipi`, 
+`transaction`.`merchantID`, 
+`transaction`.`amount`, 
+`transaction`.`sID`, 
+`transaction`.`ACQBIN`, 
+`transaction`.`xid`, 
+`transaction`.`mdStatus`, 
+`transaction`.`ProcReturnCode`, 
+`transaction`.`Response`, 
+`transaction`.`mdErrorMsg`, 
+`transaction`.`ErrMsg`, 
+`transaction`.`HASH`, 
+`transaction`.`Ime_I_ Prezime`
+FROM `transaction` AS `transaction`</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="travelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="db_9eb138_travelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="aspnetrole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnetuserclaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="ClaimValue" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="aspnetuserrole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnetuser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMBG" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Municipality" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="InsuranceCompany" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="ActivationCodeMail" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="ActivationCodeSMS" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="IsValidMail" Type="Boolean" Nullable="false" />
+          <Property Name="GroupID" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MobilePhoneNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="PassportNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
         <EntityType Name="client">
           <Key>
             <PropertyRef Name="id" />
@@ -325,7 +508,19 @@
           <Property Name="PassportNumber" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="EMBG" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="eurolinkusers">
+        <EntityType Name="client1">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Secret" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApplicationType" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="RefreshTokenLifeTime" Type="Int32" Nullable="false" />
+          <Property Name="AllowedOrigin" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="eurolinkuser">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -338,15 +533,23 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ImageLocation" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Content" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IsNotification" Type="Boolean" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" />
-          <Property Name="InsurenceCompany" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="GroupID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UserID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isNotification" Type="Boolean" Nullable="false" />
+          <Property Name="DataCreated" Type="DateTime" Nullable="false" />
+          <Property Name="InsuranceCompany" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GroupID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ok_setup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sms_Code_Seconds" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfAttemps" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="p_den">
           <Key>
@@ -469,7 +672,6 @@
             <PropertyRef Name="Polisa_Broj" />
           </Key>
           <Property Name="Polisa_Broj" Type="Int64" Nullable="false" />
-          <Property Name="BRoj_Polisa_Kompanija" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Kurs" Type="Double" />
           <Property Name="Zemja_Na_Patuvanje" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Procent_Zemja_Na_Patuvanje" Type="Double" />
@@ -531,6 +733,7 @@
           <Property Name="Datum_Na_Izdavanje" Type="DateTime" />
           <Property Name="Status" Type="Int32" />
           <Property Name="Datum_Na_Storniranje" Type="DateTime" />
+          <Property Name="BRoj_Polisa_Kompanija" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="patnicko_vid">
           <Key>
@@ -539,25 +742,16 @@
           <Property Name="Vid_Polisa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Vid" Type="Int64" />
         </EntityType>
-        <EntityType Name="transaction">
+        <EntityType Name="refreshtoken">
           <Key>
-            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TRANID" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="islemtipi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="merchantID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="amount" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
-          <Property Name="sID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ACQBIN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="xid" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="mdStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ProcReturnCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Response" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="mdErrorMsg" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
-          <Property Name="ErrMsg" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="HASH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Ime_i_Prezime" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Subject" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IssuedUtc" Type="DateTime" Nullable="false" />
+          <Property Name="ExpiresUtc" Type="DateTime" Nullable="false" />
+          <Property Name="ProtectedTicket" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -568,32 +762,60 @@
           <Property Name="Password" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Roles" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <EntityType Name="user_all">
+        <EntityType Name="aspnetuserlogin">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Roles" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="GroupID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="InsurenceCompany" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="PhoneNo_" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="EMBG" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="ActivationCode" Type="String" MaxLength="65" FixedLength="false" Unicode="false" />
-          <Property Name="ActivationCodeSMS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsValidSMS" Type="Boolean" />
-          <Property Name="IsValidEmail" Type="Boolean" />
-          <Property Name="DateTimer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="transaction">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="TRANID" />
+            <PropertyRef Name="islemtipi" />
+            <PropertyRef Name="merchantID" />
+            <PropertyRef Name="amount" />
+            <PropertyRef Name="sID" />
+            <PropertyRef Name="ACQBIN" />
+            <PropertyRef Name="xid" />
+            <PropertyRef Name="mdStatus" />
+            <PropertyRef Name="ProcReturnCode" />
+            <PropertyRef Name="Response" />
+            <PropertyRef Name="mdErrorMsg" />
+            <PropertyRef Name="ErrMsg" />
+            <PropertyRef Name="HASH" />
+            <PropertyRef Name="Ime_I__Prezime" />
+          </Key>
+          <Property Name="OrderID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TRANID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="islemtipi" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="merchantID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="amount" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ACQBIN" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="xid" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mdStatus" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProcReturnCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Response" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mdErrorMsg" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ErrMsg" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HASH" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ime_I__Prezime" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityContainer Name="InsuredTravelingEntity" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="client" EntityType="Self.client" />
-          <EntitySet Name="eurolinkusers" EntityType="Self.eurolinkusers" />
+          <EntitySet Name="aspnetroles" EntityType="Self.aspnetrole" />
+          <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaim" />
+          <EntitySet Name="aspnetuserroles" EntityType="Self.aspnetuserrole" />
+          <EntitySet Name="aspnetusers" EntityType="Self.aspnetuser" />
+          <EntitySet Name="clients" EntityType="Self.client" />
+          <EntitySet Name="clients1" EntityType="Self.client1" />
+          <EntitySet Name="eurolinkusers" EntityType="Self.eurolinkuser" />
           <EntitySet Name="news_all" EntityType="Self.news_all" />
+          <EntitySet Name="ok_setup" EntityType="Self.ok_setup" />
           <EntitySet Name="p_den" EntityType="Self.p_den" />
           <EntitySet Name="p_denovi" EntityType="Self.p_denovi" />
           <EntitySet Name="p_doplatoci" EntityType="Self.p_doplatoci" />
@@ -607,20 +829,81 @@
           <EntitySet Name="p_vozrast" EntityType="Self.p_vozrast" />
           <EntitySet Name="p_zem" EntityType="Self.p_zem" />
           <EntitySet Name="p_zemja_na_patuvanje" EntityType="Self.p_zemja_na_patuvanje" />
-          <EntitySet Name="patnicko" EntityType="Self.patnicko" />
+          <EntitySet Name="patnickoes" EntityType="Self.patnicko" />
           <EntitySet Name="patnicko_vid" EntityType="Self.patnicko_vid" />
-          <EntitySet Name="transaction" EntityType="Self.transaction" />
-          <EntitySet Name="user" EntityType="Self.user" />
-          <EntitySet Name="user_all" EntityType="Self.user_all" />
+          <EntitySet Name="refreshtokens" EntityType="Self.refreshtoken" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogin" />
+          <EntitySet Name="transactions" EntityType="Self.transaction" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="travelModelStoreContainer" CdmEntityContainer="InsuredTravelingEntity">
-          <EntitySetMapping Name="client">
-            <EntityTypeMapping TypeName="travelModel.client">
+        <EntityContainerMapping StorageEntityContainer="db_9eb138_travelModelStoreContainer" CdmEntityContainer="InsuredTravelingEntity">
+          <EntitySetMapping Name="aspnetroles">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.aspnetrole">
+              <MappingFragment StoreEntitySet="aspnetroles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnetuserclaims">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.aspnetuserclaim">
+              <MappingFragment StoreEntitySet="aspnetuserclaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnetuserroles">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.aspnetuserrole">
+              <MappingFragment StoreEntitySet="aspnetuserroles">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnetusers">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.aspnetuser">
+              <MappingFragment StoreEntitySet="aspnetusers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EMBG" ColumnName="EMBG" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Municipality" ColumnName="Municipality" />
+                <ScalarProperty Name="InsuranceCompany" ColumnName="InsuranceCompany" />
+                <ScalarProperty Name="ActivationCodeMail" ColumnName="ActivationCodeMail" />
+                <ScalarProperty Name="ActivationCodeSMS" ColumnName="ActivationCodeSMS" />
+                <ScalarProperty Name="IsValidMail" ColumnName="IsValidMail" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="MobilePhoneNumber" ColumnName="MobilePhoneNumber" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clients">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.client">
               <MappingFragment StoreEntitySet="client">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="FirstLastName" ColumnName="FirstLastName" />
@@ -634,8 +917,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="clients1">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.client1">
+              <MappingFragment StoreEntitySet="clients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Secret" ColumnName="Secret" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ApplicationType" ColumnName="ApplicationType" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="RefreshTokenLifeTime" ColumnName="RefreshTokenLifeTime" />
+                <ScalarProperty Name="AllowedOrigin" ColumnName="AllowedOrigin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="eurolinkusers">
-            <EntityTypeMapping TypeName="travelModel.eurolinkusers">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.eurolinkuser">
               <MappingFragment StoreEntitySet="eurolinkusers">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -645,29 +941,38 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="news_all">
-            <EntityTypeMapping TypeName="travelModel.news_all">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.news_all">
               <MappingFragment StoreEntitySet="news_all">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ImageLocation" ColumnName="ImageLocation" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="IsNotification" ColumnName="IsNotification" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="InsurenceCompany" ColumnName="InsurenceCompany" />
+                <ScalarProperty Name="isNotification" ColumnName="isNotification" />
+                <ScalarProperty Name="DataCreated" ColumnName="DataCreated" />
+                <ScalarProperty Name="InsuranceCompany" ColumnName="InsuranceCompany" />
                 <ScalarProperty Name="GroupID" ColumnName="GroupID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ok_setup">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.ok_setup">
+              <MappingFragment StoreEntitySet="ok_setup">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Sms_Code_Seconds" ColumnName="Sms_Code_Seconds" />
+                <ScalarProperty Name="NumberOfAttemps" ColumnName="NumberOfAttemps" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="p_den">
-            <EntityTypeMapping TypeName="travelModel.p_den">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_den">
               <MappingFragment StoreEntitySet="p_den">
                 <ScalarProperty Name="Patuva_Denovi" ColumnName="Patuva_Denovi" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="p_denovi">
-            <EntityTypeMapping TypeName="travelModel.p_denovi">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_denovi">
               <MappingFragment StoreEntitySet="p_denovi">
                 <ScalarProperty Name="I_Denovi" ColumnName="I_Denovi" />
                 <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
@@ -677,7 +982,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="p_doplatoci">
-            <EntityTypeMapping TypeName="travelModel.p_doplatoci">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_doplatoci">
               <MappingFragment StoreEntitySet="p_doplatoci">
                 <ScalarProperty Name="Doplatok" ColumnName="Doplatok" />
                 <ScalarProperty Name="P_Doplatok" ColumnName="P_Doplatok" />
@@ -686,7 +991,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="p_familija">
-            <EntityTypeMapping TypeName="travelModel.p_familija">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_familija">
               <MappingFragment StoreEntitySet="p_familija">
                 <ScalarProperty Name="I_Familija" ColumnName="I_Familija" />
                 <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
@@ -695,7 +1000,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="p_fran">
-            <EntityTypeMapping TypeName="travelModel.p_fran">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_fran">
               <MappingFragment StoreEntitySet="p_fran">
                 <ScalarProperty Name="Fransiza" ColumnName="Fransiza" />
                 <ScalarProperty Name="Dedactible" ColumnName="Dedactible" />
@@ -704,7 +1009,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="p_grupa">
-            <EntityTypeMapping TypeName="travelModel.p_grupa">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_grupa">
               <MappingFragment StoreEntitySet="p_grupa">
                 <ScalarProperty Name="I_Grupa" ColumnName="I_Grupa" />
                 <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
@@ -714,14 +1019,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="p_kurs">
-            <EntityTypeMapping TypeName="travelModel.p_kurs">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_kurs">
               <MappingFragment StoreEntitySet="p_kurs">
                 <ScalarProperty Name="Kurs" ColumnName="Kurs" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="p_min_premija">
-            <EntityTypeMapping TypeName="travelModel.p_min_premija">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_min_premija">
               <MappingFragment StoreEntitySet="p_min_premija">
                 <ScalarProperty Name="I_Min" ColumnName="I_Min" />
                 <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
@@ -730,7 +1035,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="p_referent">
-            <EntityTypeMapping TypeName="travelModel.p_referent">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_referent">
               <MappingFragment StoreEntitySet="p_referent">
                 <ScalarProperty Name="Sifra" ColumnName="Sifra" />
                 <ScalarProperty Name="Referent" ColumnName="Referent" />
@@ -740,7 +1045,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="p_stapki">
-            <EntityTypeMapping TypeName="travelModel.p_stapki">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_stapki">
               <MappingFragment StoreEntitySet="p_stapki">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
@@ -761,7 +1066,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="p_vozrast">
-            <EntityTypeMapping TypeName="travelModel.p_vozrast">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_vozrast">
               <MappingFragment StoreEntitySet="p_vozrast">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Vozrast" ColumnName="Vozrast" />
@@ -770,14 +1075,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="p_zem">
-            <EntityTypeMapping TypeName="travelModel.p_zem">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_zem">
               <MappingFragment StoreEntitySet="p_zem">
                 <ScalarProperty Name="Zemja_Na_Patuvanje" ColumnName="Zemja_Na_Patuvanje" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="p_zemja_na_patuvanje">
-            <EntityTypeMapping TypeName="travelModel.p_zemja_na_patuvanje">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_zemja_na_patuvanje">
               <MappingFragment StoreEntitySet="p_zemja_na_patuvanje">
                 <ScalarProperty Name="I_Zemja_Na_Patuvanje" ColumnName="I_Zemja_Na_Patuvanje" />
                 <ScalarProperty Name="Zemja_Na_Patuvanje" ColumnName="Zemja_Na_Patuvanje" />
@@ -788,11 +1093,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="patnicko">
-            <EntityTypeMapping TypeName="travelModel.patnicko">
+          <EntitySetMapping Name="patnickoes">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.patnicko">
               <MappingFragment StoreEntitySet="patnicko">
                 <ScalarProperty Name="Polisa_Broj" ColumnName="Polisa_Broj" />
-                <ScalarProperty Name="BRoj_Polisa_Kompanija" ColumnName="BRoj_Polisa_Kompanija" />
                 <ScalarProperty Name="Kurs" ColumnName="Kurs" />
                 <ScalarProperty Name="Zemja_Na_Patuvanje" ColumnName="Zemja_Na_Patuvanje" />
                 <ScalarProperty Name="Procent_Zemja_Na_Patuvanje" ColumnName="Procent_Zemja_Na_Patuvanje" />
@@ -854,19 +1158,51 @@
                 <ScalarProperty Name="Datum_Na_Izdavanje" ColumnName="Datum_Na_Izdavanje" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Datum_Na_Storniranje" ColumnName="Datum_Na_Storniranje" />
+                <ScalarProperty Name="BRoj_Polisa_Kompanija" ColumnName="BRoj_Polisa_Kompanija" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="patnicko_vid">
-            <EntityTypeMapping TypeName="travelModel.patnicko_vid">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.patnicko_vid">
               <MappingFragment StoreEntitySet="patnicko_vid">
                 <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
                 <ScalarProperty Name="Vid" ColumnName="Vid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="transaction">
-            <EntityTypeMapping TypeName="travelModel.transaction">
+          <EntitySetMapping Name="refreshtokens">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.refreshtoken">
+              <MappingFragment StoreEntitySet="refreshtokens">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="IssuedUtc" ColumnName="IssuedUtc" />
+                <ScalarProperty Name="ExpiresUtc" ColumnName="ExpiresUtc" />
+                <ScalarProperty Name="ProtectedTicket" ColumnName="ProtectedTicket" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnetuserlogins">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.aspnetuserlogin">
+              <MappingFragment StoreEntitySet="aspnetuserlogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transactions">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.transaction">
               <MappingFragment StoreEntitySet="transaction">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="TRANID" ColumnName="TRANID" />
@@ -882,40 +1218,7 @@
                 <ScalarProperty Name="mdErrorMsg" ColumnName="mdErrorMsg" />
                 <ScalarProperty Name="ErrMsg" ColumnName="ErrMsg" />
                 <ScalarProperty Name="HASH" ColumnName="HASH" />
-                <ScalarProperty Name="Ime_i_Prezime" ColumnName="Ime i Prezime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="user">
-            <EntityTypeMapping TypeName="travelModel.user">
-              <MappingFragment StoreEntitySet="user">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Roles" ColumnName="Roles" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="user_all">
-            <EntityTypeMapping TypeName="travelModel.user_all">
-              <MappingFragment StoreEntitySet="user_all">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Roles" ColumnName="Roles" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
-                <ScalarProperty Name="InsurenceCompany" ColumnName="InsurenceCompany" />
-                <ScalarProperty Name="PhoneNo_" ColumnName="PhoneNo:" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="EMBG" ColumnName="EMBG" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
-                <ScalarProperty Name="ActivationCodeSMS" ColumnName="ActivationCodeSMS" />
-                <ScalarProperty Name="IsValidSMS" ColumnName="IsValidSMS" />
-                <ScalarProperty Name="IsValidEmail" ColumnName="IsValidEmail" />
-                <ScalarProperty Name="DateTimer" ColumnName="DateTimer" />
+                <ScalarProperty Name="Ime_I__Prezime" ColumnName="Ime_I_ Prezime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -933,9 +1236,9 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

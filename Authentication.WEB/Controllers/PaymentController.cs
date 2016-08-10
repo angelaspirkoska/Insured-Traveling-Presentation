@@ -1,5 +1,6 @@
 ﻿using Authentication.WEB.Models;
 using Authentication.WEB.Services;
+using InsuredTraveling;
 using Rotativa;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace Authentication.WEB.Controllers
 
             int id = 2;
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            model.Pat = entities.patnicko.Where(x => x.Polisa_Broj == id).FirstOrDefault();
+            model.Pat = entities.patnickoes.Where(x => x.Polisa_Broj == id).FirstOrDefault();
             return View(model);
 
 

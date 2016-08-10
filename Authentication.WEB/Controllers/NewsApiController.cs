@@ -1,5 +1,6 @@
 ﻿using Authentication.WEB.Models;
 using Authentication.WEB.Services;
+using InsuredTraveling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Authentication.WEB.Controllers
             MailNewsService mailNewsService = new MailNewsService();
             mailNewsService.getUnreadEmails();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            IQueryable<news_all> eurolinkNews = entities.news_all.OrderByDescending(x => x.DateCreated).Take(20);
+            IQueryable<news_all> eurolinkNews = entities.news_all.OrderByDescending(x => x.DataCreated).Take(20);
 
             List<News> news = new List<News>();
 
@@ -43,13 +44,13 @@ namespace Authentication.WEB.Controllers
             MailNewsService mailNewsService = new MailNewsService();
             mailNewsService.getUnreadEmails();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            news_all lastReadNews = entities.news_all.Where(x => x.ID == lastReadID).FirstOrDefault();
+            news_all lastReadNews = entities.news_all.Where(x => x.ID == lastReadID.ToString()).FirstOrDefault();
             IQueryable<news_all> unreadNews;
             if (lastReadNews == null)
-                unreadNews = entities.news_all.OrderByDescending(x => x.DateCreated).Take(10);
+                unreadNews = entities.news_all.OrderByDescending(x => x.DataCreated).Take(10);
             else
-                unreadNews = entities.news_all.Where(x => x.DateCreated > lastReadNews.DateCreated).
-                    OrderByDescending(x => x.DateCreated);
+                unreadNews = entities.news_all.Where(x => x.DataCreated > lastReadNews.DataCreated).
+                    OrderByDescending(x => x.DataCreated);
 
             if (unreadNews == null)
                 return null;
@@ -57,7 +58,7 @@ namespace Authentication.WEB.Controllers
             List<News> notifications = new List<News>();
             foreach (news_all n in unreadNews)
             {
-                if ((bool)n.IsNotification)
+                if ((bool)n.isNotification)
                 {
                     News npom = new News();
                     npom.id = n.ID;

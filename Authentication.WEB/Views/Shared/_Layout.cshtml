@@ -17,12 +17,12 @@
                 <button class="btn btn-success navbar-toggle">
                     <span class="glyphicon glyphicon-chevron-down"></span>
                 </button>
-                @Html.ActionLink("Insured Travel", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a href="http://localhost:19655/Home" class = "navbar-brand">Insured Travel</a>
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" id="welcome">Welcome</a></li>
-                    <li><a href="http://localhost:19655/Login" id="logOut" onclick="func()">Logout</a></li>
+                    <li><a href="http://localhost:19655/api/account/deletetoken" id="logOut" onclick="func()">Logout</a></li>
                     <li><a href="http://localhost:19655/Login" id="login">Login</a></li>
                     <li><a href="http://localhost:19655/SignUp" id="signup">Sign up</a></li>
                 </ul>
@@ -34,7 +34,7 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        <footer style="position:fixed; bottom:0">
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>

@@ -101,10 +101,9 @@
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Web, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -220,6 +219,7 @@
     <Content Include="Scripts\additional-methods.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Browsers\qt.browser" />
     <EntityDeploy Include="InsuredTravelingModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>InsuredTravelingModel.Designer.cs</LastGenOutput>
@@ -227,7 +227,6 @@
     <Content Include="InsuredTravelingModel.edmx.diagram">
       <DependentUpon>InsuredTravelingModel.edmx</DependentUpon>
     </Content>
-    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
@@ -243,14 +242,32 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="aspnetrole.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnetuser.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnetuserclaim.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnetuserlogin.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnetuserrole.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="AuthContext.cs" />
     <Compile Include="AuthRepository.cs" />
     <Compile Include="client.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="client1.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\API\AccountController.cs" />
+    <Compile Include="Controllers\API\MobileApiController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
-    <Compile Include="Controllers\CodeValidationApiController.cs" />
     <Compile Include="Controllers\ForgetPasswordController.cs" />
     <Compile Include="Controllers\HalkbankPaymentApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -262,11 +279,10 @@
     <Compile Include="Controllers\PolicyController.cs" />
     <Compile Include="Controllers\PremiumController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
-    <Compile Include="Controllers\RegisterClientController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Controllers\ValidateMailController.cs" />
-    <Compile Include="eurolinkusers.cs">
+    <Compile Include="eurolinkuser.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
@@ -309,6 +325,9 @@
     <Compile Include="MySqlHistoryContext.cs" />
     <Compile Include="MySqlInitializer.cs" />
     <Compile Include="news_all.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ok_setup.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="patnicko.cs">
@@ -361,6 +380,9 @@
     <Compile Include="p_zemja_na_patuvanje.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="refreshtoken.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Services\DocumentService.cs" />
     <Compile Include="Services\MailNewsService.cs" />
     <Compile Include="Services\MailService.cs" />
@@ -373,9 +395,6 @@
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="user.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="user_all.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

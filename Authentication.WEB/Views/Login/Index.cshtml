@@ -24,57 +24,64 @@
         <br />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Log in" class="btn btn-success"" onclick="loginUser()" />
+                <input type="button" value="Log in" class="btn btn-success" onclick="loginUser()" />
             </div>
         </div>
     </form>
 <script type="text/javascript">
 
+    $(function () {
+        $("#register").click(function () {
+            console.log("click");
+            loginUser();
+        });
+        $(document).keyup(function (e) {
+            if (e.which === 13)
+                loginUser();
+        });
+    });
+
     function loginUser() {
-        var ajaxFormSubmit = function () {
-            var $form = $(this);
-            var options = {
-                url: $form.attr("action"),
-                type: $form.attr("method"),
-                data: $form.serialize()
-            };
-            $.ajax(options).done(function (data) {            
-                var data1 = data.responseText.Data;
-                //alert(data1.Username + " " + data1.Password);  
-                $.ajax({
-                            url: "http://localhost:19655/token",
-                            type: "post",
-                            data: jQuery.param({ grant_type: "password", username: data1.Username, password:data1.Password }),
-                            contentType: 'application/x-www-form-urlencoded',
-                            beforeSend: function (xhr) {
-                                xhr.setRequestHeader('Accept', 'application/json');
-                            },
-                            success: function (response) {
-                                //alert(response.access_token);
-                                localStorage.setItem("token", response.access_token);
-                                localStorage.setItem("username", response.userName);
-                                
-                                $.ajax({
-                                    type: 'POST',
-                                    url: "http://localhost:19655/Login/ReciveToken",
-                                    data: jQuery.param({ token: localStorage.getItem("token")}),
-                                    beforeSend: function (xhr) {
-                                    },
-                                    success: function () {
-                                        window.location.replace("http://localhost:19655/home");
-                                    },
-                                    error: function () {
-                                    }
-                            });
-                            },
-                            error: function () {
-                                alert("Username or password in not valid");
+
+        var $btn = $("#register").button('loading');
+        var $form = $('#loginForm');
+        var options = {
+            url: $form.attr("action"),
+            type: $form.attr("method"),
+            data: $form.serialize()
+        };
+
+        $.ajax(options).done(function (data) {
+            var data1 = data.responseText.Data;
+            $.ajax({
+                url: "http://localhost:19655/token",
+                type: "post",
+                data: jQuery.param({ grant_type: "password", username: data1.Username, password: data1.Password }),
+                dataType: "json",
+                contentType: 'application/x-www-form-urlencoded',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Accept', 'application/json');
+                },
+                success: function (response) {
+
+                        localStorage.setItem("token", response.access_token);
+                        localStorage.setItem("username", response.userName);
+
+                        $.ajax({
+                            type: 'POST',
+                            url: "http://localhost:19655/Login/ReciveToken",
+                            data: jQuery.param({ token: localStorage.getItem("token") }),
+                            success: function () {
+                                window.location.replace("http://localhost:19655/Home");
                             }
-                });
-                
+                        });
+                },
+                error: function (result) {
+                    alert(result.responseJSON.error_description);
+                    $btn.button('reset');
+                }
             });
-            return false;
-        }
-        $("form[data-otf-ajax='true']").submit(ajaxFormSubmit);
+
+        });
     };
 </script>

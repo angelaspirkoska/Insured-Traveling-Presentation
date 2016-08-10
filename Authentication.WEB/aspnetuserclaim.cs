@@ -12,10 +12,11 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class p_vozrast
+    public partial class aspnetuserclaim
     {
-        public int ID { get; set; }
-        public Nullable<double> Vozrast { get; set; }
-        public Nullable<double> P_Vozrast1 { get; set; }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     }
 }

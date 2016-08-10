@@ -10,15 +10,6 @@ using System.Web;
 
 public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
 {
-    public override Task AuthorizeEndpoint(OAuthAuthorizeEndpointContext context)
-    {
-        return Task.CompletedTask; 
-    }
-
-    public override Task GrantAuthorizationCode(OAuthGrantAuthorizationCodeContext context)
-    {
-        return base.GrantAuthorizationCode(context);
-    }
 
     public override Task MatchEndpoint(OAuthMatchEndpointContext context)
     {
@@ -38,30 +29,7 @@ public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvide
             context.Request.Headers.Add("Authorization", s);
         }
     }
-    public override Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)
-    {
-        return base.ValidateClientRedirectUri(context);
-    }
 
-    public override Task ValidateTokenRequest(OAuthValidateTokenRequestContext context)
-    {
-        return base.ValidateTokenRequest(context);
-    }
-
-    public override Task GrantClientCredentials(OAuthGrantClientCredentialsContext context)
-    {
-        return base.GrantClientCredentials(context);
-    }
-
-    public override Task ValidateAuthorizeRequest(OAuthValidateAuthorizeRequestContext context)
-    {
-        string[] s = null;
-        s[0] = "Bearer";
-        context.Request.Headers.Add("Authorization", s);
-        s[0] = "application/json";
-        context.Request.Headers.Add("Accept", s);
-        return base.ValidateAuthorizeRequest(context);
-    }
     public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
     {
 

@@ -34,7 +34,7 @@ namespace InsuredTraveling.Controllers
 
             if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(embg) || !String.IsNullOrEmpty(address) || !String.IsNullOrEmpty(land) || !String.IsNullOrEmpty(agency) || !String.IsNullOrEmpty(TypePolycies))
             {
-                var data = entities.patnicko.Where(x => x.EMBG.Contains(embg) &&
+                var data = entities.patnickoes.Where(x => x.EMBG.Contains(embg) &&
                                                         x.Ime_I_Prezime.ToLower().Contains(name) &&
                                                         x.Adresa.ToLower().Contains(address) &&
                                                         x.Ovlastena_Agencija.ToLower().Contains(agency) &&
@@ -86,7 +86,7 @@ namespace InsuredTraveling.Controllers
             }
             else if (!String.IsNullOrEmpty(startDate) || !String.IsNullOrEmpty(endDate) || !String.IsNullOrEmpty(dateI) || !String.IsNullOrEmpty(dateS))
             {
-                var data = entities.patnicko.ToList();
+                var data = entities.patnickoes.ToList();
                 if (!String.IsNullOrEmpty(startDate))
                 {
                     switch (operatorStartDate)
@@ -153,7 +153,7 @@ namespace InsuredTraveling.Controllers
 
             if (postal_code2 != 0)
             {
-                var data = entities.client.Where(x => x.EMBG.Contains(embg) &&
+                var data = entities.clients.Where(x => x.EMBG.Contains(embg) &&
                                                         x.FirstLastName.ToLower().Contains(name) &&
                                                         x.StreetNumber.ToLower().Contains(address) &&
                                                         x.MailAdress.ToLower().Contains(email) &&
@@ -168,7 +168,7 @@ namespace InsuredTraveling.Controllers
             }
             else if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(embg) || !String.IsNullOrEmpty(address) || !String.IsNullOrEmpty(city) || !String.IsNullOrEmpty(email) || !String.IsNullOrEmpty(phone) || !String.IsNullOrEmpty(passport))
             {
-                var data = entities.client.Where(x => x.EMBG.Contains(embg) &&
+                var data = entities.clients.Where(x => x.EMBG.Contains(embg) &&
                                                        x.FirstLastName.ToLower().Contains(name) &&
                                                        x.StreetNumber.ToLower().Contains(address) &&
                                                        x.MailAdress.ToLower().Contains(email) &&

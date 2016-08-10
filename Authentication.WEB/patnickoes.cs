@@ -12,7 +12,7 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class patnicko
+    public partial class patnickoes
     {
         public long Polisa_Broj { get; set; }
         public Nullable<double> Kurs { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Authentication.WEB.Models;
+using InsuredTraveling;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp.Extensions.MonoHttp;
@@ -43,7 +44,7 @@ namespace Authentication.WEB.Controllers
 
 
 
-            string oid = (TravelEntity.transaction.OrderByDescending(p => p.OrderID).Select(r => r.OrderID).First() + 1).ToString();
+            string oid = (TravelEntity.transactions.OrderByDescending(p => p.OrderID).Select(r => r.OrderID).First() + 1).ToString();
             string xid = ""; // Generated in function
             string creditCard = MobilePolicy.CreditCard;
             string expMonth = MobilePolicy.expMonth;
@@ -56,7 +57,7 @@ namespace Authentication.WEB.Controllers
             var dict = JObject.Parse(cleanJson);
             //pravis sto sakas
 
-            TransactionModel.OrderID = int.Parse(oid);
+            TransactionModel.OrderID = oid;
             TransactionModel.mdStatus = dict["mdStatus"].ToString();
             TransactionModel.merchantID = dict["merchantID"].ToString();
             if (dict["amount"].ToString() == amount || (dict["ReturnOid"].ToString() == oid))
@@ -76,7 +77,7 @@ namespace Authentication.WEB.Controllers
             TransactionModel.ErrMsg = dict["ErrMsg"].ToString();
             TransactionModel.HASH = dict["HASH"].ToString();
             TransactionModel.TRANID = dict["TRANID"].ToString();
-            TravelEntity.transaction.Add(TransactionModel);
+            TravelEntity.transactions.Add(TransactionModel);
             TravelEntity.SaveChanges();
 
             if ((TransactionModel.mdStatus == "1" || TransactionModel.mdStatus == "2" || TransactionModel.mdStatus == "3" || TransactionModel.mdStatus == "4") && (TransactionModel.Response == "Approved"))

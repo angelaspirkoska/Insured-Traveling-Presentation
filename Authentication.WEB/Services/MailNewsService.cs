@@ -1,4 +1,5 @@
-﻿using S22.Imap;
+﻿using InsuredTraveling;
+using S22.Imap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +28,11 @@ namespace Authentication.WEB.Services
                     news_all news = new news_all();
                     news.Title = message.Subject.Trim();
                     news.Content = message.Body.Trim();
-                    news.DateCreated = DateTime.Now;
+                    news.DataCreated = DateTime.Now;
                     if (message.Subject.ToLower().StartsWith(n))
-                        news.IsNotification = true;
+                        news.isNotification = true;
                     else
-                        news.IsNotification = false;
+                        news.isNotification = false;
 
                     entities.news_all.Add(news);
 
