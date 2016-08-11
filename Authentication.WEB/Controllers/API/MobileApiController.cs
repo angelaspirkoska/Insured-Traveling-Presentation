@@ -13,8 +13,8 @@ namespace InsuredTraveling.Controllers.API
     [RoutePrefix("api/mobile")]
     public class MobileApiController : ApiController
     {
-        [Route("RetriveUserInfo")]
-        public JObject RetriveUserInformation(Username username)
+        [Route("RetrieveUserInfo")]
+        public JObject RetrieveUserInformation(Username username)
         {
             InsuredTravelingEntity db = new InsuredTravelingEntity();
             JObject data = new JObject();

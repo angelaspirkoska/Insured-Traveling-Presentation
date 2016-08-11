@@ -22,8 +22,8 @@ namespace Authentication.WEB.Controllers
             model.clientId = "180000069";                   //Merchant Id defined by bank to user
             model.amount = "9.95";                         //Transaction amount
             model.oid = "";                                //Order Id. Must be unique. If left blank, system will generate a unique one.
-            model.okUrl = "http://localhost:49639/Payment/PaymentSuccess";                      //URL which client be redirected if authentication is successful
-            model.failUrl = "http://localhost:49639/Payment/PaymentFail";                    //URL which client be redirected if authentication is not successful
+            model.okUrl = "http://localhost:19965/Payment/PaymentSuccess";                      //URL which client be redirected if authentication is successful
+            model.failUrl = "http://localhost:19655/Payment/PaymentFail";                    //URL which client be redirected if authentication is not successful
             model.rnd = DateTime.Now.ToString();           //A random number, such as date/time
 
             model.currency = "807";                        //Currency code, 949 for TL, ISO_4217 standard
@@ -43,8 +43,6 @@ namespace Authentication.WEB.Controllers
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
             model.Pat = entities.patnickoes.Where(x => x.Polisa_Broj == id).FirstOrDefault();
             return View(model);
-
-
         }
 
         [Route("PaymentSuccess")]

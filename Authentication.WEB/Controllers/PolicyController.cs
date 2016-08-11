@@ -38,7 +38,7 @@ namespace Authentication.WEB.Controllers
             patnicko polisaEntity = new patnicko();
 
             //testing the premium api start
-            Uri uri = new Uri("http://localhost:49639/api/premium/code");
+            Uri uri = new Uri("http://localhost:19655/api/premium/calculate");
             HttpClient client = new HttpClient();
             client.BaseAddress = uri;
             var mediaType = new MediaTypeHeaderValue("application/json");
@@ -64,7 +64,7 @@ namespace Authentication.WEB.Controllers
                 long ID = (entityDB.patnickoes.OrderByDescending(p => p.Polisa_Broj).Select(r => r.Polisa_Broj).FirstOrDefault() + 1);
                 string ID_Company = entityDB.patnickoes.OrderByDescending(p => p.Polisa_Broj).Select(r => r.BRoj_Polisa_Kompanija).FirstOrDefault();
                 int tempID;
-                if (ID_Company == null)
+                if (String.IsNullOrEmpty(ID_Company))
                 {
                     tempID = 0;
                 }
@@ -142,7 +142,7 @@ namespace Authentication.WEB.Controllers
 
 
                 entityDB.patnickoes.Add(polisaEntity);
-                entityDB.SaveChanges();
+                var result = entityDB.SaveChanges();
             }
 
             return Json(new { success = true, responseText = "Success." }, JsonRequestBehavior.AllowGet);

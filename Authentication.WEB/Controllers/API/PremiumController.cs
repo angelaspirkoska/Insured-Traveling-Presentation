@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace Authentication.WEB.Controllers
 {
+    [RoutePrefix("api/Premium")]
     public class PremiumController : ApiController
     {
         [HttpGet]
@@ -32,6 +33,7 @@ namespace Authentication.WEB.Controllers
         }
 
         [HttpPost]
+        [Route("Calculate")]
         public IHttpActionResult Code(Policy policy)
         {
             RatingEngineService ratingEngineService = new RatingEngineService();

@@ -103,10 +103,9 @@ namespace Authentication.WEB.Services
             double? pFransiza = popustFransiza(policy.zemjaNaPatuvanje, policy.vidPolisa, policy.fransiza);
             double? pDenovi = popustDenovi(policy.vidPolisa, policy.vaziDenovi);
 
-            // InsuranceEntities entities = new InsuranceEntities();
-            InsuredTraveling.InsuredTravelingEntity entities = new InsuredTraveling.InsuredTravelingEntity();
-            double? kurs = entities.p_kurs.First().Kurs;
+            InsuredTravelingEntity entities = new InsuredTravelingEntity();
 
+            double? kurs = entities.p_kurs.First().Kurs;
             double? osnovnaPremija = kurs * pZemjaPatuvanje * (1 - pFransiza) * policy.vaziDenovi * (1 - pDenovi);
 
             if (policy.brojOsigureniciVid.Equals("polisaPoedinecno"))
