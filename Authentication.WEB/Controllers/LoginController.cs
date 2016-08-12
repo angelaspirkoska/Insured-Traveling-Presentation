@@ -1,56 +1,57 @@
 ﻿using InsuredTraveling.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace InsuredTraveling.Controllers
 {
     public class LoginController : Controller
     {
-        public static LoginUser l_user;
         // GET: Login
         [HttpPost]
-        public ActionResult Index(LoginUser user)
+        public async Task<ActionResult> Index(LoginUser user)
         {
-            l_user.Username = user.Username;
-            l_user.Password = user.Password;
-
             if (ModelState.IsValid)
             {
-                return LoginUser();
-            }  
-             
+                user.grant_type = "password";
+                Uri uri = new Uri("http://localhost:19655/token");
+                HttpClient client = new HttpClient();
+                client.BaseAddress = uri;
+                var jsonFormatter = new JsonMediaTypeFormatter();
+                IDictionary<string, string> data1 = new Dictionary<string, string>();
+                data1.Add("username", user.username);
+                data1.Add("password", user.password);
+                data1.Add("grant_type", user.grant_type);
+                HttpContent content = new FormUrlEncodedContent(data1);
+                content.Headers.Remove("Content-Type");
+                content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                //content.Headers.Add("Accept", "application/json");
+                HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
+                string responseBody = await responseMessage.Content.ReadAsStringAsync();
+                dynamic data = JObject.Parse(responseBody);
+                string token = data.access_token;
+                HttpCookie c = new HttpCookie("token");
+                c["t"] = (String.IsNullOrEmpty(token))? " " : token;
+                HttpContext.Response.Cookies.Add(c);
+                Response.Redirect("/home");
+            }
+            ModelState.AddModelError("", "Invalid username or password");
             return View();
         }
         [HttpGet]
         public ActionResult Index()
         {
-            if (HttpContext.Request.Cookies["token"] != null && System.Web.HttpContext.Current.User!=null)
+            if (System.Web.HttpContext.Current.User != null)
             {
-                Response.Redirect("http://localhost:19655/Home");
+                Response.Redirect("/home");
             }
-
-            l_user = new LoginUser();
             return View();
-        }
-
-        public JsonResult LoginUser()
-        {
-            var jsonData = Json(l_user, JsonRequestBehavior.AllowGet);
-            return Json(new { success = true, responseText = jsonData }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public void ReciveToken(string token)
-        {
-            HttpCookie c = new HttpCookie("token");
-            c["t"] = token;
-            HttpContext.Response.Cookies.Add(c);
         }
     }
 }

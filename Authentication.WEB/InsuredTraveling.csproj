@@ -270,8 +270,8 @@
     <Compile Include="aspnetuserrole.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="AuthContext.cs" />
-    <Compile Include="AuthRepository.cs" />
+    <Compile Include="Authentication\AuthContext.cs" />
+    <Compile Include="Authentication\AuthRepository.cs" />
     <Compile Include="client.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
@@ -334,9 +334,9 @@
     <Compile Include="Models\UserModel_Detail.cs" />
     <Compile Include="Models\Username.cs" />
     <Compile Include="Models\ValidationModel.cs" />
-    <Compile Include="MySqlConfiguration.cs" />
-    <Compile Include="MySqlHistoryContext.cs" />
-    <Compile Include="MySqlInitializer.cs" />
+    <Compile Include="Authentication\MySqlConfiguration.cs" />
+    <Compile Include="Authentication\MySqlHistoryContext.cs" />
+    <Compile Include="Authentication\MySqlInitializer.cs" />
     <Compile Include="news_all.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>

@@ -27,6 +27,8 @@ public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvide
             string[] s = new string[1];
             s[0] = "Bearer " + t;
             context.Request.Headers.Add("Authorization", s);
+            context.Request.Accept = "application/json";
+            context.Request.ContentType = "application/json";
         }
     }
 

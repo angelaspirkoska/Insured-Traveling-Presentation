@@ -29,6 +29,10 @@
             </div>
         </div>
     </div>
+    @if (System.Web.HttpContext.Current.User != null)
+    {
+        <input type="hidden" value="@System.Web.HttpContext.Current.User.Identity.Name" id="userName"/>
+    }
 
 
     <div class="container body-content">
@@ -41,7 +45,10 @@
     <script src="~/Scripts/jquery-2.2.3.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <script type="text/javascript">
+
         $(document).ready(function () {
+            console.log($("#userName").val());
+            localStorage.setItem("username", $("#userName").val());
             
             if (localStorage.getItem("username") != null) {
                 $("#welcome").text("Welcome " + localStorage.getItem("username"));
@@ -53,6 +60,7 @@
                 $("#welcome").attr("class", "hidden");
                 $("#logOut").attr("class", "hidden");
             }
+
         });
 
         function func() {

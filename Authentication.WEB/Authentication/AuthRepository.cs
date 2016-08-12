@@ -10,6 +10,8 @@ using System.Web;
 using InsuredTraveling.Entities;
 using System.Web.Http.Results;
 using System.Web.Mvc;
+using System.Net;
+using Microsoft.Owin.Security;
 
 namespace InsuredTraveling
 {
@@ -68,6 +70,11 @@ namespace InsuredTraveling
             return result;
         }
 
+        public ApplicationUser FindUser2(string username, string password)
+        {
+            return _userManager.Find(username, password);
+        }
+
         public async Task<IdentityResult> FindUserByUsername(string username)
         {
             var r = await _userManager.FindByNameAsync(username);
@@ -87,7 +94,6 @@ namespace InsuredTraveling
             }
             return null;
         }
-
         public async Task<IdentityResult> FillUserDetails(UserModel_Detail user_details)
         {
             var user = await _userManager.FindByNameAsync(user_details.username);

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 namespace InsuredTraveling.Controllers
 {
     [RoutePrefix("Home")]
+    [Authorize]
     public class HomeController : Controller
     {
         // GET: Home        
