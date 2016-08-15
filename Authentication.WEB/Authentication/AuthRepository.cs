@@ -27,7 +27,7 @@ namespace InsuredTraveling
             _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_ctx));
         }
         
-        public async Task<IdentityResult> RegisterUser(UserModel userModel)
+        public async Task<IdentityResult> RegisterUser(User userModel)
         {
 
             //string secret = "MobileApp123";

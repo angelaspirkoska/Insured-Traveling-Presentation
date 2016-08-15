@@ -35,19 +35,20 @@
     }
 
 
-    <div class="container body-content">
+    <div class="container body-content" style="margin-bottom: 50px;">
         @RenderBody()
-        <footer style="position:fixed; bottom:0">
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+
     </div>
+    <br />
+    <footer class="container-fluid" style="position:fixed; bottom:0; width:100%; background-color:#149c82;">
+        <p class="container" style="color:#ffffff">&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
 
     <script src="~/Scripts/jquery-2.2.3.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
-            console.log($("#userName").val());
             localStorage.setItem("username", $("#userName").val());
             
             if (localStorage.getItem("username")) {

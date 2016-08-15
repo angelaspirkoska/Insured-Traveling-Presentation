@@ -30,7 +30,7 @@ namespace InsuredTraveling.Controllers
         // POST api/Account/Register
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("Register")]
-        public async Task<IHttpActionResult> Register(UserModel userModel)
+        public async Task<IHttpActionResult> Register(User userModel)
         {
             
             if (!ModelState.IsValid)
