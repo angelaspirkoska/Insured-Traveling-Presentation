@@ -50,7 +50,7 @@
             console.log($("#userName").val());
             localStorage.setItem("username", $("#userName").val());
             
-            if (localStorage.getItem("username") != null) {
+            if (localStorage.getItem("username")) {
                 $("#welcome").text("Welcome " + localStorage.getItem("username"));
                 $("#signup").attr("class", "hidden");
                 $("#login").attr("class", "hidden");

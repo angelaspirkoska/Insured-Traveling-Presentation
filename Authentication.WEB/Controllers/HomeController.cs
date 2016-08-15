@@ -13,7 +13,7 @@ namespace InsuredTraveling.Controllers
         // GET: Home        
         public ActionResult Index()
         {
-            if(System.Web.HttpContext.Current.User == null)
+            if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false)
             {
                 Response.Redirect("http://localhost:19655/Login");  
             }

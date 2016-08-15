@@ -22,9 +22,7 @@ namespace InsuredTraveling
         
         public void Configuration(IAppBuilder app)
         {
-            HttpConfiguration config = new HttpConfiguration();
-            
-
+            HttpConfiguration config = new HttpConfiguration();            
             ConfigureOAuth(app);
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
