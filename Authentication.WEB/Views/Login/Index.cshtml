@@ -4,27 +4,38 @@
     ViewBag.Title = "Login";
 }
 
-    <form method="post" id="loginForm" data-otf-ajax="true" action="@Url.Action("Index")" class="col-md-offset-3 col-md-6">
-        <div class="form-group">
-            @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10" style="margin-bottom:10px">
+<form method="post" id="loginForm" data-otf-ajax="true" action="@Url.Action("Index")" class="col-md-offset-3 col-md-6">
+    <h2 class="panel-heading">Login</h2>
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10" style="margin-bottom:10px">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
                 @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control col-md-10" } })
                 @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
             </div>
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10" style="margin-bottom:10px">
+    <div class="form-group">
+        @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10" style="margin-bottom:10px">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
                 @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control col-md-10" } })
                 @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
             </div>
         </div>
-        <br />
-        <br />
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input class="btn btn-success" value="Log in" type="submit">
-            </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-8  text-right"><a href="/ForgetPassword/EnterUsernameOrMail">Forgot your password?</a></div>
+    </div>
+    <br />
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input class="btn btn-success" value="Log in" type="submit">
         </div>
-    </form>
+    </div>
+</form>

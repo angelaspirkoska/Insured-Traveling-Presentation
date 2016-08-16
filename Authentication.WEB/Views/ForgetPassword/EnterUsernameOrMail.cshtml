@@ -1,0 +1,44 @@
+﻿@model InsuredTraveling.Models.LoginUser
+
+@{
+    ViewBag.Title = "EnterUsernameOrMail";
+}
+
+
+<div class="row">
+    <form method="post" id="loginForm" data-otf-ajax="true" action="@Url.Action("EnterUsernameOrMail")" class="col-md-offset-3 col-md-6">
+        <h3 class="panel-heading">Enter your username or mail:</h3>
+        <hr />
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon-lock"></i></div>
+                @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control col-md-10", placeholder="username or mail" } })
+                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input class="btn btn-success" value="Sumbit" type="submit">
+            </div>
+        </div>
+    </form>
+</div>
+<br />
+
+@if(ViewBag.Msg!=null){
+   if(ViewBag.Msg=="Check your mail to reset your password"){
+    <div class="row">
+        <div class="alert alert-dismissible alert-success" style="width: 30%; margin-left: 27%;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Mail Sent!</strong> <span>@ViewBag.Msg</span>
+        </div>
+    </div>
+}else{
+<div class="alert alert-dismissible alert-danger"style="width: 30%; margin-left: 27%;">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Oh snap!</strong><snap>@ViewBag.Msg</snap>
+</div>
+}
+
+}

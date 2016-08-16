@@ -154,29 +154,47 @@ namespace InsuredTraveling
         public void ForgetPassword(string username)
         {
             var r = _userManager.FindByName(username);
-            string body = "Welcome to Optimal Insurance " + " " + ",";
-            body += "<br /><br />Please click the following link to reset your password";
-            body += "<br /><a href = '" + "http://localhost:19655/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
-            body += "<br /><br />Thanks";
-            MailService mailService = new MailService("slobodanka@optimalreinsurance.com");
-            mailService.setSubject("Account Reset Password");
-            mailService.setBodyText(body, true);
-            mailService.sendMail();
+            if (r != null)
+            {
+                string body = "Welcome to Optimal Insurance " + " " + ",";
+                body += "<br /><br />Please click the following link to reset your password";
+                body += "<br /><a href = '" + "http://localhost:19655/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
+                body += "<br /><br />Thanks";
+                MailService mailService = new MailService("slobodanka@optimalreinsurance.com");
+                mailService.setSubject("Account Reset Password");
+                mailService.setBodyText(body, true);
+                mailService.sendMail();
+            }
         }
 
         public void ForgetPassword2(string email)
         {
             var r = _userManager.FindByEmail(email);
-            string body = "Welcome to Optimal Insurance " + " " + ",";
-            body += "<br /><br />Please click the following link to reset your password";
-            body += "<br /><a href = '" + "http://localhost:19655/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
-            body += "<br /><br />Thanks";
-            MailService mailService = new MailService("slobodanka@optimalreinsurance.com");
-            mailService.setSubject("Account Reset Password");
-            mailService.setBodyText(body, true);
-            mailService.sendMail();
+            if (r != null)
+            {
+                string body = "Welcome to Optimal Insurance " + " " + ",";
+                body += "<br /><br />Please click the following link to reset your password";
+                body += "<br /><a href = '" + "http://localhost:19655/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
+                body += "<br /><br />Thanks";
+                MailService mailService = new MailService("slobodanka@optimalreinsurance.com");
+                mailService.setSubject("Account Reset Password");
+                mailService.setBodyText(body, true);
+                mailService.sendMail();
+            }
         }
-
+        public bool ValidUsernameOrMail(string s)
+        {
+            if(_userManager.FindByEmail(s) != null)
+            {
+                ForgetPassword2(s);
+                return true;
+            }else if (_userManager.FindByName(s) != null)
+            {
+                ForgetPassword(s);
+                return true;
+            }
+            return false;
+        }
         public async Task<IdentityResult> PasswordChange(ForgetPasswordModel model)
         {
             var user1 = await _userManager.FindByIdAsync(model.ID);

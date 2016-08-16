@@ -435,6 +435,7 @@
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\ValidateMail\Index.cshtml" />
     <Content Include="Views\ForgetPassword\Index.cshtml" />
+    <Content Include="Views\ForgetPassword\EnterUsernameOrMail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -37,7 +37,7 @@ namespace InsuredTraveling.Controllers
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     ViewBag.Message = "Successfully registered!";
-                    return View();
+                    Response.Redirect("/Login");
                 }
 
             }

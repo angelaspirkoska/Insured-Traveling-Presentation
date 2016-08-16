@@ -3,37 +3,55 @@
 @{
     ViewBag.Title = "Forget Password";
 }
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-group">
+<div class="row">
+    <form method="post" id="loginForm" data-otf-ajax="true" class="col-md-offset-3 col-md-6">
         <h3>Change password</h3>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="password" class="form-control" name="Password"/>
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            <div class="col-md-10" style="margin-bottom:10px">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control",type="password"} })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.NewPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="password" class="form-control" name="NewPassword" />
-                @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger" })
+            <div class="col-md-10" style="margin-bottom:10px">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                    @Html.EditorFor(model => model.NewPassword, new { htmlAttributes = new { @class = "form-control", type="password"} })
+                    @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Change" class="btn btn-default" />
+                <input type="submit" value="Change" class="btn btn-success" />
             </div>
         </div>
-        <h2>@ViewBag.Message</h2>
+    </form>
+</div>
+<br />
+@if(ViewBag.Message!=null){
+      if(ViewBag.Message=="Password changed successfully!"){
+    <div class="row">
+        <div class="alert alert-dismissible alert-success" style="width: 30%; margin-left: 27%;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Well done!!</strong> <span>@ViewBag.Message</span>
+        </div>
     </div>
-}
+        }else{
+    <div class="alert alert-dismissible alert-danger" style="width: 30%; margin-left: 27%;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Oh snap!</strong><snap>@ViewBag.Message</snap>
+    </div>
+        }
+    }
+
 

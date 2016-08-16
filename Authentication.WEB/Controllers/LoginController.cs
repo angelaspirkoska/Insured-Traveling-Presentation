@@ -23,7 +23,6 @@ namespace InsuredTraveling.Controllers
                 Uri uri = new Uri("http://localhost:19655/token");
                 HttpClient client = new HttpClient();
                 client.BaseAddress = uri;
-                var jsonFormatter = new JsonMediaTypeFormatter();
                 IDictionary<string, string> data1 = new Dictionary<string, string>();
                 data1.Add("username", user.username);
                 data1.Add("password", user.password);

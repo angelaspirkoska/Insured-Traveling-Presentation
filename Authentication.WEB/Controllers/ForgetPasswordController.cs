@@ -13,13 +13,12 @@ namespace InsuredTraveling.Controllers
     public class ForgetPasswordController : Controller
     {
         [HttpPost]
-        // GET: ForgetPassword
         public async Task<ActionResult> Index(ForgetPasswordModel model)
         {
             ViewBag.Message = " ";
             if (ModelState.IsValid)
             {
-                model.ID = Request.Params["ID"];
+                model.ID = System.Web.HttpContext.Current.Request.QueryString["ID"].ToString();
                 AuthRepository _repo = new AuthRepository();
                 IdentityResult result = await _repo.PasswordChange(model);
                 if (result.Succeeded)
@@ -37,6 +36,24 @@ namespace InsuredTraveling.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult EnterUsernameOrMail()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EnterUsernameOrMail(LoginUser u)
+        {
+            AuthRepository _repo = new AuthRepository();
+            if (_repo.ValidUsernameOrMail(u.username))
+            {
+                ViewBag.Msg = "Check your mail to reset your password";
+                return View();
+            }
+            ViewBag.Msg = "Not valid username or mail";
             return View();
         }
     }

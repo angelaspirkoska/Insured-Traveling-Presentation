@@ -72,7 +72,7 @@
 /* Set width on the form input elements since they're 100% wide by default */
 
 #loginForm, #SignUpForm {
-    padding-top: 70px;
+    padding-top: 20px;
 }
 /* Set width on the form input elements since they're 100% wide by default */
 input,
