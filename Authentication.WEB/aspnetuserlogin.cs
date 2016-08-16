@@ -9,9 +9,7 @@
 
 namespace InsuredTraveling
 {
-    using System;
-    using System.Collections.Generic;
-    
+
     public partial class aspnetuserlogin
     {
         public string LoginProvider { get; set; }

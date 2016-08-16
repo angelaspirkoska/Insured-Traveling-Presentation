@@ -1,4 +1,5 @@
-﻿@model InsuredTraveling.Models.LoginUser
+﻿@using InsuredTraveling.Helpers
+@model InsuredTraveling.Models.LoginUser
 
 @{
     ViewBag.Title = "Login";
@@ -6,7 +7,7 @@
 
     <form method="post" id="loginForm" data-otf-ajax="true" action="@Url.Action("Index")" class="col-md-offset-3 col-md-6">
         <div class="form-group">
-            @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.username, new { @class = "control-label col-md-2" })
             <div class="col-md-10" style="margin-bottom:10px">
                 @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control col-md-10" } })
                 @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
@@ -14,13 +15,15 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.password, new { @class = "control-label col-md-2" })
             <div class="col-md-10" style="margin-bottom:10px">
                 @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control col-md-10" } })
                 @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
             </div>
         </div>
-        <br />
+        <div class="form-group">
+            @Html.ReCaptcha()
+        </div>
         <br />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

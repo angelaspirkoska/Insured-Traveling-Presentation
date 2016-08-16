@@ -1,19 +1,10 @@
-﻿using InsuredTraveling;
-using InsuredTraveling.Models;
+﻿using InsuredTraveling.Models;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Results;
-using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
 {

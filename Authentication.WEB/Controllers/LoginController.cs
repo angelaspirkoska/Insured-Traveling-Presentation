@@ -15,15 +15,18 @@ namespace InsuredTraveling.Controllers
     {
         // GET: Login
         [HttpPost]
-        public async Task<ActionResult> Index(LoginUser user)
+        public async Task<ActionResult> Index(LoginUser user, bool CaptchaValid)
         {
+            if (!CaptchaValid)
+            {
+                ModelState.AddModelError("reCaptcha", "Invalid reCaptcha");
+                return View(user);
+            }
             if (ModelState.IsValid)
             {
                 user.grant_type = "password";
-                Uri uri = new Uri("http://localhost:19655/token");
-                HttpClient client = new HttpClient();
-                client.BaseAddress = uri;
-                var jsonFormatter = new JsonMediaTypeFormatter();
+                var uri = new Uri("http://localhost:19655/token");
+                var client = new HttpClient {BaseAddress = uri};
                 IDictionary<string, string> data1 = new Dictionary<string, string>();
                 data1.Add("username", user.username);
                 data1.Add("password", user.password);
@@ -32,12 +35,11 @@ namespace InsuredTraveling.Controllers
                 content.Headers.Remove("Content-Type");
                 content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
                 //content.Headers.Add("Accept", "application/json");
-                HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
-                string responseBody = await responseMessage.Content.ReadAsStringAsync();
+                var responseMessage = client.PostAsync(uri, content).Result;
+                var responseBody = await responseMessage.Content.ReadAsStringAsync();
                 dynamic data = JObject.Parse(responseBody);
                 string token = data.access_token;
-                HttpCookie c = new HttpCookie("token");
-                c["t"] = (String.IsNullOrEmpty(token))? " " : token;
+                var c = new HttpCookie("token") {["t"] = (string.IsNullOrEmpty(token)) ? " " : token};
                 HttpContext.Response.Cookies.Add(c);
                 Response.Redirect("/home");
             }
@@ -47,7 +49,7 @@ namespace InsuredTraveling.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated != false)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 Response.Redirect("/home");
             }

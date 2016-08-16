@@ -10,8 +10,7 @@
 namespace InsuredTraveling
 {
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class p_zemja_na_patuvanje
     {
         public long I_Zemja_Na_Patuvanje { get; set; }

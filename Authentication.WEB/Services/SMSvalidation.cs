@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Twilio;
 
 namespace Authentication.WEB.Services
 {
-    
+
     public class SMSvalidation
     {
         public string SendMessage(string PhoneNumber = "+38975209792", string ValidationCode = "testCode", bool UseCode = false)

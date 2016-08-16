@@ -10,8 +10,7 @@
 namespace InsuredTraveling
 {
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class patnicko_vid
     {
         public string Vid_Polisa { get; set; }

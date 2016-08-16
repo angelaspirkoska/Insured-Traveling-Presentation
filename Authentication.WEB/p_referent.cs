@@ -9,9 +9,7 @@
 
 namespace InsuredTraveling
 {
-    using System;
-    using System.Collections.Generic;
-    
+
     public partial class p_referent
     {
         public string Sifra { get; set; }

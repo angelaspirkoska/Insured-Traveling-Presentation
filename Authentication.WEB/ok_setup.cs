@@ -9,9 +9,7 @@
 
 namespace InsuredTraveling
 {
-    using System;
-    using System.Collections.Generic;
-    
+
     public partial class ok_setup
     {
         public int id { get; set; }

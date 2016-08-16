@@ -10,8 +10,7 @@
 namespace InsuredTraveling
 {
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class p_familija
     {
         public long I_Familija { get; set; }

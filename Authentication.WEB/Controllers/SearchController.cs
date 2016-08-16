@@ -1,8 +1,5 @@
-﻿using Authentication.WEB;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
