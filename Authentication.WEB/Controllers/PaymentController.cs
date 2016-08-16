@@ -3,10 +3,8 @@ using Authentication.WEB.Services;
 using InsuredTraveling;
 using Rotativa;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Authentication.WEB.Controllers

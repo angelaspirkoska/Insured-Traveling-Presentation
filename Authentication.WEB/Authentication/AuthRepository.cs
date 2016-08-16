@@ -6,12 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using InsuredTraveling.Entities;
-using System.Web.Http.Results;
-using System.Web.Mvc;
-using System.Net;
-using Microsoft.Owin.Security;
 
 namespace InsuredTraveling
 {

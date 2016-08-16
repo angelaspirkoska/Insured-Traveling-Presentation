@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using HtmlAgilityPack;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace Authentication.WEB.Models

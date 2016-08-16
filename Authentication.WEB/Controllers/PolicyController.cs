@@ -3,12 +3,10 @@ using Authentication.WEB.Services;
 using Newtonsoft.Json.Linq;
 using System;
 using Rotativa;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Formatting;
-using System.Web;
 using System.Web.Mvc;
 using InsuredTraveling;
 

@@ -1,13 +1,9 @@
 ﻿using InsuredTraveling.Models;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 
