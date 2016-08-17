@@ -15,11 +15,11 @@ namespace InsuredTraveling.Controllers
     {
         
         [HttpPost]
-        public async Task<ActionResult> Index(User user)
+        public async Task<ActionResult> Index(User user, bool CaptchaValid)
         {
             ViewBag.Gender = Gender();
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && CaptchaValid)
             {
                 //var jsonData = Json(user, JsonRequestBehavior.AllowGet);
                 //return (Json(new { success = true, responseText = jsonData }, JsonRequestBehavior.AllowGet));
@@ -33,11 +33,11 @@ namespace InsuredTraveling.Controllers
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     ViewBag.Message = "Successfully registered!";
-                    Response.Redirect("/Login");
+                    return View();
                 }
 
             }
-            ViewBag.Message = "Registration faild";
+            ViewBag.Message = "Registration failed";
             return View();
         }
 

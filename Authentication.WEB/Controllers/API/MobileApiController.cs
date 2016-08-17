@@ -53,7 +53,7 @@ namespace InsuredTraveling.Controllers.API
                 p.Add("basicPremium", p1.Osnovna_Premija);
                 p.Add("insuredBday", "1994.04.04");
                 p.Add("additional", " ");
-                p.Add("dicount", p1.Popust_Fransiza);
+                p.Add("discount", p1.Popust_Fransiza);
                 p.Add("packetTravel", "Optimum");
                 p.Add("totalPremium", p1.Vkupna_Premija);
 
@@ -81,7 +81,7 @@ namespace InsuredTraveling.Controllers.API
                 p.Add("basicPremium", p1.Osnovna_Premija);
                 p.Add("insuredBday", "1994.04.04");
                 p.Add("additional", " ");
-                p.Add("dicount", p1.Popust_Fransiza);
+                p.Add("discount", p1.Popust_Fransiza);
                 p.Add("packetTravel", "Optimum");
                 p.Add("totalPremium", p1.Vkupna_Premija);
 

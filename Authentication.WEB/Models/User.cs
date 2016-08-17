@@ -68,6 +68,7 @@ namespace InsuredTraveling.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
+        [Required]
         public string Gender { get; set; }
 
 

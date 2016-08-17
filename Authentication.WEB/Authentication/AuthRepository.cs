@@ -207,7 +207,8 @@ namespace InsuredTraveling
                     return r2;
                 }
             }
-            return new IdentityResult("Wrong user");
+
+            return new IdentityResult();
         }
 
         public async Task<IdentityResult> SendSmsCode(string username)
