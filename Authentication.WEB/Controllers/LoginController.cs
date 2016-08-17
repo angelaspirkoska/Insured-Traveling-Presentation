@@ -55,8 +55,7 @@ namespace InsuredTraveling.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-            {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated) { 
                 Response.Redirect("/home");
             }
             return View();
