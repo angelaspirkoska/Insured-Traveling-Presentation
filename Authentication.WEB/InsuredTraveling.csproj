@@ -229,9 +229,21 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\freelancer.css" />
+    <Content Include="Content\img\portfolio\cabin.png" />
+    <Content Include="Content\img\portfolio\cake.png" />
+    <Content Include="Content\img\portfolio\circus.png" />
+    <Content Include="Content\img\portfolio\game.png" />
+    <Content Include="Content\img\portfolio\safe.png" />
+    <Content Include="Content\img\portfolio\submarine.png" />
+    <Content Include="Content\img\profile.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="index.html" />
     <Content Include="InsuredTravelingModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>InsuredTravelingModel.edmx</DependentUpon>
@@ -254,7 +266,15 @@
     <Content Include="InsuredTravelingModel.edmx.diagram">
       <DependentUpon>InsuredTravelingModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="Scripts\contact_me.js" />
+    <Content Include="Scripts\freelancer.min.js" />
+    <Content Include="Scripts\jqBootstrapValidation.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery.validate.js" />

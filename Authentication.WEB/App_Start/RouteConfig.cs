@@ -8,6 +8,8 @@ namespace InsuredTraveling
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{file}.html");
+            routes.IgnoreRoute("");
 
             routes.MapRoute(
                 name: "Default",
