@@ -103,8 +103,6 @@ namespace InsuredTraveling
                 user.EMBG = user_details.EMBG;
 
                 var r1 = _userManager.Update(user);
-                //_userManager.SendSms(user.Id, "Zdravo");
-                //_userManager.SendEmail(user.Id, "Welcome to Optimal Insurance", "Activate your account");
 
                 if (r1.Succeeded)
                 {
@@ -121,6 +119,25 @@ namespace InsuredTraveling
                 return r1;
             }
             return new IdentityResult("The username is not valid");
+        }
+
+        public async void ActivateAccount(string username)
+        {
+            if (!String.IsNullOrEmpty(username))
+            {
+                var user = await _userManager.FindByNameAsync(username);
+                if (user != null)
+                {
+                    string body = "Welcome to Optimal Insurance " + " " + ",";
+                    body += "<br /><br />Please click the following link to activate your account";
+                    body += "<br /><a href = '" + "http://localhost:19655/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
+                    body += "<br /><br />Thanks";
+                    MailService mailService = new MailService("slobodanka@optimalreinsurance.com");
+                    mailService.setSubject("Account Activation Validation");
+                    mailService.setBodyText(body, true);
+                    mailService.sendMail();
+                }
+            }            
         }
 
         public bool ValidateMail(string ID)
@@ -177,16 +194,21 @@ namespace InsuredTraveling
                 mailService.sendMail();
             }
         }
+       
         public bool ValidUsernameOrMail(string s)
         {
-            if(_userManager.FindByEmail(s) != null)
+            if (!String.IsNullOrEmpty(s))
             {
-                ForgetPassword2(s);
-                return true;
-            }else if (_userManager.FindByName(s) != null)
-            {
-                ForgetPassword(s);
-                return true;
+                if (_userManager.FindByEmail(s) != null)
+                {
+                    ForgetPassword2(s);
+                    return true;
+                }
+                else if (_userManager.FindByName(s) != null)
+                {
+                    ForgetPassword(s);
+                    return true;
+                }
             }
             return false;
         }
@@ -213,20 +235,23 @@ namespace InsuredTraveling
 
         public async Task<IdentityResult> SendSmsCode(string username)
         {
-            var user1 = await _userManager.FindByNameAsync(username);
-            if (user1 != null)
+            if (!String.IsNullOrEmpty(username))
             {
-                if (user1.MobilePhoneNumber != null)
+                var user1 = (String.IsNullOrEmpty(username)) ? null : await _userManager.FindByNameAsync(username);
+                if (user1 != null)
                 {
-                    if (user1.AccessFailedCount > 5)
+                    if (user1.MobilePhoneNumber != null)
                     {
-                        return new IdentityResult("You have reached the limited numbers of atempts, try again tomorrow");
+                        if (user1.AccessFailedCount > 5)
+                        {
+                            return new IdentityResult("You have reached the limited numbers of atempts, try again tomorrow");
+                        }
+                        SMSvalidation s = new SMSvalidation();
+                        string code = s.SendMessage();
+                        user1.ActivationCodeSMS = code;
+                        var result = _userManager.Update(user1);
+                        return result;
                     }
-                    SMSvalidation s = new SMSvalidation();
-                    string code = s.SendMessage();
-                    user1.ActivationCodeSMS = code;
-                    var result = _userManager.Update(user1);
-                    return result;
                 }
             }
             return new IdentityResult("Failed");
@@ -234,12 +259,14 @@ namespace InsuredTraveling
 
         public async Task<IdentityResult> ConfirmSmsCode(string username, string code)
         {
-            
-            var user1 = await _userManager.FindByNameAsync(username);
-            if (user1 != null)
+            if (!String.IsNullOrEmpty(username))
             {
-                if (user1.ActivationCodeSMS != null)
+
+                var user1 = await _userManager.FindByNameAsync(username);
+                if (user1 != null)
                 {
+                    if (user1.ActivationCodeSMS != null)
+                    {
                         if (user1.ActivationCodeSMS == code)
                         {
                             user1.PhoneNumberConfirmed = true;
@@ -255,6 +282,7 @@ namespace InsuredTraveling
                         }
                     }
                 }
+            }
             return new IdentityResult("Failed");
         }
 

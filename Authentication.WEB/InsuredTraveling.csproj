@@ -458,6 +458,7 @@
     <Content Include="Views\ValidateMail\Index.cshtml" />
     <Content Include="Views\ForgetPassword\Index.cshtml" />
     <Content Include="Views\ForgetPassword\EnterUsernameOrMail.cshtml" />
+    <Content Include="Views\SignUp\MobilePhoneVerification.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

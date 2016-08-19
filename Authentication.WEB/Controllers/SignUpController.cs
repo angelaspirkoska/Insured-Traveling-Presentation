@@ -41,6 +41,33 @@ namespace InsuredTraveling.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Route("MobilePhoneVerification")]
+        public ActionResult MobilePhoneVerification(string username)
+        {
+            ViewBag.Username = username;
+            return View();
+        }
+
+        [HttpPost]
+        [Route("MobilePhoneVerification")]
+        public async Task<ActionResult> MobilePhoneVerification(SmsCodeVerify code)
+        {
+            if (ModelState.IsValid)
+            {
+                AuthRepository _repo = new AuthRepository();
+                var result = await _repo.ConfirmSmsCode(code.username, code.SMSCode);
+                if (result.Succeeded)
+                {
+                    ViewBag.CodeMsg = "OK";
+                    return View(code);
+                }
+                ViewBag.CodeMsg = "NOK";
+                return View(code);
+            }
+            return View(code);
+        }
+
 
         [HttpGet]
         public ActionResult Index()

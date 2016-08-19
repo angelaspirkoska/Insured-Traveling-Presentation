@@ -19,6 +19,7 @@ namespace InsuredTraveling.Models
         public string LastName { get; set; }
 
         [Required]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [Display(Name = "E-mail")]
         public override string Email { get; set; }
 
@@ -34,6 +35,7 @@ namespace InsuredTraveling.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "EMBG must be numeric")]
         [Display(Name = "EMBG")]
         public string EMBG { get; set; }
 
@@ -49,14 +51,17 @@ namespace InsuredTraveling.Models
         public string InsuranceCompany = "Sava";
 
         [Required]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Phone number must be numeric")]
         [Display(Name = "Phone Number")]
         public override string PhoneNumber { get; set; }
 
         [Required]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Mobile number must be numeric")]
         [Display(Name = "Mobile Phone Number")]
         public string MobilePhoneNumber { get; set; }
 
         [Required]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Postal code must be numeric")]
         [Display(Name = "Postal Code")]
         public string PostalCode { get; set; }
 
@@ -71,6 +76,14 @@ namespace InsuredTraveling.Models
         [Required]
         public string Gender { get; set; }
 
+    }
 
+    public class SmsCodeVerify
+    {
+        public string username { get; set; }
+
+        [Required]
+        [Display(Name = "We have sent you a message. Enter the code you received to verify your mobile phone number:")]
+        public string SMSCode { get; set; }
     }
 }

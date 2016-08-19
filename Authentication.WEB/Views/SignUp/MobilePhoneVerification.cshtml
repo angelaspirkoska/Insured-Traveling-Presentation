@@ -1,0 +1,75 @@
+﻿@model InsuredTraveling.Models.SmsCodeVerify
+
+@{
+    ViewBag.Title = "MobilePhoneVerification";
+}
+
+<form role="form" method="post" action="@Url.Action("MobilePhoneVerification")" data-otf-ajax="true" style="margin-top:55px; font-size:18px">
+    <h2 class="form-login-heading">Verify your mobile phone</h2>
+    <hr />
+
+    @if (ViewBag.Username != null)
+    {
+        <input type="text" name="username" hidden value="@ViewBag.Username" />
+    }
+    else
+    {
+        <input type="text" name="username" hidden value="@Model.username" />
+    }
+
+    <div class="form-group">
+        <div class="col-md-10" style="margin-bottom:10px">
+            @Html.LabelFor(model => model.SMSCode, htmlAttributes: new { @class = "control-label" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-10" style="margin-bottom:10px">
+            <label class="control-label col-md-2"> SMS code:</label>
+            <div class="col-md-10" style="margin-bottom:10px">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                    @Html.EditorFor(model => model.SMSCode, new { htmlAttributes = new { @class = "form-control", style = "width: 45%" } })
+                    @Html.ValidationMessageFor(model => model.SMSCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-3">
+            <input type="submit" value="Submit" class="btn btn-info btn-block" />
+            <div>
+                @if (ViewBag.CodeMsg != null)
+                {
+                    if (ViewBag.CodeMsg == "NOK")
+                    {
+                        <div class="row">
+                            <div class="alert alert-dismissible alert-danger" style="margin-top: 27%; margin-left:12px; width:211%">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Oh snap!</strong> <span>The code do not match with the one we sent you.</span>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="alert alert-dismissible alert-success" style="margin-top: 27%;margin-left:12px; width:211%">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Great!</strong> <span>You have successfully verified you mobile phone number, go to your mail and activate your account!</span>
+                            </div>
+                        </div>
+                                    <script type="text/javascript">
+                                        $(document).ready(function () {
+                                            setTimeout(function () {
+                                                window.location.replace("http://localhost:19655/Login");
+                                            }, 7000);
+                                        });
+                                    </script>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+</form>
+

@@ -40,20 +40,32 @@ namespace InsuredTraveling.Controllers
 
             return Ok();
         }
+
+        [HttpPost]
+        [Route("ActivateAccount")]
+        public IHttpActionResult ActivateAccount(string username)
+        {
+             _repo.ActivateAccount(username);
+            return Ok();
+        }
+        
         // POST api/Account/FindUser
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("FindUser")]
         public async Task<IHttpActionResult> FindUsername(Username username)
         {
-            IdentityResult result = await _repo.FindUserByUsername(username.username);
-
-            IHttpActionResult errorResult = GetErrorResult(result);
-
-            if (errorResult != null)
+            if (!String.IsNullOrEmpty(username.username))
             {
-                return errorResult;
-            }
+                IdentityResult result = await _repo.FindUserByUsername(username.username);
 
+                IHttpActionResult errorResult = GetErrorResult(result);
+
+                if (errorResult != null)
+                {
+                    return errorResult;
+                }
+
+            }
             return Ok();
         }
 

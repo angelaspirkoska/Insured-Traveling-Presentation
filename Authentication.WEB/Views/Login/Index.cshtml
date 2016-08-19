@@ -8,6 +8,17 @@
 
 <form method="post" id="loginForm" data-otf-ajax="true" action="@Url.Action("Index")" class="col-md-offset-3 col-md-6">
     <h2 class="panel-heading">Login</h2>
+    @*<h4 style="color:red">@Html.ValidationSummary(false, "", new { @class = "alert alert-error" })</h4>*@
+    @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+    {
+        <div class="alert alert-danger" role="alert">
+            <a class="close" data-dismiss="alert">×</a>
+            @foreach (var modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+            {
+                <p>@modelError.ErrorMessage</p>
+            }
+        </div>
+    }
     <hr />
     <div class="form-group">
         @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -15,7 +26,7 @@
             <div class="input-group">
                 <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
                 @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control col-md-10" } })
-                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                @*@Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })*@
             </div>
            </div>
     </div>
@@ -26,7 +37,7 @@
             <div class="input-group">
                 <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
                 @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control col-md-10" } })
-                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                @*@Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })*@
             </div>
         </div>
     </div>

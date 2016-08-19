@@ -39,11 +39,17 @@ namespace InsuredTraveling.Controllers
                 var responseBody = await responseMessage.Content.ReadAsStringAsync();
                 dynamic data = JObject.Parse(responseBody);
                 string token = data.access_token;
-                var c = new HttpCookie("token") {["t"] = (string.IsNullOrEmpty(token)) ? " " : token};
-                HttpContext.Response.Cookies.Add(c);
-                Response.Redirect("/home");
+                if (!String.IsNullOrEmpty(token))
+                {
+                    var c = new HttpCookie("token") { ["t"] = (string.IsNullOrEmpty(token)) ? " " : token };
+                    HttpContext.Response.Cookies.Add(c);
+                    Response.Redirect("/home");
+                }
+                else
+                {
+                    ModelState.AddModelError("loginErr", "Invalid username or password");
+                }
             }
-            ModelState.AddModelError("", "Invalid username or password");
             return View();
         }
         [HttpGet]
