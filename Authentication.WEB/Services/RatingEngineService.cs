@@ -10,7 +10,6 @@ namespace Authentication.WEB.Services
         public double? procentZemjaPatuvanje(string zemjaNaPatuvanje, string vidPolisa, string fransiza)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            // InsuranceEntities entities = new InsuranceEntities();
             double? popust = (entities.p_zemja_na_patuvanje.Where(x => x.Zemja_Na_Patuvanje.Equals(zemjaNaPatuvanje) &&
                 x.Vid_Polisa.Equals(vidPolisa) && x.Fransiza.Equals(fransiza)).First()).Procent_Zemja_Na_Patuvanje;
             return popust;
@@ -19,14 +18,12 @@ namespace Authentication.WEB.Services
         public double? popustVozrast(int age)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            //   InsuranceEntities entities = new InsuranceEntities();
             double? popust = (entities.p_vozrast.Where(x => x.Vozrast < age).OrderByDescending(x => x.Vozrast).First()).P_Vozrast1;
             return popust;
         }
 
         public double? popustFransiza(string zemjaNaPatuvanje, string vidPolisa, string fransiza)
         {
-            //InsuranceEntities entities = new InsuranceEntities();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
             double? popust = (entities.p_zemja_na_patuvanje.Where(x => x.Zemja_Na_Patuvanje.Equals(zemjaNaPatuvanje) &&
                 x.Vid_Polisa.Equals(vidPolisa) && x.Fransiza.Equals(fransiza)).First()).Popust_Fransiza;
@@ -35,7 +32,6 @@ namespace Authentication.WEB.Services
 
         public double? popustDenovi(string vidPolisa, long denovi)
         {
-            //    InsuranceEntities entities = new InsuranceEntities();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
             double? popust = (entities.p_denovi.Where(x => x.Vid_Polisa.Equals(vidPolisa)).Where(x => x.Patuva_Denovi <= denovi)
                 .OrderByDescending(x => x.Patuva_Denovi).First()).Popust_Denovi;

@@ -5,6 +5,8 @@ using System;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Linq;
+using static InsuredTraveling.Models.AdminPanel;
 
 namespace InsuredTraveling.Controllers
 {
@@ -18,10 +20,26 @@ namespace InsuredTraveling.Controllers
             _repo = new AuthRepository();
         }
 
+        [HttpPost]
+        [Route("AddRole")]
+        public IHttpActionResult AddRole(Roles r)
+        {
+            IdentityResult result =  _repo.AddRole(r);
+
+            IHttpActionResult errorResult = GetErrorResult(result);
+
+            if (errorResult != null)
+            {
+                return errorResult;
+            }
+
+            return Ok();
+        }
+
         // POST api/Account/Register
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("Register")]
-        public async Task<IHttpActionResult> Register(User userModel)
+        public async Task<IHttpActionResult> Register(UserModel userModel)
         {
             
             if (!ModelState.IsValid)
@@ -30,6 +48,28 @@ namespace InsuredTraveling.Controllers
             }
 
             IdentityResult result = await _repo.RegisterUser(userModel);
+
+            IHttpActionResult errorResult = GetErrorResult(result);
+
+            if (errorResult != null)
+            {
+                return errorResult;
+            }
+
+            return Ok();
+        }
+        // POST api/Account/Register
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.Route("RegisterWeb")]
+        public async Task<IHttpActionResult> RegisterWeb(User userModel)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result = await _repo.RegisterUserWeb(userModel);
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -84,6 +124,8 @@ namespace InsuredTraveling.Controllers
             }
             return null;
         }
+
+       
 
         protected override void Dispose(bool disposing)
         {

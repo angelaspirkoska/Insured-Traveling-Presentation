@@ -9,7 +9,9 @@
 
 namespace InsuredTraveling
 {
-
+    using System;
+    using System.Collections.Generic;
+    
     public partial class p_den
     {
         public string Patuva_Denovi { get; set; }

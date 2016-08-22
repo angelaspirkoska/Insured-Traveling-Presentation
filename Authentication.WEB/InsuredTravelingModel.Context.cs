@@ -9,9 +9,10 @@
 
 namespace InsuredTraveling
 {
+    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
+    
     public partial class InsuredTravelingEntity : DbContext
     {
         public InsuredTravelingEntity()

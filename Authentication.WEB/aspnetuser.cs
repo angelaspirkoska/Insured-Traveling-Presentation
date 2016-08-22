@@ -10,7 +10,8 @@
 namespace InsuredTraveling
 {
     using System;
-
+    using System.Collections.Generic;
+    
     public partial class aspnetuser
     {
         public string Id { get; set; }

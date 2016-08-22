@@ -2,20 +2,24 @@
 using System.Linq;
 using System.Web.Http;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace InsuredTraveling.Controllers.API
 {
     [RoutePrefix("api/mobile")]
     public class MobileApiController : ApiController
     {
+        private InsuredTravelingEntity db;
+
+        public MobileApiController()
+        {
+            db = new InsuredTravelingEntity();
+        }
         [Route("RetrieveUserInfo")]
         public JObject RetrieveUserInformation(Username username)
         {
-            InsuredTravelingEntity db = new InsuredTravelingEntity();
+            
             JObject data = new JObject();
-
-
-
             aspnetuser user = db.aspnetusers.Where(x => x.UserName == username.username).ToArray().First();
             var u = new JObject();
             u.Add("FirstName", user.FirstName);
@@ -91,6 +95,25 @@ namespace InsuredTraveling.Controllers.API
             data.Add("quote",data2);
 
             return data;
+        }
+
+        [HttpPost]
+        [Route("ok_setup")]
+        public IHttpActionResult OK_Setup(OK_SETUP ok_s)
+        {
+            if (ok_s == null) return BadRequest();
+            if (String.IsNullOrEmpty(ok_s.InsuranceCompany)) return BadRequest();
+            var data = db.ok_setup.Where(x => x.InsuranceCompany == ok_s.InsuranceCompany).ToArray().Last();
+
+            if (ok_s.Version == null)
+            {
+                return Json(data);
+            }
+            else if (ok_s.Version == data.VersionNumber)
+            {
+                return Ok();
+            }
+            return Json(data);
         }
     }
 }

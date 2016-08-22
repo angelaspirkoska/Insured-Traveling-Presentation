@@ -9,7 +9,9 @@
 
 namespace InsuredTraveling
 {
-
+    using System;
+    using System.Collections.Generic;
+    
     public partial class news_all
     {
         public string ID { get; set; }

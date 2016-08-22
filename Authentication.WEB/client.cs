@@ -10,7 +10,8 @@
 namespace InsuredTraveling
 {
     using System;
-
+    using System.Collections.Generic;
+    
     public partial class client
     {
         public int id { get; set; }

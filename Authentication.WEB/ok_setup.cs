@@ -9,11 +9,18 @@
 
 namespace InsuredTraveling
 {
-
+    using System;
+    using System.Collections.Generic;
+    
     public partial class ok_setup
     {
         public int id { get; set; }
         public int Sms_Code_Seconds { get; set; }
-        public int NumberOfAttemps { get; set; }
+        public int NumberOfAttempts { get; set; }
+        public int NumberOfNews { get; set; }
+        public System.TimeSpan NotificationTime { get; set; }
+        public int NumberOfLastMsg { get; set; }
+        public string InsuranceCompany { get; set; }
+        public int VersionNumber { get; set; }
     }
 }

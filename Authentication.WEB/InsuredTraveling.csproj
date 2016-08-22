@@ -314,6 +314,7 @@
     <Compile Include="client1.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\API\AccountController.cs" />
     <Compile Include="Controllers\API\MobileApiController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
@@ -357,6 +358,7 @@
       <DependentUpon>InsuredTravelingModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AdminPanel.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\CreateClientModel.cs" />
     <Compile Include="Models\Enums.cs" />
@@ -365,6 +367,7 @@
     <Compile Include="Models\LoginUser.cs" />
     <Compile Include="Models\MobilePolicyModel.cs" />
     <Compile Include="Models\News.cs" />
+    <Compile Include="Models\OK_SETUP.cs" />
     <Compile Include="Models\PaymentFailModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\PaymentSuccessModel.cs" />
@@ -479,6 +482,7 @@
     <Content Include="Views\ForgetPassword\Index.cshtml" />
     <Content Include="Views\ForgetPassword\EnterUsernameOrMail.cshtml" />
     <Content Include="Views\SignUp\MobilePhoneVerification.cshtml" />
+    <Content Include="Views\AdminPanel\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

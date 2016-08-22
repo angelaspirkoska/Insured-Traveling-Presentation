@@ -10,7 +10,8 @@
 namespace InsuredTraveling
 {
     using System;
-
+    using System.Collections.Generic;
+    
     public partial class p_denovi
     {
         public long I_Denovi { get; set; }

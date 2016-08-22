@@ -26,9 +26,10 @@ namespace InsuredTraveling.Providers
             var t = c["t"];
             var s = new string[1];
             s[0] = "Bearer " + t;
-            context.Request.Headers.Add("Authorization", s);
-            context.Request.Accept = "application/json";
-            context.Request.ContentType = "application/json";
+            if (!context.Request.Headers.ContainsKey("Authorization"))
+            {
+                context.Request.Headers.Add("Authorization", s);
+            }
         }
 
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)

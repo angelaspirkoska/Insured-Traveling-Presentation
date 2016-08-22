@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using InsuredTraveling.Entities;
+using System.Security.Claims;
+using static InsuredTraveling.Models.AdminPanel;
 
 namespace InsuredTraveling
 {
@@ -15,14 +17,16 @@ namespace InsuredTraveling
         private AuthContext _ctx;
 
         private UserManager<ApplicationUser> _userManager;
+        private RoleManager<IdentityRole> roleManager;
 
         public AuthRepository()
         {
             _ctx = new AuthContext();
             _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_ctx));
+            roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_ctx));
         }
         
-        public async Task<IdentityResult> RegisterUser(User userModel)
+        public async Task<IdentityResult> RegisterUser(UserModel userModel)
         {
 
             //string secret = "MobileApp123";
@@ -61,6 +65,50 @@ namespace InsuredTraveling
                 DateOfBirth = userModel.DateOfBirth
             };
             var result = await _userManager.CreateAsync(user, userModel.Password);
+
+            return result;
+        }
+
+        public async Task<IdentityResult> RegisterUserWeb(User userModel)
+        {
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = userModel.UserName,
+                FirstName = userModel.FirstName,
+                LastName = userModel.LastName,
+                Email = userModel.Email,
+                InsuranceCompany = "Sava",
+                IsValidMail = false,
+                EmailConfirmed = false,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnabled = false,
+                AccessFailedCount = 0,
+                MobilePhoneNumber = userModel.MobilePhoneNumber,
+                Gender = userModel.Gender,
+                DateOfBirth = userModel.DateOfBirth,
+                PhoneNumber = userModel.PhoneNumber,
+                PassportNumber = userModel.PassportNumber,
+                Municipality = userModel.Municipality,
+                PostalCode = userModel.PostalCode,
+                Address = userModel.Address,
+                EMBG = userModel.EMBG
+            };
+            
+            var result = await _userManager.CreateAsync(user, userModel.Password);
+
+
+            var result2  = _userManager.AddToRole(user.Id, "Admin");
+            //var result2 = await _userManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, "administrator"));
+
+            return result;
+        }
+
+        public IdentityResult AddRole(Roles r)
+        {
+            var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            role.Name = r.Name;
+            var result = roleManager.Create(role);
 
             return result;
         }
