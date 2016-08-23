@@ -6,11 +6,21 @@ using InsuredTraveling.Entities;
 using InsuredTraveling.Models;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
+using System.Threading;
 
 namespace InsuredTraveling.Providers
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+        public override Task ValidateAuthorizeRequest(OAuthValidateAuthorizeRequestContext context)
+        {
+            var r = " ";
+            return base.ValidateAuthorizeRequest(context);
+        }
+        public override Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)
+        {
+            return base.ValidateClientRedirectUri(context);
+        }
 
         public override Task MatchEndpoint(OAuthMatchEndpointContext context)
         {
@@ -30,7 +40,7 @@ namespace InsuredTraveling.Providers
             {
                 context.Request.Headers.Add("Authorization", s);
             }
-        }
+         }
 
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {

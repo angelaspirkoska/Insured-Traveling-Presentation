@@ -109,7 +109,10 @@ namespace InsuredTraveling
             var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
             role.Name = r.Name;
             var result = roleManager.Create(role);
-
+            //ApplicationUser u = _userManager.FindByName("Daki123");
+            //_userManager.AddToRole(u.Id, "Admin");
+            //ClaimsIdentity identity = _userManager.CreateIdentity(u, "Bearer");
+            //identity.AddClaim(new Claim("role", "Admin"));
             return result;
         }
 

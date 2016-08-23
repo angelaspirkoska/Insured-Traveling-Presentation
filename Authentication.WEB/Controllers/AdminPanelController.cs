@@ -8,7 +8,6 @@ using static InsuredTraveling.Models.AdminPanel;
 
 namespace InsuredTraveling.Controllers
 {   
-    [Authorize]
     public class AdminPanelController : Controller
     {
         InsuredTravelingEntity _db = new InsuredTravelingEntity();
@@ -16,20 +15,12 @@ namespace InsuredTraveling.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var roles = _db.aspnetroles.ToArray();
+                var roles = _db.aspnetroles.ToArray();
+                var ok_setup = _db.ok_setup.ToArray();
 
-            ArrayList roles2 = new ArrayList();
-
-            for (int i = 0; i < roles.Count(); i++)
-            {
-                Roles r2 = new Roles();
-                r2.Id = i + 1;
-                r2.Name = roles[i].Name;
-                roles2.Add(r2);
-            }
-
-            ViewBag.Roles = roles2;
-            return View();
+                ViewBag.Ok_setup = ok_setup;
+                ViewBag.Roles = roles;
+                return View();
         }
 
         [HttpPost]
@@ -39,15 +30,10 @@ namespace InsuredTraveling.Controllers
             AuthRepository _repo = new AuthRepository();
             var result = _repo.AddRole(r);
             var roles = _db.aspnetroles.ToArray();
-            ArrayList roles2 = new ArrayList();
-            for(int i = 0; i < roles.Count(); i++)
-            {
-                Roles r2 = new Roles();
-                r2.Id = i + 1;
-                r2.Name = roles[i].Name;
-                roles2.Add(r2);
-            }
-            ViewBag.Roles = roles2;
+            var ok_setup = _db.ok_setup.ToArray();
+
+            ViewBag.Roles = roles;
+            ViewBag.Ok_setup = ok_setup;
 
             if (result.Succeeded)
             {
@@ -56,6 +42,47 @@ namespace InsuredTraveling.Controllers
                 return View("Index");
             }
             ViewBag.AddRoleMsg = "NOk";
+            return View("Index");
+        }
+
+        [HttpPost]
+        [Route("AddOK_setup")]
+        public ActionResult AddOK_setup(ok_setup ok)
+        {
+            ViewBag.AddOk_SetupMsg = "OK";
+            try
+            {
+                _db.ok_setup.Add(ok);
+                _db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                ViewBag.AddOk_SetupMsg = ex.ToString();
+            }
+            
+
+            var ok_setup = _db.ok_setup.ToArray();
+            var roles = _db.aspnetroles.ToArray();
+
+            ViewBag.Roles = roles;
+            ViewBag.Ok_setup = ok_setup;
+            return View("Index");
+        }
+
+        [Route("Delete_OK_setup_Record")]
+        public ActionResult Delete_OK_setup_Record(int id)
+        {
+            var o = _db.ok_setup.Where(x => x.id == id);
+            if(o!=null)
+            {
+                _db.ok_setup.Remove(o.ToArray().First());
+                _db.SaveChanges();
+            }
+            var roles = _db.aspnetroles.ToArray();
+            var ok_setup = _db.ok_setup.ToArray();
+
+            ViewBag.Ok_setup = ok_setup;
+            ViewBag.Roles = roles;
             return View("Index");
         }
     }

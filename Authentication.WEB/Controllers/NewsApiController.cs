@@ -7,9 +7,10 @@ using System.Web.Http;
 
 namespace Authentication.WEB.Controllers
 {
+    [RoutePrefix("api/News")]
     public class NewsApiController : ApiController
     {
-
+        [Route("getLatestNews")]
         [HttpGet]
         public IHttpActionResult getLatestNews()
         {
@@ -26,12 +27,15 @@ namespace Authentication.WEB.Controllers
                 npom.id = n.ID;
                 npom.title = n.Title;
                 npom.content = n.Content;
+                npom.InsuranceCompany = n.InsuranceCompany;
+                
                 news.Add(npom);
             }
 
-            return Ok(new { News = news });
+            return Ok(new { News = eurolinkNews });
         }
 
+        [Route("getNotifications")]
         [HttpGet]
         public IHttpActionResult getNotifications(int lastReadID = -1)
         {

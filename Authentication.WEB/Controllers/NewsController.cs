@@ -21,16 +21,15 @@ namespace Authentication.WEB.Controllers
         public ActionResult AddNews(string newsTitle = null, string newsContent = null, bool newsIsNotification = false)
         {
             if (newsTitle == null || newsContent == null || newsTitle == "" || newsContent == "")
-                return Json(new { Success = "False", Message = "All fields are required" }, JsonRequestBehavior.AllowGet);
-            // SavaNewsEntities entities = new SavaNewsEntities();
-            // savanews news = new savanews();
+                return Json(new { Success = "False", Message = "All fields are required" }, JsonRequestBehavior.AllowGet);;
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
             news_all news = new news_all();
             news.Title = newsTitle;
             news.Content = newsContent;
             news.isNotification = newsIsNotification;
             news.DataCreated = DateTime.Now;
-            // entities.savanews.Add(news);
+            news.InsuranceCompany = "Eurolink";
+            news.ID = "2";
             entities.news_all.Add(news);
             try
             {

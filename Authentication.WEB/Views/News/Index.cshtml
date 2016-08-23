@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="col-sm-1">
                     <a href="#">
-                        <img style="width: 74px; height: 74px;" class="media-object" src="~/Images/savaLogo.png" alt="broken link">
+                        <img style="width: 74px; height: 74px;" class="media-object" src="@news.ImageLocation" alt="broken link">
                     </a>
                 </div>
                 <div id="buttons" class="col-sm-1">
@@ -111,7 +111,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "../SavaNews/AddNews",
+                url: "../News/AddNews",
                 data: {
                     "newsTitle": newsTitle,
                     "newsContent": newsContent,

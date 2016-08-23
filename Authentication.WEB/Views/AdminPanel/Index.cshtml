@@ -9,7 +9,7 @@
     <br />
     <ul class="nav nav-pills">
         <li class="active"><a data-toggle="pill" href="#home">Roles</a></li>
-        <li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
+        <li><a data-toggle="pill" href="#menu1">Ok_Setup</a></li>
         <li><a data-toggle="pill" href="#menu2">Menu 2</a></li>
         <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>
     </ul>
@@ -27,13 +27,15 @@
                 <tbody>
                     @if (ViewBag.Roles != null)
                     {
+                        int i =0;
                         foreach (var r in ViewBag.Roles)
                         {
                             <tr>
-                                <td>@r.Id</td>
+                                <td>@i</td>
                                 <td>@r.Name</td>
-                                <td><span class="glyphicon glyphicon-trash"></span></td>
+                                <td><a href=""><span class="glyphicon glyphicon-trash"></span></a></td>
                             </tr>
+                            i++;
                         }
                     }
                 </tbody>
@@ -60,10 +62,107 @@
             </form>
 
         </div>
+
+
         <div id="menu1" class="tab-pane fade">
-            <h3>Menu 1</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <h3>OK_Setup</h3>
+            <table class="table table-striped table-hover ">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ID</th>
+                        <th>SMS code seconds</th>
+                        <th>Number of attepmts[sms code]</th>
+                        <th>Number of news</th>
+                        <th>Notification time</th>
+                        <th>Number of Last messages</th>
+                        <th>Insurance Company</th>
+                        <th>Version number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Ok_setup != null)
+                    {
+                        int i = 0;
+                        foreach (var r in ViewBag.Ok_setup)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@r.id</td>
+                                <td>@r.Sms_Code_Seconds</td>
+                                <td>@r.NumberOfAttempts</td>
+                                <td>@r.NumberOfNews</td>
+                                <td>@r.NotificationTime</td>
+                                <td>@r.NumberOfLastMsg</td>
+                                <td>@r.InsuranceCompany</td>
+                                <td>@r.VersionNumber</td>
+                                <td><a href="/AdminPanel/Delete_OK_setup_Record?id=@r.id"><span class="glyphicon glyphicon-trash"></span></a></td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                </tbody>
+            </table>
+
+            <button class="btn btn-primary" onclick="AddOK_SetupRecord()">Add OK_Setup record</button>
+
+            <form id="addOK_setupForm" hidden method="post" action="@Url.Action("AddOK_setup")">
+                <div class="form-horizontal">
+                    <h4> Required fields *</h4>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Sms code seconds *:</label>
+                        <div class="col-md-10" style="margin-bottom:10px">
+                            <input type="text" class="form-control" name="Sms_Code_Seconds" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Number of attepmts *:</label>
+                        <div class="col-md-10" style="margin-bottom:10px">
+                            <input type="text" class="form-control" name="NumberOfAttempts" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Number of news *:</label>
+                        <div class="col-md-10" style="margin-bottom:10px">
+                            <input type="text" class="form-control" name="NumberOfNews" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Notification time *:</label>
+                        <div class="col-md-10" style="margin-bottom:10px">
+                            <input type="time" class="form-control" name="NotificationTime" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Number of last messages *:</label>
+                        <div class="col-md-10" style="margin-bottom:10px">
+                            <input type="text" class="form-control" name="NumberOfLastMsg" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Insurance Company *:</label>
+                        <div class="col-md-10" style="margin-bottom:10px">
+                            <input type="text" class="form-control" name="InsuranceCompany" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Version Number* :</label>
+                        <div class="col-md-10" style="margin-bottom:10px">
+                            <input type="text" class="form-control" name="VersionNumber" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4" style="margin-bottom:10px">
+                            <input type="submit" class="form-control btn btn-success" value="Add" />
+                        </div>
+                    </div>
+
+                </div>
+            </form>
         </div>
+
+
+
         <div id="menu2" class="tab-pane fade">
             <h3>Menu 2</h3>
             <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
@@ -78,5 +177,10 @@
 <script type="text/javascript">
     function AddRole() {
         $("#addRoleForm").toggle();
+    }
+    function AddOK_SetupRecord() {
+        $("#menu1").removeAttr('class');
+        $("#menu1").attr("class", "tab-pane fade in active");
+        $("#addOK_setupForm").toggle();      
     }
 </script>

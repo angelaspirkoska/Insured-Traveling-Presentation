@@ -150,11 +150,11 @@ namespace InsuredTraveling.Controllers
 
             if (postal_code2 != 0)
             {
-                var data = entities.clients.Where(x => x.EMBG.Contains(embg) &&
-                                                        x.FirstLastName.ToLower().Contains(name) &&
-                                                        x.StreetNumber.ToLower().Contains(address) &&
-                                                        x.MailAdress.ToLower().Contains(email) &&
-                                                        (x.PostalCode == postal_code2) &&
+                var data = entities.aspnetusers.Where(x => x.EMBG.Contains(embg) &&
+                                                        x.FirstName.ToLower().Contains(name) &&
+                                                        x.Address.ToLower().Contains(address) &&
+                                                        x.Email.ToLower().Contains(email) &&
+                                                        (x.PostalCode == postal_code2.ToString()) &&
                                                         x.PhoneNumber.Contains(phone) &&
                                                         x.EMBG.Contains(embg) &&
                                                         x.City.ToLower().Contains(city) &&
@@ -165,10 +165,10 @@ namespace InsuredTraveling.Controllers
             }
             else if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(embg) || !String.IsNullOrEmpty(address) || !String.IsNullOrEmpty(city) || !String.IsNullOrEmpty(email) || !String.IsNullOrEmpty(phone) || !String.IsNullOrEmpty(passport))
             {
-                var data = entities.clients.Where(x => x.EMBG.Contains(embg) &&
-                                                       x.FirstLastName.ToLower().Contains(name) &&
-                                                       x.StreetNumber.ToLower().Contains(address) &&
-                                                       x.MailAdress.ToLower().Contains(email) &&
+                var data = entities.aspnetusers.Where(x => x.EMBG.Contains(embg) &&
+                                                       x.FirstName.ToLower().Contains(name) &&
+                                                       x.Address.ToLower().Contains(address) &&
+                                                       x.Email.ToLower().Contains(email) &&
                                                        x.PhoneNumber.Contains(phone) &&
                                                        x.EMBG.Contains(embg) &&
                                                        x.City.ToLower().Contains(city) &&

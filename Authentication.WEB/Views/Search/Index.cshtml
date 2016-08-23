@@ -114,7 +114,7 @@
     <br />
     <br />
     <div class="col-md-12">
-        <form method="post" data-otf-ajax="true" data-otf-target="#rstList" action="@Url.Action("SearchClientsJson")" data-ajax-method="get" data-ajax-update="rstList">
+        <form method="post" data-otf-ajax="true" data-otf-target="#rstList" action="@Url.Action("SearchClientsJson")" data-ajax-method="post" data-ajax-update="rstList">
             <div class="row">
                 <input type="search" name="name" class="input-sm" placeholder="Search by name" />
                 <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" />
@@ -242,23 +242,21 @@
 
                             $.ajax(options).done(function (data) {
                                 var $target = $($form.attr("data-otf-target"));
-                                //  $target.replaceWith(data);
                                 var person1 = data.responseText.Data;
-                                //  alert(person1.Data[0].Adresa)
                                 var output = $("#searchResultClients");
                                 output.empty();
                                 for (var i = 0; i < person1.length ; i++) {
                                     var person = person1[i];
                                     output.append("<tr><td>"
-                                        + person.id + "</td><td>"
-                                        + person.FirstLastName + "</td><td>"
+                                        + person.Id + "</td><td>"
+                                        + person.FirstName + "</td><td>"
                                         + person.EMBG + "</td><td>"
-                                        + person.StreetNumber + "</td><td>"
+                                        + person.Address + "</td><td>"
                                         + person.City + "</td><td>"
                                         + person.PostalCode + "</td><td>"
                                         + person.PhoneNumber + "</td><td>"
-                                        + person.MailAdress + "</td><td>"
-                                        + person.PassportNumber + "</td> </tr>");
+                                        + person.Email + "</td><td>"
+                                        + person.PassportNumber + "</td></tr>");
                                 }
                             });
                             return false;

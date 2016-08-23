@@ -14,7 +14,7 @@ namespace Authentication.WEB.Services
             string n = "[notification]";
 
             using (ImapClient client = new ImapClient("imap.zoho.com", 993,
-                "eurolink@optimalreinsurance.com", "Eurolink1234", AuthMethod.Login, true))
+                "info@optimalreinsurance.com", "Enter4Sy", AuthMethod.Login, true))
             {
                 IEnumerable<uint> uids = client.Search(SearchCondition.Unseen());
 
@@ -26,6 +26,9 @@ namespace Authentication.WEB.Services
                     news.Title = message.Subject.Trim();
                     news.Content = message.Body.Trim();
                     news.DataCreated = DateTime.Now;
+                    news.InsuranceCompany = "Eurolink";
+                    Random r = new Random();
+                    news.ID = r.Next(10000, 99999).ToString();
                     if (message.Subject.ToLower().StartsWith(n))
                         news.isNotification = true;
                     else
