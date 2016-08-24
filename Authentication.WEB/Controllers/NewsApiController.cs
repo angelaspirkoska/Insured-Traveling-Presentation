@@ -24,7 +24,7 @@ namespace Authentication.WEB.Controllers
             foreach (news_all n in eurolinkNews)
             {
                 News npom = new News();
-                npom.id = n.ID;
+                npom.id = n.ID.ToString();
                 npom.title = n.Title;
                 npom.content = n.Content;
                 npom.InsuranceCompany = n.InsuranceCompany;
@@ -45,7 +45,7 @@ namespace Authentication.WEB.Controllers
             MailNewsService mailNewsService = new MailNewsService();
             mailNewsService.getUnreadEmails();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            news_all lastReadNews = entities.news_all.Where(x => x.ID == lastReadID.ToString()).FirstOrDefault();
+            news_all lastReadNews = entities.news_all.Where(x => x.ID == lastReadID).FirstOrDefault();
             IQueryable<news_all> unreadNews;
             if (lastReadNews == null)
                 unreadNews = entities.news_all.OrderByDescending(x => x.DataCreated).Take(10);
@@ -62,7 +62,7 @@ namespace Authentication.WEB.Controllers
                 if ((bool)n.isNotification)
                 {
                     News npom = new News();
-                    npom.id = n.ID;
+                    npom.id = n.ID.ToString();
                     npom.title = n.Title;
                     npom.content = n.Content;
                     notifications.Add(npom);

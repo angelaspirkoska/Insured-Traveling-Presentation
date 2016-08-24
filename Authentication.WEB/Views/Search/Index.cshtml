@@ -14,10 +14,10 @@
 
 
 <!--Table search result of policies -->
-<div class="col-md-12 col-sm-12 container" id="searchPolycies">
+<div class="container" id="searchPolycies">
     <br />
     <br />
-    <div class="col-md-12">
+    <div class="row">
         <form method="post" data-otf-ajax="true" data-otf-target="#rstList" action="@Url.Action("SearchPolyciesJson")" data-ajax-method="get" data-ajax-update="rstList">
             <div class="row">
                 <input type="search" name="name" class="input-sm" placeholder="Search by name" />
@@ -87,34 +87,36 @@
     <br />
     <br />
     <br />
-    <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePolicies">
-        <thead>
-            <tr>
-                <th>Број на полиса</th>
-                <th>Име и презиме</th>
-                <th>Матичен број</th>
-                <th>Земја на патување</th>
-                <th>Вид полиса</th>
-                <th>Важи од</th>
-                <th>Важи до</th>
-                <th>Адреса</th>
-                <th>Овластена агенција</th>
-                <th>Датум на издавање</th>
-                <th>Датум на сторнирање</th>
-                <th>Статус</th>
-                <th>Референт</th>
-            </tr>
-        </thead>
-        <tbody id="searchResultPolycies"></tbody>
-    </table>
+   <div class="row">
+       <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePolicies">
+           <thead>
+               <tr>
+                   <th>Број на полиса</th>
+                   <th>Име и презиме</th>
+                   <th>Матичен број</th>
+                   <th>Земја на патување</th>
+                   <th>Вид полиса</th>
+                   <th>Важи од</th>
+                   <th>Важи до</th>
+                   <th>Адреса</th>
+                   <th>Овластена агенција</th>
+                   <th>Датум на издавање</th>
+                   <th>Датум на сторнирање</th>
+                   <th>Статус</th>
+                   <th>Референт</th>
+               </tr>
+           </thead>
+           <tbody id="searchResultPolycies"></tbody>
+       </table>
+   </div>
 </div>
 
 <!--Table search result of clients -->
-<div class="col-md-12 col-sm-12 container" id="searchClients">
+<div class="container" id="searchClients">
     <br />
     <br />
-    <div class="col-md-12">
-        <form method="post" data-otf-ajax="true" data-otf-target="#rstList" action="@Url.Action("SearchClientsJson")" data-ajax-method="post" data-ajax-update="rstList">
+    <div class="row">
+        <form method="post" data-otf-ajax="true" data-otf-target="#rstList" @*action="@Url.Action("SearchClientsJson")"*@ data-ajax-method="post" data-ajax-update="rstList">
             <div class="row">
                 <input type="search" name="name" class="input-sm" placeholder="Search by name" />
                 <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" />
@@ -126,153 +128,172 @@
                 <input type="search" name="passport" class="input-sm" placeholder="Search by passport" />
             </div>
             <br />
-            <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchClients()" type="submit" />
+            <input id="btnSubmit" class="btn btn-primary" value="Search" @*onclick="SearchClients()"*@ type="submit" />
             <br />
         </form>
     </div>
     <br />
     <br />
     <br />
-    <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableClients">
-        <thead>
-            <tr>
-                <th>Број на клиент</th>
-                <th>Име и презиме</th>
-                <th>Матичен број</th>
-                <th>Улица</th>
-                <th>Град</th>
-                <th>Поштенски број</th>
-                <th>Телефонски број</th>
-                <th>Емаил адресa</th>
-                <th>Број на пасош</th>
-            </tr>
-        </thead>
-        <tbody id="searchResultClients"></tbody>
-    </table>
+    <div class="row">
+        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableClients">
+            <thead>
+                <tr>
+                    <th>Број на клиент</th>
+                    <th>Име и презиме</th>
+                    <th>Матичен број</th>
+                    <th>Улица</th>
+                    <th>Град</th>
+                    <th>Поштенски број</th>
+                    <th>Телефонски број</th>
+                    <th>Емаил адресa</th>
+                    <th>Број на пасош</th>
+                </tr>
+            </thead>
+            <tbody id="searchResultClients"></tbody>
+        </table>
+    </div>
 </div>
+
 
 <script type="text/javascript">
 
-                    $(document).ready(function () {
-                        var nowDate = new Date();
-                        var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
-                        $("#searchClients").hide();
-                        $("#tablePolicies").tablesorter();
-                    });
+    $(document).ready(function () {
+        var nowDate = new Date();
+        var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
+        $("#searchClients").hide();
+        $("#tablePolicies").DataTable();
+        $("#tableClients").DataTable({
+            dom: "Bfrtip",
+            ajax: "http://localhost:19655/Search/GetUsers",
+            columns: [
+                { data: "Id" },
+                { data: "FirstName" },
+                { data: "EMBG" },
+                { data: "Address" },
+                { data: "City" },
+                { data: "PostalCode" },
+                { data: "PhoneNumber" },
+                { data: "Email" },
+                { data: "PassportNumber" }
+            ],
+            select: true
 
-                    $("#DateI").focusout(function () {
-                        var Sdat = $("#DateI").val();
-                        $("#startDate").attr('min', Sdat);
-                        $("#endDate").attr('min', Sdat);
-                        $("#DateS").attr('min', Sdat);
+            //buttons: [
+            //    { extend: "create", editor: editor },
+            //    { extend: "edit", editor: editor },
+            //    { extend: "remove", editor: editor }
+            //]
+        });
+    });
 
-                    });
+    $("#DateI").focusout(function () {
+        var Sdat = $("#DateI").val();
+        $("#startDate").attr('min', Sdat);
+        $("#endDate").attr('min', Sdat);
+        $("#DateS").attr('min', Sdat);
 
-                    $("#endDate").focusout(function () {
-                        var Edat = $("#endDate").val();
-                        $("#DateS").attr('max', Edat);
-                        $("#startDate").attr('max', Edat);
-                    });
+    });
 
-                    function ShowClients() {
-                        $("#searchPolycies").hide();
-                        $("#searchClients").show();
-                        $("#polycies").removeAttr("class");
-                        $("#clients").attr("class", "active");
-                        $("#searchResultClients").empty();
-                    };
+    $("#endDate").focusout(function () {
+        var Edat = $("#endDate").val();
+        $("#DateS").attr('max', Edat);
+        $("#startDate").attr('max', Edat);
+    });
 
-                    function ShowPolycies() {
-                        $("#searchPolycies").show();
-                        $("#searchClients").hide();
-                        $("#clients").removeAttr("class");
-                        $("#polycies").attr("class", "active");
-                        $("#searchResultPolycies").empty();
-                    };
+    function ShowClients() {
+        $("#searchPolycies").hide();
+        $("#searchClients").show();
+        $("#polycies").removeAttr("class");
+        $("#clients").attr("class", "active");
+        $("#searchResultClients").empty();
+    };
 
-                    function SearchPolycies(){
-                        var ajaxFormSubmit = function () {
-                            var $form = $(this);
-                            var options = {
-                                url: $form.attr("action"),
-                                type: $form.attr("method"),
-                                data: $form.serialize()
-                            };
+    function ShowPolycies() {
+        $("#searchPolycies").show();
+        $("#searchClients").hide();
+        $("#clients").removeAttr("class");
+        $("#polycies").attr("class", "active");
+        $("#searchResultPolycies").empty();
+    };
 
-                         $.ajax(options).done(function (data) {
-                                var $target = $($form.attr("data-otf-target"));
-                                //  $target.replaceWith(data);
-                                var person1 = data.responseText.Data;
-                                //  alert(person1.Data[0].Adresa)
-                                var output = $("#searchResultPolycies");
-                                output.empty();
-                                for (var i = 0; i < person1.length ; i++) {
-                                    var person = person1[i];
-                                    output.append("<tr><td>"
-                                        + person.Polisa_Broj + "</td><td>"
-                                        + person.Ime_I_Prezime + "</td><td>"
-                                        + person.EMBG + "</td><td>"
-                                        + person.Zemja_Na_Patuvanje + "</td><td>"
-                                        + person.Vid_Polisa + "</td><td>"
-                                        + person.Zapocnuva_Na + "</td><td>"
-                                        + person.Zavrsuva_Na + "</td><td>"
-                                        + person.Adresa + "</td><td>"
-                                        + person.Ovlastena_Agencija + "</td><td>"
-                                        + person.Datum_Na_Izdavanje + "</td><td>"
-                                        + person.Datum_Na_Storniranje + "</td><td>"
-                                        + person.Status + "</td><td>"
-                                        + person.Referent + "</td> </tr>");
-                                }
-                            });
-                            return false;
-                        }
+    function SearchPolycies() {
+        var ajaxFormSubmit = function () {
+            var $form = $(this);
+            var options = {
+                url: $form.attr("action"),
+                type: $form.attr("method"),
+                data: $form.serialize()
+            };
 
-                        $("form[data-otf-ajax='true']").submit(ajaxFormSubmit);
+            $.ajax(options).done(function (data) {
+                var $target = $($form.attr("data-otf-target"));
+                //  $target.replaceWith(data);
+                var person1 = data.responseText.Data;
+                //  alert(person1.Data[0].Adresa)
+                var output = $("#searchResultPolycies");
+                output.empty();
+                for (var i = 0; i < person1.length ; i++) {
+                    var person = person1[i];
+                    output.append("<tr><td>"
+                        + person.Polisa_Broj + "</td><td>"
+                        + person.Ime_I_Prezime + "</td><td>"
+                        + person.EMBG + "</td><td>"
+                        + person.Zemja_Na_Patuvanje + "</td><td>"
+                        + person.Vid_Polisa + "</td><td>"
+                        + person.Zapocnuva_Na + "</td><td>"
+                        + person.Zavrsuva_Na + "</td><td>"
+                        + person.Adresa + "</td><td>"
+                        + person.Ovlastena_Agencija + "</td><td>"
+                        + person.Datum_Na_Izdavanje + "</td><td>"
+                        + person.Datum_Na_Storniranje + "</td><td>"
+                        + person.Status + "</td><td>"
+                        + person.Referent + "</td> </tr>");
+                }
+            });
+            return false;
+        }
 
-                    };
+        $("form[data-otf-ajax='true']").submit(ajaxFormSubmit);
+    };
 
-                    function SearchClients() {
-                        var ajaxFormSubmit = function () {
-                            var $form = $(this);
-                            var options = {
-                                url: $form.attr("action"),
-                                type: $form.attr("method"),
-                                data: $form.serialize()
-                            };
+    function SearchClients() {
+        var ajaxFormSubmit = function () {
+            var $form = $(this);
+            var options = {
+                url: $form.attr("action"),
+                type: $form.attr("method"),
+                data: $form.serialize()
+            };
 
-                            $.ajax(options).done(function (data) {
-                                var $target = $($form.attr("data-otf-target"));
-                                var person1 = data.responseText.Data;
-                                var output = $("#searchResultClients");
-                                output.empty();
-                                for (var i = 0; i < person1.length ; i++) {
-                                    var person = person1[i];
-                                    output.append("<tr><td>"
-                                        + person.Id + "</td><td>"
-                                        + person.FirstName + "</td><td>"
-                                        + person.EMBG + "</td><td>"
-                                        + person.Address + "</td><td>"
-                                        + person.City + "</td><td>"
-                                        + person.PostalCode + "</td><td>"
-                                        + person.PhoneNumber + "</td><td>"
-                                        + person.Email + "</td><td>"
-                                        + person.PassportNumber + "</td></tr>");
-                                }
-                            });
-                            return false;
-                        }
+            $.ajax(options).done(function (data) {
+                var $target = $($form.attr("data-otf-target"));
+                var person1 = data.responseText.Data;
+                var output = $("#searchResultClients");
+                output.empty();
+                for (var i = 0; i < person1.length ; i++) {
+                    var person = person1[i];
+                    output.append("<tr><td>"
+                        + person.Id + "</td><td>"
+                        + person.FirstName + "</td><td>"
+                        + person.EMBG + "</td><td>"
+                        + person.Address + "</td><td>"
+                        + person.City + "</td><td>"
+                        + person.PostalCode + "</td><td>"
+                        + person.PhoneNumber + "</td><td>"
+                        + person.Email + "</td><td>"
+                        + person.PassportNumber + "</td></tr>");
+                }
+            });
+            return false;
+        }
 
-                        $("form[data-otf-ajax='true']").submit(ajaxFormSubmit);
+        $("form[data-otf-ajax='true']").submit(ajaxFormSubmit);
 
-                    };
+    };
 
 </script>
 
-<br />
-<br />
-<br />
-<br />
-<br />
 
 
 

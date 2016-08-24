@@ -29,7 +29,6 @@ namespace Authentication.WEB.Controllers
             news.isNotification = newsIsNotification;
             news.DataCreated = DateTime.Now;
             news.InsuranceCompany = "Eurolink";
-            news.ID = "2";
             entities.news_all.Add(news);
             try
             {
@@ -48,7 +47,7 @@ namespace Authentication.WEB.Controllers
             //SavaNewsEntities entities = new SavaNewsEntities();
             //savanews newsForDelete = entities.savanews.Where(x => x.ID == newsId).FirstOrDefault();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            news_all newsForDelete = entities.news_all.Where(x => x.ID == newsId.ToString()).FirstOrDefault();
+            news_all newsForDelete = entities.news_all.Where(x => x.ID == newsId).FirstOrDefault();
             if (newsForDelete == null)
                 return Json(new { Success = "False", Message = "Database problem" }, JsonRequestBehavior.AllowGet);
 

@@ -12,7 +12,6 @@
         <EntityTypeShape EntityType="db_9eb138_travelModel.client" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.client1" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.eurolinkuser" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.news_all" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.ok_setup" Width="1.75" PointX="6.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.p_den" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.p_denovi" Width="1.5" PointX="8.75" PointY="2.75" IsExpanded="true" />
@@ -33,6 +32,7 @@
         <EntityTypeShape EntityType="db_9eb138_travelModel.user" Width="1.5" PointX="8.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuserlogin" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.transaction" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.news_all" Width="1.5" PointX="5.375" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

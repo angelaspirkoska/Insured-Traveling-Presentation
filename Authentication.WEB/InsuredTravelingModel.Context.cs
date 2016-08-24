@@ -32,7 +32,6 @@ namespace InsuredTraveling
         public virtual DbSet<client> clients { get; set; }
         public virtual DbSet<client1> clients1 { get; set; }
         public virtual DbSet<eurolinkuser> eurolinkusers { get; set; }
-        public virtual DbSet<news_all> news_all { get; set; }
         public virtual DbSet<ok_setup> ok_setup { get; set; }
         public virtual DbSet<p_den> p_den { get; set; }
         public virtual DbSet<p_denovi> p_denovi { get; set; }
@@ -53,5 +52,6 @@ namespace InsuredTraveling
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<aspnetuserlogin> aspnetuserlogins { get; set; }
         public virtual DbSet<transaction> transactions { get; set; }
+        public virtual DbSet<news_all> news_all { get; set; }
     }
 }

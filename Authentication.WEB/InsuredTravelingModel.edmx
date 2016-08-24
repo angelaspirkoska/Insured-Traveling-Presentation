@@ -113,7 +113,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="ImageLocation" Type="text" />
           <Property Name="Content" Type="text" Nullable="false" />
@@ -533,20 +533,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Password" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Roles" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <EntityType Name="news_all">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ImageLocation" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Content" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="isNotification" Type="Boolean" Nullable="false" />
-          <Property Name="DataCreated" Type="DateTime" Nullable="false" />
-          <Property Name="InsuranceCompany" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="GroupID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="UserID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="ok_setup">
           <Key>
             <PropertyRef Name="id" />
@@ -823,7 +809,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="clients" EntityType="Self.client" />
           <EntitySet Name="clients1" EntityType="Self.client1" />
           <EntitySet Name="eurolinkusers" EntityType="Self.eurolinkuser" />
-          <EntitySet Name="news_all" EntityType="Self.news_all" />
           <EntitySet Name="ok_setup" EntityType="Self.ok_setup" />
           <EntitySet Name="p_den" EntityType="Self.p_den" />
           <EntitySet Name="p_denovi" EntityType="Self.p_denovi" />
@@ -844,7 +829,22 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="users" EntityType="Self.user" />
           <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogin" />
           <EntitySet Name="transactions" EntityType="Self.transaction" />
+          <EntitySet Name="news_all" EntityType="db_9eb138_travelModel.news_all" />
         </EntityContainer>
+        <EntityType Name="news_all">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ImageLocation" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="isNotification" Type="Boolean" Nullable="false" />
+          <Property Name="DataCreated" Type="DateTime" Nullable="false" />
+          <Property Name="InsuranceCompany" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="GroupID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -946,21 +946,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Roles" ColumnName="Roles" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="news_all">
-            <EntityTypeMapping TypeName="db_9eb138_travelModel.news_all">
-              <MappingFragment StoreEntitySet="news_all">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ImageLocation" ColumnName="ImageLocation" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="isNotification" ColumnName="isNotification" />
-                <ScalarProperty Name="DataCreated" ColumnName="DataCreated" />
-                <ScalarProperty Name="InsuranceCompany" ColumnName="InsuranceCompany" />
-                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1233,6 +1218,21 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="ErrMsg" ColumnName="ErrMsg" />
                 <ScalarProperty Name="HASH" ColumnName="HASH" />
                 <ScalarProperty Name="Ime_I__Prezime" ColumnName="Ime_I_ Prezime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="news_all">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.news_all">
+              <MappingFragment StoreEntitySet="news_all">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="InsuranceCompany" ColumnName="InsuranceCompany" />
+                <ScalarProperty Name="DataCreated" ColumnName="DataCreated" />
+                <ScalarProperty Name="isNotification" ColumnName="isNotification" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ImageLocation" ColumnName="ImageLocation" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

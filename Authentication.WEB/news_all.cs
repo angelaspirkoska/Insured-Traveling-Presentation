@@ -14,7 +14,7 @@ namespace InsuredTraveling
     
     public partial class news_all
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string Title { get; set; }
         public string ImageLocation { get; set; }
         public string Content { get; set; }

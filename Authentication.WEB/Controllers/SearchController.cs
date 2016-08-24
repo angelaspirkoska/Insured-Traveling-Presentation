@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -135,6 +136,7 @@ namespace InsuredTraveling.Controllers
 
         }
 
+        [Route("SearchClientsJson")]
         public JsonResult SearchClientsJson(string name, string embg, string address, string city, string postal_code, string phone, string email, string passport)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
@@ -150,7 +152,7 @@ namespace InsuredTraveling.Controllers
 
             if (postal_code2 != 0)
             {
-                var data = entities.aspnetusers.Where(x => x.EMBG.Contains(embg) &&
+                var data = entities.aspnetusers.Where(x =>  x.EMBG.Contains(embg) &&
                                                         x.FirstName.ToLower().Contains(name) &&
                                                         x.Address.ToLower().Contains(address) &&
                                                         x.Email.ToLower().Contains(email) &&
@@ -179,6 +181,34 @@ namespace InsuredTraveling.Controllers
             }
 
             return new JsonResult { };
+        }
+
+        [HttpGet]
+        [Route("GetUsers")]
+        public JObject GetUsers()
+        {
+            InsuredTravelingEntity db = new InsuredTravelingEntity();
+            var data = db.aspnetusers.ToArray();
+            var j = new JObject();
+            var data1 = new JArray();
+            foreach(var v in data)
+            {
+                var j1 = new JObject();
+                j1.Add("Id", v.Id);
+                j1.Add("FirstName", v.FirstName);
+                j1.Add("Email", v.Email);
+                j1.Add("PostalCode", v.PostalCode);
+                j1.Add("PassportNumber", v.PassportNumber);
+                j1.Add("PhoneNumber", v.PhoneNumber);
+                j1.Add("Address", v.Address);
+                j1.Add("EMBG", v.EMBG);
+                j1.Add("City", v.City);
+                data1.Add(j1);
+            }
+            j.Add("data", data1);
+            return j;
+            //var jsonData = Json(data, JsonRequestBehavior.AllowGet);
+            //return Json(new { success = true, responseText = jsonData }, JsonRequestBehavior.AllowGet);
         }
     }
 }

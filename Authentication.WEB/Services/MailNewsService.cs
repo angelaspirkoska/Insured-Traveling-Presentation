@@ -28,7 +28,7 @@ namespace Authentication.WEB.Services
                     news.DataCreated = DateTime.Now;
                     news.InsuranceCompany = "Eurolink";
                     Random r = new Random();
-                    news.ID = r.Next(10000, 99999).ToString();
+                    news.ID = r.Next(10000, 99999);
                     if (message.Subject.ToLower().StartsWith(n))
                         news.isNotification = true;
                     else
