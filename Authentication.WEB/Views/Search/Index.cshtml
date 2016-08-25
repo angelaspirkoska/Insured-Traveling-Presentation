@@ -1,5 +1,5 @@
 ﻿@{HtmlHelper.UnobtrusiveJavaScriptEnabled = true;}
-
+@model InsuredTravelingEntity
 @{
     ViewBag.Title = "Search";
 }
@@ -10,6 +10,7 @@
 <ul class="nav nav-pills">
     <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">Полиси</a></li>
     <li id="clients"><a href="#" onclick="ShowClients()">Клиенти</a></li>
+    <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">Штети </a></li>
 </ul>
 
 
@@ -18,29 +19,22 @@
     <br />
     <br />
     <div class="row">
-        <form method="post" data-otf-ajax="true" data-otf-target="#rstList" action="@Url.Action("SearchPolyciesJson")" data-ajax-method="get" data-ajax-update="rstList">
+        <form method="post" style="margin-left: 20px">
             <div class="row">
-                <input type="search" name="name" class="input-sm" placeholder="Search by name" />
-                <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" />
-                <input type="search" name="land" class="input-sm" placeholder="Search by Land" />
-                <input type="search" name="address" class="input-sm" placeholder="Search by Address" />
-                <input type="search" name="agency" class="input-sm" placeholder="Search by Agency" />
+                <input type="search" id="namePolicy" class="input-sm" placeholder="Search by name" />
+                <input type="search" id="embgPolicy" class="input-sm" placeholder="Search by EMBG" />
+                <input type="search" id="land" class="input-sm" placeholder="Search by Land" />
+                <input type="search" id="addressPolicy" class="input-sm" placeholder="Search by Address" />
+                <input type="search" id="agency" class="input-sm" placeholder="Search by Agency" />
                 <div class="form-inline row">
                     <div class="form-group">
                         <label for="vidPolisa">Вид полиса :</label>
-                        <select class="form-control" name="TypePolycies" id="TypePolycies">
-                            <option>--Select type of policies--</option>
-                            <option value="comfort">Comfort</option>
-                            <option value="normal">Normal</option>
-                            <option value="visa">Visa</option>
-                            <option value="visagr">VisaGr</option>
-                            <option value="visaSosedi">VisaSosedi</option>
-                        </select>
+                        @Html.DropDownListFor(model => model.patnickoes, (List<SelectListItem>)ViewBag.TypeOfPolicy, "-- Type of policy --", new { @class = "form-control", name = "TypePolycies", id = "TypePolycies" })
                     </div>
                     <div class="form-group col-sm-3">
                         <label for="startDate">Датум на важење од:</label>
-                        <input type="date" name="startDate" class="form-control placeholder" id="startDate" />
-                        <select name="operatorStartDate">
+                        <input type="date" id="startDate" class="form-control placeholder" />
+                        <select id="operatorStartDate">
                             <option>&lt</option>
                             <option>=</option>
                             <option>&gt</option>
@@ -49,7 +43,7 @@
                     <div class="form-group col-sm-3">
                         <label for="endDate">Датум на завршување на важење:</label>
                         <input type="date" name="endDate" class="form-control" id="endDate" />
-                        <select name="operatorEndDate">
+                        <select id="operatorEndDate">
                             <option>&lt</option>
                             <option>=</option>
                             <option>&gt</option>
@@ -61,8 +55,8 @@
                 <div class="form-inline row">
                     <div class="form-group col-sm-3">
                         <label for="startDate">Датум на издавање:</label>
-                        <input type="date" name="dateI" class="form-control placeholder" id="DateI" />
-                        <select name="operatorDateI">
+                        <input type="date" class="form-control placeholder" id="dateI" />
+                        <select id="operatorDateI">
                             <option>&lt</option>
                             <option>=</option>
                             <option>&gt</option>
@@ -70,8 +64,8 @@
                     </div>
                     <div class="form-group col-sm-3">
                         <label for="endDate">Датум на сторнирање:</label>
-                        <input type="date" name="dateS" class="form-control" id="DateS" />
-                        <select name="operatorDateS">
+                        <input type="date" id="dateS" class="form-control" />
+                        <select id="operatorDateS">
                             <option>&lt</option>
                             <option>=</option>
                             <option>&gt</option>
@@ -80,7 +74,7 @@
                 </div>
             </div>
             <br />
-            <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchPolycies()" type="submit" />
+            <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchPolycies()" type="button" />
             <br />
         </form>
     </div>
@@ -116,19 +110,19 @@
     <br />
     <br />
     <div class="row">
-        <form method="post" data-otf-ajax="true" data-otf-target="#rstList" @*action="@Url.Action("SearchClientsJson")"*@ data-ajax-method="post" data-ajax-update="rstList">
+        <form method="post" style="margin-left:20px;">
             <div class="row">
-                <input type="search" name="name" class="input-sm" placeholder="Search by name" />
-                <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" />
-                <input type="search" name="address" class="input-sm" placeholder="Search by Address" />
-                <input type="search" name="city" class="input-sm" placeholder="Search by City" />
-                <input type="search" name="postal_code" class="input-sm" placeholder="Search by postal code" />
-                <input type="search" name="phone" class="input-sm" placeholder="Search by phone number" />
-                <input type="search" name="email" class="input-sm" placeholder="Search by email" />
-                <input type="search" name="passport" class="input-sm" placeholder="Search by passport" />
+                <input type="search" name="name" class="input-sm" placeholder="Search by name" id="name"/>
+                <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" id="embg" />
+                <input type="search" name="address" class="input-sm" placeholder="Search by Address" id="address" />
+                <input type="search" name="city" class="input-sm" placeholder="Search by City" id="city"/>
+                <input type="search" name="postal_code" class="input-sm" placeholder="Search by postal code" id="postal_code" />
+                <input type="search" name="phone" class="input-sm" placeholder="Search by phone number" id="phone" />
+                <input type="search" name="email" class="input-sm" placeholder="Search by email" id="email" />
+                <input type="search" name="passport" class="input-sm" placeholder="Search by passport" id="passport" />
             </div>
             <br />
-            <input id="btnSubmit" class="btn btn-primary" value="Search" @*onclick="SearchClients()"*@ type="submit" />
+            <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchClients()" type="button" />
             <br />
         </form>
     </div>
@@ -155,6 +149,73 @@
     </div>
 </div>
 
+<!--Table search result of first notice of loss -->
+<div class="container" id="searchFNOL">
+    <br />
+    <br />
+    <div class="row">
+        <form method="post" style="margin-left:20px;">
+            <div class="row">
+                <input type="search" name="name" class="input-sm" placeholder="Search by name" id="name" />
+                <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" id="embg" />
+                <input type="search" name="address" class="input-sm" placeholder="Search by Address" id="address" />
+                <input type="search" name="city" class="input-sm" placeholder="Search by City" id="city" />
+                <input type="search" name="postal_code" class="input-sm" placeholder="Search by postal code" id="postal_code" />
+                <input type="search" name="phone" class="input-sm" placeholder="Search by phone number" id="phone" />
+                <input type="search" name="email" class="input-sm" placeholder="Search by email" id="email" />
+                <input type="search" name="passport" class="input-sm" placeholder="Search by passport" id="passport" />
+            </div>
+            <br />
+            <input  class="btn btn-primary" value="Search" onclick="SearchFNOL()" type="button" />
+            <br />
+        </form>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableFNOL">
+            <thead>
+                <tr>
+                    <th>Број на штета</th>
+                    <th>Име и презиме на осигуреник</th>
+                    <th>Адреса на осигуреник</th>
+                    <th>Телефон на осигуреник</th>
+                    <th>ЕМБГ на осигуреникот</th>
+                    <th>Трансакциска сметка на осигуреникот</th>
+                    <th>Депонент банка на осигуреникот</th>
+                    <th>Име и презиме на оштетениот</th>
+                    <th>Адреса на оштетениот</th>
+                    <th>Телефон на оштетениот</th>
+                    <th>ЕМБГ на оштетениот</th>
+                    <th>Трансакциска сметка на оштетениот</th>
+                    <th>Депонент банка на оштетениот</th>
+                    <th>Сродство на оштетениот со осигуреникот</th>
+                    <th>Место на патување</th>
+                    <th>Датум на заминување</th>
+                    <th>Датум на враќање</th>
+                    <th>Превозно средство</th>
+                    <th>Датум на незгодата</th>
+                    <th>Место на незгодата</th>
+                    <th>Прв контакт со доктор</th>
+                    <th>Податоци за докторот</th>
+                    <th>Опис за болеста</th>
+                    <th>Документи (Здраствено осигурување)</th>
+                    <th>Датум на штетата (Осигурување на багаж)</th>
+                    <th>Место на штетата(Осигурување на багаж)</th>
+                    <th>Опис на настанот</th>
+                    <th>Опис на украдени/оштетени предмети и нивната вредност</th>
+                    <th>Документи(Осигурување на багаж)</th>
+                    <th>Фактури</th>
+                    <th>Вкупна цена на трошоците</th>
+                    <th>Датум на пријавување</th>
+
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
 
 <script type="text/javascript">
 
@@ -162,29 +223,10 @@
         var nowDate = new Date();
         var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
         $("#searchClients").hide();
+        $("#searchFNOL").hide();
+        $("#tableClients").DataTable().destroy();
+        $("#tableClients").DataTable();
         $("#tablePolicies").DataTable();
-        $("#tableClients").DataTable({
-            dom: "Bfrtip",
-            ajax: "http://localhost:19655/Search/GetUsers",
-            columns: [
-                { data: "Id" },
-                { data: "FirstName" },
-                { data: "EMBG" },
-                { data: "Address" },
-                { data: "City" },
-                { data: "PostalCode" },
-                { data: "PhoneNumber" },
-                { data: "Email" },
-                { data: "PassportNumber" }
-            ],
-            select: true
-
-            //buttons: [
-            //    { extend: "create", editor: editor },
-            //    { extend: "edit", editor: editor },
-            //    { extend: "remove", editor: editor }
-            //]
-        });
     });
 
     $("#DateI").focusout(function () {
@@ -203,92 +245,73 @@
 
     function ShowClients() {
         $("#searchPolycies").hide();
+        $("#searchFNOL").hide();
         $("#searchClients").show();
         $("#polycies").removeAttr("class");
+        $("#first_notice_of_loss").removeAttr("class");
         $("#clients").attr("class", "active");
-        $("#searchResultClients").empty();
     };
 
     function ShowPolycies() {
         $("#searchPolycies").show();
+        $("#searchFNOL").hide();
         $("#searchClients").hide();
         $("#clients").removeAttr("class");
+        $("#first_notice_of_loss").removeAttr("class");
         $("#polycies").attr("class", "active");
-        $("#searchResultPolycies").empty();
+    };
+
+    function ShowFNOL() {
+        $("#searchPolycies").hide();
+        $("#searchFNOL").show();
+        $("#searchClients").hide();
+        $("#clients").removeAttr("class");
+        $("#polycies").removeAttr("class");
+        $("#first_notice_of_loss").attr("class", "active");
     };
 
     function SearchPolycies() {
-        var ajaxFormSubmit = function () {
-            var $form = $(this);
-            var options = {
-                url: $form.attr("action"),
-                type: $form.attr("method"),
-                data: $form.serialize()
-            };
-
-            $.ajax(options).done(function (data) {
-                var $target = $($form.attr("data-otf-target"));
-                //  $target.replaceWith(data);
-                var person1 = data.responseText.Data;
-                //  alert(person1.Data[0].Adresa)
-                var output = $("#searchResultPolycies");
-                output.empty();
-                for (var i = 0; i < person1.length ; i++) {
-                    var person = person1[i];
-                    output.append("<tr><td>"
-                        + person.Polisa_Broj + "</td><td>"
-                        + person.Ime_I_Prezime + "</td><td>"
-                        + person.EMBG + "</td><td>"
-                        + person.Zemja_Na_Patuvanje + "</td><td>"
-                        + person.Vid_Polisa + "</td><td>"
-                        + person.Zapocnuva_Na + "</td><td>"
-                        + person.Zavrsuva_Na + "</td><td>"
-                        + person.Adresa + "</td><td>"
-                        + person.Ovlastena_Agencija + "</td><td>"
-                        + person.Datum_Na_Izdavanje + "</td><td>"
-                        + person.Datum_Na_Storniranje + "</td><td>"
-                        + person.Status + "</td><td>"
-                        + person.Referent + "</td> </tr>");
-                }
-            });
-            return false;
-        }
-
-        $("form[data-otf-ajax='true']").submit(ajaxFormSubmit);
+        $("#tablePolicies").DataTable().destroy();
+        $("#tablePolicies").DataTable({
+            dom: "Bfrtip",
+            ajax: "http://localhost:19655/Search/GetPolicies?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolycies=" + $("#TypePolycies").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val(),
+            columns: [
+                { data: "Polisa_Broj" },
+                { data: "Ime_I_Prezime" },
+                { data: "EMBG" },
+                { data: "Zemja_Na_Patuvanje" },
+                { data: "Vid_Polisa" },
+                { data: "Zapocnuva_Na" },
+                { data: "Zavrsuva_Na" },
+                { data: "Adresa" },
+                { data: "Ovlastena_Agencija" },
+                { data: "Datum_Na_Izdavanje" },
+                { data: "Datum_Na_Storniranje" },
+                { data: "Status" },
+                { data: "Referent" }
+            ],
+            select: true
+        });
     };
 
     function SearchClients() {
-        var ajaxFormSubmit = function () {
-            var $form = $(this);
-            var options = {
-                url: $form.attr("action"),
-                type: $form.attr("method"),
-                data: $form.serialize()
-            };
-
-            $.ajax(options).done(function (data) {
-                var $target = $($form.attr("data-otf-target"));
-                var person1 = data.responseText.Data;
-                var output = $("#searchResultClients");
-                output.empty();
-                for (var i = 0; i < person1.length ; i++) {
-                    var person = person1[i];
-                    output.append("<tr><td>"
-                        + person.Id + "</td><td>"
-                        + person.FirstName + "</td><td>"
-                        + person.EMBG + "</td><td>"
-                        + person.Address + "</td><td>"
-                        + person.City + "</td><td>"
-                        + person.PostalCode + "</td><td>"
-                        + person.PhoneNumber + "</td><td>"
-                        + person.Email + "</td><td>"
-                        + person.PassportNumber + "</td></tr>");
-                }
-            });
-            return false;
-        }
-
-        $("form[data-otf-ajax='true']").submit(ajaxFormSubmit);
+        $("#tableClients").DataTable().destroy();
+        $("#tableClients").DataTable({
+            dom: "Bfrtip",
+            ajax: "http://localhost:19655/Search/GetUsers?name=" + $("#name").val() + "&embg=" + $("#embg").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() + "&phone=" + $("#phone").val() + "&postal_code=" + $("#postal_code").val() + "&passport=" + $("#passport").val() + "&city=" + $("#city").val(),
+            columns: [
+                { data: "Id" },
+                { data: "FirstName" },
+                { data: "EMBG" },
+                { data: "Address" },
+                { data: "City" },
+                { data: "PostalCode" },
+                { data: "PhoneNumber" },
+                { data: "Email" },
+                { data: "PassportNumber" }
+            ],
+            select: true
+        });
 
     };
 

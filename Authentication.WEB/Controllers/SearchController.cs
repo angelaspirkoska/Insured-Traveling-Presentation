@@ -1,38 +1,92 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
 {
     public class SearchController : Controller
     {
+        private InsuredTravelingEntity _db;
 
-        // GET: Search
-        public ActionResult Index()
+        public SearchController()
         {
+            _db = new InsuredTravelingEntity();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Index()
+        {
+            var type_policies = GetTypeOfPolicy();
+            await Task.WhenAll(type_policies);
+            ViewBag.TypeOfPolicy = type_policies.Result;
             return View();
         }
 
-        public JsonResult SearchPolyciesJson(string name, string embg, string land, string address, string TypePolycies, string agency, string startDate, string endDate, string dateI, string dateS, string operatorStartDate, string operatorEndDate, string operatorDateI, string operatorDateS)
+
+        [HttpGet]
+        [Route("GetUsers")]
+        public JObject GetUsers(string name, string embg, string address, string email, string postal_code, string phone, string city, string passport)
         {
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
+            name = name.ToLower();
+            embg = embg.ToLower();
+            address = address.ToLower();
+            city = city.ToLower();
+            phone = phone.ToLower();
+            email = email.ToLower();
+            passport = passport.ToLower();
+
+            InsuredTravelingEntity db = new InsuredTravelingEntity();
+            var data = db.aspnetusers.Where(x => x.EMBG.Contains(embg) &&
+                                             x.FirstName.ToLower().Contains(name) &&
+                                             x.Address.ToLower().Contains(address) &&
+                                             x.Email.ToLower().Contains(email) &&
+                                             (x.PostalCode.Contains(postal_code)) &&
+                                             x.PhoneNumber.Contains(phone) &&
+                                             x.EMBG.Contains(embg) &&
+                                             x.City.ToLower().Contains(city) &&
+                                             x.PassportNumber.Contains(passport)
+                                            ).ToArray();
+           
+            var j = new JObject();
+            var data1 = new JArray();
+            foreach(var v in data)
+            {
+                var j1 = new JObject();
+                j1.Add("Id", v.Id);
+                j1.Add("FirstName", v.FirstName);
+                j1.Add("Email", v.Email);
+                j1.Add("PostalCode", v.PostalCode);
+                j1.Add("PassportNumber", v.PassportNumber);
+                j1.Add("PhoneNumber", v.PhoneNumber);
+                j1.Add("Address", v.Address);
+                j1.Add("EMBG", v.EMBG);
+                j1.Add("City", v.City);
+                data1.Add(j1);
+            }
+            j.Add("data", data1);
+            return j;
+        }
+
+        [HttpGet]
+        [Route("GetPolicies")]
+        public JObject GetPolicies(string name, string embg, string land, string address, string TypePolycies, string agency, string startDate, string endDate, string dateI, string dateS, string operatorStartDate, string operatorEndDate, string operatorDateI, string operatorDateS)
+        {
             name = name.ToLower();
             embg = embg.ToLower();
             address = address.ToLower();
             agency = agency.ToLower();
-            TypePolycies = (TypePolycies != "--Select type of policies--") ? TypePolycies = TypePolycies.ToLower() : TypePolycies = "";
             DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : Convert.ToDateTime(startDate);
             DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : Convert.ToDateTime(endDate);
             DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : Convert.ToDateTime(dateI);
             DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : Convert.ToDateTime(dateS);
 
-
-
-
             if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(embg) || !String.IsNullOrEmpty(address) || !String.IsNullOrEmpty(land) || !String.IsNullOrEmpty(agency) || !String.IsNullOrEmpty(TypePolycies))
             {
-                var data = entities.patnickoes.Where(x => x.EMBG.Contains(embg) &&
+                var data = _db.patnickoes.Where(x => x.EMBG.Contains(embg) &&
                                                         x.Ime_I_Prezime.ToLower().Contains(name) &&
                                                         x.Adresa.ToLower().Contains(address) &&
                                                         x.Ovlastena_Agencija.ToLower().Contains(agency) &&
@@ -79,12 +133,35 @@ namespace InsuredTraveling.Controllers
                         default: break;
                     }
                 }
-                var jsonData = Json(data, JsonRequestBehavior.AllowGet);
-                return Json(new { success = true, responseText = jsonData }, JsonRequestBehavior.AllowGet);
+
+                var j = new JObject();
+                var data1 = new JArray();
+                foreach (var v in data)
+                {
+                    var j1 = new JObject();
+                    j1.Add("Polisa_Broj", v.Polisa_Broj);
+                    j1.Add("Ime_I_Prezime", v.Ime_I_Prezime);
+                    j1.Add("EMBG", v.EMBG);
+                    j1.Add("Zemja_Na_Patuvanje", v.Zemja_Na_Patuvanje);
+                    j1.Add("Vid_Polisa", v.Vid_Polisa);
+                    j1.Add("Zapocnuva_Na", v.Zapocnuva_Na);
+                    j1.Add("Zavrsuva_Na", v.Zavrsuva_Na);
+                    j1.Add("Adresa", v.Adresa);
+                    j1.Add("Ovlastena_Agencija", v.Ovlastena_Agencija);
+                    j1.Add("Datum_Na_Izdavanje", v.Datum_Na_Izdavanje);
+                    j1.Add("Datum_Na_Storniranje", v.Datum_Na_Storniranje);
+                    j1.Add("Status", v.Status);
+                    j1.Add("Referent", v.Referent);
+
+                    data1.Add(j1);
+                }
+                j.Add("data", data1);
+                return j;
+
             }
             else if (!String.IsNullOrEmpty(startDate) || !String.IsNullOrEmpty(endDate) || !String.IsNullOrEmpty(dateI) || !String.IsNullOrEmpty(dateS))
             {
-                var data = entities.patnickoes.ToList();
+                var data = _db.patnickoes.ToList();
                 if (!String.IsNullOrEmpty(startDate))
                 {
                     switch (operatorStartDate)
@@ -125,90 +202,69 @@ namespace InsuredTraveling.Controllers
                         default: break;
                     }
                 }
-                var jsonData = Json(data, JsonRequestBehavior.AllowGet);
-                return Json(new { success = true, responseText = jsonData }, JsonRequestBehavior.AllowGet);
+                var j = new JObject();
+                var data1 = new JArray();
+                foreach (var v in data)
+                {
+                    var j1 = new JObject();
+                    j1.Add("Polisa_Broj", v.Polisa_Broj);
+                    j1.Add("Ime_I_Prezime", v.Ime_I_Prezime);
+                    j1.Add("EMBG", v.EMBG);
+                    j1.Add("Zemja_Na_Patuvanje", v.Zemja_Na_Patuvanje);
+                    j1.Add("Vid_Polisa", v.Vid_Polisa);
+                    j1.Add("Zapocnuva_Na", v.Zapocnuva_Na);
+                    j1.Add("Zavrsuva_Na", v.Zavrsuva_Na);
+                    j1.Add("Adresa", v.Adresa);
+                    j1.Add("Ovlastena_Agencija", v.Ovlastena_Agencija);
+                    j1.Add("Datum_Na_Izdavanje", v.Datum_Na_Izdavanje);
+                    j1.Add("Datum_Na_Storniranje", v.Datum_Na_Storniranje);
+                    j1.Add("Status", v.Status);
+                    j1.Add("Referent", v.Referent);
+
+                    data1.Add(j1);
+                }
+                j.Add("data", data1);
+                return j;
 
             }
             else
             {
-                return new JsonResult { };
+                var data = _db.patnickoes.ToArray();
+                var j = new JObject();
+                var data1 = new JArray();
+                foreach (var v in data)
+                {
+                    var j1 = new JObject();
+                    j1.Add("Polisa_Broj", v.Polisa_Broj);
+                    j1.Add("Ime_I_Prezime", v.Ime_I_Prezime);
+                    j1.Add("EMBG", v.EMBG);
+                    j1.Add("Zemja_Na_Patuvanje", v.Zemja_Na_Patuvanje);
+                    j1.Add("Vid_Polisa", v.Vid_Polisa);
+                    j1.Add("Zapocnuva_Na", v.Zapocnuva_Na);
+                    j1.Add("Zavrsuva_Na", v.Zavrsuva_Na);
+                    j1.Add("Adresa", v.Adresa);
+                    j1.Add("Ovlastena_Agencija", v.Ovlastena_Agencija);
+                    j1.Add("Datum_Na_Izdavanje", v.Datum_Na_Izdavanje);
+                    j1.Add("Datum_Na_Storniranje", v.Datum_Na_Storniranje);
+                    j1.Add("Status", v.Status);
+                    j1.Add("Referent", v.Referent);
+
+                    data1.Add(j1);
+                }
+                j.Add("data", data1);
+                return j;
             }
 
         }
 
-        [Route("SearchClientsJson")]
-        public JsonResult SearchClientsJson(string name, string embg, string address, string city, string postal_code, string phone, string email, string passport)
+        private async Task<List<SelectListItem>> GetTypeOfPolicy()
         {
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            name = name.ToLower();
-            embg = embg.ToLower();
-            address = address.ToLower();
-            city = city.ToLower();
-            int postal_code2 = (postal_code != "") ? Convert.ToInt32(postal_code) : 0;
-            phone = phone.ToLower();
-            email = email.ToLower();
-            passport = passport.ToLower();
-
-
-            if (postal_code2 != 0)
+            var policy = _db.patnicko_vid.Select(p => new SelectListItem
             {
-                var data = entities.aspnetusers.Where(x =>  x.EMBG.Contains(embg) &&
-                                                        x.FirstName.ToLower().Contains(name) &&
-                                                        x.Address.ToLower().Contains(address) &&
-                                                        x.Email.ToLower().Contains(email) &&
-                                                        (x.PostalCode == postal_code2.ToString()) &&
-                                                        x.PhoneNumber.Contains(phone) &&
-                                                        x.EMBG.Contains(embg) &&
-                                                        x.City.ToLower().Contains(city) &&
-                                                        x.PassportNumber.Contains(passport)
-                                                       ).ToList();
-                var jsonData = Json(data, JsonRequestBehavior.AllowGet);
-                return Json(new { success = true, responseText = jsonData }, JsonRequestBehavior.AllowGet);
-            }
-            else if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(embg) || !String.IsNullOrEmpty(address) || !String.IsNullOrEmpty(city) || !String.IsNullOrEmpty(email) || !String.IsNullOrEmpty(phone) || !String.IsNullOrEmpty(passport))
-            {
-                var data = entities.aspnetusers.Where(x => x.EMBG.Contains(embg) &&
-                                                       x.FirstName.ToLower().Contains(name) &&
-                                                       x.Address.ToLower().Contains(address) &&
-                                                       x.Email.ToLower().Contains(email) &&
-                                                       x.PhoneNumber.Contains(phone) &&
-                                                       x.EMBG.Contains(embg) &&
-                                                       x.City.ToLower().Contains(city) &&
-                                                       x.PassportNumber.Contains(passport)
-                                                      ).ToList();
-                var jsonData = Json(data, JsonRequestBehavior.AllowGet);
-                return Json(new { success = true, responseText = jsonData }, JsonRequestBehavior.AllowGet);
-            }
-
-            return new JsonResult { };
-        }
-
-        [HttpGet]
-        [Route("GetUsers")]
-        public JObject GetUsers()
-        {
-            InsuredTravelingEntity db = new InsuredTravelingEntity();
-            var data = db.aspnetusers.ToArray();
-            var j = new JObject();
-            var data1 = new JArray();
-            foreach(var v in data)
-            {
-                var j1 = new JObject();
-                j1.Add("Id", v.Id);
-                j1.Add("FirstName", v.FirstName);
-                j1.Add("Email", v.Email);
-                j1.Add("PostalCode", v.PostalCode);
-                j1.Add("PassportNumber", v.PassportNumber);
-                j1.Add("PhoneNumber", v.PhoneNumber);
-                j1.Add("Address", v.Address);
-                j1.Add("EMBG", v.EMBG);
-                j1.Add("City", v.City);
-                data1.Add(j1);
-            }
-            j.Add("data", data1);
-            return j;
-            //var jsonData = Json(data, JsonRequestBehavior.AllowGet);
-            //return Json(new { success = true, responseText = jsonData }, JsonRequestBehavior.AllowGet);
+                Text = p.Vid_Polisa,
+                Value = p.Vid_Polisa.ToString()
+            });
+            return await policy.ToListAsync();
         }
     }
 }
