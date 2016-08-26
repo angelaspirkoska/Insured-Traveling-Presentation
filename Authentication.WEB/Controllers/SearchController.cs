@@ -257,6 +257,30 @@ namespace InsuredTraveling.Controllers
 
         }
 
+        public JObject GetFNOL()
+        {
+            var fnol = _db.first_notice_of_loss.ToArray();
+            var data = new JObject();
+            var data1 = new JArray();
+            foreach (var v in fnol)
+            {
+                var user = _db.aspnetusers.Where(x => x.Id == v.Insured_User) as aspnetuser;
+                var j1 = new JObject();
+                j1.Add("InsuredName", user.FirstName + " " + user.LastName);
+                j1.Add("InsuredAddress", user.Address);
+                j1.Add("InsuredPhone", user.MobilePhoneNumber);
+                j1.Add("InsuredEmbg", user.EMBG);
+                j1.Add("InsuredTransaction", " ");
+                j1.Add("InsuredDeponentBank", " ");
+
+
+                data1.Add(j1);
+            }
+            data.Add("data", data1);
+            return data;
+
+        }
+
         private async Task<List<SelectListItem>> GetTypeOfPolicy()
         {
             var policy = _db.patnicko_vid.Select(p => new SelectListItem

@@ -190,7 +190,7 @@
                     <th>ЕМБГ на оштетениот</th>
                     <th>Трансакциска сметка на оштетениот</th>
                     <th>Депонент банка на оштетениот</th>
-                    <th>Сродство на оштетениот со осигуреникот</th>
+                    @*<th>Сродство на оштетениот со осигуреникот</th>
                     <th>Место на патување</th>
                     <th>Датум на заминување</th>
                     <th>Датум на враќање</th>
@@ -205,7 +205,7 @@
                     <th>Место на штетата(Осигурување на багаж)</th>
                     <th>Опис на настанот</th>
                     <th>Опис на украдени/оштетени предмети и нивната вредност</th>
-                    <th>Документи(Осигурување на багаж)</th>
+                    <th>Документи(Осигурување на багаж)</th>*@
                     <th>Фактури</th>
                     <th>Вкупна цена на трошоците</th>
                     <th>Датум на пријавување</th>
@@ -220,13 +220,15 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        var nowDate = new Date();
-        var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
+
         $("#searchClients").hide();
         $("#searchFNOL").hide();
         $("#tableClients").DataTable().destroy();
-        $("#tableClients").DataTable();
+        var table = $("#tableClients").DataTable();
+        $("#tablePolicies").DataTable().destroy();
         $("#tablePolicies").DataTable();
+
+
     });
 
     $("#DateI").focusout(function () {
@@ -296,7 +298,7 @@
 
     function SearchClients() {
         $("#tableClients").DataTable().destroy();
-        $("#tableClients").DataTable({
+        var table = $("#tableClients").DataTable({
             dom: "Bfrtip",
             ajax: "http://localhost:19655/Search/GetUsers?name=" + $("#name").val() + "&embg=" + $("#embg").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() + "&phone=" + $("#phone").val() + "&postal_code=" + $("#postal_code").val() + "&passport=" + $("#passport").val() + "&city=" + $("#city").val(),
             columns: [
@@ -313,6 +315,43 @@
             select: true
         });
 
+        $('#tableClients tbody').on('click', 'tr', function () {
+            var $row = $(this).closest('tr');
+            var data = table.row($row).data();
+            console.log(data.Id);
+            //var idx = table.row(this).index();
+            //alert('Row index: ' + idx);
+
+        });
+    };
+
+    function SearchFNOL() {
+        $("#tableFNOL").DataTable().destroy();
+        var table = $("#tableFNOL").DataTable({
+            dom: "Bfrtip",
+            ajax: "http://localhost:19655/Search/GetFNOL",
+            columns: [
+                { data: "Id" },
+                { data: "FirstName" },
+                { data: "EMBG" },
+                { data: "Address" },
+                { data: "City" },
+                { data: "PostalCode" },
+                { data: "PhoneNumber" },
+                { data: "Email" },
+                { data: "PassportNumber" }
+            ],
+            select: true
+        });
+
+        $('#tableClients tbody').on('click', 'tr', function () {
+            var $row = $(this).closest('tr');
+            var data = table.row($row).data();
+            console.log(data.Id);
+            //var idx = table.row(this).index();
+            //alert('Row index: ' + idx);
+
+        });
     };
 
 </script>
