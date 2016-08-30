@@ -14,7 +14,6 @@ namespace InsuredTraveling
     
     public partial class health_insurance
     {
-        public int LossID { get; set; }
         public System.DateTime Date_of_accsident { get; set; }
         public string Place_of_accsident { get; set; }
         public System.DateTime First_contact_with_doctor { get; set; }

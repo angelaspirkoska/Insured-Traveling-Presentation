@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4d19592923274ad29dd179585daab6fe" Name="Diagram1">
+      <Diagram DiagramId="4d19592923274ad29dd179585daab6fe" Name="Diagram1" ZoomLevel="77">
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetrole" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuserclaim" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuserrole" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
@@ -33,11 +33,11 @@
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuserlogin" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.transaction" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.news_all" Width="1.5" PointX="5.375" PointY="14.75" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.health_insurance" Width="1.5" PointX="17.625" PointY="1" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.luggage_insurance" Width="1.5" PointX="17.625" PointY="4.875" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.first_notice_of_loss" Width="1.5" PointX="15.375" PointY="1.875" />
-        <AssociationConnector Association="db_9eb138_travelModel.LossID_HealthInsurance_FK" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.first_notice_of_loss" Width="1.5" PointX="15.375" PointY="1.75" />
         <AssociationConnector Association="db_9eb138_travelModel.LossID_Luggage_FK" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.health_insurance" Width="1.5" PointX="17.625" PointY="0.875" />
+        <AssociationConnector Association="db_9eb138_travelModel.LossID_HealthInsurance_FK" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

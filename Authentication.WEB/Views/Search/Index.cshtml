@@ -7,213 +7,227 @@
 <br />
 <br />
 
-<ul class="nav nav-pills">
-    <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">Полиси</a></li>
-    <li id="clients"><a href="#" onclick="ShowClients()">Клиенти</a></li>
-    <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">Штети </a></li>
-</ul>
+<div style="margin-left: -10%">
+    <ul class="nav nav-pills">
+        <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">Полиси</a></li>
+        <li id="clients"><a href="#" onclick="ShowClients()">Клиенти</a></li>
+        <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">Штети </a></li>
+    </ul>
 
 
-<!--Table search result of policies -->
-<div class="container" id="searchPolycies">
-    <br />
-    <br />
-    <div class="row">
-        <form method="post" style="margin-left: 20px">
-            <div class="row">
-                <input type="search" id="namePolicy" class="input-sm" placeholder="Search by name" />
-                <input type="search" id="embgPolicy" class="input-sm" placeholder="Search by EMBG" />
-                <input type="search" id="land" class="input-sm" placeholder="Search by Land" />
-                <input type="search" id="addressPolicy" class="input-sm" placeholder="Search by Address" />
-                <input type="search" id="agency" class="input-sm" placeholder="Search by Agency" />
-                <div class="form-inline row">
-                    <div class="form-group">
-                        <label for="vidPolisa">Вид полиса :</label>
-                        @Html.DropDownListFor(model => model.patnickoes, (List<SelectListItem>)ViewBag.TypeOfPolicy, "-- Type of policy --", new { @class = "form-control", name = "TypePolycies", id = "TypePolycies" })
+    <!--Table search result of policies -->
+    <div class="container" id="searchPolycies">
+        <br />
+        <br />
+        <div class="row">
+            <form method="post" style="margin-left: 20px">
+                <div class="row">
+                    <input type="search" id="namePolicy" class="input-sm" placeholder="Search by name" />
+                    <input type="search" id="embgPolicy" class="input-sm" placeholder="Search by EMBG" />
+                    <input type="search" id="land" class="input-sm" placeholder="Search by Land" />
+                    <input type="search" id="addressPolicy" class="input-sm" placeholder="Search by Address" />
+                    <input type="search" id="agency" class="input-sm" placeholder="Search by Agency" />
+                    <div class="form-inline row">
+                        <div class="form-group">
+                            <label for="vidPolisa">Вид полиса :</label>
+                            @Html.DropDownListFor(model => model.patnickoes, (List<SelectListItem>)ViewBag.TypeOfPolicy, "-- Type of policy --", new { @class = "form-control", name = "TypePolycies", id = "TypePolycies" })
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="startDate">Датум на важење од:</label>
+                            <input type="date" id="startDate" class="form-control placeholder" />
+                            <select id="operatorStartDate">
+                                <option>&lt</option>
+                                <option>=</option>
+                                <option>&gt</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="endDate">Датум на завршување на важење:</label>
+                            <input type="date" name="endDate" class="form-control" id="endDate" />
+                            <select id="operatorEndDate">
+                                <option>&lt</option>
+                                <option>=</option>
+                                <option>&gt</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group col-sm-3">
-                        <label for="startDate">Датум на важење од:</label>
-                        <input type="date" id="startDate" class="form-control placeholder" />
-                        <select id="operatorStartDate">
-                            <option>&lt</option>
-                            <option>=</option>
-                            <option>&gt</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-3">
-                        <label for="endDate">Датум на завршување на важење:</label>
-                        <input type="date" name="endDate" class="form-control" id="endDate" />
-                        <select id="operatorEndDate">
-                            <option>&lt</option>
-                            <option>=</option>
-                            <option>&gt</option>
-                        </select>
+
+
+                    <div class="form-inline row">
+                        <div class="form-group col-sm-3">
+                            <label for="startDate">Датум на издавање:</label>
+                            <input type="date" class="form-control placeholder" id="dateI" />
+                            <select id="operatorDateI">
+                                <option>&lt</option>
+                                <option>=</option>
+                                <option>&gt</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="endDate">Датум на сторнирање:</label>
+                            <input type="date" id="dateS" class="form-control" />
+                            <select id="operatorDateS">
+                                <option>&lt</option>
+                                <option>=</option>
+                                <option>&gt</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
+                <br />
+                <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchPolycies()" type="button" />
+                <br />
+            </form>
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePolicies">
+                <thead>
+                    <tr>
+                        <th>Број на полиса</th>
+                        <th>Име и презиме</th>
+                        <th>Матичен број</th>
+                        <th>Земја на патување</th>
+                        <th>Вид полиса</th>
+                        <th>Важи од</th>
+                        <th>Важи до</th>
+                        <th>Адреса</th>
+                        <th>Овластена агенција</th>
+                        <th>Датум на издавање</th>
+                        <th>Датум на сторнирање</th>
+                        <th>Статус</th>
+                        <th>Референт</th>
+                    </tr>
+                </thead>
+                <tbody id="searchResultPolycies"></tbody>
+            </table>
+        </div>
+    </div>
 
-
-                <div class="form-inline row">
-                    <div class="form-group col-sm-3">
-                        <label for="startDate">Датум на издавање:</label>
-                        <input type="date" class="form-control placeholder" id="dateI" />
-                        <select id="operatorDateI">
-                            <option>&lt</option>
-                            <option>=</option>
-                            <option>&gt</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-3">
-                        <label for="endDate">Датум на сторнирање:</label>
-                        <input type="date" id="dateS" class="form-control" />
-                        <select id="operatorDateS">
-                            <option>&lt</option>
-                            <option>=</option>
-                            <option>&gt</option>
-                        </select>
-                    </div>
+    <!--Table search result of clients -->
+    <div class="container" id="searchClients">
+        <br />
+        <br />
+        <div class="row">
+            <form method="post" style="margin-left:20px;">
+                <div class="row">
+                    <input type="search" name="name" class="input-sm" placeholder="Search by name" id="name" />
+                    <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" id="embg" />
+                    <input type="search" name="address" class="input-sm" placeholder="Search by Address" id="address" />
+                    <input type="search" name="city" class="input-sm" placeholder="Search by City" id="city" />
+                    <input type="search" name="postal_code" class="input-sm" placeholder="Search by postal code" id="postal_code" />
+                    <input type="search" name="phone" class="input-sm" placeholder="Search by phone number" id="phone" />
+                    <input type="search" name="email" class="input-sm" placeholder="Search by email" id="email" />
+                    <input type="search" name="passport" class="input-sm" placeholder="Search by passport" id="passport" />
                 </div>
-            </div>
-            <br />
-            <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchPolycies()" type="button" />
-            <br />
-        </form>
+                <br />
+                <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchClients()" type="button" />
+                <br />
+            </form>
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableClients">
+                <thead>
+                    <tr>
+                        <th>Број на клиент</th>
+                        <th>Име и презиме</th>
+                        <th>Матичен број</th>
+                        <th>Улица</th>
+                        <th>Град</th>
+                        <th>Поштенски број</th>
+                        <th>Телефонски број</th>
+                        <th>Емаил адресa</th>
+                        <th>Број на пасош</th>
+                    </tr>
+                </thead>
+                <tbody id="searchResultClients"></tbody>
+            </table>
+        </div>
     </div>
-    <br />
-    <br />
-    <br />
-   <div class="row">
-       <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePolicies">
-           <thead>
-               <tr>
-                   <th>Број на полиса</th>
-                   <th>Име и презиме</th>
-                   <th>Матичен број</th>
-                   <th>Земја на патување</th>
-                   <th>Вид полиса</th>
-                   <th>Важи од</th>
-                   <th>Важи до</th>
-                   <th>Адреса</th>
-                   <th>Овластена агенција</th>
-                   <th>Датум на издавање</th>
-                   <th>Датум на сторнирање</th>
-                   <th>Статус</th>
-                   <th>Референт</th>
-               </tr>
-           </thead>
-           <tbody id="searchResultPolycies"></tbody>
-       </table>
-   </div>
-</div>
 
-<!--Table search result of clients -->
-<div class="container" id="searchClients">
-    <br />
-    <br />
-    <div class="row">
-        <form method="post" style="margin-left:20px;">
-            <div class="row">
-                <input type="search" name="name" class="input-sm" placeholder="Search by name" id="name"/>
-                <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" id="embg" />
-                <input type="search" name="address" class="input-sm" placeholder="Search by Address" id="address" />
-                <input type="search" name="city" class="input-sm" placeholder="Search by City" id="city"/>
-                <input type="search" name="postal_code" class="input-sm" placeholder="Search by postal code" id="postal_code" />
-                <input type="search" name="phone" class="input-sm" placeholder="Search by phone number" id="phone" />
-                <input type="search" name="email" class="input-sm" placeholder="Search by email" id="email" />
-                <input type="search" name="passport" class="input-sm" placeholder="Search by passport" id="passport" />
-            </div>
-            <br />
-            <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchClients()" type="button" />
-            <br />
-        </form>
-    </div>
-    <br />
-    <br />
-    <br />
-    <div class="row">
-        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableClients">
-            <thead>
-                <tr>
-                    <th>Број на клиент</th>
-                    <th>Име и презиме</th>
-                    <th>Матичен број</th>
-                    <th>Улица</th>
-                    <th>Град</th>
-                    <th>Поштенски број</th>
-                    <th>Телефонски број</th>
-                    <th>Емаил адресa</th>
-                    <th>Број на пасош</th>
-                </tr>
-            </thead>
-            <tbody id="searchResultClients"></tbody>
-        </table>
-    </div>
-</div>
+    <!--Table search result of first notice of loss -->
+    <div class="container" id="searchFNOL">
+        <br />
+        <br />
+        <div class="row">
+            <form method="post" style="margin-left:20px;">
+                <div class="row">
+                    <input type="search" name="name" class="input-sm" placeholder="Search by name" id="name" />
+                    <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" id="embg" />
+                    <input type="search" name="address" class="input-sm" placeholder="Search by Address" id="address" />
+                    <input type="search" name="city" class="input-sm" placeholder="Search by City" id="city" />
+                    <input type="search" name="postal_code" class="input-sm" placeholder="Search by postal code" id="postal_code" />
+                    <input type="search" name="phone" class="input-sm" placeholder="Search by phone number" id="phone" />
+                    <input type="search" name="email" class="input-sm" placeholder="Search by email" id="email" />
+                    <input type="search" name="passport" class="input-sm" placeholder="Search by passport" id="passport" />
+                </div>
+                <br />
+                <input class="btn btn-primary" value="Search" onclick="SearchFNOL()" type="button" />
+                <br />
+            </form>
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableFNOL">
+                <thead>
+                    <tr>
+                        <th>Број на штета</th>
+                        <th>Име и презиме на осигуреник</th>
+                        <th>Адреса на осигуреник</th>
+                        <th>Телефон на осигуреник</th>
+                        <th>ЕМБГ на осигуреникот</th>
+                        <th>Трансакциска сметка на осигуреникот</th>
+                        <th>Депонент банка на осигуреникот</th>
+                        <th>Име и презиме на оштетениот</th>
+                        <th>Адреса на оштетениот</th>
+                        <th>Телефон на оштетениот</th>
+                        <th>ЕМБГ на оштетениот</th>
+                        <th>Трансакциска сметка на оштетениот</th>
+                        <th>Депонент банка на оштетениот</th>
+                        <th>Сродство на оштетениот со осигуреникот</th>
+                        <th>Место на патување</th>
+                        <th>Датум на заминување</th>
+                        <th>Време на заминување</th>
+                        <th>Датум на враќање</th>
+                        <th>Време на враќање</th>
+                        <th>Превозно средство</th>
+                        <th>Фактури</th>
+                        <th>Вкупна цена на трошоците</th>
+                        <th>Датум на пријавување</th>
+                        <th>Здраствено осигурување ДА/НЕ</th>
+                        <th>Осигурување на багаж ДА/НЕ</th>
 
-<!--Table search result of first notice of loss -->
-<div class="container" id="searchFNOL">
-    <br />
-    <br />
-    <div class="row">
-        <form method="post" style="margin-left:20px;">
-            <div class="row">
-                <input type="search" name="name" class="input-sm" placeholder="Search by name" id="name" />
-                <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" id="embg" />
-                <input type="search" name="address" class="input-sm" placeholder="Search by Address" id="address" />
-                <input type="search" name="city" class="input-sm" placeholder="Search by City" id="city" />
-                <input type="search" name="postal_code" class="input-sm" placeholder="Search by postal code" id="postal_code" />
-                <input type="search" name="phone" class="input-sm" placeholder="Search by phone number" id="phone" />
-                <input type="search" name="email" class="input-sm" placeholder="Search by email" id="email" />
-                <input type="search" name="passport" class="input-sm" placeholder="Search by passport" id="passport" />
-            </div>
-            <br />
-            <input  class="btn btn-primary" value="Search" onclick="SearchFNOL()" type="button" />
-            <br />
-        </form>
-    </div>
-    <br />
-    <br />
-    <br />
-    <div class="row">
-        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableFNOL">
-            <thead>
-                <tr>
-                    <th>Број на штета</th>
-                    <th>Име и презиме на осигуреник</th>
-                    <th>Адреса на осигуреник</th>
-                    <th>Телефон на осигуреник</th>
-                    <th>ЕМБГ на осигуреникот</th>
-                    <th>Трансакциска сметка на осигуреникот</th>
-                    <th>Депонент банка на осигуреникот</th>
-                    <th>Име и презиме на оштетениот</th>
-                    <th>Адреса на оштетениот</th>
-                    <th>Телефон на оштетениот</th>
-                    <th>ЕМБГ на оштетениот</th>
-                    <th>Трансакциска сметка на оштетениот</th>
-                    <th>Депонент банка на оштетениот</th>
-                    @*<th>Сродство на оштетениот со осигуреникот</th>
-                    <th>Место на патување</th>
-                    <th>Датум на заминување</th>
-                    <th>Датум на враќање</th>
-                    <th>Превозно средство</th>
-                    <th>Датум на незгодата</th>
-                    <th>Место на незгодата</th>
-                    <th>Прв контакт со доктор</th>
-                    <th>Податоци за докторот</th>
-                    <th>Опис за болеста</th>
-                    <th>Документи (Здраствено осигурување)</th>
-                    <th>Датум на штетата (Осигурување на багаж)</th>
-                    <th>Место на штетата(Осигурување на багаж)</th>
-                    <th>Опис на настанот</th>
-                    <th>Опис на украдени/оштетени предмети и нивната вредност</th>
-                    <th>Документи(Осигурување на багаж)</th>*@
-                    <th>Фактури</th>
-                    <th>Вкупна цена на трошоците</th>
-                    <th>Датум на пријавување</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="row">
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableHealthInsurance" hidden>
+                <thead>
+                    <tr>
+                        <th>Датум на незгодата</th>
+                        <th>Место на незгодата</th>
+                        <th>Време на незгодата</th>
+                        <th>Прв контакт со доктор</th>
+                        <th>Податоци за докторот</th>
+                        <th>Опис за болеста</th>
+                        <th>Документи како доказ</th>
+                        <th>Дополнителни податоци</th>
 
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
     </div>
 </div>
 
@@ -227,8 +241,8 @@
         var table = $("#tableClients").DataTable();
         $("#tablePolicies").DataTable().destroy();
         $("#tablePolicies").DataTable();
-
-
+        $("#tableFNOL").DataTable().destroy();
+        $("#tableFNOL").DataTable();
     });
 
     $("#DateI").focusout(function () {
@@ -319,9 +333,6 @@
             var $row = $(this).closest('tr');
             var data = table.row($row).data();
             console.log(data.Id);
-            //var idx = table.row(this).index();
-            //alert('Row index: ' + idx);
-
         });
     };
 
@@ -331,28 +342,59 @@
             dom: "Bfrtip",
             ajax: "http://localhost:19655/Search/GetFNOL",
             columns: [
-                { data: "Id" },
-                { data: "FirstName" },
-                { data: "EMBG" },
-                { data: "Address" },
-                { data: "City" },
-                { data: "PostalCode" },
-                { data: "PhoneNumber" },
-                { data: "Email" },
-                { data: "PassportNumber" }
+                { data: "ID" },
+                { data: "InsuredName" },
+                { data: "InsuredAddress" },
+                { data: "InsuredPhone" },
+                { data: "InsuredEmbg" },
+                { data: "InsuredTransaction" },
+                { data: "InsuredDeponentBank" },
+                { data: "ClaimantPersonName" },
+                { data: "ClaimantPersonAddress" },
+                { data: "ClaimantPersonPhone" },
+                { data: "ClaimantPersonEMBG" },
+                { data: "ClaimantPersonTransaction" },
+                { data: "ClaimantPersonDeponentBank" },
+                { data: "Claimant_insured_relation" },
+                { data: "LandTrip" },
+                { data: "TripStartDate" },
+                { data: "TripStartTime" },
+                { data: "TripEndDate" },
+                { data: "TripEndTime" },
+                { data: "TypeTransport" },
+                { data: "AdditionalDocumentsHanded" },
+                { data: "AllCosts" },
+                { data: "Date" },
+                { data: "HealthInsurance_Y/N" },
+                { data: "LuggageInsurance_Y/N" }
             ],
             select: true
         });
 
-        $('#tableClients tbody').on('click', 'tr', function () {
+        $('#tableFNOL tbody').on('click', 'tr', function () {
             var $row = $(this).closest('tr');
-            var data = table.row($row).data();
-            console.log(data.Id);
-            //var idx = table.row(this).index();
-            //alert('Row index: ' + idx);
-
+            var LossID = table.row($row).data();
+            console.log(LossID.ID);
+            $("#tableHealthInsurance").show();
+            $("#tableHealthInsurance").DataTable().destroy();
+            var table1 = $("#tableHealthInsurance").DataTable({
+                dom: "Bfrtip",
+                ajax: "http://localhost:19655/Search/GetHealthInsurance?lossID=" + LossID.ID,
+                columns: [
+                    { data: "Date_of_accsident" },
+                    { data: "Place_of_accsident" },
+                    { data: "Time_of_accsident" },
+                    { data: "First_contact_with_doctor" },
+                    { data: "Doctor_data" },
+                    { data: "Disease_description" },
+                    { data: "Documents_proof" },
+                    { data: "Additional_info" }
+                ],
+                select: true
+            });
         });
     };
+    
 
 </script>
 

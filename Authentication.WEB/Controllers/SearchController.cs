@@ -264,21 +264,60 @@ namespace InsuredTraveling.Controllers
             var data1 = new JArray();
             foreach (var v in fnol)
             {
-                var user = _db.aspnetusers.Where(x => x.Id == v.Insured_User) as aspnetuser;
+                var user = _db.aspnetusers.Where(x => x.Id == v.Insured_User).ToArray().Last();
                 var j1 = new JObject();
+                j1.Add("ID", v.LossID);
                 j1.Add("InsuredName", user.FirstName + " " + user.LastName);
                 j1.Add("InsuredAddress", user.Address);
                 j1.Add("InsuredPhone", user.MobilePhoneNumber);
                 j1.Add("InsuredEmbg", user.EMBG);
                 j1.Add("InsuredTransaction", " ");
                 j1.Add("InsuredDeponentBank", " ");
-
-
+                j1.Add("ClaimantPersonName", v.Claimant_person_name);
+                j1.Add("ClaimantPersonAddress", v.Claimant_person_address);
+                j1.Add("ClaimantPersonPhone", v.Claimant_person_number);
+                j1.Add("ClaimantPersonEMBG", v.Claimant_person_embg);
+                j1.Add("ClaimantPersonTransaction", v.Claimant_person_transaction_number);
+                j1.Add("ClaimantPersonDeponentBank", v.Claimant_person_deponent_bank);
+                j1.Add("Claimant_insured_relation", v.Claimant_insured_relation);
+                j1.Add("LandTrip", v.Land_trip);
+                j1.Add("TripStartDate", v.Trip_startdate);
+                j1.Add("TripStartTime", v.Trip_starttime);
+                j1.Add("TripEndDate", v.Trip_enddate);
+                j1.Add("TripEndTime", v.Trip_endtime);
+                j1.Add("TypeTransport", v.Type_transport_trip);
+                j1.Add("AdditionalDocumentsHanded", v.Additional_documents_handed);
+                j1.Add("AllCosts", v.AllCosts);
+                j1.Add("Date", v.DateTime);
+                j1.Add("HealthInsurance_Y/N", (v.HealthInsurance_Y_N)? "Da" : "Ne");
+                j1.Add("LuggageInsurance_Y/N", (v.LuggageInsurance_Y_N)? "Da" : "Ne");
                 data1.Add(j1);
             }
             data.Add("data", data1);
             return data;
 
+        }
+
+        public JObject GetHealthInsurance(int lossID)
+        {
+            var health_insurance = _db.first_notice_of_loss.Where(x => x.LossID == lossID).ToArray().First().health_insurance;
+            var data = new JObject();
+            var jarray = new JArray();
+
+            var j = new JObject();
+            j.Add("Date_of_accsident", health_insurance.Date_of_accsident);
+            j.Add("Place_of_accsident", health_insurance.Place_of_accsident);
+            j.Add("Time_of_accsident", health_insurance.Time_of_accsident);
+            j.Add("First_contact_with_doctor", health_insurance.First_contact_with_doctor);
+            j.Add("Doctor_data", health_insurance.Doctor_data);
+            j.Add("Disease_description", health_insurance.Disease_description);
+            j.Add("Documents_proof", health_insurance.Documents_proof);
+            j.Add("Additional_info", health_insurance.Additional_info);
+
+            jarray.Add(j);
+            data.Add("data", jarray);
+
+            return data;  
         }
 
         private async Task<List<SelectListItem>> GetTypeOfPolicy()

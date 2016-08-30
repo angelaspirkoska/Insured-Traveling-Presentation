@@ -131,13 +131,13 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Additional_documents_handed" Type="text" Nullable="false" />
           <Property Name="AllCosts" Type="int" Nullable="false" />
           <Property Name="DateTime" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="HealthInsurance_ID" Type="int" Nullable="false" />
+          <Property Name="HealthInsurance_Y/N" Type="bool" Nullable="false" />
+          <Property Name="LuggageInsurance_Y/N" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="health_insurance">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="LossID" Type="int" Nullable="false" />
           <Property Name="Date_of_accsident" Type="date" Nullable="false" />
           <Property Name="Place_of_accsident" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="First_contact_with_doctor" Type="datetime" Precision="0" Nullable="false" />
@@ -922,16 +922,16 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogin" />
           <EntitySet Name="transactions" EntityType="Self.transaction" />
           <EntitySet Name="news_all" EntityType="db_9eb138_travelModel.news_all" />
-          <EntitySet Name="health_insurance" EntityType="db_9eb138_travelModel.health_insurance" />
           <EntitySet Name="luggage_insurance" EntityType="db_9eb138_travelModel.luggage_insurance" />
           <EntitySet Name="first_notice_of_loss" EntityType="db_9eb138_travelModel.first_notice_of_loss" />
-          <AssociationSet Name="LossID_HealthInsurance_FK" Association="db_9eb138_travelModel.LossID_HealthInsurance_FK">
-            <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
-            <End Role="health_insurance" EntitySet="health_insurance" />
-          </AssociationSet>
           <AssociationSet Name="LossID_Luggage_FK" Association="db_9eb138_travelModel.LossID_Luggage_FK">
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
             <End Role="luggage_insurance" EntitySet="luggage_insurance" />
+          </AssociationSet>
+          <EntitySet Name="health_insurance" EntityType="db_9eb138_travelModel.health_insurance" />
+          <AssociationSet Name="LossID_HealthInsurance_FK" Association="db_9eb138_travelModel.LossID_HealthInsurance_FK">
+            <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
+            <End Role="health_insurance" EntitySet="health_insurance" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="news_all">
@@ -947,22 +947,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="InsuranceCompany" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="GroupID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="UserID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="health_insurance">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="LossID" Type="Int32" Nullable="false" />
-          <Property Name="Date_of_accsident" Type="DateTime" Nullable="false" />
-          <Property Name="Place_of_accsident" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="First_contact_with_doctor" Type="DateTime" Nullable="false" />
-          <Property Name="Time_of_accsident" Type="Time" Nullable="false" />
-          <Property Name="Doctor_data" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Disease_description" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Documents_proof" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Additional_info" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="first_notice_of_loss" Relationship="db_9eb138_travelModel.LossID_HealthInsurance_FK" FromRole="health_insurance" ToRole="first_notice_of_loss" />
         </EntityType>
         <EntityType Name="luggage_insurance">
           <Key>
@@ -1001,9 +985,39 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Additional_documents_handed" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="AllCosts" Type="Int32" Nullable="false" />
           <Property Name="DateTime" Type="DateTime" Nullable="false" />
-          <Property Name="HealthInsurance_ID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="health_insurance" Relationship="db_9eb138_travelModel.LossID_HealthInsurance_FK" FromRole="first_notice_of_loss" ToRole="health_insurance" />
+          <Property Name="HealthInsurance_Y_N" Type="Boolean" Nullable="false" />
+          <Property Name="LuggageInsurance_Y_N" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="luggage_insurance" Relationship="db_9eb138_travelModel.LossID_Luggage_FK" FromRole="first_notice_of_loss" ToRole="luggage_insurance" />
+          <NavigationProperty Name="health_insurance" Relationship="db_9eb138_travelModel.LossID_HealthInsurance_FK" FromRole="first_notice_of_loss" ToRole="health_insurance" />
+        </EntityType>
+        <Association Name="LossID_Luggage_FK">
+          <End Type="db_9eb138_travelModel.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="db_9eb138_travelModel.luggage_insurance" Role="luggage_insurance" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="first_notice_of_loss">
+              <PropertyRef Name="LossID" />
+            </Principal>
+            <Dependent Role="luggage_insurance">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="health_insurance">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Date_of_accsident" Type="DateTime" Nullable="false" />
+          <Property Name="Place_of_accsident" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="First_contact_with_doctor" Type="DateTime" Nullable="false" />
+          <Property Name="Time_of_accsident" Type="Time" Nullable="false" />
+          <Property Name="Doctor_data" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Disease_description" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Documents_proof" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Additional_info" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="first_notice_of_loss" Relationship="db_9eb138_travelModel.LossID_HealthInsurance_FK" FromRole="health_insurance" ToRole="first_notice_of_loss" />
         </EntityType>
         <Association Name="LossID_HealthInsurance_FK">
           <End Type="db_9eb138_travelModel.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="1">
@@ -1015,20 +1029,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               <PropertyRef Name="LossID" />
             </Principal>
             <Dependent Role="health_insurance">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="LossID_Luggage_FK">
-          <End Type="db_9eb138_travelModel.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="db_9eb138_travelModel.luggage_insurance" Role="luggage_insurance" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="first_notice_of_loss">
-              <PropertyRef Name="LossID" />
-            </Principal>
-            <Dependent Role="luggage_insurance">
               <PropertyRef Name="ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1424,22 +1424,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="health_insurance">
-            <EntityTypeMapping TypeName="db_9eb138_travelModel.health_insurance">
-              <MappingFragment StoreEntitySet="health_insurance">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Additional_info" ColumnName="Additional_info" />
-                <ScalarProperty Name="Documents_proof" ColumnName="Documents_proof" />
-                <ScalarProperty Name="Disease_description" ColumnName="Disease_description" />
-                <ScalarProperty Name="Doctor_data" ColumnName="Doctor_data" />
-                <ScalarProperty Name="Time_of_accsident" ColumnName="Time_of_accsident" />
-                <ScalarProperty Name="First_contact_with_doctor" ColumnName="First_contact_with_doctor" />
-                <ScalarProperty Name="Place_of_accsident" ColumnName="Place_of_accsident" />
-                <ScalarProperty Name="Date_of_accsident" ColumnName="Date_of_accsident" />
-                <ScalarProperty Name="LossID" ColumnName="LossID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="luggage_insurance">
             <EntityTypeMapping TypeName="db_9eb138_travelModel.luggage_insurance">
               <MappingFragment StoreEntitySet="luggage_insurance">
@@ -1458,7 +1442,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="first_notice_of_loss">
             <EntityTypeMapping TypeName="db_9eb138_travelModel.first_notice_of_loss">
               <MappingFragment StoreEntitySet="first_notice_of_loss">
-                <ScalarProperty Name="HealthInsurance_ID" ColumnName="HealthInsurance_ID" />
+                <ScalarProperty Name="LuggageInsurance_Y_N" ColumnName="LuggageInsurance_Y/N" />
+                <ScalarProperty Name="HealthInsurance_Y_N" ColumnName="HealthInsurance_Y/N" />
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />
                 <ScalarProperty Name="AllCosts" ColumnName="AllCosts" />
                 <ScalarProperty Name="Additional_documents_handed" ColumnName="Additional_documents_handed" />
@@ -1477,6 +1462,21 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="Claimant_person_name" ColumnName="Claimant_person_name" />
                 <ScalarProperty Name="Insured_User" ColumnName="Insured_User" />
                 <ScalarProperty Name="LossID" ColumnName="LossID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="health_insurance">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.health_insurance">
+              <MappingFragment StoreEntitySet="health_insurance">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Additional_info" ColumnName="Additional_info" />
+                <ScalarProperty Name="Documents_proof" ColumnName="Documents_proof" />
+                <ScalarProperty Name="Disease_description" ColumnName="Disease_description" />
+                <ScalarProperty Name="Doctor_data" ColumnName="Doctor_data" />
+                <ScalarProperty Name="Time_of_accsident" ColumnName="Time_of_accsident" />
+                <ScalarProperty Name="First_contact_with_doctor" ColumnName="First_contact_with_doctor" />
+                <ScalarProperty Name="Place_of_accsident" ColumnName="Place_of_accsident" />
+                <ScalarProperty Name="Date_of_accsident" ColumnName="Date_of_accsident" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

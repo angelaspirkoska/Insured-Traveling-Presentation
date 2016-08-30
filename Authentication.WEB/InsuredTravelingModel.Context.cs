@@ -53,8 +53,8 @@ namespace InsuredTraveling
         public virtual DbSet<aspnetuserlogin> aspnetuserlogins { get; set; }
         public virtual DbSet<transaction> transactions { get; set; }
         public virtual DbSet<news_all> news_all { get; set; }
-        public virtual DbSet<health_insurance> health_insurance { get; set; }
         public virtual DbSet<luggage_insurance> luggage_insurance { get; set; }
         public virtual DbSet<first_notice_of_loss> first_notice_of_loss { get; set; }
+        public virtual DbSet<health_insurance> health_insurance { get; set; }
     }
 }
