@@ -34,6 +34,7 @@ namespace InsuredTraveling
         public System.DateTime DateTime { get; set; }
         public bool HealthInsurance_Y_N { get; set; }
         public bool LuggageInsurance_Y_N { get; set; }
+        public long PolicyNumber { get; set; }
     
         public virtual luggage_insurance luggage_insurance { get; set; }
         public virtual health_insurance health_insurance { get; set; }

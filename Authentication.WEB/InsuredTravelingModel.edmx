@@ -114,6 +114,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
             <PropertyRef Name="LossID" />
           </Key>
           <Property Name="LossID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PolicyNumber" Type="bigint" Nullable="false" />
           <Property Name="Insured_User" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="Claimant_person_name" Type="varchar" MaxLength="128" />
           <Property Name="Claimant_person_address" Type="varchar" MaxLength="128" />
@@ -989,6 +990,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="LuggageInsurance_Y_N" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="luggage_insurance" Relationship="db_9eb138_travelModel.LossID_Luggage_FK" FromRole="first_notice_of_loss" ToRole="luggage_insurance" />
           <NavigationProperty Name="health_insurance" Relationship="db_9eb138_travelModel.LossID_HealthInsurance_FK" FromRole="first_notice_of_loss" ToRole="health_insurance" />
+          <Property Name="PolicyNumber" Type="Int64" Nullable="false" />
         </EntityType>
         <Association Name="LossID_Luggage_FK">
           <End Type="db_9eb138_travelModel.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="1">
@@ -1442,6 +1444,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="first_notice_of_loss">
             <EntityTypeMapping TypeName="db_9eb138_travelModel.first_notice_of_loss">
               <MappingFragment StoreEntitySet="first_notice_of_loss">
+                <ScalarProperty Name="PolicyNumber" ColumnName="PolicyNumber" />
                 <ScalarProperty Name="LuggageInsurance_Y_N" ColumnName="LuggageInsurance_Y/N" />
                 <ScalarProperty Name="HealthInsurance_Y_N" ColumnName="HealthInsurance_Y/N" />
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />

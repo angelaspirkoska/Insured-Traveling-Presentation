@@ -179,25 +179,26 @@
                 <thead>
                     <tr>
                         <th>Број на штета</th>
+                        <th>Број на полиса</th>
                         <th>Име и презиме на осигуреник</th>
-                        <th>Адреса на осигуреник</th>
+                        @*<th>Адреса на осигуреник</th>
                         <th>Телефон на осигуреник</th>
                         <th>ЕМБГ на осигуреникот</th>
                         <th>Трансакциска сметка на осигуреникот</th>
-                        <th>Депонент банка на осигуреникот</th>
+                        <th>Депонент банка на осигуреникот</th>*@
                         <th>Име и презиме на оштетениот</th>
-                        <th>Адреса на оштетениот</th>
+                        @*<th>Адреса на оштетениот</th>
                         <th>Телефон на оштетениот</th>
                         <th>ЕМБГ на оштетениот</th>
                         <th>Трансакциска сметка на оштетениот</th>
-                        <th>Депонент банка на оштетениот</th>
+                        <th>Депонент банка на оштетениот</th>*@
                         <th>Сродство на оштетениот со осигуреникот</th>
-                        <th>Место на патување</th>
+                        @*<th>Место на патување</th>
                         <th>Датум на заминување</th>
                         <th>Време на заминување</th>
                         <th>Датум на враќање</th>
                         <th>Време на враќање</th>
-                        <th>Превозно средство</th>
+                        <th>Превозно средство</th>*@
                         <th>Фактури</th>
                         <th>Вкупна цена на трошоците</th>
                         <th>Датум на пријавување</th>
@@ -210,7 +211,79 @@
             </table>
         </div>
         <div class="row">
-            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableHealthInsurance" hidden>
+            <form class="form-horizontal" id="HealthInsuranceForm" hidden>
+                <fieldset>
+                    <legend>Legend</legend>
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-lg-2 control-label"  >Email</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputEmail" placeholder="Email" readonly value="kostova.slobodanka@hotmail.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                        <div class="col-lg-10">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Checkbox
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="textArea" class="col-lg-2 control-label">Textarea</label>
+                        <div class="col-lg-10">
+                            <textarea class="form-control" rows="3" id="textArea"></textarea>
+                            <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Radios</label>
+                        <div class="col-lg-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                                    Option one is this
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                    Option two can be something else
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="select" class="col-lg-2 control-label">Selects</label>
+                        <div class="col-lg-10">
+                            <select class="form-control" id="select">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                            <br>
+                            <select multiple="" class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            @*<table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableHealthInsurance" hidden>
                 <thead>
                     <tr>
                         <th>Датум на незгодата</th>
@@ -225,7 +298,7 @@
                     </tr>
                 </thead>
                 <tbody></tbody>
-            </table>
+            </table>*@
         </div>
 
     </div>
@@ -343,25 +416,26 @@
             ajax: "http://localhost:19655/Search/GetFNOL",
             columns: [
                 { data: "ID" },
+                { data: "PolicyNumber" },
                 { data: "InsuredName" },
-                { data: "InsuredAddress" },
-                { data: "InsuredPhone" },
-                { data: "InsuredEmbg" },
-                { data: "InsuredTransaction" },
-                { data: "InsuredDeponentBank" },
+                //{ data: "InsuredAddress" },
+                //{ data: "InsuredPhone" },
+                //{ data: "InsuredEmbg" },
+                //{ data: "InsuredTransaction" },
+                //{ data: "InsuredDeponentBank" },
                 { data: "ClaimantPersonName" },
-                { data: "ClaimantPersonAddress" },
-                { data: "ClaimantPersonPhone" },
-                { data: "ClaimantPersonEMBG" },
-                { data: "ClaimantPersonTransaction" },
-                { data: "ClaimantPersonDeponentBank" },
+                //{ data: "ClaimantPersonAddress" },
+                //{ data: "ClaimantPersonPhone" },
+                //{ data: "ClaimantPersonEMBG" },
+                //{ data: "ClaimantPersonTransaction" },
+                //{ data: "ClaimantPersonDeponentBank" },
                 { data: "Claimant_insured_relation" },
-                { data: "LandTrip" },
-                { data: "TripStartDate" },
-                { data: "TripStartTime" },
-                { data: "TripEndDate" },
-                { data: "TripEndTime" },
-                { data: "TypeTransport" },
+                //{ data: "LandTrip" },
+                //{ data: "TripStartDate" },
+                //{ data: "TripStartTime" },
+                //{ data: "TripEndDate" },
+                //{ data: "TripEndTime" },
+                //{ data: "TypeTransport" },
                 { data: "AdditionalDocumentsHanded" },
                 { data: "AllCosts" },
                 { data: "Date" },
@@ -375,23 +449,24 @@
             var $row = $(this).closest('tr');
             var LossID = table.row($row).data();
             console.log(LossID.ID);
-            $("#tableHealthInsurance").show();
-            $("#tableHealthInsurance").DataTable().destroy();
-            var table1 = $("#tableHealthInsurance").DataTable({
-                dom: "Bfrtip",
-                ajax: "http://localhost:19655/Search/GetHealthInsurance?lossID=" + LossID.ID,
-                columns: [
-                    { data: "Date_of_accsident" },
-                    { data: "Place_of_accsident" },
-                    { data: "Time_of_accsident" },
-                    { data: "First_contact_with_doctor" },
-                    { data: "Doctor_data" },
-                    { data: "Disease_description" },
-                    { data: "Documents_proof" },
-                    { data: "Additional_info" }
-                ],
-                select: true
-            });
+            $("#HealthInsuranceForm").show();
+            //$("#tableHealthInsurance").show();
+            //$("#tableHealthInsurance").DataTable().destroy();
+            //var table1 = $("#tableHealthInsurance").DataTable({
+            //    dom: "Bfrtip",
+            //    ajax: "http://localhost:19655/Search/GetHealthInsurance?lossID=" + LossID.ID,
+            //    columns: [
+            //        { data: "Date_of_accsident" },
+            //        { data: "Place_of_accsident" },
+            //        { data: "Time_of_accsident" },
+            //        { data: "First_contact_with_doctor" },
+            //        { data: "Doctor_data" },
+            //        { data: "Disease_description" },
+            //        { data: "Documents_proof" },
+            //        { data: "Additional_info" }
+            //    ],
+            //    select: true
+            //});
         });
     };
     
