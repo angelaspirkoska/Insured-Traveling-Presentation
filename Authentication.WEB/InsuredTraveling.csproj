@@ -457,6 +457,7 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\CreateClientModel.cs" />
     <Compile Include="Models\Enums.cs" />
+    <Compile Include="Models\FNOL.cs" />
     <Compile Include="Models\ForgetPasswordModel.cs" />
     <Compile Include="Models\HalkbankPaymentModel.cs" />
     <Compile Include="Models\LoginUser.cs" />

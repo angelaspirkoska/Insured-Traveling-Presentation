@@ -33,8 +33,9 @@ namespace Authentication.WEB.Services
         public double? popustDenovi(string vidPolisa, long denovi)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            double? popust = (entities.p_denovi.Where(x => x.Vid_Polisa.Equals(vidPolisa)).Where(x => x.Patuva_Denovi <= denovi)
-                .OrderByDescending(x => x.Patuva_Denovi).First()).Popust_Denovi;
+            var p = (entities.p_denovi.Where(x => x.Vid_Polisa.Equals(vidPolisa)).Where(x => x.Patuva_Denovi <= denovi)
+                .OrderByDescending(x => x.Patuva_Denovi).First());
+            double? popust = p.Popust_Denovi;
             return popust;
         }
 

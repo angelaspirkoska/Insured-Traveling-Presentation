@@ -290,8 +290,8 @@ namespace InsuredTraveling.Controllers
                 j1.Add("AdditionalDocumentsHanded", v.Additional_documents_handed);
                 j1.Add("AllCosts", v.AllCosts);
                 j1.Add("Date", v.DateTime);
-                j1.Add("HealthInsurance_Y/N", (v.HealthInsurance_Y_N)? "Da" : "Ne");
-                j1.Add("LuggageInsurance_Y/N", (v.LuggageInsurance_Y_N)? "Da" : "Ne");
+                j1.Add("HealthInsurance_Y/N", (v.HealthInsurance_Y_N == true)? "Da" : "Ne");
+                j1.Add("LuggageInsurance_Y/N", (v.LuggageInsurance_Y_N == true)? "Da" : "Ne");
                 data1.Add(j1);
             }
             data.Add("data", data1);

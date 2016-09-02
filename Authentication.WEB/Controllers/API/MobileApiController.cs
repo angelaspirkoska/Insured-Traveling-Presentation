@@ -115,5 +115,108 @@ namespace InsuredTraveling.Controllers.API
             }
             return Json(data);
         }
+
+        [HttpPost]
+        [Route("ReportLoss")]
+        public IHttpActionResult ReportLoss(FNOL f)
+        {
+            if (f.ShortDetailed == true)
+            {
+                first_notice_of_loss f1 = new first_notice_of_loss();
+                f1.Insured_User = db.aspnetusers.Where(x => x.UserName == f.username).Select(x => x.Id).First();
+                f1.Message = f.message;
+                f1.PolicyNumber = f.policyNumber;
+                f1.Web_Mobile = f.WebMobile;
+
+                db.first_notice_of_loss.Add(f1);
+                try
+                {
+                    db.SaveChanges();
+                }catch(Exception ex)
+                {
+                    return InternalServerError(ex);
+                }
+                return Ok();
+            }
+            else
+            {
+                var f1 = db.first_notice_of_loss.Create();
+                f1.PolicyNumber = f.policyNumber;
+                f1.Insured_User = db.aspnetusers.Where(x => x.UserName == f.username).Select(x => x.Id).First();
+                f1.Claimant_person_name = f.insuredName;
+                f1.Claimant_person_embg = f.insuredEMBG;
+                f1.Claimant_person_address = f.insuredAddress;
+                f1.Claimant_person_number = f.insuredPhone;
+                f1.Claimant_person_transaction_number = f.insuredTransactionAccount;
+                f1.Claimant_person_deponent_bank = f.deponentInsured;
+                f1.Claimant_insured_relation = f.relationship;
+                f1.Land_trip = f.travelDestination;
+                f1.Trip_startdate = f.travelDateFrom.Date;
+                f1.Trip_starttime = f.travelTimeFrom;
+                f1.Trip_enddate = f.travelDateTo.Date;
+                f1.Trip_endtime = f.travelTimeTo;
+                f1.Type_transport_trip = f.transportationType;
+                f1.Additional_documents_handed = f.additionalDocumentsHanded;
+                f1.DateTime = DateTime.Now;
+                f1.AllCosts = f.valueExpenses;
+                f1.LuggageInsurance_Y_N = f.LuggageInsurance;
+                f1.HealthInsurance_Y_N = f.HealthInsurance;
+                f1.Web_Mobile = f.WebMobile;
+                f1.Short_Detailed = f.ShortDetailed;
+
+                db.first_notice_of_loss.Add(f1);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return InternalServerError(ex);
+                }
+                
+
+                if (f1.HealthInsurance_Y_N==true)
+                {
+
+                    var h = db.health_insurance.Create();
+                    h.ID = f1.LossID;
+                    h.Place_of_accsident = f.placeLoss;
+                    h.Doctor_data = f.DoctorInfo;
+                    h.Date_of_accsident = f.lossDate;
+                    h.Disease_description = f.illnessInfo;
+                    h.Documents_proof = f.documentsHanded;
+                    h.Additional_info = f.additionalInfo;
+
+                    db.health_insurance.Add(h);
+                }
+                else if (f1.LuggageInsurance_Y_N == true)
+                {
+                    luggage_insurance l = new luggage_insurance();
+                    l.ID = f1.LossID;
+                    l.Date_of_loss = f.baggageLossDate;
+                    l.Place_desc_of_loss = f.placeBaggageLoss;
+                    l.Place_reported = f.placeReported;
+                    l.Detailed_description = f.detailedDescription;
+                    l.Desc_of_stolen_damaged_things = f.descriptionLostStolenThings;
+                    l.Documents_proof = f.documentsHanded2;
+                    l.AirportArrivalTime = f.airportArrivalTime;
+                    l.LuggageDropTime = f.baggageDropTime;
+
+                    db.luggage_insurance.Add(l);
+
+                }
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return InternalServerError(ex);
+                }
+
+                return Ok();
+            }
+        }
     }
 }

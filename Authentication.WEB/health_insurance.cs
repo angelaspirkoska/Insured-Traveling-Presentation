@@ -16,7 +16,7 @@ namespace InsuredTraveling
     {
         public System.DateTime Date_of_accsident { get; set; }
         public string Place_of_accsident { get; set; }
-        public System.DateTime First_contact_with_doctor { get; set; }
+        public Nullable<System.DateTime> First_contact_with_doctor { get; set; }
         public System.TimeSpan Time_of_accsident { get; set; }
         public string Doctor_data { get; set; }
         public string Disease_description { get; set; }
