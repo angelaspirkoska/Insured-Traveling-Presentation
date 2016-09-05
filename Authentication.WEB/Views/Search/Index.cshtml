@@ -181,24 +181,8 @@
                         <th>Број на штета</th>
                         <th>Број на полиса</th>
                         <th>Име и презиме на осигуреник</th>
-                        @*<th>Адреса на осигуреник</th>
-                        <th>Телефон на осигуреник</th>
-                        <th>ЕМБГ на осигуреникот</th>
-                        <th>Трансакциска сметка на осигуреникот</th>
-                        <th>Депонент банка на осигуреникот</th>*@
                         <th>Име и презиме на оштетениот</th>
-                        @*<th>Адреса на оштетениот</th>
-                        <th>Телефон на оштетениот</th>
-                        <th>ЕМБГ на оштетениот</th>
-                        <th>Трансакциска сметка на оштетениот</th>
-                        <th>Депонент банка на оштетениот</th>*@
                         <th>Сродство на оштетениот со осигуреникот</th>
-                        @*<th>Место на патување</th>
-                        <th>Датум на заминување</th>
-                        <th>Време на заминување</th>
-                        <th>Датум на враќање</th>
-                        <th>Време на враќање</th>
-                        <th>Превозно средство</th>*@
                         <th>Фактури</th>
                         <th>Вкупна цена на трошоците</th>
                         <th>Датум на пријавување</th>
@@ -210,95 +194,265 @@
                 <tbody></tbody>
             </table>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top:100px;">
             <form class="form-horizontal" id="HealthInsuranceForm" hidden>
                 <fieldset>
-                    <legend>Legend</legend>
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-lg-2 control-label"  >Email</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputEmail" placeholder="Email" readonly value="kostova.slobodanka@hotmail.com">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-                        <div class="col-lg-10">
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox"> Checkbox
-                                </label>
+                    <legend class="text-center">Пријава за штета од патничко осигурување</legend>
+                    <div class="row container">
+                        <header class="well">Податоци за осигуреник</header>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Осигуреник:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="InsuredName" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Адреса:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="insuredAddress" readonly value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Телефон:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="InsuredPhone" readonly>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="textArea" class="col-lg-2 control-label">Textarea</label>
-                        <div class="col-lg-10">
-                            <textarea class="form-control" rows="3" id="textArea"></textarea>
-                            <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">Radios</label>
-                        <div class="col-lg-10">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                                    Option one is this
-                                </label>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">ЕМБГ:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="InsuredEmbg" readonly>
+                                </div>
                             </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                    Option two can be something else
-                                </label>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Трансакциона с-ка:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="insuredTransaction" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Депонент банка:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="InsuredDeponent" readonly>
+                                </div>
                             </div>
                         </div>
+
                     </div>
-                    <div class="form-group">
-                        <label for="select" class="col-lg-2 control-label">Selects</label>
-                        <div class="col-lg-10">
-                            <select class="form-control" id="select">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                            <br>
-                            <select multiple="" class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
+                    
+                    <div class="row container">
+                        <header class="well">Корисник на осигурувањето</header>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label  class="col-md-4 control-label">Оштетен:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="ClaimantName" readonly >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-4 control-label">Адреса:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="ClaimantAddress" readonly value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Телефон:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="ClaimantPhone" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Сродство со осигуреникот::</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="ClaimantInsuredRelation" readonly>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-lg-10 col-lg-offset-2">
-                            <button type="reset" class="btn btn-default">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">ЕМБГ:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="ClaimantEmbg" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Трансакциона с-ка:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="ClaimantTransaction" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Депонент банка:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="ClaimantDeponent" readonly>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
+
+                    <div class="row container">
+                        <header class="well">Податоци за патувањето</header>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Место на патуање:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="TravelLand" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Превозно средство:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="TypeTransport" readonly value="">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Датум и време на заминување:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="DateTimeTripStart" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Датум и време на враќање:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="DateTimeTripEnd" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row container" hidden id="healthInsurance">
+                        <header class="well">Податоци за штетата - Здраствено осигурување</header>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Датум, време и место на незгодата:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="DateTimePlaceLoss" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Прв контакт со докторот и негови податоци:</label>
+                                <div class="col-lg-8">
+                                    <textarea type="text" class="form-control input-sm" id="FirstContactWithDoctor" readonly value=""> </textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Опис на болеста и дали претходно сте биле лекувани од истата:</label>
+                                <div class="col-lg-8">
+                                    <textarea type="text" class="form-control input-sm" id="Disease_description" readonly></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Документи приложени како доказ:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="DocumentsOfProof" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Во случај на тешка повреда или смрт, кој орган составил записник и детален опис на настанот :</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="Additional_info" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row container" hidden id="luggageInsurance">
+                        <header class="well">Податоци за штетата - Осигурување на багаж</header>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Датум на настанот:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="Date_of_loss" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Место и опис на настанот:</label>
+                                <div class="col-lg-8">
+                                    <textarea type="text" class="form-control input-sm" id="Place_desc_of_loss" readonly value=""> </textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Детален опис на настанот:</label>
+                                <div class="col-lg-8">
+                                    <textarea type="text" class="form-control input-sm" id="Detailed_description" readonly></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Место на пријавување:</label>
+                                <div class="col-lg-8">
+                                    <textarea type="text" class="form-control input-sm" id="Place_reported" readonly></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Опис на украдените/оштетени предмети и нивната вредност:</label>
+                                <div class="col-lg-8">
+                                    <textarea type="text" class="form-control input-sm" id="Desc_of_stolendamaged_things" readonly></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Документи приложени како доказ :</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="DocumentsOfProof2" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Време на пристигнување на аеродром :</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="AirportArrivalTime" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Време на предавање на багаж :</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="LuggageDropTime" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="row container">
+                        <header class="well">Податоци за трошоци</header>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Фактури како доказ:</label>
+                                <div class="col-lg-8">
+                                    <textarea type="text" class="form-control input-sm" id="Additional_documents_handed" readonly></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Вкупна вредност на сите трошоци:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="AllCosts" readonly value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Датум на пријавување:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" id="Date" readonly>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                       
+
+                  
                 </fieldset>
             </form>
-            @*<table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableHealthInsurance" hidden>
-                <thead>
-                    <tr>
-                        <th>Датум на незгодата</th>
-                        <th>Место на незгодата</th>
-                        <th>Време на незгодата</th>
-                        <th>Прв контакт со доктор</th>
-                        <th>Податоци за докторот</th>
-                        <th>Опис за болеста</th>
-                        <th>Документи како доказ</th>
-                        <th>Дополнителни податоци</th>
-
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>*@
+          
         </div>
 
     </div>
@@ -418,24 +572,8 @@
                 { data: "ID" },
                 { data: "PolicyNumber" },
                 { data: "InsuredName" },
-                //{ data: "InsuredAddress" },
-                //{ data: "InsuredPhone" },
-                //{ data: "InsuredEmbg" },
-                //{ data: "InsuredTransaction" },
-                //{ data: "InsuredDeponentBank" },
                 { data: "ClaimantPersonName" },
-                //{ data: "ClaimantPersonAddress" },
-                //{ data: "ClaimantPersonPhone" },
-                //{ data: "ClaimantPersonEMBG" },
-                //{ data: "ClaimantPersonTransaction" },
-                //{ data: "ClaimantPersonDeponentBank" },
                 { data: "Claimant_insured_relation" },
-                //{ data: "LandTrip" },
-                //{ data: "TripStartDate" },
-                //{ data: "TripStartTime" },
-                //{ data: "TripEndDate" },
-                //{ data: "TripEndTime" },
-                //{ data: "TypeTransport" },
                 { data: "AdditionalDocumentsHanded" },
                 { data: "AllCosts" },
                 { data: "Date" },
@@ -449,24 +587,61 @@
             var $row = $(this).closest('tr');
             var LossID = table.row($row).data();
             console.log(LossID.ID);
+            $.ajax({
+                type: "POST",
+                url: "Search/FNOLDetails?lossID=" + LossID.ID,
+                contentType: "json",
+                success: function (result) {
+                    console.log((JSON.parse(result)).data[0].AllCosts);
+                    var fnol = (JSON.parse(result)).data[0];
+                    $("#InsuredName").attr("value", fnol.InsuredName);
+                    $("#insuredAddress").attr("value", fnol.InsuredAddress);
+                    $("#InsuredPhone").attr("value", fnol.InsuredPhone);
+                    $("#InsuredEmbg").attr("value", fnol.InsuredEmbg);
+                    $("#InsuredTransaction").attr("value", fnol.InsuredTransaction);
+                    $("#InsuredDeponent").attr("value", fnol.InsuredDeponentBank);
+
+                    $("#ClaimantName").attr("value", fnol.ClaimantPersonName);
+                    $("#ClaimantAddress").attr("value", fnol.ClaimantPersonAddress);
+                    $("#ClaimantPhone").attr("value", fnol.ClaimantPersonPhone);
+                    $("#ClaimantEmbg").attr("value", fnol.ClaimantPersonEMBG);
+                    $("#ClaimantTransaction").attr("value", fnol.ClaimantPersonTransaction);
+                    $("#ClaimantDeponent").attr("value", fnol.ClaimantPersonDeponentBank);
+                    $("#ClaimantInsuredRelation").attr("value", fnol.ClaimantInsuredRelation);
+
+                    $("#TravelLand").attr("value", fnol.LandTrip);
+                    $("#TypeTransport").attr("value", fnol.TypeTransport);
+                    $("#DateTimeTripStart").attr("value", fnol.TripStartDate);
+                    $("#DateTimeTripEnd").attr("value", fnol.TripEndDate);
+
+                    $("#Additional_documents_handed").attr("value", fnol.AdditionalDocumentsHanded);
+                    $("#AllCosts").attr("value", fnol.AllCosts);
+                    $("#Date").attr("value", fnol.Date);
+
+                    if (fnol.HealthInsurance_YN == "Da") {
+                        $("#DateTimePlaceLoss").attr("value", fnol.Date_of_accsident);
+                        $("#FirstContactWithDoctor").attr("value", fnol.Doctor_data);
+                        $("#Disease_description").attr("value", fnol.Disease_description);
+                        $("#DocumentsOfProof").attr("value", fnol.DocumentsOfProof);
+                        $("#Additional_info").attr("value", fnol.Additional_info);
+                        $("#healthInsurance").show();
+                    } else {
+                        $("#Date_of_loss").attr("value", fnol.Date_of_loss);
+                        $("#Place_desc_of_loss").attr("value", fnol.Place_desc_of_loss);
+                        $("#Detailed_description").attr("value", fnol.Detailed_description);
+                        $("#Place_reported").attr("value", fnol.Place_reported);
+                        $("#Desc_of_stolendamaged_things").attr("value", fnol.Desc_of_stolen_damaged_things);
+                        $("#AirportArrivalTime").attr("value", fnol.AirportArrivalTime);
+                        $("#LuggageDropTime").attr("value", fnol.LuggageDropTime);
+                        $("#DocumentsOfProof2").attr("value", fnol.Documents_proof2);
+                        $("#luggageInsurance").show();
+                        
+                    }
+
+                }
+            });
             $("#HealthInsuranceForm").show();
-            //$("#tableHealthInsurance").show();
-            //$("#tableHealthInsurance").DataTable().destroy();
-            //var table1 = $("#tableHealthInsurance").DataTable({
-            //    dom: "Bfrtip",
-            //    ajax: "http://localhost:19655/Search/GetHealthInsurance?lossID=" + LossID.ID,
-            //    columns: [
-            //        { data: "Date_of_accsident" },
-            //        { data: "Place_of_accsident" },
-            //        { data: "Time_of_accsident" },
-            //        { data: "First_contact_with_doctor" },
-            //        { data: "Doctor_data" },
-            //        { data: "Disease_description" },
-            //        { data: "Documents_proof" },
-            //        { data: "Additional_info" }
-            //    ],
-            //    select: true
-            //});
+           
         });
     };
     

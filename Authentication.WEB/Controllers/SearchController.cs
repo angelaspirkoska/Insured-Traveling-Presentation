@@ -299,24 +299,79 @@ namespace InsuredTraveling.Controllers
 
         }
 
+        [HttpPost]
+        [Route("FNOLDetails")]
         public JObject FNOLDetails(int lossID)
         {
-            var health_insurance = _db.first_notice_of_loss.Where(x => x.LossID == lossID).ToArray().First().health_insurance;
             var data = new JObject();
+            var loss = _db.first_notice_of_loss.Where(x => x.LossID == lossID).ToArray().First();
+            var user = _db.aspnetusers.Where(x => x.Id == loss.Insured_User).ToArray().Last();
+
             var jarray = new JArray();
-
             var j = new JObject();
-            j.Add("Date_of_accsident", health_insurance.Date_of_accsident);
-            j.Add("Place_of_accsident", health_insurance.Place_of_accsident);
-            j.Add("Time_of_accsident", health_insurance.Time_of_accsident);
-            j.Add("First_contact_with_doctor", health_insurance.First_contact_with_doctor);
-            j.Add("Doctor_data", health_insurance.Doctor_data);
-            j.Add("Disease_description", health_insurance.Disease_description);
-            j.Add("Documents_proof", health_insurance.Documents_proof);
-            j.Add("Additional_info", health_insurance.Additional_info);
 
-            jarray.Add(j);
-            data.Add("data", jarray);
+            //Data of insured
+            j.Add("InsuredName", user.FirstName + " " + user.LastName);
+            j.Add("InsuredAddress", user.Address);
+            j.Add("InsuredPhone", user.MobilePhoneNumber);
+            j.Add("InsuredEmbg", user.EMBG);
+            j.Add("InsuredTransaction", " ");
+            j.Add("InsuredDeponentBank", " ");
+
+            //Dats of user of insurance
+            j.Add("ClaimantPersonName", loss.Claimant_person_name);
+            j.Add("ClaimantPersonAddress", loss.Claimant_person_address);
+            j.Add("ClaimantPersonPhone", loss.Claimant_person_number);
+            j.Add("ClaimantPersonEMBG", loss.Claimant_person_embg);
+            j.Add("ClaimantPersonTransaction", loss.Claimant_person_transaction_number);
+            j.Add("ClaimantPersonDeponentBank", loss.Claimant_person_deponent_bank);
+            j.Add("ClaimantInsuredRelation", loss.Claimant_insured_relation);
+
+            //Data of trip
+            j.Add("LandTrip", loss.Land_trip);
+            j.Add("TypeTransport", loss.Type_transport_trip);
+            j.Add("TripStartDate", ((DateTime)loss.Trip_startdate).Date + "-" + loss.Trip_starttime);
+            j.Add("TripEndDate", ((DateTime)loss.Trip_enddate).Date + "-" + loss.Trip_endtime);
+
+            //Data of costs
+            j.Add("AdditionalDocumentsHanded", loss.Additional_documents_handed);
+            j.Add("AllCosts", loss.AllCosts);
+            j.Add("Date", loss.DateTime);
+            j.Add("HealthInsurance_YN", (loss.HealthInsurance_Y_N == true) ? "Da" : "Ne");
+            j.Add("LuggageInsurance_YN", (loss.LuggageInsurance_Y_N == true) ? "Da" : "Ne");
+
+            if (loss.health_insurance != null)
+            {
+                var health_insurance = loss.health_insurance;
+                
+                //Data of health insurance
+                j.Add("Date_of_accsident", health_insurance.Date_of_accsident + "-" + health_insurance.Time_of_accsident + "-" + health_insurance.Place_of_accsident);
+                j.Add("Doctor_data", health_insurance.Doctor_data);
+                j.Add("Disease_description", health_insurance.Disease_description);
+                j.Add("Documents_proof", health_insurance.Documents_proof);
+                j.Add("Additional_info", health_insurance.Additional_info);
+
+                jarray.Add(j);
+                data.Add("data", jarray);
+
+            }else if (loss.luggage_insurance != null)
+            {
+                var luggage_insurance = loss.luggage_insurance;
+
+                //Data of luggage insurance
+                j.Add("Date_of_loss", luggage_insurance.Date_of_loss);
+                j.Add("Place_desc_of_loss", luggage_insurance.Place_desc_of_loss);
+                j.Add("Detailed_description", luggage_insurance.Detailed_description);
+                j.Add("Place_reported", luggage_insurance.Place_reported);
+                j.Add("Desc_of_stolen_damaged_things", luggage_insurance.Desc_of_stolen_damaged_things);
+                j.Add("Documents_proof2", luggage_insurance.Documents_proof);
+                j.Add("AirportArrivalTime", luggage_insurance.AirportArrivalTime);
+                j.Add("LuggageDropTime", luggage_insurance.LuggageDropTime);
+
+                jarray.Add(j);
+                data.Add("data", jarray);
+            }
+
 
             return data;  
         }
