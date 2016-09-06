@@ -36,6 +36,7 @@ namespace InsuredTraveling.Controllers.API
             u.Add("Address", user.Address);
             u.Add("Email", user.Email);
             
+            
             data.Add("user", u);
 
             JArray data1 = new JArray();
@@ -125,7 +126,7 @@ namespace InsuredTraveling.Controllers.API
                 first_notice_of_loss f1 = new first_notice_of_loss();
                 f1.Insured_User = db.aspnetusers.Where(x => x.UserName == f.username).Select(x => x.Id).First();
                 f1.Message = f.message;
-                f1.PolicyNumber = f.policyNumber;
+                f1.PolicyNumber = (int)f.policyNumber;
                 f1.Web_Mobile = f.WebMobile;
 
                 db.first_notice_of_loss.Add(f1);
@@ -141,8 +142,11 @@ namespace InsuredTraveling.Controllers.API
             else
             {
                 var f1 = db.first_notice_of_loss.Create();
-                f1.PolicyNumber = f.policyNumber;
+                f1.PolicyNumber = (int)f.policyNumber;
+                
                 f1.Insured_User = db.aspnetusers.Where(x => x.UserName == f.username).Select(x => x.Id).First();
+                f1.Insured_person_transaction_number = f.TransactionAccount;
+                f1.Insured_person_deponent_bank = f.deponent;
                 f1.Claimant_person_name = f.insuredName;
                 f1.Claimant_person_embg = f.insuredEMBG;
                 f1.Claimant_person_address = f.insuredAddress;
@@ -151,9 +155,9 @@ namespace InsuredTraveling.Controllers.API
                 f1.Claimant_person_deponent_bank = f.deponentInsured;
                 f1.Claimant_insured_relation = f.relationship;
                 f1.Land_trip = f.travelDestination;
-                f1.Trip_startdate = f.travelDateFrom.Date;
+                f1.Trip_startdate =((DateTime)f.travelDateFrom).Date;
                 f1.Trip_starttime = f.travelTimeFrom;
-                f1.Trip_enddate = f.travelDateTo.Date;
+                f1.Trip_enddate = ((DateTime)f.travelDateTo).Date;
                 f1.Trip_endtime = f.travelTimeTo;
                 f1.Type_transport_trip = f.transportationType;
                 f1.Additional_documents_handed = f.additionalDocumentsHanded;
@@ -182,10 +186,11 @@ namespace InsuredTraveling.Controllers.API
                     h.ID = f1.LossID;
                     h.Place_of_accsident = f.placeLoss;
                     h.Doctor_data = f.DoctorInfo;
-                    h.Date_of_accsident = f.lossDate;
+                    h.Date_of_accsident = (DateTime)f.lossDate;
                     h.Disease_description = f.illnessInfo;
                     h.Documents_proof = f.documentsHanded;
                     h.Additional_info = f.additionalInfo;
+                    h.Time_of_accsident = (TimeSpan)f.lossTime;
 
                     db.health_insurance.Add(h);
                 }
@@ -193,14 +198,14 @@ namespace InsuredTraveling.Controllers.API
                 {
                     luggage_insurance l = new luggage_insurance();
                     l.ID = f1.LossID;
-                    l.Date_of_loss = f.baggageLossDate;
+                    l.Date_of_loss = (DateTime)f.baggageLossDate;
                     l.Place_desc_of_loss = f.placeBaggageLoss;
                     l.Place_reported = f.placeReported;
                     l.Detailed_description = f.detailedDescription;
                     l.Desc_of_stolen_damaged_things = f.descriptionLostStolenThings;
                     l.Documents_proof = f.documentsHanded2;
-                    l.AirportArrivalTime = f.airportArrivalTime;
-                    l.LuggageDropTime = f.baggageDropTime;
+                    l.AirportArrivalTime = (TimeSpan)f.airportArrivalTime;
+                    l.LuggageDropTime = (TimeSpan)f.baggageDropTime;
 
                     db.luggage_insurance.Add(l);
 

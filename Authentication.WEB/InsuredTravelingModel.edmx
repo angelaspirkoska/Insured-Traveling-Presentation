@@ -115,7 +115,10 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           </Key>
           <Property Name="LossID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PolicyNumber" Type="bigint" Nullable="false" />
+          <Property Name="PolicyType" Type="varchar" MaxLength="128" />
           <Property Name="Insured_User" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Insured_person_transaction_number" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Insured_person_deponent_bank" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="Claimant_person_name" Type="varchar" MaxLength="128" />
           <Property Name="Claimant_person_address" Type="varchar" MaxLength="128" />
           <Property Name="Claimant_person_number" Type="varchar" MaxLength="128" />
@@ -926,9 +929,9 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogin" />
           <EntitySet Name="transactions" EntityType="Self.transaction" />
           <EntitySet Name="news_all" EntityType="db_9eb138_travelModel.news_all" />
-          <EntitySet Name="first_notice_of_loss" EntityType="db_9eb138_travelModel.first_notice_of_loss" />
           <EntitySet Name="health_insurance" EntityType="db_9eb138_travelModel.health_insurance" />
           <EntitySet Name="luggage_insurance" EntityType="db_9eb138_travelModel.luggage_insurance" />
+          <EntitySet Name="first_notice_of_loss" EntityType="db_9eb138_travelModel.first_notice_of_loss" />
           <AssociationSet Name="LossID_FK" Association="db_9eb138_travelModel.LossID_FK">
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
             <End Role="health_insurance" EntitySet="health_insurance" />
@@ -951,37 +954,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="InsuranceCompany" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="GroupID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="UserID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="first_notice_of_loss">
-          <Key>
-            <PropertyRef Name="LossID" />
-          </Key>
-          <Property Name="LossID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PolicyNumber" Type="Int64" Nullable="false" />
-          <Property Name="Insured_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Claimant_person_name" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Claimant_person_address" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Claimant_person_number" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Claimant_person_embg" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Claimant_person_transaction_number" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Claimant_person_deponent_bank" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Claimant_insured_relation" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Land_trip" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Trip_startdate" Type="DateTime" />
-          <Property Name="Trip_starttime" Type="Time" />
-          <Property Name="Trip_enddate" Type="DateTime" />
-          <Property Name="Trip_endtime" Type="Time" />
-          <Property Name="Type_transport_trip" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Additional_documents_handed" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="AllCosts" Type="Int32" />
-          <Property Name="DateTime" Type="DateTime" />
-          <Property Name="HealthInsurance_Y_N" Type="Boolean" />
-          <Property Name="LuggageInsurance_Y_N" Type="Boolean" />
-          <Property Name="Web_Mobile" Type="Boolean" />
-          <Property Name="Short_Detailed" Type="Boolean" />
-          <Property Name="Message" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="health_insurance" Relationship="db_9eb138_travelModel.LossID_FK" FromRole="first_notice_of_loss" ToRole="health_insurance" />
-          <NavigationProperty Name="luggage_insurance" Relationship="db_9eb138_travelModel.LossID_Luggage_FK" FromRole="first_notice_of_loss" ToRole="luggage_insurance" />
         </EntityType>
         <EntityType Name="health_insurance">
           <Key>
@@ -1012,6 +984,40 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="AirportArrivalTime" Type="Time" Nullable="false" />
           <Property Name="LuggageDropTime" Type="Time" Nullable="false" />
           <NavigationProperty Name="first_notice_of_loss" Relationship="db_9eb138_travelModel.LossID_Luggage_FK" FromRole="luggage_insurance" ToRole="first_notice_of_loss" />
+        </EntityType>
+        <EntityType Name="first_notice_of_loss">
+          <Key>
+            <PropertyRef Name="LossID" />
+          </Key>
+          <Property Name="LossID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PolicyNumber" Type="Int64" Nullable="false" />
+          <Property Name="PolicyType" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Insured_User" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Insured_person_transaction_number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Insured_person_deponent_bank" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Claimant_person_name" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Claimant_person_address" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Claimant_person_number" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Claimant_person_embg" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Claimant_person_transaction_number" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Claimant_person_deponent_bank" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Claimant_insured_relation" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Land_trip" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Trip_startdate" Type="DateTime" />
+          <Property Name="Trip_starttime" Type="Time" />
+          <Property Name="Trip_enddate" Type="DateTime" />
+          <Property Name="Trip_endtime" Type="Time" />
+          <Property Name="Type_transport_trip" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Additional_documents_handed" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="AllCosts" Type="Int32" />
+          <Property Name="DateTime" Type="DateTime" />
+          <Property Name="HealthInsurance_Y_N" Type="Boolean" />
+          <Property Name="LuggageInsurance_Y_N" Type="Boolean" />
+          <Property Name="Web_Mobile" Type="Boolean" />
+          <Property Name="Short_Detailed" Type="Boolean" />
+          <Property Name="Message" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="health_insurance" Relationship="db_9eb138_travelModel.LossID_FK" FromRole="first_notice_of_loss" ToRole="health_insurance" />
+          <NavigationProperty Name="luggage_insurance" Relationship="db_9eb138_travelModel.LossID_Luggage_FK" FromRole="first_notice_of_loss" ToRole="luggage_insurance" />
         </EntityType>
         <Association Name="LossID_FK">
           <End Type="db_9eb138_travelModel.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="1">
@@ -1432,36 +1438,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="first_notice_of_loss">
-            <EntityTypeMapping TypeName="db_9eb138_travelModel.first_notice_of_loss">
-              <MappingFragment StoreEntitySet="first_notice_of_loss">
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Short_Detailed" ColumnName="Short/Detailed" />
-                <ScalarProperty Name="Web_Mobile" ColumnName="Web/Mobile" />
-                <ScalarProperty Name="LuggageInsurance_Y_N" ColumnName="LuggageInsurance_Y/N" />
-                <ScalarProperty Name="HealthInsurance_Y_N" ColumnName="HealthInsurance_Y/N" />
-                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
-                <ScalarProperty Name="AllCosts" ColumnName="AllCosts" />
-                <ScalarProperty Name="Additional_documents_handed" ColumnName="Additional_documents_handed" />
-                <ScalarProperty Name="Type_transport_trip" ColumnName="Type_transport_trip" />
-                <ScalarProperty Name="Trip_endtime" ColumnName="Trip_endtime" />
-                <ScalarProperty Name="Trip_enddate" ColumnName="Trip_enddate" />
-                <ScalarProperty Name="Trip_starttime" ColumnName="Trip_starttime" />
-                <ScalarProperty Name="Trip_startdate" ColumnName="Trip_startdate" />
-                <ScalarProperty Name="Land_trip" ColumnName="Land_trip" />
-                <ScalarProperty Name="Claimant_insured_relation" ColumnName="Claimant_insured_relation" />
-                <ScalarProperty Name="Claimant_person_deponent_bank" ColumnName="Claimant_person_deponent_bank" />
-                <ScalarProperty Name="Claimant_person_transaction_number" ColumnName="Claimant_person_transaction_number" />
-                <ScalarProperty Name="Claimant_person_embg" ColumnName="Claimant_person_embg" />
-                <ScalarProperty Name="Claimant_person_number" ColumnName="Claimant_person_number" />
-                <ScalarProperty Name="Claimant_person_address" ColumnName="Claimant_person_address" />
-                <ScalarProperty Name="Claimant_person_name" ColumnName="Claimant_person_name" />
-                <ScalarProperty Name="Insured_User" ColumnName="Insured_User" />
-                <ScalarProperty Name="PolicyNumber" ColumnName="PolicyNumber" />
-                <ScalarProperty Name="LossID" ColumnName="LossID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="health_insurance">
             <EntityTypeMapping TypeName="db_9eb138_travelModel.health_insurance">
               <MappingFragment StoreEntitySet="health_insurance">
@@ -1489,6 +1465,39 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="Place_desc_of_loss" ColumnName="Place_desc_of_loss" />
                 <ScalarProperty Name="Date_of_loss" ColumnName="Date_of_loss" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="first_notice_of_loss">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.first_notice_of_loss">
+              <MappingFragment StoreEntitySet="first_notice_of_loss">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Short_Detailed" ColumnName="Short/Detailed" />
+                <ScalarProperty Name="Web_Mobile" ColumnName="Web/Mobile" />
+                <ScalarProperty Name="LuggageInsurance_Y_N" ColumnName="LuggageInsurance_Y/N" />
+                <ScalarProperty Name="HealthInsurance_Y_N" ColumnName="HealthInsurance_Y/N" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="AllCosts" ColumnName="AllCosts" />
+                <ScalarProperty Name="Additional_documents_handed" ColumnName="Additional_documents_handed" />
+                <ScalarProperty Name="Type_transport_trip" ColumnName="Type_transport_trip" />
+                <ScalarProperty Name="Trip_endtime" ColumnName="Trip_endtime" />
+                <ScalarProperty Name="Trip_enddate" ColumnName="Trip_enddate" />
+                <ScalarProperty Name="Trip_starttime" ColumnName="Trip_starttime" />
+                <ScalarProperty Name="Trip_startdate" ColumnName="Trip_startdate" />
+                <ScalarProperty Name="Land_trip" ColumnName="Land_trip" />
+                <ScalarProperty Name="Claimant_insured_relation" ColumnName="Claimant_insured_relation" />
+                <ScalarProperty Name="Claimant_person_deponent_bank" ColumnName="Claimant_person_deponent_bank" />
+                <ScalarProperty Name="Claimant_person_transaction_number" ColumnName="Claimant_person_transaction_number" />
+                <ScalarProperty Name="Claimant_person_embg" ColumnName="Claimant_person_embg" />
+                <ScalarProperty Name="Claimant_person_number" ColumnName="Claimant_person_number" />
+                <ScalarProperty Name="Claimant_person_address" ColumnName="Claimant_person_address" />
+                <ScalarProperty Name="Claimant_person_name" ColumnName="Claimant_person_name" />
+                <ScalarProperty Name="Insured_person_deponent_bank" ColumnName="Insured_person_deponent_bank" />
+                <ScalarProperty Name="Insured_person_transaction_number" ColumnName="Insured_person_transaction_number" />
+                <ScalarProperty Name="Insured_User" ColumnName="Insured_User" />
+                <ScalarProperty Name="PolicyType" ColumnName="PolicyType" />
+                <ScalarProperty Name="PolicyNumber" ColumnName="PolicyNumber" />
+                <ScalarProperty Name="LossID" ColumnName="LossID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

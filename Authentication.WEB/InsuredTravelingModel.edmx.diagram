@@ -33,9 +33,9 @@
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuserlogin" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.transaction" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.news_all" Width="1.5" PointX="5.375" PointY="14.75" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.first_notice_of_loss" Width="1.5" PointX="15.375" PointY="1.25" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.health_insurance" Width="1.5" PointX="17.625" PointY="4.625" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.luggage_insurance" Width="1.5" PointX="17.625" PointY="1" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.first_notice_of_loss" Width="1.5" PointX="15.375" PointY="1" />
         <AssociationConnector Association="db_9eb138_travelModel.LossID_FK" />
         <AssociationConnector Association="db_9eb138_travelModel.LossID_Luggage_FK" />
         </Diagram>

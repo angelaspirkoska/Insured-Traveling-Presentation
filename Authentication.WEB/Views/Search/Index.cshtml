@@ -7,7 +7,7 @@
 <br />
 <br />
 
-<div style="margin-left: -10%">
+<div>
     <ul class="nav nav-pills">
         <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">Полиси</a></li>
         <li id="clients"><a href="#" onclick="ShowClients()">Клиенти</a></li>
@@ -154,7 +154,7 @@
     <div class="container" id="searchFNOL">
         <br />
         <br />
-        <div class="row">
+        @*<div class="row">
             <form method="post" style="margin-left:20px;">
                 <div class="row">
                     <input type="search" name="name" class="input-sm" placeholder="Search by name" id="name" />
@@ -170,7 +170,8 @@
                 <input class="btn btn-primary" value="Search" onclick="SearchFNOL()" type="button" />
                 <br />
             </form>
-        </div>
+        </div>*@
+        <input class="btn btn-primary" value="Search" onclick="SearchFNOL()" type="button" />
         <br />
         <br />
         <br />
@@ -584,6 +585,7 @@
         });
 
         $('#tableFNOL tbody').on('click', 'tr', function () {
+            $("#HealthInsuranceForm").hide();
             var $row = $(this).closest('tr');
             var LossID = table.row($row).data();
             console.log(LossID.ID);
@@ -637,10 +639,10 @@
                         $("#luggageInsurance").show();
                         
                     }
-
+                    $("#HealthInsuranceForm").show();
                 }
             });
-            $("#HealthInsuranceForm").show();
+           
            
         });
     };

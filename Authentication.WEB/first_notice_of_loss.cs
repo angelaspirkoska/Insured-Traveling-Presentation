@@ -16,7 +16,10 @@ namespace InsuredTraveling
     {
         public int LossID { get; set; }
         public long PolicyNumber { get; set; }
+        public string PolicyType { get; set; }
         public string Insured_User { get; set; }
+        public string Insured_person_transaction_number { get; set; }
+        public string Insured_person_deponent_bank { get; set; }
         public string Claimant_person_name { get; set; }
         public string Claimant_person_address { get; set; }
         public string Claimant_person_number { get; set; }
