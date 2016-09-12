@@ -218,7 +218,7 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Датум на незгодата:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.lossDate, new { htmlAttributes = new { @class = "form-control input-sm", type = "date" } })
+                        @Html.EditorFor(model => model.lossDate, new { htmlAttributes = new { @class = "form-control input-sm", type = "date", required = "" } })
                         @Html.ValidationMessageFor(model => model.lossDate, "", new { @class = "text-danger" })
                     </div>
                 </div>

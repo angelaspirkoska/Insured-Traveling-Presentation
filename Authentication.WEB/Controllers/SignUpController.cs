@@ -23,7 +23,7 @@ namespace InsuredTraveling.Controllers
             {
                 //var jsonData = Json(user, JsonRequestBehavior.AllowGet);
                 //return (Json(new { success = true, responseText = jsonData }, JsonRequestBehavior.AllowGet));
-                Uri uri = new Uri("http://localhost:19655/api/account/RegisterWeb");
+                Uri uri = new Uri("http://insuredtraveling.com/api/account/RegisterWeb");
                 HttpClient client = new HttpClient();
                 client.BaseAddress = uri;
                 var jsonFormatter = new JsonMediaTypeFormatter();

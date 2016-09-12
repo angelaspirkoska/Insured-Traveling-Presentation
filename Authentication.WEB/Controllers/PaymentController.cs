@@ -21,7 +21,7 @@ namespace Authentication.WEB.Controllers
             model.amount = "9.95";                         //Transaction amount
             model.oid = "";                                //Order Id. Must be unique. If left blank, system will generate a unique one.
             model.okUrl = "http://localhost:19965/Payment/PaymentSuccess";                      //URL which client be redirected if authentication is successful
-            model.failUrl = "http://localhost:19655/Payment/PaymentFail";                    //URL which client be redirected if authentication is not successful
+            model.failUrl = "http://insuredtraveling.com/Payment/PaymentFail";                    //URL which client be redirected if authentication is not successful
             model.rnd = DateTime.Now.ToString();           //A random number, such as date/time
 
             model.currency = "807";                        //Currency code, 949 for TL, ISO_4217 standard

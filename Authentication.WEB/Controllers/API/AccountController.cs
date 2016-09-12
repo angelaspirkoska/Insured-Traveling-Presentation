@@ -208,13 +208,13 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.Route("DeleteToken")]
         public IHttpActionResult DeleteToken()
         {
-            if (HttpContext.Current.Request.Cookies["token"] == null) return Redirect("http://localhost:19655/Login");
+            if (HttpContext.Current.Request.Cookies["token"] == null) return Redirect("http://insuredtraveling.com/Login");
             var c = HttpContext.Current.Request.Cookies["token"];
             c.Expires = DateTime.Now.AddYears(-1);
             HttpContext.Current.Response.Cookies.Remove("token");
             HttpContext.Current.Response.Cookies.Clear();
             HttpContext.Current.Response.Cookies.Set(c);
-            return Redirect("http://localhost:19655/Login");
+            return Redirect("http://insuredtraveling.com/Login");
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

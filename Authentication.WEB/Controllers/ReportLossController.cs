@@ -16,21 +16,14 @@ namespace InsuredTraveling.Controllers
         // GET: ReportLoss
         public ActionResult Index()
         {
-            string username = System.Web.HttpContext.Current.User.Identity.Name;
-            InsuredTravelingEntity db = new InsuredTravelingEntity();
-            var user = db.aspnetusers.Where(x => x.UserName == username).ToArray().First();
-
-            ViewBag.Name = user.FirstName + " " + user.LastName;
-            ViewBag.Address = user.Address;
-            ViewBag.Phone = user.MobilePhoneNumber;
-            ViewBag.EMBG = user.EMBG;
-            
+            ShowUserData();   
             return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> Index(FNOL f)
         {
+            ShowUserData();
             if (ModelState.IsValid)
             {
                 if (f.insurance == "Health Insurance")
@@ -46,7 +39,7 @@ namespace InsuredTraveling.Controllers
                 }
                 f.ShortDetailed = false;
                 
-                var uri = new Uri("http://localhost:19655/api/mobile/ReportLoss");
+                var uri = new Uri("http://insuredtraveling.com/api/mobile/ReportLoss");
 
                 var client = new HttpClient { BaseAddress = uri };
                 var jsonFormatter = new JsonMediaTypeFormatter();
@@ -60,6 +53,18 @@ namespace InsuredTraveling.Controllers
                 }
             }
             return View();
+        }
+
+        public void ShowUserData()
+        {
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            InsuredTravelingEntity db = new InsuredTravelingEntity();
+            var user = db.aspnetusers.Where(x => x.UserName == username).ToArray().First();
+
+            ViewBag.Name = user.FirstName + " " + user.LastName;
+            ViewBag.Address = user.Address;
+            ViewBag.Phone = user.MobilePhoneNumber;
+            ViewBag.EMBG = user.EMBG;
         }
     }
 }

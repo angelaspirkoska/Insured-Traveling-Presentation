@@ -492,8 +492,8 @@
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\Client.cs" />
-    <Compile Include="Entities\RefreshToken.cs" />
+    <Compile Include="Scripts\Entities\Client.cs" />
+    <Compile Include="Scripts\Entities\RefreshToken.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Providers\SimpleRefreshTokenProvider.cs" />
     <Compile Include="p_den.cs">
