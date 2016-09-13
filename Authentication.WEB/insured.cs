@@ -12,10 +12,14 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class p_fran
+    public partial class insured
     {
-        public string Fransiza { get; set; }
-        public string Dedactible { get; set; }
-        public Nullable<int> I_Fran { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Lastname { get; set; }
+        public string SSN { get; set; }
+        public System.DateTime DateBirth { get; set; }
+        public int Age { get; set; }
+        public int PolicyID { get; set; }
     }
 }

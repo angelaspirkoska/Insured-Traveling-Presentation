@@ -36,7 +36,7 @@ namespace Authentication.WEB.Controllers
             patnicko polisaEntity = new patnicko();
 
             //testing the premium api start
-            Uri uri = new Uri("http://insuredtraveling.com/api/premium/calculate");
+            Uri uri = new Uri("http://localhost:19655/api/premium/calculate");
             HttpClient client = new HttpClient();
             client.BaseAddress = uri;
             var mediaType = new MediaTypeHeaderValue("application/json");

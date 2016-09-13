@@ -12,8 +12,9 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class p_den
+    public partial class country
     {
-        public string Patuva_Denovi { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
     }
 }

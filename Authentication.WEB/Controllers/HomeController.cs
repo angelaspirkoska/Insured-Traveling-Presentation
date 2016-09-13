@@ -11,7 +11,7 @@ namespace InsuredTraveling.Controllers
         {
             if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false)
             {
-                Response.Redirect("http://insuredtraveling.com/Login");  
+                Response.Redirect("http://localhost:19655/Login");  
             }
             return View();
 

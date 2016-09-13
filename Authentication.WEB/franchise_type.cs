@@ -12,9 +12,10 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class patnicko_vid
+    public partial class franchise_type
     {
-        public string Vid_Polisa { get; set; }
-        public Nullable<long> Vid { get; set; }
+        public string Franchise { get; set; }
+        public string Dedactible { get; set; }
+        public int ID { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace Authentication.WEB.Models
 
         public int policyNumber { get; set; }
         public string zemjaNaPatuvanje { get; set; }
-        public string fransiza { get; set; }
+        public string Franchise { get; set; }
         public string vidPolisa { get; set; }
         public string brojPatuvanja { get; set; }
         public DateTime startDate { get; set; }

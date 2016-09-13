@@ -427,6 +427,9 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Controllers\ValidateMailController.cs" />
+    <Compile Include="country.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="CustomViewEngine.cs" />
     <Compile Include="eurolinkuser.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
@@ -435,14 +438,23 @@
     <Compile Include="first_notice_of_loss.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="franchise_type.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="group.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="health_insurance.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="insured.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="InsuredTravelingModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -493,10 +505,10 @@
     <Compile Include="ok_setup.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="patnicko.cs">
+    <Compile Include="policy.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="patnicko_vid.cs">
+    <Compile Include="policy_type.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -504,9 +516,6 @@
     <Compile Include="Scripts\Entities\RefreshToken.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Providers\SimpleRefreshTokenProvider.cs" />
-    <Compile Include="p_den.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="p_denovi.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
@@ -514,9 +523,6 @@
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="p_familija.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="p_fran.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="p_grupa.cs">
@@ -537,9 +543,6 @@
     <Compile Include="p_vozrast.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="p_zem.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="p_zemja_na_patuvanje.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
@@ -555,6 +558,9 @@
     <Compile Include="Services\ValidationService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="transaction.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="travel_duration.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="user.cs">

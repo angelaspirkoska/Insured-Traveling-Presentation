@@ -39,7 +39,7 @@ namespace InsuredTraveling.Controllers
                 }
                 f.ShortDetailed = false;
                 
-                var uri = new Uri("http://insuredtraveling.com/api/mobile/ReportLoss");
+                var uri = new Uri("http://localhost:19655/api/mobile/ReportLoss");
 
                 var client = new HttpClient { BaseAddress = uri };
                 var jsonFormatter = new JsonMediaTypeFormatter();

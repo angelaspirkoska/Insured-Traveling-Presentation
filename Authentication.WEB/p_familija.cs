@@ -15,7 +15,8 @@ namespace InsuredTraveling
     public partial class p_familija
     {
         public long I_Familija { get; set; }
-        public string Vid_Polisa { get; set; }
+        public string Policy_type { get; set; }
         public Nullable<double> Popust_Familija { get; set; }
+        public string Vid_Polisa { get; set; }
     }
 }

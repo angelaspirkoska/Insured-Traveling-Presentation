@@ -25,7 +25,7 @@ namespace InsuredTraveling.Controllers
             if (ModelState.IsValid)
             {
                 user.grant_type = "password";
-                var uri = new Uri("http://insuredtraveling.com/token");
+                var uri = new Uri("http://localhost:19655/token");
                 var client = new HttpClient {BaseAddress = uri};
                 IDictionary<string, string> data1 = new Dictionary<string, string>();
                 data1.Add("username", user.username);

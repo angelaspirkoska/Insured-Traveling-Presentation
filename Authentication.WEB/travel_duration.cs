@@ -12,11 +12,9 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class p_denovi
+    public partial class travel_duration
     {
         public int ID { get; set; }
-        public int Policy_type { get; set; }
-        public Nullable<int> Travel_duration { get; set; }
-        public Nullable<double> Discount { get; set; }
+        public string Days { get; set; }
     }
 }

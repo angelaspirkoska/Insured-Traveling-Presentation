@@ -30,7 +30,7 @@
                     <div class="form-inline row">
                         <div class="form-group">
                             <label for="vidPolisa">Вид полиса :</label>
-                            @Html.DropDownListFor(model => model.patnickoes, (List<SelectListItem>)ViewBag.TypeOfPolicy, "-- Type of policy --", new { @class = "form-control", name = "TypePolycies", id = "TypePolycies" })
+                            @Html.DropDownListFor(model => model.policies, (List<SelectListItem>)ViewBag.TypeOfPolicy, "-- Type of policy --", new { @class = "form-control", name = "TypePolycies", id = "TypePolycies" })
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="startDate">Датум на важење од:</label>
@@ -518,13 +518,13 @@
         $("#tablePolicies").DataTable().destroy();
         $("#tablePolicies").DataTable({
             dom: "Bfrtip",
-            ajax: "http://insuredtraveling.com/Search/GetPolicies?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolycies=" + $("#TypePolycies").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val(),
+            ajax: "http://localhost:19655/Search/GetPolicies?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolycies=" + $("#TypePolycies").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val(),
             columns: [
                 { data: "Polisa_Broj" },
                 { data: "Ime_I_Prezime" },
                 { data: "EMBG" },
-                { data: "Zemja_Na_Patuvanje" },
-                { data: "Vid_Polisa" },
+                { data: "Country" },
+                { data: "Policy_type" },
                 { data: "Zapocnuva_Na" },
                 { data: "Zavrsuva_Na" },
                 { data: "Adresa" },
@@ -542,7 +542,7 @@
         $("#tableClients").DataTable().destroy();
         var table = $("#tableClients").DataTable({
             dom: "Bfrtip",
-            ajax: "http://insuredtraveling.com/Search/GetUsers?name=" + $("#name").val() + "&embg=" + $("#embg").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() + "&phone=" + $("#phone").val() + "&postal_code=" + $("#postal_code").val() + "&passport=" + $("#passport").val() + "&city=" + $("#city").val(),
+            ajax: "http://localhost:19655/Search/GetUsers?name=" + $("#name").val() + "&embg=" + $("#embg").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() + "&phone=" + $("#phone").val() + "&postal_code=" + $("#postal_code").val() + "&passport=" + $("#passport").val() + "&city=" + $("#city").val(),
             columns: [
                 { data: "Id" },
                 { data: "FirstName" },
@@ -568,7 +568,7 @@
         $("#tableFNOL").DataTable().destroy();
         var table = $("#tableFNOL").DataTable({
             dom: "Bfrtip",
-            ajax: "http://insuredtraveling.com/Search/GetFNOL",
+            ajax: "http://localhost:19655/Search/GetFNOL",
             columns: [
                 { data: "ID" },
                 { data: "PolicyNumber" },

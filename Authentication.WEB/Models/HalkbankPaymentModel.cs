@@ -190,8 +190,8 @@ namespace Authentication.WEB.Models
             string storekey = "SKEY3545";
             string okUrl = "http://localhost:49639/api/halkbankpayment/handle";                      //URL which client be redirected if authentication is successful
             string failUrl = "http://localhost:49639/api/halkbankpayment/handle";
-            //  string okUrl = "http://insuredtraveling.com/api/halkbankpayment/handle";                      //URL which client be redirected if authentication is successful
-            // string failUrl = "http://insuredtraveling.com/api/halkbankpayment/handle";                    //URL which client be redirected if authentication is not successful
+            //  string okUrl = "http://localhost:19655/api/halkbankpayment/handle";                      //URL which client be redirected if authentication is successful
+            // string failUrl = "http://localhost:19655/api/halkbankpayment/handle";                    //URL which client be redirected if authentication is not successful
 
             string lang = "mk";
 

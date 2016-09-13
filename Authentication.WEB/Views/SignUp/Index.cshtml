@@ -217,7 +217,7 @@
                                     <script type="text/javascript">
                                         $(document).ready(function () {
                                             setTimeout(function () {
-                                                window.location.replace("http://insuredtraveling.com/SignUp/MobilePhoneVerification?username=" + $("#username").val());
+                                                window.location.replace("http://localhost:19655/SignUp/MobilePhoneVerification?username=" + $("#username").val());
                                             }, 3000);
 
                                             SendSMSCode();
@@ -244,7 +244,7 @@
     function FindUsername() {
         $.ajax({
             type: "POST",
-            url: "http://insuredtraveling.com/api/account/FindUser",
+            url: "http://localhost:19655/api/account/FindUser",
             data: jQuery.param({ username: $("#username").val() }),
         })
         .done(function (result) {
@@ -257,7 +257,7 @@
     function ActivateAccount() {
         $.ajax({
             type: "POST",
-            url: "http://insuredtraveling.com/api/account/ActivateAccount?username=" + $("#username").val()
+            url: "http://localhost:19655/api/account/ActivateAccount?username=" + $("#username").val()
          //   data: jQuery.param({ username: $("#username").val() }),
         })
         .done(function (result) {
@@ -268,7 +268,7 @@
     function SendSMSCode() {
         $.ajax({
             type: "POST",
-            url: "http://insuredtraveling.com/api/account/SendSMSCode",
+            url: "http://localhost:19655/api/account/SendSMSCode",
             data: jQuery.param({ username: $("#username").val() }),
         })
         .done(function (result) {

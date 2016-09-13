@@ -29,17 +29,5 @@ namespace Authentication.WEB.Models
         public int brojLicaGrupa { get; set; }
         public string doplatok1 { get; set; }
         public string doplatok2 { get; set; }
-        public string osigurenik1ImePrezime { get; set; }
-        public string osigurenik1MaticenBroj { get; set; }
-        public string osigurenik2ImePrezime { get; set; }
-        public string osigurenik2MaticenBroj { get; set; }
-        public string osigurenik3ImePrezime { get; set; }
-        public string osigurenik3MaticenBroj { get; set; }
-        public string osigurenik4ImePrezime { get; set; }
-        public string osigurenik4MaticenBroj { get; set; }
-        public string osigurenik5ImePrezime { get; set; }
-        public string osigurenik5MaticenBroj { get; set; }
-        public string osigurenik6ImePrezime { get; set; }
-        public string osigurenik6MaticenBroj { get; set; }
     }
 }

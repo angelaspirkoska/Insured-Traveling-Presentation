@@ -14,11 +14,11 @@ namespace InsuredTraveling
     
     public partial class p_zemja_na_patuvanje
     {
-        public long I_Zemja_Na_Patuvanje { get; set; }
-        public string Zemja_Na_Patuvanje { get; set; }
-        public string Vid_Polisa { get; set; }
-        public Nullable<double> Procent_Zemja_Na_Patuvanje { get; set; }
-        public string Fransiza { get; set; }
-        public Nullable<double> Popust_Fransiza { get; set; }
+        public long ID { get; set; }
+        public Nullable<int> Country { get; set; }
+        public Nullable<int> Policy_type { get; set; }
+        public Nullable<double> Percentage { get; set; }
+        public string Franchise { get; set; }
+        public Nullable<double> Discount_franchise { get; set; }
     }
 }

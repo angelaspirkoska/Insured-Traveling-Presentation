@@ -25,8 +25,8 @@
                 <input disabled type="text" class="form-control" id="kurs" name="kurs" />
             </div>
             <div class="form-group col-sm-2">
-                <label for="procentFransiza">&nbsp;</label>
-                <input disabled type="text" class="form-control" id="procentFransiza" name="procentFransiza" />
+                <label for="procentFranchise">&nbsp;</label>
+                <input disabled type="text" class="form-control" id="procentFranchise" name="procentFranchise" />
             </div>
             <div class="form-group col-sm-2">
                 <label for="deductible">&nbsp;</label>
@@ -40,16 +40,16 @@
                 <select id="zemjaNaPatuvanje" name="zemjaNaPatuvanje" class="form-control ">
                     @foreach (var zemja in Model.zemjaNaPatuvanjeList)
                     {
-                        <option value="@zemja.Zemja_Na_Patuvanje">@zemja.Zemja_Na_Patuvanje</option>
+                        <option value="@zemja.Country">@zemja.Country</option>
                     }
                 </select>
             </div>
             <div class="form-group col-sm-3">
-                <label for="fransiza">Франшиза</label>
-                <select id="fransiza" name="fransiza" class="form-control ">
-                    @foreach (var fransiza in Model.fransizaList)
+                <label for="Franchise">Франшиза</label>
+                <select id="Franchise" name="Franchise" class="form-control ">
+                    @foreach (var Franchise in Model.FranchiseList)
                     {
-                        <option value="@fransiza.Fransiza">@fransiza.Fransiza</option>
+                        <option value="@Franchise.Franchise">@Franchise.Franchise</option>
                     }
                 </select>
             </div>
@@ -58,7 +58,7 @@
                 <select id="vidPolisa" name="vidPolisa" class="form-control ">
                     @foreach (var vid in Model.vidPolisaList)
                     {
-                        <option value="@vid.Vid_Polisa">@vid.Vid_Polisa</option>
+                        <option value="@vid.Policy_type">@vid.Policy_type</option>
                     }
                 </select>
             </div>

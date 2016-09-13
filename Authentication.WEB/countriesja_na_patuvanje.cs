@@ -12,8 +12,13 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class p_zem
+    public partial class countriesja_na_patuvanje
     {
-        public string Zemja_Na_Patuvanje { get; set; }
+        public long ID { get; set; }
+        public Nullable<int> Country { get; set; }
+        public Nullable<int> Policy_type { get; set; }
+        public Nullable<double> Percentage { get; set; }
+        public string Franchise { get; set; }
+        public Nullable<double> Discount_franchise { get; set; }
     }
 }

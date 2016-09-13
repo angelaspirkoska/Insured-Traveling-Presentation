@@ -20,6 +20,8 @@ namespace InsuredTraveling.Controllers.API
         {
             
             JObject data = new JObject();
+
+            //User data
             aspnetuser user = db.aspnetusers.Where(x => x.UserName == username.username).ToArray().First();
             var u = new JObject();
             u.Add("FirstName", user.FirstName);
@@ -39,6 +41,8 @@ namespace InsuredTraveling.Controllers.API
             
             data.Add("user", u);
 
+
+            //User's policies
             JArray data1 = new JArray();
             patnicko [] policy = db.patnickoes.Where(x => x.Polisa_Broj > 3).ToArray();
             
@@ -67,6 +71,9 @@ namespace InsuredTraveling.Controllers.API
 
             data.Add("policy",data1);
 
+
+
+            //User's quotes
             JArray data2 = new JArray();
             patnicko[] policy2 = db.patnickoes.Where(x => x.Polisa_Broj <= 3).ToArray();
 
@@ -94,6 +101,86 @@ namespace InsuredTraveling.Controllers.API
             }
 
             data.Add("quote",data2);
+
+
+            //User's reports of loss
+            JArray data3 = new JArray();
+            first_notice_of_loss[] fnol = db.first_notice_of_loss.Where(x => x.Insured_User == user.Id).ToArray();
+
+            foreach (first_notice_of_loss f1 in fnol)
+            {
+                var f = new JObject();
+
+                if (f1.Short_Detailed == true)
+                {
+                    f.Add("message", f1.Message);
+                    f.Add("LossID", f1.LossID);
+                    f.Add("policyNumber", f1.PolicyNumber);
+                }
+                else
+                {
+                  
+                    f.Add("LossID", f1.LossID);
+                    f.Add("policyNumber", f1.PolicyNumber);
+
+                    f.Add("insuredName", f1.Claimant_person_name);
+                    f.Add("insuredEMBG", f1.Claimant_person_embg);
+                    f.Add("insuredAddress", f1.Claimant_person_address);
+                    f.Add("insuredTransactionAccount", f1.Claimant_person_transaction_number);
+                    f.Add("insuredPhone", f1.Claimant_person_number);
+                    f.Add("deponentInsured", f1.Claimant_person_deponent_bank);
+                    f.Add("relationship", f1.Claimant_insured_relation);
+
+                    f.Add("deponent", f1.Insured_person_deponent_bank);
+                    f.Add("TransactionAccount", f1.Insured_person_transaction_number);
+
+                    f.Add("travelDestination", f1.Land_trip);
+                    f.Add("travelDateFrom", f1.Trip_startdate);
+                    f.Add("travelTimeFrom", f1.Trip_starttime);
+                    f.Add("travelDateTo", f1.Trip_enddate);
+                    f.Add("travelTimeTo", f1.Trip_endtime);
+                    f.Add("transportationType", f1.Type_transport_trip);
+
+                    f.Add("additionalDocumentsHanded", f1.Additional_documents_handed);
+                    f.Add("valueExpenses", f1.AllCosts);
+                    f.Add("HealthInsurance", f1.HealthInsurance_Y_N);
+                    f.Add("LuggageInsurance", f1.LuggageInsurance_Y_N);
+
+                    if (f1.HealthInsurance_Y_N == true)
+                    {
+                        var h = f1.health_insurance;
+
+                        if (h != null)
+                        {
+                            f.Add("lossDate", h.Date_of_accsident);
+                            f.Add("lossTime", h.Time_of_accsident);
+                            f.Add("placeLoss", h.Place_of_accsident);
+                            f.Add("DoctorInfo", h.Doctor_data);
+                            f.Add("illnessInfo", h.Disease_description);
+                            f.Add("documentsHanded", h.Documents_proof);
+                            f.Add("additionalInfo", h.Additional_info);
+                        }
+                    }
+                    else if (f1.LuggageInsurance_Y_N == true)
+                    {
+                        var l = db.luggage_insurance.Where(x => x.ID == f1.LossID).Single();
+
+                        f.Add("baggageLossDate", l.Date_of_loss);
+                        f.Add("placeBaggageLoss", l.Place_desc_of_loss);
+                        f.Add("placeReported", l.Place_reported);
+                        f.Add("descriptionLostStolenThings", l.Desc_of_stolen_damaged_things);
+                        f.Add("detailedDescription", l.Detailed_description);
+                        f.Add("documentsHanded2", l.Documents_proof);
+                        f.Add("airportArrivalTime", l.AirportArrivalTime);
+                        f.Add("baggageDropTime", l.LuggageDropTime);
+                    }
+                }
+
+                data3.Add(f);
+            }
+
+            data.Add("loss", data3);
+
 
             return data;
         }
