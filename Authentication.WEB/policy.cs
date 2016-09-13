@@ -16,24 +16,24 @@ namespace InsuredTraveling
     {
         public long Polisa_Broj { get; set; }
         public Nullable<double> Kurs { get; set; }
-        public string Country { get; set; }
-        public Nullable<double> Procent_Country { get; set; }
-        public string Policy_type { get; set; }
-        public string Franchise { get; set; }
+        public string Zemja_Na_Patuvanje { get; set; }
+        public Nullable<double> Procent_Zemja_Na_Patuvanje { get; set; }
+        public string Vid_Polisa { get; set; }
+        public string Fransiza { get; set; }
         public string Dedactible { get; set; }
-        public Nullable<double> Popust_Franchise { get; set; }
+        public Nullable<double> Popust_Fransiza { get; set; }
         public string Ime_I_Prezime { get; set; }
         public string Adresa { get; set; }
         public string EMBG { get; set; }
         public Nullable<double> P_Vozrast { get; set; }
-        public string Franchise_Vozrast { get; set; }
+        public string Fransiza_Vozrast { get; set; }
         public string Dedactible_Age { get; set; }
         public string Broj_Pasos { get; set; }
         public Nullable<System.DateTime> Zapocnuva_Na { get; set; }
         public Nullable<System.DateTime> Zavrsuva_Na { get; set; }
         public Nullable<long> Vazi_Denovi { get; set; }
         public Nullable<double> Popust_Denovi { get; set; }
-        public string Franchise_Denovi { get; set; }
+        public string Fransiza_Denovi { get; set; }
         public string Dedactible_Period { get; set; }
         public Nullable<bool> Pat_Edno { get; set; }
         public Nullable<bool> Pat_Poveke { get; set; }
@@ -60,12 +60,5 @@ namespace InsuredTraveling
         public Nullable<int> Status { get; set; }
         public Nullable<System.DateTime> Datum_Na_Storniranje { get; set; }
         public string BRoj_Polisa_Kompanija { get; set; }
-        public string Zemja_Na_Patuvanje { get; set; }
-        public Nullable<double> Procent_Zemja_Na_Patuvanje { get; set; }
-        public string Vid_Polisa { get; set; }
-        public string Fransiza { get; set; }
-        public Nullable<double> Popust_Fransiza { get; set; }
-        public string Fransiza_Vozrast { get; set; }
-        public string Fransiza_Denovi { get; set; }
     }
 }

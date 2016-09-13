@@ -659,39 +659,11 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="P_Doplatok" Type="Double" />
           <Property Name="Surcharge" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="p_familija">
-          <Key>
-            <PropertyRef Name="I_Familija" />
-          </Key>
-          <Property Name="I_Familija" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Policy_type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Popust_Familija" Type="Double" />
-          <Property Name="Vid_Polisa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="p_grupa">
-          <Key>
-            <PropertyRef Name="I_Grupa" />
-          </Key>
-          <Property Name="I_Grupa" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Policy_type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Grupa" Type="Int64" />
-          <Property Name="Popust_Grupa" Type="Double" />
-          <Property Name="Vid_Polisa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="p_kurs">
           <Key>
             <PropertyRef Name="Kurs" />
           </Key>
           <Property Name="Kurs" Type="Double" Nullable="false" />
-        </EntityType>
-        <EntityType Name="p_min_premija">
-          <Key>
-            <PropertyRef Name="I_Min" />
-          </Key>
-          <Property Name="I_Min" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Policy_type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Minimalna_Premija" Type="Double" />
-          <Property Name="Vid_Polisa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="p_referent">
           <Key>
@@ -701,31 +673,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Referent" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Ovlastena_Agencija" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Sifra_Deloven_Partner" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="p_stapki">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Policy_type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Osnovna_Premija" Type="Double" />
-          <Property Name="Country" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Procent_Country" Type="Double" />
-          <Property Name="Franchise" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Popust_Franchise" Type="Double" />
-          <Property Name="Patuva_Denovi" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Popust_Denovi" Type="Double" />
-          <Property Name="Vozrast" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="P_Vozrast" Type="Double" />
-          <Property Name="Grupa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Popust_Grupa" Type="Double" />
-          <Property Name="Familija" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Popust_Familija" Type="Double" />
-          <Property Name="Vid_Polisa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Zemja_Na_Patuvanje" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Procent_Zemja_Na_Patuvanje" Type="Double" />
-          <Property Name="Fransiza" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Popust_Fransiza" Type="Double" />
         </EntityType>
         <EntityType Name="p_vozrast">
           <Key>
@@ -809,12 +756,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="eurolinkusers" EntityType="Self.eurolinkuser" />
           <EntitySet Name="ok_setup" EntityType="Self.ok_setup" />
           <EntitySet Name="p_doplatoci" EntityType="Self.p_doplatoci" />
-          <EntitySet Name="p_familija" EntityType="Self.p_familija" />
-          <EntitySet Name="p_grupa" EntityType="Self.p_grupa" />
           <EntitySet Name="p_kurs" EntityType="Self.p_kurs" />
-          <EntitySet Name="p_min_premija" EntityType="Self.p_min_premija" />
           <EntitySet Name="p_referent" EntityType="Self.p_referent" />
-          <EntitySet Name="p_stapki" EntityType="Self.p_stapki" />
           <EntitySet Name="p_vozrast" EntityType="Self.p_vozrast" />
           <EntitySet Name="refreshtokens" EntityType="Self.refreshtoken" />
           <EntitySet Name="users" EntityType="Self.user" />
@@ -835,13 +778,16 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="countries" EntityType="db_9eb138_travelModel.country" />
           <EntitySet Name="franchise_type" EntityType="db_9eb138_travelModel.franchise_type" />
           <EntitySet Name="groups" EntityType="db_9eb138_travelModel.group" />
-          <EntitySet Name="policies" EntityType="db_9eb138_travelModel.policy" />
           <EntitySet Name="policy_type" EntityType="db_9eb138_travelModel.policy_type" />
           <EntitySet Name="travel_duration" EntityType="db_9eb138_travelModel.travel_duration" />
-          <EntitySet Name="countriesja_na_patuvanje" EntityType="db_9eb138_travelModel.countriesja_na_patuvanje" />
           <EntitySet Name="p_denovi" EntityType="db_9eb138_travelModel.p_denovi" />
           <EntitySet Name="p_zemja_na_patuvanje" EntityType="db_9eb138_travelModel.p_zemja_na_patuvanje" />
           <EntitySet Name="insureds" EntityType="db_9eb138_travelModel.insured" />
+          <EntitySet Name="p_stapki" EntityType="db_9eb138_travelModel.p_stapki" />
+          <EntitySet Name="policies" EntityType="db_9eb138_travelModel.policy" />
+          <EntitySet Name="p_min_premija" EntityType="db_9eb138_travelModel.p_min_premija" />
+          <EntitySet Name="p_familija" EntityType="db_9eb138_travelModel.p_familija" />
+          <EntitySet Name="p_grupa" EntityType="db_9eb138_travelModel.p_grupa" />
           </EntityContainer>
         <EntityType Name="news_all">
           <Key>
@@ -971,64 +917,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Memebers" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="policy">
-          <Key>
-            <PropertyRef Name="Polisa_Broj" />
-          </Key>
-          <Property Name="Polisa_Broj" Type="Int64" Nullable="false" />
-          <Property Name="Kurs" Type="Double" />
-          <Property Name="Country" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Procent_Country" Type="Double" />
-          <Property Name="Policy_type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Franchise" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Dedactible" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Popust_Franchise" Type="Double" />
-          <Property Name="Ime_I_Prezime" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Adresa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="EMBG" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="P_Vozrast" Type="Double" />
-          <Property Name="Franchise_Vozrast" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Dedactible_Age" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Broj_Pasos" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Zapocnuva_Na" Type="DateTime" />
-          <Property Name="Zavrsuva_Na" Type="DateTime" />
-          <Property Name="Vazi_Denovi" Type="Int64" />
-          <Property Name="Popust_Denovi" Type="Double" />
-          <Property Name="Franchise_Denovi" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Dedactible_Period" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Pat_Edno" Type="Boolean" />
-          <Property Name="Pat_Poveke" Type="Boolean" />
-          <Property Name="Vid_Poedinecno" Type="Boolean" />
-          <Property Name="Vid_Grupno" Type="Boolean" />
-          <Property Name="Vid_Familijarno" Type="Boolean" />
-          <Property Name="Vid_Biznis" Type="Boolean" />
-          <Property Name="Popust_Business" Type="Double" />
-          <Property Name="Popust_Familija" Type="Double" />
-          <Property Name="P_Vozrast6" Type="Double" />
-          <Property Name="Grupa" Type="Int32" />
-          <Property Name="Popust_Grupa" Type="Double" />
-          <Property Name="Grupna_Vkupna_Premija" Type="Double" />
-          <Property Name="Osnovna_Premija" Type="Double" />
-          <Property Name="Doplatok_1" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="P_Doplatok_1" Type="Double" />
-          <Property Name="Doplatok_2" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="P_Doplatok_2" Type="Double" />
-          <Property Name="Vkupna_Premija" Type="Double" />
-          <Property Name="Ovlastena_Agencija" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Sifra" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Referent" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Datum_Na_Izdavanje" Type="DateTime" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="Datum_Na_Storniranje" Type="DateTime" />
-          <Property Name="BRoj_Polisa_Kompanija" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Zemja_Na_Patuvanje" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Procent_Zemja_Na_Patuvanje" Type="Double" />
-          <Property Name="Vid_Polisa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Fransiza" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Popust_Fransiza" Type="Double" />
-          <Property Name="Fransiza_Vozrast" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Fransiza_Denovi" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="policy_type">
           <Key>
             <PropertyRef Name="ID" />
@@ -1042,17 +930,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Days" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="countriesja_na_patuvanje">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Country" Type="Int32" />
-          <Property Name="Policy_type" Type="Int32" />
-          <Property Name="Percentage" Type="Double" />
-          <Property Name="Franchise" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Discount_franchise" Type="Double" />
         </EntityType>
         <EntityType Name="p_denovi">
           <Key>
@@ -1085,6 +962,102 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="DateBirth" Type="DateTime" Nullable="false" />
           <Property Name="Age" Type="Int32" Nullable="false" />
           <Property Name="PolicyID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="p_stapki">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vid_Polisa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Osnovna_Premija" Type="Double" />
+          <Property Name="Zemja_Na_Patuvanje" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Procent_Zemja_Na_Patuvanje" Type="Double" />
+          <Property Name="Fransiza" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Popust_Fransiza" Type="Double" />
+          <Property Name="Patuva_Denovi" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Popust_Denovi" Type="Double" />
+          <Property Name="Vozrast" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="P_Vozrast" Type="Double" />
+          <Property Name="Grupa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Popust_Grupa" Type="Double" />
+          <Property Name="Familija" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Popust_Familija" Type="Double" />
+        </EntityType>
+        <EntityType Name="policy">
+          <Key>
+            <PropertyRef Name="Polisa_Broj" />
+          </Key>
+          <Property Name="Polisa_Broj" Type="Int64" Nullable="false" />
+          <Property Name="Kurs" Type="Double" />
+          <Property Name="Zemja_Na_Patuvanje" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Procent_Zemja_Na_Patuvanje" Type="Double" />
+          <Property Name="Vid_Polisa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Fransiza" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Dedactible" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Popust_Fransiza" Type="Double" />
+          <Property Name="Ime_I_Prezime" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Adresa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="EMBG" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="P_Vozrast" Type="Double" />
+          <Property Name="Fransiza_Vozrast" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Dedactible_Age" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Broj_Pasos" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Zapocnuva_Na" Type="DateTime" />
+          <Property Name="Zavrsuva_Na" Type="DateTime" />
+          <Property Name="Vazi_Denovi" Type="Int64" />
+          <Property Name="Popust_Denovi" Type="Double" />
+          <Property Name="Fransiza_Denovi" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Dedactible_Period" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Pat_Edno" Type="Boolean" />
+          <Property Name="Pat_Poveke" Type="Boolean" />
+          <Property Name="Vid_Poedinecno" Type="Boolean" />
+          <Property Name="Vid_Grupno" Type="Boolean" />
+          <Property Name="Vid_Familijarno" Type="Boolean" />
+          <Property Name="Vid_Biznis" Type="Boolean" />
+          <Property Name="Popust_Business" Type="Double" />
+          <Property Name="Popust_Familija" Type="Double" />
+          <Property Name="P_Vozrast6" Type="Double" />
+          <Property Name="Grupa" Type="Int32" />
+          <Property Name="Popust_Grupa" Type="Double" />
+          <Property Name="Grupna_Vkupna_Premija" Type="Double" />
+          <Property Name="Osnovna_Premija" Type="Double" />
+          <Property Name="Doplatok_1" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="P_Doplatok_1" Type="Double" />
+          <Property Name="Doplatok_2" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="P_Doplatok_2" Type="Double" />
+          <Property Name="Vkupna_Premija" Type="Double" />
+          <Property Name="Ovlastena_Agencija" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Sifra" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Referent" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Datum_Na_Izdavanje" Type="DateTime" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Datum_Na_Storniranje" Type="DateTime" />
+          <Property Name="BRoj_Polisa_Kompanija" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="p_min_premija">
+          <Key>
+            <PropertyRef Name="I_Min" />
+          </Key>
+          <Property Name="I_Min" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vid_Polisa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Minimalna_Premija" Type="Double" />
+        </EntityType>
+        <EntityType Name="p_familija">
+          <Key>
+            <PropertyRef Name="I_Familija" />
+          </Key>
+          <Property Name="I_Familija" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vid_Polisa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Popust_Familija" Type="Double" />
+        </EntityType>
+        <EntityType Name="p_grupa">
+          <Key>
+            <PropertyRef Name="I_Grupa" />
+          </Key>
+          <Property Name="I_Grupa" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vid_Polisa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Grupa" Type="Int64" />
+          <Property Name="Popust_Grupa" Type="Double" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1213,38 +1186,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="p_familija">
-            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_familija">
-              <MappingFragment StoreEntitySet="p_familija">
-                <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
-                <ScalarProperty Name="I_Familija" ColumnName="I_Familija" />
-                <ScalarProperty Name="Popust_Familija" ColumnName="Popust_Familija" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="p_grupa">
-            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_grupa">
-              <MappingFragment StoreEntitySet="p_grupa">
-                <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
-                <ScalarProperty Name="I_Grupa" ColumnName="I_Grupa" />
-                <ScalarProperty Name="Grupa" ColumnName="Grupa" />
-                <ScalarProperty Name="Popust_Grupa" ColumnName="Popust_Grupa" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="p_kurs">
             <EntityTypeMapping TypeName="db_9eb138_travelModel.p_kurs">
               <MappingFragment StoreEntitySet="p_kurs">
                 <ScalarProperty Name="Kurs" ColumnName="Kurs" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="p_min_premija">
-            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_min_premija">
-              <MappingFragment StoreEntitySet="p_min_premija">
-                <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
-                <ScalarProperty Name="I_Min" ColumnName="I_Min" />
-                <ScalarProperty Name="Minimalna_Premija" ColumnName="Minimalna_Premija" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1255,27 +1200,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="Referent" ColumnName="Referent" />
                 <ScalarProperty Name="Ovlastena_Agencija" ColumnName="Ovlastena_Agencija" />
                 <ScalarProperty Name="Sifra_Deloven_Partner" ColumnName="Sifra_Deloven_Partner" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="p_stapki">
-            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_stapki">
-              <MappingFragment StoreEntitySet="p_stapki">
-                <ScalarProperty Name="Popust_Fransiza" ColumnName="Popust_Fransiza" />
-                <ScalarProperty Name="Fransiza" ColumnName="Fransiza" />
-                <ScalarProperty Name="Procent_Zemja_Na_Patuvanje" ColumnName="Procent_Zemja_Na_Patuvanje" />
-                <ScalarProperty Name="Zemja_Na_Patuvanje" ColumnName="Zemja_Na_Patuvanje" />
-                <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Osnovna_Premija" ColumnName="Osnovna_Premija" />
-                <ScalarProperty Name="Patuva_Denovi" ColumnName="Patuva_Denovi" />
-                <ScalarProperty Name="Popust_Denovi" ColumnName="Popust_Denovi" />
-                <ScalarProperty Name="Vozrast" ColumnName="Vozrast" />
-                <ScalarProperty Name="P_Vozrast" ColumnName="P_Vozrast" />
-                <ScalarProperty Name="Grupa" ColumnName="Grupa" />
-                <ScalarProperty Name="Popust_Grupa" ColumnName="Popust_Grupa" />
-                <ScalarProperty Name="Familija" ColumnName="Familija" />
-                <ScalarProperty Name="Popust_Familija" ColumnName="Popust_Familija" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1443,58 +1367,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="policies">
-            <EntityTypeMapping TypeName="db_9eb138_travelModel.policy">
-              <MappingFragment StoreEntitySet="policy">
-                <ScalarProperty Name="Fransiza_Denovi" ColumnName="Fransiza_Denovi" />
-                <ScalarProperty Name="Fransiza_Vozrast" ColumnName="Fransiza_Vozrast" />
-                <ScalarProperty Name="Popust_Fransiza" ColumnName="Popust_Fransiza" />
-                <ScalarProperty Name="Fransiza" ColumnName="Fransiza" />
-                <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
-                <ScalarProperty Name="Procent_Zemja_Na_Patuvanje" ColumnName="Procent_Zemja_Na_Patuvanje" />
-                <ScalarProperty Name="Zemja_Na_Patuvanje" ColumnName="Zemja_Na_Patuvanje" />
-                <ScalarProperty Name="BRoj_Polisa_Kompanija" ColumnName="BRoj_Polisa_Kompanija" />
-                <ScalarProperty Name="Datum_Na_Storniranje" ColumnName="Datum_Na_Storniranje" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Datum_Na_Izdavanje" ColumnName="Datum_Na_Izdavanje" />
-                <ScalarProperty Name="Referent" ColumnName="Referent" />
-                <ScalarProperty Name="Sifra" ColumnName="Sifra" />
-                <ScalarProperty Name="Ovlastena_Agencija" ColumnName="Ovlastena_Agencija" />
-                <ScalarProperty Name="Vkupna_Premija" ColumnName="Vkupna_Premija" />
-                <ScalarProperty Name="P_Doplatok_2" ColumnName="P_Doplatok_2" />
-                <ScalarProperty Name="Doplatok_2" ColumnName="Doplatok_2" />
-                <ScalarProperty Name="P_Doplatok_1" ColumnName="P_Doplatok_1" />
-                <ScalarProperty Name="Doplatok_1" ColumnName="Doplatok_1" />
-                <ScalarProperty Name="Osnovna_Premija" ColumnName="Osnovna_Premija" />
-                <ScalarProperty Name="Grupna_Vkupna_Premija" ColumnName="Grupna_Vkupna_Premija" />
-                <ScalarProperty Name="Popust_Grupa" ColumnName="Popust_Grupa" />
-                <ScalarProperty Name="Grupa" ColumnName="Grupa" />
-                <ScalarProperty Name="P_Vozrast6" ColumnName="P_Vozrast6" />
-                <ScalarProperty Name="Popust_Familija" ColumnName="Popust_Familija" />
-                <ScalarProperty Name="Popust_Business" ColumnName="Popust_Business" />
-                <ScalarProperty Name="Vid_Biznis" ColumnName="Vid_Biznis" />
-                <ScalarProperty Name="Vid_Familijarno" ColumnName="Vid_Familijarno" />
-                <ScalarProperty Name="Vid_Grupno" ColumnName="Vid_Grupno" />
-                <ScalarProperty Name="Vid_Poedinecno" ColumnName="Vid_Poedinecno" />
-                <ScalarProperty Name="Pat_Poveke" ColumnName="Pat_Poveke" />
-                <ScalarProperty Name="Pat_Edno" ColumnName="Pat_Edno" />
-                <ScalarProperty Name="Dedactible_Period" ColumnName="Dedactible_Period" />
-                <ScalarProperty Name="Popust_Denovi" ColumnName="Popust_Denovi" />
-                <ScalarProperty Name="Vazi_Denovi" ColumnName="Vazi_Denovi" />
-                <ScalarProperty Name="Zavrsuva_Na" ColumnName="Zavrsuva_Na" />
-                <ScalarProperty Name="Zapocnuva_Na" ColumnName="Zapocnuva_Na" />
-                <ScalarProperty Name="Broj_Pasos" ColumnName="Broj_Pasos" />
-                <ScalarProperty Name="Dedactible_Age" ColumnName="Dedactible_Age" />
-                <ScalarProperty Name="P_Vozrast" ColumnName="P_Vozrast" />
-                <ScalarProperty Name="EMBG" ColumnName="EMBG" />
-                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
-                <ScalarProperty Name="Ime_I_Prezime" ColumnName="Ime_I_Prezime" />
-                <ScalarProperty Name="Dedactible" ColumnName="Dedactible" />
-                <ScalarProperty Name="Kurs" ColumnName="Kurs" />
-                <ScalarProperty Name="Polisa_Broj" ColumnName="Polisa_Broj" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="policy_type">
             <EntityTypeMapping TypeName="db_9eb138_travelModel.policy_type">
               <MappingFragment StoreEntitySet="policy_type">
@@ -1543,6 +1415,107 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="Lastname" ColumnName="Lastname" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="p_stapki">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_stapki">
+              <MappingFragment StoreEntitySet="p_stapki">
+                <ScalarProperty Name="Popust_Familija" ColumnName="Popust_Familija" />
+                <ScalarProperty Name="Familija" ColumnName="Familija" />
+                <ScalarProperty Name="Popust_Grupa" ColumnName="Popust_Grupa" />
+                <ScalarProperty Name="Grupa" ColumnName="Grupa" />
+                <ScalarProperty Name="P_Vozrast" ColumnName="P_Vozrast" />
+                <ScalarProperty Name="Vozrast" ColumnName="Vozrast" />
+                <ScalarProperty Name="Popust_Denovi" ColumnName="Popust_Denovi" />
+                <ScalarProperty Name="Patuva_Denovi" ColumnName="Patuva_Denovi" />
+                <ScalarProperty Name="Popust_Fransiza" ColumnName="Popust_Fransiza" />
+                <ScalarProperty Name="Fransiza" ColumnName="Fransiza" />
+                <ScalarProperty Name="Procent_Zemja_Na_Patuvanje" ColumnName="Procent_Zemja_Na_Patuvanje" />
+                <ScalarProperty Name="Zemja_Na_Patuvanje" ColumnName="Zemja_Na_Patuvanje" />
+                <ScalarProperty Name="Osnovna_Premija" ColumnName="Osnovna_Premija" />
+                <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="policies">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.policy">
+              <MappingFragment StoreEntitySet="policy">
+                <ScalarProperty Name="BRoj_Polisa_Kompanija" ColumnName="BRoj_Polisa_Kompanija" />
+                <ScalarProperty Name="Datum_Na_Storniranje" ColumnName="Datum_Na_Storniranje" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Datum_Na_Izdavanje" ColumnName="Datum_Na_Izdavanje" />
+                <ScalarProperty Name="Referent" ColumnName="Referent" />
+                <ScalarProperty Name="Sifra" ColumnName="Sifra" />
+                <ScalarProperty Name="Ovlastena_Agencija" ColumnName="Ovlastena_Agencija" />
+                <ScalarProperty Name="Vkupna_Premija" ColumnName="Vkupna_Premija" />
+                <ScalarProperty Name="P_Doplatok_2" ColumnName="P_Doplatok_2" />
+                <ScalarProperty Name="Doplatok_2" ColumnName="Doplatok_2" />
+                <ScalarProperty Name="P_Doplatok_1" ColumnName="P_Doplatok_1" />
+                <ScalarProperty Name="Doplatok_1" ColumnName="Doplatok_1" />
+                <ScalarProperty Name="Osnovna_Premija" ColumnName="Osnovna_Premija" />
+                <ScalarProperty Name="Grupna_Vkupna_Premija" ColumnName="Grupna_Vkupna_Premija" />
+                <ScalarProperty Name="Popust_Grupa" ColumnName="Popust_Grupa" />
+                <ScalarProperty Name="Grupa" ColumnName="Grupa" />
+                <ScalarProperty Name="P_Vozrast6" ColumnName="P_Vozrast6" />
+                <ScalarProperty Name="Popust_Familija" ColumnName="Popust_Familija" />
+                <ScalarProperty Name="Popust_Business" ColumnName="Popust_Business" />
+                <ScalarProperty Name="Vid_Biznis" ColumnName="Vid_Biznis" />
+                <ScalarProperty Name="Vid_Familijarno" ColumnName="Vid_Familijarno" />
+                <ScalarProperty Name="Vid_Grupno" ColumnName="Vid_Grupno" />
+                <ScalarProperty Name="Vid_Poedinecno" ColumnName="Vid_Poedinecno" />
+                <ScalarProperty Name="Pat_Poveke" ColumnName="Pat_Poveke" />
+                <ScalarProperty Name="Pat_Edno" ColumnName="Pat_Edno" />
+                <ScalarProperty Name="Dedactible_Period" ColumnName="Dedactible_Period" />
+                <ScalarProperty Name="Fransiza_Denovi" ColumnName="Fransiza_Denovi" />
+                <ScalarProperty Name="Popust_Denovi" ColumnName="Popust_Denovi" />
+                <ScalarProperty Name="Vazi_Denovi" ColumnName="Vazi_Denovi" />
+                <ScalarProperty Name="Zavrsuva_Na" ColumnName="Zavrsuva_Na" />
+                <ScalarProperty Name="Zapocnuva_Na" ColumnName="Zapocnuva_Na" />
+                <ScalarProperty Name="Broj_Pasos" ColumnName="Broj_Pasos" />
+                <ScalarProperty Name="Dedactible_Age" ColumnName="Dedactible_Age" />
+                <ScalarProperty Name="Fransiza_Vozrast" ColumnName="Fransiza_Vozrast" />
+                <ScalarProperty Name="P_Vozrast" ColumnName="P_Vozrast" />
+                <ScalarProperty Name="EMBG" ColumnName="EMBG" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+                <ScalarProperty Name="Ime_I_Prezime" ColumnName="Ime_I_Prezime" />
+                <ScalarProperty Name="Popust_Fransiza" ColumnName="Popust_Fransiza" />
+                <ScalarProperty Name="Dedactible" ColumnName="Dedactible" />
+                <ScalarProperty Name="Fransiza" ColumnName="Fransiza" />
+                <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
+                <ScalarProperty Name="Procent_Zemja_Na_Patuvanje" ColumnName="Procent_Zemja_Na_Patuvanje" />
+                <ScalarProperty Name="Zemja_Na_Patuvanje" ColumnName="Zemja_Na_Patuvanje" />
+                <ScalarProperty Name="Kurs" ColumnName="Kurs" />
+                <ScalarProperty Name="Polisa_Broj" ColumnName="Polisa_Broj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="p_min_premija">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_min_premija">
+              <MappingFragment StoreEntitySet="p_min_premija">
+                <ScalarProperty Name="Minimalna_Premija" ColumnName="Minimalna_Premija" />
+                <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
+                <ScalarProperty Name="I_Min" ColumnName="I_Min" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="p_familija">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_familija">
+              <MappingFragment StoreEntitySet="p_familija">
+                <ScalarProperty Name="Popust_Familija" ColumnName="Popust_Familija" />
+                <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
+                <ScalarProperty Name="I_Familija" ColumnName="I_Familija" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="p_grupa">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.p_grupa">
+              <MappingFragment StoreEntitySet="p_grupa">
+                <ScalarProperty Name="Popust_Grupa" ColumnName="Popust_Grupa" />
+                <ScalarProperty Name="Grupa" ColumnName="Grupa" />
+                <ScalarProperty Name="Vid_Polisa" ColumnName="Vid_Polisa" />
+                <ScalarProperty Name="I_Grupa" ColumnName="I_Grupa" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

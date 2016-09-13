@@ -15,12 +15,12 @@ namespace InsuredTraveling
     public partial class p_stapki
     {
         public long ID { get; set; }
-        public string Policy_type { get; set; }
+        public string Vid_Polisa { get; set; }
         public Nullable<double> Osnovna_Premija { get; set; }
-        public string Country { get; set; }
-        public Nullable<double> Procent_Country { get; set; }
-        public string Franchise { get; set; }
-        public Nullable<double> Popust_Franchise { get; set; }
+        public string Zemja_Na_Patuvanje { get; set; }
+        public Nullable<double> Procent_Zemja_Na_Patuvanje { get; set; }
+        public string Fransiza { get; set; }
+        public Nullable<double> Popust_Fransiza { get; set; }
         public string Patuva_Denovi { get; set; }
         public Nullable<double> Popust_Denovi { get; set; }
         public string Vozrast { get; set; }
@@ -29,10 +29,5 @@ namespace InsuredTraveling
         public Nullable<double> Popust_Grupa { get; set; }
         public string Familija { get; set; }
         public Nullable<double> Popust_Familija { get; set; }
-        public string Vid_Polisa { get; set; }
-        public string Zemja_Na_Patuvanje { get; set; }
-        public Nullable<double> Procent_Zemja_Na_Patuvanje { get; set; }
-        public string Fransiza { get; set; }
-        public Nullable<double> Popust_Fransiza { get; set; }
     }
 }

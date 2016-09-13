@@ -44,9 +44,9 @@ namespace InsuredTraveling.Controllers.API
 
             //User's policies
             JArray data1 = new JArray();
-            patnicko [] policy = db.patnickoes.Where(x => x.Polisa_Broj > 3).ToArray();
+            policy [] policy = db.policies.Where(x => x.Polisa_Broj > 3).ToArray();
             
-            foreach(patnicko p1 in policy)
+            foreach(policy p1 in policy)
             {
                 var p = new JObject();
                 p.Add("policyNumber", p1.Polisa_Broj);
@@ -54,7 +54,6 @@ namespace InsuredTraveling.Controllers.API
                 p.Add("insuredAddress", p1.Adresa);
                 p.Add("insuredPassport", p1.Broj_Pasos);
                 p.Add("nameContractor", p1.Ime_I_Prezime);
-                p.Add("nameInsured", p1.Osigurenik1_Ime_I_Prezime);
                 p.Add("ValidFrom", p1.Zapocnuva_Na);
                 p.Add("ValidUntil", p1.Zavrsuva_Na);
                 p.Add("insuredDays", p1.Vazi_Denovi);
@@ -75,9 +74,9 @@ namespace InsuredTraveling.Controllers.API
 
             //User's quotes
             JArray data2 = new JArray();
-            patnicko[] policy2 = db.patnickoes.Where(x => x.Polisa_Broj <= 3).ToArray();
+            policy[] policy2 = db.policies.Where(x => x.Polisa_Broj <= 3).ToArray();
 
-            foreach (patnicko p1 in policy2)
+            foreach (policy p1 in policy2)
             {
                 var p = new JObject();
                 p.Add("policyNumber", p1.Polisa_Broj);
@@ -85,7 +84,8 @@ namespace InsuredTraveling.Controllers.API
                 p.Add("insuredAddress", p1.Adresa);
                 p.Add("insuredPassport", p1.Broj_Pasos);
                 p.Add("nameContractor", p1.Ime_I_Prezime);
-                p.Add("nameInsured", p1.Osigurenik1_Ime_I_Prezime);
+               // var i = db.insureds.Where(x => x.PolicyID == p1.Polisa_Broj).Single();
+               // p.Add("nameInsured", i.Name + " " + i.Lastname);
                 p.Add("ValidFrom", p1.Zapocnuva_Na);
                 p.Add("ValidUntil", p1.Zavrsuva_Na);
                 p.Add("insuredDays", p1.Vazi_Denovi);

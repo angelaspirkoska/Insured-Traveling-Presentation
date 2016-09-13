@@ -15,9 +15,8 @@ namespace InsuredTraveling
     public partial class p_grupa
     {
         public long I_Grupa { get; set; }
-        public string Policy_type { get; set; }
+        public string Vid_Polisa { get; set; }
         public Nullable<long> Grupa { get; set; }
         public Nullable<double> Popust_Grupa { get; set; }
-        public string Vid_Polisa { get; set; }
     }
 }

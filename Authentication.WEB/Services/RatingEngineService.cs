@@ -7,11 +7,11 @@ namespace Authentication.WEB.Services
 {
     class RatingEngineService
     {
-        public double? procentZemjaPatuvanje(string zemjaNaPatuvanje, string vidPolisa, string fransiza)
+        public double? procentZemjaPatuvanje(string zemjaNaPatuvanje, string vidPolisa, string Franchise)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            double? popust = (entities.p_zemja_na_patuvanje.Where(x => x.Zemja_Na_Patuvanje.Equals(zemjaNaPatuvanje) &&
-                x.Vid_Polisa.Equals(vidPolisa) && x.Fransiza.Equals(fransiza)).First()).Procent_Zemja_Na_Patuvanje;
+            double? popust = (entities.p_zemja_na_patuvanje.Where(x => x.Country.Equals(zemjaNaPatuvanje) &&
+                x.Policy_type.Equals(vidPolisa) && x.Franchise.Equals(Franchise)).First()).Percentage;
             return popust;
         }
 
@@ -22,20 +22,20 @@ namespace Authentication.WEB.Services
             return popust;
         }
 
-        public double? popustFransiza(string zemjaNaPatuvanje, string vidPolisa, string fransiza)
+        public double? popustFranchise(string zemjaNaPatuvanje, string vidPolisa, string Franchise)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            double? popust = (entities.p_zemja_na_patuvanje.Where(x => x.Zemja_Na_Patuvanje.Equals(zemjaNaPatuvanje) &&
-                x.Vid_Polisa.Equals(vidPolisa) && x.Fransiza.Equals(fransiza)).First()).Popust_Fransiza;
+            double? popust = (entities.p_zemja_na_patuvanje.Where(x => x.Country.Equals(zemjaNaPatuvanje) &&
+                x.Policy_type.Equals(vidPolisa) && x.Franchise.Equals(Franchise)).First()).Discount_franchise;
             return popust;
         }
 
         public double? popustDenovi(string vidPolisa, long denovi)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            var p = (entities.p_denovi.Where(x => x.Vid_Polisa.Equals(vidPolisa)).Where(x => x.Patuva_Denovi <= denovi)
-                .OrderByDescending(x => x.Patuva_Denovi).First());
-            double? popust = p.Popust_Denovi;
+            var p = (entities.p_denovi.Where(x => x.Policy_type.Equals(vidPolisa)).Where(x => x.Travel_duration <= denovi)
+                .OrderByDescending(x => x.Travel_duration).First());
+            double? popust = p.Discount;
             return popust;
         }
 
@@ -93,14 +93,14 @@ namespace Authentication.WEB.Services
 
         public double? vkupnaPremija(Policy policy)
         {
-            double? pZemjaPatuvanje = procentZemjaPatuvanje(policy.zemjaNaPatuvanje, policy.vidPolisa, policy.fransiza);
-            double? pFransiza = popustFransiza(policy.zemjaNaPatuvanje, policy.vidPolisa, policy.fransiza);
+            double? pZemjaPatuvanje = procentZemjaPatuvanje(policy.zemjaNaPatuvanje, policy.vidPolisa, policy.Franchise);
+            double? pFranchise = popustFranchise(policy.zemjaNaPatuvanje, policy.vidPolisa, policy.Franchise);
             double? pDenovi = popustDenovi(policy.vidPolisa, policy.vaziDenovi);
 
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
 
             double? kurs = entities.p_kurs.First().Kurs;
-            double? osnovnaPremija = kurs * pZemjaPatuvanje * (1 - pFransiza) * policy.vaziDenovi * (1 - pDenovi);
+            double? osnovnaPremija = kurs * pZemjaPatuvanje * (1 - pFranchise) * policy.vaziDenovi * (1 - pDenovi);
 
             if (policy.brojOsigureniciVid.Equals("polisaPoedinecno"))
             {
@@ -110,48 +110,14 @@ namespace Authentication.WEB.Services
             if (policy.brojOsigureniciVid.Equals("polisaFamilijarno"))
             {
                 double? pFamilija = popustFamilija(policy.vidPolisa);
-
+                var insured = entities.insureds.Where(x => x.PolicyID == policy.policyNumber).ToArray();
                 double? pVozrast1;
-                if (policy.osigurenik1ImePrezime != null && policy.osigurenik1MaticenBroj != null)
+
+                foreach (insured i in insured)
                 {
-                    pVozrast1 = popustVozrast(countAge(policy.startDate, policy.osigurenik1MaticenBroj));
-                    double? osnovnaPremija1 = kurs * pZemjaPatuvanje * (1 - pFransiza) * policy.vaziDenovi * (1 - pDenovi) * (1 - pVozrast1);
+                    pVozrast1 = popustVozrast(countAge(policy.startDate, i.SSN));
+                    double? osnovnaPremija1 = kurs * pZemjaPatuvanje * (1 - pFranchise) * policy.vaziDenovi * (1 - pDenovi) * (1 - pVozrast1);
                     osnovnaPremija += osnovnaPremija1;
-                }
-                double? pVozrast2;
-                if (policy.osigurenik2ImePrezime != null && policy.osigurenik2MaticenBroj != null)
-                {
-                    pVozrast2 = popustVozrast(countAge(policy.startDate, policy.osigurenik2MaticenBroj));
-                    double? osnovnaPremija2 = kurs * pZemjaPatuvanje * (1 - pFransiza) * policy.vaziDenovi * (1 - pDenovi) * (1 - pVozrast2);
-                    osnovnaPremija += osnovnaPremija2;
-                }
-                double? pVozrast3;
-                if (policy.osigurenik3ImePrezime != null && policy.osigurenik3MaticenBroj != null)
-                {
-                    pVozrast3 = popustVozrast(countAge(policy.startDate, policy.osigurenik3MaticenBroj));
-                    double? osnovnaPremija3 = kurs * pZemjaPatuvanje * (1 - pFransiza) * policy.vaziDenovi * (1 - pDenovi) * (1 - pVozrast3);
-                    osnovnaPremija += osnovnaPremija3;
-                }
-                double? pVozrast4;
-                if (policy.osigurenik4ImePrezime != null && policy.osigurenik4MaticenBroj != null)
-                {
-                    pVozrast4 = popustVozrast(countAge(policy.startDate, policy.osigurenik4MaticenBroj));
-                    double? osnovnaPremija4 = kurs * pZemjaPatuvanje * (1 - pFransiza) * policy.vaziDenovi * (1 - pDenovi) * (1 - pVozrast4);
-                    osnovnaPremija += osnovnaPremija4;
-                }
-                double? pVozrast5;
-                if (policy.osigurenik5ImePrezime != null && policy.osigurenik5MaticenBroj != null)
-                {
-                    pVozrast5 = popustVozrast(countAge(policy.startDate, policy.osigurenik5MaticenBroj));
-                    double? osnovnaPremija5 = kurs * pZemjaPatuvanje * (1 - pFransiza) * policy.vaziDenovi * (1 - pDenovi) * (1 - pVozrast5);
-                    osnovnaPremija += osnovnaPremija5;
-                }
-                double? pVozrast6;
-                if (policy.osigurenik6ImePrezime != null && policy.osigurenik6MaticenBroj != null)
-                {
-                    pVozrast6 = popustVozrast(countAge(policy.startDate, policy.osigurenik6MaticenBroj));
-                    double? osnovnaPremija6 = kurs * pZemjaPatuvanje * (1 - pFransiza) * policy.vaziDenovi * (1 - pDenovi) * (1 - pVozrast6);
-                    osnovnaPremija += osnovnaPremija6;
                 }
 
                 osnovnaPremija *= (1 - pFamilija);

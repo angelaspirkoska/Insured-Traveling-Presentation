@@ -7,8 +7,8 @@ namespace Authentication.WEB.Models
         public int policyNumber { get; set; }
         public string zemjaNaPatuvanje { get; set; }
         public double kurs { get; set; }
-        public double procentFransiza { get; set; } // ?
-        public string fransiza { get; set; } //Deductable
+        public double procentFranchise { get; set; } // ?
+        public string Franchise { get; set; } //Deductable
         public string vidPolisa { get; set; }
         public string ednoPatuvanje { get; set; } // true false ??
         public string povekePatuvanja { get; set; } // true false ??

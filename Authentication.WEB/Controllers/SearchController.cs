@@ -86,7 +86,7 @@ namespace InsuredTraveling.Controllers
 
             if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(embg) || !String.IsNullOrEmpty(address) || !String.IsNullOrEmpty(land) || !String.IsNullOrEmpty(agency) || !String.IsNullOrEmpty(TypePolycies))
             {
-                var data = _db.patnickoes.Where(x => x.EMBG.Contains(embg) &&
+                var data = _db.policies.Where(x => x.EMBG.Contains(embg) &&
                                                         x.Ime_I_Prezime.ToLower().Contains(name) &&
                                                         x.Adresa.ToLower().Contains(address) &&
                                                         x.Ovlastena_Agencija.ToLower().Contains(agency) &&
@@ -142,8 +142,8 @@ namespace InsuredTraveling.Controllers
                     j1.Add("Polisa_Broj", v.Polisa_Broj);
                     j1.Add("Ime_I_Prezime", v.Ime_I_Prezime);
                     j1.Add("EMBG", v.EMBG);
-                    j1.Add("Zemja_Na_Patuvanje", v.Zemja_Na_Patuvanje);
-                    j1.Add("Vid_Polisa", v.Vid_Polisa);
+                    j1.Add("Country", v.Zemja_Na_Patuvanje);
+                    j1.Add("Policy_type", v.Vid_Polisa);
                     j1.Add("Zapocnuva_Na", v.Zapocnuva_Na);
                     j1.Add("Zavrsuva_Na", v.Zavrsuva_Na);
                     j1.Add("Adresa", v.Adresa);
@@ -161,7 +161,7 @@ namespace InsuredTraveling.Controllers
             }
             else if (!String.IsNullOrEmpty(startDate) || !String.IsNullOrEmpty(endDate) || !String.IsNullOrEmpty(dateI) || !String.IsNullOrEmpty(dateS))
             {
-                var data = _db.patnickoes.ToList();
+                var data = _db.policies.ToList();
                 if (!String.IsNullOrEmpty(startDate))
                 {
                     switch (operatorStartDate)
@@ -210,8 +210,8 @@ namespace InsuredTraveling.Controllers
                     j1.Add("Polisa_Broj", v.Polisa_Broj);
                     j1.Add("Ime_I_Prezime", v.Ime_I_Prezime);
                     j1.Add("EMBG", v.EMBG);
-                    j1.Add("Zemja_Na_Patuvanje", v.Zemja_Na_Patuvanje);
-                    j1.Add("Vid_Polisa", v.Vid_Polisa);
+                    j1.Add("Country", v.Zemja_Na_Patuvanje);
+                    j1.Add("Policy_type", v.Vid_Polisa);
                     j1.Add("Zapocnuva_Na", v.Zapocnuva_Na);
                     j1.Add("Zavrsuva_Na", v.Zavrsuva_Na);
                     j1.Add("Adresa", v.Adresa);
@@ -229,7 +229,7 @@ namespace InsuredTraveling.Controllers
             }
             else
             {
-                var data = _db.patnickoes.ToArray();
+                var data = _db.policies.ToArray();
                 var j = new JObject();
                 var data1 = new JArray();
                 foreach (var v in data)
@@ -238,8 +238,8 @@ namespace InsuredTraveling.Controllers
                     j1.Add("Polisa_Broj", v.Polisa_Broj);
                     j1.Add("Ime_I_Prezime", v.Ime_I_Prezime);
                     j1.Add("EMBG", v.EMBG);
-                    j1.Add("Zemja_Na_Patuvanje", v.Zemja_Na_Patuvanje);
-                    j1.Add("Vid_Polisa", v.Vid_Polisa);
+                    j1.Add("Country", v.Zemja_Na_Patuvanje);
+                    j1.Add("Policy_type", v.Vid_Polisa);
                     j1.Add("Zapocnuva_Na", v.Zapocnuva_Na);
                     j1.Add("Zavrsuva_Na", v.Zavrsuva_Na);
                     j1.Add("Adresa", v.Adresa);
@@ -378,10 +378,10 @@ namespace InsuredTraveling.Controllers
 
         private async Task<List<SelectListItem>> GetTypeOfPolicy()
         {
-            var policy = _db.patnicko_vid.Select(p => new SelectListItem
+            var policy = _db.policy_type.Select(p => new SelectListItem
             {
-                Text = p.Vid_Polisa,
-                Value = p.Vid_Polisa.ToString()
+                Text = p.type,
+                Value = p.ID.ToString()
             });
             return await policy.ToListAsync();
         }

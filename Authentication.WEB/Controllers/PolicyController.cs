@@ -20,9 +20,9 @@ namespace Authentication.WEB.Controllers
         {
             PolicyInfoList info = new PolicyInfoList();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            info.zemjaNaPatuvanjeList = entities.p_zem;
-            info.fransizaList = entities.p_zemja_na_patuvanje.GroupBy(x => x.Fransiza).Select(x => x.FirstOrDefault());
-            info.vidPolisaList = entities.p_zemja_na_patuvanje.GroupBy(x => x.Vid_Polisa).Select(x => x.FirstOrDefault());
+            info.zemjaNaPatuvanjeList = entities.countries;
+            info.FranchiseList = entities.p_zemja_na_patuvanje.GroupBy(x => x.Franchise).Select(x => x.FirstOrDefault());
+            info.vidPolisaList = entities.p_zemja_na_patuvanje.GroupBy(x => x.Policy_type).Select(x => x.FirstOrDefault());
             info.doplatokList = entities.p_doplatoci;
             return View(info);
         }
@@ -33,7 +33,7 @@ namespace Authentication.WEB.Controllers
             RatingEngineService ratingEngineService = new RatingEngineService();
 
             InsuredTravelingEntity entityDB = new InsuredTravelingEntity();
-            patnicko polisaEntity = new patnicko();
+            policy polisaEntity = new policy();
 
             //testing the premium api start
             Uri uri = new Uri("http://localhost:19655/api/premium/calculate");
@@ -59,8 +59,8 @@ namespace Authentication.WEB.Controllers
             if (valid)
             {
 
-                long ID = (entityDB.patnickoes.OrderByDescending(p => p.Polisa_Broj).Select(r => r.Polisa_Broj).FirstOrDefault() + 1);
-                string ID_Company = entityDB.patnickoes.OrderByDescending(p => p.Polisa_Broj).Select(r => r.BRoj_Polisa_Kompanija).FirstOrDefault();
+                long ID = (entityDB.policies.OrderByDescending(p => p.Polisa_Broj).Select(r => r.Polisa_Broj).FirstOrDefault() + 1);
+                string ID_Company = entityDB.policies.OrderByDescending(p => p.Polisa_Broj).Select(r => r.BRoj_Polisa_Kompanija).FirstOrDefault();
                 int tempID;
                 if (String.IsNullOrEmpty(ID_Company))
                 {
@@ -78,8 +78,8 @@ namespace Authentication.WEB.Controllers
 
                 polisaEntity.Vid_Polisa = policy.vidPolisa;
 
-                polisaEntity.Fransiza = policy.fransiza;
-                polisaEntity.Popust_Fransiza = policy.procentFransiza; // Mozebi gresno
+                polisaEntity.Fransiza = policy.Franchise;
+                polisaEntity.Popust_Fransiza = policy.procentFranchise; // Mozebi gresno
 
                 polisaEntity.Zemja_Na_Patuvanje = policy.zemjaNaPatuvanje;
 
@@ -121,25 +121,25 @@ namespace Authentication.WEB.Controllers
                 polisaEntity.Doplatok_1 = policy.doplatok1;
                 polisaEntity.Doplatok_2 = policy.doplatok2;
 
-                polisaEntity.Osigurenik1_EMBG = policy.osigurenik1ImePrezime;
-                polisaEntity.Osigurenik2_EMBG = policy.osigurenik2ImePrezime;
-                polisaEntity.Osigurenik3_EMBG = policy.osigurenik3ImePrezime;
-                polisaEntity.Osigurenik4_EMBG = policy.osigurenik4ImePrezime;
-                polisaEntity.Osigurenik5_EMBG = policy.osigurenik5ImePrezime;
-                polisaEntity.Osigurenik6_EMBG = policy.osigurenik6ImePrezime;
+                //polisaEntity.Osigurenik1_EMBG = policy.osigurenik1ImePrezime;
+                //polisaEntity.Osigurenik2_EMBG = policy.osigurenik2ImePrezime;
+                //polisaEntity.Osigurenik3_EMBG = policy.osigurenik3ImePrezime;
+                //polisaEntity.Osigurenik4_EMBG = policy.osigurenik4ImePrezime;
+                //polisaEntity.Osigurenik5_EMBG = policy.osigurenik5ImePrezime;
+                //polisaEntity.Osigurenik6_EMBG = policy.osigurenik6ImePrezime;
 
-                polisaEntity.Osigurenik1_Ime_I_Prezime = policy.osigurenik1ImePrezime;
-                polisaEntity.Osigurenik2_Ime_I_Prezime = policy.osigurenik2ImePrezime;
-                polisaEntity.Osigurenik3_Ime_I_Prezime = policy.osigurenik3ImePrezime;
-                polisaEntity.Osigurenik4_Ime_I_Prezime = policy.osigurenik4ImePrezime;
-                polisaEntity.Osigurenik5_Ime_I_Prezime = policy.osigurenik5ImePrezime;
-                polisaEntity.Osigurenik6_Ime_I_Prezime = policy.osigurenik6ImePrezime;
+                //polisaEntity.Osigurenik1_Ime_I_Prezime = policy.osigurenik1ImePrezime;
+                //polisaEntity.Osigurenik2_Ime_I_Prezime = policy.osigurenik2ImePrezime;
+                //polisaEntity.Osigurenik3_Ime_I_Prezime = policy.osigurenik3ImePrezime;
+                //polisaEntity.Osigurenik4_Ime_I_Prezime = policy.osigurenik4ImePrezime;
+                //polisaEntity.Osigurenik5_Ime_I_Prezime = policy.osigurenik5ImePrezime;
+                //polisaEntity.Osigurenik6_Ime_I_Prezime = policy.osigurenik6ImePrezime;
 
                 polisaEntity.Kurs = policy.kurs;
 
 
 
-                entityDB.patnickoes.Add(polisaEntity);
+                entityDB.policies.Add(polisaEntity);
                 var result = entityDB.SaveChanges();
             }
 
@@ -153,7 +153,7 @@ namespace Authentication.WEB.Controllers
             int id = 2;
 
             PaymentModel pat = new PaymentModel();
-            pat.Pat = entities.patnickoes.Where(x => x.Polisa_Broj == id).FirstOrDefault();
+            pat.Pat = entities.policies.Where(x => x.Polisa_Broj == id).FirstOrDefault();
             return new ViewAsPdf("Print", pat);
         }
     }
