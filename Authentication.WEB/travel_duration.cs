@@ -14,7 +14,16 @@ namespace InsuredTraveling
     
     public partial class travel_duration
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public travel_duration()
+        {
+            this.discount_days = new HashSet<discount_days>();
+        }
+    
         public int ID { get; set; }
         public string Days { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<discount_days> discount_days { get; set; }
     }
 }

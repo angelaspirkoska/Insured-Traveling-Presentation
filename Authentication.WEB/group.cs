@@ -14,7 +14,16 @@ namespace InsuredTraveling
     
     public partial class group
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public group()
+        {
+            this.discount_group = new HashSet<discount_group>();
+        }
+    
         public int ID { get; set; }
         public int Memebers { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<discount_group> discount_group { get; set; }
     }
 }

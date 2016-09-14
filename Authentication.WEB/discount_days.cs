@@ -12,10 +12,14 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class p_min_premija
+    public partial class discount_days
     {
-        public long I_Min { get; set; }
-        public string Vid_Polisa { get; set; }
-        public Nullable<double> Minimalna_Premija { get; set; }
+        public int ID { get; set; }
+        public int Policy_typeID { get; set; }
+        public Nullable<int> Travel_durationID { get; set; }
+        public Nullable<double> Discount { get; set; }
+    
+        public virtual policy_type policy_type { get; set; }
+        public virtual travel_duration travel_duration { get; set; }
     }
 }

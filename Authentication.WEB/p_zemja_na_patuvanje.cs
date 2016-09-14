@@ -14,11 +14,14 @@ namespace InsuredTraveling
     
     public partial class p_zemja_na_patuvanje
     {
-        public long ID { get; set; }
-        public Nullable<int> Country { get; set; }
-        public Nullable<int> Policy_type { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> CountryID { get; set; }
+        public Nullable<int> Policy_typeID { get; set; }
         public Nullable<double> Percentage { get; set; }
         public string Franchise { get; set; }
         public Nullable<double> Discount_franchise { get; set; }
+    
+        public virtual country country { get; set; }
+        public virtual policy_type policy_type { get; set; }
     }
 }

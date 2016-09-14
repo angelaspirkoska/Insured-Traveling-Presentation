@@ -10,31 +10,41 @@ namespace Authentication.WEB.Services
         public double? procentZemjaPatuvanje(string zemjaNaPatuvanje, string vidPolisa, string Franchise)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            double? popust = (entities.p_zemja_na_patuvanje.Where(x => x.Country.Equals(zemjaNaPatuvanje) &&
-                x.Policy_type.Equals(vidPolisa) && x.Franchise.Equals(Franchise)).First()).Percentage;
+            double? popust = (entities.p_zemja_na_patuvanje.Where(x => x.country.Name.Equals(zemjaNaPatuvanje) &&
+                x.policy_type.type.Equals(vidPolisa) && x.Franchise.Equals(Franchise)).First()).Percentage;
             return popust;
         }
 
         public double? popustVozrast(int age)
         {
+            string name = " ";
+            if (age < 18)
+            {
+                name = "0<=17";
+            } else if (age < 64)
+            {
+                name = "17<64";
+            } else {
+                name = ">64";
+            }
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            double? popust = (entities.p_vozrast.Where(x => x.Vozrast < age).OrderByDescending(x => x.Vozrast).First()).P_Vozrast1;
+            double? popust = (entities.discount_age.Where(x => x.Name == name).OrderByDescending(x => x.ID).First()).Discount;
             return popust;
         }
 
         public double? popustFranchise(string zemjaNaPatuvanje, string vidPolisa, string Franchise)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            double? popust = (entities.p_zemja_na_patuvanje.Where(x => x.Country.Equals(zemjaNaPatuvanje) &&
-                x.Policy_type.Equals(vidPolisa) && x.Franchise.Equals(Franchise)).First()).Discount_franchise;
+            double? popust = (entities.p_zemja_na_patuvanje.Where(x => x.country.Name.Equals(zemjaNaPatuvanje) &&
+                x.policy_type.type.Equals(vidPolisa) && x.Franchise.Equals(Franchise)).First()).Discount_franchise;
             return popust;
         }
 
         public double? popustDenovi(string vidPolisa, long denovi)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            var p = (entities.p_denovi.Where(x => x.Policy_type.Equals(vidPolisa)).Where(x => x.Travel_duration <= denovi)
-                .OrderByDescending(x => x.Travel_duration).First());
+            var p = (entities.discount_days.Where(x => x.policy_type.ID.Equals(vidPolisa)).Where(x => x.travel_duration.Days.Equals(denovi)) //Treba da se vide shto se prima vo denovi 
+                .OrderByDescending(x => x.Travel_durationID).First());
             double? popust = p.Discount;
             return popust;
         }
@@ -43,7 +53,7 @@ namespace Authentication.WEB.Services
         {
             // InsuranceEntities entities = new InsuranceEntities();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            double? popust = (entities.p_familija.Where(x => x.Vid_Polisa.Equals(vidPolisa)).First()).Popust_Familija;
+            double? popust = (entities.discount_family.Where(x => x.policy_type.type.Equals(vidPolisa)).First()).Discount;
             return popust;
         }
 
@@ -51,8 +61,8 @@ namespace Authentication.WEB.Services
         {
             //  InsuranceEntities entities = new InsuranceEntities();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            double? popust = (entities.p_grupa.Where(x => x.Vid_Polisa.Equals(vidPolisa)).Where(x => x.Grupa < clenovi)
-                .OrderByDescending(x => x.Grupa).First()).Popust_Grupa;
+            double? popust = (entities.discount_group.Where(x => x.policy_type.type.Equals(vidPolisa)).Where(x => x.group.Memebers < clenovi)
+                .OrderByDescending(x => x.group.Memebers).First()).Discount;
             return popust;
         }
 
@@ -99,7 +109,7 @@ namespace Authentication.WEB.Services
 
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
 
-            double? kurs = entities.p_kurs.First().Kurs;
+            double? kurs = entities.exchange_rate.First().Value;
             double? osnovnaPremija = kurs * pZemjaPatuvanje * (1 - pFranchise) * policy.vaziDenovi * (1 - pDenovi);
 
             if (policy.brojOsigureniciVid.Equals("polisaPoedinecno"))
@@ -110,7 +120,8 @@ namespace Authentication.WEB.Services
             if (policy.brojOsigureniciVid.Equals("polisaFamilijarno"))
             {
                 double? pFamilija = popustFamilija(policy.vidPolisa);
-                var insured = entities.insureds.Where(x => x.PolicyID == policy.policyNumber).ToArray();
+                var insuredID = entities.policy_insurees.Where(x => x.PolicyID == policy.policyNumber).Single().InsuredID;
+                var insured = entities.insureds.Where(x => x.ID == insuredID).ToArray();
                 double? pVozrast1;
 
                 foreach (insured i in insured)

@@ -12,18 +12,10 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class country
+    public partial class retaining_risk_value
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public country()
-        {
-            this.p_zemja_na_patuvanje = new HashSet<p_zemja_na_patuvanje>();
-        }
-    
+        public string Franchise { get; set; }
+        public string Dedactible { get; set; }
         public int ID { get; set; }
-        public string Name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<p_zemja_na_patuvanje> p_zemja_na_patuvanje { get; set; }
     }
 }

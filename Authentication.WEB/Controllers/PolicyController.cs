@@ -21,8 +21,11 @@ namespace Authentication.WEB.Controllers
             PolicyInfoList info = new PolicyInfoList();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
             info.zemjaNaPatuvanjeList = entities.countries;
-            info.FranchiseList = entities.p_zemja_na_patuvanje.GroupBy(x => x.Franchise).Select(x => x.FirstOrDefault());
-            info.vidPolisaList = entities.p_zemja_na_patuvanje.GroupBy(x => x.Policy_type).Select(x => x.FirstOrDefault());
+            info.FranchiseList = entities.retaining_risk_value;
+            info.vidPolisaList = entities.policy_type;
+
+
+            //ViewBag.vidPolisaList = entities.policy_type.Select(x => x.type).ToArray();
             info.doplatokList = entities.p_doplatoci;
             return View(info);
         }

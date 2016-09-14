@@ -12,11 +12,12 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class p_grupa
+    public partial class min_premium
     {
-        public long I_Grupa { get; set; }
-        public string Vid_Polisa { get; set; }
-        public Nullable<long> Grupa { get; set; }
-        public Nullable<double> Popust_Grupa { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> Policy_typeID { get; set; }
+        public Nullable<double> Min_premium1 { get; set; }
+    
+        public virtual policy_type policy_type { get; set; }
     }
 }

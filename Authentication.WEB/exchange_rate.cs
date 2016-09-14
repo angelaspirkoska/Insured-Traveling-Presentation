@@ -12,10 +12,10 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class p_vozrast
+    public partial class exchange_rate
     {
         public int ID { get; set; }
-        public Nullable<double> Vozrast { get; set; }
-        public Nullable<double> P_Vozrast1 { get; set; }
+        public string Currency { get; set; }
+        public double Value { get; set; }
     }
 }

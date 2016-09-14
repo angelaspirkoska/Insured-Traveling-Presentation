@@ -12,10 +12,12 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class franchise_type
+    public partial class discount_family
     {
-        public string Franchise { get; set; }
-        public string Dedactible { get; set; }
         public int ID { get; set; }
+        public Nullable<int> Policy_typeID { get; set; }
+        public Nullable<double> Discount { get; set; }
+    
+        public virtual policy_type policy_type { get; set; }
     }
 }

@@ -6,10 +6,6 @@
 <div class="row">
     <div class="container">
         <div class="jumbotron">
-            <h2>Вие сте брокер: </h2>
-            <p>
-                Притисте на копчете за да креирате нова полиса или да ја промените постоечката .
-            </p>
             <br />
             <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success " id="btnNovaPolisa"> Нова полиса</button>
             <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success" id="dodadiKlient"> Нов клиент</button>

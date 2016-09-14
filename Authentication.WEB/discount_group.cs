@@ -12,8 +12,14 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class p_kurs
+    public partial class discount_group
     {
-        public double Kurs { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> Policy_typeID { get; set; }
+        public Nullable<int> GroupID { get; set; }
+        public Nullable<double> Discount { get; set; }
+    
+        public virtual policy_type policy_type { get; set; }
+        public virtual group group { get; set; }
     }
 }

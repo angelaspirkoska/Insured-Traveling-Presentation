@@ -400,6 +400,9 @@
     <Compile Include="client1.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="company.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\API\AccountController.cs" />
     <Compile Include="Controllers\API\MobileApiController.cs" />
@@ -423,14 +426,26 @@
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CustomViewEngine.cs" />
+    <Compile Include="discount_age.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="discount_days.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="discount_family.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="discount_group.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="eurolinkuser.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="exchange_rate.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Filters\RecaptchaFilter.cs" />
     <Compile Include="first_notice_of_loss.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="franchise_type.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -466,6 +481,9 @@
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="min_premium.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AdminPanel.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\CreateClientModel.cs" />
@@ -500,39 +518,30 @@
     <Compile Include="policy.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="policy_insurees.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="policy_type.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="retaining_risk_type.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="retaining_risk_value.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Scripts\Entities\Client.cs" />
     <Compile Include="Scripts\Entities\RefreshToken.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Providers\SimpleRefreshTokenProvider.cs" />
-    <Compile Include="p_denovi.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="p_doplatoci.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="p_familija.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="p_grupa.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="p_kurs.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="p_min_premija.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="p_referent.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="p_stapki.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="p_vozrast.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="p_zemja_na_patuvanje.cs">
@@ -556,6 +565,9 @@
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="user.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user1.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

@@ -34,9 +34,7 @@ namespace InsuredTraveling
         public virtual DbSet<eurolinkuser> eurolinkusers { get; set; }
         public virtual DbSet<ok_setup> ok_setup { get; set; }
         public virtual DbSet<p_doplatoci> p_doplatoci { get; set; }
-        public virtual DbSet<p_kurs> p_kurs { get; set; }
         public virtual DbSet<p_referent> p_referent { get; set; }
-        public virtual DbSet<p_vozrast> p_vozrast { get; set; }
         public virtual DbSet<refreshtoken> refreshtokens { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<aspnetuserlogin> aspnetuserlogins { get; set; }
@@ -46,17 +44,23 @@ namespace InsuredTraveling
         public virtual DbSet<luggage_insurance> luggage_insurance { get; set; }
         public virtual DbSet<first_notice_of_loss> first_notice_of_loss { get; set; }
         public virtual DbSet<country> countries { get; set; }
-        public virtual DbSet<franchise_type> franchise_type { get; set; }
-        public virtual DbSet<group> groups { get; set; }
         public virtual DbSet<policy_type> policy_type { get; set; }
         public virtual DbSet<travel_duration> travel_duration { get; set; }
-        public virtual DbSet<p_denovi> p_denovi { get; set; }
-        public virtual DbSet<p_zemja_na_patuvanje> p_zemja_na_patuvanje { get; set; }
-        public virtual DbSet<insured> insureds { get; set; }
         public virtual DbSet<p_stapki> p_stapki { get; set; }
         public virtual DbSet<policy> policies { get; set; }
-        public virtual DbSet<p_min_premija> p_min_premija { get; set; }
-        public virtual DbSet<p_familija> p_familija { get; set; }
-        public virtual DbSet<p_grupa> p_grupa { get; set; }
+        public virtual DbSet<company> companies { get; set; }
+        public virtual DbSet<discount_age> discount_age { get; set; }
+        public virtual DbSet<discount_days> discount_days { get; set; }
+        public virtual DbSet<discount_family> discount_family { get; set; }
+        public virtual DbSet<discount_group> discount_group { get; set; }
+        public virtual DbSet<exchange_rate> exchange_rate { get; set; }
+        public virtual DbSet<min_premium> min_premium { get; set; }
+        public virtual DbSet<policy_insurees> policy_insurees { get; set; }
+        public virtual DbSet<retaining_risk_type> retaining_risk_type { get; set; }
+        public virtual DbSet<retaining_risk_value> retaining_risk_value { get; set; }
+        public virtual DbSet<user1> users1 { get; set; }
+        public virtual DbSet<group> groups { get; set; }
+        public virtual DbSet<insured> insureds { get; set; }
+        public virtual DbSet<p_zemja_na_patuvanje> p_zemja_na_patuvanje { get; set; }
     }
 }

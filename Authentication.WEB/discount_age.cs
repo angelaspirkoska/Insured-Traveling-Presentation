@@ -12,11 +12,10 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class p_denovi
+    public partial class discount_age
     {
         public int ID { get; set; }
-        public int Policy_type { get; set; }
-        public Nullable<int> Travel_duration { get; set; }
+        public string Name { get; set; }
         public Nullable<double> Discount { get; set; }
     }
 }

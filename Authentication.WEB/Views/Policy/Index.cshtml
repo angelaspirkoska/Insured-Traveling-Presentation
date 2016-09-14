@@ -40,7 +40,7 @@
                 <select id="zemjaNaPatuvanje" name="zemjaNaPatuvanje" class="form-control ">
                     @foreach (var zemja in Model.zemjaNaPatuvanjeList)
                     {
-                        <option value="@zemja.Country">@zemja.Country</option>
+                        <option value="@zemja.Name">@zemja.Name</option>
                     }
                 </select>
             </div>
@@ -58,7 +58,7 @@
                 <select id="vidPolisa" name="vidPolisa" class="form-control ">
                     @foreach (var vid in Model.vidPolisaList)
                     {
-                        <option value="@vid.Policy_type">@vid.Policy_type</option>
+                        <option value="@vid.type">@vid.type</option>
                     }
                 </select>
             </div>

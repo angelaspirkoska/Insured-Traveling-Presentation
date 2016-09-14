@@ -14,7 +14,28 @@ namespace InsuredTraveling
     
     public partial class policy_type
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public policy_type()
+        {
+            this.discount_days = new HashSet<discount_days>();
+            this.discount_family = new HashSet<discount_family>();
+            this.discount_group = new HashSet<discount_group>();
+            this.min_premium = new HashSet<min_premium>();
+            this.p_zemja_na_patuvanje = new HashSet<p_zemja_na_patuvanje>();
+        }
+    
         public int ID { get; set; }
         public string type { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<discount_days> discount_days { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<discount_family> discount_family { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<discount_group> discount_group { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<min_premium> min_premium { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<p_zemja_na_patuvanje> p_zemja_na_patuvanje { get; set; }
     }
 }

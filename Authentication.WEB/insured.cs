@@ -14,12 +14,20 @@ namespace InsuredTraveling
     
     public partial class insured
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public insured()
+        {
+            this.policy_insurees = new HashSet<policy_insurees>();
+        }
+    
         public int ID { get; set; }
         public string Name { get; set; }
         public string Lastname { get; set; }
         public string SSN { get; set; }
         public System.DateTime DateBirth { get; set; }
         public int Age { get; set; }
-        public int PolicyID { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<policy_insurees> policy_insurees { get; set; }
     }
 }

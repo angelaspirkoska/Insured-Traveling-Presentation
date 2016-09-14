@@ -12,10 +12,14 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class p_familija
+    public partial class user1
     {
-        public long I_Familija { get; set; }
-        public string Vid_Polisa { get; set; }
-        public Nullable<double> Popust_Familija { get; set; }
+        public int ID { get; set; }
+        public string AspNetUserID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string SSN { get; set; }
+    
+        public virtual aspnetuser aspnetuser { get; set; }
     }
 }
