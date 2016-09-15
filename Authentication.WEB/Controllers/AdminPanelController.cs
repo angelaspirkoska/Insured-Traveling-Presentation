@@ -10,7 +10,13 @@ namespace InsuredTraveling.Controllers
 {   
     public class AdminPanelController : Controller
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+
+        private InsuredTravelingEntity _db;
+
+        public AdminPanelController()
+        {
+            _db = new InsuredTravelingEntity();
+        }
 
         [HttpGet]
         public ActionResult Index()
@@ -22,6 +28,7 @@ namespace InsuredTraveling.Controllers
                 ViewBag.Roles = roles;
                 return View();
         }
+
 
         [HttpPost]
         [Route("AddRole")]

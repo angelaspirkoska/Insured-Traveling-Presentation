@@ -44,14 +44,11 @@ namespace Authentication.WEB.Controllers
 
         public ActionResult DeleteNews(int newsId)
         {
-            //SavaNewsEntities entities = new SavaNewsEntities();
-            //savanews newsForDelete = entities.savanews.Where(x => x.ID == newsId).FirstOrDefault();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
             news_all newsForDelete = entities.news_all.Where(x => x.ID == newsId).FirstOrDefault();
             if (newsForDelete == null)
                 return Json(new { Success = "False", Message = "Database problem" }, JsonRequestBehavior.AllowGet);
 
-            // entities.savanews.Remove(newsForDelete);
             entities.news_all.Remove(newsForDelete);
             try
             {

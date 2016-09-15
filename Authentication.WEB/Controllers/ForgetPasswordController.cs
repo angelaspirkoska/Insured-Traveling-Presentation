@@ -8,6 +8,13 @@ namespace InsuredTraveling.Controllers
     [RoutePrefix("ForgetPassword")]
     public class ForgetPasswordController : Controller
     {
+        private AuthRepository _repo;
+
+        public ForgetPasswordController()
+        {
+            _repo = new AuthRepository();
+        }
+
         [HttpPost]
         public async Task<ActionResult> Index(ForgetPasswordModel model)
         {
@@ -15,7 +22,7 @@ namespace InsuredTraveling.Controllers
             if (ModelState.IsValid)
             {
                 model.ID = System.Web.HttpContext.Current.Request.QueryString["ID"].ToString();
-                AuthRepository _repo = new AuthRepository();
+
                 IdentityResult result = await _repo.PasswordChange(model);
                 if (result.Succeeded)
                 {
@@ -40,6 +47,7 @@ namespace InsuredTraveling.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult EnterUsernameOrMail(LoginUser u)
         {

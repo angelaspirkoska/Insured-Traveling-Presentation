@@ -10,10 +10,9 @@ namespace Authentication.WEB.Controllers
 {
     public class MobilePolicyApiController : ApiController
     {
-        // POST api/<controller>
+
         public HttpResponseMessage PostComplex(MobilePolicyModel policy)
         {
-
             if (policy != null)
             {
                 policy.Token = HttpUtility.HtmlEncode(policy.Token);

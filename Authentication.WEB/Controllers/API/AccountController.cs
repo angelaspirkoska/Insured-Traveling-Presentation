@@ -13,7 +13,7 @@ namespace InsuredTraveling.Controllers
     [System.Web.Http.RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private AuthRepository _repo = null;
+        private AuthRepository _repo;
 
         public AccountController()
         {
@@ -36,7 +36,6 @@ namespace InsuredTraveling.Controllers
             return Ok();
         }
 
-        // POST api/Account/Register
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("Register")]
         public async Task<IHttpActionResult> Register(UserModel userModel)
@@ -58,7 +57,7 @@ namespace InsuredTraveling.Controllers
 
             return Ok();
         }
-        // POST api/Account/Register
+
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("RegisterWeb")]
         public async Task<IHttpActionResult> RegisterWeb(User userModel)
@@ -89,7 +88,6 @@ namespace InsuredTraveling.Controllers
             return Ok();
         }
         
-        // POST api/Account/FindUser
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("FindUser")]
         public async Task<IHttpActionResult> FindUsername(Username username)
@@ -109,7 +107,6 @@ namespace InsuredTraveling.Controllers
             return Ok();
         }
 
-        // POST api/Account/GetUserID
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("GetUserID")]
@@ -144,9 +141,7 @@ namespace InsuredTraveling.Controllers
         {
             IdentityResult result = await _repo.FillUserDetails(userModel);
 
-            IHttpActionResult errorResult = GetErrorResult(result);
-
-          
+            IHttpActionResult errorResult = GetErrorResult(result);         
 
             if (errorResult != null)
             {

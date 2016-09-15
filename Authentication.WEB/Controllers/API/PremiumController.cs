@@ -34,7 +34,7 @@ namespace Authentication.WEB.Controllers
             RatingEngineService ratingEngineService = new RatingEngineService();
 
             Premium Premium = new Premium();
-            Premium.PremiumAmount = (int)ratingEngineService.vkupnaPremija(policy);
+            Premium.PremiumAmount = (int)ratingEngineService.totalPremium(policy);
             return Ok(new { PremiumAmount = Premium.PremiumAmount });
         }
     }

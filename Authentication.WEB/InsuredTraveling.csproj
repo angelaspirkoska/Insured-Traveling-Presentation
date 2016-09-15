@@ -411,8 +411,8 @@
     <Compile Include="Controllers\HalkbankPaymentApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\MobilePolicyApiController.cs" />
-    <Compile Include="Controllers\NewsApiController.cs" />
+    <Compile Include="Controllers\API\MobilePolicyApiController.cs" />
+    <Compile Include="Controllers\API\NewsApiController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PolicyController.cs" />
@@ -606,7 +606,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\RegisterClient\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

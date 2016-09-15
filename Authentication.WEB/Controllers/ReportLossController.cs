@@ -13,7 +13,6 @@ namespace InsuredTraveling.Controllers
 {
     public class ReportLossController : Controller
     {
-        // GET: ReportLoss
         public ActionResult Index()
         {
             ShowUserData();   

@@ -38,7 +38,7 @@
             <div class="form-group col-sm-3">
                 <label for="zemjaNaPatuvanje">Земја на патување</label>
                 <select id="zemjaNaPatuvanje" name="zemjaNaPatuvanje" class="form-control ">
-                    @foreach (var zemja in Model.zemjaNaPatuvanjeList)
+                    @foreach (var zemja in Model.countries)
                     {
                         <option value="@zemja.Name">@zemja.Name</option>
                     }
@@ -47,7 +47,7 @@
             <div class="form-group col-sm-3">
                 <label for="Franchise">Франшиза</label>
                 <select id="Franchise" name="Franchise" class="form-control ">
-                    @foreach (var Franchise in Model.FranchiseList)
+                    @foreach (var Franchise in Model.franchises)
                     {
                         <option value="@Franchise.Franchise">@Franchise.Franchise</option>
                     }
@@ -56,7 +56,7 @@
             <div class="form-group col-sm-3">
                 <label for="vidPolisa">Вид полиса</label>
                 <select id="vidPolisa" name="vidPolisa" class="form-control ">
-                    @foreach (var vid in Model.vidPolisaList)
+                    @foreach (var vid in Model.policies)
                     {
                         <option value="@vid.type">@vid.type</option>
                     }

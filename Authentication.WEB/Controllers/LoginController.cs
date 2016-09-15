@@ -13,7 +13,7 @@ namespace InsuredTraveling.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: Login
+
         [HttpPost]
         public async Task<ActionResult> Index(LoginUser user, bool CaptchaValid)
         {
@@ -34,7 +34,6 @@ namespace InsuredTraveling.Controllers
                 HttpContent content = new FormUrlEncodedContent(data1);
                 content.Headers.Remove("Content-Type");
                 content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                //content.Headers.Add("Accept", "application/json");
                 var responseMessage = client.PostAsync(uri, content).Result;
                 var responseBody = await responseMessage.Content.ReadAsStringAsync();
                 dynamic data = JObject.Parse(responseBody);
@@ -52,6 +51,8 @@ namespace InsuredTraveling.Controllers
             }
             return View();
         }
+
+
         [HttpGet]
         public ActionResult Index()
         {

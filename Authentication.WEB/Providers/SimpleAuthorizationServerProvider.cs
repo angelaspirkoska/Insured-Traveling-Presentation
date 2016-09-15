@@ -14,7 +14,6 @@ namespace InsuredTraveling.Providers
     {
         public override Task ValidateAuthorizeRequest(OAuthValidateAuthorizeRequestContext context)
         {
-            var r = " ";
             return base.ValidateAuthorizeRequest(context);
         }
         public override Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)

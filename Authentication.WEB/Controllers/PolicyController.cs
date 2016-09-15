@@ -20,13 +20,11 @@ namespace Authentication.WEB.Controllers
         {
             PolicyInfoList info = new PolicyInfoList();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            info.zemjaNaPatuvanjeList = entities.countries;
-            info.FranchiseList = entities.retaining_risk_value;
-            info.vidPolisaList = entities.policy_type;
-
-
-            //ViewBag.vidPolisaList = entities.policy_type.Select(x => x.type).ToArray();
+            info.countries = entities.countries;
+            info.franchises = entities.retaining_risk_value;
+            info.policies = entities.policy_type;
             info.doplatokList = entities.p_doplatoci;
+
             return View(info);
         }
 
@@ -38,7 +36,6 @@ namespace Authentication.WEB.Controllers
             InsuredTravelingEntity entityDB = new InsuredTravelingEntity();
             policy polisaEntity = new policy();
 
-            //testing the premium api start
             Uri uri = new Uri("http://localhost:19655/api/premium/calculate");
             HttpClient client = new HttpClient();
             client.BaseAddress = uri;
@@ -52,10 +49,9 @@ namespace Authentication.WEB.Controllers
             string responseBody = await responseMessage.Content.ReadAsStringAsync();
             dynamic data = JObject.Parse(responseBody);
             int premium = data.PremiumAmount;
-            //testing the premium api finish
 
             bool valid = validationService.masterValidate(policy);
-            double? vkupnaPremija = ratingEngineService.vkupnaPremija(policy);
+            double? vkupnaPremija = ratingEngineService.totalPremium(policy);
             policy.VkupnaPremija = vkupnaPremija;
             System.Web.HttpContext.Current.Session.Add("SessionId", policy.policyNumber);
 

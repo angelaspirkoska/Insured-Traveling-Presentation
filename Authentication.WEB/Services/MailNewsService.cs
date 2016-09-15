@@ -21,14 +21,13 @@ namespace Authentication.WEB.Services
                 foreach (uint uid in uids)
                 {
                     MailMessage message = client.GetMessage(uid);
-                    // savanews news = new savanews();
-                    news_all news = new news_all();
+                    news_all news = entities.news_all.Create(); ;
                     news.Title = message.Subject.Trim();
                     news.Content = message.Body.Trim();
-                    news.DataCreated = DateTime.Now;
+                    news.DataCreated = (DateTime)message.Date();
                     news.InsuranceCompany = "Eurolink";
                     Random r = new Random();
-                    news.ID = r.Next(10000, 99999);
+                    //news.ID = r.Next(10000, 99999);
                     if (message.Subject.ToLower().StartsWith(n))
                         news.isNotification = true;
                     else

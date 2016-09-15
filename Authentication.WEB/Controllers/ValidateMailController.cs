@@ -6,7 +6,6 @@ namespace InsuredTraveling.Controllers
     [RoutePrefix("ValidateMail")]
     public class ValidateMailController : Controller
     {
-        // GET: ValidateMail
         public ActionResult Index(string ID)
         {
             AuthRepository _repo = new AuthRepository();
