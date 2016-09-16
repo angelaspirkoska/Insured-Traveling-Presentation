@@ -12,11 +12,18 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class eurolinkuser
+    public partial class type_insured
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public type_insured()
+        {
+            this.insureds = new HashSet<insured>();
+        }
+    
         public int ID { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Roles { get; set; }
+        public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<insured> insureds { get; set; }
     }
 }

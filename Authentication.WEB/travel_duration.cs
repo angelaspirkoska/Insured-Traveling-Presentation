@@ -22,8 +22,15 @@ namespace InsuredTraveling
     
         public int ID { get; set; }
         public string Days { get; set; }
+        public System.DateTime Created_Date { get; set; }
+        public string Created_By { get; set; }
+        public string Modified_Date { get; set; }
+        public string Modified_By { get; set; }
+        public int Version { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<discount_days> discount_days { get; set; }
+        public virtual aspnetuser aspnetuser { get; set; }
+        public virtual aspnetuser aspnetuser1 { get; set; }
     }
 }

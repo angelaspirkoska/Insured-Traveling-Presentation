@@ -86,20 +86,16 @@ namespace InsuredTraveling.Controllers
 
             if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(embg) || !String.IsNullOrEmpty(address) || !String.IsNullOrEmpty(land) || !String.IsNullOrEmpty(agency) || !String.IsNullOrEmpty(TypePolycies))
             {
-                var data = _db.policies.Where(x => x.EMBG.Contains(embg) &&
-                                                        x.Ime_I_Prezime.ToLower().Contains(name) &&
-                                                        x.Adresa.ToLower().Contains(address) &&
-                                                        x.Ovlastena_Agencija.ToLower().Contains(agency) &&
-                                                        x.Vid_Polisa.ToLower().Contains(TypePolycies)
+                var data = _db.travel_policy.Where(x => x.Policy_TypeID.Equals(TypePolycies)
                                                        ).ToList();
 
                 if (!String.IsNullOrEmpty(startDate))
                 {
                     switch (operatorStartDate)
                     {
-                        case "<": data = data.Where(x => x.Zapocnuva_Na < startDate1).ToList(); break;
-                        case "=": data = data.Where(x => x.Zapocnuva_Na == startDate1).ToList(); break;
-                        case ">": data = data.Where(x => x.Zapocnuva_Na > startDate1).ToList(); break;
+                        case "<": data = data.Where(x => x.Start_Date < startDate1).ToList(); break;
+                        case "=": data = data.Where(x => x.Start_Date == startDate1).ToList(); break;
+                        case ">": data = data.Where(x => x.Start_Date > startDate1).ToList(); break;
                         default: break;
                     }
                 }
@@ -107,9 +103,9 @@ namespace InsuredTraveling.Controllers
                 {
                     switch (operatorEndDate)
                     {
-                        case "<": data = data.Where(x => x.Zavrsuva_Na < endDate1).ToList(); break;
-                        case "=": data = data.Where(x => x.Zavrsuva_Na == endDate1).ToList(); break;
-                        case ">": data = data.Where(x => x.Zavrsuva_Na > endDate1).ToList(); break;
+                        case "<": data = data.Where(x => x.End_Date < endDate1).ToList(); break;
+                        case "=": data = data.Where(x => x.End_Date == endDate1).ToList(); break;
+                        case ">": data = data.Where(x => x.End_Date > endDate1).ToList(); break;
                         default: break;
                     }
                 }
@@ -117,9 +113,9 @@ namespace InsuredTraveling.Controllers
                 {
                     switch (operatorDateI)
                     {
-                        case "<": data = data.Where(x => x.Datum_Na_Izdavanje < dateI1).ToList(); break;
-                        case "=": data = data.Where(x => x.Datum_Na_Izdavanje == dateI1).ToList(); break;
-                        case ">": data = data.Where(x => x.Datum_Na_Izdavanje > dateI1).ToList(); break;
+                        case "<": data = data.Where(x => x.Date_Created < dateI1).ToList(); break;
+                        case "=": data = data.Where(x => x.Date_Created == dateI1).ToList(); break;
+                        case ">": data = data.Where(x => x.Date_Created > dateI1).ToList(); break;
                         default: break;
                     }
                 }
@@ -127,9 +123,9 @@ namespace InsuredTraveling.Controllers
                 {
                     switch (operatorDateS)
                     {
-                        case "<": data = data.Where(x => x.Datum_Na_Storniranje < dateS2).ToList(); break;
-                        case "=": data = data.Where(x => x.Datum_Na_Storniranje == dateS2).ToList(); break;
-                        case ">": data = data.Where(x => x.Datum_Na_Storniranje > dateS2).ToList(); break;
+                        case "<": data = data.Where(x => x.Date_Cancellation < dateS2).ToList(); break;
+                        case "=": data = data.Where(x => x.Date_Cancellation == dateS2).ToList(); break;
+                        case ">": data = data.Where(x => x.Date_Cancellation > dateS2).ToList(); break;
                         default: break;
                     }
                 }
@@ -139,19 +135,12 @@ namespace InsuredTraveling.Controllers
                 foreach (var v in data)
                 {
                     var j1 = new JObject();
-                    j1.Add("Polisa_Broj", v.Polisa_Broj);
-                    j1.Add("Ime_I_Prezime", v.Ime_I_Prezime);
-                    j1.Add("EMBG", v.EMBG);
-                    j1.Add("Country", v.Zemja_Na_Patuvanje);
-                    j1.Add("Policy_type", v.Vid_Polisa);
-                    j1.Add("Zapocnuva_Na", v.Zapocnuva_Na);
-                    j1.Add("Zavrsuva_Na", v.Zavrsuva_Na);
-                    j1.Add("Adresa", v.Adresa);
-                    j1.Add("Ovlastena_Agencija", v.Ovlastena_Agencija);
-                    j1.Add("Datum_Na_Izdavanje", v.Datum_Na_Izdavanje);
-                    j1.Add("Datum_Na_Storniranje", v.Datum_Na_Storniranje);
-                    j1.Add("Status", v.Status);
-                    j1.Add("Referent", v.Referent);
+                    j1.Add("Polisa_Broj", v.Policy_Number);
+                    j1.Add("Country", v.CountryID);
+                    j1.Add("Policy_type", v.Policy_TypeID);
+                    j1.Add("Zapocnuva_Na", v.Start_Date);
+                    j1.Add("Zavrsuva_Na", v.End_Date);
+                    j1.Add("Datum_Na_Izdavanje", v.Date_Created);
 
                     data1.Add(j1);
                 }
@@ -161,14 +150,14 @@ namespace InsuredTraveling.Controllers
             }
             else if (!String.IsNullOrEmpty(startDate) || !String.IsNullOrEmpty(endDate) || !String.IsNullOrEmpty(dateI) || !String.IsNullOrEmpty(dateS))
             {
-                var data = _db.policies.ToList();
+                var data = _db.travel_policy.ToList();
                 if (!String.IsNullOrEmpty(startDate))
                 {
                     switch (operatorStartDate)
                     {
-                        case "<": data = data.Where(x => x.Zapocnuva_Na < startDate1).ToList(); break;
-                        case "=": data = data.Where(x => x.Zapocnuva_Na == startDate1).ToList(); break;
-                        case ">": data = data.Where(x => x.Zapocnuva_Na > startDate1).ToList(); break;
+                        case "<": data = data.Where(x => x.Start_Date < startDate1).ToList(); break;
+                        case "=": data = data.Where(x => x.Start_Date == startDate1).ToList(); break;
+                        case ">": data = data.Where(x => x.Start_Date > startDate1).ToList(); break;
                         default: break;
                     }
                 }
@@ -176,9 +165,9 @@ namespace InsuredTraveling.Controllers
                 {
                     switch (operatorEndDate)
                     {
-                        case "<": data = data.Where(x => x.Zavrsuva_Na < endDate1).ToList(); break;
-                        case "=": data = data.Where(x => x.Zavrsuva_Na == endDate1).ToList(); break;
-                        case ">": data = data.Where(x => x.Zavrsuva_Na > endDate1).ToList(); break;
+                        case "<": data = data.Where(x => x.End_Date < endDate1).ToList(); break;
+                        case "=": data = data.Where(x => x.End_Date == endDate1).ToList(); break;
+                        case ">": data = data.Where(x => x.End_Date > endDate1).ToList(); break;
                         default: break;
                     }
                 }
@@ -186,9 +175,9 @@ namespace InsuredTraveling.Controllers
                 {
                     switch (operatorDateI)
                     {
-                        case "<": data = data.Where(x => x.Datum_Na_Izdavanje < dateI1).ToList(); break;
-                        case "=": data = data.Where(x => x.Datum_Na_Izdavanje == dateI1).ToList(); break;
-                        case ">": data = data.Where(x => x.Datum_Na_Izdavanje > dateI1).ToList(); break;
+                        case "<": data = data.Where(x => x.Date_Created < dateI1).ToList(); break;
+                        case "=": data = data.Where(x => x.Date_Created == dateI1).ToList(); break;
+                        case ">": data = data.Where(x => x.Date_Created > dateI1).ToList(); break;
                         default: break;
                     }
                 }
@@ -196,9 +185,9 @@ namespace InsuredTraveling.Controllers
                 {
                     switch (operatorDateS)
                     {
-                        case "<": data = data.Where(x => x.Datum_Na_Storniranje < dateS2).ToList(); break;
-                        case "=": data = data.Where(x => x.Datum_Na_Storniranje == dateS2).ToList(); break;
-                        case ">": data = data.Where(x => x.Datum_Na_Storniranje > dateS2).ToList(); break;
+                        case "<": data = data.Where(x => x.Date_Cancellation < dateS2).ToList(); break;
+                        case "=": data = data.Where(x => x.Date_Cancellation == dateS2).ToList(); break;
+                        case ">": data = data.Where(x => x.Date_Cancellation > dateS2).ToList(); break;
                         default: break;
                     }
                 }
@@ -207,19 +196,12 @@ namespace InsuredTraveling.Controllers
                 foreach (var v in data)
                 {
                     var j1 = new JObject();
-                    j1.Add("Polisa_Broj", v.Polisa_Broj);
-                    j1.Add("Ime_I_Prezime", v.Ime_I_Prezime);
-                    j1.Add("EMBG", v.EMBG);
-                    j1.Add("Country", v.Zemja_Na_Patuvanje);
-                    j1.Add("Policy_type", v.Vid_Polisa);
-                    j1.Add("Zapocnuva_Na", v.Zapocnuva_Na);
-                    j1.Add("Zavrsuva_Na", v.Zavrsuva_Na);
-                    j1.Add("Adresa", v.Adresa);
-                    j1.Add("Ovlastena_Agencija", v.Ovlastena_Agencija);
-                    j1.Add("Datum_Na_Izdavanje", v.Datum_Na_Izdavanje);
-                    j1.Add("Datum_Na_Storniranje", v.Datum_Na_Storniranje);
-                    j1.Add("Status", v.Status);
-                    j1.Add("Referent", v.Referent);
+                    j1.Add("Polisa_Broj", v.Policy_Number);
+                    j1.Add("Policy_type", v.Policy_TypeID);
+                    j1.Add("Zapocnuva_Na", v.Start_Date);
+                    j1.Add("Zavrsuva_Na", v.End_Date);
+                    j1.Add("Datum_Na_Izdavanje", v.Date_Created);
+                    j1.Add("Datum_Na_Storniranje", v.Date_Cancellation);
 
                     data1.Add(j1);
                 }
@@ -229,25 +211,19 @@ namespace InsuredTraveling.Controllers
             }
             else
             {
-                var data = _db.policies.ToArray();
+                var data = _db.travel_policy.ToArray();
                 var j = new JObject();
                 var data1 = new JArray();
                 foreach (var v in data)
                 {
                     var j1 = new JObject();
-                    j1.Add("Polisa_Broj", v.Polisa_Broj);
-                    j1.Add("Ime_I_Prezime", v.Ime_I_Prezime);
-                    j1.Add("EMBG", v.EMBG);
-                    j1.Add("Country", v.Zemja_Na_Patuvanje);
-                    j1.Add("Policy_type", v.Vid_Polisa);
-                    j1.Add("Zapocnuva_Na", v.Zapocnuva_Na);
-                    j1.Add("Zavrsuva_Na", v.Zavrsuva_Na);
-                    j1.Add("Adresa", v.Adresa);
-                    j1.Add("Ovlastena_Agencija", v.Ovlastena_Agencija);
-                    j1.Add("Datum_Na_Izdavanje", v.Datum_Na_Izdavanje);
-                    j1.Add("Datum_Na_Storniranje", v.Datum_Na_Storniranje);
-                    j1.Add("Status", v.Status);
-                    j1.Add("Referent", v.Referent);
+                    j1.Add("Polisa_Broj", v.Policy_Number);
+                    j1.Add("Country", v.CountryID);
+                    j1.Add("Policy_type", v.Policy_TypeID);
+                    j1.Add("Zapocnuva_Na", v.Start_Date);
+                    j1.Add("Zavrsuva_Na", v.End_Date);;
+                    j1.Add("Datum_Na_Izdavanje", v.Date_Created);
+                    j1.Add("Datum_Na_Storniranje", v.Date_Cancellation);
 
                     data1.Add(j1);
                 }

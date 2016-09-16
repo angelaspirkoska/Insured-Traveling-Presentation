@@ -12,16 +12,9 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class client
+    public partial class policy_status
     {
-        public int id { get; set; }
-        public string FirstLastName { get; set; }
-        public string StreetNumber { get; set; }
-        public string City { get; set; }
-        public Nullable<int> PostalCode { get; set; }
-        public string PhoneNumber { get; set; }
-        public string MailAdress { get; set; }
-        public string PassportNumber { get; set; }
-        public string EMBG { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -1,6 +1,6 @@
-﻿using Authentication.WEB.Models;
-using Authentication.WEB.Services;
+﻿using Authentication.WEB.Services;
 using InsuredTraveling;
+using InsuredTraveling.Models;
 using System;
 using System.Web.Mvc;
 
@@ -18,24 +18,24 @@ namespace Authentication.WEB.Controllers
         [HttpPost]
         public ActionResult Create(CreateClientModel model) 
         {
-            client client = new client();
+            insured client = new insured();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
             ValidationService validationService = new ValidationService();
 
-            client.FirstLastName = model.NameSurename;
-            client.MailAdress = model.email;
-            client.PhoneNumber = model.Number;
+            client.Name = model.NameSurename;
+            client.Email = model.email;
+            client.Phone_Number = model.Number;
             int temp;
             Int32.TryParse(model.PostCode, out temp);
-            client.PassportNumber = model.Passport;
-            client.PostalCode = temp;
-            client.StreetNumber = model.Adress;
-            client.EMBG = model.EMBG;
+            client.Passport_Number_IdNumber = model.Passport;
+            client.Postal_Code = temp.ToString();
+            client.Address = model.Adress;
+            client.SSN = model.EMBG;
             client.City = model.City;
 
             if (validationService.ClientFormValidate(client))
             {
-                entities.clients.Add(client);
+                entities.insureds.Add(client);
                 entities.SaveChanges();
             }
             else

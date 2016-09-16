@@ -1,4 +1,4 @@
-﻿namespace Authentication.WEB.Models
+﻿namespace InsuredTraveling.Models
 {
     public class CreateClientModel
     {

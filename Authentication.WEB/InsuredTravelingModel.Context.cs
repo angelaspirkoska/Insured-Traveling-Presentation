@@ -28,15 +28,10 @@ namespace InsuredTraveling
         public virtual DbSet<aspnetrole> aspnetroles { get; set; }
         public virtual DbSet<aspnetuserclaim> aspnetuserclaims { get; set; }
         public virtual DbSet<aspnetuserrole> aspnetuserroles { get; set; }
-        public virtual DbSet<aspnetuser> aspnetusers { get; set; }
-        public virtual DbSet<client> clients { get; set; }
         public virtual DbSet<client1> clients1 { get; set; }
-        public virtual DbSet<eurolinkuser> eurolinkusers { get; set; }
         public virtual DbSet<ok_setup> ok_setup { get; set; }
-        public virtual DbSet<p_doplatoci> p_doplatoci { get; set; }
         public virtual DbSet<p_referent> p_referent { get; set; }
         public virtual DbSet<refreshtoken> refreshtokens { get; set; }
-        public virtual DbSet<user> users { get; set; }
         public virtual DbSet<aspnetuserlogin> aspnetuserlogins { get; set; }
         public virtual DbSet<transaction> transactions { get; set; }
         public virtual DbSet<news_all> news_all { get; set; }
@@ -47,7 +42,6 @@ namespace InsuredTraveling
         public virtual DbSet<policy_type> policy_type { get; set; }
         public virtual DbSet<travel_duration> travel_duration { get; set; }
         public virtual DbSet<p_stapki> p_stapki { get; set; }
-        public virtual DbSet<policy> policies { get; set; }
         public virtual DbSet<company> companies { get; set; }
         public virtual DbSet<discount_age> discount_age { get; set; }
         public virtual DbSet<discount_days> discount_days { get; set; }
@@ -55,12 +49,19 @@ namespace InsuredTraveling
         public virtual DbSet<discount_group> discount_group { get; set; }
         public virtual DbSet<exchange_rate> exchange_rate { get; set; }
         public virtual DbSet<min_premium> min_premium { get; set; }
-        public virtual DbSet<policy_insurees> policy_insurees { get; set; }
-        public virtual DbSet<retaining_risk_type> retaining_risk_type { get; set; }
-        public virtual DbSet<retaining_risk_value> retaining_risk_value { get; set; }
-        public virtual DbSet<user1> users1 { get; set; }
         public virtual DbSet<group> groups { get; set; }
+        public virtual DbSet<additional_charge> additional_charge { get; set; }
+        public virtual DbSet<discount_country> discount_country { get; set; }
+        public virtual DbSet<policy_additional_charge> policy_additional_charge { get; set; }
+        public virtual DbSet<policy_status> policy_status { get; set; }
+        public virtual DbSet<retaining_risk> retaining_risk { get; set; }
+        public virtual DbSet<travel_insurance_type> travel_insurance_type { get; set; }
+        public virtual DbSet<travel_number> travel_number { get; set; }
+        public virtual DbSet<type_insured> type_insured { get; set; }
+        public virtual DbSet<aspnetuser> aspnetusers { get; set; }
+        public virtual DbSet<user> users { get; set; }
         public virtual DbSet<insured> insureds { get; set; }
-        public virtual DbSet<p_zemja_na_patuvanje> p_zemja_na_patuvanje { get; set; }
+        public virtual DbSet<travel_policy> travel_policy { get; set; }
+        public virtual DbSet<policy_insured> policy_insured { get; set; }
     }
 }

@@ -17,5 +17,10 @@ namespace InsuredTraveling
         public int ID { get; set; }
         public string Currency { get; set; }
         public double Value { get; set; }
+        public System.DateTime Created_Date { get; set; }
+        public string Created_By { get; set; }
+        public string Modified_Date { get; set; }
+        public string Modified_By { get; set; }
+        public int Version { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace Authentication.WEB.Controllers
 
         [HttpPost]
         [Route("Calculate")]
-        public IHttpActionResult Code(Policy policy)
+        public IHttpActionResult Code(InsuredTraveling.travel_policy policy)
         {
             RatingEngineService ratingEngineService = new RatingEngineService();
 

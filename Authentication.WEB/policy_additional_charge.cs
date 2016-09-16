@@ -12,14 +12,13 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class user1
+    public partial class policy_additional_charge
     {
         public int ID { get; set; }
-        public string AspNetUserID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string SSN { get; set; }
+        public int PolicyID { get; set; }
+        public int Additional_ChargeID { get; set; }
     
-        public virtual aspnetuser aspnetuser { get; set; }
+        public virtual additional_charge additional_charge { get; set; }
+        public virtual travel_policy travel_policy { get; set; }
     }
 }

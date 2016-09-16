@@ -17,7 +17,7 @@ namespace InsuredTraveling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public insured()
         {
-            this.policy_insurees = new HashSet<policy_insurees>();
+            this.policy_insured = new HashSet<policy_insured>();
         }
     
         public int ID { get; set; }
@@ -25,9 +25,23 @@ namespace InsuredTraveling
         public string Lastname { get; set; }
         public string SSN { get; set; }
         public System.DateTime DateBirth { get; set; }
-        public int Age { get; set; }
+        public Nullable<int> Age { get; set; }
+        public string Email { get; set; }
+        public string Phone_Number { get; set; }
+        public string City { get; set; }
+        public string Postal_Code { get; set; }
+        public string Address { get; set; }
+        public string Passport_Number_IdNumber { get; set; }
+        public Nullable<int> Type_InsuredID { get; set; }
+        public System.DateTime Date_Created { get; set; }
+        public string Created_By { get; set; }
+        public Nullable<System.DateTime> Date_Modified { get; set; }
+        public string Modified_By { get; set; }
     
+        public virtual aspnetuser aspnetuser { get; set; }
+        public virtual aspnetuser aspnetuser1 { get; set; }
+        public virtual type_insured type_insured { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<policy_insurees> policy_insurees { get; set; }
+        public virtual ICollection<policy_insured> policy_insured { get; set; }
     }
 }

@@ -39,7 +39,7 @@ namespace Authentication.WEB.Controllers
 
             int id = 2;
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            model.Pat = entities.policies.Where(x => x.Polisa_Broj == id).FirstOrDefault();
+            model.Pat = entities.travel_policy.Where(x => x.Policy_Number.Equals(id)).FirstOrDefault();
             return View(model);
         }
 

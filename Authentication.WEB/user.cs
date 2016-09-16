@@ -15,8 +15,19 @@ namespace InsuredTraveling
     public partial class user
     {
         public int ID { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Roles { get; set; }
+        public string FisrtName { get; set; }
+        public string LastName { get; set; }
+        public string SSN { get; set; }
+        public string PhoneNumber { get; set; }
+        public string PostalCode { get; set; }
+        public string Address { get; set; }
+        public string Municipality { get; set; }
+        public string City { get; set; }
+        public string AspNetUserID { get; set; }
+        public string PassportNumber_UID { get; set; }
+        public System.DateTime DateBirth { get; set; }
+        public string Gender { get; set; }
+    
+        public virtual aspnetuser aspnetuser { get; set; }
     }
 }

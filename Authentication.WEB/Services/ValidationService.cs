@@ -7,27 +7,27 @@ namespace Authentication.WEB.Services
 {
     class ValidationService
     {
-        public bool masterValidate(Policy policy)
+        public bool masterValidate(travel_policy policy)
         {
-            if (!validateEMBG(policy.EMBG))
+            if (!validateEMBG(policy.aspnetuser.EMBG))
                 return false;
-            if (!validateDates(policy.startDate, policy.endDate))
+            if (!validateDates(policy.Start_Date, policy.End_Date))
                 return false;
-            if (!validateInsuredDays(policy.startDate, policy.endDate, policy.vaziDenovi, policy.brojPatuvanja))
+            if (!validateInsuredDays(policy.Start_Date, policy.End_Date, policy.Valid_Days, policy.travel_insurance_type.Name))
                 return false;
-            if (!validateAge(policy.startDate, policy.EMBG, policy.vidPolisa))
+            if (!validateAge(policy.Start_Date, policy.aspnetuser.EMBG, policy.policy_type.type))
                 return false;
             return true;
         }
 
         //This is function for validating new Client Create
-        public bool ClientFormValidate(client CreateClient)
+        public bool ClientFormValidate(insured CreateClient)
         {
-            if (!validateEMBG(CreateClient.EMBG))
+            if (!validateEMBG(CreateClient.SSN))
             {
                 return false;
             }
-            if ((CreateClient.City == null || CreateClient.EMBG == null || CreateClient.StreetNumber == null || CreateClient.FirstLastName == null || CreateClient.MailAdress == null || CreateClient.PassportNumber == null || CreateClient.PostalCode == null || CreateClient.PhoneNumber == null))
+            if ((CreateClient.City == null || CreateClient.SSN == null || CreateClient.Address == null || CreateClient.Name == null || CreateClient.Email == null || CreateClient.Passport_Number_IdNumber == null || CreateClient.Postal_Code == null || CreateClient.Phone_Number == null))
             {
                 return false;
             }

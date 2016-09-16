@@ -4,19 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4d19592923274ad29dd179585daab6fe" Name="Diagram1" ZoomLevel="55">
+      <Diagram DiagramId="4d19592923274ad29dd179585daab6fe" Name="Diagram1" ZoomLevel="59">
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetrole" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuserclaim" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuserrole" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuser" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.client" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.client1" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.eurolinkuser" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.ok_setup" Width="1.75" PointX="6.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.p_doplatoci" Width="1.5" PointX="8.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.p_referent" Width="1.5" PointX="10.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.refreshtoken" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.user" Width="1.5" PointX="8.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuserlogin" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.transaction" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.news_all" Width="1.5" PointX="5.375" PointY="14.75" />
@@ -29,7 +24,6 @@
         <EntityTypeShape EntityType="db_9eb138_travelModel.policy_type" Width="1.5" PointX="0.75" PointY="16.75" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.travel_duration" Width="1.5" PointX="2.75" PointY="16.75" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.p_stapki" Width="1.5" PointX="0.75" PointY="11.75" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.policy" Width="1.5" PointX="15.375" PointY="14.75" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.company" Width="1.5" PointX="17.75" PointY="14.75" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.discount_age" Width="1.5" PointX="17.75" PointY="17.75" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.discount_days" Width="1.5" PointX="8.375" PointY="18.75" />
@@ -37,11 +31,6 @@
         <EntityTypeShape EntityType="db_9eb138_travelModel.discount_group" Width="1.5" PointX="12.375" PointY="20.25" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.exchange_rate" Width="1.5" PointX="18.75" PointY="8.75" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.min_premium" Width="1.5" PointX="3.375" PointY="13.625" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.policy_insurees" Width="1.5" PointX="8" PointY="22.125" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.retaining_risk_type" Width="1.5" PointX="0.75" PointY="19.75" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.retaining_risk_value" Width="1.5" PointX="2.75" PointY="19.75" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.user1" Width="1.5" PointX="5.375" PointY="27" />
-        <AssociationConnector Association="db_9eb138_travelModel.fk_AspNetUser" />
         <AssociationConnector Association="db_9eb138_travelModel.discount_days_ibfk_1" />
         <AssociationConnector Association="db_9eb138_travelModel.discount_days_ibfk_2" />
         <AssociationConnector Association="db_9eb138_travelModel.discount_family_ibfk_1" />
@@ -49,11 +38,52 @@
         <AssociationConnector Association="db_9eb138_travelModel.min_premium_ibfk_1" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.group" Width="1.5" PointX="15.375" PointY="8.875" />
         <AssociationConnector Association="db_9eb138_travelModel.discount_group_ibfk_2" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.insured" Width="1.5" PointX="5.75" PointY="21.875" />
-        <AssociationConnector Association="db_9eb138_travelModel.policy_insurees_ibfk_1" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.p_zemja_na_patuvanje" Width="1.5" PointX="11" PointY="23.125" />
-        <AssociationConnector Association="db_9eb138_travelModel.fk_country_id" />
-        <AssociationConnector Association="db_9eb138_travelModel.fk_policy_type_id" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.additional_charge" Width="1.5" PointX="5" PointY="32.625" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.discount_country" Width="1.5" PointX="11" PointY="3.625" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.policy_additional_charge" Width="1.5" PointX="17.625" PointY="25.375" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.policy_status" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.retaining_risk" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.travel_insurance_type" Width="1.5" PointX="13.125" PointY="26.75" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.travel_number" Width="1.5" PointX="13.125" PointY="17.375" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.type_insured" Width="1.5" PointX="3.5" PointY="37.625" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_additional_charge_id" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_country_id1" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_policy_type_id1" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_loss_id" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_luggage_loss_id" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuser" Width="1.5" PointX="0.75" PointY="14.875" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.user" Width="1.5" PointX="3" PointY="20.875" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_additional_charge_created_by" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_additional_charge_modified_by" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_discount_age_Created_By" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_discount_age_Modified_By" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_discount_country_Created_By" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_discount_country_Modified_by" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_discount_days_Created_By" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_discount_days_Modified_by" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_discount_family_Created_By" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_discount_family_Modified_by" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_discount_group_Created_By" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_discount_group_Modified_by" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_travel_duration_Created_by" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_travel_duration_Modified_by" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_users_aspnetuser" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.insured" Width="1.5" PointX="5.75" PointY="24.5" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_insured_createdby" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_insured_modifiedby" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_insured_type" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.travel_policy" Width="1.5" PointX="15.375" PointY="12" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_policy_created_by" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_policy_modified_by" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_travel_policy_country" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_policy_id" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_travel_policy_policy_type" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_travel_policy_retaining_risk" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_policy_insurance_type" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_policy_travel_number" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.policy_insured" Width="1.5" PointX="17.625" PointY="21.75" />
+        <AssociationConnector Association="db_9eb138_travelModel.policy_insured_ibfk_1" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_policy_insured_polcy_id" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

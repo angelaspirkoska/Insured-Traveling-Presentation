@@ -12,16 +12,13 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class p_zemja_na_patuvanje
+    public partial class policy_insured
     {
         public int ID { get; set; }
-        public Nullable<int> CountryID { get; set; }
-        public Nullable<int> Policy_typeID { get; set; }
-        public Nullable<double> Percentage { get; set; }
-        public string Franchise { get; set; }
-        public Nullable<double> Discount_franchise { get; set; }
+        public int PolicyID { get; set; }
+        public int InsuredID { get; set; }
     
-        public virtual country country { get; set; }
-        public virtual policy_type policy_type { get; set; }
+        public virtual insured insured { get; set; }
+        public virtual travel_policy travel_policy { get; set; }
     }
 }

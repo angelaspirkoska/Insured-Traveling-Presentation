@@ -21,7 +21,8 @@ namespace InsuredTraveling
             this.discount_family = new HashSet<discount_family>();
             this.discount_group = new HashSet<discount_group>();
             this.min_premium = new HashSet<min_premium>();
-            this.p_zemja_na_patuvanje = new HashSet<p_zemja_na_patuvanje>();
+            this.discount_country = new HashSet<discount_country>();
+            this.travel_policy = new HashSet<travel_policy>();
         }
     
         public int ID { get; set; }
@@ -36,6 +37,8 @@ namespace InsuredTraveling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<min_premium> min_premium { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<p_zemja_na_patuvanje> p_zemja_na_patuvanje { get; set; }
+        public virtual ICollection<discount_country> discount_country { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<travel_policy> travel_policy { get; set; }
     }
 }

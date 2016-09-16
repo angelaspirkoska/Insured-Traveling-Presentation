@@ -17,6 +17,11 @@ namespace InsuredTraveling
         public int ID { get; set; }
         public Nullable<int> Policy_typeID { get; set; }
         public Nullable<double> Min_premium1 { get; set; }
+        public System.DateTime Created_Date { get; set; }
+        public string Created_By { get; set; }
+        public string Modified_Date { get; set; }
+        public string Modified_By { get; set; }
+        public int Version { get; set; }
     
         public virtual policy_type policy_type { get; set; }
     }

@@ -12,10 +12,19 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class retaining_risk_value
+    public partial class retaining_risk
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public retaining_risk()
+        {
+            this.travel_policy = new HashSet<travel_policy>();
+        }
+    
         public string Franchise { get; set; }
         public string Dedactible { get; set; }
         public int ID { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<travel_policy> travel_policy { get; set; }
     }
 }

@@ -21,27 +21,27 @@ namespace Authentication.WEB.Controllers
             PolicyInfoList info = new PolicyInfoList();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
             info.countries = entities.countries;
-            info.franchises = entities.retaining_risk_value;
+            info.franchises = entities.retaining_risk;
             info.policies = entities.policy_type;
-            info.doplatokList = entities.p_doplatoci;
+            info.doplatokList = entities.additional_charge;
 
             return View(info);
         }
 
-        public async System.Threading.Tasks.Task<ActionResult> CreatePolicy(Policy policy)
+        public async System.Threading.Tasks.Task<ActionResult> CreatePolicy(travel_policy policy)
         {
             ValidationService validationService = new ValidationService();
             RatingEngineService ratingEngineService = new RatingEngineService();
 
             InsuredTravelingEntity entityDB = new InsuredTravelingEntity();
-            policy polisaEntity = new policy();
+            travel_policy polisaEntity = new travel_policy();
 
             Uri uri = new Uri("http://localhost:19655/api/premium/calculate");
             HttpClient client = new HttpClient();
             client.BaseAddress = uri;
             var mediaType = new MediaTypeHeaderValue("application/json");
             var jsonFormatter = new JsonMediaTypeFormatter();
-            HttpContent content = new ObjectContent<Policy>(policy, jsonFormatter);
+            HttpContent content = new ObjectContent<travel_policy>(policy, jsonFormatter);
 
 
 
@@ -52,14 +52,14 @@ namespace Authentication.WEB.Controllers
 
             bool valid = validationService.masterValidate(policy);
             double? vkupnaPremija = ratingEngineService.totalPremium(policy);
-            policy.VkupnaPremija = vkupnaPremija;
-            System.Web.HttpContext.Current.Session.Add("SessionId", policy.policyNumber);
+            policy.Total_Premium = vkupnaPremija;
+            System.Web.HttpContext.Current.Session.Add("SessionId", policy.Policy_Number);
 
             if (valid)
             {
 
-                long ID = (entityDB.policies.OrderByDescending(p => p.Polisa_Broj).Select(r => r.Polisa_Broj).FirstOrDefault() + 1);
-                string ID_Company = entityDB.policies.OrderByDescending(p => p.Polisa_Broj).Select(r => r.BRoj_Polisa_Kompanija).FirstOrDefault();
+                string ID = (entityDB.travel_policy.OrderByDescending(p => p.ID).Select(r => r.Policy_Number).FirstOrDefault() + 1);
+                string ID_Company = entityDB.travel_policy.OrderByDescending(p => p.ID).Select(r => r.Policy_Number).FirstOrDefault();
                 int tempID;
                 if (String.IsNullOrEmpty(ID_Company))
                 {
@@ -70,75 +70,22 @@ namespace Authentication.WEB.Controllers
                     string ID_trim2 = ID_Company.Substring(5);
                     tempID = int.Parse(ID_trim2) + 1;
                 }
-                // if (user == sava ) 
 
-                polisaEntity.Polisa_Broj = ID;
-                polisaEntity.BRoj_Polisa_Kompanija = "Sava_" + tempID;
+                polisaEntity.Policy_Number = ID;
+                polisaEntity.Policy_TypeID = policy.policy_type.ID;
+                polisaEntity.CountryID = policy.CountryID;
+                polisaEntity.Start_Date = policy.Start_Date;
+                polisaEntity.End_Date = policy.End_Date;
+                polisaEntity.Valid_Days = policy.Valid_Days;
+                polisaEntity.Travel_Insurance_TypeID = policy.Travel_Insurance_TypeID;
+                polisaEntity.Travel_NumberID = policy.Travel_NumberID;
+                polisaEntity.Travel_Insurance_TypeID = policy.Travel_Insurance_TypeID;
 
-                polisaEntity.Vid_Polisa = policy.vidPolisa;
-
-                polisaEntity.Fransiza = policy.Franchise;
-                polisaEntity.Popust_Fransiza = policy.procentFranchise; // Mozebi gresno
-
-                polisaEntity.Zemja_Na_Patuvanje = policy.zemjaNaPatuvanje;
-
-                polisaEntity.Ime_I_Prezime = policy.imePrezime;
-                polisaEntity.Adresa = policy.Adresa;
-                polisaEntity.EMBG = policy.EMBG;
-                polisaEntity.Broj_Pasos = policy.brojPasos;
-
-                polisaEntity.Zapocnuva_Na = policy.startDate;
-                polisaEntity.Zavrsuva_Na = policy.endDate;
-                polisaEntity.Vazi_Denovi = policy.vaziDenovi;
-                polisaEntity.Popust_Denovi = policy.popustDenovi; //StringDouble ?
+                polisaEntity.Exchange_RateID = policy.Exchange_RateID;
 
 
 
-
-                if (policy.brojPatuvanja == "ednoPatuvanje")
-                    polisaEntity.Pat_Edno = true;
-                // Mozna greska pri validacija 
-
-                //   polisaEntity.Pat_Poveke = policy.povekePatuvanja; // Mozna greska pri validacija =/
-
-                if (policy.brojOsigureniciVid == "polisaPoedinecno")
-                {
-                    polisaEntity.Vid_Poedinecno = true;
-                }
-                else if (policy.brojOsigureniciVid == "polisaFamilijarno")
-                {
-                    polisaEntity.Vid_Grupno = true; ;
-                }
-                else if (policy.brojOsigureniciVid == "polisaGrupno")
-                {
-                    polisaEntity.Vid_Familijarno = true;
-                }
-
-                polisaEntity.Grupa = policy.brojLicaGrupa; // Broj lica  ??
-                polisaEntity.Vkupna_Premija = policy.VkupnaPremija;
-
-                polisaEntity.Doplatok_1 = policy.doplatok1;
-                polisaEntity.Doplatok_2 = policy.doplatok2;
-
-                //polisaEntity.Osigurenik1_EMBG = policy.osigurenik1ImePrezime;
-                //polisaEntity.Osigurenik2_EMBG = policy.osigurenik2ImePrezime;
-                //polisaEntity.Osigurenik3_EMBG = policy.osigurenik3ImePrezime;
-                //polisaEntity.Osigurenik4_EMBG = policy.osigurenik4ImePrezime;
-                //polisaEntity.Osigurenik5_EMBG = policy.osigurenik5ImePrezime;
-                //polisaEntity.Osigurenik6_EMBG = policy.osigurenik6ImePrezime;
-
-                //polisaEntity.Osigurenik1_Ime_I_Prezime = policy.osigurenik1ImePrezime;
-                //polisaEntity.Osigurenik2_Ime_I_Prezime = policy.osigurenik2ImePrezime;
-                //polisaEntity.Osigurenik3_Ime_I_Prezime = policy.osigurenik3ImePrezime;
-                //polisaEntity.Osigurenik4_Ime_I_Prezime = policy.osigurenik4ImePrezime;
-                //polisaEntity.Osigurenik5_Ime_I_Prezime = policy.osigurenik5ImePrezime;
-                //polisaEntity.Osigurenik6_Ime_I_Prezime = policy.osigurenik6ImePrezime;
-
-                polisaEntity.Kurs = policy.kurs;
-
-
-
-                entityDB.policies.Add(polisaEntity);
+                entityDB.travel_policy.Add(polisaEntity);
                 var result = entityDB.SaveChanges();
             }
 
@@ -152,7 +99,7 @@ namespace Authentication.WEB.Controllers
             int id = 2;
 
             PaymentModel pat = new PaymentModel();
-            pat.Pat = entities.policies.Where(x => x.Polisa_Broj == id).FirstOrDefault();
+            pat.Pat = entities.travel_policy.Where(x => x.Policy_Number.Equals(id)).FirstOrDefault();
             return new ViewAsPdf("Print", pat);
         }
     }

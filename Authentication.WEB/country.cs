@@ -17,13 +17,16 @@ namespace InsuredTraveling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public country()
         {
-            this.p_zemja_na_patuvanje = new HashSet<p_zemja_na_patuvanje>();
+            this.discount_country = new HashSet<discount_country>();
+            this.travel_policy = new HashSet<travel_policy>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<p_zemja_na_patuvanje> p_zemja_na_patuvanje { get; set; }
+        public virtual ICollection<discount_country> discount_country { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<travel_policy> travel_policy { get; set; }
     }
 }

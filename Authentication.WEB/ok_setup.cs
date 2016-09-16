@@ -22,5 +22,9 @@ namespace InsuredTraveling
         public int NumberOfLastMsg { get; set; }
         public string InsuranceCompany { get; set; }
         public int VersionNumber { get; set; }
+        public System.DateTime Created_Date { get; set; }
+        public string Created_By { get; set; }
+        public string Modified_Date { get; set; }
+        public string Modified_By { get; set; }
     }
 }

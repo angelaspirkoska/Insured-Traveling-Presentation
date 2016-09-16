@@ -14,6 +14,13 @@ namespace InsuredTraveling
     
     public partial class first_notice_of_loss
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public first_notice_of_loss()
+        {
+            this.health_insurance1 = new HashSet<health_insurance>();
+            this.luggage_insurance1 = new HashSet<luggage_insurance>();
+        }
+    
         public int LossID { get; set; }
         public long PolicyNumber { get; set; }
         public string PolicyType { get; set; }
@@ -44,5 +51,9 @@ namespace InsuredTraveling
     
         public virtual health_insurance health_insurance { get; set; }
         public virtual luggage_insurance luggage_insurance { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<health_insurance> health_insurance1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<luggage_insurance> luggage_insurance1 { get; set; }
     }
 }

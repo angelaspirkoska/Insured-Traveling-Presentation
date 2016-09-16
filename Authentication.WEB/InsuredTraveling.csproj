@@ -373,6 +373,9 @@
     <Content Include="Views\SignUp\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="additional_charge.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -394,9 +397,6 @@
     </Compile>
     <Compile Include="Authentication\AuthContext.cs" />
     <Compile Include="Authentication\AuthRepository.cs" />
-    <Compile Include="client.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="client1.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
@@ -429,6 +429,9 @@
     <Compile Include="discount_age.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="discount_country.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="discount_days.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
@@ -436,9 +439,6 @@
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="discount_group.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="eurolinkuser.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="exchange_rate.cs">
@@ -491,6 +491,7 @@
     <Compile Include="Models\FNOL.cs" />
     <Compile Include="Models\ForgetPasswordModel.cs" />
     <Compile Include="Models\HalkbankPaymentModel.cs" />
+    <Compile Include="Models\InsuredType.cs" />
     <Compile Include="Models\LoginUser.cs" />
     <Compile Include="Models\MobilePolicyModel.cs" />
     <Compile Include="Models\News.cs" />
@@ -515,36 +516,30 @@
     <Compile Include="ok_setup.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="policy.cs">
+    <Compile Include="policy_additional_charge.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="policy_insurees.cs">
+    <Compile Include="policy_insured.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="policy_status.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="policy_type.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="retaining_risk_type.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="retaining_risk_value.cs">
+    <Compile Include="retaining_risk.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Scripts\Entities\Client.cs" />
     <Compile Include="Scripts\Entities\RefreshToken.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Providers\SimpleRefreshTokenProvider.cs" />
-    <Compile Include="p_doplatoci.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="p_referent.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="p_stapki.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="p_zemja_na_patuvanje.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="refreshtoken.cs">
@@ -564,10 +559,19 @@
     <Compile Include="travel_duration.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="user.cs">
+    <Compile Include="travel_insurance_type.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="user1.cs">
+    <Compile Include="travel_number.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="travel_policy.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="type_insured.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -584,7 +588,6 @@
     <Content Include="Views\Policy\Index.cshtml" />
     <Content Include="Views\Policy\Print.cshtml" />
     <Content Include="Views\Policy\_PolicyPrint.cshtml" />
-    <Content Include="Views\Client\Create.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
     <Content Include="Views\Payment\PaymentFail.cshtml" />
     <Content Include="Views\Payment\PaymentSuccess.cshtml" />
@@ -597,6 +600,7 @@
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
     <Content Include="Views\ReportLoss\Index.cshtml" />
+    <Content Include="Views\Client\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

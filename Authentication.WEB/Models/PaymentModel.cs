@@ -5,7 +5,7 @@ namespace Authentication.WEB.Models
 {
     public class PaymentModel
     {
-        public policy Pat { get; set; }
+        public travel_policy Pat { get; set; }
         public string clientId { get; set; }
         public string amount { get; set; }
         public string oid { get; set; }

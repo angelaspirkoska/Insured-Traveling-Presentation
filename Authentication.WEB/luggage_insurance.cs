@@ -23,7 +23,9 @@ namespace InsuredTraveling
         public string Documents_proof { get; set; }
         public System.TimeSpan AirportArrivalTime { get; set; }
         public System.TimeSpan LuggageDropTime { get; set; }
+        public int LossID { get; set; }
     
         public virtual first_notice_of_loss first_notice_of_loss { get; set; }
+        public virtual first_notice_of_loss first_notice_of_loss1 { get; set; }
     }
 }

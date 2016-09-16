@@ -44,26 +44,21 @@ namespace InsuredTraveling.Controllers.API
 
             //User's policies
             JArray data1 = new JArray();
-            policy [] policy = db.policies.Where(x => x.Polisa_Broj > 3).ToArray();
+            travel_policy [] policy = db.travel_policy.Where(x => x.aspnetuser.Id == user.Id).ToArray();
             
-            foreach(policy p1 in policy)
+            foreach(travel_policy p1 in policy)
             {
                 var p = new JObject();
-                p.Add("policyNumber", p1.Polisa_Broj);
-                p.Add("embg", p1.EMBG);
-                p.Add("insuredAddress", p1.Adresa);
-                p.Add("insuredPassport", p1.Broj_Pasos);
-                p.Add("nameContractor", p1.Ime_I_Prezime);
-                p.Add("ValidFrom", p1.Zapocnuva_Na);
-                p.Add("ValidUntil", p1.Zavrsuva_Na);
-                p.Add("insuredDays", p1.Vazi_Denovi);
-                p.Add("franchiseTravel", p1.Fransiza);
-                p.Add("basicPremium", p1.Osnovna_Premija);
-                p.Add("insuredBday", "1994.04.04");
-                p.Add("additional", " ");
-                p.Add("discount", p1.Popust_Fransiza);
-                p.Add("packetTravel", "Optimum");
-                p.Add("totalPremium", p1.Vkupna_Premija);
+                p.Add("policyNumber", p1.Policy_Number);
+                p.Add("ValidFrom", p1.Start_Date);
+                p.Add("ValidUntil", p1.End_Date);
+                p.Add("insuredDays", p1.Valid_Days);
+                p.Add("franchiseTravel", p1.Retaining_RiskID);
+                //p.Add("basicPremium", p1.Osnovna_Premija);
+                //p.Add("insuredBday", "1994.04.04");
+                //p.Add("additional", " ");               
+                //p.Add("packetTravel", "Optimum");
+                p.Add("totalPremium", p1.Total_Premium);
 
                 data1.Add(p);
             }
@@ -74,28 +69,27 @@ namespace InsuredTraveling.Controllers.API
 
             //User's quotes
             JArray data2 = new JArray();
-            policy[] policy2 = db.policies.Where(x => x.Polisa_Broj <= 3).ToArray();
+            travel_policy[] policy2 = db.travel_policy.Where(x => x.aspnetuser.Id == user.Id).ToArray();
 
-            foreach (policy p1 in policy2)
+            foreach (travel_policy p1 in policy2)
             {
                 var p = new JObject();
-                p.Add("policyNumber", p1.Polisa_Broj);
-                p.Add("embg", p1.EMBG);
-                p.Add("insuredAddress", p1.Adresa);
-                p.Add("insuredPassport", p1.Broj_Pasos);
-                p.Add("nameContractor", p1.Ime_I_Prezime);
+                p.Add("policyNumber", p1.Policy_Number);
+                //p.Add("insuredAddress", p1.Adresa);
+                //p.Add("insuredPassport", p1.Broj_Pasos);
+                //p.Add("nameContractor", p1.Ime_I_Prezime);
                // var i = db.insureds.Where(x => x.PolicyID == p1.Polisa_Broj).Single();
                // p.Add("nameInsured", i.Name + " " + i.Lastname);
-                p.Add("ValidFrom", p1.Zapocnuva_Na);
-                p.Add("ValidUntil", p1.Zavrsuva_Na);
-                p.Add("insuredDays", p1.Vazi_Denovi);
-                p.Add("franchiseTravel", p1.Fransiza);
-                p.Add("basicPremium", p1.Osnovna_Premija);
-                p.Add("insuredBday", "1994.04.04");
-                p.Add("additional", " ");
-                p.Add("discount", p1.Popust_Fransiza);
-                p.Add("packetTravel", "Optimum");
-                p.Add("totalPremium", p1.Vkupna_Premija);
+                p.Add("ValidFrom", p1.Start_Date);
+                p.Add("ValidUntil", p1.End_Date);
+                p.Add("insuredDays", p1.Valid_Days);
+                p.Add("franchiseTravel", p1.Retaining_RiskID);
+               // p.Add("basicPremium", p1.Osnovna_Premija);
+               // p.Add("insuredBday", "1994.04.04");
+               // p.Add("additional", " ");
+               // p.Add("discount", p1.Popust_Fransiza);
+               // p.Add("packetTravel", "Optimum");
+                p.Add("totalPremium", p1.Total_Premium);
 
                 data2.Add(p);
             }
