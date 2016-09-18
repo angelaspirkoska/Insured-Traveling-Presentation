@@ -3,7 +3,7 @@
 namespace InsuredTraveling.Controllers
 {
     [RoutePrefix("Home")]
-    [Authorize]
+    [Authorize(Roles ="")]
     public class HomeController : Controller
     {
         // GET: Home        

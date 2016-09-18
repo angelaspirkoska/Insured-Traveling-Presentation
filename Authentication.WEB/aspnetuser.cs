@@ -36,6 +36,7 @@ namespace InsuredTraveling
             this.insureds1 = new HashSet<insured>();
             this.travel_policy = new HashSet<travel_policy>();
             this.travel_policy1 = new HashSet<travel_policy>();
+            this.aspnetroles = new HashSet<aspnetrole>();
         }
     
         public string Id { get; set; }
@@ -104,5 +105,7 @@ namespace InsuredTraveling
         public virtual ICollection<travel_policy> travel_policy { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<travel_policy> travel_policy1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<aspnetrole> aspnetroles { get; set; }
     }
 }

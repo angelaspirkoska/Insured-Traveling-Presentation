@@ -46,7 +46,6 @@ namespace InsuredTraveling.Models
         public string Gender { get; set; }
         public string ActivationCodeMail { get; set; }
         public string ActivationCodeSMS { get; set; }
-        public bool IsValidMail { get; set; }
         public string GroupID { get; set; }
 
 

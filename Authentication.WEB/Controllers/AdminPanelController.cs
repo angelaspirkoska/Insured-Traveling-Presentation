@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InsuredTraveling.Filters;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,13 @@ using static InsuredTraveling.Models.AdminPanel;
 
 namespace InsuredTraveling.Controllers
 {   
+    [RoleAuthorize(roles:"admin")]
     public class AdminPanelController : Controller
     {
 
         private InsuredTravelingEntity _db;
 
+       
         public AdminPanelController()
         {
             _db = new InsuredTravelingEntity();

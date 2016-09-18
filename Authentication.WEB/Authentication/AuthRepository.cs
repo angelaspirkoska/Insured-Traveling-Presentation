@@ -54,7 +54,6 @@ namespace InsuredTraveling
                 LastName = userModel.LastName,
                 Email = userModel.Email,
                 InsuranceCompany = "Sava",
-                IsValidMail = false,
                 EmailConfirmed = false,
                 PhoneNumberConfirmed = false,
                 TwoFactorEnabled = false,
@@ -78,7 +77,6 @@ namespace InsuredTraveling
                 LastName = userModel.LastName,
                 Email = userModel.Email,
                 InsuranceCompany = "Sava",
-                IsValidMail = false,
                 EmailConfirmed = false,
                 PhoneNumberConfirmed = false,
                 TwoFactorEnabled = false,
@@ -97,9 +95,17 @@ namespace InsuredTraveling
             
             var result = await _userManager.CreateAsync(user, userModel.Password);
 
-
-            var result2  = _userManager.AddToRole(user.Id, "Admin");
-            //var result2 = await _userManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, "administrator"));
+            if (result.Succeeded)
+            {
+                string body = "Welcome to Optimal Insurance " + " " + ",";
+                body += "<br /><br />Please click the following link to activate your account";
+                body += "<br /><a href = '" + "http://localhost:19655/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
+                body += "<br /><br />Thanks";
+                MailService mailService = new MailService("slobodanka@optimalreinsurance.com");
+                mailService.setSubject("Account Activation Validation");
+                mailService.setBodyText(body, true);
+                mailService.sendMail();
+            }
 
             return result;
         }
@@ -196,7 +202,6 @@ namespace InsuredTraveling
             var user = _userManager.FindById(ID);
             if (user != null)
             {
-                user.IsValidMail = true;
                 user.EmailConfirmed = true;
                 _userManager.Update(user);
                 return true;

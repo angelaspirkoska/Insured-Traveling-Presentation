@@ -618,6 +618,30 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_aspnetrole_id">
+          <End Role="aspnetroles" Type="Self.aspnetroles" Multiplicity="1" />
+          <End Role="aspnetuserroles" Type="Self.aspnetuserroles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetroles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="aspnetuserroles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_aspnetuser_id">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1" />
+          <End Role="aspnetuserroles" Type="Self.aspnetuserroles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="aspnetuserroles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_country_id">
           <End Role="countries" Type="Self.countries" Multiplicity="0..1" />
           <End Role="discount_country" Type="Self.discount_country" Multiplicity="*" />
@@ -1091,6 +1115,14 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="additional_charge" EntitySet="additional_charge" />
           </AssociationSet>
+          <AssociationSet Name="fk_aspnetrole_id" Association="Self.fk_aspnetrole_id">
+            <End Role="aspnetroles" EntitySet="aspnetroles" />
+            <End Role="aspnetuserroles" EntitySet="aspnetuserroles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_aspnetuser_id" Association="Self.fk_aspnetuser_id">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="aspnetuserroles" EntitySet="aspnetuserroles" />
+          </AssociationSet>
           <AssociationSet Name="fk_country_id" Association="Self.fk_country_id">
             <End Role="countries" EntitySet="countries" />
             <End Role="discount_country" EntitySet="discount_country" />
@@ -1226,6 +1258,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           </Key>
           <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="aspnetusers" Relationship="db_9eb138_travelModel.aspnetuserroles" FromRole="aspnetrole" ToRole="aspnetuser" />
         </EntityType>
         <EntityType Name="aspnetuserclaim">
           <Key>
@@ -1235,14 +1268,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ClaimType" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="ClaimValue" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="aspnetuserrole">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="client1">
           <Key>
@@ -1340,7 +1365,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
         <EntityContainer Name="InsuredTravelingEntity" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="aspnetroles" EntityType="Self.aspnetrole" />
           <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaim" />
-          <EntitySet Name="aspnetuserroles" EntityType="Self.aspnetuserrole" />
           <EntitySet Name="clients1" EntityType="Self.client1" />
           <EntitySet Name="ok_setup" EntityType="Self.ok_setup" />
           <EntitySet Name="p_referent" EntityType="Self.p_referent" />
@@ -1539,6 +1563,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="fk_policy_insured_polcy_id" Association="db_9eb138_travelModel.fk_policy_insured_polcy_id">
             <End Role="travel_policy" EntitySet="travel_policy" />
             <End Role="policy_insured" EntitySet="policy_insured" />
+          </AssociationSet>
+          <AssociationSet Name="aspnetuserroles" Association="db_9eb138_travelModel.aspnetuserroles">
+            <End Role="aspnetrole" EntitySet="aspnetroles" />
+            <End Role="aspnetuser" EntitySet="aspnetusers" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="news_all">
@@ -2089,6 +2117,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="insureds1" Relationship="db_9eb138_travelModel.fk_insured_modifiedby" FromRole="aspnetuser" ToRole="insured" />
           <NavigationProperty Name="travel_policy" Relationship="db_9eb138_travelModel.fk_policy_created_by" FromRole="aspnetuser" ToRole="travel_policy" />
           <NavigationProperty Name="travel_policy1" Relationship="db_9eb138_travelModel.fk_policy_modified_by" FromRole="aspnetuser" ToRole="travel_policy" />
+          <NavigationProperty Name="aspnetroles" Relationship="db_9eb138_travelModel.aspnetuserroles" FromRole="aspnetuser" ToRole="aspnetrole" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -2521,6 +2550,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="aspnetuserroles">
+          <End Type="db_9eb138_travelModel.aspnetrole" Role="aspnetrole" Multiplicity="*" />
+          <End Type="db_9eb138_travelModel.aspnetuser" Role="aspnetuser" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2542,14 +2575,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
                 <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="aspnetuserroles">
-            <EntityTypeMapping TypeName="db_9eb138_travelModel.aspnetuserrole">
-              <MappingFragment StoreEntitySet="aspnetuserroles">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3061,6 +3086,14 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="aspnetuserroles" TypeName="db_9eb138_travelModel.aspnetuserroles" StoreEntitySet="aspnetuserroles">
+            <EndProperty Name="aspnetuser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="aspnetrole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

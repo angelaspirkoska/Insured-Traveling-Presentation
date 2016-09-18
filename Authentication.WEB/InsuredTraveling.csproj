@@ -392,9 +392,6 @@
     <Compile Include="aspnetuserlogin.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="aspnetuserrole.cs">
-      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Authentication\AuthContext.cs" />
     <Compile Include="Authentication\AuthRepository.cs" />
     <Compile Include="client1.cs">
@@ -444,6 +441,7 @@
     <Compile Include="exchange_rate.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Filters\RoleAuthorize.cs" />
     <Compile Include="Filters\RecaptchaFilter.cs" />
     <Compile Include="first_notice_of_loss.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>

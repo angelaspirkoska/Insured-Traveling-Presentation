@@ -27,7 +27,6 @@ namespace InsuredTraveling
     
         public virtual DbSet<aspnetrole> aspnetroles { get; set; }
         public virtual DbSet<aspnetuserclaim> aspnetuserclaims { get; set; }
-        public virtual DbSet<aspnetuserrole> aspnetuserroles { get; set; }
         public virtual DbSet<client1> clients1 { get; set; }
         public virtual DbSet<ok_setup> ok_setup { get; set; }
         public virtual DbSet<p_referent> p_referent { get; set; }

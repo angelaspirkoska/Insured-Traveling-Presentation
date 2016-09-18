@@ -4,10 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4d19592923274ad29dd179585daab6fe" Name="Diagram1" ZoomLevel="59">
+      <Diagram DiagramId="4d19592923274ad29dd179585daab6fe" Name="Diagram1" ZoomLevel="65">
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetrole" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuserclaim" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuserrole" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.client1" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.ok_setup" Width="1.75" PointX="6.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.p_referent" Width="1.5" PointX="10.75" PointY="9.75" IsExpanded="true" />
@@ -23,7 +22,7 @@
         <EntityTypeShape EntityType="db_9eb138_travelModel.country" Width="1.5" PointX="7.75" PointY="15.75" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.policy_type" Width="1.5" PointX="0.75" PointY="16.75" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.travel_duration" Width="1.5" PointX="2.75" PointY="16.75" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.p_stapki" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.p_stapki" Width="1.5" PointX="1.25" PointY="10.625" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.company" Width="1.5" PointX="17.75" PointY="14.75" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.discount_age" Width="1.5" PointX="17.75" PointY="17.75" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.discount_days" Width="1.5" PointX="8.375" PointY="18.75" />
@@ -51,7 +50,7 @@
         <AssociationConnector Association="db_9eb138_travelModel.fk_policy_type_id1" />
         <AssociationConnector Association="db_9eb138_travelModel.fk_loss_id" />
         <AssociationConnector Association="db_9eb138_travelModel.fk_luggage_loss_id" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuser" Width="1.5" PointX="0.75" PointY="14.875" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuser" Width="1.5" PointX="0.5" PointY="15.125" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.user" Width="1.5" PointX="3" PointY="20.875" />
         <AssociationConnector Association="db_9eb138_travelModel.fk_additional_charge_created_by" />
         <AssociationConnector Association="db_9eb138_travelModel.fk_additional_charge_modified_by" />
@@ -84,6 +83,7 @@
         <EntityTypeShape EntityType="db_9eb138_travelModel.policy_insured" Width="1.5" PointX="17.625" PointY="21.75" />
         <AssociationConnector Association="db_9eb138_travelModel.policy_insured_ibfk_1" />
         <AssociationConnector Association="db_9eb138_travelModel.fk_policy_insured_polcy_id" />
+        <AssociationConnector Association="db_9eb138_travelModel.aspnetuserroles" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

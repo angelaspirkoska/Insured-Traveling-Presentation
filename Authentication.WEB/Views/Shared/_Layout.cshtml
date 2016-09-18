@@ -55,8 +55,8 @@
 
         $(document).ready(function () {
             localStorage.setItem("username", $("#userName").val());
-            
-            if (localStorage.getItem("username") != "undefined") {
+            console.log(localStorage.getItem("username"));
+            if (localStorage.getItem("username") != "") {
                 $("#welcome").text("Welcome " + localStorage.getItem("username"));
                 $("#signup").attr("class", "hidden");
                 $("#login").attr("class", "hidden");
