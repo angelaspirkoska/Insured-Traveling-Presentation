@@ -14,11 +14,6 @@
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuserlogin" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.transaction" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.news_all" Width="1.5" PointX="5.375" PointY="14.75" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.health_insurance" Width="1.5" PointX="17.625" PointY="4.625" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.luggage_insurance" Width="1.5" PointX="17.625" PointY="1" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.first_notice_of_loss" Width="1.5" PointX="15.375" PointY="1" />
-        <AssociationConnector Association="db_9eb138_travelModel.LossID_FK" />
-        <AssociationConnector Association="db_9eb138_travelModel.LossID_Luggage_FK" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.country" Width="1.5" PointX="7.75" PointY="15.75" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.policy_type" Width="1.5" PointX="0.75" PointY="16.75" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.travel_duration" Width="1.5" PointX="2.75" PointY="16.75" />
@@ -48,8 +43,6 @@
         <AssociationConnector Association="db_9eb138_travelModel.fk_additional_charge_id" />
         <AssociationConnector Association="db_9eb138_travelModel.fk_country_id1" />
         <AssociationConnector Association="db_9eb138_travelModel.fk_policy_type_id1" />
-        <AssociationConnector Association="db_9eb138_travelModel.fk_loss_id" />
-        <AssociationConnector Association="db_9eb138_travelModel.fk_luggage_loss_id" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuser" Width="1.5" PointX="0.5" PointY="15.125" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.user" Width="1.5" PointX="3" PointY="20.875" />
         <AssociationConnector Association="db_9eb138_travelModel.fk_additional_charge_created_by" />
@@ -84,6 +77,11 @@
         <AssociationConnector Association="db_9eb138_travelModel.policy_insured_ibfk_1" />
         <AssociationConnector Association="db_9eb138_travelModel.fk_policy_insured_polcy_id" />
         <AssociationConnector Association="db_9eb138_travelModel.aspnetuserroles" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.first_notice_of_loss" Width="1.5" PointX="15.375" PointY="1.125" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.health_insurance" Width="1.5" PointX="17.625" PointY="0.875" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.luggage_insurance" Width="1.5" PointX="17.625" PointY="4.75" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_loss_id" />
+        <AssociationConnector Association="db_9eb138_travelModel.fk_luggage_loss_id" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

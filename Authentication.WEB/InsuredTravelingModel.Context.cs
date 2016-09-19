@@ -34,9 +34,6 @@ namespace InsuredTraveling
         public virtual DbSet<aspnetuserlogin> aspnetuserlogins { get; set; }
         public virtual DbSet<transaction> transactions { get; set; }
         public virtual DbSet<news_all> news_all { get; set; }
-        public virtual DbSet<health_insurance> health_insurance { get; set; }
-        public virtual DbSet<luggage_insurance> luggage_insurance { get; set; }
-        public virtual DbSet<first_notice_of_loss> first_notice_of_loss { get; set; }
         public virtual DbSet<country> countries { get; set; }
         public virtual DbSet<policy_type> policy_type { get; set; }
         public virtual DbSet<travel_duration> travel_duration { get; set; }
@@ -62,5 +59,8 @@ namespace InsuredTraveling
         public virtual DbSet<insured> insureds { get; set; }
         public virtual DbSet<travel_policy> travel_policy { get; set; }
         public virtual DbSet<policy_insured> policy_insured { get; set; }
+        public virtual DbSet<first_notice_of_loss> first_notice_of_loss { get; set; }
+        public virtual DbSet<health_insurance> health_insurance { get; set; }
+        public virtual DbSet<luggage_insurance> luggage_insurance { get; set; }
     }
 }

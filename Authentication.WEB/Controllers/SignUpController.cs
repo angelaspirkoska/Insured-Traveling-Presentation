@@ -1,6 +1,7 @@
 ﻿using InsuredTraveling.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace InsuredTraveling.Controllers
 
             if (ModelState.IsValid && CaptchaValid)
             {
-                Uri uri = new Uri("http://localhost:19655/api/account/RegisterWeb");
+                Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/api/account/RegisterWeb");
                 HttpClient client = new HttpClient();
                 client.BaseAddress = uri;
                 var jsonFormatter = new JsonMediaTypeFormatter();

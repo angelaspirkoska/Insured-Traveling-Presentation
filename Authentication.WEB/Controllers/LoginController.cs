@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace InsuredTraveling.Controllers
             if (ModelState.IsValid)
             {
                 user.grant_type = "password";
-                var uri = new Uri("http://localhost:19655/token");
+                var uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/token");
                 var client = new HttpClient {BaseAddress = uri};
                 IDictionary<string, string> data1 = new Dictionary<string, string>();
                 data1.Add("username", user.username);

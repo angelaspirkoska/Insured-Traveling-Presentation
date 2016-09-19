@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Http;
 using System.Linq;
 using static InsuredTraveling.Models.AdminPanel;
+using System.Configuration;
+using AutoMapper;
 
 namespace InsuredTraveling.Controllers
 {
@@ -18,6 +20,45 @@ namespace InsuredTraveling.Controllers
         public AccountController()
         {
             _repo = new AuthRepository();
+        }
+        
+        [HttpPost]
+        public IHttpActionResult Check()
+        {
+            FNOL f = new FNOL();
+            f.PolicyType = "Comfort";
+            f.message = "fnlgfsldfgk;dfxlgd;f";
+            f.additionalDocumentsHanded = "dajda";
+            f.additionalInfo = "akhKSDds";
+            f.deponent = "akhKSDds";
+            f.deponentInsured = "akhKSDds";
+            f.descriptionLostStolenThings = "akhKSDds";
+            f.detailedDescription = "Sahdjdhsa";
+            f.airportArrivalTime = DateTime.Now.TimeOfDay;
+            f.baggageDropTime = DateTime.Now.TimeOfDay;
+            f.lossDate = DateTime.Now;
+            f.lossTime = DateTime.Now.TimeOfDay;
+            f.message = "sjaDKa";
+            f.placeReported = "Skopje";
+            f.valueExpenses = 100;
+            f.ShortDetailed = true;
+            f.ShortDetailed = true;
+            f.LuggageInsurance = true;
+            f.HealthInsurance = false;
+            f.WebMobile = false;
+            f.transportationType = "Car";
+            f.insuredAddress = "jsaksf";
+            f.insuredEMBG = "jsaksf";
+            f.insuredName = "jsaksf";
+            f.insuredPhone = "jsaksf";
+            f.insuredTransactionAccount = "jsaksf";
+            f.username = "Daki123";
+            f.travelDestination = "gldfd";
+            f.deponentInsured = "Dskasdfsd";
+            
+
+            var fnol = Mapper.Map<FNOL, first_notice_of_loss>(f);
+            return Ok(new { fnol = fnol});
         }
 
         [HttpPost]
@@ -203,13 +244,13 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.Route("DeleteToken")]
         public IHttpActionResult DeleteToken()
         {
-            if (HttpContext.Current.Request.Cookies["token"] == null) return Redirect("http://localhost:19655/Login");
+            if (HttpContext.Current.Request.Cookies["token"] == null) return Redirect(ConfigurationManager.AppSettings["webpage_url"] +"/Login");
             var c = HttpContext.Current.Request.Cookies["token"];
             c.Expires = DateTime.Now.AddYears(-1);
             HttpContext.Current.Response.Cookies.Remove("token");
             HttpContext.Current.Response.Cookies.Clear();
             HttpContext.Current.Response.Cookies.Set(c);
-            return Redirect("http://localhost:19655/Login");
+            return Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Formatting;
 using System.Web.Mvc;
 using InsuredTraveling;
+using System.Configuration;
 
 namespace Authentication.WEB.Controllers
 {
@@ -36,7 +37,7 @@ namespace Authentication.WEB.Controllers
             InsuredTravelingEntity entityDB = new InsuredTravelingEntity();
             travel_policy polisaEntity = new travel_policy();
 
-            Uri uri = new Uri("http://localhost:19655/api/premium/calculate");
+            Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/api/premium/calculate");
             HttpClient client = new HttpClient();
             client.BaseAddress = uri;
             var mediaType = new MediaTypeHeaderValue("application/json");

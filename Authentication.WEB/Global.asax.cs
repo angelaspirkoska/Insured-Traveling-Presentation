@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Authentication.WEB;
+using InsuredTraveling.App_Start;
 
 namespace InsuredTraveling
 {
@@ -18,6 +19,7 @@ namespace InsuredTraveling
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new CustomViewEngine());
+            AutoMapperInitializer.Initialize();
         }
     }
 }

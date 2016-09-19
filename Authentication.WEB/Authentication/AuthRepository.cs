@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using InsuredTraveling.Entities;
 using System.Security.Claims;
 using static InsuredTraveling.Models.AdminPanel;
+using System.Configuration;
 
 namespace InsuredTraveling
 {
@@ -99,7 +100,7 @@ namespace InsuredTraveling
             {
                 string body = "Welcome to Optimal Insurance " + " " + ",";
                 body += "<br /><br />Please click the following link to activate your account";
-                body += "<br /><a href = '" + "http://localhost:19655/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
+                body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
                 body += "<br /><br />Thanks";
                 MailService mailService = new MailService("slobodanka@optimalreinsurance.com");
                 mailService.setSubject("Account Activation Validation");
@@ -165,7 +166,7 @@ namespace InsuredTraveling
                 {
                     string body = "Welcome to Optimal Insurance " + " " + ",";
                     body += "<br /><br />Please click the following link to activate your account";
-                    body += "<br /><a href = '" + "http://localhost:19655/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
+                    body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
                     body += "<br /><br />Thanks";
                     MailService mailService = new MailService("slobodanka@optimalreinsurance.com");
                     mailService.setSubject("Account Activation Validation");
@@ -187,7 +188,7 @@ namespace InsuredTraveling
                 {
                     string body = "Welcome to Optimal Insurance " + " " + ",";
                     body += "<br /><br />Please click the following link to activate your account";
-                    body += "<br /><a href = '" + "http://localhost:19655/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
+                    body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
                     body += "<br /><br />Thanks";
                     MailService mailService = new MailService("slobodanka@optimalreinsurance.com");
                     mailService.setSubject("Account Activation Validation");
@@ -226,7 +227,7 @@ namespace InsuredTraveling
             {
                 string body = "Welcome to Optimal Insurance " + " " + ",";
                 body += "<br /><br />Please click the following link to reset your password";
-                body += "<br /><a href = '" + "http://localhost:19655/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
+                body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
                 body += "<br /><br />Thanks";
                 MailService mailService = new MailService("slobodanka@optimalreinsurance.com");
                 mailService.setSubject("Account Reset Password");
@@ -242,7 +243,7 @@ namespace InsuredTraveling
             {
                 string body = "Welcome to Optimal Insurance " + " " + ",";
                 body += "<br /><br />Please click the following link to reset your password";
-                body += "<br /><a href = '" + "http://localhost:19655/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
+                body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
                 body += "<br /><br />Thanks";
                 MailService mailService = new MailService("slobodanka@optimalreinsurance.com");
                 mailService.setSubject("Account Reset Password");

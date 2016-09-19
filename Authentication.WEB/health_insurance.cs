@@ -14,6 +14,7 @@ namespace InsuredTraveling
     
     public partial class health_insurance
     {
+        public int ID { get; set; }
         public System.DateTime Date_of_accsident { get; set; }
         public string Place_of_accsident { get; set; }
         public Nullable<System.DateTime> First_contact_with_doctor { get; set; }
@@ -22,10 +23,8 @@ namespace InsuredTraveling
         public string Disease_description { get; set; }
         public string Documents_proof { get; set; }
         public string Additional_info { get; set; }
-        public int ID { get; set; }
-        public int LossID { get; set; }
+        public Nullable<int> LossID { get; set; }
     
         public virtual first_notice_of_loss first_notice_of_loss { get; set; }
-        public virtual first_notice_of_loss first_notice_of_loss1 { get; set; }
     }
 }

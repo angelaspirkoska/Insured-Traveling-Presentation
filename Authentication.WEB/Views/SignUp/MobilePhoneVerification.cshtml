@@ -61,7 +61,7 @@
                                     <script type="text/javascript">
                                         $(document).ready(function () {
                                             setTimeout(function () {
-                                                window.location.replace("http://localhost:19655/Login");
+                                                window.location.replace(@System.Configuration.ConfigurationManager.AppSettings["webpage_url"] + "/Login");
                                             }, 7000);
                                         });
                                     </script>

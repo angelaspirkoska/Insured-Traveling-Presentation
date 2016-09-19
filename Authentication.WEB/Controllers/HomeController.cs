@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Configuration;
+using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
 {
@@ -11,7 +12,7 @@ namespace InsuredTraveling.Controllers
         {
             if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false)
             {
-                Response.Redirect("http://localhost:19655/Login");  
+                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");  
             }
             return View();
 

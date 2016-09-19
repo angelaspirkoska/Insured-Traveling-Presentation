@@ -1,6 +1,7 @@
 ﻿using InsuredTraveling.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Formatting;
@@ -38,7 +39,7 @@ namespace InsuredTraveling.Controllers
                 }
                 f.ShortDetailed = false;
                 
-                var uri = new Uri("http://localhost:19655/api/mobile/ReportLoss");
+                var uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/api/mobile/ReportLoss");
 
                 var client = new HttpClient { BaseAddress = uri };
                 var jsonFormatter = new JsonMediaTypeFormatter();

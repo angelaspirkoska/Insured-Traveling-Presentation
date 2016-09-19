@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using HtmlAgilityPack;
 using System.IO;
+using System.Configuration;
 
 namespace Authentication.WEB.Models
 {
@@ -188,10 +189,10 @@ namespace Authentication.WEB.Models
 
             const string clientId = "180000069";
             string storekey = "SKEY3545";
-            string okUrl = "http://localhost:49639/api/halkbankpayment/handle";                      //URL which client be redirected if authentication is successful
-            string failUrl = "http://localhost:49639/api/halkbankpayment/handle";
-            //  string okUrl = "http://localhost:19655/api/halkbankpayment/handle";                      //URL which client be redirected if authentication is successful
-            // string failUrl = "http://localhost:19655/api/halkbankpayment/handle";                    //URL which client be redirected if authentication is not successful
+            string okUrl = ConfigurationManager.AppSettings["webpage_url"] + "/api/halkbankpayment/handle";                      //URL which client be redirected if authentication is successful
+            string failUrl = ConfigurationManager.AppSettings["webpage_url"] + "/api/halkbankpayment/handle";
+            //  string okUrl = ConfigurationManager.AppSettings["webpage_url"] + "/api/halkbankpayment/handle";                      //URL which client be redirected if authentication is successful
+            // string failUrl = ConfigurationManager.AppSettings["webpage_url"] + "/api/halkbankpayment/handle";                    //URL which client be redirected if authentication is not successful
 
             string lang = "mk";
 

@@ -19,7 +19,7 @@ namespace InsuredTraveling.Controllers.API
         public JObject RetrieveUserInformation(Username username)
         {
             
-            JObject data = new JObject();
+            JObject userInfo = new JObject();
 
             //User data
             aspnetuser user = db.aspnetusers.Where(x => x.UserName == username.username).ToArray().First();
@@ -37,13 +37,13 @@ namespace InsuredTraveling.Controllers.API
             u.Add("City", user.City);
             u.Add("Address", user.Address);
             u.Add("Email", user.Email);
-            
-            
-            data.Add("user", u);
+
+
+            userInfo.Add("user", u);
 
 
             //User's policies
-            JArray data1 = new JArray();
+            JArray userPolicies = new JArray();
             travel_policy [] policy = db.travel_policy.Where(x => x.aspnetuser.Id == user.Id).ToArray();
             
             foreach(travel_policy p1 in policy)
@@ -60,45 +60,35 @@ namespace InsuredTraveling.Controllers.API
                 //p.Add("packetTravel", "Optimum");
                 p.Add("totalPremium", p1.Total_Premium);
 
-                data1.Add(p);
+                userPolicies.Add(p);
             }
 
-            data.Add("policy",data1);
+            userInfo.Add("policy", userPolicies);
 
 
 
             //User's quotes
-            JArray data2 = new JArray();
+            JArray userQuotes = new JArray();
             travel_policy[] policy2 = db.travel_policy.Where(x => x.aspnetuser.Id == user.Id).ToArray();
 
             foreach (travel_policy p1 in policy2)
             {
                 var p = new JObject();
                 p.Add("policyNumber", p1.Policy_Number);
-                //p.Add("insuredAddress", p1.Adresa);
-                //p.Add("insuredPassport", p1.Broj_Pasos);
-                //p.Add("nameContractor", p1.Ime_I_Prezime);
-               // var i = db.insureds.Where(x => x.PolicyID == p1.Polisa_Broj).Single();
-               // p.Add("nameInsured", i.Name + " " + i.Lastname);
                 p.Add("ValidFrom", p1.Start_Date);
                 p.Add("ValidUntil", p1.End_Date);
                 p.Add("insuredDays", p1.Valid_Days);
                 p.Add("franchiseTravel", p1.Retaining_RiskID);
-               // p.Add("basicPremium", p1.Osnovna_Premija);
-               // p.Add("insuredBday", "1994.04.04");
-               // p.Add("additional", " ");
-               // p.Add("discount", p1.Popust_Fransiza);
-               // p.Add("packetTravel", "Optimum");
                 p.Add("totalPremium", p1.Total_Premium);
 
-                data2.Add(p);
+                userQuotes.Add(p);
             }
 
-            data.Add("quote",data2);
+            userInfo.Add("quote", userQuotes);
 
 
             //User's reports of loss
-            JArray data3 = new JArray();
+            JArray userReports = new JArray();
             first_notice_of_loss[] fnol = db.first_notice_of_loss.Where(x => x.Insured_User == user.Id).ToArray();
 
             foreach (first_notice_of_loss f1 in fnol)
@@ -170,13 +160,13 @@ namespace InsuredTraveling.Controllers.API
                     }
                 }
 
-                data3.Add(f);
+                userReports.Add(f);
             }
 
-            data.Add("loss", data3);
+            userInfo.Add("loss", userReports);
 
 
-            return data;
+            return userInfo;
         }
 
         [HttpPost]
@@ -223,8 +213,8 @@ namespace InsuredTraveling.Controllers.API
             else
             {
                 var f1 = db.first_notice_of_loss.Create();
-                f1.PolicyNumber = (int)f.policyNumber;
-                
+
+                f1.PolicyNumber = (int)f.policyNumber;                
                 f1.Insured_User = db.aspnetusers.Where(x => x.UserName == f.username).Select(x => x.Id).First();
                 f1.Insured_person_transaction_number = f.TransactionAccount;
                 f1.Insured_person_deponent_bank = f.deponent;

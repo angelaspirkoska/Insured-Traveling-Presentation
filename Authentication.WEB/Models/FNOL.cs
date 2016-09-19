@@ -78,10 +78,10 @@ namespace InsuredTraveling.Models
         [Required(ErrorMessage = "Полето е задолжително")]
         public int? policyNumber { get; set; }
         public string PolicyType { get; set; }
-        public Boolean HealthInsurance {get;set;}
-        public Boolean LuggageInsurance { get; set; }
-        public Boolean WebMobile { get; set; }
-        public Boolean ShortDetailed { get; set; }
+        public bool? HealthInsurance {get;set;}
+        public bool? LuggageInsurance { get; set; }
+        public bool? WebMobile { get; set; }
+        public bool? ShortDetailed { get; set; }
         public string message { get; set; }
         public string insurance { get; set; }
 
