@@ -71,6 +71,7 @@ namespace InsuredTraveling.Models
       //  [Required(ErrorMessage = "Полето е задолжително")]
         public TimeSpan? baggageDropTime { get; set; }
 
+
         //Data of costs and additional info 
         public string additionalDocumentsHanded { get; set; }
         [Required(ErrorMessage = "Полето е задолжително")]

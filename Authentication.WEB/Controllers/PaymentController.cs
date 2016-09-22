@@ -1,6 +1,7 @@
 ﻿using Authentication.WEB.Models;
 using Authentication.WEB.Services;
 using InsuredTraveling;
+using InsuredTraveling.Models;
 using Rotativa;
 using System;
 using System.Configuration;
@@ -38,7 +39,7 @@ namespace Authentication.WEB.Controllers
             model.hash = Convert.ToBase64String(model.inputbytes); //Hash value used for validation
 
 
-            int id = 2;
+            string id = "1";
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
             model.Pat = entities.travel_policy.Where(x => x.Policy_Number.Equals(id)).FirstOrDefault();
             return View(model);

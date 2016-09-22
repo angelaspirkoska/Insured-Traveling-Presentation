@@ -2,62 +2,166 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/AdminPanel/Index.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Креирај нов корисник</h2>
 
-<div class="container col-md-12 col-sm-12 row ">
+<form method="post" action="@Url.Action("Create")" style="margin-top:40px;">
 
-    <form role="form" method="post" class="col-md-12 row" id="CreateForm">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="ImeIprezime">Име и презиме</label>
-                <input type="text" class="form-control " name="NameSurename" id="ImeIprezime" placeholder="Име и презиме" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Емаил:</label>
-                <input type="email" class="form-control required" name="email" id="email" placeholder="Внесете email" required>
-            </div>
+    <div class="form-horizontal">
+        <h4>Креирај клиент/осигуреник</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div class="form-group">
-                <label for="PhoneNumber">Телефонски број</label>
-                <input type="tel" class="form-control required" name="Number" id="PhoneNumber" placeholder="Телефонски број" required>
-            </div>
-            <div class="form-group">
-                <label for="StreetNuum">Адреса:</label>
-                <input type="text" class="form-control" name="Adress" id="StreetNum" placeholder="Адреса" required>
+        @if (ViewBag.Message != null){
+                if (ViewBag.Message == "Успешно го креиравте клиентот!")
+                {
+                  
+                    <div class="row" style="width:35%;">
+                        <div class="alert alert-dismissible alert-success" style="margin-top: 27%;margin-left:12px; width:211%">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>Одлично! </strong> <span>@ViewBag.Message</span>
+                        </div>
+                    </div>
+            }
+            else
+            {
+                <div class="row" style="width:35%;">
+                    <div class="alert alert-dismissible alert-danger" style="margin-top: 27%; margin-left:12px; width:211%">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong></strong> <span>@ViewBag.Message</span>
+                    </div>
+                </div>
+                }
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="margin-bottom:10px">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", style = "width: 25%" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "col-md-6 text-danger" })
+                </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="City">Град:</label>
-                <input type="text" class="form-control" name="City" id="City" placeholder="Град" required>
-            </div>
-            <div class="form-group">
-                <label for="PostCode">Поштенски код:</label>
-                <input type="number" class="form-control" name="PostCode" id="PostCode" placeholder="Поштенски код" required>
-            </div>
-            <div class="form-group">
-                <label for="Passport">Број на пaсош:</label>
-                <input type="text" class="form-control" name="Passport" id="Passport" placeholder="Број на пасош" required>
-            </div>
-            <div class="form-group">
-                <label for="EMBGt">Единствен матичен број:</label>
-                <input type="text" class="form-control" name="EMBG" id="EMBG" placeholder="Матичен број">
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="margin-bottom:10px">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", style = "width: 25%" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "col-md-6 text-danger" })
+                </div>
             </div>
         </div>
-        <br />
-        <br />
-        <br />
-        <div class="col-md-4"></div>
-        <br />
-        <button type="submit" class="btn btn-default  btn-primary">Креирај корисник</button>
-    </form>
-    <br /><br />
-</div>
 
-<br /><br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="margin-bottom:10px">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                    @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control", style = "width: 25%" } })
+                    @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "col-md-6 text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="margin-bottom:10px">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                    @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control placeholder", type = "date", style = "width: 25%" } })
+                    @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "col-md-6 text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="margin-bottom:10px">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                    @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", style = "width: 25%" } })
+                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "col-md-6 text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="margin-bottom:10px">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", style = "width: 25%" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "col-md-6 text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="margin-bottom:10px">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", style = "width: 25%" } })
+                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "col-md-6 text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="margin-bottom:10px">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", style = "width: 25%" } })
+                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "col-md-6 text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Postal_Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="margin-bottom:10px">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                    @Html.EditorFor(model => model.Postal_Code, new { htmlAttributes = new { @class = "form-control", style = "width: 25%" } })
+                    @Html.ValidationMessageFor(model => model.Postal_Code, "", new { @class = "col-md-6 text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="margin-bottom:10px">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", style = "width: 25%" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "col-md-6 text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Passport_Number_IdNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="margin-bottom:10px">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                    @Html.EditorFor(model => model.Passport_Number_IdNumber, new { htmlAttributes = new { @class = "form-control", style = "width: 25%" } })
+                    @Html.ValidationMessageFor(model => model.Passport_Number_IdNumber, "", new { @class = "col-md-6 text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Креирај" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
 
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -84,5 +188,4 @@
             }
         }
     });
-
 </script>

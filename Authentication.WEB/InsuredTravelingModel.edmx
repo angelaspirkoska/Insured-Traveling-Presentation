@@ -238,7 +238,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Date_of_accsident" Type="date" Nullable="false" />
           <Property Name="Place_of_accsident" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="First_contact_with_doctor" Type="datetime" Precision="0" />
@@ -275,7 +275,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Date_of_loss" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Place_desc_of_loss" Type="text" Nullable="false" />
           <Property Name="Place_reported" Type="text" Nullable="false" />
@@ -811,9 +811,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_loss_id">
-          <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="1" />
           <End Role="health_insurance" Type="Self.health_insurance" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="first_notice_of_loss">
@@ -2460,7 +2458,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Date_of_accsident" Type="DateTime" Nullable="false" />
           <Property Name="Place_of_accsident" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="First_contact_with_doctor" Type="DateTime" />
@@ -2476,7 +2474,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Date_of_loss" Type="DateTime" Nullable="false" />
           <Property Name="Place_desc_of_loss" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Place_reported" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
@@ -2489,9 +2487,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="first_notice_of_loss" Relationship="db_9eb138_travelModel.fk_luggage_loss_id" FromRole="luggage_insurance" ToRole="first_notice_of_loss" />
         </EntityType>
         <Association Name="fk_loss_id">
-          <End Type="db_9eb138_travelModel.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Type="db_9eb138_travelModel.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="1" />
           <End Type="db_9eb138_travelModel.health_insurance" Role="health_insurance" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="first_notice_of_loss">

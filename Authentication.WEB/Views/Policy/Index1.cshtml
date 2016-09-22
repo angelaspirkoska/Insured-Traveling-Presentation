@@ -1,0 +1,430 @@
+﻿@model InsuredTraveling.Models.PolicyInfoList
+
+@{
+    ViewBag.Title = "Create";
+}
+<hr />
+<form id="policyForm" class="form-horizontal" data-toggle="validator" role="form">
+    <div style="cursor:pointer" data-toggle="collapse" data-target="#policyInfo" class="panel panel-info">
+        <div class="panel-heading">Информации за полиса</div>
+    </div>
+
+    <div id="policyInfo" class="collapse">
+        <div class="form-inline row">
+            <div class="form-group col-sm-2">
+                <label for="policyNumber">Полиса #</label>
+                <input name="policyNumber" placeholder="Полиса." type="text" class="form-control" id="policyNumber" required />
+            </div>
+
+            <div class="form-group col-sm-2">
+                <label for="procentZemjaPatuvanje">&nbsp;</label>
+                <input disabled type="text" class="form-control " id="procentZemjaPatuvanje" name="procentZemjaPatuvanje " />
+            </div>
+            <div class="form-group col-sm-2">
+                <label for="kurs">&nbsp;</label>
+                <input disabled type="text" class="form-control" id="kurs" name="kurs" />
+            </div>
+            <div class="form-group col-sm-2">
+                <label for="procentFranchise">&nbsp;</label>
+                <input disabled type="text" class="form-control" id="procentFranchise" name="procentFranchise" />
+            </div>
+            <div class="form-group col-sm-2">
+                <label for="deductible">&nbsp;</label>
+                <input disabled type="text" class="form-control" id="deductible" name="deductible" />
+            </div>
+        </div>
+
+        <div class="form-inline row">
+            <div class="form-group col-sm-3">
+                <label for="zemjaNaPatuvanje">Земја на патување</label>
+                <select id="zemjaNaPatuvanje" name="zemjaNaPatuvanje" class="form-control ">
+                    @foreach (var zemja in Model.countries)
+                    {
+                        <option value="@zemja.Name">@zemja.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group col-sm-3">
+                <label for="Franchise">Франшиза</label>
+                <select id="Franchise" name="Franchise" class="form-control ">
+                    @foreach (var Franchise in Model.franchises)
+                    {
+                        <option value="@Franchise.Franchise">@Franchise.Franchise</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group col-sm-3">
+                <label for="vidPolisa">Вид полиса</label>
+                <select id="vidPolisa" name="vidPolisa" class="form-control ">
+                    @foreach (var vid in Model.policies)
+                    {
+                        <option value="@vid.type">@vid.type</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+
+
+
+        <div class="form-inline row">
+            <div class="form-group col-sm-12">
+                <label for="brojPatuvanja">Број на патувања</label>
+                <div class="checkbox-container">
+                    <label class="radio-inline ">
+                        <input class="required " checked="checked" type="radio" name="brojPatuvanja" id="ednoPatuvanje" value="ednoPatuvanje"> Едно Патување
+
+                    </label>
+                    <label class="radio-inline">
+                        <input class="required " type="radio" name="brojPatuvanja" id="povekePatuvanja" value="povekePatuvanja"> Повеќе Патувања
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="form-inline row">
+            <div class="form-group col-sm-3">
+                <label for="startDate">Започнува на</label>
+                <input type="date" class="form-control placeholder" id="startDate" name="startDate" required />
+            </div>
+            <div class="form-group col-sm-3">
+                <label for="endDate">Завршува на</label>
+                <input type="date" class="form-control" id="endDate" name="endDate" required />
+            </div>
+            <div class="form-group col-sm-2">
+                <label for="vaziDenovi">Важи денови</label>
+                <input type="number" min="2" step="1" max="366" class="form-control  placeholder" id="vaziDenovi" name="vaziDenovi" required />
+            </div>
+            <div class="form-group col-sm-2">
+                <label for="popustDenovi">&nbsp;</label>
+                <input disabled type="number" class="form-control required placeholder" id="popustDenovi" name="popustDenovi" />
+            </div>
+        </div>
+    </div>
+
+    <div style="cursor:pointer; margin-top:20px;" data-toggle="collapse" data-target="#personalInfo" class="panel panel-info">
+        <div class="panel-heading">Лични Податоци</div>
+    </div>
+
+    <div id="personalInfo" class="collapse">
+        <div class="form-inline row">
+            <div class="form-group col-sm-3">
+                <label for="imePrezime">Име и Презиме</label>
+                <input type="text" class="form-control " id="imePrezime" name="imePrezime" required />
+            </div>
+            <div class="form-group col-sm-3">
+                <label for="Adresa">Адреса</label>
+                <input type="text" class="form-control " id="Adresa" name="Adresa" required />
+            </div>
+        </div>
+        <div class="form-inline row">
+            <div class="form-group col-sm-3">
+                <label for="EMBG">Матичен број</label>
+                <input type="text" class="form-control " id="EMBG" name="EMBG" number required />
+            </div>
+
+
+            <div class="form-group col-sm-3">
+                <label for="brojPasos">Број на пасош</label>
+                <input type="text" class="form-control   " id="brojPasos" name="brojPasos" required />
+            </div>
+        </div>
+    </div>
+
+    <div style="cursor:pointer; margin-top:20px;" data-toggle="collapse" data-target="#extraInfo" class="panel panel-info">
+        <div class="panel-heading">Дополнителни Информации</div>
+    </div>
+
+    <div id="extraInfo" class="collapse">
+        <div class="form-inline row">
+            <div class="form-group col-sm-12">
+                <label for="brojOsigureniciVid">Вид</label>
+                <div>
+                    <label class="radio-inline">
+                        <input type="radio" checked="checked" name="brojOsigureniciVid" id="polisaPoedinecno" value="polisaPoedinecno"> Поединечно
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="brojOsigureniciVid" id="polisaFamilijarno" value="polisaFamilijarno"> Фамилијарно
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="brojOsigureniciVid" id="polisaGrupno" value="polisaGrupno"> Групно
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal" id="family">
+            <div class="form-inline row">
+                <div class="form-group col-sm-3">
+                    <label for="osigurenik1ImePrezime">Име и Презиме</label>
+                    <input type="text" class="form-control required placeholder" id="osigurenik1ImePrezime" name="osigurenik1ImePrezime" required />
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="osigurenik1MaticenBroj">Матичен број</label>
+
+                    <input type="text" class="form-control " id="osigurenik1MaticenBroj" name="osigurenik1MaticenBroj" number required />
+
+                </div>
+                <div class="form-group col-sm-1">
+                    <label for="osigurenik1popust">&nbsp;</label>
+                    <input disabled type="text" class="form-control " id="osigurenik1popust" name="osigurenik1popust" />
+                </div>
+            </div>
+            <div class="form-inline row">
+                <div class="form-group col-sm-3">
+                    <label class="sr-only" for="osigurenik2ImePrezime">&nbsp;</label>
+                    <input type="text" class="form-control" id="osigurenik2ImePrezime" name="osigurenik2ImePrezime" />
+                </div>
+                <div class="form-group col-sm-3">
+                    <label class="sr-only" for="osigurenik2MaticenBroj">&nbsp;</label>
+                    <input type="text" class="form-control" id="osigurenik2MaticenBroj" name="osigurenik2MaticenBroj" />
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="sr-only" for="osigurenik2popust">&nbsp;</label>
+                    <input disabled type="text" class="form-control" id="osigurenik2popust" name="osigurenik2popust" />
+                </div>
+            </div>
+            <div class="form-inline row">
+                <div class="form-group col-sm-3">
+                    <label class="sr-only" for="osigurenik3ImePrezime">&nbsp;</label>
+                    <input type="text" class="form-control" id="osigurenik3ImePrezime" name="osigurenik3ImePrezime" />
+                </div>
+                <div class="form-group col-sm-3">
+                    <label class="sr-only" for="osigurenik3MaticenBroj">&nbsp;</label>
+                    <input type="text" class="form-control" id="osigurenik3MaticenBroj" name="osigurenik3MaticenBroj" />
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="sr-only" for="osigurenik3popust">&nbsp;</label>
+                    <input disabled type="text" class="form-control" id="osigurenik3popust" name="osigurenik3popust" />
+                </div>
+            </div>
+            <div class="form-inline row">
+                <div class="form-group col-sm-3">
+                    <label class="sr-only" for="osigurenik4ImePrezime">&nbsp;</label>
+                    <input type="text" class="form-control" id="osigurenik4ImePrezime" name="osigurenik4ImePrezime" />
+                </div>
+                <div class="form-group col-sm-3">
+                    <label class="sr-only" for="osigurenik4MaticenBroj">&nbsp;</label>
+                    <input type="text" class="form-control" id="osigurenik4MaticenBroj" name="osigurenik4MaticenBroj" />
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="sr-only" for="osigurenik4popust">&nbsp;</label>
+                    <input disabled type="text" class="form-control" id="osigurenik4popust" name="osigurenik4popust" />
+                </div>
+            </div>
+            <div class="form-inline row">
+                <div class="form-group col-sm-3">
+                    <label class="sr-only" for="osigurenik5ImePrezime">&nbsp;</label>
+                    <input type="text" class="form-control" id="osigurenik5ImePrezime" name="osigurenik5ImePrezime" />
+                </div>
+                <div class="form-group col-sm-3">
+                    <label class="sr-only" for="osigurenik5MaticenBroj">&nbsp;</label>
+                    <input type="text" class="form-control" id="osigurenik5MaticenBroj" name="osigurenik5MaticenBroj" />
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="sr-only" for="osigurenik5popust">&nbsp;</label>
+                    <input disabled type="text" class="form-control" id="osigurenik5popust" name="osigurenik5popust" />
+                </div>
+            </div>
+            <div class="form-inline row">
+                <div class="form-group col-sm-3">
+                    <label class="sr-only" for="osigurenik6ImePrezime">&nbsp;</label>
+                    <input type="text" class="form-control" id="osigurenik6ImePrezime" name="osigurenik6ImePrezime" />
+                </div>
+                <div class="form-group col-sm-3">
+                    <label class="sr-only" for="osigurenik6MaticenBroj">&nbsp;</label>
+                    <input type="text" class="form-control" id="osigurenik6MaticenBroj" name="osigurenik6MaticenBroj" />
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="sr-only" for="osigurenik6popust">&nbsp;</label>
+                    <input disabled type="text" class="form-control" id="osigurenik6popust" name="osigurenik6popust" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal row" id="grupno">
+            <div class="form-group col-sm-3">
+                <label for="brojLicaGrupa">Број на лица</label>
+                <input type="number" min="7" max="90" class="form-control " id="brojLicaGrupa" name="brojLicaGrupa" />
+            </div>
+            <div class="form-group col-sm-3">
+                <label for="premijaPoLice">Премија по лице</label>
+                <input type="number" min="0" class="form-control" id="premijaPoLice" name="premijaPoLice" />
+            </div>
+            <div class="form-group col-sm-1">
+                <label for="popustLiceGrupa">&nbsp;</label>
+                <input disabled type="number" class="form-control " id="popustLiceGrupa" name="popustLiceGrupa" />
+            </div>
+        </div>
+
+
+        <div class="form-horizontal row">
+            <div class="form-group col-sm-3">
+                <label for="doplatok1">Доплаток 1</label>
+                <select id="doplatok1" name="doplatok1" class="form-control  ">
+                    @foreach (var doplatok in Model.additional_charges)
+                    {
+                        <option value="@doplatok.Doplatok">@doplatok.Doplatok</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group col-sm-3">
+                <label for="doplatok2">Доплаток 2</label>
+                <select id="doplatok2" name="doplatok2" class="form-control  ">
+                    @foreach (var doplatok in Model.additional_charges)
+                    {
+                        <option value="@doplatok.Doplatok">@doplatok.Doplatok</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-inline container">
+        <div class="row">
+            <div class="col-sm-3">
+                <label for="vkupnaPremija">Вкупна Премија</label>
+                <input class="form-control" disabled type="number" id="vkupnaPremija" name="vkupnaPremija" />
+            </div>
+        </div>
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-sm-3">
+                <button type="button" data-disable id="dugme" style="width:100%" class="btn btn-lg btn-default">Пресметај</button>
+
+
+
+            </div>
+            <div class="col-sm-3">
+                <button type="button" style="width:100%" onclick="@("window.location.href='" + @Url.Action("PrintPolicy", "Policy") + "'");" class="btn btn-lg btn-default">Печати Полиса</button>
+            </div>
+            <div class="col-sm-3">
+                <button type="button" style="width:100%" class="btn btn-lg btn-default">Сторнирај Полиса</button>
+            </div>
+            <div class="col-sm-3">
+                <button type="button" style="width:100%" onclick="@("window.location.href='" + @Url.Action("Index", "Payment") + "'");" class="btn btn-lg btn-default">Плати полиса</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/additional-methods.js"></script>
+<!-- macedonian language-->
+<script src="~/Scripts/messages_is.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        //Staveno e "selected" za da ne mora da se pravi validacija.
+        $("#family").hide();
+        $("#grupno").hide();
+        $("#lblAlert").hide();
+
+        $("#polisaPoedinecno").click(function () {
+            $("#family").hide();
+            $("#grupno").hide();
+                        });
+        $("#polisaFamilijarno").click(function () {
+            $("#family").show()
+            $("#grupno").hide();
+                        });
+        $("#polisaGrupno").click(function () {
+            $("#family").hide();
+            $("#grupno").show();
+                        });
+                    });
+
+
+
+    //disable default submit
+    $('#dugme').on('submit', function (e) {
+                        // validation code here
+                        if (!valid) {
+                            e.preventDefault();
+                        }
+
+                    });
+    $("#policyForm").validate({
+                    rules: {
+                        EMBG: {
+                            required: true,
+                number: true,
+                minlength: 13,
+                maxlength:13
+
+
+            },
+            osigurenik1MaticenBroj: {
+                            required: true,
+                number: true,
+                minlength: 13,
+                maxlength: 13
+
+            }
+
+                        }
+                    });
+
+
+    jQuery.validator.setDefaults({
+        debug: true,
+        success: "valid",
+
+    });
+    var form = $("#policyForm");
+    form.validate({
+
+        lang: 'is'
+
+    });
+
+    $("#dugme").click(function () {
+                if (form.valid() == true) {
+
+                    var data = $("#policyForm").serialize();
+
+        $.ajax({
+                    type: "POST",
+            url: "CreatePolicy",
+            data: data,
+            success: function () {
+
+                        }
+                    });
+
+                }
+            });
+
+    $("#startDate").focusout(function (){
+                var Edat = $("#startDate").val();
+                var Sdat = new Date($("#startDate").val());
+
+                var god = (Sdat.getFullYear() + 1);
+                var mesec = $("#startDate").val().substring(5,7);
+                var den = $("#startDate").val().substring(8,10);
+                var intDen = parseInt(den) + 2;
+                $("#endDate").attr('min', Edat);
+                $("#endDate").attr('max', god + "-" + mesec + "-" + intDen);
+
+
+            });
+
+    $("#vaziDenovi").focusin(function () {
+        var Sdat = new Date($("#startDate").val());
+        var Edat = new Date($("#endDate").val());
+        if ($('#povekePatuvanja').is(':checked')) {
+            $("#vaziDenovi").attr('min', 15);
+
+        }
+        else {
+            $("#vaziDenovi").attr('min', 2);
+        }
+
+            });
+
+</script>

@@ -1,8 +1,10 @@
 ﻿using Authentication.WEB.Services;
 using InsuredTraveling;
 using InsuredTraveling.Models;
-using System;
+using AutoMapper;
 using System.Web.Mvc;
+using System;
+using System.Linq;
 
 namespace Authentication.WEB.Controllers
 {
@@ -18,31 +20,28 @@ namespace Authentication.WEB.Controllers
         [HttpPost]
         public ActionResult Create(CreateClientModel model) 
         {
-            insured client = new insured();
+            
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
+            var client = entities.insureds.Create();
             ValidationService validationService = new ValidationService();
-
-            client.Name = model.NameSurename;
-            client.Email = model.email;
-            client.Phone_Number = model.Number;
-            int temp;
-            Int32.TryParse(model.PostCode, out temp);
-            client.Passport_Number_IdNumber = model.Passport;
-            client.Postal_Code = temp.ToString();
-            client.Address = model.Adress;
-            client.SSN = model.EMBG;
-            client.City = model.City;
-
-            if (validationService.ClientFormValidate(client))
+            if (ModelState.IsValid && validationService.validateEMBG(model.SSN))
             {
+                client = Mapper.Map<CreateClientModel, insured>(model);
                 entities.insureds.Add(client);
-                entities.SaveChanges();
-            }
-            else
-            {
-                ViewBag.MyMessageToUsers = "<br/> <br/> <div style='color: red'>Грешка при валидација !!! Внесете точни информации! </div>";
-            }
 
+                try
+                {
+                    entities.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View();
+                }
+
+                ViewBag.Message = "Успешно го креиравте клиентот!";
+                return View();
+            }
             return View();
         }
     }

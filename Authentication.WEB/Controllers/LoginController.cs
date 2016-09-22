@@ -28,11 +28,11 @@ namespace InsuredTraveling.Controllers
                 user.grant_type = "password";
                 var uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/token");
                 var client = new HttpClient {BaseAddress = uri};
-                IDictionary<string, string> data1 = new Dictionary<string, string>();
-                data1.Add("username", user.username);
-                data1.Add("password", user.password);
-                data1.Add("grant_type", user.grant_type);
-                HttpContent content = new FormUrlEncodedContent(data1);
+                IDictionary<string, string> userData = new Dictionary<string, string>();
+                userData.Add("username", user.username);
+                userData.Add("password", user.password);
+                userData.Add("grant_type", user.grant_type);
+                HttpContent content = new FormUrlEncodedContent(userData);
                 content.Headers.Remove("Content-Type");
                 content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
                 var responseMessage = client.PostAsync(uri, content).Result;

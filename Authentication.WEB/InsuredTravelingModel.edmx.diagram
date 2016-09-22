@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4d19592923274ad29dd179585daab6fe" Name="Diagram1" ZoomLevel="65">
+      <Diagram DiagramId="4d19592923274ad29dd179585daab6fe" Name="Diagram1" ZoomLevel="56">
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetrole" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.aspnetuserclaim" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.client1" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
@@ -78,8 +78,8 @@
         <AssociationConnector Association="db_9eb138_travelModel.fk_policy_insured_polcy_id" />
         <AssociationConnector Association="db_9eb138_travelModel.aspnetuserroles" />
         <EntityTypeShape EntityType="db_9eb138_travelModel.first_notice_of_loss" Width="1.5" PointX="15.375" PointY="1.125" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.health_insurance" Width="1.5" PointX="17.625" PointY="0.875" />
-        <EntityTypeShape EntityType="db_9eb138_travelModel.luggage_insurance" Width="1.5" PointX="17.625" PointY="4.75" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.health_insurance" Width="1.5" PointX="17.625" PointY="4.75" />
+        <EntityTypeShape EntityType="db_9eb138_travelModel.luggage_insurance" Width="1.5" PointX="17.625" PointY="0.875" />
         <AssociationConnector Association="db_9eb138_travelModel.fk_loss_id" />
         <AssociationConnector Association="db_9eb138_travelModel.fk_luggage_loss_id" />
         </Diagram>

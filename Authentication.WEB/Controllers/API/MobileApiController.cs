@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Http;
 using Newtonsoft.Json.Linq;
 using System;
+using AutoMapper;
 
 namespace InsuredTraveling.Controllers.API
 {
@@ -15,6 +16,7 @@ namespace InsuredTraveling.Controllers.API
         {
             db = new InsuredTravelingEntity();
         }
+
         [Route("RetrieveUserInfo")]
         public JObject RetrieveUserInformation(Username username)
         {
@@ -213,8 +215,9 @@ namespace InsuredTraveling.Controllers.API
             else
             {
                 var f1 = db.first_notice_of_loss.Create();
+                //var f1 = Mapper.Map<FNOL, first_notice_of_loss>(f);
 
-                f1.PolicyNumber = (int)f.policyNumber;                
+                f1.PolicyNumber = (int)f.policyNumber;
                 f1.Insured_User = db.aspnetusers.Where(x => x.UserName == f.username).Select(x => x.Id).First();
                 f1.Insured_person_transaction_number = f.TransactionAccount;
                 f1.Insured_person_deponent_bank = f.deponent;
@@ -226,7 +229,7 @@ namespace InsuredTraveling.Controllers.API
                 f1.Claimant_person_deponent_bank = f.deponentInsured;
                 f1.Claimant_insured_relation = f.relationship;
                 f1.Land_trip = f.travelDestination;
-                f1.Trip_startdate =((DateTime)f.travelDateFrom).Date;
+                f1.Trip_startdate = ((DateTime)f.travelDateFrom).Date;
                 f1.Trip_starttime = f.travelTimeFrom;
                 f1.Trip_enddate = ((DateTime)f.travelDateTo).Date;
                 f1.Trip_endtime = f.travelTimeTo;

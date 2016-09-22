@@ -27,34 +27,32 @@ namespace InsuredTraveling.Controllers
         {
             FNOL f = new FNOL();
             f.PolicyType = "Comfort";
-            f.message = "fnlgfsldfgk;dfxlgd;f";
-            f.additionalDocumentsHanded = "dajda";
-            f.additionalInfo = "akhKSDds";
+            f.policyNumber = 123456;
+            f.username = "Daki123";
+            f.TransactionAccount = "jsJADKJASD";
             f.deponent = "akhKSDds";
-            f.deponentInsured = "akhKSDds";
-            f.descriptionLostStolenThings = "akhKSDds";
-            f.detailedDescription = "Sahdjdhsa";
-            f.airportArrivalTime = DateTime.Now.TimeOfDay;
-            f.baggageDropTime = DateTime.Now.TimeOfDay;
-            f.lossDate = DateTime.Now;
-            f.lossTime = DateTime.Now.TimeOfDay;
-            f.message = "sjaDKa";
-            f.placeReported = "Skopje";
-            f.valueExpenses = 100;
-            f.ShortDetailed = true;
-            f.ShortDetailed = true;
-            f.LuggageInsurance = true;
-            f.HealthInsurance = false;
-            f.WebMobile = false;
-            f.transportationType = "Car";
             f.insuredAddress = "jsaksf";
             f.insuredEMBG = "jsaksf";
             f.insuredName = "jsaksf";
             f.insuredPhone = "jsaksf";
             f.insuredTransactionAccount = "jsaksf";
-            f.username = "Daki123";
+            f.deponentInsured = "msalfdf";
+            f.relationship = "friend";
             f.travelDestination = "gldfd";
-            f.deponentInsured = "Dskasdfsd";
+            f.message = "fnlgfsldfgk;dfxlgd;f";
+            f.additionalDocumentsHanded = "dajda";
+            f.travelTimeFrom = DateTime.Now.TimeOfDay;
+            f.travelTimeTo = DateTime.Now.TimeOfDay;
+            f.travelDateFrom = DateTime.Now;
+            f.travelDateTo = DateTime.Now;
+            f.message = "sjaDKa";
+            f.valueExpenses = 100;
+            //f.ShortDetailed = true;
+            //f.LuggageInsurance = true;
+            //f.HealthInsurance = false;
+            //f.WebMobile = false;
+            f.transportationType = "Car";
+
             
 
             var fnol = Mapper.Map<FNOL, first_notice_of_loss>(f);

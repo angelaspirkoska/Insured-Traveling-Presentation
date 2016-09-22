@@ -20,22 +20,6 @@ namespace Authentication.WEB.Services
             return true;
         }
 
-        //This is function for validating new Client Create
-        public bool ClientFormValidate(insured CreateClient)
-        {
-            if (!validateEMBG(CreateClient.SSN))
-            {
-                return false;
-            }
-            if ((CreateClient.City == null || CreateClient.SSN == null || CreateClient.Address == null || CreateClient.Name == null || CreateClient.Email == null || CreateClient.Passport_Number_IdNumber == null || CreateClient.Postal_Code == null || CreateClient.Phone_Number == null))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-
         public bool validateEMBG(string embg = null)
         {
             if (embg == null)
@@ -77,8 +61,6 @@ namespace Authentication.WEB.Services
 
         public bool validateDates(DateTime starDate, DateTime endDate)
         {
-
-
             if (starDate < DateTime.UtcNow || endDate < DateTime.UtcNow)
                 return false;
             if (starDate > endDate)

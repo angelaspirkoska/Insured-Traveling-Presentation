@@ -491,7 +491,6 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\CreateClientModel.cs" />
     <Compile Include="Models\Enums.cs" />
-    <Compile Include="Models\Example.cs" />
     <Compile Include="Models\FNOL.cs" />
     <Compile Include="Models\ForgetPasswordModel.cs" />
     <Compile Include="Models\HalkbankPaymentModel.cs" />
@@ -589,7 +588,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
-    <Content Include="Views\Policy\Index.cshtml" />
+    <Content Include="Views\Policy\Index1.cshtml" />
     <Content Include="Views\Policy\Print.cshtml" />
     <Content Include="Views\Policy\_PolicyPrint.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
@@ -605,6 +604,7 @@
     <Content Include="Scripts\jquery-3.1.0.min.map" />
     <Content Include="Views\ReportLoss\Index.cshtml" />
     <Content Include="Views\Client\Create.cshtml" />
+    <Content Include="Views\Policy\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,4 +1,4 @@
-﻿@model Authentication.WEB.Models.PaymentModel
+﻿@model InsuredTraveling.Models.PaymentModel
 <div class="container">
     <div class="row">
         <div class="col-xs-6">&nbsp;</div>
@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-xs-12 borderedContent" style="height: 40px;">
                             <h6 class="centeredUnderlined">Date of issuance</h6>
-                            <p class="smallFont" style="text-align:center">@Model.Pat.Zapocnuva_Na.ToString().Substring(0, 10)</p>
+                            <p class="smallFont" style="text-align:center">@Model.Pat.Start_Date.ToString().Substring(0, 10)</p>
                         </div>
                     </div>
                     <div class="row">
@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="col-xs-4 borderedContent" style="height: 65px; padding-top: 2px;">
-                    @{ bool? individual = Model.Pat.Vid_Poedinecno, group = Model.Pat.Vid_Grupno, family = Model.Pat.Vid_Familijarno; }
+                    @{ bool? individual = Model.Pat.Travel_Insurance_TypeID==1, group = Model.Pat.Travel_Insurance_TypeID==2, family = Model.Pat.Travel_Insurance_TypeID == 3; }
                     @if(individual == true) {   <input style="margin: 0;" checked type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Individual</span><br />  }
                    else { <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Individual</span><br /> }
                     @if (group == true)
@@ -34,7 +34,7 @@
                     { <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Family</span> }
                 </div>
                 <div class="col-xs-4 borderedContent" style="height: 65px; padding-top: 2px;">
-                    @{ bool? singleTrip = Model.Pat.Pat_Edno, MultiTrip = Model.Pat.Pat_Poveke;}
+                    @{ bool? singleTrip = Model.Pat.Travel_NumberID==1, MultiTrip = Model.Pat.Travel_NumberID == 2;}
                     @if(singleTrip == true) {   <input style="margin: 0;" type="checkbox" checked /><span style="margin-left: 2px;" class="smallFont">Single trip</span><br />                         }
                     else {
                         <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Single trip</span><br /> }
@@ -59,10 +59,10 @@
                             <p class="smallFont">Passport No.</p>
                         </div>
                         <div class="col-xs-6" style="text-align: left">
-                            <p class="smallFont">@Model.Pat.Ime_I_Prezime</p>
-                            <p class="smallFont">@Model.Pat.Adresa</p>
-                            <p class="smallFont">@Model.Pat.EMBG</p>
-                            <p class="smallFont">@Model.Pat.Broj_Pasos</p>
+                            <p class="smallFont">Ime i prezime</p>
+                            <p class="smallFont">Adresa</p>
+                            <p class="smallFont">EMBG</p>
+                            <p class="smallFont">Broj_Pasos</p>
                         </div>
                     </div>
                 </div>
@@ -75,9 +75,9 @@
                             <p class="smallFont">Insured days</p>
                         </div>
                         <div class="col-xs-6" style="text-align: left">
-                            <p class="smallFont"> @Model.Pat.Zapocnuva_Na.ToString().Substring(0, 10)</p>
-                            <p class="smallFont">@Model.Pat.Zavrsuva_Na.ToString().Substring(0, 10)</p>
-                            <p class="smallFont">@Model.Pat.Vazi_Denovi</p>
+                            <p class="smallFont"> @Model.Pat.Start_Date.ToString().Substring(0, 10)</p>
+                            <p class="smallFont">@Model.Pat.End_Date.ToString().Substring(0, 10)</p>
+                            <p class="smallFont">@Model.Pat.Valid_Days</p>
                         </div>
                     </div>
                 </div>
@@ -88,21 +88,21 @@
                     <div class="row">
                         <div class="col-xs-6" style="text-align: left;">
                             <h6 class="centeredUnderlined" style="font-weight: normal;">Name and surname</h6>
-                            <p class="smallFont">@Model.Pat.Osigurenik1_Ime_I_Prezime</p>
-                            <p class="smallFont">@Model.Pat.Osigurenik2_Ime_I_Prezime</p>
-                            <p class="smallFont">@Model.Pat.Osigurenik3_Ime_I_Prezime</p>
-                            <p class="smallFont">@Model.Pat.Osigurenik4_Ime_I_Prezime</p>
-                            <p class="smallFont">@Model.Pat.Osigurenik5_Ime_I_Prezime</p>
-                            <p class="smallFont">@Model.Pat.Osigurenik6_Ime_I_Prezime</p>
+                            <p class="smallFont">Osigurenik1_Ime_I_Prezime</p>
+                            <p class="smallFont">Osigurenik2_Ime_I_Prezime</p>
+                            <p class="smallFont">Osigurenik3_Ime_I_Prezime</p>
+                            <p class="smallFont">Osigurenik4_Ime_I_Prezime</p>
+                            <p class="smallFont">Osigurenik5_Ime_I_Prezime</p>
+                            <p class="smallFont">Osigurenik6_Ime_I_Prezime</p>
                         </div>
                         <div class="col-xs-6" style="text-align: left">
                             <h6 class="centeredUnderlined" style="font-weight: normal;">Personal ID No.</h6>
-                            <p class="smallFont">@Model.Pat.Osigurenik1_EMBG</p>
-                            <p class="smallFont">@Model.Pat.Osigurenik2_EMBG</p>
-                            <p class="smallFont">@Model.Pat.Osigurenik3_EMBG</p>
-                            <p class="smallFont">@Model.Pat.Osigurenik4_EMBG</p>
-                            <p class="smallFont">@Model.Pat.Osigurenik5_EMBG</p>
-                            <p class="smallFont">@Model.Pat.Osigurenik6_EMBG</p>
+                            <p class="smallFont">Osigurenik1_Ime_I_Prezime</p>
+                            <p class="smallFont">Osigurenik2_Ime_I_Prezime</p>
+                            <p class="smallFont">Osigurenik3_Ime_I_Prezime</p>
+                            <p class="smallFont">Osigurenik4_Ime_I_Prezime</p>
+                            <p class="smallFont">Osigurenik5_Ime_I_Prezime</p>
+                            <p class="smallFont">Osigurenik6_Ime_I_Prezime</p>
                         </div>
                     </div>
                 </div>
@@ -116,8 +116,8 @@
                                     <p class="smallFont">Премија</p>
                                 </div>
                                 <div class="col-xs-6" style="text-align: left">
-                                    <p class="smallFont">@Model.Pat.Grupa</p>
-                                    <p class="smallFont">@Model.Pat.Grupna_Vkupna_Premija</p>
+                                    <p class="smallFont">@Model.Pat.Group_Members</p>
+                                    <p class="smallFont">@Model.Pat.Group_Total_Premium</p>
                                 </div>
                             </div>
                         </div>
@@ -132,9 +132,9 @@
                                     <p class="smallFont">Name</p>
                                 </div>
                                 <div class="col-xs-6" style="text-align: left">
-                                    <p class="smallFont">@Model.Pat.Ovlastena_Agencija</p>
-                                    <p class="smallFont">@Model.Pat.Sifra</p>
-                                    <p class="smallFont">@Model.Pat.Ime_I_Prezime</p>
+                                    <p class="smallFont">Agency</p>
+                                    <p class="smallFont">Code</p>
+                                    <p class="smallFont">Name</p>
                                 </div>
                             </div>
                         </div>
@@ -153,9 +153,9 @@
                             <p class="smallFont">Премија</p>
                         </div>
                         <div class="col-xs-6" style="text-align: left">
-                            <p class="smallFont">@Model.Pat.Doplatok_1 </p>
-                            <p class="smallFont">@Model.Pat.Doplatok_2</p>
-                            <p class="smallFont" style="font-weight: bold;">@Model.Pat.Vkupna_Premija</p>
+                            <p class="smallFont">Doplatok_1 </p>
+                            <p class="smallFont">Doplatok_2</p>
+                            <p class="smallFont" style="font-weight: bold;">@Model.Pat.Total_Premium</p>
                         </div>
                     </div>
                 </div>
@@ -172,7 +172,7 @@
                         </div>
                         <div class="col-xs-4">
                             <h6 class="centeredUnderlined">Company</h6>
-                            <p class="smallFont" style="font-weight: bold;">@Model.Pat.Ovlastena_Agencija</p>
+                            <p class="smallFont" style="font-weight: bold;">Agency</p>
                         </div>
                     </div>
                 </div>

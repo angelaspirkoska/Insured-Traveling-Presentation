@@ -50,6 +50,10 @@ namespace InsuredTraveling.Controllers
                 {
                     ViewBag.Message = "Successfully reported!";
                     return View();
+                }else
+                {
+                    ViewBag.Message = "Something went wrong!";
+                    return View();
                 }
             }
             return View();

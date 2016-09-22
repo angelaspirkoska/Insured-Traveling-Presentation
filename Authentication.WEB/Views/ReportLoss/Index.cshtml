@@ -7,6 +7,40 @@
 
 <form style="margin-top:80px;" method="post" action="@Url.Action("Index")">
     <div class="form-horizontal">
+        <div class="row container">
+            @if (ViewBag.Message != null)
+            {
+                if (ViewBag.Message == "Something went wrong!")
+                {
+                    <div class="row" style="width:35%;">
+                        <div class="alert alert-dismissible alert-danger" style="margin-top: 27%; margin-left:12px; width:211%">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>Oh snap!</strong> <span>@ViewBag.Message</span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row" style="width:35%;">
+                        <div class="alert alert-dismissible alert-success" style="margin-top: 27%;margin-left:12px; width:211%">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>Great!</strong> <span>@ViewBag.Message</span>
+                        </div>
+                    </div>
+                        <script type="text/javascript">
+                                        $(document).ready(function () {
+                                            setTimeout(function () {
+                                                window.location.replace(@System.Configuration.ConfigurationManager.AppSettings["webpage_url"] + "/SignUp/MobilePhoneVerification?username=" + $("#username").val());
+                                            }, 3000);
+
+                                            SendSMSCode();
+                                            ActivateAccount();
+                                        });
+                        </script>
+                }
+            }
+        </div>
+
         <h3>Пријави штета</h3>
         <br />
         <br />

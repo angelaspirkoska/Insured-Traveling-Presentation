@@ -1,5 +1,4 @@
-﻿using Authentication.WEB.Models;
-using Authentication.WEB.Services;
+﻿using Authentication.WEB.Services;
 using Newtonsoft.Json.Linq;
 using System;
 using Rotativa;
@@ -10,6 +9,10 @@ using System.Net.Http.Formatting;
 using System.Web.Mvc;
 using InsuredTraveling;
 using System.Configuration;
+using InsuredTraveling.Models;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Authentication.WEB.Controllers
 {
@@ -17,16 +20,28 @@ namespace Authentication.WEB.Controllers
     {
         // GET: Policy
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            PolicyInfoList info = new PolicyInfoList();
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            info.countries = entities.countries;
-            info.franchises = entities.retaining_risk;
-            info.policies = entities.policy_type;
-            info.doplatokList = entities.additional_charge;
+            var type_policies = GetTypeOfPolicy();
+            var countries = GetTypeOfCountry();
+            var franchises = GetTypeOfFranchise();
+            var additional_charges = GetTypeOfAdditionalCharges();
 
-            return View(info);
+            await Task.WhenAll(type_policies, countries, franchises, additional_charges);
+
+            ViewBag.TypeOfPolicy = type_policies.Result;
+            ViewBag.Countries = countries.Result;
+            ViewBag.Franchise = franchises.Result;
+            ViewBag.additional_charges = additional_charges.Result;
+
+            
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(Policy p)
+        {
+            return View();
         }
 
         public async System.Threading.Tasks.Task<ActionResult> CreatePolicy(travel_policy policy)
@@ -43,8 +58,6 @@ namespace Authentication.WEB.Controllers
             var mediaType = new MediaTypeHeaderValue("application/json");
             var jsonFormatter = new JsonMediaTypeFormatter();
             HttpContent content = new ObjectContent<travel_policy>(policy, jsonFormatter);
-
-
 
             HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
             string responseBody = await responseMessage.Content.ReadAsStringAsync();
@@ -97,11 +110,55 @@ namespace Authentication.WEB.Controllers
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
             // long id = Convert.ToInt64 (System.Web.HttpContext.Current.Session["SessionId"]);
-            int id = 2;
+            int id = 1;
 
             PaymentModel pat = new PaymentModel();
-            pat.Pat = entities.travel_policy.Where(x => x.Policy_Number.Equals(id)).FirstOrDefault();
+            pat.Pat = entities.travel_policy.Where(x => x.ID.Equals(id)).FirstOrDefault();
             return new ViewAsPdf("Print", pat);
+        }
+
+        private async Task<List<SelectListItem>> GetTypeOfPolicy()
+        {
+            InsuredTravelingEntity db = new InsuredTravelingEntity();
+            var policy = db.policy_type.Select(p => new SelectListItem
+            {
+                Text = p.type,
+                Value = p.ID.ToString()
+            });
+            return await policy.ToListAsync();
+        }
+
+        private async Task<List<SelectListItem>> GetTypeOfCountry()
+        {
+            InsuredTravelingEntity db = new InsuredTravelingEntity();
+            var country = db.countries.Select(p => new SelectListItem
+            {
+                Text = p.Name,
+                Value = p.ID.ToString()
+            });
+            return await country.ToListAsync();
+        }
+
+        private async Task<List<SelectListItem>> GetTypeOfFranchise()
+        {
+            InsuredTravelingEntity db = new InsuredTravelingEntity();
+            var franchise = db.retaining_risk.Select(p => new SelectListItem
+            {
+                Text = p.Franchise,
+                Value = p.ID.ToString()
+            });
+            return await franchise.ToListAsync();
+        }
+
+        private async Task<List<SelectListItem>> GetTypeOfAdditionalCharges()
+        {
+            InsuredTravelingEntity db = new InsuredTravelingEntity();
+            var additional_charge = db.additional_charge.Select(p => new SelectListItem
+            {
+                Text = p.Doplatok,
+                Value = p.ID.ToString()
+            });
+            return await additional_charge.ToListAsync();
         }
     }
 }
