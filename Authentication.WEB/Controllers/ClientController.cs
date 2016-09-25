@@ -5,11 +5,19 @@ using AutoMapper;
 using System.Web.Mvc;
 using System;
 using System.Linq;
+using InsuredTraveling.DI;
 
 namespace Authentication.WEB.Controllers
 {
     public class ClientController : Controller
     {
+        private IInsuredsService _ins;
+
+        public ClientController(IInsuredsService ins)
+        {
+            _ins = ins;
+        }
+
 
         [HttpGet]
         public ActionResult Create()
@@ -27,11 +35,12 @@ namespace Authentication.WEB.Controllers
             if (ModelState.IsValid && validationService.validateEMBG(model.SSN))
             {
                 client = Mapper.Map<CreateClientModel, insured>(model);
-                entities.insureds.Add(client);
+               
 
                 try
                 {
-                    entities.SaveChanges();
+                    _ins.AddInsured(client);
+                    
                 }
                 catch (Exception ex)
                 {

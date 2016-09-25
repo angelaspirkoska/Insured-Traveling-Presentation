@@ -1,4 +1,9 @@
 ﻿using System.Web.Http;
+using Autofac;
+using Autofac.Integration.WebApi;
+using System.Reflection;
+using InsuredTraveling;
+using Authentication.WEB.Controllers;
 
 namespace Authentication.WEB
 {
@@ -13,6 +18,21 @@ namespace Authentication.WEB
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            var builder = new ContainerBuilder();
+
+            builder.RegisterApiControllers(typeof(InsuredTraveling.Controllers.API.MobileApiController).Assembly);
+            builder.RegisterApiControllers(typeof(HalkbankPaymentApiController).Assembly);
+            builder.RegisterApiControllers(typeof(NewsApiController).Assembly);
+            builder.RegisterWebApiFilterProvider(GlobalConfiguration.Configuration);
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            
+            builder.RegisterModule(
+                new ServicesRegistration("InsuredTravelingEntity")); 
+
+            var container = builder.Build();
+
+            config.DependencyResolver = new AutofacWebApiDependencyResolver(
+                container);
         }
     }
 }

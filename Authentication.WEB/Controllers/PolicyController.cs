@@ -13,11 +13,30 @@ using InsuredTraveling.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Data.Entity;
+using InsuredTraveling.DI;
 
 namespace Authentication.WEB.Controllers
 {
     public class PolicyController : Controller
     {
+
+
+        private IPolicyService _ps;
+        private IPolicyTypeService _pts;
+        private ICountryService _cs;
+        private IFranchiseService _fs;
+        private IAdditionalChargesService _acs;
+
+        public PolicyController(IPolicyService ps, IPolicyTypeService pts, ICountryService cs, IFranchiseService fs,
+            IAdditionalChargesService acs)
+        {
+            _ps = ps;
+            _pts = pts;
+            _cs = cs;
+            _fs = fs;
+            _acs = acs;
+        }
+
         // GET: Policy
         [HttpGet]
         public async Task<ActionResult> Index()
@@ -72,8 +91,8 @@ namespace Authentication.WEB.Controllers
             if (valid)
             {
 
-                string ID = (entityDB.travel_policy.OrderByDescending(p => p.ID).Select(r => r.Policy_Number).FirstOrDefault() + 1);
-                string ID_Company = entityDB.travel_policy.OrderByDescending(p => p.ID).Select(r => r.Policy_Number).FirstOrDefault();
+                string PolicyNumber = _ps.CreatePolicyNumber();
+                string ID_Company = _ps.GetCompanyID(policy.Policy_Number);
                 int tempID;
                 if (String.IsNullOrEmpty(ID_Company))
                 {
@@ -85,7 +104,7 @@ namespace Authentication.WEB.Controllers
                     tempID = int.Parse(ID_trim2) + 1;
                 }
 
-                polisaEntity.Policy_Number = ID;
+                polisaEntity.Policy_Number = PolicyNumber;
                 polisaEntity.Policy_TypeID = policy.policy_type.ID;
                 polisaEntity.CountryID = policy.CountryID;
                 polisaEntity.Start_Date = policy.Start_Date;
@@ -99,8 +118,7 @@ namespace Authentication.WEB.Controllers
 
 
 
-                entityDB.travel_policy.Add(polisaEntity);
-                var result = entityDB.SaveChanges();
+                var result = _ps.AddPolicy(polisaEntity);
             }
 
             return Json(new { success = true, responseText = "Success." }, JsonRequestBehavior.AllowGet);
@@ -108,57 +126,32 @@ namespace Authentication.WEB.Controllers
 
         public ActionResult PrintPolicy()
         {
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            // long id = Convert.ToInt64 (System.Web.HttpContext.Current.Session["SessionId"]);
-            int id = 1;
+            int id = 2;
 
             PaymentModel pat = new PaymentModel();
-            pat.Pat = entities.travel_policy.Where(x => x.ID.Equals(id)).FirstOrDefault();
+            pat.Pat = _ps.GetPolicyById(id);
             return new ViewAsPdf("Print", pat);
         }
 
         private async Task<List<SelectListItem>> GetTypeOfPolicy()
-        {
-            InsuredTravelingEntity db = new InsuredTravelingEntity();
-            var policy = db.policy_type.Select(p => new SelectListItem
-            {
-                Text = p.type,
-                Value = p.ID.ToString()
-            });
-            return await policy.ToListAsync();
+        {           
+            return await _pts.GetAll().ToListAsync();
         }
 
         private async Task<List<SelectListItem>> GetTypeOfCountry()
-        {
-            InsuredTravelingEntity db = new InsuredTravelingEntity();
-            var country = db.countries.Select(p => new SelectListItem
-            {
-                Text = p.Name,
-                Value = p.ID.ToString()
-            });
-            return await country.ToListAsync();
+        {           
+            return await _cs.GetAll().ToListAsync();
         }
 
         private async Task<List<SelectListItem>> GetTypeOfFranchise()
         {
-            InsuredTravelingEntity db = new InsuredTravelingEntity();
-            var franchise = db.retaining_risk.Select(p => new SelectListItem
-            {
-                Text = p.Franchise,
-                Value = p.ID.ToString()
-            });
-            return await franchise.ToListAsync();
+      
+            return await _fs.GetAll().ToListAsync();
         }
 
         private async Task<List<SelectListItem>> GetTypeOfAdditionalCharges()
-        {
-            InsuredTravelingEntity db = new InsuredTravelingEntity();
-            var additional_charge = db.additional_charge.Select(p => new SelectListItem
-            {
-                Text = p.Doplatok,
-                Value = p.ID.ToString()
-            });
-            return await additional_charge.ToListAsync();
+        {     
+            return await _acs.GetAll().ToListAsync();
         }
     }
 }

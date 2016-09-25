@@ -5,16 +5,26 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using InsuredTraveling.DI;
 
 namespace InsuredTraveling.Controllers
 {
     public class SearchController : Controller
     {
-        private InsuredTravelingEntity _db;
 
-        public SearchController()
+        private IPolicyService _ps;
+        private IFirstNoticeOfLossService _fnls;
+        private IUserService _us;
+        private IPolicyTypeService _pts;
+
+
+        public SearchController(IPolicyService ps, IFirstNoticeOfLossService fnls, IUserService us, IPolicyTypeService pts)
         {
-            _db = new InsuredTravelingEntity();
+            _ps = ps;
+            _fnls = fnls;
+            _us = us;
+            _pts = pts;
+
         }
 
         [HttpGet]
@@ -50,10 +60,10 @@ namespace InsuredTraveling.Controllers
                                              x.City.ToLower().Contains(city) &&
                                              x.PassportNumber.Contains(passport)
                                             ).ToArray();
-           
+
             var j = new JObject();
             var data1 = new JArray();
-            foreach(var v in data)
+            foreach (var v in data)
             {
                 var j1 = new JObject();
                 j1.Add("Id", v.Id);
@@ -86,8 +96,7 @@ namespace InsuredTraveling.Controllers
 
             if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(embg) || !String.IsNullOrEmpty(address) || !String.IsNullOrEmpty(land) || !String.IsNullOrEmpty(agency) || !String.IsNullOrEmpty(TypePolycies))
             {
-                var data = _db.travel_policy.Where(x => x.Policy_TypeID.Equals(TypePolycies)
-                                                       ).ToList();
+                var data = _ps.GetPolicyByTypePolicies(TypePolycies);
 
                 if (!String.IsNullOrEmpty(startDate))
                 {
@@ -150,7 +159,7 @@ namespace InsuredTraveling.Controllers
             }
             else if (!String.IsNullOrEmpty(startDate) || !String.IsNullOrEmpty(endDate) || !String.IsNullOrEmpty(dateI) || !String.IsNullOrEmpty(dateS))
             {
-                var data = _db.travel_policy.ToList();
+                var data = _ps.GetAllPolicies();
                 if (!String.IsNullOrEmpty(startDate))
                 {
                     switch (operatorStartDate)
@@ -211,7 +220,7 @@ namespace InsuredTraveling.Controllers
             }
             else
             {
-                var data = _db.travel_policy.ToArray();
+                var data = _ps.GetAllPolicies();
                 var j = new JObject();
                 var data1 = new JArray();
                 foreach (var v in data)
@@ -221,7 +230,7 @@ namespace InsuredTraveling.Controllers
                     j1.Add("Country", v.CountryID);
                     j1.Add("Policy_type", v.Policy_TypeID);
                     j1.Add("Zapocnuva_Na", v.Start_Date);
-                    j1.Add("Zavrsuva_Na", v.End_Date);;
+                    j1.Add("Zavrsuva_Na", v.End_Date); ;
                     j1.Add("Datum_Na_Izdavanje", v.Date_Created);
                     j1.Add("Datum_Na_Storniranje", v.Date_Cancellation);
 
@@ -235,12 +244,14 @@ namespace InsuredTraveling.Controllers
 
         public JObject GetFNOL()
         {
-            var fnol = _db.first_notice_of_loss.ToArray();
+            var fnol = _fnls.GetAll();
             var data = new JObject();
             var data1 = new JArray();
             foreach (var v in fnol)
             {
-                var user = _db.aspnetusers.Where(x => x.Id == v.Insured_User).ToArray().Last();
+                //v.insureduser
+                var user = _us.GetUserById(v.Insured_User);
+
                 var j1 = new JObject();
                 j1.Add("ID", v.LossID);
                 j1.Add("PolicyNumber", v.PolicyNumber);
@@ -250,8 +261,8 @@ namespace InsuredTraveling.Controllers
                 j1.Add("AdditionalDocumentsHanded", v.Additional_documents_handed);
                 j1.Add("AllCosts", v.AllCosts);
                 j1.Add("Date", v.DateTime);
-                j1.Add("HealthInsurance_Y/N", (v.HealthInsurance_Y_N == true)? "Da" : "Ne");
-                j1.Add("LuggageInsurance_Y/N", (v.LuggageInsurance_Y_N == true)? "Da" : "Ne");
+                j1.Add("HealthInsurance_Y/N", (v.HealthInsurance_Y_N == true) ? "Da" : "Ne");
+                j1.Add("LuggageInsurance_Y/N", (v.LuggageInsurance_Y_N == true) ? "Da" : "Ne");
                 data1.Add(j1);
             }
             data.Add("data", data1);
@@ -264,8 +275,12 @@ namespace InsuredTraveling.Controllers
         public JObject FNOLDetails(int lossID)
         {
             var data = new JObject();
-            var loss = _db.first_notice_of_loss.Where(x => x.LossID == lossID).ToArray().First();
-            var user = _db.aspnetusers.Where(x => x.Id == loss.Insured_User).ToArray().Last();
+
+
+            var loss = _fnls.GetById(lossID);
+
+            var user = _us.GetUserById(loss.Insured_User);
+
 
             var jarray = new JArray();
             var j = new JObject();
@@ -303,7 +318,7 @@ namespace InsuredTraveling.Controllers
             if (loss.health_insurance != null)
             {
                 var health_insurance = loss.health_insurance;
-                
+
                 //Data of health insurance
                 j.Add("Date_of_accsident", health_insurance.Date_of_accsident + "-" + health_insurance.Time_of_accsident + "-" + health_insurance.Place_of_accsident);
                 j.Add("Doctor_data", health_insurance.Doctor_data);
@@ -314,7 +329,8 @@ namespace InsuredTraveling.Controllers
                 jarray.Add(j);
                 data.Add("data", jarray);
 
-            }else if (loss.luggage_insurance != null)
+            }
+            else if (loss.luggage_insurance != null)
             {
                 var luggage_insurance = loss.luggage_insurance;
 
@@ -333,16 +349,14 @@ namespace InsuredTraveling.Controllers
             }
 
 
-            return data;  
+            return data;
         }
 
         private async Task<List<SelectListItem>> GetTypeOfPolicy()
         {
-            var policy = _db.policy_type.Select(p => new SelectListItem
-            {
-                Text = p.type,
-                Value = p.ID.ToString()
-            });
+
+            var policy = _pts.GetAll();
+            //var policy = _pts.GetType();
             return await policy.ToListAsync();
         }
     }

@@ -4,20 +4,30 @@ using InsuredTraveling.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using InsuredTraveling.DI;
 
 namespace Authentication.WEB.Controllers
 {
     [RoutePrefix("api/News")]
     public class NewsApiController : ApiController
     {
+        private INewsService _ns;
+
+        public NewsApiController(INewsService ns)
+        {
+            _ns = ns;
+        }
+
         [Route("getLatestNews")]
         [HttpGet]
         public IHttpActionResult getLatestNews()
         {
             MailNewsService mailNewsService = new MailNewsService();
             mailNewsService.getUnreadEmails();
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            IQueryable<news_all> eurolinkNews = entities.news_all.OrderByDescending(x => x.DataCreated).Take(20);
+
+
+            IQueryable<news_all> eurolinkNews = _ns.GetLatestTwentyNews();
+
 
             List<News> news = new List<News>();
 
@@ -28,7 +38,7 @@ namespace Authentication.WEB.Controllers
                 npom.title = n.Title;
                 npom.content = n.Content;
                 npom.InsuranceCompany = n.InsuranceCompany;
-                
+
                 news.Add(npom);
             }
 

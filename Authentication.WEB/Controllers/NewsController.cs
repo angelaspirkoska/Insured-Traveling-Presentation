@@ -2,37 +2,45 @@
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using InsuredTraveling.DI;
 
 namespace Authentication.WEB.Controllers
 {
     public class NewsController : Controller
     {
 
-        [HttpGet]
-        public ActionResult Index()
+        private INewsService _ns;
+
+        public NewsController(INewsService ns)
         {
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            IQueryable<news_all> news = entities.news_all;
-            return View(news);
+            _ns = ns;
         }
 
 
+        [HttpGet]
+        public ActionResult Index()
+        {
+
+
+            IQueryable<news_all> news = _ns.GetAllNews();
+            return View(news);
+        }
 
         public ActionResult AddNews(string newsTitle = null, string newsContent = null, bool newsIsNotification = false)
         {
             if (newsTitle == null || newsContent == null || newsTitle == "" || newsContent == "")
-                return Json(new { Success = "False", Message = "All fields are required" }, JsonRequestBehavior.AllowGet);;
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
+                return Json(new { Success = "False", Message = "All fields are required" }, JsonRequestBehavior.AllowGet); ;
+
             news_all news = new news_all();
             news.Title = newsTitle;
             news.Content = newsContent;
             news.isNotification = newsIsNotification;
             news.DataCreated = DateTime.Now;
             news.InsuranceCompany = "Eurolink";
-            entities.news_all.Add(news);
+
             try
             {
-                entities.SaveChanges();
+                _ns.AddNews(news);
 
                 return Json(new { Success = "True" }, JsonRequestBehavior.AllowGet);
             }
@@ -45,14 +53,14 @@ namespace Authentication.WEB.Controllers
         public ActionResult DeleteNews(int newsId)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            news_all newsForDelete = entities.news_all.Where(x => x.ID == newsId).FirstOrDefault();
-            if (newsForDelete == null)
-                return Json(new { Success = "False", Message = "Database problem" }, JsonRequestBehavior.AllowGet);
 
-            entities.news_all.Remove(newsForDelete);
+            if (!_ns.IsNull(newsId))
+                return Json(new { Success = "False", Message = "Database problem" }, JsonRequestBehavior.AllowGet);
+            _ns.DeleteNews(newsId);
+
             try
             {
-                entities.SaveChanges();
+                _ns.DeleteNews(newsId);
                 return Json(new { Success = "True" }, JsonRequestBehavior.AllowGet);
             }
             catch

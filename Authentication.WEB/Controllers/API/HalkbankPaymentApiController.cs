@@ -8,11 +8,20 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using InsuredTraveling.DI;
 
 namespace Authentication.WEB.Controllers
 {
     public class HalkbankPaymentApiController : ApiController
     {
+        ITransactionsService _ts;
+
+
+        HalkbankPaymentApiController(ITransactionsService ts)
+        {
+            _ts = ts;
+        }
+
         [Route("api/halkbankpayment/handle")]
         [HttpPost]
         public IHttpActionResult Handle()
@@ -32,7 +41,7 @@ namespace Authentication.WEB.Controllers
         public IHttpActionResult Pay(MobilePolicyModel MobilePolicy)
         {
             HalkbankPaymentModel halkbankPayment = new HalkbankPaymentModel();
-            InsuredTravelingEntity TravelEntity = new InsuredTravelingEntity();
+           
 
             transaction TransactionModel = new transaction();
 
@@ -41,7 +50,7 @@ namespace Authentication.WEB.Controllers
 
 
 
-            string oid = (TravelEntity.transactions.OrderByDescending(p => p.OrderID).Select(r => r.OrderID).First() + 1).ToString();
+            string oid = _ts.MakeOid();
             string xid = ""; // Generated in function
             string creditCard = MobilePolicy.CreditCard;
             string expMonth = MobilePolicy.expMonth;
@@ -74,8 +83,7 @@ namespace Authentication.WEB.Controllers
             TransactionModel.ErrMsg = dict["ErrMsg"].ToString();
             TransactionModel.HASH = dict["HASH"].ToString();
             TransactionModel.TRANID = dict["TRANID"].ToString();
-            TravelEntity.transactions.Add(TransactionModel);
-            TravelEntity.SaveChanges();
+            _ts.AddTransaction(TransactionModel);
 
             if ((TransactionModel.mdStatus == "1" || TransactionModel.mdStatus == "2" || TransactionModel.mdStatus == "3" || TransactionModel.mdStatus == "4") && (TransactionModel.Response == "Approved"))
             {

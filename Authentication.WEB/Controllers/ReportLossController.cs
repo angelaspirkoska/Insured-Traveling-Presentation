@@ -9,11 +9,19 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using InsuredTraveling.DI;
 
 namespace InsuredTraveling.Controllers
 {
     public class ReportLossController : Controller
     {
+        private IUserService _us;
+
+        public ReportLossController(IUserService us)
+        {
+            _us = us;
+        }
+
         public ActionResult Index()
         {
             ShowUserData();   
@@ -62,8 +70,7 @@ namespace InsuredTraveling.Controllers
         public void ShowUserData()
         {
             string username = System.Web.HttpContext.Current.User.Identity.Name;
-            InsuredTravelingEntity db = new InsuredTravelingEntity();
-            var user = db.aspnetusers.Where(x => x.UserName == username).ToArray().First();
+            var user = _us.GetUserDataByUsername(username);
 
             ViewBag.Name = user.FirstName + " " + user.LastName;
             ViewBag.Address = user.Address;
