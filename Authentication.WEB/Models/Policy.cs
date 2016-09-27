@@ -48,7 +48,7 @@ namespace InsuredTraveling.Models
         public double Group_Total_Premium { get; set; }
 
         [Display(Name = "Вкупна премија: ")]
-        public double Total_Premium { get; set; }
+        public double? Total_Premium { get; set; }
 
 
         public string Created_By { get; set; }

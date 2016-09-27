@@ -8,12 +8,12 @@ namespace Authentication.WEB.Services
 {
     class RatingEngineService
     {
-        public double? discountCountry(string country, string policy_type, string franchise)
+        public double? discountCountry(int countryID, int policy_typeID, int franchiseID)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            double? popust = (entities.discount_country.Where(x => x.country.Name.Equals(country) &&
-                x.policy_type.type.Equals(policy_type) && x.Franchise.Equals(franchise)).First()).Percentage;
-            return popust;
+            double? discount = (entities.discount_country.Where(x => x.CountryID == countryID &&
+                                                        x.Policy_typeID == policy_typeID && x.Franchise == franchiseID.ToString()).First()).Percentage;
+            return discount;
         }
 
         public double? DiscountAge(int age)
@@ -33,34 +33,48 @@ namespace Authentication.WEB.Services
             return discount;
         }
 
-        public double? DiscountFranchise(string country, string policy_type, string franchise)
+        public double? DiscountFranchise(int countryID, int policy_typeID, int franchiseID)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            double? discount = (entities.discount_country.Where(x => x.country.Name.Equals(country) &&
-                x.policy_type.type.Equals(policy_type) && x.Franchise.Equals(franchise)).First()).Discount_franchise;
+            double? discount = (entities.discount_country.Where(x => x.CountryID == countryID &&
+                x.Policy_typeID == policy_typeID && x.Franchise.Equals(franchiseID.ToString())).First()).Discount_franchise;
             return discount;
         }
 
-        public double? DiscountDays(string policy_type, long days)
+        public double? DiscountDays(int policy_typeID, long days)
         {
+
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            var p = (entities.discount_days.Where(x => x.policy_type.ID.Equals(policy_type)).Where(x => x.travel_duration.Days.Equals(days)) //Treba da se vide shto se prima vo denovi 
+            int travelDurationID;
+
+            if(days < 14)
+            {
+                travelDurationID = entities.travel_duration.Where(x => x.Days == "Do 14 dena").Single().ID;
+            }else if(days > 14 && days < 30)
+            {
+                travelDurationID = entities.travel_duration.Where(x => x.Days == "Nad 15 dena").Single().ID;
+            }else
+            {
+                travelDurationID = entities.travel_duration.Where(x => x.Days == "Nad 30 dena").Single().ID;
+            }
+
+            var p = (entities.discount_days.Where(x => x.Policy_typeID == policy_typeID && x.Travel_durationID == travelDurationID) //Treba da se vide shto se prima vo denovi 
                 .OrderByDescending(x => x.Travel_durationID).First());
             double? discount = p.Discount;
             return discount;
         }
 
-        public double? DiscountFamily(string policy_type)
+        public double? DiscountFamily(int policy_typeID)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            double? discount = (entities.discount_family.Where(x => x.policy_type.type.Equals(policy_type)).First()).Discount;
+            double? discount = (entities.discount_family.Where(x => x.Policy_typeID == policy_typeID).First()).Discount;
             return discount;
         }
 
-        public double? DiscountGroup(string policy_type, int? members)
+        public double? DiscountGroup(int policy_typeID, int? members)
         {
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            double? discount = (entities.discount_group.Where(x => x.policy_type.type.Equals(policy_type)).Where(x => x.group.Memebers < members)
+            double? discount = (entities.discount_group.Where(x => x.Policy_typeID == policy_typeID).Where(x => x.group.Memebers < members)
                 .OrderByDescending(x => x.group.Memebers).First()).Discount;
             return discount;
         }
@@ -96,18 +110,18 @@ namespace Authentication.WEB.Services
             return age;
         }
 
-        public double? totalPremium(travel_policy policy)
-        {
-            double? dCountry = discountCountry(policy.country.Name, policy.policy_type.type, policy.retaining_risk.Franchise);
-            double? dFranchise = DiscountFranchise(policy.country.Name, policy.policy_type.type, policy.retaining_risk.Franchise);
-            double? dDays = DiscountDays(policy.policy_type.type, policy.Valid_Days);
+        public double? totalPremium(Policy policy)
+        {           
+            double? dCountry = discountCountry(policy.CountryID, policy.Policy_TypeID, policy.Retaining_RiskID);
+            double? dFranchise = DiscountFranchise(policy.CountryID, policy.Policy_TypeID, policy.Retaining_RiskID);
+            double? dDays = DiscountDays(policy.Policy_TypeID, policy.Valid_Days);
             string ssnInsured = " ";
-            policy_insured[] p_i = policy.policy_insured.ToArray();
-            foreach(policy_insured p in p_i)
+            insured[] p_i = policy.insureds.ToArray();
+            foreach(insured p in p_i)
             {
-                if(p.insured.Type_InsuredID.Equals(InsuredType.Type.insured))
+                if(p.Type_InsuredID.Equals(InsuredType.Type.insured))
                 {
-                    ssnInsured = p.insured.SSN;
+                    ssnInsured = p.SSN;
                     break;
                 }
             }
@@ -119,17 +133,15 @@ namespace Authentication.WEB.Services
 
             if (policy.Travel_Insurance_TypeID == 1)
             {
-                double? pVozrast = DiscountAge(countAge(policy.Start_Date, ssnInsured));
+                double? pVozrast = DiscountAge(countAge(policy.Start_Date, policy.SSN));
                 minPremium *= (1 - pVozrast);
             }
             if (policy.Travel_Insurance_TypeID==2)
             {
-                double? dFamily = DiscountFamily(policy.policy_type.type);
-                var insuredID = entities.policy_insured.Where(x => x.PolicyID == policy.ID).Single().InsuredID;
-                var insured = entities.insureds.Where(x => x.ID == insuredID).ToArray();
+                double? dFamily = DiscountFamily(policy.Policy_TypeID);
                 double? dAge;
 
-                foreach (insured i in insured)
+                foreach (insured i in p_i)
                 {
                     dAge = DiscountAge(countAge(policy.Start_Date, i.SSN));
                     double? osnovnaPremija1 = exchange_rate * dCountry * (1 - dFranchise) * policy.Valid_Days * (1 - dDays) * (1 - dAge);
@@ -138,31 +150,33 @@ namespace Authentication.WEB.Services
 
                 minPremium *= (1 - dFamily);
             }
-            if (policy.travel_insurance_type.Name.Equals("Group"))
+            if (policy.Travel_Insurance_TypeID == 3)
             {
-                double? dGroup = DiscountGroup(policy.policy_type.type, policy.Group_Members);
+                double? dGroup = DiscountGroup(policy.Policy_TypeID, policy.Group_Members);
                 minPremium *= policy.Group_Members * (1 - dGroup);
             }
 
-            policy_additional_charge[] aditional_charges = policy.policy_additional_charge.ToArray();
+            additional_charge[] aditional_charges = policy.additional_charges.ToArray();
 
             double? additional_charge1 = 1;
             double? additional_charge2 = 1;
             if (aditional_charges != null)
             {
-                additional_charge1 = aditional_charges[0].additional_charge.Percentage;
-                additional_charge2 = aditional_charges[1].additional_charge.Percentage;
+                int id1 = aditional_charges[0].ID;
+                int id2 = aditional_charges[1].ID;                               
+                additional_charge1 = entities.additional_charge.Where(x => x.ID == id1).Single().Percentage;
+                additional_charge2 = entities.additional_charge.Where(x => x.ID == id2).Single().Percentage;
             }
             double? pDoplata = procentDoplata(additional_charge1, additional_charge2 );
             minPremium *= pDoplata;
 
-            int zaokruzena = (int)minPremium;
-            zaokruzena = ((int)Math.Round(zaokruzena / 10.0)) * 10;
+            int roundedPremium = (int)minPremium;
+            roundedPremium = ((int)Math.Round(roundedPremium / 10.0)) * 10;
 
-            if (zaokruzena < 200)
-                zaokruzena = 200;
+            if (roundedPremium < 200)
+                roundedPremium = 200;
 
-            return zaokruzena;
+            return roundedPremium;
         }
     }
 }

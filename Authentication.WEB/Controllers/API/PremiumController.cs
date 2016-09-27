@@ -1,5 +1,6 @@
 ﻿using Authentication.WEB.Models;
 using Authentication.WEB.Services;
+using InsuredTraveling.Models;
 using System.Web.Http;
 
 namespace Authentication.WEB.Controllers
@@ -29,7 +30,7 @@ namespace Authentication.WEB.Controllers
 
         [HttpPost]
         [Route("Calculate")]
-        public IHttpActionResult Code(InsuredTraveling.travel_policy policy)
+        public IHttpActionResult Code(Policy policy)
         {
             RatingEngineService ratingEngineService = new RatingEngineService();
 

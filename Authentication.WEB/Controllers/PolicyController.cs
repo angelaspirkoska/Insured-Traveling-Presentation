@@ -63,7 +63,7 @@ namespace Authentication.WEB.Controllers
             return View();
         }
 
-        public async System.Threading.Tasks.Task<ActionResult> CreatePolicy(travel_policy policy)
+        public async System.Threading.Tasks.Task<ActionResult> CreatePolicy(Policy policy)
         {
             ValidationService validationService = new ValidationService();
             RatingEngineService ratingEngineService = new RatingEngineService();
@@ -76,14 +76,14 @@ namespace Authentication.WEB.Controllers
             client.BaseAddress = uri;
             var mediaType = new MediaTypeHeaderValue("application/json");
             var jsonFormatter = new JsonMediaTypeFormatter();
-            HttpContent content = new ObjectContent<travel_policy>(policy, jsonFormatter);
+            HttpContent content = new ObjectContent<Policy>(policy, jsonFormatter);
 
             HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
             string responseBody = await responseMessage.Content.ReadAsStringAsync();
             dynamic data = JObject.Parse(responseBody);
             int premium = data.PremiumAmount;
 
-            bool valid = validationService.masterValidate(policy);
+            bool valid = validationService.masterValidate(polisaEntity);
             double? vkupnaPremija = ratingEngineService.totalPremium(policy);
             policy.Total_Premium = vkupnaPremija;
             System.Web.HttpContext.Current.Session.Add("SessionId", policy.Policy_Number);
@@ -105,7 +105,7 @@ namespace Authentication.WEB.Controllers
                 }
 
                 polisaEntity.Policy_Number = PolicyNumber;
-                polisaEntity.Policy_TypeID = policy.policy_type.ID;
+                polisaEntity.Policy_TypeID = policy.Policy_TypeID;
                 polisaEntity.CountryID = policy.CountryID;
                 polisaEntity.Start_Date = policy.Start_Date;
                 polisaEntity.End_Date = policy.End_Date;

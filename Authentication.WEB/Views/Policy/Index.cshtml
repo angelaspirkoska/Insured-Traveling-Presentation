@@ -33,7 +33,7 @@
                 <div class="form-group col-sm-3">
                     @Html.LabelFor(model => model.Policy_TypeID, htmlAttributes: new { @class = "control-label" })
                     <div>
-                        @Html.DropDownListFor(model => model.Exchange_RateID, (List<SelectListItem>)ViewBag.TypeOfPolicy, "Вид на полиса", new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.Policy_TypeID, (List<SelectListItem>)ViewBag.TypeOfPolicy, "Вид на полиса", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Policy_TypeID, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -45,11 +45,13 @@
                 @Html.LabelFor(model => model.Travel_NumberID, htmlAttributes: new { @class = "control-label" })
                 <div class="checkbox-container">
                     <label class="radio-inline ">
-                        @Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "1", @text = "Едно патување" })
+                        <input type="radio" name="Travel_NumberID", value="1"/>
+                        @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "1", @text = "Едно патување" })*@
                         <label for="radio1">Едно патување</label>
                     </label>
                     <label class="radio-inline">
-                        @Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "2", @text = "Повеќе патувања" })
+                        <input type="radio" name="Travel_NumberID" , value="2" />
+                        @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "2", @text = "Повеќе патувања" })*@
                         <label for="radio1">Повеќе патувања</label>
                     </label>
                 </div>
@@ -145,15 +147,18 @@
                     @Html.LabelFor(model => model.Travel_Insurance_TypeID, htmlAttributes: new { @class = "control-label" })
                     <div class="checkbox-container">
                         <label class="radio-inline ">
-                            @Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "1", id = "single_type" })
+                            <input type="radio" name="Travel_Insurance_TypeID" , value="1" id = "single_type"/>
+                            @*@Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "1", id = "single_type" })*@
                             <label for="radio1">Поединечно</label>
                         </label>
                         <label class="radio-inline">
-                            @Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "2", id = "family_type" })
+                            <input type="radio" name="Travel_Insurance_TypeID" , value="2" id = "family_type" />
+                            @*@Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "2", id = "family_type" })*@
                             <label for="radio1">Фамилијарно</label>
                         </label>
                         <label class="radio-inline">
-                            @Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "3", id = "group_type" })
+                            <input type="radio" name="Travel_Insurance_TypeID" , value="3" id="group_type" />
+                            @*@Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "3", id = "group_type" })*@
                             <label for="radio1">Групно</label>
                         </label>
                     </div>
@@ -223,7 +228,7 @@
                     @Html.LabelFor(model => model.Total_Premium, htmlAttributes: new { @class = "control-label col-md-5" })
                     <div class="col-md-7">
                         <div class="input-group">
-                            @Html.EditorFor(model => model.Total_Premium, new { htmlAttributes = new { @class = "form-control", style = "width: 45%" } })
+                            @Html.EditorFor(model => model.Total_Premium, new { htmlAttributes = new { @class = "form-control", style = "width: 45%", id="totalPremium"} })
                             @Html.ValidationMessageFor(model => model.Total_Premium, "", new { @class = "col-md-6 text-danger" })
                         </div>
                     </div>
@@ -278,20 +283,20 @@
             $("#family").hide();
             $("#group").show();
         });
-
-        function CalculateTotalPremium() {
-            $.ajax({
-                type: "POST",
-                url: @System.Configuration.ConfigurationManager.AppSettings["webpage_url"] + "/api/premium/calculate",
-                data: $("#policy_form").serialize(),
-                success: function (result) {
-
-                }
-            });
-        }
-
     });
 
+    function CalculateTotalPremium() {
+        $.ajax({
+            type: "POST",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/premium/calculate",
+            data: $("#policy_form").serialize(),
+            success: function (result) {
+                console.log(result.PremiumAmount);
+                $("#totalPremium").val(result.PremiumAmount);
+
+            }
+        });
+    }
     
 
     //disable default submit
