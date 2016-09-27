@@ -87,18 +87,12 @@
                 <thead>
                     <tr>
                         <th>Број на полиса</th>
-                        <th>Име и презиме</th>
-                        <th>Матичен број</th>
                         <th>Земја на патување</th>
                         <th>Вид полиса</th>
                         <th>Важи од</th>
                         <th>Важи до</th>
-                        <th>Адреса</th>
-                        <th>Овластена агенција</th>
                         <th>Датум на издавање</th>
                         <th>Датум на сторнирање</th>
-                        <th>Статус</th>
-                        <th>Референт</th>
                     </tr>
                 </thead>
                 <tbody id="searchResultPolycies"></tbody>
@@ -154,23 +148,6 @@
     <div class="container" id="searchFNOL">
         <br />
         <br />
-        @*<div class="row">
-            <form method="post" style="margin-left:20px;">
-                <div class="row">
-                    <input type="search" name="name" class="input-sm" placeholder="Search by name" id="name" />
-                    <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" id="embg" />
-                    <input type="search" name="address" class="input-sm" placeholder="Search by Address" id="address" />
-                    <input type="search" name="city" class="input-sm" placeholder="Search by City" id="city" />
-                    <input type="search" name="postal_code" class="input-sm" placeholder="Search by postal code" id="postal_code" />
-                    <input type="search" name="phone" class="input-sm" placeholder="Search by phone number" id="phone" />
-                    <input type="search" name="email" class="input-sm" placeholder="Search by email" id="email" />
-                    <input type="search" name="passport" class="input-sm" placeholder="Search by passport" id="passport" />
-                </div>
-                <br />
-                <input class="btn btn-primary" value="Search" onclick="SearchFNOL()" type="button" />
-                <br />
-            </form>
-        </div>*@
         <input class="btn btn-primary" value="Search" onclick="SearchFNOL()" type="button" />
         <br />
         <br />
@@ -521,18 +498,12 @@
             ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetPolicies?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolycies=" + $("#TypePolycies").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val(),
             columns: [
                 { data: "Polisa_Broj" },
-                { data: "Ime_I_Prezime" },
-                { data: "EMBG" },
                 { data: "Country" },
                 { data: "Policy_type" },
                 { data: "Zapocnuva_Na" },
                 { data: "Zavrsuva_Na" },
-                { data: "Adresa" },
-                { data: "Ovlastena_Agencija" },
                 { data: "Datum_Na_Izdavanje" },
-                { data: "Datum_Na_Storniranje" },
-                { data: "Status" },
-                { data: "Referent" }
+                { data: "Datum_Na_Storniranje" }
             ],
             select: true
         });

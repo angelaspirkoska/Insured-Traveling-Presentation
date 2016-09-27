@@ -18,7 +18,7 @@ namespace InsuredTraveling.DI
 
         string CreatePolicyNumber();
 
-        List<travel_policy> GetPolicyByTypePolicies(string TypePolicies);
+        List<travel_policy> GetPolicyByTypePolicies(int TypePolicies);
 
         //ne e jasno zasto sluzi dolniot metod!!!!!
         string GetCompanyID(string PolicyNumber);

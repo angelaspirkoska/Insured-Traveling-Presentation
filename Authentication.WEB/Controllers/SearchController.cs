@@ -83,7 +83,7 @@ namespace InsuredTraveling.Controllers
 
         [HttpGet]
         [Route("GetPolicies")]
-        public JObject GetPolicies(string name, string embg, string land, string address, string TypePolycies, string agency, string startDate, string endDate, string dateI, string dateS, string operatorStartDate, string operatorEndDate, string operatorDateI, string operatorDateS)
+        public JObject GetPolicies(string name, string embg, string land, string address, int? TypePolycies, string agency, string startDate, string endDate, string dateI, string dateS, string operatorStartDate, string operatorEndDate, string operatorDateI, string operatorDateS)
         {
             name = name.ToLower();
             embg = embg.ToLower();
@@ -94,9 +94,9 @@ namespace InsuredTraveling.Controllers
             DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : Convert.ToDateTime(dateI);
             DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : Convert.ToDateTime(dateS);
 
-            if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(embg) || !String.IsNullOrEmpty(address) || !String.IsNullOrEmpty(land) || !String.IsNullOrEmpty(agency) || !String.IsNullOrEmpty(TypePolycies))
+            if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(embg) || !String.IsNullOrEmpty(address) || !String.IsNullOrEmpty(land) || !String.IsNullOrEmpty(agency) || TypePolycies.HasValue)
             {
-                var data = _ps.GetPolicyByTypePolicies(TypePolycies);
+                var data = (TypePolycies.HasValue) ? _ps.GetPolicyByTypePolicies(TypePolycies.Value) : _ps.GetAllPolicies();
 
                 if (!String.IsNullOrEmpty(startDate))
                 {
@@ -145,11 +145,12 @@ namespace InsuredTraveling.Controllers
                 {
                     var j1 = new JObject();
                     j1.Add("Polisa_Broj", v.Policy_Number);
-                    j1.Add("Country", v.CountryID);
-                    j1.Add("Policy_type", v.Policy_TypeID);
-                    j1.Add("Zapocnuva_Na", v.Start_Date);
-                    j1.Add("Zavrsuva_Na", v.End_Date);
-                    j1.Add("Datum_Na_Izdavanje", v.Date_Created);
+                    j1.Add("Country", v.country.Name);
+                    j1.Add("Policy_type", v.policy_type.type);
+                    j1.Add("Zapocnuva_Na", v.Start_Date.Date.ToShortDateString());
+                    j1.Add("Zavrsuva_Na", v.End_Date.Date.ToShortDateString());
+                    j1.Add("Datum_Na_Izdavanje", v.Date_Created.Date.ToShortDateString());
+                    j1.Add("Datum_Na_Storniranje", v.Date_Cancellation.HasValue ? v.Date_Cancellation.Value.Date.ToShortDateString().ToString(): "/");
 
                     data1.Add(j1);
                 }
@@ -206,11 +207,12 @@ namespace InsuredTraveling.Controllers
                 {
                     var j1 = new JObject();
                     j1.Add("Polisa_Broj", v.Policy_Number);
-                    j1.Add("Policy_type", v.Policy_TypeID);
-                    j1.Add("Zapocnuva_Na", v.Start_Date);
-                    j1.Add("Zavrsuva_Na", v.End_Date);
-                    j1.Add("Datum_Na_Izdavanje", v.Date_Created);
-                    j1.Add("Datum_Na_Storniranje", v.Date_Cancellation);
+                    j1.Add("Country", v.country.Name);
+                    j1.Add("Policy_type", v.policy_type.type);
+                    j1.Add("Zapocnuva_Na", v.Start_Date.Date.ToShortDateString());
+                    j1.Add("Zavrsuva_Na", v.End_Date.Date.ToShortDateString());
+                    j1.Add("Datum_Na_Izdavanje", v.Date_Created.Date.ToShortDateString());
+                    j1.Add("Datum_Na_Storniranje", v.Date_Cancellation.HasValue ? v.Date_Cancellation.Value.Date.ToShortDateString().ToString() : "/");
 
                     data1.Add(j1);
                 }
@@ -227,12 +229,12 @@ namespace InsuredTraveling.Controllers
                 {
                     var j1 = new JObject();
                     j1.Add("Polisa_Broj", v.Policy_Number);
-                    j1.Add("Country", v.CountryID);
-                    j1.Add("Policy_type", v.Policy_TypeID);
-                    j1.Add("Zapocnuva_Na", v.Start_Date);
-                    j1.Add("Zavrsuva_Na", v.End_Date); ;
-                    j1.Add("Datum_Na_Izdavanje", v.Date_Created);
-                    j1.Add("Datum_Na_Storniranje", v.Date_Cancellation);
+                    j1.Add("Country", v.country.Name);
+                    j1.Add("Policy_type", v.policy_type.type);
+                    j1.Add("Zapocnuva_Na", v.Start_Date.Date.ToShortDateString());
+                    j1.Add("Zavrsuva_Na", v.End_Date.Date.ToShortDateString());
+                    j1.Add("Datum_Na_Izdavanje", v.Date_Created.Date.ToShortDateString());
+                    j1.Add("Datum_Na_Storniranje", v.Date_Cancellation.HasValue ? v.Date_Cancellation.Value.Date.ToShortDateString().ToString() : "/");
 
                     data1.Add(j1);
                 }
@@ -356,7 +358,6 @@ namespace InsuredTraveling.Controllers
         {
 
             var policy = _pts.GetAll();
-            //var policy = _pts.GetType();
             return await policy.ToListAsync();
         }
     }

@@ -13,8 +13,8 @@ namespace InsuredTraveling.DI
 
         public IQueryable<SelectListItem> GetAll()
         {
-           
-        
+
+
             var policy = _db.policy_type.Select(p => new SelectListItem
             {
                 Text = p.type,

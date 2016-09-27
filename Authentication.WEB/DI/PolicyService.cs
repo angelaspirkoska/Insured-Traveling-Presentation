@@ -41,7 +41,7 @@ namespace InsuredTraveling.DI
         }
 
 
-        public List<travel_policy> GetPolicyByTypePolicies(string TypePolicies)
+        public List<travel_policy> GetPolicyByTypePolicies(int TypePolicies)
         {
            return  _db.travel_policy.Where(x => x.Policy_TypeID.Equals(TypePolicies)).ToList();
 
