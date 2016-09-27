@@ -26,17 +26,7 @@
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                             <strong>Great!</strong> <span>@ViewBag.Message</span>
                         </div>
-                    </div>
-                        <script type="text/javascript">
-                                        $(document).ready(function () {
-                                            setTimeout(function () {
-                                                window.location.replace(@System.Configuration.ConfigurationManager.AppSettings["webpage_url"] + "/SignUp/MobilePhoneVerification?username=" + $("#username").val());
-                                            }, 3000);
-
-                                            SendSMSCode();
-                                            ActivateAccount();
-                                        });
-                        </script>
+                    </div>                      
                 }
             }
         </div>
@@ -252,7 +242,7 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Датум на незгодата:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.lossDate, new { htmlAttributes = new { @class = "form-control input-sm", type = "date", required = "" } })
+                        @Html.EditorFor(model => model.lossDate, new { htmlAttributes = new { @class = "form-control input-sm", type = "date" } })
                         @Html.ValidationMessageFor(model => model.lossDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -398,41 +388,9 @@
                         @Html.ValidationMessageFor(model => model.valueExpenses, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Датум на пријавување:</label>
-                    <div class="col-lg-8">
-                        <input value="@DateTime.Now"  />
-                    </div>
-                </div>
+
             </div>
         </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.WebMobile, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.WebMobile)
-                    @Html.ValidationMessageFor(model => model.WebMobile, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShortDetailed, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.ShortDetailed)
-                    @Html.ValidationMessageFor(model => model.ShortDetailed, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.message, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.message, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.message, "", new { @class = "text-danger" })
-            </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

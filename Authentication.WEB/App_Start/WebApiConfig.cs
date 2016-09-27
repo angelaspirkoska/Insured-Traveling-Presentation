@@ -18,6 +18,7 @@ namespace Authentication.WEB
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
             var builder = new ContainerBuilder();
 
             builder.RegisterApiControllers(typeof(InsuredTraveling.Controllers.API.MobileApiController).Assembly);

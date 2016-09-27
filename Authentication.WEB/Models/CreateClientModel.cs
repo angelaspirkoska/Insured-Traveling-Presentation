@@ -13,7 +13,7 @@ namespace InsuredTraveling.Models
         [Display(Name = "Презиме: ")]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задолжително")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Полето треба да е составено само од цифри")]
         [Display(Name = "Матичен број: ")]
         public string SSN { get; set; }
