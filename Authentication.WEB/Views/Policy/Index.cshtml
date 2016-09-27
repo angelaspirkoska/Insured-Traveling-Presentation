@@ -7,7 +7,7 @@
 
 <h2>Креирај полиса:</h2>
 
-<form @*method="post"*@ @*action="@Url.Action("Index")"*@>
+<form id="policy_form">
 
     <div class="form-horizontal">
 
@@ -216,7 +216,7 @@
             <div class="form-inline row">
                 <div class="form-group col-sm-3 col-md-3">
                     <div>
-                        <input type="submit" value="Пресметај премија" class="btn btn-default" />
+                        <input type="button" value="Пресметај премија" class="btn btn-default" onclick="CalculateTotalPremium()" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -278,9 +278,21 @@
             $("#family").hide();
             $("#group").show();
         });
+
+        function CalculateTotalPremium() {
+            $.ajax({
+                type: "POST",
+                url: @System.Configuration.ConfigurationManager.AppSettings["webpage_url"] + "/api/premium/calculate",
+                data: $("#policy_form").serialize(),
+                success: function (result) {
+
+                }
+            });
+        }
+
     });
 
-
+    
 
     //disable default submit
     $('#dugme').on('submit', function (e) {
