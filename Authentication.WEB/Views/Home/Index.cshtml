@@ -1,4 +1,4 @@
-﻿
+﻿@using InsuredTraveling.Filters;
 @{
     ViewBag.Title = "Home";
 }
@@ -6,14 +6,23 @@
 <div class="row">
     <div class="container">
         <div class="jumbotron">
+            @{ 
+                RoleAuthorize r = new RoleAuthorize();
+            }
             <br />
             <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success " id="btnNovaPolisa"> Нова полиса</button>
-            <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success" id="dodadiKlient"> Нов клиент</button>
             <button onclick="@("window.location.href='" + @Url.Action("Index", "News") + "'");" class="btn btn-success" id="dodadiKlient"> Новости</button>
             <button onclick="@("window.location.href='" + @Url.Action("Index","Search") + "'")" class="btn btn-success">Пребарај</button>
-            <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success">Администраторски панел</button>
             <button onclick="@("window.location.href='" + @Url.Action("Index","ReportLoss") + "'")" class="btn btn-success">Пријави штета</button>
-
+            @if (r.IsUser("admin"))
+            {
+                <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success">Администраторски панел</button>
+                <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success" id="dodadiKlient"> Нов клиент</button>
+            }
+            @if (r.IsUser("broker"))
+            {
+                <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success" id="dodadiKlient"> Нов клиент</button>
+            }
         </div>
     </div>
 </div>

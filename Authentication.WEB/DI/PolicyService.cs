@@ -35,7 +35,7 @@ namespace InsuredTraveling.DI
 
         
 
-        public travel_policy GetPolicyById(int id)
+        public travel_policy GetPolicyById(string id)
         {
             return _db.travel_policy.Where(x => x.Policy_Number.Equals(id)).FirstOrDefault();
         }

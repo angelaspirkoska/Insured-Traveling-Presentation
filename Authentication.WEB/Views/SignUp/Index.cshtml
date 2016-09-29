@@ -217,7 +217,7 @@
                                     <script type="text/javascript">
                                         $(document).ready(function () {
                                             setTimeout(function () {
-                                                window.location.replace(@System.Configuration.ConfigurationManager.AppSettings["webpage_url"] + "/SignUp/MobilePhoneVerification?username=" + $("#username").val());
+                                                window.location.replace("@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp/MobilePhoneVerification?username=" + $("#username").val());
                                             }, 3000);
 
                                             SendSMSCode();
@@ -257,18 +257,18 @@
     function ActivateAccount() {
         $.ajax({
             type: "POST",
-            url: @System.Configuration.ConfigurationManager.AppSettings["webpage_url"] + "/api/account/ActivateAccount?username=" + $("#username").val()
-         //   data: jQuery.param({ username: $("#username").val() }),
-        })
-        .done(function (result) {
-        })
-        .error(function () {
-        });
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/account/ActivateAccount?username=" + $("#username").val()
+            //data: jQuery.param({ username: $("#username").val() }),
+            })
+            .done(function (result) {
+            })
+            .error(function () {
+            });
     }
     function SendSMSCode() {
         $.ajax({
             type: "POST",
-            url: @System.Configuration.ConfigurationManager.AppSettings["webpage_url"] + "/api/account/SendSMSCode",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/account/SendSMSCode",
             data: jQuery.param({ username: $("#username").val() }),
         })
         .done(function (result) {

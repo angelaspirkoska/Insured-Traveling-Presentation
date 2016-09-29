@@ -17,6 +17,7 @@
 
     <!--Table search result of policies -->
     <div class="container" id="searchPolycies">
+
         <br />
         <br />
         <div class="row">
@@ -78,10 +79,16 @@
                 <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchPolycies()" type="button" />
                 <br />
             </form>
+            <div class="row">
+                <div class="col-md-offset-11 hover-tooltip">
+                    <button type="button" class="btn btn-success btn-circle btn-lg" data-toggle="tooltip" title="Додади нова полиса" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                </div>
+            </div>
         </div>
         <br />
         <br />
         <br />
+
         <div class="row">
             <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePolicies">
                 <thead>
@@ -125,6 +132,15 @@
         <br />
         <br />
         <div class="row">
+            <div class="col-md-offset-11 hover-tooltip">
+                <button type="button" class="btn btn-success btn-circle btn-lg" data-toggle="tooltip" title="Додади нов клиент" onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+
+        <div class="row">
             <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableClients">
                 <thead>
                     <tr>
@@ -149,6 +165,14 @@
         <br />
         <br />
         <input class="btn btn-primary" value="Search" onclick="SearchFNOL()" type="button" />
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-offset-11 hover-tooltip">
+                <button type="button" class="btn btn-success btn-circle btn-lg" data-toggle="tooltip" title="Пријави нова штета" onclick="@("window.location.href='" + @Url.Action("Index", "ReportLoss") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+            </div>
+        </div>
         <br />
         <br />
         <br />
@@ -220,18 +244,18 @@
                         </div>
 
                     </div>
-                    
+
                     <div class="row container">
                         <header class="well">Корисник на осигурувањето</header>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label  class="col-md-4 control-label">Оштетен:</label>
+                                <label class="col-md-4 control-label">Оштетен:</label>
                                 <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="ClaimantName" readonly >
+                                    <input type="text" class="form-control input-sm" id="ClaimantName" readonly>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label  class="col-md-4 control-label">Адреса:</label>
+                                <label class="col-md-4 control-label">Адреса:</label>
                                 <div class="col-lg-8">
                                     <input type="text" class="form-control input-sm" id="ClaimantAddress" readonly value="">
                                 </div>
@@ -287,7 +311,7 @@
                                     <input type="text" class="form-control input-sm" id="TypeTransport" readonly value="">
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -401,7 +425,7 @@
                         </div>
 
                     </div>
-                    
+
                     <div class="row container">
                         <header class="well">Податоци за трошоци</header>
                         <div class="col-md-6">
@@ -424,13 +448,13 @@
                                 </div>
                             </div>
                         </div>
-                      </div>
-                       
+                    </div>
 
-                  
+
+
                 </fieldset>
             </form>
-          
+
         </div>
 
     </div>
@@ -439,6 +463,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $(".hover-tooltip button").tooltip('show');
 
         $("#searchClients").hide();
         $("#searchFNOL").hide();
@@ -608,16 +633,16 @@
                         $("#LuggageDropTime").attr("value", fnol.LuggageDropTime);
                         $("#DocumentsOfProof2").attr("value", fnol.Documents_proof2);
                         $("#luggageInsurance").show();
-                        
+
                     }
                     $("#HealthInsuranceForm").show();
                 }
             });
-           
-           
+
+
         });
     };
-    
+
 
 </script>
 

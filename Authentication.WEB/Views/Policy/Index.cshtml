@@ -7,7 +7,7 @@
 
 <h2>Креирај полиса:</h2>
 
-<form id="policy_form">
+<form id="policy_form" metod="post">
 
     <div class="form-horizontal">
 
@@ -224,7 +224,7 @@
                         <input type="button" value="Пресметај премија" class="btn btn-default" onclick="CalculateTotalPremium()" />
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-sm-4">
                     @Html.LabelFor(model => model.Total_Premium, htmlAttributes: new { @class = "control-label col-md-5" })
                     <div class="col-md-7">
                         <div class="input-group">
@@ -232,6 +232,9 @@
                             @Html.ValidationMessageFor(model => model.Total_Premium, "", new { @class = "col-md-6 text-danger" })
                         </div>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label id="errorMessage" style="color:red"></label>
                 </div>
             </div>
 
@@ -243,7 +246,7 @@
         <div class="form-inline row">
             <div class="form-group col-sm-3 col-md-3">
                 <div>
-                    <input type="button" value="Купи полиса" class="btn btn-lg btn-default" onclick="@("window.location.href='" + @Url.Action("Index", "Payment") + "'");"  />
+                    <input type="submit" value="Купи полиса" class="btn btn-lg btn-default" @*onclick="@("window.location.href='" + @Url.Action("Index", "Payment", new { p = Model }) + "'");"*@ formmethod="post" formaction="/Payment/Index" />
                 </div>
             </div>
             <div class="form-group col-sm-3 col-md-3">
@@ -293,7 +296,10 @@
             success: function (result) {
                 console.log(result.PremiumAmount);
                 $("#totalPremium").val(result.PremiumAmount);
-
+                $("#errorMessage").text(" ");
+            },
+            error: function (result) {
+                $("#errorMessage").text((JSON.parse(result.responseText)).Message);
             }
         });
     }

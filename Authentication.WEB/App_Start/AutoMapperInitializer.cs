@@ -2,11 +2,14 @@
 using System.Linq;
 using InsuredTraveling.Models;
 using System;
+using InsuredTraveling.DI;
+using Autofac;
 
 namespace InsuredTraveling.App_Start
 {
     public class AutoMapperInitializer
     {
+
         public static void Initialize()
         {
             InsuredTravelingEntity db = new InsuredTravelingEntity();
@@ -29,8 +32,36 @@ namespace InsuredTraveling.App_Start
                 dst.aspnetuser = null;
                 dst.aspnetuser1 = null;
                 dst.Type_InsuredID = null;
-
                                
+            });
+
+            Mapper.CreateMap<Policy, travel_policy>().AfterMap((src, dst) =>
+            {
+                dst.Created_By = src.Created_By;
+                dst.Date_Created = (src.Date_Created.HasValue) ? src.Date_Created.Value.Date: DateTime.Now;
+                dst.CountryID = src.CountryID;
+                dst.Policy_TypeID = src.Policy_TypeID;
+                dst.Retaining_RiskID = src.Retaining_RiskID;
+                dst.Exchange_RateID = (src.Exchange_RateID.HasValue) ? src.Exchange_RateID.Value : 1;
+                dst.Start_Date = src.Start_Date;
+                dst.End_Date = src.End_Date;
+                dst.Group_Members = dst.Group_Members.HasValue ? dst.Group_Members.Value : 0;
+                dst.Group_Total_Premium = dst.Group_Total_Premium.HasValue ? dst.Group_Total_Premium : 0;
+                dst.Travel_NumberID = src.Travel_NumberID;
+                dst.Travel_Insurance_TypeID = src.Travel_Insurance_TypeID;
+                dst.Valid_Days = src.Valid_Days;
+                dst.Total_Premium = src.Total_Premium.HasValue ? src.Total_Premium.Value : 0;
+                dst.policy_additional_charge = null;
+                dst.aspnetuser = null;
+                dst.aspnetuser1 = null;
+                dst.policy_insured = null;
+                dst.travel_number = null;
+                dst.travel_insurance_type = null;
+                dst.retaining_risk = null;
+                dst.country = null;
+                dst.Policy_Number = src.Policy_Number;
+                dst.policy_type = null;
+                
             });
 
             Mapper.CreateMap<FNOL, first_notice_of_loss>().AfterMap((src, dst) =>

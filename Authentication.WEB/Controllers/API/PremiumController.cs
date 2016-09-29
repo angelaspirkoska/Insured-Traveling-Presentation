@@ -2,6 +2,7 @@
 using Authentication.WEB.Services;
 using InsuredTraveling.Models;
 using System.Web.Http;
+using System.Web.Services.Description;
 
 namespace Authentication.WEB.Controllers
 {
@@ -32,11 +33,17 @@ namespace Authentication.WEB.Controllers
         [Route("Calculate")]
         public IHttpActionResult Code(Policy policy)
         {
-            RatingEngineService ratingEngineService = new RatingEngineService();
+            if (ModelState.IsValid && policy != null)
+            {
+                RatingEngineService ratingEngineService = new RatingEngineService();
 
-            Premium Premium = new Premium();
-            Premium.PremiumAmount = (int)ratingEngineService.totalPremium(policy);
-            return Ok(new { PremiumAmount = Premium.PremiumAmount });
+                Premium Premium = new Premium();
+                Premium.PremiumAmount = (int)ratingEngineService.totalPremium(policy);
+                return Ok(new { PremiumAmount = Premium.PremiumAmount });
+            }else
+            {
+                return BadRequest("Внесете ги сите полиња!");
+            }
         }
     }
 }

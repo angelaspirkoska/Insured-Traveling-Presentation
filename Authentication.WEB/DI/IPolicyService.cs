@@ -12,7 +12,7 @@ namespace InsuredTraveling.DI
     {
         int AddPolicy(travel_policy TravelPolicy);
 
-        travel_policy GetPolicyById(int id);
+        travel_policy GetPolicyById(string id);
 
         travel_policy[] GetPolicyByUsernameId(string id);
 

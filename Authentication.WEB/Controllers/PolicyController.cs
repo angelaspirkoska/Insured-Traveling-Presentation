@@ -113,8 +113,7 @@ namespace Authentication.WEB.Controllers
                 polisaEntity.Travel_Insurance_TypeID = policy.Travel_Insurance_TypeID;
                 polisaEntity.Travel_NumberID = policy.Travel_NumberID;
                 polisaEntity.Travel_Insurance_TypeID = policy.Travel_Insurance_TypeID;
-
-                polisaEntity.Exchange_RateID = policy.Exchange_RateID;
+                polisaEntity.Exchange_RateID = (policy.Exchange_RateID.HasValue)? policy.Exchange_RateID.Value : 1;
 
 
 
@@ -126,7 +125,7 @@ namespace Authentication.WEB.Controllers
 
         public ActionResult PrintPolicy()
         {
-            int id = 2;
+            string id = "2";
 
             PaymentModel pat = new PaymentModel();
             pat.Pat = _ps.GetPolicyById(id);

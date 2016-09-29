@@ -13,35 +13,35 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 borderedContent" style="height: 25px;">
-                            <p class="smallFont" style="font-weight:bold; text-align:center">Visa </p>
+                            <p class="smallFont" style="font-weight:bold; text-align:center">@Model.Pat.policy_type.type </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-4 borderedContent" style="height: 65px; padding-top: 2px;">
                     @{ bool? individual = Model.Pat.Travel_Insurance_TypeID==1, group = Model.Pat.Travel_Insurance_TypeID==2, family = Model.Pat.Travel_Insurance_TypeID == 3; }
-                    @if(individual == true) {   <input style="margin: 0;" checked type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Individual</span><br />  }
+                    @if(individual == true) {   <input style="margin: 0;" checked type="checkbox" readonly /><span style="margin-left: 2px;" class="smallFont">Individual</span><br />  }
                    else { <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Individual</span><br /> }
                     @if (group == true)
                     {
-                        <input style="margin: 0;" type="checkbox" checked /><span style="margin-left: 2px;" class="smallFont">Group</span><br /> }
+                        <input style="margin: 0;" type="checkbox" readonly checked /><span style="margin-left: 2px;" class="smallFont">Group</span><br /> }
                     else
-                    { <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Group</span><br />
+                    { <input style="margin: 0;" type="checkbox" readonly /><span style="margin-left: 2px;" class="smallFont">Group</span><br />
                     }
                     @if (family == true)
                     {
-                        <input style="margin: 0;" type="checkbox" checked /><span style="margin-left: 2px;" class="smallFont">Family</span> }
+                        <input style="margin: 0;" type="checkbox" readonly checked /><span style="margin-left: 2px;" class="smallFont">Family</span> }
                     else
-                    { <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Family</span> }
+                    { <input style="margin: 0;" type="checkbox" readonly /><span style="margin-left: 2px;" class="smallFont">Family</span> }
                 </div>
                 <div class="col-xs-4 borderedContent" style="height: 65px; padding-top: 2px;">
                     @{ bool? singleTrip = Model.Pat.Travel_NumberID==1, MultiTrip = Model.Pat.Travel_NumberID == 2;}
                     @if(singleTrip == true) {   <input style="margin: 0;" type="checkbox" checked /><span style="margin-left: 2px;" class="smallFont">Single trip</span><br />                         }
                     else {
-                        <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Single trip</span><br /> }
+                        <input style="margin: 0;" type="checkbox" readonly /><span style="margin-left: 2px;" class="smallFont">Single trip</span><br /> }
                     @if (MultiTrip == true)
-                    {  <input style="margin: 0;" type="checkbox" checked /><span style="margin-left: 2px;" class="smallFont">Multi trip</span> }
+                    {  <input style="margin: 0;" type="checkbox" readonly checked /><span style="margin-left: 2px;" class="smallFont">Multi trip</span> }
                     else
-                 {   <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Multi trip</span> }
+                 {   <input style="margin: 0;" type="checkbox" readonly /><span style="margin-left: 2px;" class="smallFont">Multi trip</span> }
                 </div>
             </div>
         </div>
@@ -59,10 +59,13 @@
                             <p class="smallFont">Passport No.</p>
                         </div>
                         <div class="col-xs-6" style="text-align: left">
-                            <p class="smallFont">Ime i prezime</p>
-                            <p class="smallFont">Adresa</p>
-                            <p class="smallFont">EMBG</p>
-                            <p class="smallFont">Broj_Pasos</p>
+                            @if (ViewBag.insured != null)
+                            {
+                                    <p class="smallFont">@ViewBag.insured.Name @ViewBag.insured.Lastname</p>
+                                    <p class="smallFont">@ViewBag.insured.Address</p>
+                                    <p class="smallFont">@ViewBag.insured.SSN</p>
+                                    <p class="smallFont">@ViewBag.insured.Passport_Number_IdNumber</p>
+                            }
                         </div>
                     </div>
                 </div>
@@ -83,63 +86,69 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6 borderedContent" style="height: 150px;">
-                    <h6 class="centeredUnderlined">Family policy</h6>
-                    <div class="row">
-                        <div class="col-xs-6" style="text-align: left;">
-                            <h6 class="centeredUnderlined" style="font-weight: normal;">Name and surname</h6>
-                            <p class="smallFont">Osigurenik1_Ime_I_Prezime</p>
-                            <p class="smallFont">Osigurenik2_Ime_I_Prezime</p>
-                            <p class="smallFont">Osigurenik3_Ime_I_Prezime</p>
-                            <p class="smallFont">Osigurenik4_Ime_I_Prezime</p>
-                            <p class="smallFont">Osigurenik5_Ime_I_Prezime</p>
-                            <p class="smallFont">Osigurenik6_Ime_I_Prezime</p>
-                        </div>
-                        <div class="col-xs-6" style="text-align: left">
-                            <h6 class="centeredUnderlined" style="font-weight: normal;">Personal ID No.</h6>
-                            <p class="smallFont">Osigurenik1_Ime_I_Prezime</p>
-                            <p class="smallFont">Osigurenik2_Ime_I_Prezime</p>
-                            <p class="smallFont">Osigurenik3_Ime_I_Prezime</p>
-                            <p class="smallFont">Osigurenik4_Ime_I_Prezime</p>
-                            <p class="smallFont">Osigurenik5_Ime_I_Prezime</p>
-                            <p class="smallFont">Osigurenik6_Ime_I_Prezime</p>
+                @if (family == true)
+                {
+                    <div class="col-xs-6 borderedContent" style="height: 150px;">
+                        <h6 class="centeredUnderlined">Family policy</h6>
+                        <div class="row">
+                            <div class="col-xs-6" style="text-align: left;">
+                                <h6 class="centeredUnderlined" style="font-weight: normal;">Name and surname</h6>
+                                <p class="smallFont">Osigurenik1_Ime_I_Prezime</p>
+                                <p class="smallFont">Osigurenik2_Ime_I_Prezime</p>
+                                <p class="smallFont">Osigurenik3_Ime_I_Prezime</p>
+                                <p class="smallFont">Osigurenik4_Ime_I_Prezime</p>
+                                <p class="smallFont">Osigurenik5_Ime_I_Prezime</p>
+                                <p class="smallFont">Osigurenik6_Ime_I_Prezime</p>
+                            </div>
+                            <div class="col-xs-6" style="text-align: left">
+                                <h6 class="centeredUnderlined" style="font-weight: normal;">Personal ID No.</h6>
+                                <p class="smallFont">Osigurenik1_Ime_I_Prezime</p>
+                                <p class="smallFont">Osigurenik2_Ime_I_Prezime</p>
+                                <p class="smallFont">Osigurenik3_Ime_I_Prezime</p>
+                                <p class="smallFont">Osigurenik4_Ime_I_Prezime</p>
+                                <p class="smallFont">Osigurenik5_Ime_I_Prezime</p>
+                                <p class="smallFont">Osigurenik6_Ime_I_Prezime</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-6">
-                    <div class="row">
-                        <div class="col-xs-12 borderedContent" style="height: 75px;">
-                            <h6 class="centeredUnderlined">Group policy</h6>
-                            <div class="row">
-                                <div class="col-xs-6" style="text-align: left;">
-                                    <p class="smallFont">Number of insured</p>
-                                    <p class="smallFont">Премија</p>
+                }
+                @if (group == true)
+                {
+                    <div class="col-xs-6">
+                        <div class="row">
+                            <div class="col-xs-12 borderedContent" style="height: 75px;">
+                                <h6 class="centeredUnderlined">Group policy</h6>
+                                <div class="row">
+                                    <div class="col-xs-6" style="text-align: left;">
+                                        <p class="smallFont">Number of insured</p>
+                                        <p class="smallFont">Премија</p>
+                                    </div>
+                                    <div class="col-xs-6" style="text-align: left">
+                                        <p class="smallFont">@Model.Pat.Group_Members</p>
+                                        <p class="smallFont">@Model.Pat.Group_Total_Premium</p>
+                                    </div>
                                 </div>
-                                <div class="col-xs-6" style="text-align: left">
-                                    <p class="smallFont">@Model.Pat.Group_Members</p>
-                                    <p class="smallFont">@Model.Pat.Group_Total_Premium</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 borderedContent" style="height: 75px;">
+                                <h6 class="centeredUnderlined">Issued by</h6>
+                                <div class="row">
+                                    <div class="col-xs-6" style="text-align: left;">
+                                        <p class="smallFont">Agency</p>
+                                        <p class="smallFont">Code</p>
+                                        <p class="smallFont">Name</p>
+                                    </div>
+                                    <div class="col-xs-6" style="text-align: left">
+                                        <p class="smallFont">Agency</p>
+                                        <p class="smallFont">Code</p>
+                                        <p class="smallFont">Name</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12 borderedContent" style="height: 75px;">
-                            <h6 class="centeredUnderlined">Issued by</h6>
-                            <div class="row">
-                                <div class="col-xs-6" style="text-align: left;">
-                                    <p class="smallFont">Agency</p>
-                                    <p class="smallFont">Code</p>
-                                    <p class="smallFont">Name</p>
-                                </div>
-                                <div class="col-xs-6" style="text-align: left">
-                                    <p class="smallFont">Agency</p>
-                                    <p class="smallFont">Code</p>
-                                    <p class="smallFont">Name</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
         <div class="col-xs-3">
@@ -153,8 +162,8 @@
                             <p class="smallFont">Премија</p>
                         </div>
                         <div class="col-xs-6" style="text-align: left">
-                            <p class="smallFont">Doplatok_1 </p>
-                            <p class="smallFont">Doplatok_2</p>
+                            <p class="smallFont">@ViewBag.additional_charge1</p>
+                            <p class="smallFont">@ViewBag.additional_charge2</p>
                             <p class="smallFont" style="font-weight: bold;">@Model.Pat.Total_Premium</p>
                         </div>
                     </div>

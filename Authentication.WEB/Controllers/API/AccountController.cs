@@ -22,6 +22,7 @@ namespace InsuredTraveling.Controllers
             _repo = new AuthRepository();
         }
         
+        //Za testiranje samo
         [HttpPost]
         public IHttpActionResult Check()
         {

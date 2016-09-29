@@ -34,6 +34,7 @@ namespace InsuredTraveling
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterModule(new ServicesRegistration("InsuredTravelingEntity"));
             var container = builder.Build();
+            
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container)); 
             
         }

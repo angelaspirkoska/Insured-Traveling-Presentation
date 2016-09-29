@@ -10,6 +10,7 @@ namespace InsuredTraveling.Filters
     {
         InsuredTravelingEntity context = new InsuredTravelingEntity();
         private readonly string[] allowedroles;
+
         public RoleAuthorize(params string[] roles)
         {
             allowedroles = roles;
@@ -27,14 +28,28 @@ namespace InsuredTraveling.Filters
                     authorize = false;
                     return authorize;
                 }
-                authorize = selectedUser.aspnetroles.FirstOrDefault().Name == role;
-          
+                authorize = selectedUser.aspnetroles.FirstOrDefault().Name == role;          
             }
             return authorize;
         }
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             filterContext.Result = new HttpUnauthorizedResult();
+        }
+
+        public bool IsUser(string role)
+        {
+            bool authorize = false;
+            var user = System.Web.HttpContext.Current.User;
+            var selectedUser = context.aspnetusers.FirstOrDefault(m => m.UserName == user.Identity.Name);
+            if (selectedUser.aspnetroles.Count == 0)
+            {
+                authorize = false;
+                return authorize;
+            }
+            authorize = selectedUser.aspnetroles.FirstOrDefault().Name == role;
+            
+            return authorize;
         }
     }
 }
