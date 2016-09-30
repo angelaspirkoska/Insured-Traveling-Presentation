@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InsuredTraveling.Models;
 
 namespace InsuredTraveling.DI
 {
-   public interface IInsuredsService
+   public interface IPolicyInsuredService
     {
-       void AddInsured(insured Insured);
-
-        insured GetInsuredData(int InsuredId);
-        
+        List<insured> GetAllInsuredByPolicyId(int id);
+       
     }
 }

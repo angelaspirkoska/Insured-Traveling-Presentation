@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Timers;
 using System.Web;
+using InsuredTraveling.Services;
 
 namespace InsuredTraveling.Models
 {
@@ -44,31 +45,35 @@ namespace InsuredTraveling.Models
         [Required(ErrorMessage = "Полето е задолжително")]
         public string transportationType { get; set; }
 
+        public string InsuranceType { get; set; }
+
         //Health Insurance
-        //[Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessage = "Полето е задолжително")]
         public DateTime? lossDate { get; set; }
+        [Required(ErrorMessage = "Полето е задолжително")]
         public TimeSpan? lossTime { get; set; }
-        //[Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessage = "Полето е задолжително")]
         public string placeLoss { get; set; }
-        //[Required(ErrorMessage = "Полето е задолжително")]
+        
         public string DoctorInfo { get; set; }
         public string illnessInfo { get; set; }
         public string documentsHanded { get; set; }
         public string additionalInfo { get; set; }
 
         //Lugguage insurance
-        //[Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessage = "Полето е задолжително")]
         public DateTime? baggageLossDate { get; set; }
-        //[Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessage = "Полето е задолжително")]
         public string placeBaggageLoss { get; set; }
-       // [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessage = "Полето е задолжително")]
         public string placeReported { get; set; }
         public string descriptionLostStolenThings { get; set; }
         public string detailedDescription { get; set; }
         public string documentsHanded2 { get; set; }
         //[Required(ErrorMessage = "Полето е задолжително")]
         public TimeSpan? airportArrivalTime { get; set; }
-      //  [Required(ErrorMessage = "Полето е задолжително")]
+        //  [Required(ErrorMessage = "Полето е задолжително")]
+        [RequiredIf("IsActive", true)]
         public TimeSpan? baggageDropTime { get; set; }
 
 
@@ -84,7 +89,10 @@ namespace InsuredTraveling.Models
         public bool? WebMobile { get; set; }
         public bool? ShortDetailed { get; set; }
         public string message { get; set; }
+
+        [Required(ErrorMessage = "Полето е задолжително")]
         public string insurance { get; set; }
+
 
     }
 }

@@ -12,8 +12,7 @@ namespace InsuredTraveling.DI
         InsuredTravelingEntity _db = new InsuredTravelingEntity();
         public int AddPolicy(travel_policy TravelPolicy)
         {
-            _db.travel_policy.Add(TravelPolicy);
-            _db.SaveChanges();
+            _db.travel_policy.Add(TravelPolicy);            
             return _db.SaveChanges();
         }
 
@@ -52,6 +51,13 @@ namespace InsuredTraveling.DI
            return _db.travel_policy.Where(x => x.aspnetuser.Id == id).ToArray();
         }
 
-       
+        public insured GetPolicyHolderByPolicyID(int PolicyID)
+        {
+
+            insured PolicyHolder = _db.travel_policy.Where(x => x.ID == PolicyID).Select(x => x.insured).Single();
+
+            return PolicyHolder;
+        
+    }
     }
 }

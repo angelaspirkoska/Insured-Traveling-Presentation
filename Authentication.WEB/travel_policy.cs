@@ -43,6 +43,7 @@ namespace InsuredTraveling
         public string Modified_By { get; set; }
         public Nullable<int> StatusID { get; set; }
         public Nullable<System.DateTime> Date_Cancellation { get; set; }
+        public int Policy_HolderID { get; set; }
     
         public virtual aspnetuser aspnetuser { get; set; }
         public virtual aspnetuser aspnetuser1 { get; set; }
@@ -55,5 +56,6 @@ namespace InsuredTraveling
         public virtual travel_number travel_number { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<policy_insured> policy_insured { get; set; }
+        public virtual insured insured { get; set; }
     }
 }

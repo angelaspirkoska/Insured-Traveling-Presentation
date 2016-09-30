@@ -62,5 +62,8 @@ namespace InsuredTraveling
         public virtual DbSet<first_notice_of_loss> first_notice_of_loss { get; set; }
         public virtual DbSet<health_insurance> health_insurance { get; set; }
         public virtual DbSet<luggage_insurance> luggage_insurance { get; set; }
+        public virtual DbSet<bank_account_info> bank_account_info { get; set; }
+        public virtual DbSet<bank_prefix> bank_prefix { get; set; }
+        public virtual DbSet<bank> banks { get; set; }
     }
 }

@@ -25,5 +25,7 @@ namespace InsuredTraveling.DI
 
          List<travel_policy> GetAllPolicies();
 
+        insured GetPolicyHolderByPolicyID(int PolicyID);
+
     }
 }

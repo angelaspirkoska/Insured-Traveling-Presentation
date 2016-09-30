@@ -15,8 +15,10 @@ namespace InsuredTraveling.DI
             _db.SaveChanges();
         }
 
-
-
-
+        public insured GetInsuredData(int InsuredId)
+        {
+            insured InsuredData = _db.insureds.Where(x => x.ID == InsuredId).SingleOrDefault();
+            return InsuredData;
+        }
     }
 }

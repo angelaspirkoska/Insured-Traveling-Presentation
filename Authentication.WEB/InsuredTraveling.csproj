@@ -418,6 +418,15 @@
     </Compile>
     <Compile Include="Authentication\AuthContext.cs" />
     <Compile Include="Authentication\AuthRepository.cs" />
+    <Compile Include="bank.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="bank_account_info.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="bank_prefix.cs">
+      <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="client1.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
@@ -463,9 +472,11 @@
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DI\AdditionalChargesService.cs" />
+    <Compile Include="DI\BankAccountService.cs" />
     <Compile Include="DI\CountryService.cs" />
     <Compile Include="DI\FranchiseService.cs" />
     <Compile Include="DI\IAdditionalChargesService.cs" />
+    <Compile Include="DI\IBankAccountService.cs" />
     <Compile Include="DI\ICountryService.cs" />
     <Compile Include="DI\FirstNoticeOfLossService.cs" />
     <Compile Include="DI\HealthInsurance.cs" />
@@ -477,6 +488,7 @@
     <Compile Include="DI\INewsService.cs" />
     <Compile Include="DI\InsuredsService.cs" />
     <Compile Include="DI\IOkSetupService.cs" />
+    <Compile Include="DI\IPolicyInsuredService.cs" />
     <Compile Include="DI\IPolicyService.cs" />
     <Compile Include="DI\IPolicyTypeService.cs" />
     <Compile Include="DI\IRolesService.cs" />
@@ -485,6 +497,7 @@
     <Compile Include="DI\LuggageInsuranceService.cs" />
     <Compile Include="DI\NewsService.cs" />
     <Compile Include="DI\OkSetupService.cs" />
+    <Compile Include="DI\PolicyInsuredService.cs" />
     <Compile Include="DI\PolicyService.cs" />
     <Compile Include="DI\PolicyTypeService.cs" />
     <Compile Include="DI\RolesService.cs" />
@@ -536,6 +549,7 @@
     </Compile>
     <Compile Include="Models\AdminPanel.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\BanksModel.cs" />
     <Compile Include="Models\CreateClientModel.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\FNOL.cs" />
@@ -595,11 +609,13 @@
     <Compile Include="refreshtoken.cs">
       <DependentUpon>InsuredTravelingModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\ConditionalValidationAttribute.cs" />
     <Compile Include="Services\DocumentService.cs" />
     <Compile Include="Services\MailNewsService.cs" />
     <Compile Include="Services\MailService.cs" />
     <Compile Include="Services\RatingEngineService.cs" />
     <Compile Include="Services\RatingService.cs" />
+    <Compile Include="Services\RequiredIfAttribute.cs" />
     <Compile Include="Services\SMSvalidation.cs" />
     <Compile Include="Services\ValidationService.cs" />
     <Compile Include="Startup.cs" />

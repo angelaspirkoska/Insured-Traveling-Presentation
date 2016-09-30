@@ -26,7 +26,7 @@
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                             <strong>Great!</strong> <span>@ViewBag.Message</span>
                         </div>
-                    </div>                      
+                    </div>
                 }
             }
         </div>
@@ -42,57 +42,79 @@
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span><label class="col-md-4 control-label">Број на полиса:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.policyNumber, new { htmlAttributes = new { @class = "form-control input-sm" } })
+
+                        @Html.DropDownListFor(model => model.policyNumber, (List<SelectListItem>)ViewBag.Policies, "Број на полиса", new { @class = "form-control", @id = "DropDownPolicyNumber" })
+
                         @Html.ValidationMessageFor(model => model.policyNumber, "", new { @class = "text-danger input-sm" })
                     </div>
                 </div>
             </div>
         </div>
         <div class="row container">
-            <header class="well">Податоци за осигуреник</header>
+            <header class="well">Податоци за носител на полиса</header>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="col-md-4 control-label">Осигуреник:</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control input-sm" id="InsuredName1" value="@ViewBag.Name" readonly >
+                        <input type="text" class="form-control input-sm" id="PolicyHolderName" readonly>
                     </div>
                 </div>
-                <input hidden type="text" value="@System.Web.HttpContext.Current.User.Identity.Name" name="username"/>
+                <input hidden type="text" value="@System.Web.HttpContext.Current.User.Identity.Name" name="username" />
                 <div class="form-group">
                     <label class="col-md-4 control-label">Адреса:</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control input-sm" id="insuredAddress1" value="@ViewBag.Address" readonly >
+                        <input type="text" class="form-control input-sm" id="PolicyHolderAddress" readonly>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label">Телефон:</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control input-sm" id="InsuredPhone1" value="@ViewBag.Phone" readonly>
+                        <input type="text" class="form-control input-sm" id="PolicyHolderPhone" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">ЕМБГ:</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control input-sm" id="PolicyHolderSSN" readonly>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">ЕМБГ:</label>
-                    <div class="col-lg-8">
-                        <input type="text" class="form-control input-sm" id="InsuredEmbg1" value="@ViewBag.EMBG" readonly>
+                    
+                    <div class="col-lg-8 col-md-8">
+                        <label class="control-label">Искористи претходна трансакциска сметка:</label>
+                    </div>
+                    <input type="checkbox" value="" id="ExistentBankAccount" class="col-md-1" style="margin-top:3%;"/>
+                </div>
+
+                <div class="form-group">
+                   
+                    <div class="col-md-12">
+                        <select class="form-control" data-val="true" id="DropDownBankAccountPolicyHolder" name="policyNumber">
+                            <option value="">Избери трансакциска сметка</option>
+                        </select>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                        <label class="col-md-4 control-label">Трансакциона с-ка:</label>
-                        <div class="col-lg-7">
-                            @Html.EditorFor(model => model.TransactionAccount, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                            @Html.ValidationMessageFor(model => model.TransactionAccount, "", new { @class = "text-danger input-sm" })
-                        </div>
-</div>
+                    
+                    <label class="col-md-5 control-label">Трансакциона сметка:</label>
+                    <div class="col-lg-6">
+                        @Html.EditorFor(model => model.TransactionAccount, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                        @Html.ValidationMessageFor(model => model.TransactionAccount, "", new { @class = "text-danger input-sm" })
+                    </div>
+                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red" id="taccountspan"></span>
+                </div>
+
+
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Депонент банка:</label>
-                    <div class="col-lg-7">
+                    <label class="col-md-5 control-label">Депонент банка:</label>
+                    <div class="col-lg-6">
                         @Html.EditorFor(model => model.deponent, new { htmlAttributes = new { @class = "form-control input-sm" } })
                         @Html.ValidationMessageFor(model => model.deponent, "", new { @class = "text-danger input-sm" })
                     </div>
+                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red" id="deponentspan"></span>
                 </div>
             </div>
         </div>
@@ -102,30 +124,30 @@
             <header class="well">Корисник на осигурувањето</header>
             <div class="col-md-6">
                 <div class="form-group">
+                    <select class="form-control" data-val="true" id="DropDownInsureds" name="policyNumber">
+                        <option value="">Избери корисник</option>
+                    </select>
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Оштетен:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.insuredName, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.insuredName, "", new { @class = "text-danger input-sm" })
+                        <input type="text" class="form-control input-sm" id="InsuredName" readonly>
                     </div>
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Адреса:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.insuredAddress, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.insuredAddress, "", new { @class = "text-danger" })
+                        <input type="text" class="form-control input-sm" id="InsuredAdress" readonly>
                     </div>
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Телефон:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.insuredPhone, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.insuredPhone, "", new { @class = "text-danger" })
+                        <input type="text" class="form-control input-sm" id="InsuredPhone" readonly>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="HideWhenSameUserAndSelectedInsured">
                     <label class="col-md-4 control-label">Сродство со осигуреникот::</label>
                     <div class="col-lg-7">
                         @Html.EditorFor(model => model.relationship, new { htmlAttributes = new { @class = "form-control input-sm" } })
@@ -138,8 +160,7 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">ЕМБГ:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.insuredEMBG, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.insuredEMBG, "", new { @class = "text-danger" })
+                        <input type="text" class="form-control input-sm" id="InsuredSSN" readonly>
                     </div>
                 </div>
                 <div class="form-group">
@@ -196,7 +217,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Време на заминување:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.travelTimeFrom, new { htmlAttributes = new { @class = "form-control input-sm", type="time" } })
+                        @Html.EditorFor(model => model.travelTimeFrom, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
                         @Html.ValidationMessageFor(model => model.travelTimeFrom, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -211,7 +232,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Време на враќање:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.travelTimeTo, new { htmlAttributes = new { @class = "form-control input-sm", type = "time"} })
+                        @Html.EditorFor(model => model.travelTimeTo, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
                         @Html.ValidationMessageFor(model => model.travelTimeTo, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -225,12 +246,12 @@
             <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
             <div class="col-md-4">
                 <div class="form-group">
-                    <input type="radio" name="insurance" value="Health Insurance" onchange="InsuranceType('HealthInsurance');"> Здравствено осигурување
+                    <input type="radio" name="insurance" value="Health Insurance" onchange="InsuranceType('HealthInsurance');" required id="health"> Здравствено осигурување
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                      <input type="radio" name="insurance" value="Luggage Insurance" onchange="InsuranceType('LuggageInsurance');"> Осигурување на багаж
+                    <input type="radio" name="insurance" value="Luggage Insurance" onchange="InsuranceType('LuggageInsurance');" required id="luggage"> Осигурување на багаж
                 </div>
             </div>
         </div>
@@ -303,7 +324,7 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Датум на настанот:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.baggageLossDate, new { htmlAttributes = new { @class = "form-control input-sm", type="date" } })
+                        @Html.EditorFor(model => model.baggageLossDate, new { htmlAttributes = new { @class = "form-control input-sm", type = "date" } })
                         @Html.ValidationMessageFor(model => model.baggageLossDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -351,7 +372,7 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Време на пристигнување на аеродром :</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.airportArrivalTime, new { htmlAttributes = new { @class = "form-control input-sm", type="time" } })
+                        @Html.EditorFor(model => model.airportArrivalTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
                         @Html.ValidationMessageFor(model => model.airportArrivalTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -359,7 +380,7 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Време на предавање на багаж :</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.baggageDropTime, new { htmlAttributes = new { @class = "form-control input-sm", type="time" } })
+                        @Html.EditorFor(model => model.baggageDropTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
                         @Html.ValidationMessageFor(model => model.baggageDropTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -388,7 +409,6 @@
                         @Html.ValidationMessageFor(model => model.valueExpenses, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -398,10 +418,87 @@
             </div>
         </div>
     </div>
+
 </form>
+
+@if (ViewBag.insurance == "Health Insurance")
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#health").attr("checked", "true");
+            $("#healthInsurance").toggle();
+        });
+    </script>
+}
+else if (ViewBag.insurance == "Luggage Insurance")
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#luggage").attr("checked", "true");
+            $("#luggageInsurance").toggle();
+        });
+    </script>
+}
+
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        var Banks;
+
+        $('#DropDownBankAccountPolicyHolder').hide();
+    });
+
+    $("#ExistentBankAccount").change(function () {
+        if (this.checked) {
+            $('#DropDownBankAccountPolicyHolder').show();
+            $('#TransactionAccount').prop('readonly', true);
+            $('#deponent').prop('readonly', true);
+
+            
+        }
+        else {
+            $('#DropDownBankAccountPolicyHolder').hide();
+            $('#TransactionAccount').prop('readonly', false);
+            $('#deponent').prop('readonly', false);
+        }
+    });
+
+
+    $('#DropDownPolicyNumber').on('change', function () {
+        var PolicyId = $('#DropDownPolicyNumber').val()
+        $.ajax({
+            type: "GET",
+            url: "/ReportLoss/GetInsureds?policyID=" + PolicyId,
+            success: function (result) {
+
+                var rez = JSON.parse(result);
+                console.log(rez);
+                Banks = rez.banks;
+
+                $("#PolicyHolderName").attr("value", rez.policyholder.FirstName + " " + rez.policyholder.LastName);
+                $("#PolicyHolderPhone").attr("value", rez.policyholder.PhoneNumber);
+                $("#PolicyHolderSSN").attr("value", rez.policyholder.SSN);
+                $("#PolicyHolderAddress").attr("value", rez.policyholder.Adress + " " + rez.policyholder.City);
+
+                $.each(rez.policyholder.BankAccounts, function (key, value)
+                {
+                    $('#DropDownBankAccountPolicyHolder').append($("<option></option>").attr({ value: value.Id, bank: value.BankName }).text(value.AccountNumber));
+                });
+
+                $.each(rez.data, function (i, val) {
+                    $('#DropDownInsureds').append(
+                    $("<option></option>")
+                      .attr("value", val.Id)
+                      .text(val.FirstName + " " + val.LastName));
+                });
+                FillInsuredData();
+
+
+            }
+        });
+
+
 
     });
 
@@ -414,4 +511,34 @@
             $("#luggageInsurance").hide();
         }
     }
+
+    function FillInsuredData() {
+
+
+        $('#DropDownInsureds').on('change', function () {
+            var InsuredId = $('#DropDownInsureds option:selected').val()
+
+            $.ajax({
+                type: "GET",
+                url: "/ReportLoss/GetInsuredData?SelectedInsuredId=" + InsuredId,
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    $("#InsuredName").attr("value", result.FirstName + " " + result.LastName);
+                    $("#InsuredAdress").attr("value", result.Adress);
+                    $("#InsuredPhone").attr("value", result.PhoneNumber);
+                    $("#InsuredSSN").attr("value", result.SSN);
+                    $("#relationship").attr("isSameUserWithSelectedInsured", result.IsSameUserAndSelectedInsured);
+                }
+            });
+
+            $("#relationship").attr("isSameUserWithSelectedInsured", "true");
+            $("#HideWhenSameUserAndSelectedInsured").toggle();
+
+
+        });
+    }
+
+
 </script>
+

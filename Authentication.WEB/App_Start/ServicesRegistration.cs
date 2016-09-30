@@ -33,6 +33,9 @@ namespace InsuredTraveling
             builder.RegisterType<AdditionalChargesService>().As<IAdditionalChargesService>().InstancePerRequest();
             builder.RegisterType<FranchiseService>().As<IFranchiseService>().InstancePerRequest();
             builder.RegisterType<CountryService>().As<ICountryService>().InstancePerRequest();
+            builder.RegisterType<PolicyInsuredService>().As<IPolicyInsuredService>().InstancePerRequest();
+            builder.RegisterType<BankAccountService>().As<IBankAccountService>().InstancePerRequest();           
+
             base.Load(builder);
 
 

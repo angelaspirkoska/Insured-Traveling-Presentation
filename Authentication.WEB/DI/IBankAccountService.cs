@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InsuredTraveling.Models;
 
 namespace InsuredTraveling.DI
 {
-   public interface IInsuredsService
+    public interface IBankAccountService
     {
-       void AddInsured(insured Insured);
+        List<bank_account_info> BankAccountsByInsuredId(int InsuredId);
 
-        insured GetInsuredData(int InsuredId);
-        
+        List<bank_prefix> GetAllPrefix();
     }
 }

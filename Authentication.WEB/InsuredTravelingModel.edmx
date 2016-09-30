@@ -87,6 +87,29 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="DateOfBirth" Type="date" Nullable="false" />
           <Property Name="Gender" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="bank_account_info">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account_HolderID" Type="int" Nullable="false" />
+          <Property Name="Account_Number" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="BankID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bank_prefix">
+          <Key>
+            <PropertyRef Name="Prefix_Number" />
+          </Key>
+          <Property Name="Prefix_Number" Type="int" Nullable="false" />
+          <Property Name="Bank_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="banks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="text" Nullable="false" />
+        </EntityType>
         <EntityType Name="clients">
           <Key>
             <PropertyRef Name="Id" />
@@ -476,6 +499,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Policy_Number" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Policy_HolderID" Type="int" Nullable="false" />
           <Property Name="Exchange_RateID" Type="int" Nullable="false" />
           <Property Name="CountryID" Type="int" Nullable="false" />
           <Property Name="Policy_TypeID" Type="int" Nullable="false" />
@@ -522,6 +546,30 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <Property Name="DateBirth" Type="date" Nullable="false" />
           <Property Name="Gender" Type="varchar" MaxLength="64" Nullable="false" />
         </EntityType>
+        <Association Name="bank_account_info_ibfk_1">
+          <End Role="insured" Type="Self.insured" Multiplicity="1" />
+          <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insured">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="bank_account_info">
+              <PropertyRef Name="Account_HolderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bank_account_info_ibfk_2">
+          <End Role="banks" Type="Self.banks" Multiplicity="1" />
+          <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="banks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="bank_account_info">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="discount_days_ibfk_1">
           <End Role="policy_type" Type="Self.policy_type" Multiplicity="1" />
           <End Role="discount_days" Type="Self.discount_days" Multiplicity="*" />
@@ -639,6 +687,18 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Principal>
             <Dependent Role="aspnetuserroles">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_bank">
+          <End Role="banks" Type="Self.banks" Multiplicity="1" />
+          <End Role="bank_prefix" Type="Self.bank_prefix" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="banks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="bank_prefix">
+              <PropertyRef Name="Bank_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -811,7 +871,9 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_loss_id">
-          <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="1" />
+          <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="health_insurance" Type="Self.health_insurance" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="first_notice_of_loss">
@@ -823,7 +885,9 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_luggage_loss_id">
-          <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="1" />
+          <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="luggage_insurance" Type="Self.luggage_insurance" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="first_notice_of_loss">
@@ -1018,12 +1082,27 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="travel_policy_ibfk_1">
+          <End Role="insured" Type="Self.insured" Multiplicity="1" />
+          <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insured">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="travel_policy">
+              <PropertyRef Name="Policy_HolderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="db_9eb138_travelModelStoreContainer">
           <EntitySet Name="additional_charge" EntityType="Self.additional_charge" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="aspnetroles" EntityType="Self.aspnetroles" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaims" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="aspnetuserroles" EntityType="Self.aspnetuserroles" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="aspnetusers" EntityType="Self.aspnetusers" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="bank_account_info" EntityType="Self.bank_account_info" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="bank_prefix" EntityType="Self.bank_prefix" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="banks" EntityType="Self.banks" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="clients" EntityType="Self.clients" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="company" EntityType="Self.company" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="countries" EntityType="Self.countries" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1081,6 +1160,14 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
 `transaction`.`Ime_I_ Prezime`
 FROM `transaction` AS `transaction`</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="bank_account_info_ibfk_1" Association="Self.bank_account_info_ibfk_1">
+            <End Role="insured" EntitySet="insured" />
+            <End Role="bank_account_info" EntitySet="bank_account_info" />
+          </AssociationSet>
+          <AssociationSet Name="bank_account_info_ibfk_2" Association="Self.bank_account_info_ibfk_2">
+            <End Role="banks" EntitySet="banks" />
+            <End Role="bank_account_info" EntitySet="bank_account_info" />
+          </AssociationSet>
           <AssociationSet Name="discount_days_ibfk_1" Association="Self.discount_days_ibfk_1">
             <End Role="policy_type" EntitySet="policy_type" />
             <End Role="discount_days" EntitySet="discount_days" />
@@ -1120,6 +1207,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="fk_aspnetuser_id" Association="Self.fk_aspnetuser_id">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="aspnetuserroles" EntitySet="aspnetuserroles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_bank" Association="Self.fk_bank">
+            <End Role="banks" EntitySet="banks" />
+            <End Role="bank_prefix" EntitySet="bank_prefix" />
           </AssociationSet>
           <AssociationSet Name="fk_country_id" Association="Self.fk_country_id">
             <End Role="countries" EntitySet="countries" />
@@ -1244,6 +1335,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="policy_insured_ibfk_1" Association="Self.policy_insured_ibfk_1">
             <End Role="insured" EntitySet="insured" />
             <End Role="policy_insured" EntitySet="policy_insured" />
+          </AssociationSet>
+          <AssociationSet Name="travel_policy_ibfk_1" Association="Self.travel_policy_ibfk_1">
+            <End Role="insured" EntitySet="insured" />
+            <End Role="travel_policy" EntitySet="travel_policy" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1557,6 +1652,25 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="fk_luggage_loss_id" Association="db_9eb138_travelModel.fk_luggage_loss_id">
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
             <End Role="luggage_insurance" EntitySet="luggage_insurance" />
+          </AssociationSet>
+          <EntitySet Name="bank_account_info" EntityType="db_9eb138_travelModel.bank_account_info" />
+          <EntitySet Name="bank_prefix" EntityType="db_9eb138_travelModel.bank_prefix" />
+          <EntitySet Name="banks" EntityType="db_9eb138_travelModel.bank" />
+          <AssociationSet Name="bank_account_info_ibfk_1" Association="db_9eb138_travelModel.bank_account_info_ibfk_1">
+            <End Role="insured" EntitySet="insureds" />
+            <End Role="bank_account_info" EntitySet="bank_account_info" />
+          </AssociationSet>
+          <AssociationSet Name="bank_account_info_ibfk_2" Association="db_9eb138_travelModel.bank_account_info_ibfk_2">
+            <End Role="bank" EntitySet="banks" />
+            <End Role="bank_account_info" EntitySet="bank_account_info" />
+          </AssociationSet>
+          <AssociationSet Name="fk_bank" Association="db_9eb138_travelModel.fk_bank">
+            <End Role="bank" EntitySet="banks" />
+            <End Role="bank_prefix" EntitySet="bank_prefix" />
+          </AssociationSet>
+          <AssociationSet Name="travel_policy_ibfk_1" Association="db_9eb138_travelModel.travel_policy_ibfk_1">
+            <End Role="insured" EntitySet="insureds" />
+            <End Role="travel_policy" EntitySet="travel_policy" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="news_all">
@@ -2209,6 +2323,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="aspnetuser1" Relationship="db_9eb138_travelModel.fk_insured_modifiedby" FromRole="insured" ToRole="aspnetuser" />
           <NavigationProperty Name="type_insured" Relationship="db_9eb138_travelModel.fk_insured_type" FromRole="insured" ToRole="type_insured" />
           <NavigationProperty Name="policy_insured" Relationship="db_9eb138_travelModel.policy_insured_ibfk_1" FromRole="insured" ToRole="policy_insured" />
+          <NavigationProperty Name="bank_account_info" Relationship="db_9eb138_travelModel.bank_account_info_ibfk_1" FromRole="insured" ToRole="bank_account_info" />
+          <NavigationProperty Name="travel_policy" Relationship="db_9eb138_travelModel.travel_policy_ibfk_1" FromRole="insured" ToRole="travel_policy" />
         </EntityType>
         <Association Name="fk_insured_createdby">
           <End Type="db_9eb138_travelModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
@@ -2281,6 +2397,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="travel_insurance_type" Relationship="db_9eb138_travelModel.fk_policy_insurance_type" FromRole="travel_policy" ToRole="travel_insurance_type" />
           <NavigationProperty Name="travel_number" Relationship="db_9eb138_travelModel.fk_policy_travel_number" FromRole="travel_policy" ToRole="travel_number" />
           <NavigationProperty Name="policy_insured" Relationship="db_9eb138_travelModel.fk_policy_insured_polcy_id" FromRole="travel_policy" ToRole="policy_insured" />
+          <Property Name="Policy_HolderID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="insured" Relationship="db_9eb138_travelModel.travel_policy_ibfk_1" FromRole="travel_policy" ToRole="insured" />
         </EntityType>
         <Association Name="fk_policy_created_by">
           <End Type="db_9eb138_travelModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
@@ -2507,6 +2625,82 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="luggage_insurance">
               <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="bank_account_info">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account_HolderID" Type="Int32" Nullable="false" />
+          <Property Name="Account_Number" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="BankID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="insured" Relationship="db_9eb138_travelModel.bank_account_info_ibfk_1" FromRole="bank_account_info" ToRole="insured" />
+          <NavigationProperty Name="bank" Relationship="db_9eb138_travelModel.bank_account_info_ibfk_2" FromRole="bank_account_info" ToRole="bank" />
+        </EntityType>
+        <EntityType Name="bank_prefix">
+          <Key>
+            <PropertyRef Name="Prefix_Number" />
+          </Key>
+          <Property Name="Prefix_Number" Type="Int32" Nullable="false" />
+          <Property Name="Bank_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="bank" Relationship="db_9eb138_travelModel.fk_bank" FromRole="bank_prefix" ToRole="bank" />
+        </EntityType>
+        <EntityType Name="bank">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="bank_account_info" Relationship="db_9eb138_travelModel.bank_account_info_ibfk_2" FromRole="bank" ToRole="bank_account_info" />
+          <NavigationProperty Name="bank_prefix" Relationship="db_9eb138_travelModel.fk_bank" FromRole="bank" ToRole="bank_prefix" />
+        </EntityType>
+        <Association Name="bank_account_info_ibfk_1">
+          <End Type="db_9eb138_travelModel.insured" Role="insured" Multiplicity="1" />
+          <End Type="db_9eb138_travelModel.bank_account_info" Role="bank_account_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insured">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="bank_account_info">
+              <PropertyRef Name="Account_HolderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bank_account_info_ibfk_2">
+          <End Type="db_9eb138_travelModel.bank" Role="bank" Multiplicity="1" />
+          <End Type="db_9eb138_travelModel.bank_account_info" Role="bank_account_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bank">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="bank_account_info">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_bank">
+          <End Type="db_9eb138_travelModel.bank" Role="bank" Multiplicity="1" />
+          <End Type="db_9eb138_travelModel.bank_prefix" Role="bank_prefix" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bank">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="bank_prefix">
+              <PropertyRef Name="Bank_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="travel_policy_ibfk_1">
+          <End Type="db_9eb138_travelModel.insured" Role="insured" Multiplicity="1" />
+          <End Type="db_9eb138_travelModel.travel_policy" Role="travel_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insured">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="travel_policy">
+              <PropertyRef Name="Policy_HolderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2943,6 +3137,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="travel_policy">
             <EntityTypeMapping TypeName="db_9eb138_travelModel.travel_policy">
               <MappingFragment StoreEntitySet="travel_policy">
+                <ScalarProperty Name="Policy_HolderID" ColumnName="Policy_HolderID" />
                 <ScalarProperty Name="Date_Cancellation" ColumnName="Date_Cancellation" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
@@ -3046,6 +3241,32 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="Place_reported" ColumnName="Place_reported" />
                 <ScalarProperty Name="Place_desc_of_loss" ColumnName="Place_desc_of_loss" />
                 <ScalarProperty Name="Date_of_loss" ColumnName="Date_of_loss" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bank_account_info">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.bank_account_info">
+              <MappingFragment StoreEntitySet="bank_account_info">
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+                <ScalarProperty Name="Account_Number" ColumnName="Account_Number" />
+                <ScalarProperty Name="Account_HolderID" ColumnName="Account_HolderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bank_prefix">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.bank_prefix">
+              <MappingFragment StoreEntitySet="bank_prefix">
+                <ScalarProperty Name="Bank_ID" ColumnName="Bank_ID" />
+                <ScalarProperty Name="Prefix_Number" ColumnName="Prefix_Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="banks">
+            <EntityTypeMapping TypeName="db_9eb138_travelModel.bank">
+              <MappingFragment StoreEntitySet="banks">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
