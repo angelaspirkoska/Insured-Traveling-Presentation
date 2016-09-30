@@ -64,7 +64,7 @@ namespace InsuredTraveling.App_Start
                 
             });
 
-            Mapper.CreateMap<FNOL, first_notice_of_loss>().AfterMap((src, dst) =>
+            Mapper.CreateMap<FirstNoticeOfLoss, first_notice_of_loss>().AfterMap((src, dst) =>
             {
                 dst.PolicyNumber = (int)src.policyNumber;
                 dst.Insured_User = db.aspnetusers.Where(x => x.UserName == src.username).Select(x => x.Id).First();

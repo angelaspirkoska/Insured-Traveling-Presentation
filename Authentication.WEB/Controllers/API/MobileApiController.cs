@@ -225,7 +225,7 @@ namespace InsuredTraveling.Controllers.API
 
         [HttpPost]
         [Route("ReportLoss")]
-        public IHttpActionResult ReportLoss(FNOL f)
+        public IHttpActionResult ReportLoss(FirstNoticeOfLoss f)
         {
             if (f.ShortDetailed == true)
             {

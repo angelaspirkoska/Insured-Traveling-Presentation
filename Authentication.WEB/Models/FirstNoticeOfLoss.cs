@@ -8,7 +8,7 @@ using InsuredTraveling.Services;
 
 namespace InsuredTraveling.Models
 {
-    public class FNOL
+    public class FirstNoticeOfLoss
     {
         //Data of insured, current logged user
         public string username { get; set; }

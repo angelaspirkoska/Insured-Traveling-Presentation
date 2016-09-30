@@ -26,7 +26,7 @@ namespace InsuredTraveling.Controllers
         [HttpPost]
         public IHttpActionResult Check()
         {
-            FNOL f = new FNOL();
+            FirstNoticeOfLoss f = new FirstNoticeOfLoss();
             f.PolicyType = "Comfort";
             f.policyNumber = 123456;
             f.username = "Daki123";
@@ -56,7 +56,7 @@ namespace InsuredTraveling.Controllers
 
             
 
-            var fnol = Mapper.Map<FNOL, first_notice_of_loss>(f);
+            var fnol = Mapper.Map<FirstNoticeOfLoss, first_notice_of_loss>(f);
             return Ok(new { fnol = fnol});
         }
 

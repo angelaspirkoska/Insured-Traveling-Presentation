@@ -448,7 +448,7 @@
     <Compile Include="Controllers\PolicyController.cs" />
     <Compile Include="Controllers\API\PremiumController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
-    <Compile Include="Controllers\ReportLossController.cs" />
+    <Compile Include="Controllers\FirstNoticeOfLossController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Controllers\ValidateMailController.cs" />
@@ -552,7 +552,7 @@
     <Compile Include="Models\BanksModel.cs" />
     <Compile Include="Models\CreateClientModel.cs" />
     <Compile Include="Models\Enums.cs" />
-    <Compile Include="Models\FNOL.cs" />
+    <Compile Include="Models\FirstNoticeOfLoss.cs" />
     <Compile Include="Models\ForgetPasswordModel.cs" />
     <Compile Include="Models\HalkbankPaymentModel.cs" />
     <Compile Include="Models\InsuredType.cs" />
@@ -662,7 +662,7 @@
     <Content Include="Views\AdminPanel\Index.cshtml" />
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
-    <Content Include="Views\ReportLoss\Index.cshtml" />
+    <Content Include="Views\FirstNoticeOfLoss\Index.cshtml" />
     <Content Include="Views\Client\Create.cshtml" />
     <Content Include="Views\Policy\Index.cshtml" />
     <None Include="Web.Debug.config">

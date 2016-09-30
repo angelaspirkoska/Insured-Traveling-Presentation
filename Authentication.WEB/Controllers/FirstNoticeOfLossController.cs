@@ -15,14 +15,14 @@ using System.Data.Entity;
 
 namespace InsuredTraveling.Controllers
 {
-    public class ReportLossController : Controller
+    public class FirstNoticeOfLossController : Controller
     {
         private IUserService _us;
         private IPolicyService _ps;
         private IPolicyInsuredService _pis;
         private IInsuredsService _iss;
         private IBankAccountService _bas;
-        public ReportLossController(IUserService us, IPolicyService ps, IPolicyInsuredService pis, IInsuredsService iss,
+        public FirstNoticeOfLossController(IUserService us, IPolicyService ps, IPolicyInsuredService pis, IInsuredsService iss,
             IBankAccountService bas)
         {
             _us = us;
@@ -39,7 +39,7 @@ namespace InsuredTraveling.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Index(FNOL f)
+        public async Task<ActionResult> Index(FirstNoticeOfLoss f)
         {
             ShowUserData();
     
@@ -72,7 +72,7 @@ namespace InsuredTraveling.Controllers
 
                 var client = new HttpClient { BaseAddress = uri };
                 var jsonFormatter = new JsonMediaTypeFormatter();
-                HttpContent content = new ObjectContent<FNOL>(f, jsonFormatter);
+                HttpContent content = new ObjectContent<FirstNoticeOfLoss>(f, jsonFormatter);
                 HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
                 string responseBody = await responseMessage.Content.ReadAsStringAsync();
                 if (responseMessage.IsSuccessStatusCode)

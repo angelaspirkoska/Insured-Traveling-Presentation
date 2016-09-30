@@ -1,7 +1,7 @@
-﻿@model InsuredTraveling.Models.FNOL
+﻿@model InsuredTraveling.Models.FirstNoticeOfLoss
 
 @{
-    ViewBag.Title = "Report Loss";
+    ViewBag.Title = "First Notice of Loss";
 }
 
 
@@ -87,12 +87,18 @@
                     </div>
                     <input type="checkbox" value="" id="ExistentBankAccount" class="col-md-1" style="margin-top:3%;"/>
                 </div>
-
                 <div class="form-group">
+
+                    <div class="col-lg-4 col-md-4">
+                        <label class="control-label">Странска сметка</label>
+                    </div>
+                    <input type="checkbox" value="" id="ForeignBankAccount" class="col-md-1" style="margin-top:3%;" />
+                </div>
+                <div class="form-group" style="padding-left: 34%;">
                    
                     <div class="col-md-12">
                         <select class="form-control" data-val="true" id="DropDownBankAccountPolicyHolder" name="policyNumber">
-                            <option value="">Избери трансакциска сметка</option>
+                            <option value="0">Избери трансакциска сметка</option>
                         </select>
                     </div>
                 </div>
@@ -101,7 +107,7 @@
                     
                     <label class="col-md-5 control-label">Трансакциона сметка:</label>
                     <div class="col-lg-6">
-                        @Html.EditorFor(model => model.TransactionAccount, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                        @Html.EditorFor(model => model.TransactionAccount, new { htmlAttributes = new { @class = "form-control input-sm" , @maxLength = "15" } })
                         @Html.ValidationMessageFor(model => model.TransactionAccount, "", new { @class = "text-danger input-sm" })
                     </div>
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red" id="taccountspan"></span>
@@ -125,7 +131,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <select class="form-control" data-val="true" id="DropDownInsureds" name="policyNumber">
-                        <option value="">Избери корисник</option>
+                        <option value="0">Избери корисник</option>
                     </select>
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Оштетен:</label>
@@ -442,34 +448,101 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
 
 <script type="text/javascript">
+    var Banks;
     $(document).ready(function () {
 
-        var Banks;
+        $('#deponent').prop('readonly', true);  
+       
 
         $('#DropDownBankAccountPolicyHolder').hide();
+
+
+        $("#TransactionAccount").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                // Allow: Ctrl+A, Command+A
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: home, end, left, right, down, up
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+
     });
 
     $("#ExistentBankAccount").change(function () {
         if (this.checked) {
             $('#DropDownBankAccountPolicyHolder').show();
             $('#TransactionAccount').prop('readonly', true);
-            $('#deponent').prop('readonly', true);
 
             
         }
         else {
             $('#DropDownBankAccountPolicyHolder').hide();
             $('#TransactionAccount').prop('readonly', false);
+
+        }
+    });
+
+    $("#ForeignBankAccount").change(function () {
+        if (this.checked) {
+           
+            $('#TransactionAccount').attr('maxLength', 30);
             $('#deponent').prop('readonly', false);
         }
+        else {
+           
+            $('#TransactionAccount').attr('maxLength', 15);
+            $('#deponent').prop('readonly', true);
+        }
+    });
+    
+    $('#TransactionAccount').focusout(function () {
+
+        if ($("#ForeignBankAccount").checked &&  $("#ExistentBankAccount").checked)
+        {
+
+        }
+        else {
+            var bankAccount = $('#TransactionAccount').val();
+
+        var prefixTillNow = bankAccount.substring(0, 3);
+        $.each(Banks, function (key, value) {
+            if(value.Prefix == prefixTillNow){
+                $('#deponent').attr('value',value.BankName);
+            }
+        });
+        }
+
+        
+    });
+
+    $('#DropDownBankAccountPolicyHolder').on('change', function ()
+    {
+        if ($('#DropDownBankAccountPolicyHolder option:selected').val() == 0)
+        {
+            $('#deponent').attr('value',"");
+            $('#TransactionAccount').attr('value', "");
+        }
+        else {
+        $('#deponent').attr('value', $('#DropDownBankAccountPolicyHolder option:selected').attr("bank"));
+        $('#TransactionAccount').attr('value', $('#DropDownBankAccountPolicyHolder option:selected').text());
+         }
     });
 
 
     $('#DropDownPolicyNumber').on('change', function () {
+        ClearDropDownData();
         var PolicyId = $('#DropDownPolicyNumber').val()
         $.ajax({
             type: "GET",
-            url: "/ReportLoss/GetInsureds?policyID=" + PolicyId,
+            url: "/FirstNoticeOfLoss/GetInsureds?policyID=" + PolicyId,
             success: function (result) {
 
                 var rez = JSON.parse(result);
@@ -512,6 +585,22 @@ else if (ViewBag.insurance == "Luggage Insurance")
         }
     }
 
+    function ClearDropDownData() {
+
+        $("#PolicyHolderName").attr("value", "");
+        $("#PolicyHolderPhone").attr("value", "");
+        $("#PolicyHolderSSN").attr("value", "");
+        $("#PolicyHolderAddress").attr("value", "");
+
+        $.each($('#DropDownBankAccountPolicyHolder option'), function (i, val) {
+            if (val.value == 0) {
+            }
+            else {
+                $(val).remove();
+            }
+        });
+    }
+
     function FillInsuredData() {
 
 
@@ -520,7 +609,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
             $.ajax({
                 type: "GET",
-                url: "/ReportLoss/GetInsuredData?SelectedInsuredId=" + InsuredId,
+                url: "/FirstNoticeOfLoss/GetInsuredData?SelectedInsuredId=" + InsuredId,
                 dataType: "json",
                 success: function (result) {
                     console.log(result);
