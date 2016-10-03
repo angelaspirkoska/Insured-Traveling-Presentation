@@ -128,7 +128,7 @@ namespace Authentication.WEB.Controllers
             string id = "2";
 
             PaymentModel pat = new PaymentModel();
-            pat.Pat = _ps.GetPolicyById(id);
+            pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
             return new ViewAsPdf("Print", pat);
         }
 

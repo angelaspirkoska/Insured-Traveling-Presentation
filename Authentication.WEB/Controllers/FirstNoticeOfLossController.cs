@@ -97,31 +97,50 @@ namespace InsuredTraveling.Controllers
         public void ShowUserData()
         {
             string username = System.Web.HttpContext.Current.User.Identity.Name;
-           // var user = _us.GetUserDataByUsername(username);
-            var policies = _us.GetPolicyNumberListByUsername(System.Web.HttpContext.Current.User.Identity.Name).ToListAsync();
-           
-           // await Task.WhenAll(policies);
+            var policies = _us.GetPolicyNumberListByUsername(System.Web.HttpContext.Current.User.Identity.Name).ToListAsync();       
+
             ViewBag.Policies = policies.Result;
-          //  ViewBag.Name = user.FirstName + " " + user.LastName;
-          //  ViewBag.Address = user.Address;
-          //  ViewBag.Phone = user.MobilePhoneNumber;
-          //  ViewBag.EMBG = user.EMBG;
         }
 
 
         [HttpGet]
         public JObject GetInsuredData(int SelectedInsuredId)
         {
-            var SelectedInsured = _iss.GetInsuredData(SelectedInsuredId);
-            bool ISSameUserAndSelectedInsured = _us.IsSameLoggedUserAndInsured(System.Web.HttpContext.Current.User.Identity.Name, SelectedInsuredId);
             var NewJsonInsured = new JObject();
-            NewJsonInsured.Add("Id", SelectedInsured.ID);
-            NewJsonInsured.Add("FirstName", SelectedInsured.Name);
-            NewJsonInsured.Add("LastName", SelectedInsured.Lastname);
-            NewJsonInsured.Add("Adress", SelectedInsured.Address);
-            NewJsonInsured.Add("PhoneNumber", SelectedInsured.Phone_Number);           
-            NewJsonInsured.Add("SSN", SelectedInsured.SSN);
-            NewJsonInsured.Add("IsSameUserAndSelectedInsured", ISSameUserAndSelectedInsured);
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var SelectedInsured = _iss.GetInsuredData(SelectedInsuredId);
+                bool ISSameUserAndSelectedInsured = _us.IsSameLoggedUserAndInsured(System.Web.HttpContext.Current.User.Identity.Name, SelectedInsuredId);
+                var InsuredBankAccounts = _bas.BankAccountsByInsuredId(SelectedInsuredId);
+                
+                NewJsonInsured.Add("Id", SelectedInsured.ID);
+                NewJsonInsured.Add("FirstName", SelectedInsured.Name);
+                NewJsonInsured.Add("LastName", SelectedInsured.Lastname);
+                NewJsonInsured.Add("Adress", SelectedInsured.Address);
+                NewJsonInsured.Add("PhoneNumber", SelectedInsured.Phone_Number);
+                NewJsonInsured.Add("SSN", SelectedInsured.SSN);
+                NewJsonInsured.Add("IsSameUserAndSelectedInsured", ISSameUserAndSelectedInsured);
+
+                var BankAccountsInsuredJsonArray = new JArray();
+
+                foreach (var BankAccount in InsuredBankAccounts)
+                {
+                    var NewJsonBankAccount = new JObject();
+                    NewJsonBankAccount.Add("Id", BankAccount.ID);
+                    NewJsonBankAccount.Add("AccountNumber", BankAccount.Account_Number);
+                    NewJsonBankAccount.Add("BankName", BankAccount.bank.Name);
+
+                    BankAccountsInsuredJsonArray.Add(NewJsonBankAccount);
+                }
+                NewJsonInsured.Add("BankAccounts", BankAccountsInsuredJsonArray);
+
+            }
+            else
+            {
+                NewJsonInsured.Add("response", "Not authenticated user");
+            }
+           
+
             return NewJsonInsured;
 
         }
@@ -130,67 +149,74 @@ namespace InsuredTraveling.Controllers
         public JObject GetInsureds(int PolicyID)
         {
             var Result = new JObject();
-
-            var Insureds = _pis.GetAllInsuredByPolicyId(PolicyID);
-            var PolicyHolder = _ps.GetPolicyHolderByPolicyID(PolicyID);
-            var PolicyHolderBankAccounts = _bas.BankAccountsByInsuredId(PolicyHolder.ID);
-            var Banks = _bas.GetAllPrefix();
-            
-          
-           
-            var PolicyHolderData = new JObject();
-            PolicyHolderData.Add("Id", PolicyHolder.ID);
-            PolicyHolderData.Add("FirstName", PolicyHolder.Name);
-            PolicyHolderData.Add("LastName", PolicyHolder.Lastname);
-            PolicyHolderData.Add("SSN", PolicyHolder.SSN);
-            PolicyHolderData.Add("PhoneNumber", PolicyHolder.Phone_Number);
-            PolicyHolderData.Add("City", PolicyHolder.City);
-            PolicyHolderData.Add("Adress", PolicyHolder.Address);
-
-            var BankAccountsPolicyHolderJsonArray = new JArray();
-
-            foreach (var BankAccount in PolicyHolderBankAccounts)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                var NewJsonBankAccount = new JObject();
-                NewJsonBankAccount.Add("Id", BankAccount.ID);
-                NewJsonBankAccount.Add("AccountNumber", BankAccount.Account_Number);
-                NewJsonBankAccount.Add("BankName", BankAccount.bank.Name);
+                var Insureds = _pis.GetAllInsuredByPolicyId(PolicyID);
+                var PolicyHolder = _ps.GetPolicyHolderByPolicyID(PolicyID);
+                var PolicyHolderBankAccounts = _bas.BankAccountsByInsuredId(PolicyHolder.ID);
+                var Banks = _bas.GetAllPrefix();
+                var StartDate = _ps.GetStartDateByPolicyId(PolicyID).Date;
+                var EndDate = _ps.GetEndDateByPolicyId(PolicyID).Date;
 
-                BankAccountsPolicyHolderJsonArray.Add(NewJsonBankAccount);
+
+
+                var PolicyHolderData = new JObject();
+                PolicyHolderData.Add("Id", PolicyHolder.ID);
+                PolicyHolderData.Add("FirstName", PolicyHolder.Name);
+                PolicyHolderData.Add("LastName", PolicyHolder.Lastname);
+                PolicyHolderData.Add("SSN", PolicyHolder.SSN);
+                PolicyHolderData.Add("PhoneNumber", PolicyHolder.Phone_Number);
+                PolicyHolderData.Add("City", PolicyHolder.City);
+                PolicyHolderData.Add("Adress", PolicyHolder.Address);
+
+                var BankAccountsPolicyHolderJsonArray = new JArray();
+
+                foreach (var BankAccount in PolicyHolderBankAccounts)
+                {
+                    var NewJsonBankAccount = new JObject();
+                    NewJsonBankAccount.Add("Id", BankAccount.ID);
+                    NewJsonBankAccount.Add("AccountNumber", BankAccount.Account_Number);
+                    NewJsonBankAccount.Add("BankName", BankAccount.bank.Name);
+
+                    BankAccountsPolicyHolderJsonArray.Add(NewJsonBankAccount);
+                }
+                PolicyHolderData.Add("BankAccounts", BankAccountsPolicyHolderJsonArray);
+
+                Result.Add("policyholder", PolicyHolderData);
+
+
+                var InsuredsJsonArray = new JArray();
+
+                foreach (var v in Insureds)
+                {
+                    var NewJsonInsured = new JObject();
+                    NewJsonInsured.Add("Id", v.ID);
+                    NewJsonInsured.Add("FirstName", v.Name);
+                    NewJsonInsured.Add("LastName", v.Lastname);
+
+                    InsuredsJsonArray.Add(NewJsonInsured);
+                }
+
+
+                Result.Add("data", InsuredsJsonArray);
+
+                Result.Add("StartDate", StartDate);
+                Result.Add("EndDate", EndDate);
+
+                var BankListData = new JArray();
+                foreach (var Bank in Banks)
+                {
+                    var BanksData = new JObject();
+                    BanksData.Add("Prefix", Bank.Prefix_Number);
+                    BanksData.Add("BankName", Bank.bank.Name);
+                    BankListData.Add(BanksData);
+                }
+                Result.Add("banks", BankListData);
             }
-            PolicyHolderData.Add("BankAccounts", BankAccountsPolicyHolderJsonArray);
-
-            Result.Add("policyholder", PolicyHolderData);
-
-
-            var InsuredsJsonArray = new JArray();
-
-            foreach (var v in Insureds)
+            else
             {
-                var NewJsonInsured = new JObject();
-                NewJsonInsured.Add("Id", v.ID);               
-                NewJsonInsured.Add("FirstName", v.Name);
-                NewJsonInsured.Add("LastName", v.Lastname);    
-                           
-                InsuredsJsonArray.Add(NewJsonInsured);
+                Result.Add("response", "Not authenticated user");
             }
-            
-
-            Result.Add("data", InsuredsJsonArray);
-
-
-
-            var BankListData = new JArray();
-            foreach (var Bank in Banks)
-            {
-                var BanksData = new JObject();
-                BanksData.Add("Prefix", Bank.Prefix_Number);
-                BanksData.Add("BankName", Bank.bank.Name);
-                BankListData.Add(BanksData);
-            }
-            Result.Add("banks", BankListData);
-
-
 
 
             return Result;           

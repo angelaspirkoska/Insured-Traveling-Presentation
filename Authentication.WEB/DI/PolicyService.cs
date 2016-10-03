@@ -32,9 +32,12 @@ namespace InsuredTraveling.DI
             return _db.travel_policy.OrderByDescending(p => p.ID).Select(r => r.Policy_Number).FirstOrDefault();
         }
 
-        
+        public DateTime GetEndDateByPolicyId(int PolicyID)
+        {
+            return _db.travel_policy.Where(x => x.ID == PolicyID).Select(x => x.End_Date).Single();
+        }
 
-        public travel_policy GetPolicyById(string id)
+        public travel_policy GetPolicyIdByPolicyNumber(string id)
         {
             return _db.travel_policy.Where(x => x.Policy_Number.Equals(id)).FirstOrDefault();
         }
@@ -59,5 +62,10 @@ namespace InsuredTraveling.DI
             return PolicyHolder;
         
     }
+
+        public DateTime GetStartDateByPolicyId(int PolicyID)
+        {
+            return _db.travel_policy.Where(x => x.ID == PolicyID).Select(x => x.Start_Date).Single();
+        }
     }
 }

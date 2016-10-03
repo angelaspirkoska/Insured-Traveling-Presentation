@@ -51,10 +51,10 @@
             </div>
         </div>
         <div class="row container">
-            <header class="well">Податоци за носител на полиса</header>
+            <header class="well">Податоци за договорувач</header>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Осигуреник:</label>
+                    <label class="col-md-4 control-label">Договорувач:</label>
                     <div class="col-lg-8">
                         <input type="text" class="form-control input-sm" id="PolicyHolderName" readonly>
                     </div>
@@ -130,15 +130,20 @@
             <header class="well">Корисник на осигурувањето</header>
             <div class="col-md-6">
                 <div class="form-group">
-                    <select class="form-control" data-val="true" id="DropDownInsureds" name="policyNumber">
-                        <option value="0">Избери корисник</option>
-                    </select>
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Оштетен:</label>
-                    <div class="col-lg-7">
-                        <input type="text" class="form-control input-sm" id="InsuredName" readonly>
+                    <span class="col-md-4"></span>
+                    <div class="col-md-8">
+                        <select class="form-control" data-val="true" id="DropDownInsureds" name="policyNumber">
+                            <option value="0">Избери корисник</option>
+                        </select>
+                    </div>     
                     </div>
-                </div>
+                    <div class="form-group">
+                        <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
+                        <label class="col-md-4 control-label">Оштетен:</label>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control input-sm" id="InsuredName" readonly>
+                        </div>
+                    </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Адреса:</label>
@@ -153,15 +158,6 @@
                         <input type="text" class="form-control input-sm" id="InsuredPhone" readonly>
                     </div>
                 </div>
-                <div class="form-group" id="HideWhenSameUserAndSelectedInsured">
-                    <label class="col-md-4 control-label">Сродство со осигуреникот::</label>
-                    <div class="col-lg-7">
-                        @Html.EditorFor(model => model.relationship, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.relationship, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">ЕМБГ:</label>
@@ -169,11 +165,45 @@
                         <input type="text" class="form-control input-sm" id="InsuredSSN" readonly>
                     </div>
                 </div>
+
+                <div class="form-group" id="HideWhenSameUserAndSelectedInsured">
+                    <label class="col-md-4 control-label">Сродство со осигуреникот:</label>
+                    <div class="col-lg-7">
+                        @Html.EditorFor(model => model.relationship, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                        @Html.ValidationMessageFor(model => model.relationship, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+           
+                <div class="form-group">
+
+                    <div class="col-lg-8 col-md-8">
+                        <label class="control-label">Искористи претходна трансакциска сметка:</label>
+                    </div>
+                    <input type="checkbox" value="" id="ExistentBankAccountInsured" class="col-md-1" style="margin-top:3%;" />
+                </div>
+                <div class="form-group">
+
+                    <div class="col-lg-4 col-md-4">
+                        <label class="control-label">Странска сметка</label>
+                    </div>
+                    <input type="checkbox" value="" id="ForeignBankAccountInsured" class="col-md-1" style="margin-top:3%;" />
+                </div>
+                <div class="form-group" style="padding-left: 34%;">
+
+                    <div class="col-md-12">
+                        <select class="form-control" data-val="true" id="DropDownBankAccountInsured" name="policyNumber">
+                            <option value="0">Избери трансакциска сметка</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Трансакциона с-ка:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.insuredTransactionAccount, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                        @Html.EditorFor(model => model.insuredTransactionAccount, new { htmlAttributes = new { @class = "form-control input-sm", @maxLength = "15" } })
                         @Html.ValidationMessageFor(model => model.insuredTransactionAccount, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -203,17 +233,6 @@
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Превозно средство:</label>
-                    <div class="col-lg-7">
-                        @Html.EditorFor(model => model.transportationType, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.transportationType, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Датум на заминување:</label>
                     <div class="col-lg-7">
                         @Html.EditorFor(model => model.travelDateFrom, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date" } })
@@ -227,6 +246,19 @@
                         @Html.ValidationMessageFor(model => model.travelTimeFrom, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
+                    <label class="col-md-4 control-label">Превозно средство:</label>
+                    <div class="col-lg-7">
+                        @Html.EditorFor(model => model.transportationType, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                        @Html.ValidationMessageFor(model => model.transportationType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Датум на враќање:</label>
@@ -452,22 +484,29 @@ else if (ViewBag.insurance == "Luggage Insurance")
     $(document).ready(function () {
 
         $('#deponent').prop('readonly', true);  
-       
+        $('#deponentInsured').prop('readonly', true);
 
         $('#DropDownBankAccountPolicyHolder').hide();
-
+        $('#DropDownBankAccountInsured').hide();
 
         $("#TransactionAccount").keydown(function (e) {
-            // Allow: backspace, delete, tab, escape, enter and .
-            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-                // Allow: Ctrl+A, Command+A
+          
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||             
                 (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-                // Allow: home, end, left, right, down, up
                 (e.keyCode >= 35 && e.keyCode <= 40)) {
-                // let it happen, don't do anything
                 return;
             }
-            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+        $("#insuredTransactionAccount").keydown(function (e) {
+
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                return;
+            }
             if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
                 e.preventDefault();
             }
@@ -480,39 +519,122 @@ else if (ViewBag.insurance == "Luggage Insurance")
         if (this.checked) {
             $('#DropDownBankAccountPolicyHolder').show();
             $('#TransactionAccount').prop('readonly', true);
-
+            $('#deponent').prop('readonly', true);
+            $("#TransactionAccount").attr("value", "");
+            $("#deponent").attr("value", "");
+            $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false)
+           
             
         }
         else {
             $('#DropDownBankAccountPolicyHolder').hide();
+            
             $('#TransactionAccount').prop('readonly', false);
+            $("#TransactionAccount").attr("value", "");
+            $("#deponent").attr("value", "");
+            $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false);
+
+            if ($('#ForeignBankAccount').is(':checked')) {
+                $('#deponent').prop('readonly', false);
+            }
 
         }
     });
 
-    $("#ForeignBankAccount").change(function () {
+    $("#ExistentBankAccountInsured").change(function () {
         if (this.checked) {
-           
-            $('#TransactionAccount').attr('maxLength', 30);
-            $('#deponent').prop('readonly', false);
+            $('#DropDownBankAccountInsured').show();
+            $('#insuredTransactionAccount').prop('readonly', true);
+            
+            $('#DropDownBankAccountInsured').show();
+            $('#insuredTransactionAccount').prop('readonly', true);
+            $('#deponentInsured').prop('readonly', true);
+            $("#insuredTransactionAccount").attr("value", "");
+            $("#deponentInsured").attr("value", "");
+            $("#DropDownBankAccountInsured option:selected").prop("selected", false)
+
+
         }
         else {
+            
+            $('#DropDownBankAccountInsured').hide();
+            $('#insuredTransactionAccount').prop('readonly', false);         
+            $("#insuredTransactionAccount").attr("value", "");
+            $("#deponentInsured").attr("value", "");
+            $("#DropDownBankAccountInsured option:selected").prop("selected", false);
+            if ($('#ForeignBankAccountInsured').is(':checked')) {
+                $('#deponentInsured').prop('readonly', false);
+            }
+
+        }
+    });
+
+    
+
+
+
+    $("#ForeignBankAccount").change(function () {
+        if (this.checked) {
+            $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false);
+            $("#TransactionAccount").attr("value", "");
+            $("#deponent").attr("value", "");
+            $('#TransactionAccount').attr('maxLength', 30);
            
+            if ($('#ExistentBankAccount').is(':checked'))
+            {
+                $('#TransactionAccount').prop('readonly', true);
+
+            }
+            else
+            {
+                $('#deponent').prop('readonly', false);
+
+            }
+        }
+        else {
+            $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false);
+            $("#TransactionAccount").attr("value", "");
+            $("#deponent").attr("value", "");
             $('#TransactionAccount').attr('maxLength', 15);
             $('#deponent').prop('readonly', true);
         }
     });
+
+    $("#ForeignBankAccountInsured").change(function () {
+        if (this.checked) {
+            $("#DropDownBankAccountInsured option:selected").prop("selected", false);
+            $("#insuredTransactionAccount").attr("value", "");
+            $("#deponentInsured").attr("value", "");
+            $('#insuredTransactionAccount').attr('maxLength', 30);
+
+            if ($('#ExistentBankAccountInsured').is(':checked')) {
+                $('#insuredTransactionAccount').prop('readonly', true);
+
+            }
+            else {
+                $('#deponentInsured').prop('readonly', false);
+
+            }
+        }
+        else {
+            $("#DropDownBankAccountInsured option:selected").prop("selected", false);
+            $("#insuredTransactionAccount").attr("value", "");
+            $("#deponentInsured").attr("value", "");
+            $('#insuredTransactionAccount').attr('maxLength', 15);
+            $('#deponentInsured').prop('readonly', true);
+        }
+    });
+
     
     $('#TransactionAccount').focusout(function () {
 
         if ($("#ForeignBankAccount").checked &&  $("#ExistentBankAccount").checked)
         {
-
+            $('#deponent').prop('readonly', true);
         }
         else {
             var bankAccount = $('#TransactionAccount').val();
-
-        var prefixTillNow = bankAccount.substring(0, 3);
+            var prefixTillNow = bankAccount.substring(0, 3);
         $.each(Banks, function (key, value) {
             if(value.Prefix == prefixTillNow){
                 $('#deponent').attr('value',value.BankName);
@@ -522,6 +644,24 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
         
     });
+
+    $('#insuredTransactionAccount').focusout(function () {
+
+        if ($("#ForeignBankAccountInsured").checked && $("#ExistentBankAccountInsured").checked) {
+            $('#deponentInsured').prop('readonly', true);
+        }
+        else {
+            var bankAccount = $('#insuredTransactionAccount').val();
+            var prefixTillNow = bankAccount.substring(0, 3);
+            $.each(Banks, function (key, value) {
+                if (value.Prefix == prefixTillNow) {
+                    $('#deponentInsured').attr('value', value.BankName);
+                }
+            });
+        }
+    });
+  
+
 
     $('#DropDownBankAccountPolicyHolder').on('change', function ()
     {
@@ -534,6 +674,19 @@ else if (ViewBag.insurance == "Luggage Insurance")
         $('#deponent').attr('value', $('#DropDownBankAccountPolicyHolder option:selected').attr("bank"));
         $('#TransactionAccount').attr('value', $('#DropDownBankAccountPolicyHolder option:selected').text());
          }
+    });
+
+
+
+    $('#DropDownBankAccountInsured').on('change', function () {
+        if ($('#DropDownBankAccountInsured option:selected').val() == 0) {
+            $('#deponentInsured').attr('value', "");
+            $('#insuredTransactionAccount').attr('value', "");
+        }
+        else {
+            $('#deponentInsured').attr('value', $('#DropDownBankAccountInsured option:selected').attr("bank"));
+            $('#insuredTransactionAccount').attr('value', $('#DropDownBankAccountInsured option:selected').text());
+        }
     });
 
 
@@ -550,6 +703,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 Banks = rez.banks;
 
                 $("#PolicyHolderName").attr("value", rez.policyholder.FirstName + " " + rez.policyholder.LastName);
+                $("#PolicyHolderName").attr("IdPolicyHolder", rez.policyholder.Id);
                 $("#PolicyHolderPhone").attr("value", rez.policyholder.PhoneNumber);
                 $("#PolicyHolderSSN").attr("value", rez.policyholder.SSN);
                 $("#PolicyHolderAddress").attr("value", rez.policyholder.Adress + " " + rez.policyholder.City);
@@ -591,6 +745,10 @@ else if (ViewBag.insurance == "Luggage Insurance")
         $("#PolicyHolderPhone").attr("value", "");
         $("#PolicyHolderSSN").attr("value", "");
         $("#PolicyHolderAddress").attr("value", "");
+        $("#TransactionAccount").attr("value", "");
+        $("#deponent").attr("value", "");
+        
+
 
         $.each($('#DropDownBankAccountPolicyHolder option'), function (i, val) {
             if (val.value == 0) {
@@ -601,10 +759,31 @@ else if (ViewBag.insurance == "Luggage Insurance")
         });
     }
 
+    function ClearDropDownDataInsured() {
+
+        $("#InsuredName").attr("value", "");
+        $("#InsuredAdress").attr("value", "");
+        $("#InsuredPhone").attr("value", "");
+        $("#InsuredSSN").attr("value", "");
+        $("#relationship").attr("value", "");
+
+        $.each($('#DropDownBankAccountInsured option'), function (i, val) {
+            if (val.value == 0) {
+            }
+            else {
+                $(val).remove();
+            }
+        });
+    }
+
+
+
+
     function FillInsuredData() {
 
 
         $('#DropDownInsureds').on('change', function () {
+            ClearDropDownDataInsured();
             var InsuredId = $('#DropDownInsureds option:selected').val()
 
             $.ajax({
@@ -618,11 +797,25 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     $("#InsuredPhone").attr("value", result.PhoneNumber);
                     $("#InsuredSSN").attr("value", result.SSN);
                     $("#relationship").attr("isSameUserWithSelectedInsured", result.IsSameUserAndSelectedInsured);
+
+                    $.each(result.BankAccounts, function (key, value) {
+                        $('#DropDownBankAccountInsured').append($("<option></option>").attr({ value: value.Id, bank: value.BankName }).text(value.AccountNumber));
+                    });
+
+                  
+                    if ($("#PolicyHolderName").attr("idpolicyholder") == $('#DropDownInsureds option:selected').val())
+                    {
+                        console.log("isti se");
+                        $("#HideWhenSameUserAndSelectedInsured").hide();
+                    }
+                    else {
+                        $("#HideWhenSameUserAndSelectedInsured").show();
+                    }
                 }
             });
 
-            $("#relationship").attr("isSameUserWithSelectedInsured", "true");
-            $("#HideWhenSameUserAndSelectedInsured").toggle();
+           
+           
 
 
         });
