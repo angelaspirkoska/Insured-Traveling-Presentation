@@ -17,12 +17,14 @@ namespace InsuredTraveling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public travel_policy()
         {
+            this.first_notice_of_loss = new HashSet<first_notice_of_loss>();
             this.policy_additional_charge = new HashSet<policy_additional_charge>();
             this.policy_insured = new HashSet<policy_insured>();
         }
     
         public int ID { get; set; }
         public string Policy_Number { get; set; }
+        public int Policy_HolderID { get; set; }
         public int Exchange_RateID { get; set; }
         public int CountryID { get; set; }
         public int Policy_TypeID { get; set; }
@@ -43,19 +45,20 @@ namespace InsuredTraveling
         public string Modified_By { get; set; }
         public Nullable<int> StatusID { get; set; }
         public Nullable<System.DateTime> Date_Cancellation { get; set; }
-        public int Policy_HolderID { get; set; }
     
         public virtual aspnetuser aspnetuser { get; set; }
         public virtual aspnetuser aspnetuser1 { get; set; }
         public virtual country country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<first_notice_of_loss> first_notice_of_loss { get; set; }
+        public virtual insured insured { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<policy_additional_charge> policy_additional_charge { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<policy_insured> policy_insured { get; set; }
         public virtual policy_type policy_type { get; set; }
         public virtual retaining_risk retaining_risk { get; set; }
         public virtual travel_insurance_type travel_insurance_type { get; set; }
         public virtual travel_number travel_number { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<policy_insured> policy_insured { get; set; }
-        public virtual insured insured { get; set; }
     }
 }

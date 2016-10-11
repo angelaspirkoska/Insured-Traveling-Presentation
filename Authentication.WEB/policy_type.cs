@@ -17,17 +17,19 @@ namespace InsuredTraveling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public policy_type()
         {
+            this.discount_country = new HashSet<discount_country>();
             this.discount_days = new HashSet<discount_days>();
             this.discount_family = new HashSet<discount_family>();
             this.discount_group = new HashSet<discount_group>();
             this.min_premium = new HashSet<min_premium>();
-            this.discount_country = new HashSet<discount_country>();
             this.travel_policy = new HashSet<travel_policy>();
         }
     
         public int ID { get; set; }
         public string type { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<discount_country> discount_country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<discount_days> discount_days { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -36,8 +38,6 @@ namespace InsuredTraveling
         public virtual ICollection<discount_group> discount_group { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<min_premium> min_premium { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<discount_country> discount_country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<travel_policy> travel_policy { get; set; }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using InsuredTraveling.Models;
+using Microsoft.Ajax.Utilities;
 
 namespace InsuredTraveling.DI
 {
@@ -15,6 +16,12 @@ namespace InsuredTraveling.DI
         {
             _db.first_notice_of_loss.Add(FirstNoticeOfLoss);
             _db.SaveChanges();
+        }
+
+        public bool IsHealthInsuranceByAdditionalInfoId(int id)
+        {
+            var healthAdditionalInfo = _db.health_insurance_info.Single(x => x.Additional_infoId == id);
+            return healthAdditionalInfo != null;
         }
 
         public first_notice_of_loss Create()
@@ -29,12 +36,30 @@ namespace InsuredTraveling.DI
 
         public first_notice_of_loss GetById(int id)
         {
-           return _db.first_notice_of_loss.Where(x => x.LossID == id).ToArray().First();
+           return _db.first_notice_of_loss.Where(x => x.ID == id).ToArray().First();
         }
 
         public first_notice_of_loss[] GetByInsuredUserId(string id)
         {
-            return _db.first_notice_of_loss.Where(x => x.Insured_User == id).ToArray();
+            return _db.first_notice_of_loss.Where(x => x.CreatedBy == id).ToArray();
         }
+
+        public health_insurance_info GetHealthAdditionalInfoByLossId(int lossId)
+        {
+            first_notice_of_loss fnolId = _db.first_notice_of_loss.Single(x => x.ID == lossId);
+
+            return _db.health_insurance_info.Single(x => x.additional_info.ID == fnolId.Additional_infoID);
+
+        }
+
+        public luggage_insurance_info GetLuggageAdditionalInfoByLossId(int lossId)
+        {
+            first_notice_of_loss fnolId = _db.first_notice_of_loss.Single(x => x.ID == lossId);
+
+            return _db.luggage_insurance_info.Single(x => x.additional_info.ID == fnolId.Additional_infoID);
+
+        }
+
+      
     }
 }

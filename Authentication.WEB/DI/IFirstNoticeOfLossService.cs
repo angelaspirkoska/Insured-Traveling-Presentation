@@ -16,6 +16,13 @@ namespace InsuredTraveling.DI
 
         void Add(first_notice_of_loss FirstNoticeOfLoss);
 
+        luggage_insurance_info GetLuggageAdditionalInfoByLossId(int LossID);
+        health_insurance_info GetHealthAdditionalInfoByLossId(int LossID);
+
+        bool IsHealthInsuranceByAdditionalInfoId(int Id);
+
         first_notice_of_loss Create();
+
+       
     }
 }

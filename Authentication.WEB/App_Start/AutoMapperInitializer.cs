@@ -64,35 +64,62 @@ namespace InsuredTraveling.App_Start
                 
             });
 
-            Mapper.CreateMap<FirstNoticeOfLoss, first_notice_of_loss>().AfterMap((src, dst) =>
+            Mapper.CreateMap<FirstNoticeOfLossReportViewModel, first_notice_of_loss>().AfterMap((src, dst) =>
             {
-                dst.PolicyNumber = (int)src.policyNumber;
-                dst.Insured_User = db.aspnetusers.Where(x => x.UserName == src.username).Select(x => x.Id).First();
-                dst.Insured_person_transaction_number = src.TransactionAccount;
-                dst.Insured_person_deponent_bank = src.deponent;
-                dst.Claimant_person_name = src.insuredName;
-                dst.Claimant_person_embg = src.insuredEMBG;
-                dst.Claimant_person_address = src.insuredAddress;
-                dst.Claimant_person_number = src.insuredPhone;
-                dst.Claimant_person_transaction_number = src.insuredTransactionAccount;
-                dst.Claimant_person_deponent_bank = src.deponentInsured;
-                dst.Claimant_insured_relation = src.relationship;
-                dst.Land_trip = src.travelDestination;
-                dst.Trip_startdate = ((DateTime)src.travelDateFrom).Date;
-                dst.Trip_starttime = src.travelTimeFrom;
-                dst.Trip_enddate = ((DateTime)src.travelDateTo).Date;
-                dst.Trip_endtime = src.travelTimeTo;
-                dst.Type_transport_trip = src.transportationType;
-                dst.Additional_documents_handed = src.additionalDocumentsHanded;
-                dst.DateTime = DateTime.Now;
-                dst.AllCosts = src.valueExpenses;
-                dst.LuggageInsurance_Y_N = src.LuggageInsurance;
-                dst.HealthInsurance_Y_N = src.HealthInsurance;
+                
+                //dst.PolicyNumber = (int)src.policyNumber;
+                //dst.Insured_User = db.aspnetusers.Where(x => x.UserName == src.username).Select(x => x.Id).First();
+                //dst.Insured_person_transaction_number = src.TransactionAccount;
+                //dst.Insured_person_deponent_bank = src.deponent;
+                //dst.Claimant_person_name = src.insuredName;
+                //dst.Claimant_person_embg = src.insuredEMBG;
+                //dst.Claimant_person_address = src.insuredAddress;
+                //dst.Claimant_person_number = src.insuredPhone;
+                //dst.Claimant_person_transaction_number = src.insuredTransactionAccount;
+                //dst.Claimant_person_deponent_bank = src.deponentInsured;
+                //dst.Claimant_insured_relation = src.relationship;
+                //dst.Land_trip = src.travelDestination;
+                //dst.Trip_startdate = ((DateTime)src.travelDateFrom).Date;
+                //dst.Trip_starttime = src.travelTimeFrom;
+                //dst.Trip_enddate = ((DateTime)src.travelDateTo).Date;
+                //dst.Trip_endtime = src.travelTimeTo;
+                //dst.Type_transport_trip = src.transportationType;
+                //dst.Additional_documents_handed = src.additionalDocumentsHanded;
+                //dst.DateTime = DateTime.Now;
+                //dst.AllCosts = src.valueExpenses;
+                ////dst.LuggageInsurance_Y_N = src.LuggageInsurance;
+                //dst.HealthInsurance_Y_N = src.HealthInsurance;
                 dst.Web_Mobile = src.WebMobile;
                 dst.Short_Detailed = src.ShortDetailed;
                 dst.health_insurance = null;
                 dst.luggage_insurance = null;
             });
+
+
+            Mapper.CreateMap<FirstNoticeOfLossReportViewModel, first_notice_of_loss>().AfterMap((src, dst) =>
+            {
+
+                dst.PolicyId = src.PolicyId;
+                dst.ClaimantId = src.ClaimantId;
+                dst.Relation_claimant_policy_holder = src.RelationClaimantPolicyHolder;
+                dst.Policy_holder_bank_accountID = src.PolicyHolderForeignBankAccountId;
+                dst.Claimant_bank_accountID = src.ClaimantForeignBankAccountId;
+                dst.Destination = src.Destination;
+                dst.Depart_Date_Time = src.DepartDateTime;
+                dst.Arrival_Date_Time = src.ArrivalDateTime;
+                dst.CreatedBy = src.CreatedBy;
+                dst.CreatedDateTime = DateTime.Now;
+                dst.Transport_means = src.TransportMeans;
+                dst.Additional_infoID = src.AdditionalInfoId;
+                dst.Total_cost = src.TotalCost;
+                dst.Web_Mobile = src.WebMobile;
+                dst.Message = src.Message;
+                dst.Short_Detailed = src.ShortDetailed;
+                
+            });
+
+
+
 
             Mapper.CreateMap<InsuredTravelingEntity, PolicyInfoList>().AfterMap((src, dst) =>
             {

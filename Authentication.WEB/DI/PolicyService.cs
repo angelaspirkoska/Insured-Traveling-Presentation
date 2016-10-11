@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,13 +13,13 @@ namespace InsuredTraveling.DI
         InsuredTravelingEntity _db = new InsuredTravelingEntity();
         public int AddPolicy(travel_policy TravelPolicy)
         {
-            _db.travel_policy.Add(TravelPolicy);            
+            _db.travel_policy.Add(TravelPolicy);
             return _db.SaveChanges();
         }
 
         public string CreatePolicyNumber()
         {
-           return _db.travel_policy.OrderByDescending(p => p.ID).Select(r => r.Policy_Number).FirstOrDefault() + 1;
+            return _db.travel_policy.OrderByDescending(p => p.ID).Select(r => r.Policy_Number).FirstOrDefault() + 1;
         }
 
         public List<travel_policy> GetAllPolicies()
@@ -45,27 +46,45 @@ namespace InsuredTraveling.DI
 
         public List<travel_policy> GetPolicyByTypePolicies(int TypePolicies)
         {
-           return  _db.travel_policy.Where(x => x.Policy_TypeID.Equals(TypePolicies)).ToList();
+            return _db.travel_policy.Where(x => x.Policy_TypeID.Equals(TypePolicies)).ToList();
 
         }
 
         public travel_policy[] GetPolicyByUsernameId(string id)
         {
-           return _db.travel_policy.Where(x => x.aspnetuser.Id == id).ToArray();
+            return _db.travel_policy.Where(x => x.aspnetuser.Id == id).ToArray();
         }
 
+        public Task<travel_policy> GetPolicyClientsInfo(int PolicyID)
+        {
+
+            var policy = _db.travel_policy.Where(x => x.ID == PolicyID)
+                .Include(x => x.insured)
+                .Include(x => x.policy_insured)
+                .Include(x => x.insured.bank_account_info)
+                .SingleOrDefaultAsync();
+
+
+            return policy;
+
+        }
         public insured GetPolicyHolderByPolicyID(int PolicyID)
         {
 
             insured PolicyHolder = _db.travel_policy.Where(x => x.ID == PolicyID).Select(x => x.insured).Single();
 
             return PolicyHolder;
-        
-    }
+
+        }
 
         public DateTime GetStartDateByPolicyId(int PolicyID)
         {
             return _db.travel_policy.Where(x => x.ID == PolicyID).Select(x => x.Start_Date).Single();
+        }
+
+        public string GetPolicyNumberByPolicyId(int id)
+        {
+            return _db.travel_policy.Where(x => x.ID == id).Select(x => x.Policy_Number).Single();
         }
     }
 }

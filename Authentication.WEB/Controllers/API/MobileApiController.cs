@@ -4,6 +4,7 @@ using System.Web.Http;
 using Newtonsoft.Json.Linq;
 using System;
 using InsuredTraveling.DI;
+using System.Text;
 
 namespace InsuredTraveling.Controllers.API
 {
@@ -16,7 +17,7 @@ namespace InsuredTraveling.Controllers.API
         private ILuggageInsuranceService _lis;
         private IOkSetupService _oss;
         private IHealthInsurance _his;
-
+        private IBankAccountService _bas;
 
         
 
@@ -24,7 +25,7 @@ namespace InsuredTraveling.Controllers.API
         {
            
         }
-        public MobileApiController(IUserService us, IPolicyService ps, IFirstNoticeOfLossService fnls, IHealthInsurance his, ILuggageInsuranceService lis, IOkSetupService oss)
+        public MobileApiController(IUserService us, IPolicyService ps, IFirstNoticeOfLossService fnls, IHealthInsurance his, ILuggageInsuranceService lis, IOkSetupService oss, IBankAccountService bas)
         {
             _ps = ps;
             _us = us;
@@ -32,6 +33,7 @@ namespace InsuredTraveling.Controllers.API
             _lis = lis;
             _oss = oss;
             _his = his;
+            _bas = bas;
 
         }
         [Route("RetrieveUserInfo")]
@@ -123,79 +125,93 @@ namespace InsuredTraveling.Controllers.API
             //User's reports of loss
             JArray data3 = new JArray();
 
+
+            
             first_notice_of_loss[] fnol = _fnls.GetByInsuredUserId(user.Id);
 
             foreach (first_notice_of_loss f1 in fnol)
             {
                 var f = new JObject();
 
+
                 if (f1.Short_Detailed == true)
                 {
                     f.Add("message", f1.Message);
-                    f.Add("LossID", f1.LossID);
-                    f.Add("policyNumber", f1.PolicyNumber);
+                    f.Add("LossID", f1.ID);
+
+                    f.Add("policyNumber", f1.travel_policy.Policy_Number);
                 }
                 else
                 {
+                    var ClaimantBankAccount = _bas.BankAccountInfoById(f1.Claimant_bank_accountID);
 
-                    f.Add("LossID", f1.LossID);
-                    f.Add("policyNumber", f1.PolicyNumber);
+                    var PolicyHolderBankAccount = _bas.BankAccountInfoById(f1.travel_policy.Policy_HolderID);
+                    f.Add("LossID", f1.ID);
+                    f.Add("policyNumber", f1.travel_policy.Policy_Number);
 
-                    f.Add("insuredName", f1.Claimant_person_name);
-                    f.Add("insuredEMBG", f1.Claimant_person_embg);
-                    f.Add("insuredAddress", f1.Claimant_person_address);
-                    f.Add("insuredTransactionAccount", f1.Claimant_person_transaction_number);
-                    f.Add("insuredPhone", f1.Claimant_person_number);
-                    f.Add("deponentInsured", f1.Claimant_person_deponent_bank);
-                    f.Add("relationship", f1.Claimant_insured_relation);
+                    f.Add("insuredName", f1.insured.Name + " " + f1.insured.Lastname);
+                    f.Add("insuredEMBG", f1.insured.SSN);
+                    f.Add("insuredAddress", f1.insured.Address + " " + f1.insured.City);
 
-                    f.Add("deponent", f1.Insured_person_deponent_bank);
-                    f.Add("TransactionAccount", f1.Insured_person_transaction_number);
+                    f.Add("insuredTransactionAccount", ClaimantBankAccount.Account_Number);
+                    f.Add("insuredPhone", f1.insured.Phone_Number);
+                    f.Add("deponentInsured", ClaimantBankAccount.bank.Name);
+                    f.Add("relationship", f1.Relation_claimant_policy_holder);
 
-                    f.Add("travelDestination", f1.Land_trip);
-                    f.Add("travelDateFrom", f1.Trip_startdate);
-                    f.Add("travelTimeFrom", f1.Trip_starttime);
-                    f.Add("travelDateTo", f1.Trip_enddate);
-                    f.Add("travelTimeTo", f1.Trip_endtime);
-                    f.Add("transportationType", f1.Type_transport_trip);
+                    f.Add("deponent", PolicyHolderBankAccount.bank.Name);
+                    f.Add("TransactionAccount", PolicyHolderBankAccount.Account_Number);
 
-                    f.Add("additionalDocumentsHanded", f1.Additional_documents_handed);
-                    f.Add("valueExpenses", f1.AllCosts);
-                    f.Add("HealthInsurance", f1.HealthInsurance_Y_N);
-                    f.Add("LuggageInsurance", f1.LuggageInsurance_Y_N);
+                    f.Add("travelDestination", f1.Destination);
+                    f.Add("travelDateFrom", f1.Depart_Date_Time.Date);
+                    f.Add("travelTimeFrom", f1.Depart_Date_Time.TimeOfDay);
+                    f.Add("travelDateTo", f1.Arrival_Date_Time.Date);
+                    f.Add("travelTimeTo", f1.Arrival_Date_Time.TimeOfDay);
+                    f.Add("transportationType", f1.Transport_means);
 
-                    if (f1.HealthInsurance_Y_N == true)
+                    f.Add("additionalDocumentsHanded", "");
+                    f.Add("valueExpenses", f1.Total_cost);
+                    var HealthInsurance = _fnls.GetHealthAdditionalInfoByLossId(f1.ID);
+                    if (HealthInsurance == null)
                     {
-                        var h = f1.health_insurance;
+                        f.Add("HealthInsurance_Y_N", "Ne");
 
-                        if (h != null)
-                        {
-                            f.Add("lossDate", h.Date_of_accsident);
-                            f.Add("lossTime", h.Time_of_accsident);
-                            f.Add("placeLoss", h.Place_of_accsident);
-                            f.Add("DoctorInfo", h.Doctor_data);
-                            f.Add("illnessInfo", h.Disease_description);
-                            f.Add("documentsHanded", h.Documents_proof);
-                            f.Add("additionalInfo", h.Additional_info);
-                        }
                     }
-                    else if (f1.LuggageInsurance_Y_N == true)
+                    else
                     {
+                        f.Add("HealthInsurance_Y_N", "Da");
+                        f.Add("Date_of_accsident", HealthInsurance.additional_info.Datetime_accident.Date + "-" + HealthInsurance.additional_info.Datetime_accident.TimeOfDay + "-" + HealthInsurance.additional_info.Accident_place);
+                        f.Add("Doctor_data", HealthInsurance.Doctor_info + " " + HealthInsurance.Datetime_doctor_visit.ToString());
+                        f.Add("Disease_description", HealthInsurance.Medical_case_description + " " + HealthInsurance.Previous_medical_history);
 
-                        var l = _lis.GetById(f1.LossID);
+                        f.Add("Documents_proof", "");
+                        f.Add("Additional_info", HealthInsurance.Responsible_institution);
 
-                        f.Add("baggageLossDate", l.Date_of_loss);
-                        f.Add("placeBaggageLoss", l.Place_desc_of_loss);
-                        f.Add("placeReported", l.Place_reported);
-                        f.Add("descriptionLostStolenThings", l.Desc_of_stolen_damaged_things);
-                        f.Add("detailedDescription", l.Detailed_description);
-                        f.Add("documentsHanded2", l.Documents_proof);
-                        f.Add("airportArrivalTime", l.AirportArrivalTime);
-                        f.Add("baggageDropTime", l.LuggageDropTime);
+
+
                     }
+
+                    var LuggageInsurance = _fnls.GetLuggageAdditionalInfoByLossId(f1.ID);
+                    if (LuggageInsurance == null)
+                    {
+                        f.Add("LuggageInsurance_Y_N", "Ne");
+
+                    }
+                    else
+                    {
+                        f.Add("LuggageInsurance_Y_N", "Da");
+                        f.Add("Date_of_loss", LuggageInsurance.additional_info.Datetime_accident.Date + "-" + LuggageInsurance.additional_info.Datetime_accident.TimeOfDay + "-" + LuggageInsurance.additional_info.Accident_place);
+                        f.Add("Place_desc_of_loss", LuggageInsurance.Place_description);
+                        f.Add("Detailed_description", LuggageInsurance.Detail_description);
+                        f.Add("Place_reported", LuggageInsurance.Report_place);
+                        f.Add("Desc_of_stolen_damaged_things", LuggageInsurance.Floaters + LuggageInsurance.Floaters_value.ToString());
+                        f.Add("Documents_proof2", "");
+                        f.Add("AirportArrivalTime", LuggageInsurance.additional_info.Datetime_accident.TimeOfDay);
+                        f.Add("LuggageDropTime", LuggageInsurance.Luggage_checking_Time);
+                    }
+
+
+                    data3.Add(f);
                 }
-
-                data3.Add(f);
             }
 
             data.Add("loss", data3);
@@ -225,14 +241,17 @@ namespace InsuredTraveling.Controllers.API
 
         [HttpPost]
         [Route("ReportLoss")]
-        public IHttpActionResult ReportLoss(FirstNoticeOfLoss f)
+        public IHttpActionResult ReportLoss(FirstNoticeOfLossReportViewModel f)
         {
             if (f.ShortDetailed == true)
             {
                 first_notice_of_loss f1 = new first_notice_of_loss();
-                f1.Insured_User = _us.GetUserIdByUsername(f.username);
-                f1.Message = f.message;
-                f1.PolicyNumber = (int)f.policyNumber;
+                //f1.insured
+                var user = _ps.GetPolicyHolderByPolicyID(f1.PolicyId);
+                f1.travel_policy.Policy_HolderID = user.ID;
+
+                f1.Message = f.Message;
+                f1.travel_policy.Policy_Number = f.PolicyNumber.ToString();             
                 f1.Web_Mobile = f.WebMobile;
 
                 try
@@ -250,77 +269,119 @@ namespace InsuredTraveling.Controllers.API
             {
 
                 var FirstNoticeOfLossNew = _fnls.Create();
-                FirstNoticeOfLossNew.PolicyNumber = (int)f.policyNumber;
-                FirstNoticeOfLossNew.Insured_User = _us.GetUserIdByUsername(f.username);
-                FirstNoticeOfLossNew.Insured_person_transaction_number = f.TransactionAccount;
-                FirstNoticeOfLossNew.Insured_person_deponent_bank = f.deponent;
-                FirstNoticeOfLossNew.Claimant_person_name = f.insuredName;
-                FirstNoticeOfLossNew.Claimant_person_embg = f.insuredEMBG;
-                FirstNoticeOfLossNew.Claimant_person_address = f.insuredAddress;
-                FirstNoticeOfLossNew.Claimant_person_number = f.insuredPhone;
-                FirstNoticeOfLossNew.Claimant_person_transaction_number = f.insuredTransactionAccount;
-                FirstNoticeOfLossNew.Claimant_person_deponent_bank = f.deponentInsured;
-                FirstNoticeOfLossNew.Claimant_insured_relation = f.relationship;
-                FirstNoticeOfLossNew.Land_trip = f.travelDestination;
-                FirstNoticeOfLossNew.Trip_startdate = ((DateTime)f.travelDateFrom).Date;
-                FirstNoticeOfLossNew.Trip_starttime = f.travelTimeFrom;
-                FirstNoticeOfLossNew.Trip_enddate = ((DateTime)f.travelDateTo).Date;
-                FirstNoticeOfLossNew.Trip_endtime = f.travelTimeTo;
-                FirstNoticeOfLossNew.Type_transport_trip = f.transportationType;
-                FirstNoticeOfLossNew.Additional_documents_handed = f.additionalDocumentsHanded;
-                FirstNoticeOfLossNew.DateTime = DateTime.Now;
-                FirstNoticeOfLossNew.AllCosts = f.valueExpenses;
-                FirstNoticeOfLossNew.LuggageInsurance_Y_N = f.LuggageInsurance;
-                FirstNoticeOfLossNew.HealthInsurance_Y_N = f.HealthInsurance;
+                FirstNoticeOfLossNew.travel_policy.Policy_Number = f.PolicyNumber.ToString();              
+                var user = _ps.GetPolicyHolderByPolicyID(_ps.GetPolicyIdByPolicyNumber(f.PolicyNumber.ToString()).ID);
+
+
+                //PolicyHolderData
+                FirstNoticeOfLossNew.travel_policy.Policy_HolderID = user.ID;
+                
+                FirstNoticeOfLossNew.Policy_holder_bank_account_info.Account_Number = f.PolicyHolderBankAccountNumber;              
+                FirstNoticeOfLossNew.Policy_holder_bank_account_info.bank.Name = f.PolicyHolderBankName;
+                string[] a = f.PolicyHolderName.Split(' ');
+                StringBuilder Temp = new StringBuilder();
+                int i;
+                for (i = 0; i < a.Length-1; i++)
+                {
+                    Temp.Append(a[i] + " ");
+                }
+                FirstNoticeOfLossNew.insured.Name = Temp.ToString();
+                FirstNoticeOfLossNew.insured.Lastname = a[a.Length-1];
+                
+                FirstNoticeOfLossNew.insured.SSN = f.PolicyHolderSsn;
+                string[] b = f.PolicyHolderAdress.Split(' ');
+                StringBuilder str = new StringBuilder();           
+                for( i = 0; i<b.Length-1; i++ )
+                {
+                    str.Append(b[i] + " ");
+                }
+                FirstNoticeOfLossNew.insured.City = b[i];
+                FirstNoticeOfLossNew.insured.Address = str.ToString();       
+                FirstNoticeOfLossNew.insured.Phone_Number = f.PolicyHolderPhoneNumber;
+
+
+
+                //Claimant data
+
+                FirstNoticeOfLossNew.Claimant_bank_account_info.Account_Number = f.ClaimantBankAccountNumber;
+                              
+                FirstNoticeOfLossNew.Claimant_bank_account_info.bank.Name = f.ClaimantBankName;
+                FirstNoticeOfLossNew.Relation_claimant_policy_holder = f.RelationClaimantPolicyHolder;
+                FirstNoticeOfLossNew.Destination = f.Destination;
+                FirstNoticeOfLossNew.Depart_Date_Time = f.DepartDateTime;
+                //(int year, int month, int day, int hour, int minute, int second, int millisecond)
+
+                FirstNoticeOfLossNew.Arrival_Date_Time = new DateTime(((DateTime)f.DepartDateTime).Year, ((DateTime)f.DepartDateTime).Month, ((DateTime)f.DepartDateTime).Day, f.DepartTime?.Hours ?? 0, f.DepartTime?.Minutes ?? 0, 0, 0);
+               
+                FirstNoticeOfLossNew.Arrival_Date_Time = new DateTime(((DateTime)f.ArrivalDateTime).Year, ((DateTime)f.ArrivalDateTime).Month, ((DateTime)f.ArrivalDateTime).Day, f.ArriveTime?.Hours ?? 0, f.ArriveTime?.Minutes ?? 0, 0, 0); 
+
+                FirstNoticeOfLossNew.Transport_means = f.TransportMeans;
+              //  FirstNoticeOfLossNew.documents_first_notice_of_loss = null;
+                
+                //ModifiedBy
+
+                //FirstNoticeOfLossNew. = DateTime.Now;
+
+                FirstNoticeOfLossNew.Total_cost = f.TotalCost;
+
+
+                if (_fnls.IsHealthInsuranceByAdditionalInfoId(f.Id))
+                {
+                    FirstNoticeOfLossNew.additional_info.health_insurance_info =
+                        _fnls.GetHealthAdditionalInfoByLossId(f.Id);
+                }
+                else
+                {
+
+                    FirstNoticeOfLossNew.additional_info.luggage_insurance_info =
+                        _fnls.GetLuggageAdditionalInfoByLossId(f.Id);
+                }
+
                 FirstNoticeOfLossNew.Web_Mobile = f.WebMobile;
                 FirstNoticeOfLossNew.Short_Detailed = f.ShortDetailed;
 
 
-                try
+
+              
+
+                if (f.IsHealthInsurance)
                 {
-                    _fnls.Add(FirstNoticeOfLossNew);
+                   
+                    var healthInsuranceAdditionalInfo = _his.Create();
+                    healthInsuranceAdditionalInfo.ID = FirstNoticeOfLossNew.ID;
+                    healthInsuranceAdditionalInfo.Place_of_accsident = f.AccidentPlaceHealth;
+                    healthInsuranceAdditionalInfo.Doctor_data = f.DoctorInfo+f.DoctorVisitDateTime.ToString();
+                    healthInsuranceAdditionalInfo.Date_of_accsident = f.AccidentDateTimeHealth ?? new DateTime(0,0,0);
+                    healthInsuranceAdditionalInfo.Disease_description = f.MedicalCaseDescription + ((f.PreviousMedicalHistory) ? "Имам претходно искуство со болеста" : "Немам претходно искуство со болеста") ;
+                    //    h.Documents_proof = f.documentsHanded;
+                    healthInsuranceAdditionalInfo.Additional_info = f.DetailDescription;
+                    healthInsuranceAdditionalInfo.Time_of_accsident =f.AccidentTimeHealth ?? new TimeSpan(0,0,0);
+                        try
+                        {
+                            _his.Add(healthInsuranceAdditionalInfo);
+                        }
+                        catch (Exception ex)
+                        {
+                            return InternalServerError(ex);
+                        }
+
 
                 }
-                catch (Exception ex)
+                else
                 {
-                    return InternalServerError(ex);
-                }
 
-
-                if (FirstNoticeOfLossNew.HealthInsurance_Y_N == true)
-                {
-                    var h = _his.Create();
-                    h.ID = FirstNoticeOfLossNew.LossID;
-                    h.Place_of_accsident = f.placeLoss;
-                    h.Doctor_data = f.DoctorInfo;
-                    h.Date_of_accsident = (DateTime)f.lossDate;
-                    h.Disease_description = f.illnessInfo;
-                    h.Documents_proof = f.documentsHanded;
-                    h.Additional_info = f.additionalInfo;
-                    h.Time_of_accsident = (TimeSpan)f.lossTime;
-                    try
+                    var l = new luggage_insurance
                     {
-                        _his.Add(h);
-                    }
-                    catch (Exception ex)
-                    {
-                        return InternalServerError(ex);
-                    }
-
-
-                }
-                else if (FirstNoticeOfLossNew.LuggageInsurance_Y_N == true)
-                {
-                    luggage_insurance l = new luggage_insurance();
-                    l.ID = FirstNoticeOfLossNew.LossID;
-                    l.Date_of_loss = (DateTime)f.baggageLossDate;
-                    l.Place_desc_of_loss = f.placeBaggageLoss;
-                    l.Place_reported = f.placeReported;
-                    l.Detailed_description = f.detailedDescription;
-                    l.Desc_of_stolen_damaged_things = f.descriptionLostStolenThings;
-                    l.Documents_proof = f.documentsHanded2;
-                    l.AirportArrivalTime = (TimeSpan)f.airportArrivalTime;
-                    l.LuggageDropTime = (TimeSpan)f.baggageDropTime;
+                        ID = FirstNoticeOfLossNew.ID,
+                        Date_of_loss = f.AccidentDateTimeLuggage ?? new DateTime(0, 0, 0),
+                        Place_desc_of_loss = f.AccidentPlaceLuggage,
+                        Place_reported = f.ReportPlace,
+                        Detailed_description = f.DetailDescription,
+                        Desc_of_stolen_damaged_things = f.Floaters + " " + f.FloatersValue,
+                        AirportArrivalTime  = ((f.AccidentDateTimeLuggage.HasValue) ? new TimeSpan(f.AccidentDateTimeLuggage.Value.Hour, f.AccidentDateTimeLuggage.Value.Minute, f.AccidentDateTimeLuggage.Value.Second) : new TimeSpan(0, 0, 0)),                
+                        LuggageDropTime = f.LugaggeCheckingTime ?? new TimeSpan(0, 0, 0)
+                    };
+                    //l.Documents_proof = f.documentsHanded2;
 
                     try
                     {
@@ -333,9 +394,8 @@ namespace InsuredTraveling.Controllers.API
 
 
 
+
                 }
-
-
 
                 return Ok();
             }

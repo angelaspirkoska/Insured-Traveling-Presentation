@@ -22,7 +22,7 @@ namespace InsuredTraveling.Filters
             foreach (var role in allowedroles)
             {
                 var user = httpContext.User;
-                var selectedUser = context.aspnetusers.FirstOrDefault(m => m.UserName == user.Identity.Name);
+                var selectedUser = context.aspnetusers.Single(m => m.UserName == user.Identity.Name);
                 if(selectedUser.aspnetroles.Count == 0)
                 {
                     authorize = false;
@@ -41,7 +41,7 @@ namespace InsuredTraveling.Filters
         {
             bool authorize = false;
             var user = System.Web.HttpContext.Current.User;
-            var selectedUser = context.aspnetusers.FirstOrDefault(m => m.UserName == user.Identity.Name);
+            var selectedUser = context.aspnetusers.Single(m => m.UserName == user.Identity.Name);
             if (selectedUser.aspnetroles.Count == 0)
             {
                 authorize = false;

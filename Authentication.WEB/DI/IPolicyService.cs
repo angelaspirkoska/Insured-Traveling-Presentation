@@ -14,6 +14,8 @@ namespace InsuredTraveling.DI
 
         travel_policy GetPolicyIdByPolicyNumber(string id);
 
+        string GetPolicyNumberByPolicyId(int id);
+
         DateTime GetStartDateByPolicyId(int PolicyID);
         DateTime GetEndDateByPolicyId(int PolicyID);
 
@@ -27,8 +29,10 @@ namespace InsuredTraveling.DI
         string GetCompanyID(string PolicyNumber);
 
          List<travel_policy> GetAllPolicies();
-
+        Task<travel_policy> GetPolicyClientsInfo(int PolicyID);
         insured GetPolicyHolderByPolicyID(int PolicyID);
+
+        
 
     }
 }

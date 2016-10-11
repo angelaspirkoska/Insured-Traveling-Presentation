@@ -1,4 +1,4 @@
-﻿@model InsuredTraveling.Models.FirstNoticeOfLoss
+﻿@model InsuredTraveling.Models.FirstNoticeOfLossReportViewModel
 
 @{
     ViewBag.Title = "First Notice of Loss";
@@ -42,10 +42,11 @@
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span><label class="col-md-4 control-label">Број на полиса:</label>
                     <div class="col-lg-7">
+                        @Html.TextBoxFor(model => model.PolicyId, new { @class = "form-control input-sm", @id = "PolicyId", @style = "display: none;" })
+                        
+                        @Html.DropDownListFor(model => model.PolicyNumber, (List<SelectListItem>)ViewBag.Policies, "Број на полиса", new { @class = "form-control", @id = "DropDownPolicyNumber" })
 
-                        @Html.DropDownListFor(model => model.policyNumber, (List<SelectListItem>)ViewBag.Policies, "Број на полиса", new { @class = "form-control", @id = "DropDownPolicyNumber" })
-
-                        @Html.ValidationMessageFor(model => model.policyNumber, "", new { @class = "text-danger input-sm" })
+                        @Html.ValidationMessageFor(model => model.PolicyNumber, "", new { @class = "text-danger input-sm" })
                     </div>
                 </div>
             </div>
@@ -56,26 +57,29 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Договорувач:</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control input-sm" id="PolicyHolderName" readonly>
+                        @Html.TextBoxFor(model => model.PolicyHolderName, new { @class = "form-control input-sm", @id = "PolicyHolderName", @readonly = true })  
+                       
                     </div>
                 </div>
-                <input hidden type="text" value="@System.Web.HttpContext.Current.User.Identity.Name" name="username" />
+                <input hidden type="text"  id="PolicyHolderId"  name="PolicyHolderId" />
                 <div class="form-group">
                     <label class="col-md-4 control-label">Адреса:</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control input-sm" id="PolicyHolderAddress" readonly>
+                        @Html.TextBoxFor(model => model.PolicyHolderAdress, new { @class = "form-control input-sm", @id = "PolicyHolderAddress", @readonly = true })                       
                     </div>
-                </div>
+                </div>  
                 <div class="form-group">
                     <label class="col-md-4 control-label">Телефон:</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control input-sm" id="PolicyHolderPhone" readonly>
+                        @Html.TextBoxFor(model => model.PolicyHolderPhoneNumber, new { @class = "form-control input-sm", @id = "PolicyHolderPhone", @readonly = true })
+
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label">ЕМБГ:</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control input-sm" id="PolicyHolderSSN" readonly>
+                        @Html.TextBoxFor(model => model.PolicyHolderSsn, new { @class = "form-control input-sm", @id = "PolicyHolderSSN", @readonly = true })
+                       
                     </div>
                 </div>
             </div>
@@ -85,19 +89,21 @@
                     <div class="col-lg-8 col-md-8">
                         <label class="control-label">Искористи претходна трансакциска сметка:</label>
                     </div>
-                    <input type="checkbox" value="" id="ExistentBankAccount" class="col-md-1" style="margin-top:3%;"/>
+                    @Html.CheckBoxFor(model => model.PolicyHolderExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccount", @readonly = true, @style = "margin-top:3%;" })
+                   
                 </div>
                 <div class="form-group">
 
                     <div class="col-lg-4 col-md-4">
                         <label class="control-label">Странска сметка</label>
                     </div>
-                    <input type="checkbox" value="" id="ForeignBankAccount" class="col-md-1" style="margin-top:3%;" />
+                    @Html.CheckBoxFor(model => model.PolicyHolderForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccount", @readonly = true, @style = "margin-top:3%;" })
+                    
                 </div>
                 <div class="form-group" style="padding-left: 34%;">
                    
                     <div class="col-md-12">
-                        <select class="form-control" data-val="true" id="DropDownBankAccountPolicyHolder" name="policyNumber">
+                        <select class="form-control" data-val="true" id="DropDownBankAccountPolicyHolder"  name="PolicyHolderForeignBankAccountId">
                             <option value="0">Избери трансакциска сметка</option>
                         </select>
                     </div>
@@ -107,8 +113,8 @@
                     
                     <label class="col-md-5 control-label">Трансакциона сметка:</label>
                     <div class="col-lg-6">
-                        @Html.EditorFor(model => model.TransactionAccount, new { htmlAttributes = new { @class = "form-control input-sm" , @maxLength = "15" } })
-                        @Html.ValidationMessageFor(model => model.TransactionAccount, "", new { @class = "text-danger input-sm" })
+                        @Html.EditorFor(model => model.PolicyHolderBankAccountNumber, new { htmlAttributes = new { @class = "form-control input-sm" , @maxLength = "15", @id= "TransactionAccount" } })
+                        @Html.ValidationMessageFor(model => model.PolicyHolderBankAccountNumber, "", new { @class = "text-danger input-sm" })
                     </div>
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red" id="taccountspan"></span>
                 </div>
@@ -117,8 +123,9 @@
                 <div class="form-group">
                     <label class="col-md-5 control-label">Депонент банка:</label>
                     <div class="col-lg-6">
-                        @Html.EditorFor(model => model.deponent, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.deponent, "", new { @class = "text-danger input-sm" })
+                       @Html.EditorFor(model => model.PolicyHolderBankName, new { htmlAttributes = new { @class = "form-control input-sm", @id = "deponent" } })
+                       @Html.ValidationMessageFor(model => model.PolicyHolderBankName, "", new { @class = "text-danger input-sm" })
+   
                     </div>
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red" id="deponentspan"></span>
                 </div>
@@ -132,7 +139,7 @@
                 <div class="form-group">
                     <span class="col-md-4"></span>
                     <div class="col-md-8">
-                        <select class="form-control" data-val="true" id="DropDownInsureds" name="policyNumber">
+                        <select class="form-control" data-val="true" id="DropDownInsureds" name="ClaimantId">
                             <option value="0">Избери корисник</option>
                         </select>
                     </div>     
@@ -141,36 +148,41 @@
                         <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                         <label class="col-md-4 control-label">Оштетен:</label>
                         <div class="col-lg-7">
-                            <input type="text" class="form-control input-sm" id="InsuredName" readonly>
+                            @Html.TextBoxFor(model => model.ClaimantName, new { @class = "form-control input-sm", @id = "InsuredName", @readonly = true })
+                            @Html.ValidationMessageFor(model => model.ClaimantName, "", new { @class = "text-danger input-sm" })
                         </div>
                     </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Адреса:</label>
                     <div class="col-lg-7">
-                        <input type="text" class="form-control input-sm" id="InsuredAdress" readonly>
+                        @Html.TextBoxFor(model => model.ClaimantAdress, new { @class = "form-control input-sm", @id = "InsuredAdress", @readonly = true })
+                        @Html.ValidationMessageFor(model => model.ClaimantAdress, "", new { @class = "text-danger input-sm" })                     
                     </div>
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Телефон:</label>
                     <div class="col-lg-7">
-                        <input type="text" class="form-control input-sm" id="InsuredPhone" readonly>
+                        @Html.TextBoxFor(model => model.ClaimantPhoneNumber, new { @class = "form-control input-sm", @id = "InsuredPhone", @readonly = true })     
+                        @Html.ValidationMessageFor(model => model.ClaimantPhoneNumber, "", new { @class = "text-danger input-sm" })                                      
                     </div>
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">ЕМБГ:</label>
                     <div class="col-lg-7">
-                        <input type="text" class="form-control input-sm" id="InsuredSSN" readonly>
+                        
+                        @Html.TextBoxFor(model => model.ClaimantSsn, new {@class = "form-control input-sm", @id = "InsuredSSN", @readonly = true})
+                        @Html.ValidationMessageFor(model => model.ClaimantSsn, "", new { @class = "text-danger input-sm" })
                     </div>
                 </div>
 
                 <div class="form-group" id="HideWhenSameUserAndSelectedInsured">
                     <label class="col-md-4 control-label">Сродство со осигуреникот:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.relationship, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.relationship, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.RelationClaimantPolicyHolder, new { htmlAttributes = new { @class = "form-control input-sm", @id="relationship"} })
+                        @Html.ValidationMessageFor(model => model.RelationClaimantPolicyHolder, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -181,19 +193,20 @@
                     <div class="col-lg-8 col-md-8">
                         <label class="control-label">Искористи претходна трансакциска сметка:</label>
                     </div>
-                    <input type="checkbox" value="" id="ExistentBankAccountInsured" class="col-md-1" style="margin-top:3%;" />
+                    @Html.CheckBoxFor(model => model.ClaimantExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccountInsured", @readonly = true, @style = "margin-top:3%;" })
+                   
                 </div>
                 <div class="form-group">
 
                     <div class="col-lg-4 col-md-4">
                         <label class="control-label">Странска сметка</label>
                     </div>
-                    <input type="checkbox" value="" id="ForeignBankAccountInsured" class="col-md-1" style="margin-top:3%;" />
+                    @Html.CheckBoxFor(model => model.ClaimantForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccountInsured", @readonly = true, @style = "margin-top:3%;" })                   
                 </div>
                 <div class="form-group" style="padding-left: 34%;">
 
                     <div class="col-md-12">
-                        <select class="form-control" data-val="true" id="DropDownBankAccountInsured" name="policyNumber">
+                        <select class="form-control" data-val="true" id="DropDownBankAccountInsured" name="ClaimantForeignBankAccountId">
                             <option value="0">Избери трансакциска сметка</option>
                         </select>
                     </div>
@@ -203,16 +216,16 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Трансакциона с-ка:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.insuredTransactionAccount, new { htmlAttributes = new { @class = "form-control input-sm", @maxLength = "15" } })
-                        @Html.ValidationMessageFor(model => model.insuredTransactionAccount, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.ClaimantBankAccountNumber, new { htmlAttributes = new { @class = "form-control input-sm", @maxLength = "15", @id= "insuredTransactionAccount" } })
+                        @Html.ValidationMessageFor(model => model.ClaimantBankAccountNumber, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Депонент банка:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.deponentInsured, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.deponentInsured, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.ClaimantBankName, new { htmlAttributes = new { @class = "form-control input-sm", @id= "deponentInsured" } })
+                        @Html.ValidationMessageFor(model => model.ClaimantBankName, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -227,23 +240,24 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Место на патување:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.travelDestination, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.travelDestination, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control input-sm", @id= "travelDestination" } })
+                        @Html.ValidationMessageFor(model => model.Destination, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Датум на заминување:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.travelDateFrom, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date" } })
-                        @Html.ValidationMessageFor(model => model.travelDateFrom, "", new { @class = "text-danger" })
+                        
+                        @Html.EditorFor(model => model.DepartDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date", @id= "travelDateFrom" } })
+                        @Html.ValidationMessageFor(model => model.DepartDateTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label">Време на заминување:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.travelTimeFrom, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
-                        @Html.ValidationMessageFor(model => model.travelTimeFrom, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id= "travelTimeFrom" } })
+                        @Html.ValidationMessageFor(model => model.DepartTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -253,8 +267,8 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Превозно средство:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.transportationType, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.transportationType, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.TransportMeans, new { htmlAttributes = new { @class = "form-control input-sm", @id= "transportationType" } })
+                        @Html.ValidationMessageFor(model => model.TransportMeans, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -263,15 +277,15 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Датум на враќање:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.travelDateTo, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date" } })
-                        @Html.ValidationMessageFor(model => model.travelDateTo, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.ArrivalDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date", @id= "travelDateTo" } })
+                        @Html.ValidationMessageFor(model => model.ArrivalDateTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label">Време на враќање:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.travelTimeTo, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
-                        @Html.ValidationMessageFor(model => model.travelTimeTo, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id= "travelTimeTo" } })
+                        @Html.ValidationMessageFor(model => model.DepartTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -281,15 +295,20 @@
 
         <div class="row container">
             <header class="well">Одберете тип на осигурување: </header>
+
             <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
             <div class="col-md-4">
+              
+
                 <div class="form-group">
-                    <input type="radio" name="insurance" value="Health Insurance" onchange="InsuranceType('HealthInsurance');" required id="health"> Здравствено осигурување
+                    @Html.RadioButtonFor(m => m.IsHealthInsurance, "true", new  {@onchange = "InsuranceType('HealthInsurance');", @id ="health", @required = "true", @class= "required" })Здравствено осигурување
+
                 </div>
             </div>
+                
             <div class="col-md-4">
                 <div class="form-group">
-                    <input type="radio" name="insurance" value="Luggage Insurance" onchange="InsuranceType('LuggageInsurance');" required id="luggage"> Осигурување на багаж
+                    @Html.RadioButtonFor(m => m.IsHealthInsurance, "false", new {  @onchange = "InsuranceType('LuggageInsurance');", @id = "luggage", @required ="true", @class = "required" })Осигурување на багаж
                 </div>
             </div>
         </div>
@@ -301,54 +320,79 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Датум на незгодата:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.lossDate, new { htmlAttributes = new { @class = "form-control input-sm", type = "date" } })
-                        @Html.ValidationMessageFor(model => model.lossDate, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.AccidentDateTimeHealth, new { htmlAttributes = new { @class = "form-control input-sm", type = "date", @id= "lossDate" } })
+                        @Html.ValidationMessageFor(model => model.AccidentDateTimeHealth, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Време на незгодата:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.lossTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
-                        @Html.ValidationMessageFor(model => model.lossTime, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.AccidentTimeHealth, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id="lossTime" } })
+                        @Html.ValidationMessageFor(model => model.AccidentTimeHealth, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Место на незгодата:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.placeLoss, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.placeLoss, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.AccidentPlaceHealth, new { htmlAttributes = new { @class = "form-control input-sm", @id="placeLoss" } })
+                        @Html.ValidationMessageFor(model => model.AccidentPlaceHealth, "", new { @class = "text-danger" })
                     </div>
                 </div>
+                
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Прв контакт со докторот и негови податоци:</label>
+                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
+                    <label class="col-md-4 control-label">Датум на посета кај доктор:</label>
+                    <div class="col-lg-7">
+                        @Html.EditorFor(model => model.DoctorVisitDateTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "date" } })
+                        @Html.ValidationMessageFor(model => model.DoctorVisitDateTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Податоци за докторот:</label>
                     <div class="col-lg-7">
                         @Html.TextAreaFor(model => model.DoctorInfo, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.DoctorInfo, "", new { @class = "text-danger" })
+                     
                     </div>
                 </div>
+
+
+
+               
+
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Опис на болеста и дали претходно сте биле лекувани од истата:</label>
+                    <label class="col-md-4 control-label">Опис на болеста:</label>
                     <div class="col-lg-7">
-                        @Html.TextAreaFor(model => model.illnessInfo, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.illnessInfo, "", new { @class = "text-danger" })
+                        @Html.TextAreaFor(model => model.MedicalCaseDescription, new { htmlAttributes = new { @class = "form-control input-sm", @id= "illnessInfo" } })
+                     
                     </div>
                 </div>
+                
+                <div class="form-group">
+                    
+                    <label class="col-md-4 control-label">Дали претходно сте биле лекувани од истата:</label>
+                    <div class="col-lg-7">
+                        @Html.CheckBoxFor(model => model.PreviousMedicalHistory, new { @class = "col-md-1", @style = "margin-top:3%;" })
+              
+              
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label class="col-md-4 control-label">Документи приложени како доказ:</label>
                     <div class="col-lg-7">
-                        @Html.TextAreaFor(model => model.documentsHanded, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.documentsHanded, "", new { @class = "text-danger" })
+                      
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label">Во случај на тешка повреда или смрт, кој орган составил записник и детален опис на настанот :</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.additionalInfo, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.additionalInfo, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.ResponsibleInstitution, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                        
                     </div>
                 </div>
             </div>
@@ -362,64 +406,78 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Датум на настанот:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.baggageLossDate, new { htmlAttributes = new { @class = "form-control input-sm", type = "date" } })
-                        @Html.ValidationMessageFor(model => model.baggageLossDate, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.AccidentDateTimeLuggage, new { htmlAttributes = new { @class = "form-control input-sm", type = "date", @id= "baggageLossDate" } })
+                        @Html.ValidationMessageFor(model => model.AccidentDateTimeLuggage, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Место и опис на настанот:</label>
+                    <label class="col-md-4 control-label">Место на незгодата:</label>
                     <div class="col-lg-7">
-                        @Html.TextAreaFor(model => model.placeBaggageLoss, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.placeBaggageLoss, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.AccidentPlaceLuggage, new { htmlAttributes = new { @class = "form-control input-sm"} })
+                        @Html.ValidationMessageFor(model => model.AccidentPlaceLuggage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
+                    <label class="col-md-4 control-label">Опис на настанот:</label>
+                    <div class="col-lg-7">
+                        @Html.TextAreaFor(model => model.PlaceDescription, new { htmlAttributes = new { @class = "form-control input-sm"} })
+                        @Html.ValidationMessageFor(model => model.PlaceDescription, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Детален опис на настанот:</label>
                     <div class="col-lg-7">
-                        @Html.TextAreaFor(model => model.detailedDescription, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.detailedDescription, "", new { @class = "text-danger" })
+                        @Html.TextAreaFor(model => model.DetailDescription, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                        @Html.ValidationMessageFor(model => model.DetailDescription, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Место на пријавување:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.placeReported, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.placeReported, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.ReportPlace, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                        @Html.ValidationMessageFor(model => model.ReportPlace, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Опис на украдените/оштетени предмети и нивната вредност:</label>
+                    <label class="col-md-4 control-label">Опис на украдените/оштетени предмети:</label>
                     <div class="col-lg-7">
-                        @Html.TextAreaFor(model => model.descriptionLostStolenThings, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.descriptionLostStolenThings, "", new { @class = "text-danger" })
+                        @Html.TextAreaFor(model => model.Floaters, new { htmlAttributes = new { @class = "form-control input-sm" } })                     
                     </div>
                 </div>
+                
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Вредност:</label>
+                    <div class="col-lg-7">
+                        @Html.TextAreaFor(model => model.FloatersValue, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label class="col-md-4 control-label">Документи приложени како доказ :</label>
                     <div class="col-lg-7">
-                        @Html.TextAreaFor(model => model.documentsHanded2, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.documentsHanded2, "", new { @class = "text-danger" })
+                      
                     </div>
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Време на пристигнување на аеродром :</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.airportArrivalTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
-                        @Html.ValidationMessageFor(model => model.airportArrivalTime, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.AccidentTimeLuggage, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
+                        @Html.ValidationMessageFor(model => model.AccidentTimeLuggage, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Време на предавање на багаж :</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.baggageDropTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
-                        @Html.ValidationMessageFor(model => model.baggageDropTime, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.LugaggeCheckingTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
+                        @Html.ValidationMessageFor(model => model.LugaggeCheckingTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -432,8 +490,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Фактури како доказ:</label>
                     <div class="col-lg-7">
-                        @Html.TextAreaFor(model => model.additionalDocumentsHanded, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                        @Html.ValidationMessageFor(model => model.additionalDocumentsHanded, "", new { @class = "text-danger" })
+                       
                     </div>
                 </div>
                 <div class="form-group">
@@ -441,10 +498,10 @@
                     <label class="col-md-4 control-label">Вкупна вредност на сите трошоци:</label>
                     <div class="col-lg-7">
                         <div class="input-group">
-                            @Html.EditorFor(model => model.valueExpenses, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                            @Html.EditorFor(model => model.TotalCost, new { htmlAttributes = new { @class = "form-control input-sm" } })
                             <span class="input-group-addon">.00 денари</span>
                         </div>
-                        @Html.ValidationMessageFor(model => model.valueExpenses, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.TotalCost, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -464,6 +521,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#health").attr("checked", "true");
+            $("#hiddenIsHealthInsurance").prop("checked", true);
             $("#healthInsurance").toggle();
         });
     </script>
@@ -473,6 +531,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
     <script type="text/javascript">
         $(document).ready(function () {
             $("#luggage").attr("checked", "true");
+            $("#hiddenIsHealthInsurance").prop("checked", false);
             $("#luggageInsurance").toggle();
         });
     </script>
@@ -569,6 +628,63 @@ else if (ViewBag.insurance == "Luggage Insurance")
         }
     });
 
+    $('#travelDateFrom').change(function (event) {
+        var inputMinDate = $("#lossDate").attr("min");    
+        var inputMinDate = $("#baggageLossDate").attr("min");
+        var inputMinDateArray = inputMinDate.split('-');
+        var inputStartTrip = $('#travelDateFrom').val();
+        var inputStartTripArray = inputStartTrip.split('-');
+        if (parseInt(inputStartTripArray[0]) > parseInt(inputMinDateArray[0]))
+        {
+            $("#lossDate").attr("min", inputStartTrip);
+            $("#baggageLossDate").attr("min", inputStartTrip);
+        }
+        else if (parseInt(inputStartTripArray[0]) == parseInt(inputMinDateArray[0]))
+        {
+            if(parseInt(inputStartTripArray[1]) > parseInt(inputMinDateArray[1]))
+            {
+                $("#lossDate").attr("min", inputStartTrip);
+                $("#baggageLossDate").attr("min", inputStartTrip);
+            }
+            else if (parseInt(inputStartTripArray[1]) == parseInt(inputMinDateArray[1]))
+            {
+                if(parseInt(inputStartTripArray[2]) > parseInt(inputMinDateArray[2]))
+                {
+                    $("#lossDate").attr("min", inputStartTrip);
+                    $("#baggageLossDate").attr("min", inputStartTrip);
+                }
+            }
+        }
+
+        console.log("value changed");
+    });
+
+
+    $('#travelDateTo').change(function (event) {
+        var inputMinDate = $("#lossDate").attr("max");
+        var inputMinDate = $("#baggageLossDate").attr("max");
+        var inputMinDateArray = inputMinDate.split('-');
+        var inputStartTrip = $('#travelDateTo').val();
+        var inputStartTripArray = inputStartTrip.split('-');
+        if (parseInt(inputStartTripArray[0]) < parseInt(inputMinDateArray[0])) {
+            $("#lossDate").attr("min", inputStartTrip);
+            $("#baggageLossDate").attr("min", inputStartTrip);
+        }
+        else if (parseInt(inputStartTripArray[0]) == parseInt(inputMinDateArray[0])) {
+            if (parseInt(inputStartTripArray[1]) < parseInt(inputMinDateArray[1])) {
+                $("#lossDate").attr("min", inputStartTrip);
+                $("#baggageLossDate").attr("min", inputStartTrip);
+            }
+            else if (parseInt(inputStartTripArray[1]) == parseInt(inputMinDateArray[1])) {
+                if (parseInt(inputStartTripArray[2]) < parseInt(inputMinDateArray[2])) {
+                    $("#lossDate").attr("min", inputStartTrip);
+                    $("#baggageLossDate").attr("min", inputStartTrip);
+                }
+            }
+        }
+
+        console.log("value changed");
+    });
     
 
 
@@ -692,7 +808,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
     $('#DropDownPolicyNumber').on('change', function () {
         ClearDropDownData();
-        var PolicyId = $('#DropDownPolicyNumber').val()
+        var PolicyId = $('#DropDownPolicyNumber').val();
+        $('#PolicyId').val(PolicyId);
         $.ajax({
             type: "GET",
             url: "/FirstNoticeOfLoss/GetInsureds?policyID=" + PolicyId,
@@ -702,6 +819,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 console.log(rez);
                 Banks = rez.banks;
 
+                $("#PolicyHolderId").attr("value", rez.policyholder.Id);
                 $("#PolicyHolderName").attr("value", rez.policyholder.FirstName + " " + rez.policyholder.LastName);
                 $("#PolicyHolderName").attr("IdPolicyHolder", rez.policyholder.Id);
                 $("#PolicyHolderPhone").attr("value", rez.policyholder.PhoneNumber);
@@ -713,6 +831,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     $('#DropDownBankAccountPolicyHolder').append($("<option></option>").attr({ value: value.Id, bank: value.BankName }).text(value.AccountNumber));
                 });
 
+
                 $.each(rez.data, function (i, val) {
                     $('#DropDownInsureds').append(
                     $("<option></option>")
@@ -721,7 +840,10 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 });
                 FillInsuredData();
 
-
+                $('#lossDate').attr("min", rez.StartDate);
+                $('#lossDate').attr("max", rez.EndDate);            
+                $('#baggageLossDate').attr("min", rez.StartDate);
+                $('#baggageLossDate').attr("max", rez.EndDate);
             }
         });
 
@@ -732,9 +854,11 @@ else if (ViewBag.insurance == "Luggage Insurance")
     function InsuranceType(type) {
         if (type == "LuggageInsurance") {
             $("#luggageInsurance").toggle();
+            $("#hiddenIsHealthInsurance").prop("checked", false);
             $("#healthInsurance").hide();
         } else if (type == "HealthInsurance") {
             $("#healthInsurance").toggle();
+            $("#hiddenIsHealthInsurance").prop("checked", true);
             $("#luggageInsurance").hide();
         }
     }
