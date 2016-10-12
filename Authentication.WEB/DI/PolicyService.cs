@@ -55,14 +55,14 @@ namespace InsuredTraveling.DI
             return _db.travel_policy.Where(x => x.aspnetuser.Id == id).ToArray();
         }
 
-        public Task<travel_policy> GetPolicyClientsInfo(int PolicyID)
+        public travel_policy GetPolicyClientsInfo(int PolicyID)
         {
 
             var policy = _db.travel_policy.Where(x => x.ID == PolicyID)
                 .Include(x => x.insured)
                 .Include(x => x.policy_insured)
                 .Include(x => x.insured.bank_account_info)
-                .SingleOrDefaultAsync();
+                .SingleOrDefault();
 
 
             return policy;

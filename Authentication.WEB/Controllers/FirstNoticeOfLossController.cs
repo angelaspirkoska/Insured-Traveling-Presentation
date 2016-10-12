@@ -12,6 +12,8 @@ using System.Web.Mvc;
 using InsuredTraveling.DI;
 using System.Data.Entity;
 using System.Collections.Generic;
+using InsuredTraveling.Helpers;
+using InsuredTraveling.ViewModels;
 using Newtonsoft.Json;
 
 namespace InsuredTraveling.Controllers
@@ -60,6 +62,7 @@ namespace InsuredTraveling.Controllers
                 ModelState.Remove("ReportPlace");
                 ModelState.Remove("AccidentTimeLuggage");
                 ModelState.Remove("LugaggeCheckingTime");
+                ModelState.Remove("ArriveTime");
                 ViewBag.insurance = "Health Insurance";
             }
             else
@@ -68,19 +71,37 @@ namespace InsuredTraveling.Controllers
                 ModelState.Remove("AccidentTimeHealth");
                 ModelState.Remove("AccidentPlaceHealth");
                 ModelState.Remove("DoctorVisitDateTime");
+                ModelState.Remove("ArriveTime");
                 ViewBag.insurance = "Luggage Insurance";
             }
 
             if (ModelState.IsValid)
             {
-                var uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/api/mobile/ReportLoss");
-                var client = new HttpClient { BaseAddress = uri };
-                var jsonFormatter = new JsonMediaTypeFormatter();
-                HttpContent content = new ObjectContent<FirstNoticeOfLossReportViewModel>(firstNoticeOfLossViewModel,
-                    jsonFormatter);
-                HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
-                string responseBody = await responseMessage.Content.ReadAsStringAsync();
+                SaveDataInDb(firstNoticeOfLossViewModel);
+                //var uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/api/mobile/ReportLoss");
+                //var client = new HttpClient { BaseAddress = uri };
+                //var jsonFormatter = new JsonMediaTypeFormatter();
+                //HttpContent content = new ObjectContent<FirstNoticeOfLossReportViewModel>(firstNoticeOfLossViewModel,
+                //    jsonFormatter);
+                //HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
+                //string responseBody = await responseMessage.Content.ReadAsStringAsync();
 
+
+
+                //firstNoticeOfLossViewModel.ShortDetailed = false;
+
+
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    ViewBag.Message = "Successfully reported!";
+                    return View();
+                }
+                else
+                {
+                    ViewBag.Message = "Something went wrong!";
+                    return View();
+                }
 
 
 
@@ -88,27 +109,13 @@ namespace InsuredTraveling.Controllers
 
             }
 
-            //    f.ShortDetailed = false;
-
-
-
-            //    if (responseMessage.IsSuccessStatusCode)
-            //    {
-            //        ViewBag.Message = "Successfully reported!";
-            //        return View();
-            //    }else
-            //    {
-            //        ViewBag.Message = "Something went wrong!";
-            //        return View();
-            //    }
-            //}
-            SaveDataInDb(firstNoticeOfLossViewModel);
 
             return View(firstNoticeOfLossViewModel);
         }
 
         private bool SaveDataInDb(FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel)
         {
+            var result = true;
             var additionalInfo = _ais.Create();
             if (firstNoticeOfLossViewModel.IsHealthInsurance)
             {
@@ -128,7 +135,8 @@ namespace InsuredTraveling.Controllers
 
                 try
                 {
-                    _ais.AddHealthInsuranceInfo(healthInsuranceInfo);
+                    result = _ais.AddHealthInsuranceInfo(healthInsuranceInfo) > 0;
+
                 }
                 finally
                 {
@@ -141,8 +149,8 @@ namespace InsuredTraveling.Controllers
             {
                 additionalInfo.Accident_place = firstNoticeOfLossViewModel.AccidentPlaceLuggage;
 
-                //if (firstNoticeOfLossViewModel.AccidentDateTimeLuggage != null)
-                    //additionalInfo.Datetime_accident = firstNoticeOfLossViewModel.AccidentDateTimeLuggage.Value;
+                if (firstNoticeOfLossViewModel.AccidentDateTimeLuggage != null)
+                    additionalInfo.Datetime_accident = firstNoticeOfLossViewModel.AccidentDateTimeLuggage.Value;
                 var luggageInsuranceInfo = new luggage_insurance_info
                 {
                     Additional_infoId = additionalInfo.ID,
@@ -167,6 +175,20 @@ namespace InsuredTraveling.Controllers
 
 
                 var firstNoticeOfLossEntity = _fis.Create();
+                firstNoticeOfLossEntity.PolicyId = firstNoticeOfLossViewModel.PolicyId;
+                firstNoticeOfLossEntity.ClaimantId = firstNoticeOfLossViewModel.ClaimantId;
+                firstNoticeOfLossEntity.Relation_claimant_policy_holder = firstNoticeOfLossViewModel.RelationClaimantPolicyHolder;
+                firstNoticeOfLossEntity.Destination = firstNoticeOfLossViewModel.Destination;
+                firstNoticeOfLossEntity.Depart_Date_Time = firstNoticeOfLossViewModel.DepartDateTime;
+                firstNoticeOfLossEntity.Arrival_Date_Time = firstNoticeOfLossViewModel.ArrivalDateTime;
+                firstNoticeOfLossEntity.Transport_means = firstNoticeOfLossViewModel.TransportMeans;
+                firstNoticeOfLossEntity.Total_cost = firstNoticeOfLossViewModel.TotalCost;
+                firstNoticeOfLossEntity.CreatedDateTime = DateTime.Now;
+                string username = System.Web.HttpContext.Current.User.Identity.Name;
+                firstNoticeOfLossEntity.CreatedBy = _us.GetUserIdByUsername(username);
+
+
+
                 firstNoticeOfLossEntity.Additional_infoID = additionalInfo.ID;
 
                 firstNoticeOfLossEntity.PolicyId = firstNoticeOfLossViewModel.PolicyId;
@@ -179,36 +201,41 @@ namespace InsuredTraveling.Controllers
                 }
                 else
                 {
-                    var bank = _bas.GetBank(firstNoticeOfLossViewModel.ClaimantBankName);
-                    var bankAccount = _bas.Create();
-                    bankAccount.Account_HolderID = firstNoticeOfLossViewModel.ClaimantId;
+                    var bankAccount = SaveBankAccountInfoHelper.SaveBankAccountInfo(_bas, firstNoticeOfLossViewModel.ClaimantId,
+                         firstNoticeOfLossViewModel.ClaimantBankName,
+                         firstNoticeOfLossViewModel.ClaimantBankAccountNumber);
 
-                    if (bank != null)
-                    {
-                        bankAccount.BankID = bank.ID;
-                    }
-                    else {
-
-                        bank = _bas.CreateBank();
-                        bank.Name = firstNoticeOfLossViewModel.ClaimantBankName;
-                    }
-
-                    bankAccount.Account_Number = firstNoticeOfLossViewModel.ClaimantBankAccountNumber;
                     firstNoticeOfLossEntity.Claimant_bank_accountID = bankAccount.ID;
-
                 }
 
 
 
+                if (firstNoticeOfLossViewModel.PolicyHolderExistentBankAccount)
+                {
+                    firstNoticeOfLossEntity.Policy_holder_bank_accountID = firstNoticeOfLossViewModel.PolicyHolderForeignBankAccountId;
+                }
+                else
+                {
+                    var bankAccount = SaveBankAccountInfoHelper.SaveBankAccountInfo(_bas, firstNoticeOfLossViewModel.PolicyHolderId,
+                         firstNoticeOfLossViewModel.PolicyHolderBankName,
+                         firstNoticeOfLossViewModel.PolicyHolderBankAccountNumber);
+
+                    firstNoticeOfLossEntity.Policy_holder_bank_accountID = bankAccount.ID;
+                }
 
 
-
+                try
+                {
+                   return _fis.Add(firstNoticeOfLossEntity) > 0;
+                    
+                }
+                finally { }
 
             }
 
 
 
-            return true;
+            return false;
         }
 
 
@@ -267,96 +294,78 @@ namespace InsuredTraveling.Controllers
         public async Task<JObject> GetInsureds(int PolicyID)
         {
             var Result = new JObject();
-            travel_policy Policy = new travel_policy();
-            List<bank_prefix> Banks = new List<bank_prefix>();
+            //var Result = "";
 
+            
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                await Task.WhenAll(
-                    Task.Run(async () =>
-                    {
-                        Policy = await _ps.GetPolicyClientsInfo(PolicyID);
+               var Policy = _ps.GetPolicyClientsInfo(PolicyID);               
+               var Banks = _bas.GetAllPrefix();
 
-                    }),
-                    Task.Run(async () =>
-                    {
-                        Banks = await _bas.GetAllPrefixAsync();
-                    })
-                )
-                .ContinueWith(task =>
+                var Insureds = Policy.policy_insured;
+                var PolicyHolder = Policy.insured;
+                var PolicyHolderBankAccounts = Policy.insured.bank_account_info;
+
+                var StartDate = Policy.Start_Date;
+                var EndDate = Policy.End_Date;
+
+                var PolicyHolderData = new JObject();
+                PolicyHolderData.Add("Id", PolicyHolder.ID);
+                PolicyHolderData.Add("FirstName", PolicyHolder.Name);
+                PolicyHolderData.Add("LastName", PolicyHolder.Lastname);
+                PolicyHolderData.Add("SSN", PolicyHolder.SSN);
+                PolicyHolderData.Add("PhoneNumber", PolicyHolder.Phone_Number);
+                PolicyHolderData.Add("City", PolicyHolder.City);
+                PolicyHolderData.Add("Adress", PolicyHolder.Address);
+
+                var BankAccountsPolicyHolderJsonArray = new JArray();
+
+                foreach (var BankAccount in PolicyHolderBankAccounts)
                 {
+                    var NewJsonBankAccount = new JObject();
+                    NewJsonBankAccount.Add("Id", BankAccount.ID);
+                    NewJsonBankAccount.Add("AccountNumber", BankAccount.Account_Number);
+                    NewJsonBankAccount.Add("BankName", BankAccount.bank.Name);
+
+                    BankAccountsPolicyHolderJsonArray.Add(NewJsonBankAccount);
+                }
+                PolicyHolderData.Add("BankAccounts", BankAccountsPolicyHolderJsonArray);
+
+                Result.Add("policyholder", PolicyHolderData);
 
 
-                    var Insureds = Policy.policy_insured;
-                    var PolicyHolder = Policy.insured;
-                    var PolicyHolderBankAccounts = Policy.insured.bank_account_info;
+                var InsuredsJsonArray = new JArray();
 
-                    var StartDate = Policy.Start_Date;
-                    var EndDate = Policy.End_Date;
+                foreach (var v in Insureds)
+                {
+                    var NewJsonInsured = new JObject();
+                    NewJsonInsured.Add("Id", v.insured.ID);
+                    NewJsonInsured.Add("FirstName", v.insured.Name);
+                    NewJsonInsured.Add("LastName", v.insured.Lastname);
 
-                    //var Insureds = _pis.GetAllInsuredByPolicyId(PolicyID);
-                    //var PolicyHolder = _ps.GetPolicyHolderByPolicyID(PolicyID);
-                    //var PolicyHolderBankAccounts = _bas.BankAccountsByInsuredId(PolicyHolder.ID);
-                    //var Banks = _bas.GetAllPrefix();
-                    //var StartDate = _ps.GetStartDateByPolicyId(PolicyID).Date;
-                    //var EndDate = _ps.GetEndDateByPolicyId(PolicyID).Date;
+                    InsuredsJsonArray.Add(NewJsonInsured);
+                }
 
 
-                    var PolicyHolderData = new JObject();
-
-                    PolicyHolderData.Add("Id", PolicyHolder.ID);
-                    PolicyHolderData.Add("FirstName", PolicyHolder.Name);
-                    PolicyHolderData.Add("LastName", PolicyHolder.Lastname);
-                    PolicyHolderData.Add("SSN", PolicyHolder.SSN);
-                    PolicyHolderData.Add("PhoneNumber", PolicyHolder.Phone_Number);
-                    PolicyHolderData.Add("City", PolicyHolder.City);
-                    PolicyHolderData.Add("Adress", PolicyHolder.Address);
-
-                    var BankAccountsPolicyHolderJsonArray = new JArray();
-
-                    foreach (var BankAccount in PolicyHolderBankAccounts)
-                    {
-                        var NewJsonBankAccount = new JObject();
-                        NewJsonBankAccount.Add("Id", BankAccount.ID);
-                        NewJsonBankAccount.Add("AccountNumber", BankAccount.Account_Number);
-                        NewJsonBankAccount.Add("BankName", BankAccount.bank.Name);
-
-                        BankAccountsPolicyHolderJsonArray.Add(NewJsonBankAccount);
-                    }
-                    PolicyHolderData.Add("BankAccounts", BankAccountsPolicyHolderJsonArray);
-
-                    Result.Add("policyholder", PolicyHolderData);
+                Result.Add("data", InsuredsJsonArray);
 
 
-                    var InsuredsJsonArray = new JArray();
 
-                    foreach (var v in Insureds)
-                    {
-                        var NewJsonInsured = new JObject();
-                        NewJsonInsured.Add("Id", v.insured.ID);
-                        NewJsonInsured.Add("FirstName", v.insured.Name);
-                        NewJsonInsured.Add("LastName", v.insured.Lastname);
+                var BankListData = new JArray();
+                foreach (var Bank in Banks)
+                {
+                    var BanksData = new JObject();
+                    BanksData.Add("Prefix", Bank.Prefix_Number);
+                    BanksData.Add("BankName", Bank.bank.Name);
+                    BankListData.Add(BanksData);
+                }
+                Result.Add("banks", BankListData);
 
-                        InsuredsJsonArray.Add(NewJsonInsured);
-                    }
 
 
-                    Result.Add("data", InsuredsJsonArray);
 
-                    Result.Add("StartDate", StartDate.Year + "-" + string.Format("{0:00}", StartDate.Month) + "-" + string.Format("{0:00}", StartDate.Day));
-                    Result.Add("EndDate", EndDate.Year + "-" + string.Format("{0:00}", EndDate.Month) + "-" + string.Format("{0:00}", EndDate.Day));
-
-                    var BankListData = new JArray();
-                    foreach (var Bank in Banks)
-                    {
-                        var BanksData = new JObject();
-                        BanksData.Add("Prefix", Bank.Prefix_Number);
-                        BanksData.Add("BankName", Bank.bank.Name);
-                        BankListData.Add(BanksData);
-                    }
-                    Result.Add("banks", BankListData);
-                    return Task.Delay(0);
-                });
+                return Result;
+          
 
             }
             else
@@ -364,9 +373,9 @@ namespace InsuredTraveling.Controllers
                 Result.Add("response", "Not authenticated user");
             }
             
-
-
             return Result;
+            ;
+
 
         }
 

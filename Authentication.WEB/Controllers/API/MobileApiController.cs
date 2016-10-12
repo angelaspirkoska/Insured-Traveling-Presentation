@@ -267,8 +267,7 @@ namespace InsuredTraveling.Controllers.API
             }
             else
             {
-
-                var FirstNoticeOfLossNew = _fnls.Create();
+                var FirstNoticeOfLossNew = new first_notice_of_loss();// _fnls.Create();
                 FirstNoticeOfLossNew.travel_policy.Policy_Number = f.PolicyNumber.ToString();              
                 var user = _ps.GetPolicyHolderByPolicyID(_ps.GetPolicyIdByPolicyNumber(f.PolicyNumber.ToString()).ID);
 

@@ -29,7 +29,7 @@ namespace InsuredTraveling.DI
         string GetCompanyID(string PolicyNumber);
 
          List<travel_policy> GetAllPolicies();
-        Task<travel_policy> GetPolicyClientsInfo(int PolicyID);
+        travel_policy GetPolicyClientsInfo(int PolicyID);
         insured GetPolicyHolderByPolicyID(int PolicyID);
 
         

@@ -10,6 +10,8 @@ namespace InsuredTraveling.DI
     {
         List<bank_account_info> BankAccountsByInsuredId(int InsuredId);
 
+        int AddBank(bank bank);
+        int AddBankAccountInfo(bank_account_info bankAccountInfo);
         List<bank_prefix> GetAllPrefix();
         Task<List<bank_prefix>> GetAllPrefixAsync();
         bank_account_info BankAccountInfoById(int ID);

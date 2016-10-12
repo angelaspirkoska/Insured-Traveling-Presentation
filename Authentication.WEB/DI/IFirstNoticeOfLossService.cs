@@ -14,7 +14,7 @@ namespace InsuredTraveling.DI
 
         first_notice_of_loss[] GetByInsuredUserId(string id);
 
-        void Add(first_notice_of_loss FirstNoticeOfLoss);
+        int Add(first_notice_of_loss FirstNoticeOfLoss);
 
         luggage_insurance_info GetLuggageAdditionalInfoByLossId(int LossID);
         health_insurance_info GetHealthAdditionalInfoByLossId(int LossID);

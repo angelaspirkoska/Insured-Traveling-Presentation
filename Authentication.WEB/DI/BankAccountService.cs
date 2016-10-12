@@ -11,6 +11,18 @@ namespace InsuredTraveling.DI
     {
         InsuredTravelingEntity _db = new InsuredTravelingEntity();
 
+        public int AddBank(bank bank)
+        {
+            _db.banks.Add(bank);
+            return _db.SaveChanges();
+        }
+
+        public int AddBankAccountInfo(bank_account_info bankAccountInfo)
+        {
+            _db.bank_account_info.Add(bankAccountInfo);
+            return _db.SaveChanges();
+        }
+
         public bank_account_info BankAccountInfoById(int ID)
         {
             return _db.bank_account_info.Single(x => x.Account_HolderID == ID);
@@ -31,6 +43,8 @@ namespace InsuredTraveling.DI
             return _db.banks.Create();
             
         }
+
+
 
         public List<bank_prefix> GetAllPrefix()
         {

@@ -61,7 +61,8 @@
                        
                     </div>
                 </div>
-                <input hidden type="text"  id="PolicyHolderId"  name="PolicyHolderId" />
+                @Html.TextBoxFor(model => model.PolicyHolderId, new { @class = "form-control input-sm", @id = "PolicyHolderId", @style = "display: none;" })
+                
                 <div class="form-group">
                     <label class="col-md-4 control-label">Адреса:</label>
                     <div class="col-lg-8">
@@ -818,7 +819,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 var rez = JSON.parse(result);
                 console.log(rez);
                 Banks = rez.banks;
-
+                debugger;
                 $("#PolicyHolderId").attr("value", rez.policyholder.Id);
                 $("#PolicyHolderName").attr("value", rez.policyholder.FirstName + " " + rez.policyholder.LastName);
                 $("#PolicyHolderName").attr("IdPolicyHolder", rez.policyholder.Id);

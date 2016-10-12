@@ -12,10 +12,10 @@ namespace InsuredTraveling.DI
     {
         private InsuredTravelingEntity _db = new InsuredTravelingEntity();
 
-        public void Add(first_notice_of_loss FirstNoticeOfLoss)
+        public int Add(first_notice_of_loss FirstNoticeOfLoss)
         {
             _db.first_notice_of_loss.Add(FirstNoticeOfLoss);
-            _db.SaveChanges();
+            return _db.SaveChanges();
         }
 
         public bool IsHealthInsuranceByAdditionalInfoId(int id)
