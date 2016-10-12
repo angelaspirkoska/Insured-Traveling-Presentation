@@ -50,7 +50,7 @@ namespace InsuredTraveling.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Index(FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel)
+        public async Task<ActionResult> Index(FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel, IEnumerable<HttpPostedFileBase> invoices, IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
         {
             ShowUserData();
             if (firstNoticeOfLossViewModel.IsHealthInsurance)
@@ -77,7 +77,34 @@ namespace InsuredTraveling.Controllers
 
             if (ModelState.IsValid)
             {
-                SaveDataInDb(firstNoticeOfLossViewModel);
+                foreach (var file in invoices)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var path = @"~/DocumentsFirstNoticeOfLoss/Invoices/" + file.FileName;
+                        file.SaveAs(Server.MapPath(path));
+                    }
+                }
+
+                foreach (var file in documentsHealth)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var path = @"~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + file.FileName;
+                        file.SaveAs(Server.MapPath(path));
+                    }
+                }
+
+                foreach (var file in documentsLuggage)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var path = @"~/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + file.FileName;
+                        file.SaveAs(Server.MapPath(path));
+                    }
+                }
+
+                var result = SaveDataInDb(firstNoticeOfLossViewModel);
                 //var uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/api/mobile/ReportLoss");
                 //var client = new HttpClient { BaseAddress = uri };
                 //var jsonFormatter = new JsonMediaTypeFormatter();
@@ -92,7 +119,7 @@ namespace InsuredTraveling.Controllers
 
 
 
-                if (responseMessage.IsSuccessStatusCode)
+                if (result)
                 {
                     ViewBag.Message = "Successfully reported!";
                     return View();
@@ -122,9 +149,10 @@ namespace InsuredTraveling.Controllers
                 additionalInfo.Accident_place = firstNoticeOfLossViewModel.AccidentPlaceHealth;
                 if (firstNoticeOfLossViewModel.AccidentDateTimeHealth != null)
                     additionalInfo.Datetime_accident = firstNoticeOfLossViewModel.AccidentDateTimeHealth.Value;
+                
                 var healthInsuranceInfo = new health_insurance_info
                 {
-                    Additional_infoId = additionalInfo.ID,
+                    Additional_infoId = _ais.Add(additionalInfo),
                     additional_info = additionalInfo,
                     Datetime_doctor_visit = firstNoticeOfLossViewModel.DoctorVisitDateTime,
                     Doctor_info = firstNoticeOfLossViewModel.DoctorInfo,
@@ -135,6 +163,7 @@ namespace InsuredTraveling.Controllers
 
                 try
                 {
+                    
                     result = _ais.AddHealthInsuranceInfo(healthInsuranceInfo) > 0;
 
                 }
@@ -153,7 +182,7 @@ namespace InsuredTraveling.Controllers
                     additionalInfo.Datetime_accident = firstNoticeOfLossViewModel.AccidentDateTimeLuggage.Value;
                 var luggageInsuranceInfo = new luggage_insurance_info
                 {
-                    Additional_infoId = additionalInfo.ID,
+                    Additional_infoId = _ais.Add(additionalInfo),
                     additional_info = additionalInfo,
                     Place_description = firstNoticeOfLossViewModel.PlaceDescription,
                     Detail_description = firstNoticeOfLossViewModel.DetailDescription,
@@ -171,10 +200,11 @@ namespace InsuredTraveling.Controllers
                 {
 
                 }
+            }
 
 
 
-                var firstNoticeOfLossEntity = _fis.Create();
+            var firstNoticeOfLossEntity = _fis.Create();
                 firstNoticeOfLossEntity.PolicyId = firstNoticeOfLossViewModel.PolicyId;
                 firstNoticeOfLossEntity.ClaimantId = firstNoticeOfLossViewModel.ClaimantId;
                 firstNoticeOfLossEntity.Relation_claimant_policy_holder = firstNoticeOfLossViewModel.RelationClaimantPolicyHolder;
@@ -186,6 +216,7 @@ namespace InsuredTraveling.Controllers
                 firstNoticeOfLossEntity.CreatedDateTime = DateTime.Now;
                 string username = System.Web.HttpContext.Current.User.Identity.Name;
                 firstNoticeOfLossEntity.CreatedBy = _us.GetUserIdByUsername(username);
+                firstNoticeOfLossEntity.Message = "";
 
 
 
@@ -201,11 +232,11 @@ namespace InsuredTraveling.Controllers
                 }
                 else
                 {
-                    var bankAccount = SaveBankAccountInfoHelper.SaveBankAccountInfo(_bas, firstNoticeOfLossViewModel.ClaimantId,
+                    var bankAccountId = SaveBankAccountInfoHelper.SaveBankAccountInfo(_bas, firstNoticeOfLossViewModel.ClaimantId,
                          firstNoticeOfLossViewModel.ClaimantBankName,
                          firstNoticeOfLossViewModel.ClaimantBankAccountNumber);
 
-                    firstNoticeOfLossEntity.Claimant_bank_accountID = bankAccount.ID;
+                    firstNoticeOfLossEntity.Claimant_bank_accountID = bankAccountId;
                 }
 
 
@@ -216,11 +247,11 @@ namespace InsuredTraveling.Controllers
                 }
                 else
                 {
-                    var bankAccount = SaveBankAccountInfoHelper.SaveBankAccountInfo(_bas, firstNoticeOfLossViewModel.PolicyHolderId,
+                    var bankAccountId = SaveBankAccountInfoHelper.SaveBankAccountInfo(_bas, firstNoticeOfLossViewModel.PolicyHolderId,
                          firstNoticeOfLossViewModel.PolicyHolderBankName,
                          firstNoticeOfLossViewModel.PolicyHolderBankAccountNumber);
 
-                    firstNoticeOfLossEntity.Policy_holder_bank_accountID = bankAccount.ID;
+                    firstNoticeOfLossEntity.Policy_holder_bank_accountID = bankAccountId;
                 }
 
 
@@ -231,7 +262,7 @@ namespace InsuredTraveling.Controllers
                 }
                 finally { }
 
-            }
+            
 
 
 

@@ -10,10 +10,12 @@ namespace InsuredTraveling.DI
     {
         private InsuredTravelingEntity _db = new InsuredTravelingEntity();
 
-        public int Add(additional_info additionalInfo)
+        public int Add( additional_info additionalInfo)
         {
+
             _db.additional_info.Add(additionalInfo);
-           return _db.SaveChanges();            
+            _db.SaveChanges();
+            return additionalInfo.ID;
         }
 
         public int AddHealthInsuranceInfo(health_insurance_info healthInsuranceInfo)
