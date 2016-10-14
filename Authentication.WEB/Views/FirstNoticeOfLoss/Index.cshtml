@@ -5,7 +5,7 @@
 }
 
 
-<form style="margin-top:80px;" method="post" action="@Url.Action("Index")">
+<form style="margin-top:80px;" method="post" enctype="multipart/form-data" action="@Url.Action("Index")">
     <div class="form-horizontal">
         <div class="row container">
             @if (ViewBag.Message != null)
@@ -104,7 +104,8 @@
                 <div class="form-group" style="padding-left: 34%;">
                    
                     <div class="col-md-12">
-                        <select class="form-control" data-val="true" id="DropDownBankAccountPolicyHolder"  name="PolicyHolderForeignBankAccountId">
+                        @Html.TextBoxFor(model => model.PolicyHolderForeignBankAccountId, new { @class = "form-control input-sm", @id = "hiddenDropDownBankAccountPolicyHolder", @style = "display: none;" })
+                        <select class="form-control" data-val="true" id="DropDownBankAccountPolicyHolder" name="PolicyHolderForeignBankAccountId">
                             <option value="0">Избери трансакциска сметка</option>
                         </select>
                     </div>
@@ -140,9 +141,12 @@
                 <div class="form-group">
                     <span class="col-md-4"></span>
                     <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.ClaimantId, new { @class = "form-control input-sm", @id = "hiddenDropDownInsureds", @style = "display: none;" })
                         <select class="form-control" data-val="true" id="DropDownInsureds" name="ClaimantId">
                             <option value="0">Избери корисник</option>
                         </select>
+                        
+                          
                     </div>     
                     </div>
                     <div class="form-group">
@@ -207,7 +211,8 @@
                 <div class="form-group" style="padding-left: 34%;">
 
                     <div class="col-md-12">
-                        <select class="form-control" data-val="true" id="DropDownBankAccountInsured" name="ClaimantForeignBankAccountId">
+                        @Html.TextBoxFor(model => model.ClaimantForeignBankAccountId, new { @class = "form-control input-sm", @id = "hiddenDropDownBankAccountInsured", @style = "display: none;" })
+                        <select class="form-control" data-val="true" id="DropDownBankAccountInsured">
                             <option value="0">Избери трансакциска сметка</option>
                         </select>
                     </div>
@@ -386,7 +391,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Документи приложени како доказ:</label>
                     <div class="col-lg-7">
-                      
+                        <input type="file" name="documentsHealth" id="documentsHealth" multiple/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -461,6 +466,7 @@
 
                 <div class="form-group">
                     <label class="col-md-4 control-label">Документи приложени како доказ :</label>
+                    <input type="file" name="documentsLuggage" id="documentsLuggage" multiple />
                     <div class="col-lg-7">
                       
                     </div>
@@ -490,6 +496,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="col-md-4 control-label">Фактури како доказ:</label>
+                    <input type="file" name="invoices" id="invoices" multiple />
                     <div class="col-lg-7">
                        
                     </div>
@@ -790,6 +797,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
         else {
         $('#deponent').attr('value', $('#DropDownBankAccountPolicyHolder option:selected').attr("bank"));
         $('#TransactionAccount').attr('value', $('#DropDownBankAccountPolicyHolder option:selected').text());
+        var InsuredId = $('#DropDownBankAccountPolicyHolder option:selected').val();
+        $('#hiddenDropDownBankAccountPolicyHolder').val(InsuredId);
          }
     });
 
@@ -801,6 +810,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $('#insuredTransactionAccount').attr('value', "");
         }
         else {
+            var InsuredId = $('#DropDownBankAccountInsured option:selected').val();
+            $('#hiddenDropDownBankAccountInsured').val(InsuredId);
             $('#deponentInsured').attr('value', $('#DropDownBankAccountInsured option:selected').attr("bank"));
             $('#insuredTransactionAccount').attr('value', $('#DropDownBankAccountInsured option:selected').text());
         }
@@ -909,8 +920,9 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
         $('#DropDownInsureds').on('change', function () {
             ClearDropDownDataInsured();
-            var InsuredId = $('#DropDownInsureds option:selected').val()
-
+            var InsuredId = $('#DropDownInsureds option:selected').val();
+            $('#hiddenDropDownInsureds').val(InsuredId);
+            
             $.ajax({
                 type: "GET",
                 url: "/FirstNoticeOfLoss/GetInsuredData?SelectedInsuredId=" + InsuredId,

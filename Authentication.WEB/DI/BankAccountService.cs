@@ -14,13 +14,15 @@ namespace InsuredTraveling.DI
         public int AddBank(bank bank)
         {
             _db.banks.Add(bank);
-            return _db.SaveChanges();
+             _db.SaveChanges();
+            return bank.ID;
         }
 
         public int AddBankAccountInfo(bank_account_info bankAccountInfo)
         {
             _db.bank_account_info.Add(bankAccountInfo);
-            return _db.SaveChanges();
+             _db.SaveChanges();
+            return bankAccountInfo.ID;
         }
 
         public bank_account_info BankAccountInfoById(int ID)
