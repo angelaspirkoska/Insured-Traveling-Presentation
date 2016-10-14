@@ -8,9 +8,9 @@ namespace Authentication.WEB.Services
 {
     class RatingEngineService
     {
+        private InsuredTravelingEntity entities = new InsuredTravelingEntity();
         public double? discountCountry(int countryID, int policy_typeID, int franchiseID)
-        {
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
+        {            
             double? discount = (entities.discount_country.Where(x => x.CountryID == countryID &&
                                                         x.Policy_typeID == policy_typeID && x.Franchise == franchiseID.ToString()).First()).Percentage;
             return discount;
@@ -28,14 +28,12 @@ namespace Authentication.WEB.Services
             } else {
                 name = ">64";
             }
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
-            double? discount = (entities.discount_age.Where(x => x.Name == name).OrderByDescending(x => x.ID).First()).Discount;
+            double? discount = (entities.discount_age.Where(x => x.Name == name).First()).Discount;
             return discount;
         }
 
         public double? DiscountFranchise(int countryID, int policy_typeID, int franchiseID)
         {
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
             double? discount = (entities.discount_country.Where(x => x.CountryID == countryID &&
                 x.Policy_typeID == policy_typeID && x.Franchise.Equals(franchiseID.ToString())).First()).Discount_franchise;
             return discount;
@@ -43,8 +41,6 @@ namespace Authentication.WEB.Services
 
         public double? DiscountDays(int policy_typeID, long days)
         {
-
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
             int travelDurationID;
 
             if(days < 14)
@@ -66,14 +62,12 @@ namespace Authentication.WEB.Services
 
         public double? DiscountFamily(int policy_typeID)
         {
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
             double? discount = (entities.discount_family.Where(x => x.Policy_typeID == policy_typeID).First()).Discount;
             return discount;
         }
 
         public double? DiscountGroup(int policy_typeID, int? members)
         {
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
             double? discount = (entities.discount_group.Where(x => x.Policy_typeID == policy_typeID).Where(x => x.group.Memebers < members)
                 .OrderByDescending(x => x.group.Memebers).First()).Discount;
             return discount;
@@ -126,10 +120,8 @@ namespace Authentication.WEB.Services
                 }
             }
 
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
-
             double? exchange_rate = entities.exchange_rate.First().Value;
-            double? minPremium = exchange_rate * dCountry * (1 - dFranchise)  * (1 - dDays);
+            double? minPremium = exchange_rate * dCountry * (1 - dFranchise)  * (1 - dDays) * policy.Valid_Days;
 
             if (policy.Travel_Insurance_TypeID == 1)
             {

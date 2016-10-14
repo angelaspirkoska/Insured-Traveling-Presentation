@@ -244,16 +244,17 @@
     function FindUsername() {
         $.ajax({
             type: "POST",
-            url: @System.Configuration.ConfigurationManager.AppSettings["webpage_url"] + "/api/account/FindUser",
-            data: jQuery.param({ username: $("#username").val() }),
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/account/FindUser",
+            data: jQuery.param({ username: $("#username").val() })
         })
         .done(function (result) {
             $("#UsernameMsg").text(" ");
         })
-        .error(function () {
+        .fail(function () {
             $("#UsernameMsg").text("Username is already taken!");
         });
-    }
+    };
+    
     function ActivateAccount() {
         $.ajax({
             type: "POST",

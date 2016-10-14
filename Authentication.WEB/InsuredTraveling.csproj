@@ -677,7 +677,6 @@
     <Content Include="Views\Policy\Print.cshtml" />
     <Content Include="Views\Policy\_PolicyPrint.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
-    <Content Include="Views\Payment\PaymentFail.cshtml" />
     <Content Include="Views\Payment\PaymentSuccess.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\ValidateMail\Index.cshtml" />
@@ -690,6 +689,7 @@
     <Content Include="Views\FirstNoticeOfLoss\Index.cshtml" />
     <Content Include="Views\Client\Create.cshtml" />
     <Content Include="Views\Policy\Index.cshtml" />
+    <Content Include="Views\Payment\PaymentFail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -61,6 +61,22 @@ namespace InsuredTraveling.Controllers
         }
 
         [HttpPost]
+        [Route("AddUserToRole")]
+        public IHttpActionResult AddUserToRole(Roles r)
+        {
+            IdentityResult result =_repo.AddUserToRole(r.UserID, r.Name);
+
+            IHttpActionResult errorResult = GetErrorResult(result);
+
+            if (errorResult != null)
+            {
+                return errorResult;
+            }
+
+            return Ok();
+        }
+
+        [HttpPost]
         [Route("AddRole")]
         public IHttpActionResult AddRole(Roles r)
         {

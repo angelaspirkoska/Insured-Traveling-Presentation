@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 
 namespace InsuredTraveling.Controllers
 {
+    [Authorize]
     public class FirstNoticeOfLossController : Controller
     {
         private IUserService _us;
@@ -92,16 +93,16 @@ namespace InsuredTraveling.Controllers
 
 
 
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    ViewBag.Message = "Successfully reported!";
-                    return View();
-                }
-                else
-                {
-                    ViewBag.Message = "Something went wrong!";
-                    return View();
-                }
+                //if (responseMessage.IsSuccessStatusCode)
+                //{
+                //    ViewBag.Message = "Successfully reported!";
+                //    return View();
+                //}
+                //else
+                //{
+                //    ViewBag.Message = "Something went wrong!";
+                //    return View();
+                //}
 
 
 
@@ -252,8 +253,7 @@ namespace InsuredTraveling.Controllers
         public JObject GetInsuredData(int SelectedInsuredId)
         {
             var NewJsonInsured = new JObject();
-            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-            {
+
                 var SelectedInsured = _iss.GetInsuredData(SelectedInsuredId);
                 bool ISSameUserAndSelectedInsured = _us.IsSameLoggedUserAndInsured(System.Web.HttpContext.Current.User.Identity.Name, SelectedInsuredId);
                 var InsuredBankAccounts = _bas.BankAccountsByInsuredId(SelectedInsuredId);
@@ -279,11 +279,11 @@ namespace InsuredTraveling.Controllers
                 }
                 NewJsonInsured.Add("BankAccounts", BankAccountsInsuredJsonArray);
 
-            }
-            else
-            {
-                NewJsonInsured.Add("response", "Not authenticated user");
-            }
+            //}
+            //else
+            //{
+            //    NewJsonInsured.Add("response", "Not authenticated user");
+            //}
 
 
             return NewJsonInsured;
@@ -297,8 +297,8 @@ namespace InsuredTraveling.Controllers
             //var Result = "";
 
             
-            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-            {
+            //if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            //{
                var Policy = _ps.GetPolicyClientsInfo(PolicyID);               
                var Banks = _bas.GetAllPrefix();
 
@@ -367,11 +367,11 @@ namespace InsuredTraveling.Controllers
                 return Result;
           
 
-            }
-            else
-            {
-                Result.Add("response", "Not authenticated user");
-            }
+            //}
+            //else
+            //{
+            //    Result.Add("response", "Not authenticated user");
+            //}
             
             return Result;
             ;

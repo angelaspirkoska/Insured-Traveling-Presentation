@@ -103,7 +103,7 @@ namespace InsuredTraveling
                 body += "<br /><br />Please click the following link to activate your account";
                 body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
                 body += "<br /><br />Thanks";
-                MailService mailService = new MailService("slobodanka@optimalreinsurance.com");
+                MailService mailService = new MailService("slobodanka@optimalreinsurance.com"); //Change the email with the email user mail
                 mailService.setSubject("Account Activation Validation");
                 mailService.setBodyText(body, true);
                 mailService.sendMail();
@@ -113,6 +113,15 @@ namespace InsuredTraveling
 
             return result;
         }
+
+        public IdentityResult AddUserToRole(string userID, string roleName)
+        {
+            var result = _userManager.AddToRole(userID, roleName);
+
+            return result;
+        }
+
+        
 
         public IdentityResult AddRole(Roles r)
         {
