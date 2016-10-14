@@ -71,6 +71,7 @@ namespace InsuredTraveling.Controllers
                 ModelState.Remove("AccidentTimeHealth");
                 ModelState.Remove("AccidentPlaceHealth");
                 ModelState.Remove("DoctorVisitDateTime");
+                ModelState.Remove("DoctorInfo");
                 ModelState.Remove("ArriveTime");
                 ViewBag.insurance = "Luggage Insurance";
             }
