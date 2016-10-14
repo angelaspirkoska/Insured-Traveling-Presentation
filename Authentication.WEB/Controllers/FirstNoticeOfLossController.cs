@@ -77,34 +77,8 @@ namespace InsuredTraveling.Controllers
 
             if (ModelState.IsValid)
             {
-                foreach (var file in invoices)
-                {
-                    if (file != null && file.ContentLength > 0)
-                    {
-                        var path = @"~/DocumentsFirstNoticeOfLoss/Invoices/" + file.FileName;
-                        file.SaveAs(Server.MapPath(path));
-                    }
-                }
-
-                foreach (var file in documentsHealth)
-                {
-                    if (file != null && file.ContentLength > 0)
-                    {
-                        var path = @"~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + file.FileName;
-                        file.SaveAs(Server.MapPath(path));
-                    }
-                }
-
-                foreach (var file in documentsLuggage)
-                {
-                    if (file != null && file.ContentLength > 0)
-                    {
-                        var path = @"~/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + file.FileName;
-                        file.SaveAs(Server.MapPath(path));
-                    }
-                }
-
-                var result = SaveDataInDb(firstNoticeOfLossViewModel);
+               
+                var result = SaveDataInDb(firstNoticeOfLossViewModel, invoices, documentsHealth, documentsLuggage);
                 //var uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/api/mobile/ReportLoss");
                 //var client = new HttpClient { BaseAddress = uri };
                 //var jsonFormatter = new JsonMediaTypeFormatter();
@@ -140,7 +114,7 @@ namespace InsuredTraveling.Controllers
             return View(firstNoticeOfLossViewModel);
         }
 
-        private bool SaveDataInDb(FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel)
+        private bool SaveDataInDb(FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel, IEnumerable<HttpPostedFileBase> invoices, IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
         {
             var result = true;
             var additionalInfo = _ais.Create();
@@ -254,19 +228,59 @@ namespace InsuredTraveling.Controllers
                 firstNoticeOfLossEntity.Policy_holder_bank_accountID = bankAccountId;
             }
 
-
+            int FirstNoticeOfLossID = 0;
             try
             {
-                return _fis.Add(firstNoticeOfLossEntity) > 0;
+                 FirstNoticeOfLossID= _fis.Add(firstNoticeOfLossEntity);
 
             }
             finally { }
 
+            foreach (var file in invoices)
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    var path = @"~/DocumentsFirstNoticeOfLoss/Invoices/" + file.FileName;
+                    file.SaveAs(Server.MapPath(path));
+
+                    var document = new document();
+                    document.Name = file.FileName;
+                    var documentID = _fis.AddDocument(document);
+                    _fis.AddInvoice(documentID);
+                    _fis.AddDocumentToFirstNoticeOfLoss(documentID, FirstNoticeOfLossID);
+                }
+            }
+
+            foreach (var file in documentsHealth)
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    var path = @"~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + file.FileName;
+                    file.SaveAs(Server.MapPath(path));
+                    var document = new document();
+                    document.Name = file.FileName;
+                    var documentID = _fis.AddDocument(document);
+                    _fis.AddDocumentToFirstNoticeOfLoss(documentID, FirstNoticeOfLossID);
+                }
+            }
+
+            foreach (var file in documentsLuggage)
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    var path = @"~/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + file.FileName;
+                    file.SaveAs(Server.MapPath(path));
+                    var document = new document();
+                    document.Name = file.FileName;
+                    var documentID = _fis.AddDocument(document);
+                    _fis.AddDocumentToFirstNoticeOfLoss(documentID, FirstNoticeOfLossID);
+                }
+            }
+
+            return FirstNoticeOfLossID>0;
 
 
-
-
-            return false;
+            
         }
 
 
@@ -340,6 +354,9 @@ namespace InsuredTraveling.Controllers
                 var StartDate = Policy.Start_Date;
                 var EndDate = Policy.End_Date;
 
+
+                Result.Add("StartDate",  StartDate.Year+ String.Format("-{0:00}-{0:00}", +StartDate.Month , StartDate.Day));
+                Result.Add("EndDate", EndDate.Year + String.Format("-{0:00}-{0:00}", +EndDate.Month, EndDate.Day));
                 var PolicyHolderData = new JObject();
                 PolicyHolderData.Add("Id", PolicyHolder.ID);
                 PolicyHolderData.Add("FirstName", PolicyHolder.Name);
@@ -392,7 +409,7 @@ namespace InsuredTraveling.Controllers
                 }
                 Result.Add("banks", BankListData);
 
-
+                
 
 
                 return Result;

@@ -23,6 +23,9 @@ namespace InsuredTraveling.DI
 
         first_notice_of_loss Create();
 
-       
+        int AddDocument(document document);
+        int AddInvoice(int documentId);
+        int AddDocumentToFirstNoticeOfLoss(int documentId, int firstNoticeOFLossId);
+
     }
 }

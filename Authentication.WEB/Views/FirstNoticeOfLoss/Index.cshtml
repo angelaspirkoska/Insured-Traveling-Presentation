@@ -34,7 +34,7 @@
         <h3>Пријави штета</h3>
         <br />
         <br />
-        <div><h5>Задолжителни полиња  <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"> </span>  </h5></div>
+        <div><h5>Задолжителни полиња      </h5></div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="row container">
@@ -262,7 +262,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Време на заминување:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id= "travelTimeFrom" } })
+                       
+                        @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id = "travelTimeFrom" } })
                         @Html.ValidationMessageFor(model => model.DepartTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -288,12 +289,17 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    
                     <label class="col-md-4 control-label">Време на враќање:</label>
+                    
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id= "travelTimeTo" } })
+                        @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id= "travelTimeTo"} })
                         @Html.ValidationMessageFor(model => model.DepartTime, "", new { @class = "text-danger" })
+                        
                     </div>
+                    
                 </div>
+               
             </div>
 
         </div>
@@ -531,6 +537,7 @@
             $("#health").attr("checked", "true");
             $("#hiddenIsHealthInsurance").prop("checked", true);
             $("#healthInsurance").toggle();
+            
         });
     </script>
 }
@@ -550,15 +557,15 @@ else if (ViewBag.insurance == "Luggage Insurance")
     var Banks;
     $(document).ready(function () {
 
-        $('#deponent').prop('readonly', true);  
+        $('#deponent').prop('readonly', true);
         $('#deponentInsured').prop('readonly', true);
 
         $('#DropDownBankAccountPolicyHolder').hide();
         $('#DropDownBankAccountInsured').hide();
 
         $("#TransactionAccount").keydown(function (e) {
-          
-            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||             
+
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
                 (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
                 (e.keyCode >= 35 && e.keyCode <= 40)) {
                 return;
@@ -579,8 +586,23 @@ else if (ViewBag.insurance == "Luggage Insurance")
             }
         });
 
+        $("#TotalCost").keydown(function (e) {
+
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                return;
+            }
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
 
     });
+
+
+
+
 
     $("#ExistentBankAccount").change(function () {
         if (this.checked) {
@@ -590,12 +612,12 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $("#TransactionAccount").attr("value", "");
             $("#deponent").attr("value", "");
             $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false)
-           
-            
+
+
         }
         else {
             $('#DropDownBankAccountPolicyHolder').hide();
-            
+
             $('#TransactionAccount').prop('readonly', false);
             $("#TransactionAccount").attr("value", "");
             $("#deponent").attr("value", "");
@@ -612,7 +634,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
         if (this.checked) {
             $('#DropDownBankAccountInsured').show();
             $('#insuredTransactionAccount').prop('readonly', true);
-            
+
             $('#DropDownBankAccountInsured').show();
             $('#insuredTransactionAccount').prop('readonly', true);
             $('#deponentInsured').prop('readonly', true);
@@ -623,9 +645,9 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
         }
         else {
-            
+
             $('#DropDownBankAccountInsured').hide();
-            $('#insuredTransactionAccount').prop('readonly', false);         
+            $('#insuredTransactionAccount').prop('readonly', false);
             $("#insuredTransactionAccount").attr("value", "");
             $("#deponentInsured").attr("value", "");
             $("#DropDownBankAccountInsured option:selected").prop("selected", false);
@@ -637,7 +659,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
     });
 
     $('#travelDateFrom').change(function (event) {
-        var inputMinDate = $("#lossDate").attr("min");    
+
+        var inputMinDate = $("#lossDate").attr("min");
         var inputMinDate = $("#baggageLossDate").attr("min");
         var inputMinDateArray = inputMinDate.split('-');
         var inputStartTrip = $('#travelDateFrom').val();
@@ -646,6 +669,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
         {
             $("#lossDate").attr("min", inputStartTrip);
             $("#baggageLossDate").attr("min", inputStartTrip);
+            $("#travelDateTo").attr("min", inputStartTrip);
+
         }
         else if (parseInt(inputStartTripArray[0]) == parseInt(inputMinDateArray[0]))
         {
@@ -653,6 +678,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
             {
                 $("#lossDate").attr("min", inputStartTrip);
                 $("#baggageLossDate").attr("min", inputStartTrip);
+                $("#travelDateTo").attr("min", inputStartTrip);
             }
             else if (parseInt(inputStartTripArray[1]) == parseInt(inputMinDateArray[1]))
             {
@@ -660,6 +686,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 {
                     $("#lossDate").attr("min", inputStartTrip);
                     $("#baggageLossDate").attr("min", inputStartTrip);
+                    $("#travelDateTo").attr("min", inputStartTrip);
                 }
             }
         }
@@ -669,31 +696,37 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
 
     $('#travelDateTo').change(function (event) {
+        //alert($("#travelTimeTo").val());
+
         var inputMinDate = $("#lossDate").attr("max");
         var inputMinDate = $("#baggageLossDate").attr("max");
         var inputMinDateArray = inputMinDate.split('-');
         var inputStartTrip = $('#travelDateTo').val();
         var inputStartTripArray = inputStartTrip.split('-');
+        $("#travelDateFrom").attr("max", inputStartTrip);
         if (parseInt(inputStartTripArray[0]) < parseInt(inputMinDateArray[0])) {
-            $("#lossDate").attr("min", inputStartTrip);
-            $("#baggageLossDate").attr("min", inputStartTrip);
+            $("#lossDate").attr("max", inputStartTrip);
+            $("#baggageLossDate").attr("max", inputStartTrip);
+
         }
         else if (parseInt(inputStartTripArray[0]) == parseInt(inputMinDateArray[0])) {
             if (parseInt(inputStartTripArray[1]) < parseInt(inputMinDateArray[1])) {
-                $("#lossDate").attr("min", inputStartTrip);
-                $("#baggageLossDate").attr("min", inputStartTrip);
+                $("#lossDate").attr("max", inputStartTrip);
+                $("#baggageLossDate").attr("max", inputStartTrip);
+
             }
             else if (parseInt(inputStartTripArray[1]) == parseInt(inputMinDateArray[1])) {
                 if (parseInt(inputStartTripArray[2]) < parseInt(inputMinDateArray[2])) {
-                    $("#lossDate").attr("min", inputStartTrip);
-                    $("#baggageLossDate").attr("min", inputStartTrip);
+                    $("#lossDate").attr("max", inputStartTrip);
+                    $("#baggageLossDate").attr("max", inputStartTrip);
+
                 }
             }
         }
 
         console.log("value changed");
     });
-    
+
 
 
 
@@ -703,7 +736,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $("#TransactionAccount").attr("value", "");
             $("#deponent").attr("value", "");
             $('#TransactionAccount').attr('maxLength', 30);
-           
+
             if ($('#ExistentBankAccount').is(':checked'))
             {
                 $('#TransactionAccount').prop('readonly', true);
@@ -749,7 +782,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
         }
     });
 
-    
+
     $('#TransactionAccount').focusout(function () {
 
         if ($("#ForeignBankAccount").checked &&  $("#ExistentBankAccount").checked)
@@ -766,7 +799,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
         });
         }
 
-        
+
     });
 
     $('#insuredTransactionAccount').focusout(function () {
@@ -784,7 +817,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
             });
         }
     });
-  
+
 
 
     $('#DropDownBankAccountPolicyHolder').on('change', function ()
@@ -853,9 +886,14 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 FillInsuredData();
 
                 $('#lossDate').attr("min", rez.StartDate);
-                $('#lossDate').attr("max", rez.EndDate);            
+                $('#lossDate').attr("max", rez.EndDate);
                 $('#baggageLossDate').attr("min", rez.StartDate);
                 $('#baggageLossDate').attr("max", rez.EndDate);
+                $("#travelTimeFrom").val("00:00");
+                $("#travelTimeTo").val("00:00");
+                $("#lossTime").val("00:00");
+                $("#AccidentTimeLuggage").val("00:00");
+                $("#LugaggeCheckingTime").val("00:00");
             }
         });
 
@@ -883,7 +921,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
         $("#PolicyHolderAddress").attr("value", "");
         $("#TransactionAccount").attr("value", "");
         $("#deponent").attr("value", "");
-        
+
 
 
         $.each($('#DropDownBankAccountPolicyHolder option'), function (i, val) {
@@ -922,7 +960,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
             ClearDropDownDataInsured();
             var InsuredId = $('#DropDownInsureds option:selected').val();
             $('#hiddenDropDownInsureds').val(InsuredId);
-            
+
             $.ajax({
                 type: "GET",
                 url: "/FirstNoticeOfLoss/GetInsuredData?SelectedInsuredId=" + InsuredId,
@@ -939,7 +977,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                         $('#DropDownBankAccountInsured').append($("<option></option>").attr({ value: value.Id, bank: value.BankName }).text(value.AccountNumber));
                     });
 
-                  
+
                     if ($("#PolicyHolderName").attr("idpolicyholder") == $('#DropDownInsureds option:selected').val())
                     {
                         console.log("isti se");
@@ -951,8 +989,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 }
             });
 
-           
-           
+
+
 
 
         });

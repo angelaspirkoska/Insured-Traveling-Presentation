@@ -15,7 +15,8 @@ namespace InsuredTraveling.DI
         public int Add(first_notice_of_loss FirstNoticeOfLoss)
         {
             _db.first_notice_of_loss.Add(FirstNoticeOfLoss);
-            return _db.SaveChanges();
+             _db.SaveChanges();
+            return FirstNoticeOfLoss.ID;
         }
 
         public bool IsHealthInsuranceByAdditionalInfoId(int id)
@@ -24,6 +25,7 @@ namespace InsuredTraveling.DI
             return healthAdditionalInfo != null;
         }
 
+      
         public first_notice_of_loss Create()
         {
            return _db.first_notice_of_loss.Create();
@@ -60,6 +62,31 @@ namespace InsuredTraveling.DI
 
         }
 
-      
+        public int AddDocument(document document)
+        {
+            _db.documents.Add(document);
+            _db.SaveChanges();
+            return document.ID;            
+        }
+
+        public int AddDocumentToFirstNoticeOfLoss(int documentId, int firstNoticeOFLossId)
+        {
+            var firstNoticeOFLossDocument = new documents_first_notice_of_loss();
+            firstNoticeOFLossDocument.DocumentID = documentId;
+            firstNoticeOFLossDocument.First_notice_of_lossID = firstNoticeOFLossId;
+            _db.documents_first_notice_of_loss.Add(firstNoticeOFLossDocument);
+            _db.SaveChanges();
+            return firstNoticeOFLossDocument.ID;
+        }
+
+        public int AddInvoice(int documentId)
+        {
+            var invoice = new invoice();
+            invoice.DocumentID = documentId;
+            _db.invoices.Add(invoice);
+            _db.SaveChanges();
+            return invoice.DocumentID;
+            
+        }
     }
 }
