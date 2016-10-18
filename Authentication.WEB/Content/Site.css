@@ -158,3 +158,9 @@ form.cmxform .gray * { color: gray; }
     margin: 5px;
 }
 
+
+
+
+.inputs-spacing {
+    padding-bottom: 20px;
+}

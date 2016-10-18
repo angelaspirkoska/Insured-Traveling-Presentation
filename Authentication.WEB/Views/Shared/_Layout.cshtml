@@ -4,17 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Insured Travel</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css" /> 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css" />
     <link rel="icon" href="/Content/img/profile.png">
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/jquery-3.1.0.js"></script>
     @*<script src="https://code.jquery.com/jquery-1.12.3.js"></script>*@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
     @*<script src="~/Scripts/jquery.tablesorter.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>*@
+        <script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>*@
 </head>
 <body>
 
@@ -22,9 +22,9 @@
         <div class="container">
             <div class="navbar-header">
                 <button class="btn btn-success navbar-toggle">
-                    <span class="glyphicon glyphicon-chevron-down"></span>
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
                 </button>
-                <a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Home" class = "navbar-brand">Insured Traveling</a>
+                <a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Home" class="navbar-brand">Insured Traveling</a>
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
@@ -38,7 +38,7 @@
     </div>
     @if (System.Web.HttpContext.Current.User != null)
     {
-        <input type="hidden" value="@System.Web.HttpContext.Current.User.Identity.Name" id="userName"/>
+        <input type="hidden" value="@System.Web.HttpContext.Current.User.Identity.Name" id="userName" />
     }
 
 
@@ -47,7 +47,7 @@
 
     </div>
     <br />
-    <footer class="container-fluid" style="position:fixed; bottom:0; width:100%; background-color:#149c82;">
+    <footer class="container-fluid" style="position:fixed; bottom:0; width:100%; background-color:#149c82; text-align:center; z-index:1000;">
         <p class="container" style="color:#ffffff">&copy; @DateTime.Now.Year - Insured Traveling</p>
     </footer>
     <script src="~/Scripts/bootstrap.js"></script>

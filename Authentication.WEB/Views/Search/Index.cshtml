@@ -76,12 +76,12 @@
                     </div>
                 </div>
                 <br />
-                <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchPolycies()" type="button" />
                 <br />
             </form>
             <div class="row">
-                <div class="col-md-offset-11 hover-tooltip">
-                    <button type="button" class="btn btn-success btn-circle btn-lg" data-toggle="tooltip" title="Додади нова полиса" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                <div class="col-md-12 hover-tooltip">
+                    <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchPolycies()" type="button" style="float:left;" />
+                    <button type="button" class="btn btn-success btn-circle btn-lg" data-toggle="tooltip" style="float:right;" title="Додади нова полиса" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
                 </div>
             </div>
         </div>
@@ -124,7 +124,6 @@
                     <input type="search" name="passport" class="input-sm" placeholder="Search by passport" id="passport" />
                 </div>
                 <br />
-                <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchClients()" type="button" />
                 <br />
             </form>
         </div>
@@ -132,8 +131,9 @@
         <br />
         <br />
         <div class="row">
-            <div class="col-md-offset-11 hover-tooltip">
-                <button type="button" class="btn btn-success btn-circle btn-lg" data-toggle="tooltip" title="Додади нов клиент" onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+            <div class="col-md-12 hover-tooltip">
+                <input id="btnSubmit" class="btn btn-primary" value="Search" onclick="SearchClients()" type="button" style="float:left;" />
+                <button type="button" class="btn btn-success btn-circle btn-lg" data-toggle="tooltip" style="float:right;" title="Додади нов клиент" onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
             </div>
         </div>
         <br />
@@ -164,13 +164,13 @@
     <div class="container" id="searchFNOL">
         <br />
         <br />
-        <input class="btn btn-primary" value="Search" onclick="SearchFNOL()" type="button" />
         <br />
         <br />
         <br />
         <div class="row">
-            <div class="col-md-offset-11 hover-tooltip">
-                <button type="button" class="btn btn-success btn-circle btn-lg" data-toggle="tooltip" title="Пријави нова штета" onclick="@("window.location.href='" + @Url.Action("Index", "ReportLoss") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+            <div class="col-md-12 hover-tooltip">
+                <input class="btn btn-primary" value="Search" onclick="SearchFNOL()" type="button" style="float:left;" />
+                <button type="button" class="btn btn-success btn-circle btn-lg" data-toggle="tooltip" style="float:right;" title="Пријави нова штета" onclick="@("window.location.href='" + @Url.Action("Index", "ReportLoss") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
             </div>
         </div>
         <br />
