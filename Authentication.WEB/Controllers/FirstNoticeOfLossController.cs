@@ -1,11 +1,6 @@
 ﻿using InsuredTraveling.Models;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Configuration;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -18,16 +13,20 @@ using Newtonsoft.Json;
 
 namespace InsuredTraveling.Controllers
 {
+    [Authorize]
     public class FirstNoticeOfLossController : Controller
     {
         private IUserService _us;
         private IPolicyService _ps;
         private IPolicyInsuredService _pis;
         private IInsuredsService _iss;
-        private IBankAccountService _bas;
+        private IFirstNoticeOfLossService _fis;
         private IPolicyTypeService _pts;
         private IAdditionalInfoService _ais;
-        private IFirstNoticeOfLossService _fis;
+        private IBankAccountService _bas;
+        
+      
+     
 
         public FirstNoticeOfLossController(IUserService us, IPolicyService ps, IPolicyInsuredService pis,
             IInsuredsService iss, IFirstNoticeOfLossService fis,
@@ -79,7 +78,10 @@ namespace InsuredTraveling.Controllers
             if (ModelState.IsValid)
             {
                
-                var result = SaveDataInDb(firstNoticeOfLossViewModel, invoices, documentsHealth, documentsLuggage);
+               // var result = SaveDataInDb(firstNoticeOfLossViewModel, invoices, documentsHealth, documentsLuggage);
+
+                var result = SaveFirstNoticeOfLossHelper.SaveFirstNoticeOfLoss( _iss, _us, _fis,
+            _bas,  _pts, _ais, firstNoticeOfLossViewModel, invoices, documentsHealth, documentsLuggage);
                 //var uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/api/mobile/ReportLoss");
                 //var client = new HttpClient { BaseAddress = uri };
                 //var jsonFormatter = new JsonMediaTypeFormatter();
@@ -88,11 +90,7 @@ namespace InsuredTraveling.Controllers
                 //HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
                 //string responseBody = await responseMessage.Content.ReadAsStringAsync();
 
-
-
                 //firstNoticeOfLossViewModel.ShortDetailed = false;
-
-
 
                 if (result)
                 {

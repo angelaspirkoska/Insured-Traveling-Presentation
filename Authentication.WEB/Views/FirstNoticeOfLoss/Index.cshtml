@@ -29,6 +29,16 @@
                     </div>
                 }
             }
+            else
+            {
+                <div class="row" style="width:35%;">
+                    <div class="alert alert-dismissible alert-info" style="margin-top: 27%;margin-left:12px; width:211%">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong><span>Користете единствено бројки и латинични букви</span></strong> 
+                    </div>
+                </div>
+
+            }
         </div>
 
         <h3>Пријави штета</h3>
@@ -246,7 +256,7 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Место на патување:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control input-sm", @id= "travelDestination", @onchange = "AllowEnglishLetters(#travelDestination);" } })
+                        @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control input-sm", @id= "travelDestination" } })
                         @Html.ValidationMessageFor(model => model.Destination, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -365,7 +375,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Податоци за докторот:</label>
                     <div class="col-lg-7">
-                        @Html.TextAreaFor(model => model.DoctorInfo, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                        @Html.TextAreaFor(model => model.DoctorInfo, new { @class = "form-control input-sm" })
                      
                     </div>
                 </div>
@@ -379,7 +389,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Опис на болеста:</label>
                     <div class="col-lg-7">
-                        @Html.TextAreaFor(model => model.MedicalCaseDescription, new { htmlAttributes = new { @class = "form-control input-sm", @id= "illnessInfo" } })
+                        @Html.TextAreaFor(model => model.MedicalCaseDescription, new {  @class = "form-control input-sm", @id= "illnessInfo" })
                      
                     </div>
                 </div>
@@ -403,7 +413,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Во случај на тешка повреда или смрт, кој орган составил записник и детален опис на настанот :</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.ResponsibleInstitution, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                        @Html.EditorFor(model => model.ResponsibleInstitution,  new { @class = "form-control input-sm" })
                         
                     </div>
                 </div>
@@ -434,7 +444,7 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Опис на настанот:</label>
                     <div class="col-lg-7">
-                        @Html.TextAreaFor(model => model.PlaceDescription, new { htmlAttributes = new { @class = "form-control input-sm"} })
+                        @Html.TextAreaFor(model => model.PlaceDescription, new { @class = "form-control input-sm"})
                         @Html.ValidationMessageFor(model => model.PlaceDescription, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -442,7 +452,7 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Детален опис на настанот:</label>
                     <div class="col-lg-7">
-                        @Html.TextAreaFor(model => model.DetailDescription, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                        @Html.TextAreaFor(model => model.DetailDescription, new {  @class = "form-control input-sm" })
                         @Html.ValidationMessageFor(model => model.DetailDescription, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -450,7 +460,7 @@
                     <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
                     <label class="col-md-4 control-label">Место на пријавување:</label>
                     <div class="col-lg-7">
-                        @Html.EditorFor(model => model.ReportPlace, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                        @Html.EditorFor(model => model.ReportPlace, new { @class = "form-control input-sm" })
                         @Html.ValidationMessageFor(model => model.ReportPlace, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -459,14 +469,14 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Опис на украдените/оштетени предмети:</label>
                     <div class="col-lg-7">
-                        @Html.TextAreaFor(model => model.Floaters, new { htmlAttributes = new { @class = "form-control input-sm" } })                     
+                        @Html.TextAreaFor(model => model.Floaters,  new { @class = "form-control input-sm" } )                     
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-md-4 control-label">Вредност:</label>
                     <div class="col-lg-7">
-                        @Html.TextAreaFor(model => model.FloatersValue, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                        @Html.TextAreaFor(model => model.FloatersValue, new { @class = "form-control input-sm" } )
                     </div>
                 </div>
 
@@ -587,6 +597,17 @@ else if (ViewBag.insurance == "Luggage Insurance")
         });
 
         $("#TotalCost").keydown(function (e) {
+
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                return;
+            }
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+        $("#FloatersValue").keydown(function (e) {
 
             if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
                 (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
@@ -952,8 +973,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
 
 
-   
-        $("#travelDestination").keypress(function(event){
+   //Disable other than English letters
+    $(".input-sm, .text-box").keypress(function (event) {
             var ew = event.which;
             if(ew == 32)
                 return true;
@@ -965,20 +986,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 return true;
             return false;
         });
-    function AllowEnglishLetters(ID) {
-        $("ID").keypress(function (event) {
-            var ew = event.which;
-            if (ew == 32)
-                return true;
-            if (48 <= ew && ew <= 57)
-                return true;
-            if (65 <= ew && ew <= 90)
-                return true;
-            if (97 <= ew && ew <= 122)
-                return true;
-            return false;
-        });
-    }
+
 
 
 

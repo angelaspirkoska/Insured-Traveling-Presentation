@@ -10,6 +10,7 @@ namespace InsuredTraveling.DI
     {
          List<first_notice_of_loss> GetAll();
 
+        luggage_insurance_info isHealthInsurance(int lossId);
         first_notice_of_loss GetById(int id);
 
         first_notice_of_loss[] GetByInsuredUserId(string id);

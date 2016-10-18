@@ -50,15 +50,27 @@ namespace InsuredTraveling.DI
         {
             first_notice_of_loss fnolId = _db.first_notice_of_loss.Single(x => x.ID == lossId);
 
-            return _db.health_insurance_info.Single(x => x.additional_info.ID == fnolId.Additional_infoID);
+            return _db.health_insurance_info.SingleOrDefault(x => x.additional_info.ID == fnolId.Additional_infoID);
 
         }
 
         public luggage_insurance_info GetLuggageAdditionalInfoByLossId(int lossId)
         {
             first_notice_of_loss fnolId = _db.first_notice_of_loss.Single(x => x.ID == lossId);
+            if (fnolId == null)
+                return null;
+            return _db.luggage_insurance_info.Where(x => x.additional_info.ID == fnolId.Additional_infoID).SingleOrDefault();
 
-            return _db.luggage_insurance_info.Single(x => x.additional_info.ID == fnolId.Additional_infoID);
+        }
+
+        public luggage_insurance_info isHealthInsurance(int lossId)
+        {
+            first_notice_of_loss fnolId = _db.first_notice_of_loss.Single(x => x.ID == lossId);
+            if (fnolId == null)
+                return null;
+            luggage_insurance_info test = _db.luggage_insurance_info.Where(x => x.additional_info.ID == fnolId.Additional_infoID).SingleOrDefault();
+
+            return test;
 
         }
 

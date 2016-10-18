@@ -27,12 +27,19 @@ namespace InsuredTraveling.DI
 
         public bank_account_info BankAccountInfoById(int ID)
         {
-            return _db.bank_account_info.Single(x => x.Account_HolderID == ID);
+            return _db.bank_account_info.Single(x => x.ID == ID);
         }
 
         public List<bank_account_info> BankAccountsByInsuredId(int insuredId)
         {
            return _db.bank_account_info.Where(x => x.Account_HolderID == insuredId).ToList();            
+        }
+
+        public bank_account_info BankAccountsInfoByIdandUser(int ID, int accountHolder)
+        {
+            return (bank_account_info)_db.bank_account_info.Where(x => x.Account_HolderID == ID).Where(x => x.ID == ID);
+                
+            
         }
 
         public bank_account_info Create()

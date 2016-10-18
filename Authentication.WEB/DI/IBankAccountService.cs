@@ -15,7 +15,7 @@ namespace InsuredTraveling.DI
         List<bank_prefix> GetAllPrefix();
         Task<List<bank_prefix>> GetAllPrefixAsync();
         bank_account_info BankAccountInfoById(int ID);
-
+        bank_account_info BankAccountsInfoByIdandUser(int ID, int accountHolder);
         bank_account_info Create();
 
         bank CreateBank();

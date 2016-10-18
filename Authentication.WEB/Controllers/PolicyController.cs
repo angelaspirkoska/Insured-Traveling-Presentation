@@ -17,6 +17,7 @@ using InsuredTraveling.DI;
 
 namespace Authentication.WEB.Controllers
 {
+    [Authorize]
     public class PolicyController : Controller
     {
 

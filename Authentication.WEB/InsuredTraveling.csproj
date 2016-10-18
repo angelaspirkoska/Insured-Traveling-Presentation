@@ -537,6 +537,7 @@
     <Compile Include="Helper.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\SaveBankAccountInfoHelper.cs" />
+    <Compile Include="Helpers\SaveFirstNoticeOfLoss.cs" />
     <Compile Include="insured.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
