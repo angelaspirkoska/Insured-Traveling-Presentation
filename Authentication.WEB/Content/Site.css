@@ -160,7 +160,31 @@ form.cmxform .gray * { color: gray; }
 
 
 
+/*==========================================================================================*/
+
+.logo {
+    width:50px; 
+    height:auto;
+    margin-right:15px;
+}
+
+.navbar-brand {
+    padding:5px 15px !important;
+}
 
 .inputs-spacing {
     padding-bottom: 20px;
+}
+
+.menu-btn-align {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    background-color:#fff;
+}
+
+.jumbotron button {
+    margin:10px;
+    width:150px;
 }

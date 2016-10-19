@@ -30,7 +30,7 @@
                     <input type="search" id="agency" class="input-sm" placeholder="Search by Agency" />
                     <div class="form-inline row">
                         <div class="form-group">
-                            <label for="vidPolisa">Вид полиса :</label>
+                            <label for="vidPolisa">Вид полиса :</label><br />
                             @Html.DropDownListFor(model => model.policy_type, (List<SelectListItem>)ViewBag.TypeOfPolicy, "-- Type of policy --", new { @class = "form-control", name = "TypePolycies", id = "TypePolycies" })
                         </div>
                         <div class="form-group col-sm-3">

@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="container">
-        <div class="jumbotron">
+        <div class="jumbotron menu-btn-align">
             @{ 
                 RoleAuthorize r = new RoleAuthorize();
             }
@@ -16,7 +16,7 @@
             <button onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'")" class="btn btn-success">Пријави штета</button>
             @if (r.IsUser("admin"))
             {
-                <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success">Администраторски панел</button>
+                <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success">Админ панел</button>
                 <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success" id="dodadiKlient"> Нов клиент</button>
             }
             @if (r.IsUser("broker"))

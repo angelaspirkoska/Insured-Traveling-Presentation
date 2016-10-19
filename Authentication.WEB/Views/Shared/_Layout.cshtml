@@ -24,7 +24,11 @@
                 <button class="btn btn-success navbar-toggle">
                     <span class="glyphicon glyphicon-menu-hamburger"></span>
                 </button>
-                <a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Home" class="navbar-brand">Insured Traveling</a>
+                <a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Home" class="navbar-brand">
+                    <div style="display:inline-block;">
+                        <img src="~/Content/img/profile.png" class="logo" alt="logo" />Insured Traveling
+                    </div>
+                </a>
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
