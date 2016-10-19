@@ -45,6 +45,7 @@ namespace InsuredTraveling.Controllers
         public ActionResult Index()
         {
             ShowUserData();
+            ViewBag.Date = DateTime.Now.Year + "-"+DateTime.Now.Month + "-" +DateTime.Now.Day;
             return View();
         }
 

@@ -10,7 +10,9 @@ namespace InsuredTraveling.Helpers
     public static class SaveFirstNoticeOfLossHelper
     {
         public static bool SaveFirstNoticeOfLoss(IInsuredsService _iss, IUserService _us, IFirstNoticeOfLossService _fis,
-            IBankAccountService _bas, IPolicyTypeService _pts, IAdditionalInfoService _ais, FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel, IEnumerable<HttpPostedFileBase> invoices, IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
+            IBankAccountService _bas, IPolicyTypeService _pts, IAdditionalInfoService _ais,
+            FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel, IEnumerable<HttpPostedFileBase> invoices,
+            IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
         {
             var result = true;
             var additionalInfo = _ais.Create();
@@ -18,7 +20,14 @@ namespace InsuredTraveling.Helpers
             {
                 additionalInfo.Accident_place = firstNoticeOfLossViewModel.AccidentPlaceHealth;
                 if (firstNoticeOfLossViewModel.AccidentDateTimeHealth != null)
-                    additionalInfo.Datetime_accident = firstNoticeOfLossViewModel.AccidentDateTimeHealth.Value;
+                {                    
+                    var dateTime = firstNoticeOfLossViewModel.AccidentDateTimeHealth.Value;
+                    var timeSpan = firstNoticeOfLossViewModel.AccidentTimeHealth.Value;
+                    DateTime d = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
+                    d.Add(timeSpan);
+                    additionalInfo.Datetime_accident = d;
+                }
+                   
 
                 var healthInsuranceInfo = new health_insurance_info
                 {
@@ -49,7 +58,14 @@ namespace InsuredTraveling.Helpers
                 additionalInfo.Accident_place = firstNoticeOfLossViewModel.AccidentPlaceLuggage;
 
                 if (firstNoticeOfLossViewModel.AccidentDateTimeLuggage != null)
-                    additionalInfo.Datetime_accident = firstNoticeOfLossViewModel.AccidentDateTimeLuggage.Value;
+                {                  
+                    var dateTime = firstNoticeOfLossViewModel.AccidentDateTimeLuggage.Value;
+                    var timeSpan = firstNoticeOfLossViewModel.AccidentTimeLuggage.Value;
+                    DateTime d = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
+                    d.Add(timeSpan);
+                    additionalInfo.Datetime_accident = d;
+                }
+                    
                 var luggageInsuranceInfo = new luggage_insurance_info
                 {
                     Additional_infoId = _ais.Add(additionalInfo),
