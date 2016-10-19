@@ -53,8 +53,8 @@ namespace Authentication.WEB.Controllers
             ViewBag.Countries = countries.Result;
             ViewBag.Franchise = franchises.Result;
             ViewBag.additional_charges = additional_charges.Result;
+            ViewBag.Date = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
 
-            
             return View();
         }
 

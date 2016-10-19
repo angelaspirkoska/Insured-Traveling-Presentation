@@ -66,6 +66,33 @@ namespace InsuredTraveling.Models
         public int? StatusID { get; set; }
         public DateTime? Date_Cancellation { get; set; }
 
+        //Podatoci za dogovoruvac (policyHolder)
+        public bool IsSamePolicyHolderInsured { get; set; }
+        public bool IsExistentPolicyHolder { get; set; }
+        public int PolicyHolderId { get; set; }
+
+        [Display(Name = "Име: ")]
+        public string PolicyHolderName { get; set; }
+
+        [Display(Name = "Презиме: ")]
+        public string PolicyHolderLastName { get; set; }
+
+        [Display(Name = "Адреса: ")]
+        public string PolicyHolderAddress { get; set; }
+
+        [Display(Name = "Општина: ")]
+        public string PolicyHolderMunicipality { get; set; }
+
+        [Required]
+        [Display(Name = "Матичен број:")]
+        public string PolicyHolderSSN { get; set; }
+
+        [Display(Name = "Број на пасош: ")]
+        public string PolicyHolderPassportNumber_ID { get; set; }
+
+
+
+        //Podatoci za osigurenik
         [Display(Name = "Име: ")]
         public string Name { get; set; }
 
@@ -75,12 +102,16 @@ namespace InsuredTraveling.Models
         [Display(Name = "Адреса: ")]
         public string Address { get; set; }
 
+        [Display(Name = "Општина: ")]
+        public string Municipality { get; set; }
+
         [Required]
         [Display(Name = "Матичен број:")]
         public string SSN { get; set; }
 
         [Display(Name = "Број на пасош: ")]
         public string PassportNumber_ID { get; set; }
+
 
         public List<insured> insureds { get; set; }
         public List<additional_charge> additional_charges {get;set;}
