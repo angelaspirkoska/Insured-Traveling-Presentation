@@ -25,12 +25,14 @@ namespace InsuredTraveling.Controllers
         private IAdditionalInfoService _ais;
         private IBankAccountService _bas;
         
-      
-     
-
-        public FirstNoticeOfLossController(IUserService us, IPolicyService ps, IPolicyInsuredService pis,
-            IInsuredsService iss, IFirstNoticeOfLossService fis,
-            IBankAccountService bas, IPolicyTypeService pts, IAdditionalInfoService ais)
+        public FirstNoticeOfLossController(IUserService us, 
+                                           IPolicyService ps, 
+                                           IPolicyInsuredService pis,
+                                           IInsuredsService iss, 
+                                           IFirstNoticeOfLossService fis,
+                                           IBankAccountService bas, 
+                                           IPolicyTypeService pts, 
+                                           IAdditionalInfoService ais)
         {
             _us = us;
             _ps = ps;
@@ -103,14 +105,7 @@ namespace InsuredTraveling.Controllers
                     ViewBag.Message = "Something went wrong!";
                     return View();
                 }
-
-
-
-
-
             }
-
-
             return View(firstNoticeOfLossViewModel);
         }
 

@@ -100,5 +100,10 @@ namespace InsuredTraveling.DI
             return invoice.DocumentID;
             
         }
+
+        public List<first_notice_of_loss> GetByPolicyId(int policy_Id)
+        {
+            return _db.first_notice_of_loss.Where(x => x.PolicyId == policy_Id).ToList();
+        }
     }
 }

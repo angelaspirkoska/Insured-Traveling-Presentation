@@ -4,6 +4,7 @@ using InsuredTraveling.Models;
 using System;
 using InsuredTraveling.DI;
 using Autofac;
+using InsuredTraveling.ViewModels;
 
 namespace InsuredTraveling.App_Start
 {
@@ -118,9 +119,6 @@ namespace InsuredTraveling.App_Start
                 
             });
 
-
-
-
             Mapper.CreateMap<InsuredTravelingEntity, PolicyInfoList>().AfterMap((src, dst) =>
             {
                 dst.countries =(IQueryable <country>) src.countries;
@@ -129,7 +127,35 @@ namespace InsuredTraveling.App_Start
                 dst.policies =(IQueryable<policy_type>) src.policy_type;
             });
 
+            Mapper.CreateMap<travel_policy, SearchPolicyViewModel>().AfterMap((src, dst) =>
+            {
+                dst.Polisa_Id = src.ID;
+                dst.Polisa_Broj = src.Policy_Number;
+                dst.Country = src.country.Name;
+                dst.Policy_type = src.policy_type.type;
+                dst.Zapocnuva_Na = src.Start_Date.Date.ToShortDateString();
+                dst.Zavrsuva_Na = src.End_Date.Date.ToShortDateString();
+                dst.Datum_Na_Izdavanje = src.Date_Created.Date.ToShortDateString();
+                dst.Datum_Na_Storniranje = src.Date_Cancellation.HasValue ? src.Date_Cancellation.Value.Date.ToShortDateString().ToString() : "/";
 
+            });
+
+            Mapper.CreateMap<first_notice_of_loss, SearchFNOLViewModel>().AfterMap((src, dst) =>
+            {
+                dst.ID = src.ID;
+                var policy = db.travel_policy.Where(x => x.ID == src.PolicyId).FirstOrDefault();
+                var healthInsurance = db.health_insurance_info.SingleOrDefault(x => x.additional_info.ID == src.Additional_infoID);
+                var luggageInsurance = db.luggage_insurance_info.SingleOrDefault(x => x.additional_info.ID == src.Additional_infoID);
+                var user = policy != null ? policy.insured : null;
+                dst.PolicyNumber = policy != null ? policy.Policy_Number : null;
+                dst.InsuredName = user != null ? user.Name + " " + user.Lastname : null;
+                dst.ClaimantPersonName = src.insured != null ? src.insured.Name + " " + src.insured.Lastname : null;
+                dst.Claimant_insured_relation = src.Relation_claimant_policy_holder;
+                dst.AllCosts = src.Total_cost.ToString();
+                dst.Date = src.additional_info != null ? src.additional_info.Datetime_accident.Date.ToShortDateString().ToString() : null;
+                dst.HealthInsurance = healthInsurance != null ? "Da" : "Ne";
+                dst.LuggageInsurance = luggageInsurance != null ? "Da" : "Ne";
+            });
         }
     }
 }

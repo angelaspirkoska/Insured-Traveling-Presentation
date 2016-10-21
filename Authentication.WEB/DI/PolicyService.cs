@@ -97,5 +97,11 @@ namespace InsuredTraveling.DI
         {
             return _db.travel_policy.Where(x => x.ID == id).SingleOrDefault();
         }
+
+        public List<travel_policy> GetPoliciesByCountryAndType(int? TypePolicy, int? Country)
+        {
+            return _db.travel_policy.Where(x => (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
+                                    (Country == null || x.CountryID == Country.Value)).ToList();
+        }
     }
 }

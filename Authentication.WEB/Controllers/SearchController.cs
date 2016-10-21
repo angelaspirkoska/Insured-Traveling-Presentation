@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using InsuredTraveling.DI;
+using AutoMapper;
+using InsuredTraveling.ViewModels;
 
 namespace InsuredTraveling.Controllers
 {
@@ -18,8 +20,15 @@ namespace InsuredTraveling.Controllers
         private IPolicyTypeService _pts;
         private IInsuredsService _iss;
         private IBankAccountService _bas;
+        private ICountryService _countryService;
 
-        public SearchController(IPolicyService ps, IFirstNoticeOfLossService fnls, IUserService us, IPolicyTypeService pts, IInsuredsService iss, IBankAccountService bas)
+        public SearchController(IPolicyService ps, 
+                                IFirstNoticeOfLossService fnls, 
+                                IUserService us, 
+                                IPolicyTypeService pts, 
+                                IInsuredsService iss, 
+                                IBankAccountService bas,
+                                ICountryService countryService)
         {
             _ps = ps;
             _fnls = fnls;
@@ -27,6 +36,7 @@ namespace InsuredTraveling.Controllers
             _pts = pts;
             _iss = iss;
             _bas = bas;
+            _countryService = countryService;
 
         }
 
@@ -36,6 +46,11 @@ namespace InsuredTraveling.Controllers
             var type_policies = GetTypeOfPolicy();
             await Task.WhenAll(type_policies);
             ViewBag.TypeOfPolicy = type_policies.Result;
+
+            var countries = GetAllCountries();
+            await Task.WhenAll(countries);
+            ViewBag.Countries = countries.Result;
+
             return View();
         }
 
@@ -86,165 +101,90 @@ namespace InsuredTraveling.Controllers
 
         [HttpGet]
         [Route("GetPolicies")]
-        public JObject GetPolicies(string name, string embg, string land, string address, int? TypePolycies, string agency, string startDate, string endDate, string dateI, string dateS, string operatorStartDate, string operatorEndDate, string operatorDateI, string operatorDateS)
+        public JObject GetPolicies(string name, 
+                                   string embg, 
+                                   string land, 
+                                   string address, 
+                                   int? TypePolicy, 
+                                   int? Country, 
+                                   string agency, 
+                                   string startDate, 
+                                   string endDate, 
+                                   string dateI, 
+                                   string dateS, 
+                                   string operatorStartDate, 
+                                   string operatorEndDate, 
+                                   string operatorDateI, 
+                                   string operatorDateS)
         {
-            name = name.ToLower();
-            embg = embg.ToLower();
-            address = address.ToLower();
-            agency = agency.ToLower();
             DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : Convert.ToDateTime(startDate);
             DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : Convert.ToDateTime(endDate);
             DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : Convert.ToDateTime(dateI);
             DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : Convert.ToDateTime(dateS);
 
-            if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(embg) || !String.IsNullOrEmpty(address) || !String.IsNullOrEmpty(land) || !String.IsNullOrEmpty(agency) || TypePolycies.HasValue)
+            var data = _ps.GetPoliciesByCountryAndType(TypePolicy, Country);
+
+            if (!String.IsNullOrEmpty(startDate))
             {
-                var data = (TypePolycies.HasValue) ? _ps.GetPolicyByTypePolicies(TypePolycies.Value) : _ps.GetAllPolicies();
-
-                if (!String.IsNullOrEmpty(startDate))
+                switch (operatorStartDate)
                 {
-                    switch (operatorStartDate)
-                    {
-                        case "<": data = data.Where(x => x.Start_Date < startDate1).ToList(); break;
-                        case "=": data = data.Where(x => x.Start_Date == startDate1).ToList(); break;
-                        case ">": data = data.Where(x => x.Start_Date > startDate1).ToList(); break;
-                        default: break;
-                    }
+                    case "<": data = data.Where(x => x.Start_Date < startDate1).ToList(); break;
+                    case "=": data = data.Where(x => x.Start_Date == startDate1).ToList(); break;
+                    case ">": data = data.Where(x => x.Start_Date > startDate1).ToList(); break;
+                    default: break;
                 }
-                if (!String.IsNullOrEmpty(endDate))
-                {
-                    switch (operatorEndDate)
-                    {
-                        case "<": data = data.Where(x => x.End_Date < endDate1).ToList(); break;
-                        case "=": data = data.Where(x => x.End_Date == endDate1).ToList(); break;
-                        case ">": data = data.Where(x => x.End_Date > endDate1).ToList(); break;
-                        default: break;
-                    }
-                }
-                if (!String.IsNullOrEmpty(dateI))
-                {
-                    switch (operatorDateI)
-                    {
-                        case "<": data = data.Where(x => x.Date_Created < dateI1).ToList(); break;
-                        case "=": data = data.Where(x => x.Date_Created == dateI1).ToList(); break;
-                        case ">": data = data.Where(x => x.Date_Created > dateI1).ToList(); break;
-                        default: break;
-                    }
-                }
-                if (!String.IsNullOrEmpty(dateS))
-                {
-                    switch (operatorDateS)
-                    {
-                        case "<": data = data.Where(x => x.Date_Cancellation < dateS2).ToList(); break;
-                        case "=": data = data.Where(x => x.Date_Cancellation == dateS2).ToList(); break;
-                        case ">": data = data.Where(x => x.Date_Cancellation > dateS2).ToList(); break;
-                        default: break;
-                    }
-                }
-
-                var j = new JObject();
-                var data1 = new JArray();
-                foreach (var v in data)
-                {
-                    var j1 = new JObject();
-                    j1.Add("Polisa_Broj", v.Policy_Number);
-                    j1.Add("Country", v.country.Name);
-                    j1.Add("Policy_type", v.policy_type.type);
-                    j1.Add("Zapocnuva_Na", v.Start_Date.Date.ToShortDateString());
-                    j1.Add("Zavrsuva_Na", v.End_Date.Date.ToShortDateString());
-                    j1.Add("Datum_Na_Izdavanje", v.Date_Created.Date.ToShortDateString());
-                    j1.Add("Datum_Na_Storniranje", v.Date_Cancellation.HasValue ? v.Date_Cancellation.Value.Date.ToShortDateString().ToString(): "/");
-
-                    data1.Add(j1);
-                }
-                j.Add("data", data1);
-                return j;
-
             }
-            else if (!String.IsNullOrEmpty(startDate) || !String.IsNullOrEmpty(endDate) || !String.IsNullOrEmpty(dateI) || !String.IsNullOrEmpty(dateS))
+            if (!String.IsNullOrEmpty(endDate))
             {
-                var data = _ps.GetAllPolicies();
-                if (!String.IsNullOrEmpty(startDate))
+                switch (operatorEndDate)
                 {
-                    switch (operatorStartDate)
-                    {
-                        case "<": data = data.Where(x => x.Start_Date < startDate1).ToList(); break;
-                        case "=": data = data.Where(x => x.Start_Date == startDate1).ToList(); break;
-                        case ">": data = data.Where(x => x.Start_Date > startDate1).ToList(); break;
-                        default: break;
-                    }
+                    case "<": data = data.Where(x => x.End_Date < endDate1).ToList(); break;
+                    case "=": data = data.Where(x => x.End_Date == endDate1).ToList(); break;
+                    case ">": data = data.Where(x => x.End_Date > endDate1).ToList(); break;
+                    default: break;
                 }
-                if (!String.IsNullOrEmpty(endDate))
-                {
-                    switch (operatorEndDate)
-                    {
-                        case "<": data = data.Where(x => x.End_Date < endDate1).ToList(); break;
-                        case "=": data = data.Where(x => x.End_Date == endDate1).ToList(); break;
-                        case ">": data = data.Where(x => x.End_Date > endDate1).ToList(); break;
-                        default: break;
-                    }
-                }
-                if (!String.IsNullOrEmpty(dateI))
-                {
-                    switch (operatorDateI)
-                    {
-                        case "<": data = data.Where(x => x.Date_Created < dateI1).ToList(); break;
-                        case "=": data = data.Where(x => x.Date_Created == dateI1).ToList(); break;
-                        case ">": data = data.Where(x => x.Date_Created > dateI1).ToList(); break;
-                        default: break;
-                    }
-                }
-                if (!String.IsNullOrEmpty(dateS))
-                {
-                    switch (operatorDateS)
-                    {
-                        case "<": data = data.Where(x => x.Date_Cancellation < dateS2).ToList(); break;
-                        case "=": data = data.Where(x => x.Date_Cancellation == dateS2).ToList(); break;
-                        case ">": data = data.Where(x => x.Date_Cancellation > dateS2).ToList(); break;
-                        default: break;
-                    }
-                }
-                var j = new JObject();
-                var data1 = new JArray();
-                foreach (var v in data)
-                {
-                    var j1 = new JObject();
-                    j1.Add("Polisa_Broj", v.Policy_Number);
-                    j1.Add("Country", v.country.Name);
-                    j1.Add("Policy_type", v.policy_type.type);
-                    j1.Add("Zapocnuva_Na", v.Start_Date.Date.ToShortDateString());
-                    j1.Add("Zavrsuva_Na", v.End_Date.Date.ToShortDateString());
-                    j1.Add("Datum_Na_Izdavanje", v.Date_Created.Date.ToShortDateString());
-                    j1.Add("Datum_Na_Storniranje", v.Date_Cancellation.HasValue ? v.Date_Cancellation.Value.Date.ToShortDateString().ToString() : "/");
-
-                    data1.Add(j1);
-                }
-                j.Add("data", data1);
-                return j;
-
             }
-            else
+            if (!String.IsNullOrEmpty(dateI))
             {
-                var data = _ps.GetAllPolicies();
-                var j = new JObject();
-                var data1 = new JArray();
-                foreach (var v in data)
+                switch (operatorDateI)
                 {
-                    var j1 = new JObject();
-                    j1.Add("Polisa_Broj", v.Policy_Number);
-                    j1.Add("Country", v.country.Name);
-                    j1.Add("Policy_type", v.policy_type.type);
-                    j1.Add("Zapocnuva_Na", v.Start_Date.Date.ToShortDateString());
-                    j1.Add("Zavrsuva_Na", v.End_Date.Date.ToShortDateString());
-                    j1.Add("Datum_Na_Izdavanje", v.Date_Created.Date.ToShortDateString());
-                    j1.Add("Datum_Na_Storniranje", v.Date_Cancellation.HasValue ? v.Date_Cancellation.Value.Date.ToShortDateString().ToString() : "/");
-
-                    data1.Add(j1);
+                    case "<": data = data.Where(x => x.Date_Created < dateI1).ToList(); break;
+                    case "=": data = data.Where(x => x.Date_Created == dateI1).ToList(); break;
+                    case ">": data = data.Where(x => x.Date_Created > dateI1).ToList(); break;
+                    default: break;
                 }
-                j.Add("data", data1);
-                return j;
+            }
+            if (!String.IsNullOrEmpty(dateS))
+            {
+                switch (operatorDateS)
+                {
+                    case "<": data = data.Where(x => x.Date_Cancellation < dateS2).ToList(); break;
+                    case "=": data = data.Where(x => x.Date_Cancellation == dateS2).ToList(); break;
+                    case ">": data = data.Where(x => x.Date_Cancellation > dateS2).ToList(); break;
+                    default: break;
+                }
             }
 
+            var JSONObject = new JObject();
+            var dataJSON = new JArray();
+
+            var searchModel = data.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
+            var array = JArray.FromObject(searchModel.ToArray());
+            JSONObject.Add("data", array);
+            return JSONObject;
+        }
+
+        public JObject GetFNOLByPolicyNumber(string number)
+        {
+            int id = !String.IsNullOrEmpty(number) ? Convert.ToInt32(number) : 0;
+            var fnol = _fnls.GetByPolicyId(id);
+            var JSONObject = new JObject();
+            var dataJSON = new JArray();
+
+            var searchModel = fnol.Select(Mapper.Map<first_notice_of_loss, SearchFNOLViewModel>).ToList();
+            var array = JArray.FromObject(searchModel.ToArray());
+            JSONObject.Add("data", array);
+            return JSONObject;
         }
 
         public JObject GetFNOL()
@@ -254,8 +194,6 @@ namespace InsuredTraveling.Controllers
             var data1 = new JArray();
             foreach (var v in fnol)
             {
-                //v.insureduser
-               
                 var user = _iss.GetInsuredData(_ps.GetPolicyHolderByPolicyID(v.PolicyId).ID);
 
                 var j1 = new JObject();
@@ -264,7 +202,6 @@ namespace InsuredTraveling.Controllers
                 j1.Add("InsuredName", user.Name + " " + user.Lastname);
                 j1.Add("ClaimantPersonName", v.insured.Name+" " + v.insured.Lastname);
                 j1.Add("Claimant_insured_relation", v.Relation_claimant_policy_holder);
-               // j1.Add("AdditionalDocumentsHanded", v.Additional_documents_handed);
                 j1.Add("AllCosts", v.Total_cost);
                 j1.Add("Date", v.additional_info.Datetime_accident);
 
@@ -426,9 +363,14 @@ namespace InsuredTraveling.Controllers
 
         private async Task<List<SelectListItem>> GetTypeOfPolicy()
         {
-
             var policy = _pts.GetAll();
             return await policy.ToListAsync();
+        }
+
+        private async Task<List<SelectListItem>> GetAllCountries()
+        {
+            var countries = _countryService.GetAll();
+            return await countries.ToListAsync();
         }
     }
 }

@@ -670,6 +670,8 @@
     <Compile Include="ViewModels\BankPrefixViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\JsonWrapperPolicyFirstNoticeOfLossViewModel.cs" />
+    <Compile Include="ViewModels\SearchFNOLViewModel.cs" />
+    <Compile Include="ViewModels\SearchPolicyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

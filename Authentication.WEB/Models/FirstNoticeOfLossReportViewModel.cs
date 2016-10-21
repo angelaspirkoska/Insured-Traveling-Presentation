@@ -11,7 +11,6 @@ namespace InsuredTraveling.Models
         public bool? ShortDetailed { get; set; }
         public bool? WebMobile { get; set; }
 
-
         public int PolicyId { get; set; }
 
         [Required(ErrorMessage = "Полето е задолжително")]
