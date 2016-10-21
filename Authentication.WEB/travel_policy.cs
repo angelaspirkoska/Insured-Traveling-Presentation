@@ -43,8 +43,8 @@ namespace InsuredTraveling
         public System.DateTime Date_Created { get; set; }
         public Nullable<System.DateTime> Date_Modified { get; set; }
         public string Modified_By { get; set; }
-        public Nullable<int> StatusID { get; set; }
         public Nullable<System.DateTime> Date_Cancellation { get; set; }
+        public bool Payment_Status { get; set; }
     
         public virtual aspnetuser aspnetuser { get; set; }
         public virtual aspnetuser aspnetuser1 { get; set; }

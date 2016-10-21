@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using InsuredTraveling.Helpers;
 using InsuredTraveling.DI;
 
 namespace Authentication.WEB.Controllers
@@ -18,10 +19,17 @@ namespace Authentication.WEB.Controllers
     {
         private IUserService _us;
         private IPolicyService _ps;
-        public PaymentController(IUserService us, IPolicyService ps)
+        private IInsuredsService _iss;
+        private IPolicyInsuredService _pis;
+        private IAdditionalChargesService _acs;
+
+        public PaymentController(IUserService us, IPolicyService ps, IInsuredsService iss, IPolicyInsuredService pis, IAdditionalChargesService acs)
         {
             this._us = us;
             this._ps = ps;
+            _iss = iss;
+            _pis = pis;
+            _acs = acs;
         }
 
         // GET: Payment
@@ -61,10 +69,14 @@ namespace Authentication.WEB.Controllers
         public ActionResult Index(Policy p)
         {
             PaymentModel model = new PaymentModel();
-            InsuredTravelingEntity _db = new InsuredTravelingEntity();
+
+            var PolicyId = SavePolicyHelper.SavePolicy(p, _ps, _us, _iss, _pis, _acs);
+
+           var policy = _ps.GetPolicyById(PolicyId);
 
             model.clientId = "180000069";                   //Merchant Id defined by bank to user
-            model.amount = "9.95";                         //Transaction amount
+            model.amount = p.Total_Premium.ToString();
+             //   "9.95";                         //Transaction amount
             model.oid = "";                                //Order Id. Must be unique. If left blank, system will generate a unique one.
             model.okUrl = ConfigurationManager.AppSettings["webpage_url"] + "/Payment/PaymentSuccess";                      //URL which client be redirected if authentication is successful
             model.failUrl = ConfigurationManager.AppSettings["webpage_url"] + "/Payment/PaymentFail";                    //URL which client be redirected if authentication is not successful
@@ -82,45 +94,23 @@ namespace Authentication.WEB.Controllers
 
             model.hash = Convert.ToBase64String(model.inputbytes); //Hash value used for validation
 
-            var currentUser = _us.GetUserDataByUsername(System.Web.HttpContext.Current.User.Identity.Name);
-            p.Created_By = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
-            p.Date_Created = DateTime.Now;
 
-            CreateClientModel client = new CreateClientModel();
-            ValidationService validation = new ValidationService();
-            client.Name = p.Name;
-            client.LastName = p.LastName;
-            client.Email = currentUser.Email;
-            client.Address = p.Address;
-            client.SSN = p.SSN;
-            client.PhoneNumber = currentUser.PhoneNumber;
-            client.Passport_Number_IdNumber = p.PassportNumber_ID;
-            client.Postal_Code = currentUser.PostalCode;
-            client.DateBirth = currentUser.DateOfBirth;
-            client.Created_By = currentUser.Id;
-            client.Date_Created = DateTime.Now.Date;
-            client.City = currentUser.City;
-            client.Age = validation.countAge(DateTime.Now, p.SSN);
+            model.Pat = policy;
 
-            var insured = _db.insureds.Create();
-            insured = Mapper.Map<CreateClientModel, insured>(client);
+            //viewbag da dodam!!!!!!!!!
 
-            var a1ID = p.additional_charges[0].ID;
-            var a2ID = p.additional_charges[1].ID;
-            ViewBag.insured = insured;
-            ViewBag.additional_charge1 = _db.additional_charge.Where(x=>x.ID == a1ID).Single().Doplatok;
-            ViewBag.additional_charge2 = _db.additional_charge.Where(x => x.ID == a2ID).Single().Doplatok;
 
-            var p1 = _db.travel_policy.Create();
-            p1 = Mapper.Map<Policy, travel_policy>(p);
-            policy_type policy_type = _db.policy_type.Where(x => x.ID == p.Policy_TypeID).Single();
-            p1.policy_type = policy_type;
-            country c = _db.countries.Where(x => x.ID == p.CountryID).Single();
-            p1.country = c;
-
-            model.Pat = p1;
             return View(model);
         }
+
+
+
+
+
+
+
+
+
 
         [Route("PaymentSuccess")]
         public ActionResult PaymentSuccess()
@@ -144,7 +134,7 @@ namespace Authentication.WEB.Controllers
 
                 // ADD MAIL ADRESS
 
-                MailService mailService = new MailService("asaid@optimalreinsurance.com");
+                MailService mailService = new MailService("aleksandra@optimalreinsurance.com");
                 mailService.setSubject("Издадена полиса број: " + model.oid);
                 string bodyText = "Успешно извршена трансакција \n Уплатена сума: " + model.amount + " ден. \n Трансакциски код: " + model.TransId + "\n Автентикациски код: " + model.AuthCode;
 

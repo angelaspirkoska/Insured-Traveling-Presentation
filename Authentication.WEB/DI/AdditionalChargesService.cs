@@ -11,6 +11,18 @@ namespace InsuredTraveling.DI
     {
         InsuredTravelingEntity _db = new InsuredTravelingEntity();
 
+        public int AddAdditionalChargesPolicy(policy_additional_charge policyAdditionalCharge)
+        {
+            _db.policy_additional_charge.Add(policyAdditionalCharge);
+            _db.SaveChanges();
+            return policyAdditionalCharge.ID;
+        }
+
+        public policy_additional_charge Create()
+        {
+            return _db.policy_additional_charge.Create();
+        }
+
         public IQueryable<SelectListItem> GetAll()
         {
             var AdditionalCharge = _db.additional_charge.Select(p => new SelectListItem

@@ -8,6 +8,8 @@ namespace InsuredTraveling.Models
     {
         public string Policy_Number { get; set; }
 
+        public int PaymentStatys = 0;
+
         [Display(Name = "Курс")]
         public int? Exchange_RateID { get; set; }
 
@@ -67,51 +69,93 @@ namespace InsuredTraveling.Models
         public DateTime? Date_Cancellation { get; set; }
 
         //Podatoci za dogovoruvac (policyHolder)
+        
         public bool IsSamePolicyHolderInsured { get; set; }
         public bool IsExistentPolicyHolder { get; set; }
         public int PolicyHolderId { get; set; }
 
+
+        
         [Display(Name = "Име: ")]
         public string PolicyHolderName { get; set; }
 
+       
         [Display(Name = "Презиме: ")]
         public string PolicyHolderLastName { get; set; }
 
+       
         [Display(Name = "Адреса: ")]
         public string PolicyHolderAddress { get; set; }
 
-        [Display(Name = "Општина: ")]
-        public string PolicyHolderMunicipality { get; set; }
+        
+        [Display(Name = "Email: ")]
+        public string PolicyHolderEmail { get; set; }
 
-        [Required]
+       
+        [Display(Name = "Дата на раѓање: ")]
+        public DateTime PolicyHolderBirthDate { get; set; }
+
+       
+        [Display(Name = "Град: ")]
+        public string PolicyHolderCity { get; set; }
+
+       
+        [Display(Name = "Поштенски број: ")]
+        public string PolicyHolderPostalCode { get; set; }
+
+       
         [Display(Name = "Матичен број:")]
         public string PolicyHolderSSN { get; set; }
 
-        [Display(Name = "Број на пасош: ")]
+      
+        [Display(Name = "Број на пасош/лична карта: ")]
         public string PolicyHolderPassportNumber_ID { get; set; }
 
+       
+        [Display(Name = "Телефонски број: ")]
+        public string PolicyHolderPhoneNumber { get; set; }
 
 
         //Podatoci za osigurenik
+        [Required(ErrorMessage = "Полето е задолжително")]
         [Display(Name = "Име: ")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "Полето е задолжително")]
         [Display(Name = "Презиме: ")]
         public string LastName { get; set; }
 
+        [Required(ErrorMessage = "Полето е задолжително")]
         [Display(Name = "Адреса: ")]
         public string Address { get; set; }
 
-        [Display(Name = "Општина: ")]
-        public string Municipality { get; set; }
+        [Required(ErrorMessage = "Полето е задолжително")]
+        [Display(Name = "Град: ")]
+        public string City { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задолжително")]
+        [Display(Name = "Поштенски број: ")]
+        public string PostalCode { get; set; }
+
+        [Required(ErrorMessage = "Полето е задолжително")]
+        [Display(Name = "Дата на раѓање: ")]
+        public DateTime BirthDate { get; set; }
+
+        [Required(ErrorMessage = "Полето е задолжително")]
         [Display(Name = "Матичен број:")]
         public string SSN { get; set; }
 
-        [Display(Name = "Број на пасош: ")]
+        [Required(ErrorMessage = "Полето е задолжително")]
+        [Display(Name = "Број на пасош/лична карта: ")]
         public string PassportNumber_ID { get; set; }
 
+        [Required(ErrorMessage = "Полето е задолжително")]
+        [Display(Name = "Телефонски број: ")]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Полето е задолжително")]
+        [Display(Name = "Email: ")]
+        public string Email { get; set; }
 
         public List<insured> insureds { get; set; }
         public List<additional_charge> additional_charges {get;set;}

@@ -23,13 +23,15 @@ namespace InsuredTraveling.Controllers.API
         private IFirstNoticeOfLossService _fis;
         private IPolicyTypeService _pts;
         private IAdditionalInfoService _ais;
+        private IPolicyInsuredService _pis;
+        private IAdditionalChargesService _acs;
 
 
         public MobileApiController()
         {
            
         }
-        public MobileApiController(IUserService us, IPolicyService ps, IFirstNoticeOfLossService fnls, IHealthInsurance his, ILuggageInsuranceService lis, IOkSetupService oss, IBankAccountService bas,  IInsuredsService iss, IFirstNoticeOfLossService fis, IPolicyTypeService pts, IAdditionalInfoService ais)
+        public MobileApiController(IUserService us, IPolicyInsuredService pis, IAdditionalChargesService acs, IPolicyService ps, IFirstNoticeOfLossService fnls, IHealthInsurance his, ILuggageInsuranceService lis, IOkSetupService oss, IBankAccountService bas,  IInsuredsService iss, IFirstNoticeOfLossService fis, IPolicyTypeService pts, IAdditionalInfoService ais)
         {
             _ps = ps;
             _us = us;
@@ -42,6 +44,8 @@ namespace InsuredTraveling.Controllers.API
             _fis = fis;
             _pts = pts;
             _ais = ais;
+            _pis = pis;
+            _acs = acs;
 
         }
         [Route("RetrieveUserInfo")]
@@ -252,7 +256,8 @@ namespace InsuredTraveling.Controllers.API
         {
             if (f.ShortDetailed == true)
             {
-                first_notice_of_loss f1 = new first_notice_of_loss();
+                
+                first_notice_of_loss f1 = _fnls.Create();
                 //f1.insured
                 var user = _ps.GetPolicyHolderByPolicyID(f1.PolicyId);
                 f1.travel_policy.Policy_HolderID = user.ID;
@@ -291,5 +296,27 @@ namespace InsuredTraveling.Controllers.API
                 else throw new Exception("Internal error: Not saved");
             }
         }
+
+
+        [HttpPost]
+        [Route("CreatePolicy")]
+        public IHttpActionResult CreatePolicy(Policy f)
+        {
+            var policyId = -1;
+            try
+            {
+                policyId = SavePolicyHelper.SavePolicy(f, _ps, _us, _iss, _pis, _acs);
+            }
+            finally
+            {
+            }
+                if (policyId != -1)
+                    return Ok();
+                else throw new Exception("Internal error: Not saved");
+            
+        }
+
+
+
     }
 }

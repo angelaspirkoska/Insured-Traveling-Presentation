@@ -538,6 +538,7 @@
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\SaveBankAccountInfoHelper.cs" />
     <Compile Include="Helpers\SaveFirstNoticeOfLoss.cs" />
+    <Compile Include="Helpers\SavePolicyHelper.cs" />
     <Compile Include="insured.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -600,6 +601,9 @@
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="ok_setup.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="payment_status.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="policy_additional_charge.cs">

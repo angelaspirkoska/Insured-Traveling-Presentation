@@ -14,7 +14,8 @@ namespace InsuredTraveling.DI
         public int AddPolicy(travel_policy TravelPolicy)
         {
             _db.travel_policy.Add(TravelPolicy);
-            return _db.SaveChanges();
+            _db.SaveChanges();
+            return TravelPolicy.ID;
         }
 
         public string CreatePolicyNumber()
@@ -85,6 +86,16 @@ namespace InsuredTraveling.DI
         public string GetPolicyNumberByPolicyId(int id)
         {
             return _db.travel_policy.Where(x => x.ID == id).Select(x => x.Policy_Number).Single();
+        }
+
+        public travel_policy Create()
+        {
+            return _db.travel_policy.Create();                             
+         }
+
+        public travel_policy GetPolicyById(int id)
+        {
+            return _db.travel_policy.Where(x => x.ID == id).SingleOrDefault();
         }
     }
 }

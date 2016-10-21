@@ -10,5 +10,9 @@ namespace InsuredTraveling.DI
     public interface IAdditionalChargesService
     {
          IQueryable<SelectListItem> GetAll();
+
+        int AddAdditionalChargesPolicy(policy_additional_charge policyAdditionalCharge);
+        policy_additional_charge Create();
     }
+
 }

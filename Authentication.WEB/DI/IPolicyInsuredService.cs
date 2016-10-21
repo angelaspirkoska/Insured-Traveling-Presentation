@@ -9,6 +9,10 @@ namespace InsuredTraveling.DI
    public interface IPolicyInsuredService
     {
         List<insured> GetAllInsuredByPolicyId(int id);
+
+        int Add(policy_insured policyInsured);
+
+        policy_insured Create();
        
     }
 }

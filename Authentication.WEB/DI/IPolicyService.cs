@@ -14,12 +14,15 @@ namespace InsuredTraveling.DI
 
         travel_policy GetPolicyIdByPolicyNumber(string id);
 
+        travel_policy GetPolicyById(int id);
+
         string GetPolicyNumberByPolicyId(int id);
 
         DateTime GetStartDateByPolicyId(int PolicyID);
         DateTime GetEndDateByPolicyId(int PolicyID);
 
         travel_policy[] GetPolicyByUsernameId(string id);
+        travel_policy Create();
 
         string CreatePolicyNumber();
 

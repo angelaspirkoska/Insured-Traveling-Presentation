@@ -18,5 +18,7 @@ namespace InsuredTraveling.DI
         IQueryable<SelectListItem> GetPolicyNumberListByUsername(string Username);
 
         bool IsSameLoggedUserAndInsured(string UsernameLoggedUser, int SelectedInsured);
+
+        string GetUserSsnByUsername(string username);
     }
 }

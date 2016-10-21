@@ -23,6 +23,7 @@ namespace InsuredTraveling.DI
             return PolicyNumbers;
         }
 
+
         public aspnetuser GetUserById(string id)
         {
           return  _db.aspnetusers.Where(x => x.Id == id).ToArray().Last();
@@ -40,6 +41,12 @@ namespace InsuredTraveling.DI
         public string GetUserIdByUsername(string Username)
         {
            return _db.aspnetusers.Where(x => x.UserName == Username).Select(x => x.Id).First();
+        }
+
+        public string GetUserSsnByUsername(string username)
+        {
+            return _db.aspnetusers.Where(x => x.UserName == username).Select(x => x.EMBG).SingleOrDefault();
+           
         }
 
         public bool IsSameLoggedUserAndInsured(string UsernameLoggedUser, int SelectedInsuredId)

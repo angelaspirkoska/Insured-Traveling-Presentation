@@ -33,6 +33,30 @@ namespace Authentication.WEB.Controllers
         [Route("Calculate")]
         public IHttpActionResult Code(Policy policy)
         {
+            if(policy.IsSamePolicyHolderInsured)
+            {
+                policy.PolicyHolderName = policy.Name;
+                policy.PolicyHolderLastName = policy.LastName;
+                policy.PolicyHolderSSN = policy.SSN;
+                policy.PolicyHolderEmail = policy.Email;
+                policy.PolicyHolderAddress = policy.Address;
+                policy.PolicyHolderBirthDate = policy.BirthDate;
+                policy.PolicyHolderCity = policy.City;
+                policy.PolicyHolderPostalCode = policy.PostalCode;
+                policy.PolicyHolderPhoneNumber = policy.PhoneNumber;
+
+              
+            }
+            ModelState.Remove("PolicyHolderName");
+            ModelState.Remove("PolicyHolderLastName");
+            ModelState.Remove("PolicyHolderEmail");
+            ModelState.Remove("PolicyHolderAddress");
+            ModelState.Remove("PolicyHolderBirthDate");
+            ModelState.Remove("PolicyHolderCity");
+            ModelState.Remove("PolicyHolderPostalCode");
+            ModelState.Remove("PolicyHolderPhoneNumber");
+            ModelState.Remove("PolicyHolderSSN");
+            
             if (ModelState.IsValid && policy != null)
             {
                 RatingEngineService ratingEngineService = new RatingEngineService();

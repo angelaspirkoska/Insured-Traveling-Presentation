@@ -27,15 +27,19 @@ namespace Authentication.WEB.Controllers
         private ICountryService _cs;
         private IFranchiseService _fs;
         private IAdditionalChargesService _acs;
+        private IUserService _us;
+        private IInsuredsService _iss;
 
         public PolicyController(IPolicyService ps, IPolicyTypeService pts, ICountryService cs, IFranchiseService fs,
-            IAdditionalChargesService acs)
+            IAdditionalChargesService acs, IUserService us, IInsuredsService iss)
         {
             _ps = ps;
             _pts = pts;
             _cs = cs;
             _fs = fs;
             _acs = acs;
+            _us = us;
+            _iss = iss;
         }
 
         // GET: Policy
@@ -153,5 +157,61 @@ namespace Authentication.WEB.Controllers
         {     
             return await _acs.GetAll().ToListAsync();
         }
+
+
+        [HttpGet]
+        public async Task<JObject> GetExistentLoggedInUserData()
+        {
+            var Result = new JObject();
+           
+
+
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+
+                string username = System.Web.HttpContext.Current.User.Identity.Name;
+
+                //var loggedUserSsn = _us.GetUserSsnByUsername(username);
+               
+                var loggedUserSsn = _us.GetUserSsnByUsername(username);
+                var loggedUserData = _iss.GetInsuredDataBySsn(loggedUserSsn);
+
+                if(loggedUserData == null)
+                {
+                    Result.Add("response", "Not registered insured");
+                    return Result;
+                }
+
+                JObject insuredData = new JObject();
+
+                insuredData.Add("FirstName", loggedUserData.Name);
+                insuredData.Add("Name", loggedUserData.Lastname);
+                insuredData.Add("Address", loggedUserData.Address);
+                insuredData.Add("City", loggedUserData.City);
+                insuredData.Add("PostalCode", loggedUserData.Postal_Code);
+                insuredData.Add("Ssn", loggedUserData.SSN);
+               
+                insuredData.Add("DateBirth", loggedUserData.DateBirth.Year + String.Format("-{0:00}-{0:00}", +loggedUserData.DateBirth.Month, loggedUserData.DateBirth.Day));
+                insuredData.Add("PassportID", loggedUserData.Passport_Number_IdNumber);
+                insuredData.Add("Email", loggedUserData.Email);
+                insuredData.Add("PhoneNumber", loggedUserData.Phone_Number);
+
+
+                Result.Add("InsuredData",insuredData);
+
+            }
+            else
+            {
+                Result.Add("response", "Not authenticated user");
+            }
+
+            return Result;           
+
+
+        }
+
+
+
+
     }
 }

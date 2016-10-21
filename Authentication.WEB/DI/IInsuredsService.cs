@@ -9,9 +9,15 @@ namespace InsuredTraveling.DI
 {
    public interface IInsuredsService
     {
-       void AddInsured(insured Insured);
+       int AddInsured(insured Insured);
+
+        insured Create();
 
         insured GetInsuredData(int InsuredId);
-        
+
+        insured GetInsuredDataBySsn(string Ssn);
+
+        int GetInsuredIdBySsn(string Ssn);
+
     }
 }

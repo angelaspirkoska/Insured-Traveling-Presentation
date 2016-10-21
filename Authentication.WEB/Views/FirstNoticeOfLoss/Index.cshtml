@@ -818,7 +818,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 var rez = JSON.parse(result);
                 console.log(rez);
                 Banks = rez.banks;
-                debugger;
+             
                 $("#PolicyHolderId").attr("value", rez.policyholder.Id);
                 $("#PolicyHolderName").attr("value", rez.policyholder.FirstName + " " + rez.policyholder.LastName);
                 $("#PolicyHolderName").attr("IdPolicyHolder", rez.policyholder.Id);
