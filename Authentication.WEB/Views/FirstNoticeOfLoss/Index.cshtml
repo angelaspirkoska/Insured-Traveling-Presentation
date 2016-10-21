@@ -5,7 +5,7 @@
 }
 
 
-<form style="margin-top:80px;" method="post" enctype="multipart/form-data" action="@Url.Action("Index")">
+<form style="margin-top:40px;" method="post" enctype="multipart/form-data" action="@Url.Action("Index")">
     <div class="form-horizontal">
         <div class="row container">
             @if (ViewBag.Message != null)
@@ -31,8 +31,8 @@
             }
             else
             {
-                <div class="row" style="width:35%;">
-                    <div class="alert alert-dismissible alert-info" style="margin-top: 27%;margin-left:12px; width:211%">
+                <div class="row" style="width:50%; float:right; margin-right:10px;">
+                    <div class="alert alert-dismissible alert-info" style="width:100%;">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         <strong><span>Користете единствено бројки и латинични букви</span></strong> 
                     </div>
@@ -44,14 +44,14 @@
         <h3>Пријави штета</h3>
         <br />
         <br />
-        <div><h5>Задолжителни полиња      </h5></div>
+        <div><h5>Задолжителни полиња: <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span></h5></div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="row container">
-            <div class="col-md-6 col-md-offset-6">
+            <div class="col-md-6">
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span><label class="col-md-4 control-label">Број на полиса:</label>
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Број на полиса:</label>
                         @Html.TextBoxFor(model => model.PolicyId, new { @class = "form-control input-sm", @id = "PolicyId", @style = "display: none;" })
                         
                         @Html.DropDownListFor(model => model.PolicyNumber, (List<SelectListItem>)ViewBag.Policies, "Број на полиса", new { @class = "form-control", @id = "DropDownPolicyNumber" })
@@ -65,30 +65,30 @@
             <header class="well">Податоци за договорувач</header>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Договорувач:</label>
                     <div class="col-lg-8">
+                        <label>Договорувач:</label>
                         @Html.TextBoxFor(model => model.PolicyHolderName, new { @class = "form-control input-sm", @id = "PolicyHolderName", @readonly = true })  
-                       
+
                     </div>
                 </div>
                 @Html.TextBoxFor(model => model.PolicyHolderId, new { @class = "form-control input-sm", @id = "PolicyHolderId", @style = "display: none;" })
                 
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Адреса:</label>
                     <div class="col-lg-8">
+                        <label>Адреса:</label>
                         @Html.TextBoxFor(model => model.PolicyHolderAdress, new { @class = "form-control input-sm", @id = "PolicyHolderAddress", @readonly = true})                       
                     </div>
                 </div>  
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Телефон:</label>
                     <div class="col-lg-8">
+                        <label>Телефон:</label>
                         @Html.TextBoxFor(model => model.PolicyHolderPhoneNumber, new { @class = "form-control input-sm", @id = "PolicyHolderPhone", @readonly = true })
 
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-4 control-label">ЕМБГ:</label>
                     <div class="col-lg-8">
+                        <label>ЕМБГ:</label>
                         @Html.TextBoxFor(model => model.PolicyHolderSsn, new { @class = "form-control input-sm", @id = "PolicyHolderSSN", @readonly = true })
                        
                     </div>
@@ -96,22 +96,21 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    
+
+                    @Html.CheckBoxFor(model => model.PolicyHolderExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccount", @readonly = true, @style = "margin-top:3%;" })                    
                     <div class="col-lg-8 col-md-8">
-                        <label class="control-label">Искористи претходна трансакциска сметка:</label>
+                        <label class="control-label">Искористи претходна трансакциска сметка</label>
                     </div>
-                    @Html.CheckBoxFor(model => model.PolicyHolderExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccount", @readonly = true, @style = "margin-top:3%;" })
-                   
+                                      
                 </div>
                 <div class="form-group">
 
+                    @Html.CheckBoxFor(model => model.PolicyHolderForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccount", @readonly = true, @style = "margin-top:3%;" })
                     <div class="col-lg-4 col-md-4">
                         <label class="control-label">Странска сметка</label>
                     </div>
-                    @Html.CheckBoxFor(model => model.PolicyHolderForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccount", @readonly = true, @style = "margin-top:3%;" })
-                    
                 </div>
-                <div class="form-group" style="padding-left: 34%;">
+                <div class="form-group">
                    
                     <div class="col-md-12">
                         @Html.TextBoxFor(model => model.PolicyHolderForeignBankAccountId, new { @class = "form-control input-sm", @id = "hiddenDropDownBankAccountPolicyHolder", @style = "display: none;" })
@@ -123,23 +122,22 @@
 
                 <div class="form-group">
                     
-                    <label class="col-md-5 control-label">Трансакциона сметка:</label>
                     <div class="col-lg-6">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="taccountspan"></span> Трансакциона сметка:</label>
                         @Html.EditorFor(model => model.PolicyHolderBankAccountNumber, new { htmlAttributes = new { @class = "form-control input-sm" , @maxLength = "15", @id= "TransactionAccount" } })
                         @Html.ValidationMessageFor(model => model.PolicyHolderBankAccountNumber, "", new { @class = "text-danger input-sm" })
                     </div>
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red" id="taccountspan"></span>
+                    
                 </div>
 
-
                 <div class="form-group">
-                    <label class="col-md-5 control-label">Депонент банка:</label>
                     <div class="col-lg-6">
+                       <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="deponentspan"></span> Депонент банка:</label>
                        @Html.EditorFor(model => model.PolicyHolderBankName, new { htmlAttributes = new { @class = "form-control input-sm", @id = "deponent" } })
                        @Html.ValidationMessageFor(model => model.PolicyHolderBankName, "", new { @class = "text-danger input-sm" })
    
                     </div>
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red" id="deponentspan"></span>
+                    
                 </div>
             </div>
         </div>
@@ -149,53 +147,49 @@
             <header class="well">Корисник на осигурувањето</header>
             <div class="col-md-6">
                 <div class="form-group">
-                    <span class="col-md-4"></span>
                     <div class="col-md-8">
                         @Html.TextBoxFor(model => model.ClaimantId, new { @class = "form-control input-sm", @id = "hiddenDropDownInsureds", @style = "display: none;" })
                         <select class="form-control" data-val="true" id="DropDownInsureds" name="ClaimantId">
                             <option value="0">Избери корисник</option>
                         </select>
-                        
-                          
                     </div>     
-                    </div>
+               </div>
                     <div class="form-group">
-                        <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                        <label class="col-md-4 control-label">Оштетен:</label>
+                        
                         <div class="col-lg-7">
+                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Оштетен:</label>
                             @Html.TextBoxFor(model => model.ClaimantName, new { @class = "form-control input-sm", @id = "InsuredName", @readonly = true })
                             @Html.ValidationMessageFor(model => model.ClaimantName, "", new { @class = "text-danger input-sm" })
                         </div>
                     </div>
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Адреса:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Адреса:</label>
                         @Html.TextBoxFor(model => model.ClaimantAdress, new { @class = "form-control input-sm", @id = "InsuredAdress", @readonly = true })
                         @Html.ValidationMessageFor(model => model.ClaimantAdress, "", new { @class = "text-danger input-sm" })                     
                     </div>
                 </div>
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Телефон:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Телефон:</label>
                         @Html.TextBoxFor(model => model.ClaimantPhoneNumber, new { @class = "form-control input-sm", @id = "InsuredPhone", @readonly = true })     
                         @Html.ValidationMessageFor(model => model.ClaimantPhoneNumber, "", new { @class = "text-danger input-sm" })                                      
                     </div>
                 </div>
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">ЕМБГ:</label>
+                    
                     <div class="col-lg-7">
-                        
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> ЕМБГ:</label>                        
                         @Html.TextBoxFor(model => model.ClaimantSsn, new {@class = "form-control input-sm", @id = "InsuredSSN", @readonly = true})
                         @Html.ValidationMessageFor(model => model.ClaimantSsn, "", new { @class = "text-danger input-sm" })
                     </div>
                 </div>
 
                 <div class="form-group" id="HideWhenSameUserAndSelectedInsured">
-                    <label class="col-md-4 control-label">Сродство со осигуреникот:</label>
                     <div class="col-lg-7">
+                        <label>Сродство со осигуреникот:</label>
                         @Html.EditorFor(model => model.RelationClaimantPolicyHolder, new { htmlAttributes = new { @class = "form-control input-sm", @id="relationship"} })
                         @Html.ValidationMessageFor(model => model.RelationClaimantPolicyHolder, "", new { @class = "text-danger" })
                     </div>
@@ -204,22 +198,20 @@
             <div class="col-md-6">
            
                 <div class="form-group">
-
+                    @Html.CheckBoxFor(model => model.ClaimantExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccountInsured", @readonly = true, @style = "margin-top:3%;" })
                     <div class="col-lg-8 col-md-8">
                         <label class="control-label">Искористи претходна трансакциска сметка:</label>
                     </div>
-                    @Html.CheckBoxFor(model => model.ClaimantExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccountInsured", @readonly = true, @style = "margin-top:3%;" })
-                   
                 </div>
-                <div class="form-group">
 
+                <div class="form-group">
+                    @Html.CheckBoxFor(model => model.ClaimantForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccountInsured", @readonly = true, @style = "margin-top:3%;" })
                     <div class="col-lg-4 col-md-4">
                         <label class="control-label">Странска сметка</label>
                     </div>
-                    @Html.CheckBoxFor(model => model.ClaimantForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccountInsured", @readonly = true, @style = "margin-top:3%;" })                   
                 </div>
-                <div class="form-group" style="padding-left: 34%;">
 
+                <div class="form-group">
                     <div class="col-md-12">
                         @Html.TextBoxFor(model => model.ClaimantForeignBankAccountId, new { @class = "form-control input-sm", @id = "hiddenDropDownBankAccountInsured", @style = "display: none;" })
                         <select class="form-control" data-val="true" id="DropDownBankAccountInsured">
@@ -229,17 +221,17 @@
                 </div>
 
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Трансакциона с-ка:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Трансакциона с-ка:</label>
                         @Html.EditorFor(model => model.ClaimantBankAccountNumber, new { htmlAttributes = new { @class = "form-control input-sm", @maxLength = "15", @id= "insuredTransactionAccount" } })
                         @Html.ValidationMessageFor(model => model.ClaimantBankAccountNumber, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Депонент банка:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Депонент банка:</label>
                         @Html.EditorFor(model => model.ClaimantBankName, new { htmlAttributes = new { @class = "form-control input-sm", @id= "deponentInsured" } })
                         @Html.ValidationMessageFor(model => model.ClaimantBankName, "", new { @class = "text-danger" })
                     </div>
@@ -253,26 +245,24 @@
             <header class="well">Податоци за патувањето</header>
             <div class="col-md-6">
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Место на патување:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Место на патување:</label>
                         @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control input-sm", @id= "travelDestination" } })
                         @Html.ValidationMessageFor(model => model.Destination, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Датум на заминување:</label>
+                    
                     <div class="col-lg-7">
-                        
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на заминување:</label>                        
                         @Html.EditorFor(model => model.DepartDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date", @id= "travelDateFrom", @max=ViewBag.Date } })
                         @Html.ValidationMessageFor(model => model.DepartDateTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Време на заминување:</label>
                     <div class="col-lg-7">
-                       
+                        <label>Време на заминување:</label>                       
                         @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id = "travelTimeFrom" } })
                         @Html.ValidationMessageFor(model => model.DepartTime, "", new { @class = "text-danger" })
                     </div>
@@ -281,9 +271,9 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Превозно средство:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Превозно средство:</label>
                         @Html.EditorFor(model => model.TransportMeans, new { htmlAttributes = new { @class = "form-control input-sm", @id= "transportationType" } })
                         @Html.ValidationMessageFor(model => model.TransportMeans, "", new { @class = "text-danger" })
                     </div>
@@ -291,46 +281,32 @@
 
                 
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Датум на враќање:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на враќање:</label>
                         @Html.EditorFor(model => model.ArrivalDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date", @id= "travelDateTo" } })
                         @Html.ValidationMessageFor(model => model.ArrivalDateTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    
-                    <label class="col-md-4 control-label">Време на враќање:</label>
-                    
                     <div class="col-lg-7">
+                        <label>Време на враќање:</label>
                         @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id= "travelTimeTo"} })
-                        @Html.ValidationMessageFor(model => model.DepartTime, "", new { @class = "text-danger" })
-                        
+                        @Html.ValidationMessageFor(model => model.DepartTime, "", new { @class = "text-danger" }) 
                     </div>
-                    
                 </div>
-               
             </div>
-
         </div>
 
 
         <div class="row container">
-            <header class="well">Одберете тип на осигурување: </header>
+            <header class="well"><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Одберете тип на осигурување: </header>
 
-            <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-            <div class="col-md-4">
-              
-
-                <div class="form-group">
-                    @Html.RadioButtonFor(m => m.IsHealthInsurance, "true", new  {@onchange = "InsuranceType('HealthInsurance');", @id ="health", @required = "true", @class= "required" })Здравствено осигурување
-
-                </div>
-            </div>
-                
             <div class="col-md-4">
                 <div class="form-group">
-                    @Html.RadioButtonFor(m => m.IsHealthInsurance, "false", new {  @onchange = "InsuranceType('LuggageInsurance');", @id = "luggage", @required ="true", @class = "required" })Осигурување на багаж
+                    @Html.RadioButtonFor(m => m.IsHealthInsurance, "true", new  {@onchange = "InsuranceType('HealthInsurance');", @id ="health", @required = "true", @class= "required" })  Здравствено осигурување
+                    <br /><br />
+                    @Html.RadioButtonFor(m => m.IsHealthInsurance, "false", new {  @onchange = "InsuranceType('LuggageInsurance');", @id = "luggage", @required ="true", @class = "required" })  Осигурување на багаж
                 </div>
             </div>
         </div>
@@ -339,44 +315,43 @@
             <header class="well">Податоци за штетата - Здравствено осигурување</header>
             <div class="col-md-6">
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Датум на незгодата:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на незгодата:</label>
                         @Html.EditorFor(model => model.AccidentDateTimeHealth, new { htmlAttributes = new { @class = "form-control input-sm", type = "date", @id= "lossDate", @max = ViewBag.Date } })
                         @Html.ValidationMessageFor(model => model.AccidentDateTimeHealth, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Време на незгодата:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Време на незгодата:</label>
                         @Html.EditorFor(model => model.AccidentTimeHealth, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id="lossTime" } })
                         @Html.ValidationMessageFor(model => model.AccidentTimeHealth, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Место на незгодата:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Место на незгодата:</label>
                         @Html.EditorFor(model => model.AccidentPlaceHealth, new { htmlAttributes = new { @class = "form-control input-sm", @id="placeLoss" } })
                         @Html.ValidationMessageFor(model => model.AccidentPlaceHealth, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Датум на посета кај доктор:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на посета кај доктор:</label>
                         @Html.EditorFor(model => model.DoctorVisitDateTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "date", @max = ViewBag.Date } })
                         @Html.ValidationMessageFor(model => model.DoctorVisitDateTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Податоци за докторот:</label>
                     <div class="col-lg-7">
+                        <label>Податоци за докторот:</label>
                         @Html.TextAreaFor(model => model.DoctorInfo, new { @class = "form-control input-sm" })
-                     
                     </div>
                 </div>
 
@@ -387,34 +362,29 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Опис на болеста:</label>
                     <div class="col-lg-7">
+                        <label>Опис на болеста:</label>
                         @Html.TextAreaFor(model => model.MedicalCaseDescription, new {  @class = "form-control input-sm", @id= "illnessInfo" })
-                     
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    
-                    <label class="col-md-4 control-label">Дали претходно сте биле лекувани од истата:</label>
                     <div class="col-lg-7">
-                        @Html.CheckBoxFor(model => model.PreviousMedicalHistory, new { @class = "col-md-1", @style = "margin-top:3%;" })
-              
-              
+                       @Html.CheckBoxFor(model => model.PreviousMedicalHistory, new { @class = "col-md-1", @style = "margin-top:3%;" })
+                       <label>Дали претходно сте биле лекувани од истата</label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Документи приложени како доказ:</label>
                     <div class="col-lg-7">
+                        <label>Документи приложени како доказ:</label>
                         <input type="file" name="documentsHealth" id="documentsHealth" multiple/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Во случај на тешка повреда или смрт, кој орган составил записник и детален опис на настанот :</label>
                     <div class="col-lg-7">
+                        <label>Во случај на тешка повреда или смрт, кој орган составил записник и детален опис на настанот :</label>
                         @Html.EditorFor(model => model.ResponsibleInstitution,  new { @class = "form-control input-sm" })
-                        
                     </div>
                 </div>
             </div>
@@ -425,41 +395,41 @@
             <header class="well">Податоци за штетата - Осигурување на багаж</header>
             <div class="col-md-6">
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Датум на настанот:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на настанот:</label>
                         @Html.EditorFor(model => model.AccidentDateTimeLuggage, new { htmlAttributes = new { @class = "form-control input-sm", type = "date", @id= "baggageLossDate", @max = ViewBag.Date } })
                         @Html.ValidationMessageFor(model => model.AccidentDateTimeLuggage, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Место на незгодата:</label>
-                    <div class="col-lg-7">
+                    
+                    <div class="col-md-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Место на незгодата:</label><br />
                         @Html.EditorFor(model => model.AccidentPlaceLuggage, new {  @class = "form-control input-sm", @max = ViewBag.Date })
                         @Html.ValidationMessageFor(model => model.AccidentPlaceLuggage, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Опис на настанот:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Опис на настанот:</label>
                         @Html.TextAreaFor(model => model.PlaceDescription, new { @class = "form-control input-sm"})
                         @Html.ValidationMessageFor(model => model.PlaceDescription, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Детален опис на настанот:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Детален опис на настанот:</label>
                         @Html.TextAreaFor(model => model.DetailDescription, new {  @class = "form-control input-sm" })
                         @Html.ValidationMessageFor(model => model.DetailDescription, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Место на пријавување:</label>
-                    <div class="col-lg-7">
+                    
+                    <div class="col-md-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Место на пријавување:</label><br />
                         @Html.EditorFor(model => model.ReportPlace, new { @class = "form-control input-sm" })
                         @Html.ValidationMessageFor(model => model.ReportPlace, "", new { @class = "text-danger" })
                     </div>
@@ -467,38 +437,37 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Опис на украдените/оштетени предмети:</label>
                     <div class="col-lg-7">
+                        <label>Опис на украдените/оштетени предмети:</label>
                         @Html.TextAreaFor(model => model.Floaters,  new { @class = "form-control input-sm" } )                     
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Вредност:</label>
                     <div class="col-lg-7">
+                        <label>Вредност:</label>
                         @Html.TextAreaFor(model => model.FloatersValue, new { @class = "form-control input-sm" } )
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Документи приложени како доказ :</label>
-                    <input type="file" name="documentsLuggage" id="documentsLuggage" multiple />
                     <div class="col-lg-7">
-                      
+                        <label>Документи приложени како доказ :</label>
+                        <input type="file" name="documentsLuggage" id="documentsLuggage" multiple />
                     </div>
                 </div>
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Време на пристигнување на аеродром :</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Време на пристигнување на аеродром :</label>
                         @Html.EditorFor(model => model.AccidentTimeLuggage, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
                         @Html.ValidationMessageFor(model => model.AccidentTimeLuggage, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Време на предавање на багаж :</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Време на предавање на багаж :</label>
                         @Html.EditorFor(model => model.LugaggeCheckingTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
                         @Html.ValidationMessageFor(model => model.LugaggeCheckingTime, "", new { @class = "text-danger" })
                     </div>
@@ -511,16 +480,15 @@
             <header class="well">Податоци за трошоци</header>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Фактури како доказ:</label>
-                    <input type="file" name="invoices" id="invoices" multiple />
                     <div class="col-lg-7">
-                       
+                        <label>Фактури како доказ:</label>
+                        <input type="file" name="invoices" id="invoices" multiple />
                     </div>
                 </div>
                 <div class="form-group">
-                    <span class="glyphicon glyphicon-star small" aria-hidden="true" style="color:red"></span>
-                    <label class="col-md-4 control-label">Вкупна вредност на сите трошоци:</label>
+                    
                     <div class="col-lg-7">
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Вкупна вредност на сите трошоци:</label>
                         <div class="input-group">
                             @Html.EditorFor(model => model.TotalCost, new { htmlAttributes = new { @class = "form-control input-sm" } })
                             <span class="input-group-addon">.00 денари</span>
@@ -532,7 +500,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-2">
                 <input type="submit" value="Пријави" class="btn btn-default" />
             </div>
         </div>
