@@ -51,6 +51,9 @@ namespace InsuredTraveling.Controllers
             await Task.WhenAll(countries);
             ViewBag.Countries = countries.Result;
 
+            var policies = GetAllPolicies();
+            await Task.WhenAll(policies);
+            ViewBag.Policies = policies.Result;
             return View();
         }
 
@@ -371,6 +374,12 @@ namespace InsuredTraveling.Controllers
         {
             var countries = _countryService.GetAll();
             return await countries.ToListAsync();
+        }
+
+        public async Task<List<SelectListItem>> GetAllPolicies()
+        {
+            var policies = _ps.GetAll();
+            return await policies.ToListAsync();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using System.Text;
 using System.Threading.Tasks;
 using InsuredTraveling.Models;
@@ -23,6 +24,7 @@ namespace InsuredTraveling.DI
         //ne e jasno zasto sluzi dolniot metod!!!!!
         string GetCompanyID(string PolicyNumber);
         List<travel_policy> GetAllPolicies();
+        IQueryable<SelectListItem> GetAll();
         travel_policy GetPolicyClientsInfo(int PolicyID);
         insured GetPolicyHolderByPolicyID(int PolicyID);
         List<travel_policy> GetPoliciesByCountryAndType(int? TypePolicy, int? Country);

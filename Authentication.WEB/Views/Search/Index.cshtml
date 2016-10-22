@@ -171,33 +171,82 @@
     <div class="container" id="searchFNOL">
         <br />
         <br />
-        <br />
-        <br />
-        <br />
-        <div class="row" id="searchFNOLAttributes">
-            <div class="col-md-12 hover-tooltip">
-                <input class="btn btn-primary btn-material-design-success" value="Search" onclick="SearchFNOL()" type="button" style="float:left;" />
-                <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" style="float:right;" title="Пријави нова штета" onclick="@("window.location.href='" + @Url.Action("Index", "ReportLoss") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+        <div class="row">
+            <form method="post" style="margin-left: 20px">
+                <div class="row">
+                    <div class="form-inline row">
+                        <div class="form-group col-sm-3">
+                            <label for="vidPolisa">Број на полиса :</label>
+                            <br />
+                            @Html.DropDownListFor(model => model.travel_policy, (List<SelectListItem>)ViewBag.Policies, "-- Број на полиса --", new { @class = "form-control", name = "PolicyNumber", id = "PolicyNumber" })
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="startDate">Датум на пријавување:</label>
+                            <input type="date" class="form-control placeholder" id="DateAdded" />
+                            <select id="operatorDateAdded">
+                                <option>&lt</option>
+                                <option>=</option>
+                                <option>&gt</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-inline row">
+                        <div class="form-group col-sm-3">
+                            <label for="startDate">Име на осигуреник:</label>
+                            <input type="search" name="clientName" class="input-sm" placeholder="Search by name" id="clientName" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="endDate">Презиме на осигуреник:</label>
+                            <input type="search" name="clientLastName" class="input-sm" placeholder="Search by last name" id="clientLastName" />
+                        </div>
+                    </div>
+                    <div class="form-inline row">
+                        <div class="form-group col-sm-3">
+                            <label for="startDate">Име на оштетеник:</label>
+                            <input type="search" name="insuredName" class="input-sm" placeholder="Search by name" id="insuredName" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="endDate">Презиме на оштетеник:</label>
+                            <input type="search" name="insuredLastName" class="input-sm" placeholder="Search by last name" id="insuredLastName" />
+                        </div>
+                    </div>
+                    <div class="form-inline row">
+                        <div class="form-group col-sm-3">
+                            <label for="startDate">Вкупна цена на трошоци:</label>
+                            <input type="search" name="totalPrice" class="input-sm" placeholder="Search by Total Cost" id="totalPrice" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                             <input type="radio" name="typeInsurance" value="healthInsurance"> Здравествено осигурување<br>
+                             <input type="radio" name="typeInsurance" value="luggageInsurance">Осигурување на багаж<br>
+                        </div>
+                    </div>
+               </div>
+                    <br />
+                    <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="Search" onclick="SearchFNOL()" type="button" />
+                    <br />
+            </form>
+            <div class="row">
+                <div class="col-md-offset-11 hover-tooltip">
+                    <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="Додади нова штета" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                </div>
             </div>
         </div>
         <br />
         <br />
-        <br />
+        <br />   
         <div class="row">
             <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableFNOL">
                 <thead>
                     <tr>
-                        <th>Број на штета</th>
                         <th>Број на полиса</th>
                         <th>Име и презиме на осигуреник</th>
                         <th>Име и презиме на оштетениот</th>
                         <th>Сродство на оштетениот со осигуреникот</th>
-                        <th>Фактури</th>
                         <th>Вкупна цена на трошоците</th>
                         <th>Датум на пријавување</th>
                         <th>Здраствено осигурување ДА/НЕ</th>
                         <th>Осигурување на багаж ДА/НЕ</th>
-
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -456,9 +505,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                 </fieldset>
             </form>
 
@@ -540,8 +586,9 @@
                    data: "Polisa_Broj",
                    "render": function (data, type, row, meta) {
                        if (type === 'display') {
+                           var value = data;
                            return $('<a>')
-                               .attr('href', '@Url.Action("Index","Policy", new { })')
+                               .attr('href', '/Policy/PrintPolicy?id=' + data)
                                .attr('target', '_blank')
                                .attr('class', 'details')
                                .text("Детали")
@@ -575,9 +622,8 @@
                    "render": function (data, type, row, meta) {
                        if (type === 'display') {
                            return $('<a>')
-                               .attr('href', '@Url.Action("Index", "FirstNoticeOfLoss", new { })')
+                               .attr('href', '/FirstNoticeOfLoss/Index?policyId=' + data)
                                .attr('class', 'newLoss')
-                               .attr('target', '_blank')
                                .attr('id', data)
                                .text("Пријави штета")
                                .wrap('<div></div>')
@@ -616,7 +662,25 @@
                     { data: "AllCosts" },
                     { data: "Date" },
                     { data: "HealthInsurance" },
-                    { data: "LuggageInsurance" }
+                    { data: "LuggageInsurance" },
+                     {
+                         data: "ID",
+                         "render": function (data, type, row, meta) {
+                             if (type === 'display') {
+                                 var value = data;
+                                 return $('<a>')
+                                     .attr('href', '/FirstNoticeOfLoss/View?id=' + data)
+                                     .attr('target', '_blank')
+                                     .attr('class', 'lossDetails')
+                                     .text("Детали")
+                                     .wrap('<div></div>')
+                                     .parent()
+                                     .html();
+                             } else {
+                                 return data;
+                             }
+                         }
+                     },
                   ],
             select: true
         });
@@ -709,7 +773,7 @@
         });
     };
 
-    
+
     function SearchClients() {
         $("#tableClients").DataTable().destroy();
         var table = $("#tableClients").DataTable({

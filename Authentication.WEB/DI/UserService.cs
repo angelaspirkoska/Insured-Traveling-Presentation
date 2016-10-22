@@ -23,6 +23,17 @@ namespace InsuredTraveling.DI
             return PolicyNumbers;
         }
 
+        public List<SelectListItem> GetPolicyNumberListByUsernameToList(string Username)
+        {
+            string ID = _db.aspnetusers.Where(a => a.UserName == Username).Single().Id;
+            var PolicyNumbers = _db.travel_policy.Where(p => p.Created_By == ID).Select(p => new SelectListItem
+            {
+                Text = p.Policy_Number,
+                Value = p.ID.ToString()
+            }).ToList();
+
+            return PolicyNumbers;
+        }
 
         public aspnetuser GetUserById(string id)
         {

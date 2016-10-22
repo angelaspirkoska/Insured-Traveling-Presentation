@@ -95,7 +95,6 @@ namespace Authentication.WEB.Controllers
 
             if (valid)
             {
-
                 string PolicyNumber = _ps.CreatePolicyNumber();
                 string ID_Company = _ps.GetCompanyID(policy.Policy_Number);
                 int tempID;
@@ -108,7 +107,6 @@ namespace Authentication.WEB.Controllers
                     string ID_trim2 = ID_Company.Substring(5);
                     tempID = int.Parse(ID_trim2) + 1;
                 }
-
                 polisaEntity.Policy_Number = PolicyNumber;
                 polisaEntity.Policy_TypeID = policy.Policy_TypeID;
                 polisaEntity.CountryID = policy.CountryID;
@@ -119,19 +117,14 @@ namespace Authentication.WEB.Controllers
                 polisaEntity.Travel_NumberID = policy.Travel_NumberID;
                 polisaEntity.Travel_Insurance_TypeID = policy.Travel_Insurance_TypeID;
                 polisaEntity.Exchange_RateID = (policy.Exchange_RateID.HasValue)? policy.Exchange_RateID.Value : 1;
-
-
-
                 var result = _ps.AddPolicy(polisaEntity);
             }
 
             return Json(new { success = true, responseText = "Success." }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult PrintPolicy()
+        public ActionResult PrintPolicy(string id)
         {
-            string id = "2";
-
             PaymentModel pat = new PaymentModel();
             pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
             return new ViewAsPdf("Print", pat);

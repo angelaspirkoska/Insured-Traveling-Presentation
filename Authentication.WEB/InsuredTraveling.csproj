@@ -697,6 +697,7 @@
     <Content Include="Views\Client\Create.cshtml" />
     <Content Include="Views\Policy\Index.cshtml" />
     <Content Include="Views\Payment\PaymentFail.cshtml" />
+    <Content Include="Views\FirstNoticeOfLoss\View.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

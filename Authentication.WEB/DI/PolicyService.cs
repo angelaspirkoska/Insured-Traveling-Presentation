@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Authentication.WEB.Models;
+using System.Web.Mvc;
 
 namespace InsuredTraveling.DI
 {
@@ -26,6 +27,16 @@ namespace InsuredTraveling.DI
         public List<travel_policy> GetAllPolicies()
         {
             return _db.travel_policy.ToList();
+        }
+
+        public IQueryable<SelectListItem> GetAll()
+        {
+            var policies = _db.travel_policy.Select(p => new SelectListItem
+            {
+                Text = p.Policy_Number,
+                Value = p.ID.ToString()
+            });
+            return policies;
         }
 
         public string GetCompanyID(string PolicyNumber)

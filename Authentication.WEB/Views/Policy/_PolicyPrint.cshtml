@@ -1,5 +1,8 @@
 ﻿@model InsuredTraveling.Models.PaymentModel
-
+@{ bool? individual = Model.Pat.Travel_Insurance_TypeID == 1;
+   bool? group = Model.Pat.Travel_Insurance_TypeID == 2;
+   bool? family = Model.Pat.Travel_Insurance_TypeID == 3;
+}
 <div class="container">
     <div class="row">
         <div class="col-xs-6">&nbsp;</div>
@@ -19,7 +22,7 @@
                     </div>
                 </div>
                 <div class="col-xs-4 borderedContent" style="height: 65px; padding-top: 2px;">
-                    @{ bool? individual = Model.Pat.Travel_Insurance_TypeID==1, group = Model.Pat.Travel_Insurance_TypeID==2, family = Model.Pat.Travel_Insurance_TypeID == 3; }
+                 
                     @if(individual == true) {   <input style="margin: 0;" checked type="checkbox" readonly /><span style="margin-left: 2px;" class="smallFont">Individual</span><br />  }
                    else { <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Individual</span><br /> }
                     @if (group == true)

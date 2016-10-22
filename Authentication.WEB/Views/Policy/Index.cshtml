@@ -7,11 +7,8 @@
 }
 
 <h2>Креирај полиса:</h2>
-
 <form id="policy_form" metod="post">
-
     <div class="form-horizontal">
-
         <hr />
         <div class="row container">
             <header class="well">Информации за полисата</header>
@@ -40,7 +37,6 @@
                 </div>
             </div>
         </div>
-
         <div class="form-inline row">
             <div class="form-group col-sm-12">
                 @Html.LabelFor(model => model.Travel_NumberID, htmlAttributes: new { @class = "control-label" })
@@ -52,7 +48,7 @@
                     </label>
                     <br />
                     <label class="radio-inline">
-                        <input type="radio" name="Travel_NumberID"  value="2" />
+                        <input type="radio" name="Travel_NumberID" value="2" />
                         @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "2", @text = "Повеќе патувања" })*@
                         <label for="radio1">Повеќе патувања</label>
                     </label>
@@ -83,119 +79,105 @@
                 </div>
             </div>
         </div>
-        </div>
-        <br />
-        <br />
+    </div>
+    <br />
+    <br />
+    @{
+        RoleAuthorize r = new RoleAuthorize();
+    }
 
-        @{
-            RoleAuthorize r = new RoleAuthorize();
-        }
-
-@if (r.IsUser("admin")) 
-{
-
-          <div class="row container">
-                <header class="well">Лични податоци за договорувач</header>
-               
-                  
-
-                    <div class="form-inline row">
-                        <div class="form-group col-sm-3">
-                   
-                            
-                                <div class="inputs-spacing">
-                                    @Html.CheckBoxFor(model => model.IsExistentPolicyHolder, new { @class = "col-md-1", @style = "margin-top:3%;" }) Постоечки корисник
-                                </div>
-                            <div class="hideWhenSelect">
-                                @Html.LabelFor(model => model.PolicyHolderName, htmlAttributes: new { @class = "control-label" })
-                                <div class="inputs-spacing">
-                                    @Html.EditorFor(model => model.PolicyHolderName, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.PolicyHolderName, "", new { @class = "text-danger" })
-                                </div>
-
-                                @Html.LabelFor(model => model.PolicyHolderLastName, htmlAttributes: new { @class = "control-label" })
-                                <div class="inputs-spacing">
-                                    @Html.EditorFor(model => model.PolicyHolderLastName, new { htmlAttributes = new { @class = "form-control", } })
-                                    @Html.ValidationMessageFor(model => model.PolicyHolderLastName, "", new { @class = "text-danger" })
-                                </div>
-
-                                @Html.LabelFor(model => model.PolicyHolderAddress, htmlAttributes: new { @class = "control-label" })
-                                <div class="inputs-spacing">
-                                    @Html.EditorFor(model => model.PolicyHolderAddress, new { htmlAttributes = new { @class = "form-control", } })
-                                    @Html.ValidationMessageFor(model => model.PolicyHolderAddress, "", new { @class = "text-danger" })
-                                </div>
-
-                                @Html.LabelFor(model => model.PolicyHolderCity, htmlAttributes: new { @class = "control-label" })
-                                <div class="inputs-spacing">
-                                    @Html.EditorFor(model => model.PolicyHolderCity, new { htmlAttributes = new { @class = "form-control", } })
-                                    @Html.ValidationMessageFor(model => model.PolicyHolderCity, "", new { @class = "text-danger" })
-                                </div>
-                                @Html.LabelFor(model => model.PolicyHolderPostalCode, htmlAttributes: new { @class = "control-label" })
-                                <div class="inputs-spacing">
-                                    @Html.EditorFor(model => model.PolicyHolderPostalCode, new { htmlAttributes = new { @class = "form-control", } })
-                                    @Html.ValidationMessageFor(model => model.PolicyHolderPostalCode, "", new { @class = "text-danger" })
-                                </div>
-                                </div>
-                           
-                                @Html.LabelFor(model => model.PolicyHolderSSN, htmlAttributes: new { @class = "control-label" })
-                                <div class="inputs-spacing">
-                                    @Html.EditorFor(model => model.PolicyHolderSSN, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.PolicyHolderSSN, "", new { @class = "text-danger" })
-                                </div>
-                            <div class="hideWhenSelect">
-
-                                @Html.LabelFor(model => model.PolicyHolderBirthDate, htmlAttributes: new { @class = "control-label" })
-                                <div class="inputs-spacing">
-                                    @Html.EditorFor(model => model.PolicyHolderBirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date", @max = ViewBag.Date } })
-                                    @Html.ValidationMessageFor(model => model.PolicyHolderBirthDate, "", new { @class = "text-danger" })
-                                </div>
-
-
-                                @Html.LabelFor(model => model.PolicyHolderPassportNumber_ID, htmlAttributes: new { @class = "control-label" })
-                                <div class="inputs-spacing">
-                                    @Html.EditorFor(model => model.PolicyHolderPassportNumber_ID, new { htmlAttributes = new { @class = "form-control", } })
-                                    @Html.ValidationMessageFor(model => model.PolicyHolderPassportNumber_ID, "", new { @class = "text-danger" })
-                                </div>
-
-                                @Html.LabelFor(model => model.PolicyHolderEmail, htmlAttributes: new { @class = "control-label" })
-                                <div class="inputs-spacing">
-                                    @Html.EditorFor(model => model.PolicyHolderEmail, new { htmlAttributes = new { @class = "form-control", } })
-                                    @Html.ValidationMessageFor(model => model.PolicyHolderEmail, "", new { @class = "text-danger" })
-                                </div>
-                                @Html.LabelFor(model => model.PolicyHolderPhoneNumber, htmlAttributes: new { @class = "control-label" })
-                                <div class="inputs-spacing">
-                                    @Html.EditorFor(model => model.PolicyHolderPhoneNumber, new { htmlAttributes = new { @class = "form-control", } })
-                                    @Html.ValidationMessageFor(model => model.PolicyHolderPhoneNumber, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-               </div>
-              </div>
-        }
-
-
-
-        
+    @if (r.IsUser("admin"))
+    {
         <div class="row container">
-            <header class="well">Лични податоци за осигуреникот</header>
+            <header class="well">Лични податоци за договорувач</header>
             <div class="form-inline row">
                 <div class="form-group col-sm-3">
-                    
-                        
-                    
-                            <div class="inputs-spacing">
-                                @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "col-md-1", @style = "margin-top:3%;" })
-                                
-                               @if (r.IsUser("end user"))
-                               {
-                                <label> Јас сум осигуреник</label>
-                               }
-                                @if (r.IsUser("admin"))
-                                {
-                                    <label>Договорувачот е и осигуреник</label>
-                                }
-                              </ div >                                       
-                    
+                    <div class="inputs-spacing">
+                        @Html.CheckBoxFor(model => model.IsExistentPolicyHolder, new { @class = "col-md-1", @style = "margin-top:3%;" }) Постоечки корисник
+                    </div>
+                    <div class="hideWhenSelect">
+                        @Html.LabelFor(model => model.PolicyHolderName, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderName, "", new { @class = "text-danger" })
+                        </div>
+
+                        @Html.LabelFor(model => model.PolicyHolderLastName, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderLastName, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderLastName, "", new { @class = "text-danger" })
+                        </div>
+
+                        @Html.LabelFor(model => model.PolicyHolderAddress, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderAddress, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderAddress, "", new { @class = "text-danger" })
+                        </div>
+
+                        @Html.LabelFor(model => model.PolicyHolderCity, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderCity, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderCity, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.PolicyHolderPostalCode, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderPostalCode, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderPostalCode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @Html.LabelFor(model => model.PolicyHolderSSN, htmlAttributes: new { @class = "control-label" })
+                    <div class="inputs-spacing">
+                        @Html.EditorFor(model => model.PolicyHolderSSN, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PolicyHolderSSN, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="hideWhenSelect">
+
+                        @Html.LabelFor(model => model.PolicyHolderBirthDate, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderBirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date", @max = ViewBag.Date } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderBirthDate, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        @Html.LabelFor(model => model.PolicyHolderPassportNumber_ID, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderPassportNumber_ID, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderPassportNumber_ID, "", new { @class = "text-danger" })
+                        </div>
+
+                        @Html.LabelFor(model => model.PolicyHolderEmail, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderEmail, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderEmail, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.PolicyHolderPhoneNumber, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderPhoneNumber, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderPhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="row container">
+        <header class="well">Лични податоци за осигуреникот</header>
+        <div class="form-inline row">
+            <div class="form-group col-sm-3">
+                <div class="inputs-spacing">
+                    @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "col-md-1", @style = "margin-top:3%;" })
+
+                    @if (r.IsUser("end user"))
+                    {
+                        <label> Јас сум осигуреник</label>
+                    }
+                    @if (r.IsUser("admin"))
+                    {
+                        <label>Договорувачот е и осигуреник</label>
+                    }
+                    </ div >
+
                     <div id="hideWhenSamePerson">
                         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
@@ -219,32 +201,30 @@
                             @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", } })
                             @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                         </div>
-                    @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label" })
-                    <div class="inputs-spacing">
-                        @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control", } })
-                        @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
-                    </div>
+                        @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
+                        </div>
 
                         @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
                             @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
                         </div>
-                        
-                    @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
-                    <div class="inputs-spacing">
-                        @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date", @max = ViewBag.Date } })
-                        @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
-                    </div>
 
-                        
+                        @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date", @max = ViewBag.Date } })
+                            @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                        </div>
                         @Html.LabelFor(model => model.PassportNumber_ID, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
                             @Html.EditorFor(model => model.PassportNumber_ID, new { htmlAttributes = new { @class = "form-control", } })
                             @Html.ValidationMessageFor(model => model.PassportNumber_ID, "", new { @class = "text-danger" })
                         </div>
 
-                         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
                             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
@@ -255,15 +235,12 @@
                                 @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                 </div>
+                    </div>
+                </div>
             </div>
         </div>
-</div>
-
-
         <br />
         <br />
-
         <div class="row container">
             <header class="well">Податоци за полисата</header>
             <div class="form-inline row">
@@ -273,7 +250,7 @@
                         <label class="radio-inline ">
                             <input type="radio" checked="checked" name="Travel_Insurance_TypeID" , value="1" id="single_type" />
                             @*@Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "1", id = "single_type" })*@
-                            <label for="radio1" checked="checked" >Поединечно</label>
+                            <label for="radio1" checked="checked">Поединечно</label>
                         </label>
                         <br />
                         <label class="radio-inline">
@@ -290,7 +267,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-horizontal" id="family" hidden>
                 @for (int i = 0; i < 6; i++)
                 {
@@ -311,7 +287,6 @@
                 }
 
             </div>
-
             <div class="form-horizontal row" id="group" hidden>
                 <div class="form-group col-sm-3">
                     @Html.LabelFor(model => model.Group_Members, htmlAttributes: new { @class = "control-label" })
@@ -327,7 +302,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-horizontal row">
                 @for (int i = 0; i < 2; i++)
                 {
@@ -339,10 +313,8 @@
                     </div>
                 }
             </div>
-
             <br />
             <br />
-
             <div class="form-inline row">
                 <div class="form-group col-sm-3 col-md-3">
                     <div>
@@ -353,8 +325,8 @@
                     @Html.LabelFor(model => model.Total_Premium, htmlAttributes: new { @class = "control-label col-md-5" })
                     <div class="col-md-7">
                         <div class="input-group">
-                            @Html.EditorFor(model => model.Total_Premium, new { htmlAttributes = new { @class = "form-control", style = "width: 45%", id = "totalPremium", @readonly="true"  } })
-                            
+                            @Html.EditorFor(model => model.Total_Premium, new { htmlAttributes = new { @class = "form-control", style = "width: 45%", id = "totalPremium", @readonly = "true" } })
+
                         </div>
                     </div>
                 </div>
@@ -362,12 +334,9 @@
                     <label id="errorMessage" style="color:red"></label>
                 </div>
             </div>
-
         </div>
-
         <br />
         <br />
-
         <div class="form-inline row">
             <div class="form-group col-sm-3 col-md-3">
                 <div>
@@ -394,7 +363,6 @@
 <script src="~/Scripts/messages_is.js"></script>
 
 <script>
-
     $(document).ready(function () {
         $("#family").hide();
         $("#group").hide();
@@ -411,15 +379,15 @@
             $("#family").hide();
             $("#group").show();
         });
-       
+
 
         $("#CountryID").val(1);
         $("#Policy_TypeID").val(1);
         $("#Retaining_RiskID").val(2);
-        
+
         $("#additional_charges_0__ID").val(1);
         $("#additional_charges_1__ID").val(1);
-        
+
     });
 
     $(".input-sm, .text-box").keypress(function (event) {
@@ -450,15 +418,10 @@
             }
         });
     }
-    
-
-    //disable default submit
     $('#dugme').on('submit', function (e) {
-        // validation code here
         if (!valid) {
             e.preventDefault();
         }
-
     });
 
     $("#policyForm").validate({
@@ -475,11 +438,8 @@
                 minlength: 13,
                 maxlength: 13
             }
-
         }
     });
-
-
     jQuery.validator.setDefaults({
         debug: true,
         success: "valid",
@@ -494,9 +454,7 @@
 
     $("#dugme").click(function () {
         if (form.valid() == true) {
-
             var data = $("#policyForm").serialize();
-
             $.ajax({
                 type: "POST",
                 url: "CreatePolicy",
@@ -505,7 +463,6 @@
 
                 }
             });
-
         }
     });
 
@@ -519,8 +476,6 @@
         var intDen = parseInt(den) + 2;
         $("#endDate").attr('min', Edat);
         $("#endDate").attr('max', god + "-" + mesec + "-" + intDen);
-
-
     });
 
     $("#vaziDenovi").focusin(function () {
@@ -544,15 +499,11 @@
 
     });
     $('#End_Date').change(function (event) {
-
         var startDateChosen = $("#End_Date").val();
         $("#Start_Date").attr("max", startDateChosen);
-
-
     });
 
     $("#SSN").keydown(function (e) {
-
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
             (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
             (e.keyCode >= 35 && e.keyCode <= 40)) {
@@ -563,35 +514,26 @@
         }
     });
 
-    
+
     $("#IsExistentPolicyHolder").change(function () {
-        if (this.checked) {          
+        if (this.checked) {
             $(".hideWhenSelect").hide();
-            
         }
         else {
             $(".hideWhenSelect").show();
-           
         }
-
     });
 
-    
-    
     $("#IsSamePolicyHolderInsured").change(function () {
         if (this.checked) {
-           // $("#hideWhenSamePerson").hide();
-
+            // $("#hideWhenSamePerson").hide();
             $("#hideWhenSamePerson .form-control").prop('readonly', true);
-
             $.ajax({
                 type: "GET",
                 url: "/Policy/GetExistentLoggedInUserData",
                 success: function (result) {
-
                     var rez = JSON.parse(result);
                     console.log(rez);
-                   
                     $("#Name").attr("value", rez.InsuredData.FirstName);
                     $("#LastName").attr("value", rez.InsuredData.Name);
                     $("#Address").attr("value", rez.InsuredData.Address);
@@ -602,18 +544,12 @@
                     $("#PassportNumber_ID").attr("value", rez.InsuredData.PassportID);
                     $("#Email").attr("value", rez.InsuredData.Email);
                     $("#PhoneNumber").attr("value", rez.InsuredData.PhoneNumber);
-                                      
-
                 }
             });
-
-
-
         }
         else {
             $("#hideWhenSamePerson").show();
 
         }
-
     });
 </script>

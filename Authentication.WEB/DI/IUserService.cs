@@ -10,15 +10,11 @@ namespace InsuredTraveling.DI
     public interface IUserService
     {
         aspnetuser GetUserDataByUsername(string Username);
-
         aspnetuser GetUserById(string id);
-
         string GetUserIdByUsername(string Username);
-
         IQueryable<SelectListItem> GetPolicyNumberListByUsername(string Username);
-
+        List<SelectListItem> GetPolicyNumberListByUsernameToList(string Username);
         bool IsSameLoggedUserAndInsured(string UsernameLoggedUser, int SelectedInsured);
-
         string GetUserSsnByUsername(string username);
     }
 }

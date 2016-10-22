@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "First Notice of Loss";
+    var policyId = ViewBag.PolicyId;
 }
 
 
@@ -54,7 +55,6 @@
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Број на полиса:</label>
                         @Html.TextBoxFor(model => model.PolicyId, new { @class = "form-control input-sm", @id = "PolicyId", @style = "display: none;" })
                         
-                        @Html.DropDownListFor(model => model.PolicyNumber, (List<SelectListItem>)ViewBag.Policies, "Број на полиса", new { @class = "form-control", @id = "DropDownPolicyNumber" })
 
                         @Html.ValidationMessageFor(model => model.PolicyNumber, "", new { @class = "text-danger input-sm" })
                     </div>
@@ -354,11 +354,6 @@
                         @Html.TextAreaFor(model => model.DoctorInfo, new { @class = "form-control input-sm" })
                     </div>
                 </div>
-
-
-
-               
-
             </div>
             <div class="col-md-6">
                 <div class="form-group">
@@ -533,8 +528,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
 <script type="text/javascript">
     var Banks;
-    $(document).ready(function () {
-
+    $(document).ready(function () { 
         $('#deponent').prop('readonly', true);
         $('#deponentInsured').prop('readonly', true);
 
@@ -551,13 +545,14 @@ else if (ViewBag.insurance == "Luggage Insurance")
             if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
                 e.preventDefault();
             }
-        });      
-
+        });
+        
+        var policyId = @ViewBag.PolicyId;
+        if(policyId != 0)
+        {
+            SelectPolicy();
+        }
     });
-
-
-
-
 
     $("#ExistentBankAccount").change(function () {
         if (this.checked) {
@@ -567,8 +562,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $("#TransactionAccount").attr("value", "");
             $("#deponent").attr("value", "");
             $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false)
-
-
         }
         else {
             $('#DropDownBankAccountPolicyHolder').hide();
@@ -581,7 +574,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
             if ($('#ForeignBankAccount').is(':checked')) {
                 $('#deponent').prop('readonly', false);
             }
-
         }
     });
 
@@ -596,8 +588,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $("#insuredTransactionAccount").attr("value", "");
             $("#deponentInsured").attr("value", "");
             $("#DropDownBankAccountInsured option:selected").prop("selected", false)
-
-
         }
         else {
 
@@ -609,7 +599,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
             if ($('#ForeignBankAccountInsured').is(':checked')) {
                 $('#deponentInsured').prop('readonly', false);
             }
-
         }
     });
 
@@ -625,7 +614,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $("#lossDate").attr("min", inputStartTrip);
             $("#baggageLossDate").attr("min", inputStartTrip);
             $("#travelDateTo").attr("min", inputStartTrip);
-
         }
         else if (parseInt(inputStartTripArray[0]) == parseInt(inputMinDateArray[0]))
         {
@@ -645,14 +633,11 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 }
             }
         }
-
         console.log("value changed");
     });
 
 
     $('#travelDateTo').change(function (event) {
-        //alert($("#travelTimeTo").val());
-
         var inputMinDate = $("#lossDate").attr("max");
         var inputMinDate = $("#baggageLossDate").attr("max");
         var inputMinDateArray = inputMinDate.split('-');
@@ -678,13 +663,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 }
             }
         }
-
         console.log("value changed");
     });
-
-
-
-
     $("#ForeignBankAccount").change(function () {
         if (this.checked) {
             $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false);
@@ -753,8 +733,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
             }
         });
         }
-
-
     });
 
     $('#insuredTransactionAccount').focusout(function () {
@@ -773,8 +751,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
         }
     });
 
-
-
     $('#DropDownBankAccountPolicyHolder').on('change', function ()
     {
         if ($('#DropDownBankAccountPolicyHolder option:selected').val() == 0)
@@ -790,8 +766,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
          }
     });
 
-
-
     $('#DropDownBankAccountInsured').on('change', function () {
         if ($('#DropDownBankAccountInsured option:selected').val() == 0) {
             $('#deponentInsured').attr('value', "");
@@ -806,9 +780,14 @@ else if (ViewBag.insurance == "Luggage Insurance")
     });
 
 
-    $('#DropDownPolicyNumber').on('change', function () {
+      function SelectPolicy(){
         ClearDropDownData();
         var PolicyId = $('#DropDownPolicyNumber').val();
+        if (PolicyId== null)
+        {
+            var policyId = @ViewBag.PolicyId;
+            PolicyId = policyId;
+        }
         $('#PolicyId').val(PolicyId);
         $.ajax({
             type: "GET",
@@ -818,7 +797,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 var rez = JSON.parse(result);
                 console.log(rez);
                 Banks = rez.banks;
-             
+
                 $("#PolicyHolderId").attr("value", rez.policyholder.Id);
                 $("#PolicyHolderName").attr("value", rez.policyholder.FirstName + " " + rez.policyholder.LastName);
                 $("#PolicyHolderName").attr("IdPolicyHolder", rez.policyholder.Id);
@@ -853,10 +832,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 $("#LugaggeCheckingTime").val("00:00");
             }
         });
-
-
-
-    });
+    };
 
     function InsuranceType(type) {
         if (type == "LuggageInsurance") {
@@ -927,8 +903,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
 
     function FillInsuredData() {
-
-
         $('#DropDownInsureds').on('change', function () {
             ClearDropDownDataInsured();
             var InsuredId = $('#DropDownInsureds option:selected').val();

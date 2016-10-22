@@ -7,6 +7,10 @@ namespace InsuredTraveling.Models
 {
     public class FirstNoticeOfLossReportViewModel
     {
+        public FirstNoticeOfLossReportViewModel()
+        {
+            Policies = new List<SelectListItem>();
+        }
         public int Id { get; set; }
         public bool? ShortDetailed { get; set; }
         public bool? WebMobile { get; set; }
@@ -15,7 +19,7 @@ namespace InsuredTraveling.Models
 
         [Required(ErrorMessage = "Полето е задолжително")]
         public int PolicyNumber { get; set; }
-
+        public List<SelectListItem> Policies { get; set; }
         public List<SelectListItem> PolicyNumberList { get; set; }
         public string Message { get; set; }
         public DateTime CreatedDateTime { get; set; }

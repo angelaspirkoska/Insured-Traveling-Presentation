@@ -1,0 +1,357 @@
+﻿@model InsuredTraveling.Models.FirstNoticeOfLossReportViewModel
+
+@{
+    ViewBag.Title = "First Notice of Loss";
+    var noValue = "/";
+}
+    <div class="form-horizontal">
+        <h3>Штета</h3>
+        <hr />
+        <div class="row container">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="col-lg-7">
+                        <label>Број на полиса: </label>
+                        <label>
+                            @Model.PolicyNumber
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row container">
+            <header class="well">Податоци за договорувач</header>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="col-lg-8">
+                        <label>Договорувач:</label>
+                        @Model.PolicyHolderName
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-8">
+                        <label>Адреса:</label>
+                        @Model.PolicyHolderAdress                    
+                    </div>
+                </div>  
+                <div class="form-group">
+                    <div class="col-lg-8">
+                        <label>Телефон:</label>
+                        @Model.PolicyHolderPhoneNumber
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-8">
+                        <label>ЕМБГ:</label>
+                        @Model.PolicyHolderSsn                    
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="col-lg-6">
+                        <label>Трансакциона сметка:</label>
+                        @Model.PolicyHolderBankAccountNumber
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6">
+                       <label>Депонент банка:</label>
+                       @Model.PolicyHolderBankName
+                    </div>                   
+                </div>
+            </div>
+        </div>
+        <div class="row container">
+            <header class="well">Корисник на осигурувањето</header>
+            <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label> Оштетен:</label>
+                            @Model.ClaimantName
+                        </div>
+                    </div>
+                <div class="form-group">
+                    
+                    <div class="col-lg-7">
+                        <label> Адреса:</label>
+                        @Model.ClaimantAdress                   
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-7">
+                        <label>Телефон:</label>
+                        @Model.ClaimantPhoneNumber                                      
+                    </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-lg-7">
+                        <label>ЕМБГ:</label>                        
+                        @Model.ClaimantSsn
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-7">
+                        <label>Сродство со осигуреникот:</label>
+                        @if(Model.RelationClaimantPolicyHolder != null)
+                        {
+                            @Model.RelationClaimantPolicyHolder
+                        }
+                        else
+                        {
+                            @noValue
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">          
+                <div class="form-group">
+                    <div class="col-lg-7">
+                        <label>Трансакциона с-ка:</label>
+                        @Model.ClaimantBankAccountNumber
+                    </div>
+                </div>
+                <div class="form-group">
+                    
+                    <div class="col-lg-7">
+                        <label>Депонент банка:</label>
+                        @Model.ClaimantBankName
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row container">
+            <header class="well">Податоци за патувањето</header>
+            <div class="col-md-6">
+                <div class="form-group">                   
+                    <div class="col-lg-7">
+                        <label> Место на патување:</label>
+                        @Model.Destination)
+                    </div>
+                </div>
+                <div class="form-group">                  
+                    <div class="col-lg-7">
+                        <label>Датум на заминување:</label>   
+                        @Model.DepartDateTime.Date.ToShortDateString()                     
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-7">
+                        <label>Време на заминување:</label>                       
+                        @Model.DepartTime
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="col-lg-7">
+                        <label>Превозно средство:</label>
+                          @Model.TransportMeans
+                    </div>
+                </div>
+                <div class="form-group">
+                   <div class="col-lg-7">
+                        <label>Датум на враќање:</label>
+                         @Model.ArrivalDateTime.Date.ToShortDateString()       
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-7">
+                        <label>Време на враќање:</label>
+                        @Model.ArriveTime
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (Model.IsHealthInsurance)
+        {
+            <div class="row container">
+                <header class="well">Податоци за штетата - Здравствено осигурување</header>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Датум на незгодата:</label>
+                            @Model.AccidentDateTimeHealth.Value.Date.ToShortDateString()
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Време на незгодата:</label>
+                            @Model.AccidentTimeHealth
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Место на незгодата:</label>
+                            @Model.AccidentPlaceHealth
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Датум на посета кај доктор:</label>
+                            @Model.DoctorVisitDateTime.Value.Date.ToShortDateString()
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Податоци за докторот:</label>
+                            @Model.DoctorInfo
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Опис на болеста:</label>
+                            @Model.MedicalCaseDescription
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Претходно сте биле лекувани од истата:</label>
+                            @if(Model.PreviousMedicalHistory)
+                            {
+                                var valueYes = "Да";
+                                @valueYes
+                            }
+                            else
+                            {
+                                var valueNo = "Не";
+                                @valueNo
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Документи приложени како доказ:</label>
+                            <input type="file" name="documentsHealth" id="documentsHealth" multiple />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Во случај на тешка повреда или смрт, кој орган составил записник и детален опис на настанот :</label>
+                            @Model.ResponsibleInstitution
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div class="row container">
+                <header class="well">Податоци за штетата - Осигурување на багаж</header>
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                        <div class="col-lg-7">
+                            <label>Датум на настанот:</label>
+                            @Model.AccidentDateTimeLuggage.Value.Date.ToShortDateString()
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-7">
+                            <label>Место на незгодата:</label><br />
+                            @Model.AccidentPlaceLuggage
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Опис на настанот:</label>
+                            @Model.PlaceDescription
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Детален опис на настанот:</label>
+                            @Model.DetailDescription
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-7">
+                            <label> Место на пријавување:</label><br />
+                            @Model.ReportPlace
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Опис на украдените/оштетени предмети:</label>
+                            @Model.Floaters
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Вредност:</label>
+                            @Model.FloatersValue
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Документи приложени како доказ :</label>
+                            <input type="file" name="documentsLuggage" id="documentsLuggage" multiple />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Време на пристигнување на аеродром :</label>
+                            @Model.AccidentTimeLuggage
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Време на предавање на багаж :</label>
+                            @Model.LugaggeCheckingTime
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row container">
+            <header class="well">Податоци за трошоци</header>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="col-lg-7">
+                        <label>Фактури како доказ:</label>
+                        <input type="file" name="invoices" id="invoices" multiple />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-7">
+                        <label>Вкупна вредност на сите трошоци:</label>
+                        <div class="input-group">
+                            @Model.TotalCost
+                            <span class="input-group-addon">.00 денари</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@if (ViewBag.insurance == "Health Insurance")
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#health").attr("checked", "true");
+            $("#hiddenIsHealthInsurance").prop("checked", true);
+            $("#healthInsurance").toggle();
+            
+        });
+    </script>
+}
+else if (ViewBag.insurance == "Luggage Insurance")
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#luggage").attr("checked", "true");
+            $("#hiddenIsHealthInsurance").prop("checked", false);
+            $("#luggageInsurance").toggle();
+        });
+    </script>
+}
+

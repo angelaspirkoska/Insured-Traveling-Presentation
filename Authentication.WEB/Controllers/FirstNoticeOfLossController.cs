@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using InsuredTraveling.Helpers;
 using InsuredTraveling.ViewModels;
 using Newtonsoft.Json;
+using AutoMapper;
 
 namespace InsuredTraveling.Controllers
 {
@@ -44,17 +45,21 @@ namespace InsuredTraveling.Controllers
             _fis = fis;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int? policyId)
         {
-            ShowUserData();
+            var policies = ShowUserData();
             ViewBag.Date = DateTime.Now.Year + "-"+DateTime.Now.Month + "-" +DateTime.Now.Day;
+            ViewBag.Policies = new SelectList(policies, "Value", "Text", policyId.ToString());
+            ViewBag.PolicyId = policyId != null ? policyId.ToString() : "0";
             return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> Index(FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel, IEnumerable<HttpPostedFileBase> invoices, IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
         {
-            ShowUserData();
+            var policies = ShowUserData();
+            ViewBag.Policies = new SelectList(policies, "Value", "Text", firstNoticeOfLossViewModel.PolicyId.ToString());
+
             if (firstNoticeOfLossViewModel.IsHealthInsurance)
             {
                 ModelState.Remove("AccidentDateTimeLuggage");
@@ -109,6 +114,16 @@ namespace InsuredTraveling.Controllers
             return View(firstNoticeOfLossViewModel);
         }
 
+        public ActionResult View(int? id)
+        {
+            var model = new FirstNoticeOfLossReportViewModel();
+            if(id != null)
+            {
+                var data = _fis.GetById(Convert.ToInt32(id));
+                model = Mapper.Map<first_notice_of_loss, FirstNoticeOfLossReportViewModel>(data);
+            }
+            return View(model);
+        }
         private bool SaveDataInDb(FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel, IEnumerable<HttpPostedFileBase> invoices, IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
         {
             var result = true;
@@ -272,21 +287,14 @@ namespace InsuredTraveling.Controllers
                 }
             }
 
-            return FirstNoticeOfLossID>0;
-
-
-            
+            return FirstNoticeOfLossID>0;            
         }
-
-
-        public void ShowUserData()
+        public List<SelectListItem> ShowUserData()
         {
             string username = System.Web.HttpContext.Current.User.Identity.Name;
-            var policies = _us.GetPolicyNumberListByUsername(System.Web.HttpContext.Current.User.Identity.Name).ToListAsync();
-
-            ViewBag.Policies = policies.Result;
+            var policies = _us.GetPolicyNumberListByUsernameToList(System.Web.HttpContext.Current.User.Identity.Name);
+            return policies;
         }
-
 
         [HttpGet]
         public JObject GetInsuredData(int SelectedInsuredId)
@@ -421,10 +429,6 @@ namespace InsuredTraveling.Controllers
 
 
         }
-
-
-
-
 
     }
 }
