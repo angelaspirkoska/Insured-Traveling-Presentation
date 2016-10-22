@@ -55,6 +55,7 @@
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Број на полиса:</label>
                         @Html.TextBoxFor(model => model.PolicyId, new { @class = "form-control input-sm", @id = "PolicyId", @style = "display: none;" })
                         
+                        @Html.DropDownListFor(model => model.PolicyNumber, ViewBag.Policies as SelectList, "Број на полиса", new { @class = "form-control", @id = "DropDownPolicyNumber", onchange="SelectPolicy()" })
 
                         @Html.ValidationMessageFor(model => model.PolicyNumber, "", new { @class = "text-danger input-sm" })
                     </div>
@@ -824,7 +825,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 $('#baggageLossDate').attr("min", rez.StartDate);
                 $('#baggageLossDate').attr("max", rez.EndDate);
                 $('#DoctorVisitDateTime').attr("min", rez.StartDate);
-                $('#travelDateFrom').attr("min", rez.StartDate);           
+                $('#travelDateFrom').attr("min", rez.StartDate);
                 $("#travelTimeFrom").val("00:00");
                 $("#travelTimeTo").val("00:00");
                 $("#lossTime").val("00:00");
