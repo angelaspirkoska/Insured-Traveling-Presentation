@@ -115,5 +115,16 @@ namespace InsuredTraveling.DI
             return _db.travel_policy.Where(x => (x.Created_By == UserId) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
                                     (Country == null || x.CountryID == Country.Value)).ToList();
         }
+        public List<travel_policy> GetPoliciesByInsuredId(int insuredId)
+        {
+            var allPolicies = _db.policy_insured.Where(x => x.InsuredID == insuredId).Select(x => x.PolicyID).ToList();
+            return _db.travel_policy.Where(x => (allPolicies.Contains(x.ID))).ToList();
+        }
+
+        public List<travel_policy> GetPoliciesByHolderId(int holderId)
+        {
+            return _db.travel_policy.Where(x => x.Policy_HolderID == holderId).ToList();
+        }
+
     }
 }

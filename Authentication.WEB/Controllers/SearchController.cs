@@ -174,6 +174,32 @@ namespace InsuredTraveling.Controllers
             return JSONObject;
         }
 
+        public JObject CreatePoliciesByInsuredId(string insuredId)
+        {
+            int id = !String.IsNullOrEmpty(insuredId) ? Convert.ToInt32(insuredId) : 0;
+            var policies = _ps.GetPoliciesByInsuredId(id);
+            var JSONObject = new JObject();
+            var dataJSON = new JArray();
+
+            var searchModel = policies.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
+            var array = JArray.FromObject(searchModel.ToArray());
+            JSONObject.Add("data", array);
+            return JSONObject;
+        }
+
+        public JObject CreatePoliciesByHolderId(string holderId)
+        {
+            int id = !String.IsNullOrEmpty(holderId) ? Convert.ToInt32(holderId) : 0;
+            var policies = _ps.GetPoliciesByHolderId(id);
+            var JSONObject = new JObject();
+            var dataJSON = new JArray();
+
+            var searchModel = policies.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
+            var array = JArray.FromObject(searchModel.ToArray());
+            JSONObject.Add("data", array);
+            return JSONObject;
+        }
+
         [HttpPost]
         [Route("FNOLDetails")]
         public JObject FNOLDetails(int lossID)

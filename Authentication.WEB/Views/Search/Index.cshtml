@@ -1,7 +1,10 @@
 ﻿@{HtmlHelper.UnobtrusiveJavaScriptEnabled = true;}
 @model InsuredTravelingEntity
+@using InsuredTraveling.Filters
+
 @{
     ViewBag.Title = "Search";
+    RoleAuthorize r = new RoleAuthorize();
 }
 
 <br />
@@ -10,7 +13,10 @@
 <div>
     <ul class="nav nav-pills">
         <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">Полиси</a></li>
-        <li id="clients"><a href="#" onclick="ShowClients()">Клиенти</a></li>
+        @if (r.IsUser("admin") || r.IsUser("broker"))
+        {
+            <li id="clients"><a href="#" onclick="ShowClients()">Клиенти</a></li>
+        }
         <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">Штети </a></li>
     </ul>
 
@@ -206,9 +212,50 @@
                         <th>Телефонски број</th>
                         <th>Емаил адресa</th>
                         <th>Број на пасош</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody id="searchResultClients"></tbody>
+            </table>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div>Полиси за осигуреник</div>
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePoliciesClients">
+                <thead>
+                    <tr>
+                        <th>Број на полиса</th>
+                        <th>Земја на патување</th>
+                        <th>Вид полиса</th>
+                        <th>Важи од</th>
+                        <th>Важи до</th>
+                        <th>Датум на издавање</th>
+                        <th>Датум на сторнирање</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div>Полиси за договорувач</div>
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePoliciesHolders">
+                <thead>
+                    <tr>
+                        <th>Број на полиса</th>
+                        <th>Земја на патување</th>
+                        <th>Вид полиса</th>
+                        <th>Важи од</th>
+                        <th>Важи до</th>
+                        <th>Датум на издавање</th>
+                        <th>Датум на сторнирање</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
             </table>
         </div>
     </div>
@@ -314,6 +361,8 @@
         $("#tableFNOL").DataTable().destroy();
         $("#tableFNOL").DataTable();
         $("#tableFNOLPolicies").css("display", "none");
+        $("#tablePoliciesClients").css("display", "none");
+        $("#tablePoliciesHolders").css("display", "none");
     });
 
     $("#DateI").focusout(function () {
@@ -338,6 +387,8 @@
         $("#clients").attr("class", "active");
         $("#first_notice_of_loss").removeAttr("class");
         $("#clients").attr("class", "active");
+        $("#tablePoliciesClients").css("display", "none");
+        $("#tablePoliciesHolders").css("display", "none");
     };
 
     function ShowPolycies() {
@@ -349,7 +400,6 @@
         $("#polycies").attr("class", "active");
         $("#tableFNOLPolicies").css("display", "none");
     };
-
 
     function ShowFNOL() {
         $("#searchPolycies").hide();
@@ -473,7 +523,7 @@
             ],
             select: true
         });
-        $("#tableFNOLPolicies").css("display", "block");
+        $("#tableFNOLPolicies").css("display", "table");
     };
 
     function SearchFNOL() {
@@ -509,7 +559,7 @@
                         }
                     },
             ],
-                select: true
+            select: true
         });
     };
 
@@ -537,7 +587,7 @@
                                         .attr('href', 'javascript:;')
                                         .attr('class', 'clients')
                                         .attr('id', data)
-                                        .text("Полиси за осигуреник")
+                                        .text("Полиси")
                                         .wrap('<div></div>')
                                         .parent()
                                         .html();
@@ -545,82 +595,92 @@
                                     return data;
                                 }
                             }
-                        },
-                        {
-                            data: "ID",
-                            "render": function (data, type, row, meta) {
-                                if (type === 'display') {
-                                    return $('<a>')
-                                        .attr('href', 'javascript:;')
-                                        .attr('class', 'holders')
-                                        .attr('id', data)
-                                        .text("Полиси за договорувач")
-                                        .wrap('<div></div>')
-                                        .parent()
-                                        .html();
-                                } else {
-                                    return data;
-                                }
-                            }
-                        },
+                        }
             ],
             select: true
         });
         $('#tableClients tbody').on('click', 'td .clients', function () {
             var $row = $(this).closest('td');
-            var policy_num = $row.children().attr('id');
-            CreateFNOLTablePoliciesByPolicyNumber(policy_num);
-
-        });
-
-        $('#tableClients tbody').on('click', 'td .holders', function () {
-            var $row = $(this).closest('td');
-            var policy_num = $row.children().attr('id');
-            CreateFNOLTablePoliciesByPolicyNumber(policy_num);
+            var insuredId = $row.children().attr('id');
+            CreatePoliciesByInsuredId(insuredId);
+            CreatePoliciesByHolderId(insuredId);
 
         });
     };
 
-    function CreatePoliciesByPolicyNumber(policy_number) {
-        $("#tableFNOLPolicies").DataTable().destroy();
-        $("#tableFNOLPolicies").DataTable({
+    function CreatePoliciesByInsuredId(insuredId) {
+        $("#tablePoliciesClients").DataTable().destroy();
+        $("#tablePoliciesClients").DataTable({
             dom: "Bfrtip",
-            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFNOLByPolicyNumber?number=" + policy_number,
+            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/CreatePoliciesByInsuredId?insuredId=" + insuredId,
             columns: [
-                    { data: "PolicyNumber" },
-                    { data: "InsuredName" },
-                    { data: "ClaimantPersonName" },
-                    { data: "Claimant_insured_relation" },
-                    { data: "AllCosts" },
-                    { data: "Date" },
-                    { data: "HealthInsurance" },
-                    { data: "LuggageInsurance" },
-                    {
-                        data: "ID",
-                        "render": function (data, type, row, meta) {
-                            if (type === 'display') {
-                                var value = data;
-                                return $('<a>')
-                                    .attr('href', '/FirstNoticeOfLoss/View?id=' + data)
-                                    .attr('target', '_blank')
-                                    .attr('class', 'lossDetails')
-                                    .text("Детали")
-                                    .wrap('<div></div>')
-                                    .parent()
-                                    .html();
-                            } else {
-                                return data;
-                            }
-                        }
-                    },
+               { data: "Polisa_Broj" },
+               { data: "Country" },
+               { data: "Policy_type" },
+               { data: "Zapocnuva_Na" },
+               { data: "Zavrsuva_Na" },
+               { data: "Datum_Na_Izdavanje" },
+               { data: "Datum_Na_Storniranje" },
+               {
+                   data: "Polisa_Broj",
+                   "render": function (data, type, row, meta) {
+                       if (type === 'display') {
+                           var value = data;
+                           return $('<a>')
+                               .attr('href', '/Policy/PrintPolicy?id=' + data)
+                               .attr('target', '_blank')
+                               .attr('class', 'detailsInsured')
+                               .text("Детали")
+                               .wrap('<div></div>')
+                               .parent()
+                               .html();
+                       } else {
+                           return data;
+                       }
+                   }
+               },
             ],
-        select: true
-    });
-            $("#tableFNOLPolicies").css("display", "block");
-    }
+            select: true
+        });
+        $("#tablePoliciesClients").css("display", "table");
+    };
+
+    function CreatePoliciesByHolderId(holderId) {
+        $("#tablePoliciesHolders").DataTable().destroy();
+        $("#tablePoliciesHolders").DataTable({
+            dom: "Bfrtip",
+            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/CreatePoliciesByHolderId?holderId=" + holderId,
+            columns: [
+               { data: "Polisa_Broj" },
+               { data: "Country" },
+               { data: "Policy_type" },
+               { data: "Zapocnuva_Na" },
+               { data: "Zavrsuva_Na" },
+               { data: "Datum_Na_Izdavanje" },
+               { data: "Datum_Na_Storniranje" },
+               {
+                   data: "Polisa_Broj",
+                   "render": function (data, type, row, meta) {
+                       if (type === 'display') {
+                           var value = data;
+                           return $('<a>')
+                               .attr('href', '/Policy/PrintPolicy?id=' + data)
+                               .attr('target', '_blank')
+                               .attr('class', 'detailsHolder')
+                               .text("Детали")
+                               .wrap('<div></div>')
+                               .parent()
+                               .html();
+                       } else {
+                           return data;
+                       }
+                   }
+               },
+            ],
+            select: true
+        });
+        $("#tablePoliciesHolders").css("display", "table");
+    };
 </script>
-
-
-
 
 
