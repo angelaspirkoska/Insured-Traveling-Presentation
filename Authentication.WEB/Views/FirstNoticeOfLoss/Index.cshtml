@@ -784,7 +784,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
       function SelectPolicy(){
         ClearDropDownData();
         var PolicyId = $('#DropDownPolicyNumber').val();
-        if (PolicyId== null)
+        if (PolicyId== null || PolicyId == '')
         {
             var policyId = @ViewBag.PolicyId;
             PolicyId = policyId;

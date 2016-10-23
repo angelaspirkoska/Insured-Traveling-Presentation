@@ -60,46 +60,15 @@ namespace InsuredTraveling.Controllers
 
         [HttpGet]
         [Route("GetUsers")]
-        public JObject GetUsers(string name, string embg, string address, string email, string postal_code, string phone, string city, string passport)
+        public JObject GetUsers(string name, string lastname, string embg, string address, string email, string postal_code, string phone, string city, string passport)
         {
-            name = name.ToLower();
-            embg = embg.ToLower();
-            address = address.ToLower();
-            city = city.ToLower();
-            phone = phone.ToLower();
-            email = email.ToLower();
-            passport = passport.ToLower();
+            var data = _iss.GetInsuredBySearchValues(name, lastname, embg, address, email, postal_code, phone, city, passport);
+            var searchModel = data.Select(Mapper.Map<insured, SearchClientsViewModel>).ToList();
 
-            InsuredTravelingEntity db = new InsuredTravelingEntity();
-            var data = db.aspnetusers.Where(x => x.EMBG.Contains(embg) &&
-                                             x.FirstName.ToLower().Contains(name) &&
-                                             x.Address.ToLower().Contains(address) &&
-                                             x.Email.ToLower().Contains(email) &&
-                                             (x.PostalCode.Contains(postal_code)) &&
-                                             x.PhoneNumber.Contains(phone) &&
-                                             x.EMBG.Contains(embg) &&
-                                             x.City.ToLower().Contains(city) &&
-                                             x.PassportNumber.Contains(passport)
-                                            ).ToArray();
-
-            var j = new JObject();
-            var data1 = new JArray();
-            foreach (var v in data)
-            {
-                var j1 = new JObject();
-                j1.Add("Id", v.Id);
-                j1.Add("FirstName", v.FirstName);
-                j1.Add("Email", v.Email);
-                j1.Add("PostalCode", v.PostalCode);
-                j1.Add("PassportNumber", v.PassportNumber);
-                j1.Add("PhoneNumber", v.PhoneNumber);
-                j1.Add("Address", v.Address);
-                j1.Add("EMBG", v.EMBG);
-                j1.Add("City", v.City);
-                data1.Add(j1);
-            }
-            j.Add("data", data1);
-            return j;
+            var JSONObject = new JObject();
+            var array = JArray.FromObject(searchModel.ToArray());
+            JSONObject.Add("data", array);
+            return JSONObject;
         }
 
         [HttpGet]
@@ -125,7 +94,10 @@ namespace InsuredTraveling.Controllers
             DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : Convert.ToDateTime(dateI);
             DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : Convert.ToDateTime(dateS);
 
-            var data = _ps.GetPoliciesByCountryAndType(TypePolicy, Country);
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            var logUser = _us.GetUserIdByUsername(username);
+
+            var data = _ps.GetPoliciesByCountryAndType(TypePolicy, Country, logUser);
 
             if (!String.IsNullOrEmpty(startDate))
             {
@@ -190,49 +162,16 @@ namespace InsuredTraveling.Controllers
             return JSONObject;
         }
 
-        public JObject GetFNOL()
+        public JObject GetFNOL(string PolicyNumber, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance)
         {
             var fnol = _fnls.GetAll();
-            var data = new JObject();
-            var data1 = new JArray();
-            foreach (var v in fnol)
-            {
-                var user = _iss.GetInsuredData(_ps.GetPolicyHolderByPolicyID(v.PolicyId).ID);
+            var JSONObject = new JObject();
+            var dataJSON = new JArray();
 
-                var j1 = new JObject();
-                j1.Add("ID", v.ID);               
-                j1.Add("PolicyNumber", _ps.GetPolicyNumberByPolicyId(v.PolicyId));
-                j1.Add("InsuredName", user.Name + " " + user.Lastname);
-                j1.Add("ClaimantPersonName", v.insured.Name+" " + v.insured.Lastname);
-                j1.Add("Claimant_insured_relation", v.Relation_claimant_policy_holder);
-                j1.Add("AllCosts", v.Total_cost);
-                j1.Add("Date", v.additional_info.Datetime_accident);
-
-                var HealthInsurance = _fnls.GetHealthAdditionalInfoByLossId(v.ID);
-                if (HealthInsurance == null)
-                {
-                    j1.Add("HealthInsurance_Y_N", "Ne");
-               }
-                else
-                {
-                    j1.Add("HealthInsurance_Y_N", "Da");              
-                }
-
-                var LuggageInsurance = _fnls.GetLuggageAdditionalInfoByLossId(v.ID);
-                if (LuggageInsurance == null)
-                {
-                    j1.Add("LuggageInsurance_Y_N", "Ne");
-                }
-                else
-                {
-                    j1.Add("LuggageInsurance_Y_N", "Da");
-                }
-             
-                data1.Add(j1);
-            }
-            data.Add("data", data1);
-            return data;
-
+            var searchModel = fnol.Select(Mapper.Map<first_notice_of_loss, SearchFNOLViewModel>).ToList();
+            var array = JArray.FromObject(searchModel.ToArray());
+            JSONObject.Add("data", array);
+            return JSONObject;
         }
 
         [HttpPost]

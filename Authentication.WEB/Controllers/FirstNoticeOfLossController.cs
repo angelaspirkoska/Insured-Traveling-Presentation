@@ -59,7 +59,7 @@ namespace InsuredTraveling.Controllers
         {
             var policies = ShowUserData();
             ViewBag.Policies = new SelectList(policies, "Value", "Text", firstNoticeOfLossViewModel.PolicyId.ToString());
-
+            //firstNoticeOfLossViewModel.isMobile = false
             if (firstNoticeOfLossViewModel.IsHealthInsurance)
             {
                 ModelState.Remove("AccidentDateTimeLuggage");

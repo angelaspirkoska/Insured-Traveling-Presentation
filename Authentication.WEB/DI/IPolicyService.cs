@@ -27,6 +27,6 @@ namespace InsuredTraveling.DI
         IQueryable<SelectListItem> GetAll();
         travel_policy GetPolicyClientsInfo(int PolicyID);
         insured GetPolicyHolderByPolicyID(int PolicyID);
-        List<travel_policy> GetPoliciesByCountryAndType(int? TypePolicy, int? Country);
+        List<travel_policy> GetPoliciesByCountryAndType(int? TypePolicy, int? Country, string UserId);
     }
 }

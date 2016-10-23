@@ -51,7 +51,7 @@ namespace InsuredTraveling.DI
 
         public string GetUserIdByUsername(string Username)
         {
-           return _db.aspnetusers.Where(x => x.UserName == Username).Select(x => x.Id).First();
+            return _db.aspnetusers.Where(x => x.UserName == Username).Select(x => x.Id).FirstOrDefault();
         }
 
         public string GetUserSsnByUsername(string username)

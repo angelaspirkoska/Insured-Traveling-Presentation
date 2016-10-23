@@ -36,6 +36,14 @@ namespace InsuredTraveling.DI
            return _db.first_notice_of_loss.ToList();
         }
 
+        public List<first_notice_of_loss> GetFNOLBySearchValues(string PolicyNumber, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance)
+        {
+            return _db.first_notice_of_loss.ToList();
+                //Where(x=>(x.travel_policy.Policy_Number == PolicyNumber || PolicyNumber == null) &&
+                                                //     (x.travel_policy.insured.Name == clientName &&
+                                               //      x.travel_policy.policy_insured.Where()
+        }
+
         public first_notice_of_loss GetById(int id)
         {
            return _db.first_notice_of_loss.Where(x => x.ID == id).ToArray().First();

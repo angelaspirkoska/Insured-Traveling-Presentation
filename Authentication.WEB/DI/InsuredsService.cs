@@ -48,5 +48,18 @@ namespace InsuredTraveling.DI
             
             return -1;
         }
+
+        public List<insured> GetInsuredBySearchValues(string name, string lastname, string embg, string address, string email, string postal_code, string phone, string city, string passport)
+        {
+            return _db.insureds.Where(x => (x.Name.Contains(name) || String.IsNullOrEmpty(name)) &&
+                                           (x.Lastname.Contains(lastname) || String.IsNullOrEmpty(lastname)) &&
+                                           (x.SSN.Contains(embg) || String.IsNullOrEmpty(embg)) &&
+                                           (x.Address.Contains(address) || String.IsNullOrEmpty(address)) &&
+                                           (x.Email.Contains(email) || String.IsNullOrEmpty(email)) &&
+                                           (x.Postal_Code.Contains(postal_code) || String.IsNullOrEmpty(postal_code)) &&
+                                           (x.Phone_Number.Contains(phone) || String.IsNullOrEmpty(phone)) &&
+                                           (x.City.Contains(city) || String.IsNullOrEmpty(city)) &&
+                                           (x.Passport_Number_IdNumber.Contains(passport) || String.IsNullOrEmpty(passport))).ToList();
+        }
     }
 }

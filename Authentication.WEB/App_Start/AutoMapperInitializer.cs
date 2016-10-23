@@ -215,6 +215,20 @@ namespace InsuredTraveling.App_Start
                 dst.HealthInsurance = healthInsurance != null ? "Da" : "Ne";
                 dst.LuggageInsurance = luggageInsurance != null ? "Da" : "Ne";
             });
+
+            Mapper.CreateMap<insured, SearchClientsViewModel>().AfterMap((src, dst) =>
+            {
+                dst.ID = src.ID;
+                dst.Name = src.Name;
+                dst.Lastname = src.Lastname;
+                dst.SSN = src.SSN;
+                dst.Address = src.Address;
+                dst.Passport_Number_IdNumber = src.Passport_Number_IdNumber;
+                dst.Phone_Number = src.Phone_Number;
+                dst.Postal_Code = src.Postal_Code;
+                dst.City = src.City;
+                dst.Email = src.Email;
+            });
         }
     }
 }
