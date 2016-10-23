@@ -17,5 +17,6 @@ namespace InsuredTraveling.ViewModels
         public string Address { get; set; }
         public string Passport_Number_IdNumber { get; set; }
         public string Email { get; set; }
+
     }
 }
