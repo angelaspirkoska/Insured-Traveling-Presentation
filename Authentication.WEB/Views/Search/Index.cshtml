@@ -92,7 +92,6 @@
         <br />
         <br />
         <br />
-
         <div class="row">
             <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePolicies">
                 <thead>
@@ -112,6 +111,26 @@
                 <tbody id="searchResultPolycies"></tbody>
             </table>
         </div>
+        <br />
+        <br />
+        <div class="row">
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableFNOLPolicies">
+                <thead>
+                    <tr>
+                        <th>Број на полиса</th>
+                        <th>Име и презиме на осигуреник</th>
+                        <th>Име и презиме на оштетениот</th>
+                        <th>Сродство на оштетениот со осигуреникот</th>
+                        <th>Вкупна цена на трошоците</th>
+                        <th>Датум на пријавување</th>
+                        <th>Здраствено осигурување ДА/НЕ</th>
+                        <th>Осигурување на багаж ДА/НЕ</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 
     <!--Table search result of clients -->
@@ -121,14 +140,41 @@
         <div class="row">
             <form method="post" style="margin-left:20px;">
                 <div class="row">
-                    <input type="search" name="name" class="input-sm" placeholder="Search by name" id="name" />
-                    <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" id="embg" />
-                    <input type="search" name="address" class="input-sm" placeholder="Search by Address" id="address" />
-                    <input type="search" name="city" class="input-sm" placeholder="Search by City" id="city" />
-                    <input type="search" name="postal_code" class="input-sm" placeholder="Search by postal code" id="postal_code" />
-                    <input type="search" name="phone" class="input-sm" placeholder="Search by phone number" id="phone" />
-                    <input type="search" name="email" class="input-sm" placeholder="Search by email" id="email" />
-                    <input type="search" name="passport" class="input-sm" placeholder="Search by passport" id="passport" />
+                    <div class="form-inline row">
+                        <div class="form-group col-sm-3">
+                            <input type="search" name="name" class="input-sm" placeholder="Search by name" id="name" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <input type="search" name="lastname" class="input-sm" placeholder="Search by Last Name" id="lastname" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" id="embg" />
+                        </div>
+                    </div>
+                    <div class="form-inline row">
+                        <div class="form-group col-sm-3">
+                            <input type="search" name="address" class="input-sm" placeholder="Search by Address" id="address" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <input type="search" name="city" class="input-sm" placeholder="Search by City" id="city" />
+                        </div>
+                    </div>
+                    <div class="form-inline row">
+                        <div class="form-group col-sm-3">
+                            <input type="search" name="postal_code" class="input-sm" placeholder="Search by postal code" id="postal_code" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <input type="search" name="phone" class="input-sm" placeholder="Search by phone number" id="phone" />
+                        </div>
+                    </div>
+                    <div class="form-inline row">
+                        <div class="form-group col-sm-3">
+                            <input type="search" name="email" class="input-sm" placeholder="Search by email" id="email" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <input type="search" name="passport" class="input-sm" placeholder="Search by passport" id="passport" />
+                        </div>
+                    </div>
                 </div>
                 <br />
                 <br />
@@ -151,8 +197,8 @@
             <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableClients">
                 <thead>
                     <tr>
-                        <th>Број на клиент</th>
-                        <th>Име и презиме</th>
+                        <th>Име</th>
+                        <th>Презиме</th>
                         <th>Матичен број</th>
                         <th>Улица</th>
                         <th>Град</th>
@@ -171,7 +217,7 @@
     <div class="container" id="searchFNOL">
         <br />
         <br />
-        <div class="row">
+        <div class="row" id="searchFNOLAttributes">
             <form method="post" style="margin-left: 20px">
                 <div class="row">
                     <div class="form-inline row">
@@ -192,48 +238,48 @@
                     </div>
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
-                            <label for="startDate">Име на осигуреник:</label>
+                            <label for="clientName">Име на осигуреник:</label>
                             <input type="search" name="clientName" class="input-sm" placeholder="Search by name" id="clientName" />
                         </div>
                         <div class="form-group col-sm-3">
-                            <label for="endDate">Презиме на осигуреник:</label>
+                            <label for="clientLastName">Презиме на осигуреник:</label>
                             <input type="search" name="clientLastName" class="input-sm" placeholder="Search by last name" id="clientLastName" />
                         </div>
                     </div>
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
-                            <label for="startDate">Име на оштетеник:</label>
+                            <label for="insuredName">Име на оштетеник:</label>
                             <input type="search" name="insuredName" class="input-sm" placeholder="Search by name" id="insuredName" />
                         </div>
                         <div class="form-group col-sm-3">
-                            <label for="endDate">Презиме на оштетеник:</label>
+                            <label for="insuredLastName">Презиме на оштетеник:</label>
                             <input type="search" name="insuredLastName" class="input-sm" placeholder="Search by last name" id="insuredLastName" />
                         </div>
                     </div>
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
-                            <label for="startDate">Вкупна цена на трошоци:</label>
+                            <label for="totalPrice">Вкупна цена на трошоци:</label>
                             <input type="search" name="totalPrice" class="input-sm" placeholder="Search by Total Cost" id="totalPrice" />
                         </div>
                         <div class="form-group col-sm-3">
-                             <input type="radio" name="typeInsurance" value="healthInsurance"> Здравествено осигурување<br>
-                             <input type="radio" name="typeInsurance" value="luggageInsurance">Осигурување на багаж<br>
+                            <input type="radio" name="typeInsurance" value="healthInsurance" id="healthInsurance"> Здравествено осигурување<br>
+                            <input type="radio" name="typeInsurance" value="luggageInsurance" id="luggageInsurance">Осигурување на багаж<br>
                         </div>
                     </div>
-               </div>
-                    <br />
-                    <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="Search" onclick="SearchFNOL()" type="button" />
-                    <br />
+                </div>
+                <br />
+                <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="Search" onclick="SearchFNOL()" type="button" />
+                <br />
             </form>
             <div class="row">
                 <div class="col-md-offset-11 hover-tooltip">
-                    <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="Додади нова штета" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                    <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="Додади нова штета" onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
                 </div>
             </div>
         </div>
         <br />
         <br />
-        <br />   
+        <br />
         <div class="row">
             <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableFNOL">
                 <thead>
@@ -252,264 +298,6 @@
                 <tbody></tbody>
             </table>
         </div>
-        <div class="row" style="margin-top:100px;">
-            <form class="form-horizontal" id="HealthInsuranceForm" hidden>
-                <fieldset>
-                    <legend class="text-center">Пријава за штета од патничко осигурување</legend>
-                    <div class="row container">
-                        <header class="well">Податоци за осигуреник</header>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Осигуреник:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="InsuredName" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Адреса:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="insuredAddress" readonly value="">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Телефон:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="InsuredPhone" readonly>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">ЕМБГ:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="InsuredEmbg" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Трансакциона с-ка:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="insuredTransaction" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Депонент банка:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="InsuredDeponent" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row container">
-                        <header class="well">Корисник на осигурувањето</header>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Оштетен:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="ClaimantName" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Адреса:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="ClaimantAddress" readonly value="">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Телефон:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="ClaimantPhone" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Сродство со осигуреникот::</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="ClaimantInsuredRelation" readonly>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">ЕМБГ:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="ClaimantEmbg" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Трансакциона с-ка:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="ClaimantTransaction" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Депонент банка:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="ClaimantDeponent" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row container">
-                        <header class="well">Податоци за патувањето</header>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Место на патуање:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="TravelLand" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Превозно средство:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="TypeTransport" readonly value="">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Датум и време на заминување:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="DateTimeTripStart" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Датум и време на враќање:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="DateTimeTripEnd" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row container" hidden id="healthInsurance">
-                        <header class="well">Податоци за штетата - Здраствено осигурување</header>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Датум, време и место на незгодата:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="DateTimePlaceLoss" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Прв контакт со докторот и негови податоци:</label>
-                                <div class="col-lg-8">
-                                    <textarea type="text" class="form-control input-sm" id="FirstContactWithDoctor" readonly value=""> </textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Опис на болеста и дали претходно сте биле лекувани од истата:</label>
-                                <div class="col-lg-8">
-                                    <textarea type="text" class="form-control input-sm" id="Disease_description" readonly></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Документи приложени како доказ:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="DocumentsOfProof" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Во случај на тешка повреда или смрт, кој орган составил записник и детален опис на настанот :</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="Additional_info" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row container" hidden id="luggageInsurance">
-                        <header class="well">Податоци за штетата - Осигурување на багаж</header>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Датум на настанот:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="Date_of_loss" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Место и опис на настанот:</label>
-                                <div class="col-lg-8">
-                                    <textarea type="text" class="form-control input-sm" id="Place_desc_of_loss" readonly value=""> </textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Детален опис на настанот:</label>
-                                <div class="col-lg-8">
-                                    <textarea type="text" class="form-control input-sm" id="Detailed_description" readonly></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Место на пријавување:</label>
-                                <div class="col-lg-8">
-                                    <textarea type="text" class="form-control input-sm" id="Place_reported" readonly></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Опис на украдените/оштетени предмети и нивната вредност:</label>
-                                <div class="col-lg-8">
-                                    <textarea type="text" class="form-control input-sm" id="Desc_of_stolendamaged_things" readonly></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Документи приложени како доказ :</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="DocumentsOfProof2" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Време на пристигнување на аеродром :</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="AirportArrivalTime" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Време на предавање на багаж :</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="LuggageDropTime" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row container">
-                        <header class="well">Податоци за трошоци</header>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Фактури како доказ:</label>
-                                <div class="col-lg-8">
-                                    <textarea type="text" class="form-control input-sm" id="Additional_documents_handed" readonly></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Вкупна вредност на сите трошоци:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="AllCosts" readonly value="">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Датум на пријавување:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control input-sm" id="Date" readonly>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-
-        </div>
-
     </div>
 </div>
 
@@ -520,11 +308,12 @@
         $("#searchClients").hide();
         $("#searchFNOL").hide();
         $("#tableClients").DataTable().destroy();
-        var table = $("#tableClients").DataTable();
+        $("#tableClients").DataTable();
         $("#tablePolicies").DataTable().destroy();
         $("#tablePolicies").DataTable();
         $("#tableFNOL").DataTable().destroy();
         $("#tableFNOL").DataTable();
+        $("#tableFNOLPolicies").css("display", "none");
     });
 
     $("#DateI").focusout(function () {
@@ -546,6 +335,7 @@
         $("#searchFNOL").hide();
         $("#searchClients").show();
         $("#polycies").removeAttr("class");
+        $("#clients").attr("class", "active");
         $("#first_notice_of_loss").removeAttr("class");
         $("#clients").attr("class", "active");
     };
@@ -557,6 +347,7 @@
         $("#clients").removeAttr("class");
         $("#first_notice_of_loss").removeAttr("class");
         $("#polycies").attr("class", "active");
+        $("#tableFNOLPolicies").css("display", "none");
     };
 
 
@@ -564,8 +355,8 @@
         $("#searchPolycies").hide();
         $("#searchFNOL").show();
         $("#searchClients").hide();
-        $("#clients").removeAttr("class");
         $("#polycies").removeAttr("class");
+        $("#clients").removeAttr("class");
         $("#first_notice_of_loss").attr("class", "active");
     };
 
@@ -642,134 +433,83 @@
         $('#tablePolicies tbody').on('click', 'td .loss', function () {
             var $row = $(this).closest('td');
             var policy_num = $row.children().attr('id');
-            CreateFNOLTableByPolicyNumber(policy_num);
+            CreateFNOLTablePoliciesByPolicyNumber(policy_num);
 
         });
     };
 
-    function CreateFNOLTableByPolicyNumber(policy_number) {
-        $("#tableFNOL").DataTable().destroy();
-        var table = $("#tableFNOL").DataTable({
+    function CreateFNOLTablePoliciesByPolicyNumber(policy_number) {
+        $("#tableFNOLPolicies").DataTable().destroy();
+        $("#tableFNOLPolicies").DataTable({
             dom: "Bfrtip",
             ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFNOLByPolicyNumber?number=" + policy_number,
             columns: [
-                    { data: "ID" },
                     { data: "PolicyNumber" },
                     { data: "InsuredName" },
                     { data: "ClaimantPersonName" },
                     { data: "Claimant_insured_relation" },
-                    { data: "AdditionalDocumentsHanded" },
                     { data: "AllCosts" },
                     { data: "Date" },
                     { data: "HealthInsurance" },
                     { data: "LuggageInsurance" },
-                     {
-                         data: "ID",
-                         "render": function (data, type, row, meta) {
-                             if (type === 'display') {
-                                 var value = data;
-                                 return $('<a>')
-                                     .attr('href', '/FirstNoticeOfLoss/View?id=' + data)
-                                     .attr('target', '_blank')
-                                     .attr('class', 'lossDetails')
-                                     .text("Детали")
-                                     .wrap('<div></div>')
-                                     .parent()
-                                     .html();
-                             } else {
-                                 return data;
-                             }
-                         }
-                     },
-                  ],
-            select: true
-        });
-
-        $("#searchFNOL").css("display", "block");
-        $("#searchFNOLAttributes").css("display", "none");
-    }
-
-    function CreateFNOLTable() {
-        $("#tableFNOL").DataTable().destroy();
-        var table = $("#tableFNOL").DataTable({
-            dom: "Bfrtip",
-            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFNOL",
-            columns: [
-                { data: "ID" },
-                { data: "PolicyNumber" },
-                { data: "InsuredName" },
-                { data: "ClaimantPersonName" },
-                { data: "Claimant_insured_relation" },
-                { data: "AdditionalDocumentsHanded" },
-                { data: "AllCosts" },
-                { data: "Date" },
-                { data: "HealthInsurance_Y/N" },
-                { data: "LuggageInsurance_Y/N" }
+                    {
+                        data: "ID",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                var value = data;
+                                return $('<a>')
+                                    .attr('href', '/FirstNoticeOfLoss/View?id=' + data)
+                                    .attr('target', '_blank')
+                                    .attr('class', 'lossDetails')
+                                    .text("Детали")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    },
             ],
             select: true
         });
-    }
+        $("#tableFNOLPolicies").css("display", "block");
+    };
+
     function SearchFNOL() {
-
-        CreateFNOLTable();
-
-        $('#tableFNOL tbody').on('click', 'tr', function () {
-            $("#HealthInsuranceForm").hide();
-            var $row = $(this).closest('tr');
-            var LossID = table.row($row).data();
-            console.log(LossID.ID);
-            $.ajax({
-                type: "POST",
-                url: "Search/FNOLDetails?lossID=" + LossID.ID,
-                contentType: "json",
-                success: function (result) {
-                    console.log((JSON.parse(result)).data[0].AllCosts);
-                    var fnol = (JSON.parse(result)).data[0];
-                    $("#InsuredName").attr("value", fnol.InsuredName);
-                    $("#insuredAddress").attr("value", fnol.InsuredAddress);
-                    $("#InsuredPhone").attr("value", fnol.InsuredPhone);
-                    $("#InsuredEmbg").attr("value", fnol.InsuredEmbg);
-                    $("#InsuredTransaction").attr("value", fnol.InsuredTransaction);
-                    $("#InsuredDeponent").attr("value", fnol.InsuredDeponentBank);
-
-                    $("#ClaimantName").attr("value", fnol.ClaimantPersonName);
-                    $("#ClaimantAddress").attr("value", fnol.ClaimantPersonAddress);
-                    $("#ClaimantPhone").attr("value", fnol.ClaimantPersonPhone);
-                    $("#ClaimantEmbg").attr("value", fnol.ClaimantPersonEMBG);
-                    $("#ClaimantTransaction").attr("value", fnol.ClaimantPersonTransaction);
-                    $("#ClaimantDeponent").attr("value", fnol.ClaimantPersonDeponentBank);
-                    $("#ClaimantInsuredRelation").attr("value", fnol.ClaimantInsuredRelation);
-
-                    $("#TravelLand").attr("value", fnol.LandTrip);
-                    $("#TypeTransport").attr("value", fnol.TypeTransport);
-                    $("#DateTimeTripStart").attr("value", fnol.TripStartDate);
-                    $("#DateTimeTripEnd").attr("value", fnol.TripEndDate);
-
-                    $("#Additional_documents_handed").attr("value", fnol.AdditionalDocumentsHanded);
-                    $("#AllCosts").attr("value", fnol.AllCosts);
-                    $("#Date").attr("value", fnol.Date);
-
-                    if (fnol.HealthInsurance_YN == "Da") {
-                        $("#DateTimePlaceLoss").attr("value", fnol.Date_of_accsident);
-                        $("#FirstContactWithDoctor").attr("value", fnol.Doctor_data);
-                        $("#Disease_description").attr("value", fnol.Disease_description);
-                        $("#DocumentsOfProof").attr("value", fnol.DocumentsOfProof);
-                        $("#Additional_info").attr("value", fnol.Additional_info);
-                        $("#healthInsurance").show();
-                    } else {
-                        $("#Date_of_loss").attr("value", fnol.Date_of_loss);
-                        $("#Place_desc_of_loss").attr("value", fnol.Place_desc_of_loss);
-                        $("#Detailed_description").attr("value", fnol.Detailed_description);
-                        $("#Place_reported").attr("value", fnol.Place_reported);
-                        $("#Desc_of_stolendamaged_things").attr("value", fnol.Desc_of_stolen_damaged_things);
-                        $("#AirportArrivalTime").attr("value", fnol.AirportArrivalTime);
-                        $("#LuggageDropTime").attr("value", fnol.LuggageDropTime);
-                        $("#DocumentsOfProof2").attr("value", fnol.Documents_proof2);
-                        $("#luggageInsurance").show();
-                    }
-                    $("#HealthInsuranceForm").show();
-                }
-            });
+        $("#tableFNOL").DataTable().destroy();
+        $("#tableFNOL").DataTable({
+            dom: "Bfrtip",
+            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFNOL?policyNum" + $("#PolicyNumber").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked'),
+            columns: [
+                    { data: "PolicyNumber" },
+                    { data: "InsuredName" },
+                    { data: "ClaimantPersonName" },
+                    { data: "Claimant_insured_relation" },
+                    { data: "AllCosts" },
+                    { data: "Date" },
+                    { data: "HealthInsurance" },
+                    { data: "LuggageInsurance" },
+                    {
+                        data: "ID",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                var value = data;
+                                return $('<a>')
+                                    .attr('href', '/FirstNoticeOfLoss/View?id=' + data)
+                                    .attr('target', '_blank')
+                                    .attr('class', 'lossDetails')
+                                    .text("Детали")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    },
+            ],
+                select: true
         });
     };
 
@@ -778,27 +518,106 @@
         $("#tableClients").DataTable().destroy();
         var table = $("#tableClients").DataTable({
             dom: "Bfrtip",
-            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetUsers?name=" + $("#name").val() + "&embg=" + $("#embg").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() + "&phone=" + $("#phone").val() + "&postal_code=" + $("#postal_code").val() + "&passport=" + $("#passport").val() + "&city=" + $("#city").val(),
+            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetUsers?name=" + $("#name").val() + "&lastname" + $("#lastname").val() + "&embg=" + $("#embg").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() + "&phone=" + $("#phone").val() + "&postal_code=" + $("#postal_code").val() + "&passport=" + $("#passport").val() + "&city=" + $("#city").val(),
             columns: [
-    { data: "Id" },
-    { data: "FirstName" },
-    { data: "EMBG" },
-    { data: "Address" },
-    { data: "City" },
-    { data: "PostalCode" },
-    { data: "PhoneNumber" },
-    { data: "Email" },
-    { data: "PassportNumber" }
-    ],
-    select: true
-    });
+                        { data: "Name" },
+                        { data: "Lastname" },
+                        { data: "SSN" },
+                        { data: "Address" },
+                        { data: "City" },
+                        { data: "Postal_Code" },
+                        { data: "Phone_Number" },
+                        { data: "Email" },
+                        { data: "Passport_Number_IdNumber" },
+                        {
+                            data: "ID",
+                            "render": function (data, type, row, meta) {
+                                if (type === 'display') {
+                                    return $('<a>')
+                                        .attr('href', 'javascript:;')
+                                        .attr('class', 'clients')
+                                        .attr('id', data)
+                                        .text("Полиси за осигуреник")
+                                        .wrap('<div></div>')
+                                        .parent()
+                                        .html();
+                                } else {
+                                    return data;
+                                }
+                            }
+                        },
+                        {
+                            data: "ID",
+                            "render": function (data, type, row, meta) {
+                                if (type === 'display') {
+                                    return $('<a>')
+                                        .attr('href', 'javascript:;')
+                                        .attr('class', 'holders')
+                                        .attr('id', data)
+                                        .text("Полиси за договорувач")
+                                        .wrap('<div></div>')
+                                        .parent()
+                                        .html();
+                                } else {
+                                    return data;
+                                }
+                            }
+                        },
+            ],
+            select: true
+        });
+        $('#tableClients tbody').on('click', 'td .clients', function () {
+            var $row = $(this).closest('td');
+            var policy_num = $row.children().attr('id');
+            CreateFNOLTablePoliciesByPolicyNumber(policy_num);
 
-    $('#tableClients tbody').on('click', 'tr', function () {
-        var $row = $(this).closest('tr');
-        var data = table.row($row).data();
-        console.log(data.Id);
-    });
+        });
+
+        $('#tableClients tbody').on('click', 'td .holders', function () {
+            var $row = $(this).closest('td');
+            var policy_num = $row.children().attr('id');
+            CreateFNOLTablePoliciesByPolicyNumber(policy_num);
+
+        });
     };
+
+    function CreatePoliciesByPolicyNumber(policy_number) {
+        $("#tableFNOLPolicies").DataTable().destroy();
+        $("#tableFNOLPolicies").DataTable({
+            dom: "Bfrtip",
+            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFNOLByPolicyNumber?number=" + policy_number,
+            columns: [
+                    { data: "PolicyNumber" },
+                    { data: "InsuredName" },
+                    { data: "ClaimantPersonName" },
+                    { data: "Claimant_insured_relation" },
+                    { data: "AllCosts" },
+                    { data: "Date" },
+                    { data: "HealthInsurance" },
+                    { data: "LuggageInsurance" },
+                    {
+                        data: "ID",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                var value = data;
+                                return $('<a>')
+                                    .attr('href', '/FirstNoticeOfLoss/View?id=' + data)
+                                    .attr('target', '_blank')
+                                    .attr('class', 'lossDetails')
+                                    .text("Детали")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    },
+            ],
+        select: true
+    });
+            $("#tableFNOLPolicies").css("display", "block");
+    }
 </script>
 
 
