@@ -126,5 +126,14 @@ namespace InsuredTraveling.DI
             return _db.travel_policy.Where(x => x.Policy_HolderID == holderId).ToList();
         }
 
+        public IQueryable<SelectListItem> GetPoliciesByUserId(string userID)
+        {
+            return _db.travel_policy.Where(x => x.Created_By == userID).Select(p => new SelectListItem
+            {
+                Text = p.Policy_Number,
+                Value = p.ID.ToString()
+            });
+        }
+
     }
 }

@@ -130,6 +130,13 @@ namespace Authentication.WEB.Controllers
             return new ViewAsPdf("Print", pat);
         }
 
+        public ActionResult PolicyDetails(string id)
+        {
+            PaymentModel pat = new PaymentModel();
+            pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
+            return View("Print", pat);
+        }
+
         private async Task<List<SelectListItem>> GetTypeOfPolicy()
         {           
             return await _pts.GetAll().ToListAsync();

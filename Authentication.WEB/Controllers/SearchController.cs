@@ -162,13 +162,13 @@ namespace InsuredTraveling.Controllers
             return JSONObject;
         }
 
-        public JObject GetFNOL(string PolicyNumber, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance)
+        public JObject GetFNOL(string PolicyNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance)
         {
-            var fnol = _fnls.GetAll();
+            var fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
             var JSONObject = new JObject();
             var dataJSON = new JArray();
 
-            var searchModel = fnol.Select(Mapper.Map<first_notice_of_loss, SearchFNOLViewModel>).ToList();
+            var searchModel = fnol.Select(Mapper.Map<first_notice_of_loss, SearchFNOLViewModel>).Distinct().ToList();
             var array = JArray.FromObject(searchModel.ToArray());
             JSONObject.Add("data", array);
             return JSONObject;
@@ -343,7 +343,10 @@ namespace InsuredTraveling.Controllers
 
         public async Task<List<SelectListItem>> GetAllPolicies()
         {
-            var policies = _ps.GetAll();
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            var logUser = _us.GetUserIdByUsername(username);
+
+            var policies = _ps.GetPoliciesByUserId(logUser);
             return await policies.ToListAsync();
         }
     }

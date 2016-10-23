@@ -9,7 +9,7 @@ namespace InsuredTraveling.DI
     public interface IFirstNoticeOfLossService
     {
         List<first_notice_of_loss> GetAll();
-        List<first_notice_of_loss> GetFNOLBySearchValues(string PolicyNumber, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance);
+        List<first_notice_of_loss> GetFNOLBySearchValues(string PolicyNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance);
         luggage_insurance_info isHealthInsurance(int lossId);
         first_notice_of_loss GetById(int id);
         first_notice_of_loss[] GetByInsuredUserId(string id);
