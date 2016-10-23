@@ -69,7 +69,7 @@ namespace Authentication.WEB.Controllers
         public ActionResult Index(Policy p)
         {
             PaymentModel model = new PaymentModel();
-
+            p.isMobile = false;
             var PolicyId = SavePolicyHelper.SavePolicy(p, _ps, _us, _iss, _pis, _acs);
 
            var policy = _ps.GetPolicyById(PolicyId);

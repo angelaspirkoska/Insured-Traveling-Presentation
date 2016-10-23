@@ -21,8 +21,9 @@ namespace InsuredTraveling.DI
 
         public string CreatePolicyNumber()
         {
-            return _db.travel_policy.OrderByDescending(p => p.ID).Select(r => r.Policy_Number).FirstOrDefault() + 1;
+            return (Int64.Parse(_db.travel_policy.OrderByDescending(p => p.ID).Select(r => r.Policy_Number).FirstOrDefault()) + 1).ToString();
         }
+
 
         public List<travel_policy> GetAllPolicies()
         {

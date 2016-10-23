@@ -11,9 +11,10 @@ namespace InsuredTraveling.Models
         {
             Policies = new List<SelectListItem>();
         }
+        public string username { get; set; }
         public int Id { get; set; }
         public bool? ShortDetailed { get; set; }
-        public bool? WebMobile { get; set; }
+        public bool isMobile { get; set; }
 
         public int PolicyId { get; set; }
 
@@ -40,6 +41,7 @@ namespace InsuredTraveling.Models
         public bool PolicyHolderExistentBankAccount { get; set; }
         public bool PolicyHolderForeignBankAccount { get; set; }
         public int PolicyHolderForeignBankAccountId { get; set; }
+
         [Required(ErrorMessage = "Полето е задолжително")]
         public string PolicyHolderBankAccountNumber  { get; set; }
         [Required(ErrorMessage = "Полето е задолжително")]
@@ -60,6 +62,7 @@ namespace InsuredTraveling.Models
         public bool ClaimantExistentBankAccount { get; set; }
         public bool ClaimantForeignBankAccount { get; set; }
         public int ClaimantForeignBankAccountId { get; set; }
+
         [Required(ErrorMessage = "Полето е задолжително")]
         public string ClaimantBankAccountNumber { get; set; }
         [Required(ErrorMessage = "Полето е задолжително")]

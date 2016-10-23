@@ -100,7 +100,18 @@ namespace InsuredTraveling.Helpers
             firstNoticeOfLossEntity.Transport_means = firstNoticeOfLossViewModel.TransportMeans;
             firstNoticeOfLossEntity.Total_cost = firstNoticeOfLossViewModel.TotalCost;
             firstNoticeOfLossEntity.CreatedDateTime = DateTime.Now;
-            string username = System.Web.HttpContext.Current.User.Identity.Name;
+
+            string username;
+            if (firstNoticeOfLossViewModel.isMobile)
+            {
+                username = firstNoticeOfLossViewModel.username;
+            }
+            else
+            {
+                 username = System.Web.HttpContext.Current.User.Identity.Name;
+            }
+           
+
             firstNoticeOfLossEntity.CreatedBy = _us.GetUserIdByUsername(username);
             firstNoticeOfLossEntity.Message = "";
 

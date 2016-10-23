@@ -11,7 +11,11 @@
             }
             <br />
             <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa"> Нова полиса</button>
-            <button onclick="@("window.location.href='" + @Url.Action("Index", "News") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient"> Новости</button>
+            @if (r.IsUser("admin") || r.IsUser("broker"))
+            {
+                <button onclick="@("window.location.href='" + @Url.Action("Index", "News") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient"> Новости</button>
+            }
+
             <button onclick="@("window.location.href='" + @Url.Action("Index","Search") + "'")" class="btn btn-success btn-material-design-default">Пребарај</button>
             <button onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'")" class="btn btn-success btn-material-design-default">Пријави штета</button>
             @if (r.IsUser("admin"))

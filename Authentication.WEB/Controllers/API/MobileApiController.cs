@@ -264,7 +264,7 @@ namespace InsuredTraveling.Controllers.API
 
                 f1.Message = f.Message;
                 f1.travel_policy.Policy_Number = f.PolicyNumber.ToString();             
-                f1.Web_Mobile = f.WebMobile;
+                f1.Web_Mobile = f.isMobile;
 
                 try
                 {

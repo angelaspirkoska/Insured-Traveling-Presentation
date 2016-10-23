@@ -90,7 +90,7 @@ namespace InsuredTraveling.App_Start
                 //dst.AllCosts = src.valueExpenses;
                 ////dst.LuggageInsurance_Y_N = src.LuggageInsurance;
                 //dst.HealthInsurance_Y_N = src.HealthInsurance;
-                dst.Web_Mobile = src.WebMobile;
+                dst.Web_Mobile = src.isMobile;
                 dst.Short_Detailed = src.ShortDetailed;
                 dst.health_insurance = null;
                 dst.luggage_insurance = null;
@@ -113,7 +113,7 @@ namespace InsuredTraveling.App_Start
                 dst.Transport_means = src.TransportMeans;
                 dst.Additional_infoID = src.AdditionalInfoId;
                 dst.Total_cost = src.TotalCost;
-                dst.Web_Mobile = src.WebMobile;
+                dst.Web_Mobile = src.isMobile;
                 dst.Message = src.Message;
                 dst.Short_Detailed = src.ShortDetailed;
                 

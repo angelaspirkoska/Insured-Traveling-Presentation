@@ -10,6 +10,10 @@ namespace InsuredTraveling.Models
 
         public int PaymentStatys = 0;
 
+        public bool isMobile { get; set; }
+
+        public string username { get; set; }
+
         [Display(Name = "Курс")]
         public int? Exchange_RateID { get; set; }
 
@@ -69,49 +73,49 @@ namespace InsuredTraveling.Models
         public DateTime? Date_Cancellation { get; set; }
 
         //Podatoci za dogovoruvac (policyHolder)
-        
+
         public bool IsSamePolicyHolderInsured { get; set; }
         public bool IsExistentPolicyHolder { get; set; }
         public int PolicyHolderId { get; set; }
 
 
-        
+
         [Display(Name = "Име: ")]
         public string PolicyHolderName { get; set; }
 
-       
+
         [Display(Name = "Презиме: ")]
         public string PolicyHolderLastName { get; set; }
 
-       
+
         [Display(Name = "Адреса: ")]
         public string PolicyHolderAddress { get; set; }
 
-        
+
         [Display(Name = "Email: ")]
         public string PolicyHolderEmail { get; set; }
 
-       
+
         [Display(Name = "Дата на раѓање: ")]
         public DateTime PolicyHolderBirthDate { get; set; }
 
-       
+
         [Display(Name = "Град: ")]
         public string PolicyHolderCity { get; set; }
 
-       
+
         [Display(Name = "Поштенски број: ")]
         public string PolicyHolderPostalCode { get; set; }
 
-       
+
         [Display(Name = "Матичен број:")]
         public string PolicyHolderSSN { get; set; }
 
-      
+
         [Display(Name = "Број на пасош/лична карта: ")]
         public string PolicyHolderPassportNumber_ID { get; set; }
 
-       
+
         [Display(Name = "Телефонски број: ")]
         public string PolicyHolderPhoneNumber { get; set; }
 
@@ -156,6 +160,9 @@ namespace InsuredTraveling.Models
         [Required(ErrorMessage = "Полето е задолжително")]
         [Display(Name = "Email: ")]
         public string Email { get; set; }
+
+        public int AdditionalChargeId1 { get; set; }
+        public int AdditionalChargeId2 { get; set; }
 
         public List<insured> insureds { get; set; }
         public List<additional_charge> additional_charges {get;set;}

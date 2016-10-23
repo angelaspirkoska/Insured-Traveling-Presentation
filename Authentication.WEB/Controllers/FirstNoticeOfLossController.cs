@@ -59,7 +59,11 @@ namespace InsuredTraveling.Controllers
         {
             var policies = ShowUserData();
             ViewBag.Policies = new SelectList(policies, "Value", "Text", firstNoticeOfLossViewModel.PolicyId.ToString());
-            //firstNoticeOfLossViewModel.isMobile = false
+            //firstNoticeOfLossViewModel.isMobile = false;
+            ModelState.Remove("PolicyHolderForeignBankAccountId");
+            ModelState.Remove("ClaimantForeignBankAccountId");
+
+
             if (firstNoticeOfLossViewModel.IsHealthInsurance)
             {
                 ModelState.Remove("AccidentDateTimeLuggage");
