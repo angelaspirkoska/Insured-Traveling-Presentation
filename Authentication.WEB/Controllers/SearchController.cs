@@ -162,9 +162,20 @@ namespace InsuredTraveling.Controllers
             return JSONObject;
         }
 
-        public JObject GetFNOL(string PolicyNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance)
+        public JObject GetFNOL(string PolicyNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance, string DateAdded, string operatorDateAdded)
         {
             var fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
+            if (!String.IsNullOrEmpty(DateAdded))
+            {
+                DateTime dateAdded = Convert.ToDateTime(DateAdded);
+                switch (operatorDateAdded)
+                {
+                    case "<": fnol = fnol.Where(x => x.additional_info.Datetime_accident < dateAdded).ToList(); break;
+                    case "=": fnol = fnol.Where(x => x.additional_info.Datetime_accident == dateAdded).ToList(); break;
+                    case ">": fnol = fnol.Where(x => x.additional_info.Datetime_accident > dateAdded).ToList(); break;
+                    default: break;
+                }
+            }
             var JSONObject = new JObject();
             var dataJSON = new JArray();
 
