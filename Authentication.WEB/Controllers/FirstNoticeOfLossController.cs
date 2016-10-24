@@ -125,6 +125,26 @@ namespace InsuredTraveling.Controllers
             {
                 var data = _fis.GetById(Convert.ToInt32(id));
                 model = Mapper.Map<first_notice_of_loss, FirstNoticeOfLossReportViewModel>(data);
+
+                var allInvoices = _fis.GetInvoiceDocumentName(model.Id);
+                foreach (var invoice in allInvoices)
+                {
+                    var file = new FileDescriptionViewModel();
+                    file.FileName = invoice;
+                    file.FilePath = @"~/DocumentsFirstNoticeOfLoss/Invoices/" + file.FileName;
+                    model.Invoices.Add(file);
+                }
+
+                var isHealthInsurance = _fis.IsHealthInsuranceByAdditionalInfoId(data.Additional_infoID);
+                var allDoc = _fis.GetHealthLuggageDocumentName(model.Id);
+                foreach (var doc in allDoc)
+                {
+                    var file = new FileDescriptionViewModel();
+                    file.FileName = doc;
+                    file.FilePath = isHealthInsurance ? @"~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + file.FileName : @"~/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + file.FileName;
+                    model.Invoices.Add(file);
+                }
+
             }
             return View(model);
         }

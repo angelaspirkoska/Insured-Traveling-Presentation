@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InsuredTraveling.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
@@ -117,6 +118,8 @@ namespace InsuredTraveling.Models
         public TimeSpan? LugaggeCheckingTime { get; set; }
 
         //documents?
+        public List<FileDescriptionViewModel> Invoices { get; set; }
+        public List<FileDescriptionViewModel> InsuranceInfoDoc { get; set; }
 
         //HealthInsuranceInfo
         [Required(ErrorMessage = "Полето е задолжително")]
@@ -130,7 +133,6 @@ namespace InsuredTraveling.Models
         //TotalCost
         [Required(ErrorMessage = "Полето е задолжително")]
         public float TotalCost { get; set; }
-
 
     }
 }

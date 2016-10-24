@@ -174,7 +174,10 @@
                     <div class="form-group">
                         <div class="col-lg-7">
                             <label>Датум на незгодата:</label>
-                            @Model.AccidentDateTimeHealth.Value.Date.ToShortDateString()
+                            @if (Model.AccidentDateTimeHealth.HasValue)
+                            {
+                                @Model.AccidentDateTimeHealth.Value.Date.ToShortDateString()
+                            }
                         </div>
                     </div>
                     <div class="form-group">
@@ -192,7 +195,10 @@
                     <div class="form-group">
                         <div class="col-lg-7">
                             <label>Датум на посета кај доктор:</label>
-                            @Model.DoctorVisitDateTime.Value.Date.ToShortDateString()
+                            @if (Model.DoctorVisitDateTime.HasValue)
+                            {
+                                @Model.DoctorVisitDateTime.Value.Date.ToShortDateString()
+                            }
                         </div>
                     </div>
                     <div class="form-group">
@@ -227,7 +233,28 @@
                     <div class="form-group">
                         <div class="col-lg-7">
                             <label>Документи приложени како доказ:</label>
-                            <input type="file" name="documentsHealth" id="documentsHealth" multiple />
+                            <br />
+                            <table>
+                                @if (Model.InsuranceInfoDoc != null)
+                                {
+                                    foreach (var doc in Model.InsuranceInfoDoc)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @if (String.IsNullOrEmpty(doc.FilePath))
+                                                {
+                                                    <a href="@doc.FilePath">@doc.FileName</a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    @noValue
+                                }
+                               
+                            </table>
                         </div>
                     </div>
                     <div class="form-group">
@@ -249,7 +276,10 @@
 
                         <div class="col-lg-7">
                             <label>Датум на настанот:</label>
-                            @Model.AccidentDateTimeLuggage.Value.Date.ToShortDateString()
+                            @if (Model.AccidentDateTimeLuggage.HasValue)
+                            {
+                                @Model.AccidentDateTimeLuggage.Value.Date.ToShortDateString()
+                            }
                         </div>
                     </div>
                     <div class="form-group">
@@ -293,7 +323,27 @@
                     <div class="form-group">
                         <div class="col-lg-7">
                             <label>Документи приложени како доказ :</label>
-                            <input type="file" name="documentsLuggage" id="documentsLuggage" multiple />
+                            <br/>
+                            <table>
+                                @if (Model.InsuranceInfoDoc != null)
+                                {
+                                    foreach (var doc in Model.InsuranceInfoDoc)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @if (String.IsNullOrEmpty(doc.FilePath))
+                                                {
+                                                    <a href="@doc.FilePath">@doc.FileName</a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    @noValue
+                                }
+                            </table>
                         </div>
                     </div>
                     <div class="form-group">
@@ -317,7 +367,27 @@
                 <div class="form-group">
                     <div class="col-lg-7">
                         <label>Фактури како доказ:</label>
-                        <input type="file" name="invoices" id="invoices" multiple />
+                        <br/>
+                        <table>
+                            @if (Model.Invoices != null)
+                            {
+                                foreach (var invoice in Model.Invoices)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (String.IsNullOrEmpty(invoice.FilePath))
+                                            {
+                                                <a href="@invoice.FilePath">@invoice.FileName</a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                @noValue
+                            }
+                        </table>
                     </div>
                 </div>
                 <div class="form-group">

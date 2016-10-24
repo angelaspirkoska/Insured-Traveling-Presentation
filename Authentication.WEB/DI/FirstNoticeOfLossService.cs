@@ -155,5 +155,35 @@ namespace InsuredTraveling.DI
         {
             return _db.first_notice_of_loss.Where(x => x.PolicyId == policy_Id).ToList();
         }
+
+        public List<string> GetInvoiceDocumentName(int lossID)
+        {
+            var allDoc = new List<string>();
+            var documents = _db.documents_first_notice_of_loss.Where(x => x.First_notice_of_lossID == lossID).ToList();
+            if(documents.Count() >0)
+            {
+                foreach(var doc in documents)
+                {
+                    var file = _db.documents.Where(x => x.ID == doc.ID && x.invoice != null).FirstOrDefault();
+                    allDoc.Add(file.Name);
+                }
+            }
+            return allDoc;
+        }
+
+        public List<string> GetHealthLuggageDocumentName(int lossID)
+        {
+            var allDoc = new List<string>();
+            var documents = _db.documents_first_notice_of_loss.Where(x => x.First_notice_of_lossID == lossID).ToList();
+            if (documents.Count() > 0)
+            {
+                foreach (var doc in documents)
+                {
+                    var file = _db.documents.Where(x => x.ID == doc.ID && x.invoice == null).FirstOrDefault();
+                    allDoc.Add(file.Name);
+                }
+            }
+            return allDoc;
+        }
     }
 }
