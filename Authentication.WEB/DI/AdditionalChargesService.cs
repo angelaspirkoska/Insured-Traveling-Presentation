@@ -23,6 +23,11 @@ namespace InsuredTraveling.DI
             return _db.policy_additional_charge.Create();
         }
 
+        public List<additional_charge> GetAdditionalChargesByPolicyId(int policyId)
+        {
+          return  _db.policy_additional_charge.Where(x => x.PolicyID == policyId).Select(x => x.additional_charge).ToList();
+        }
+
         public IQueryable<SelectListItem> GetAll()
         {
             var AdditionalCharge = _db.additional_charge.Select(p => new SelectListItem

@@ -13,6 +13,8 @@ namespace InsuredTraveling.DI
 
         int AddAdditionalChargesPolicy(policy_additional_charge policyAdditionalCharge);
         policy_additional_charge Create();
+
+        List<additional_charge> GetAdditionalChargesByPolicyId(int policyId);
     }
 
 }

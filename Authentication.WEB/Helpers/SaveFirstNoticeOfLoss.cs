@@ -123,7 +123,8 @@ namespace InsuredTraveling.Helpers
             firstNoticeOfLossEntity.ClaimantId = firstNoticeOfLossEntity.ClaimantId;
             firstNoticeOfLossEntity.Relation_claimant_policy_holder = firstNoticeOfLossEntity.Relation_claimant_policy_holder;
 
-            if (firstNoticeOfLossViewModel.ClaimantExistentBankAccount)
+            
+            if (!firstNoticeOfLossViewModel.isMobile && firstNoticeOfLossViewModel.ClaimantExistentBankAccount)
             {
                 firstNoticeOfLossEntity.Claimant_bank_accountID = firstNoticeOfLossViewModel.ClaimantForeignBankAccountId;
             }

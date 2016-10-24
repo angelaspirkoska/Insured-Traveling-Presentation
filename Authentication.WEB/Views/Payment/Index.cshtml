@@ -24,7 +24,7 @@
         </h1>
         <br />
 
-
+      
         <table class="tableClass">
             <tr class="trHeader"></tr>
             <tr>
@@ -33,6 +33,7 @@
                 </td>
             </tr>
         </table>
+      
         <input type="hidden" name="clientid" value="@Model.clientId" />
         <input type="hidden" name="amount" value="@Model.amount" />
         <input type="hidden" name="oid" value="@Model.oid" />
@@ -57,8 +58,18 @@
 
     });
 
-    $("#button").click(function (){
+    $("#button").click(function () {
+       
+            console.log("clicked...waiting...");
+
+            setTimeout(
+                function () {
+                    $("#button").hide();
+                },
+                5000);
         $("#output_frame").show();
     });
+
+
 
 </script>

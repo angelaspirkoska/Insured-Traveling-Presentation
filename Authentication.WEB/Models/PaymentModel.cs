@@ -6,6 +6,9 @@ namespace InsuredTraveling.Models
     public class PaymentModel
     {
         public travel_policy Pat { get; set; }
+        public insured mainInsured { get; set; }
+        public string additionalCharge1 { get; set; }
+        public string additionalCharge2 { get; set; }
         public string clientId { get; set; }
         public string amount { get; set; }
         public string oid { get; set; }

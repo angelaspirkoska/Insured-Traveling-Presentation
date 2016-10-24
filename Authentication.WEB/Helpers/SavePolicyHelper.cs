@@ -75,7 +75,7 @@ namespace InsuredTraveling.Helpers
                 }
             }
 
-            if(p.isMobile && !p.IsSamePolicyHolderInsured)
+            if(!p.IsSamePolicyHolderInsured)
             {
                 var policyHolderId = _iss.GetInsuredIdBySsn(p.PolicyHolderSSN);
                 if (policyHolderId != -1)

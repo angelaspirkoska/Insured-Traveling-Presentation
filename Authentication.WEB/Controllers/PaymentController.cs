@@ -25,6 +25,7 @@ namespace Authentication.WEB.Controllers
 
         public PaymentController(IUserService us, IPolicyService ps, IInsuredsService iss, IPolicyInsuredService pis, IAdditionalChargesService acs)
         {
+            ViewBag.IsPaid = false;
             this._us = us;
             this._ps = ps;
             _iss = iss;
@@ -35,6 +36,7 @@ namespace Authentication.WEB.Controllers
         // GET: Payment
         public ActionResult Index()
         {
+           
             PaymentModel model = new PaymentModel();
 
             model.clientId = "180000069";                   //Merchant Id defined by bank to user
@@ -68,12 +70,27 @@ namespace Authentication.WEB.Controllers
         [HttpPost]
         public ActionResult Index(Policy p)
         {
+            ViewBag.IsPaid = false;
             PaymentModel model = new PaymentModel();
+            
             p.isMobile = false;
             var PolicyId = SavePolicyHelper.SavePolicy(p, _ps, _us, _iss, _pis, _acs);
-
+           model.mainInsured = _pis.GetAllInsuredByPolicyId(PolicyId).First();
+          //  model.additionalCharge1 = 
            var policy = _ps.GetPolicyById(PolicyId);
-
+            var additionalCharges = _acs.GetAdditionalChargesByPolicyId(PolicyId);
+            
+            model.additionalCharge1 = "Без доплаток";
+            model.additionalCharge2 = "Без доплаток";
+            if (additionalCharges.Count >= 1 && additionalCharges[0] != null)
+            {
+                model.additionalCharge1 = additionalCharges[0].Doplatok;                
+            }
+            if (additionalCharges.Count >= 2 && additionalCharges[1] != null)
+            {
+                model.additionalCharge2 = additionalCharges[1].Doplatok;
+            }
+           
             model.clientId = "180000069";                   //Merchant Id defined by bank to user
             model.amount = p.Total_Premium.ToString();
              //   "9.95";                         //Transaction amount
@@ -115,6 +132,7 @@ namespace Authentication.WEB.Controllers
         [Route("PaymentSuccess")]
         public ActionResult PaymentSuccess()
         {
+        
             PaymentSuccessModel model = new PaymentSuccessModel();
             model.amount = Request.Form.Get("amount");
             model.oid = Request.Form.Get("ReturnOid");
@@ -123,7 +141,8 @@ namespace Authentication.WEB.Controllers
             model.mdStatus = Request.Form.Get("mdStatus");
             if (model.mdStatus == "1" || model.mdStatus == "2" || model.mdStatus == "3" || model.mdStatus == "4")
             {
-                string fullPath = System.Web.Hosting.HostingEnvironment.MapPath("~/PolicyPDF/" + model.TransId + model.amount + ".pdf");
+               
+                string fullPath = System.Web.Hosting.HostingEnvironment.MapPath("~/PolicyPDF/" + model.TransId + model.amount + ".pdf");              
                 var actionResult = new ActionAsPdf("../Policy/Print");
                 var byteArray = actionResult.BuildPdf(ControllerContext);
                 var fileStream = new FileStream(fullPath, FileMode.Create, FileAccess.Write);

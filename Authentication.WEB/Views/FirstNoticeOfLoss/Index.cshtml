@@ -762,6 +762,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
         else {
         $('#deponent').attr('value', $('#DropDownBankAccountPolicyHolder option:selected').attr("bank"));
         $('#TransactionAccount').attr('value', $('#DropDownBankAccountPolicyHolder option:selected').text());
+        $('#TransactionAccount').attr('text', $('#DropDownBankAccountPolicyHolder option:selected').text());
         var InsuredId = $('#DropDownBankAccountPolicyHolder option:selected').val();
         $('#hiddenDropDownBankAccountPolicyHolder').val(InsuredId);
          }
@@ -782,7 +783,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
 
       function SelectPolicy(){
-        ClearDropDownData();
+          ClearDropDownData();
+
         var PolicyId = $('#DropDownPolicyNumber').val();
         if (PolicyId== null || PolicyId == '')
         {
@@ -798,6 +800,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 var rez = JSON.parse(result);
                 console.log(rez);
                 Banks = rez.banks;
+                
 
                 $("#PolicyHolderId").attr("value", rez.policyholder.Id);
                 $("#PolicyHolderName").attr("value", rez.policyholder.FirstName + " " + rez.policyholder.LastName);
@@ -854,6 +857,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
         $("#PolicyHolderSSN").attr("value", "");
         $("#PolicyHolderAddress").attr("value", "");
         $("#TransactionAccount").attr("value", "");
+        
         $("#deponent").attr("value", "");
 
 
@@ -874,6 +878,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
         $("#InsuredPhone").attr("value", "");
         $("#InsuredSSN").attr("value", "");
         $("#relationship").attr("value", "");
+
 
         $.each($('#DropDownBankAccountInsured option'), function (i, val) {
             if (val.value == 0) {

@@ -18,6 +18,7 @@ namespace InsuredTraveling.DI
         bank_account_info BankAccountsInfoByIdandUser(int ID, int accountHolder);
         bank_account_info Create();
 
+
         bank CreateBank();
 
         bank GetBank(string bankName);

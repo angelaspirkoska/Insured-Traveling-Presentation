@@ -76,6 +76,29 @@ namespace InsuredTraveling.Controllers.API
 
             data.Add("user", u);
 
+            var ssn = _us.GetUserSsnByUsername(username.username);
+
+            var insured = _iss.GetInsuredDataBySsn(ssn);
+            if(insured != null)
+            {
+                //User's bank accounts
+                JArray bankAccounts = new JArray();
+
+                var banks = _bas.BankAccountsByInsuredId(insured.ID);
+                foreach (bank_account_info bankAccount in banks)
+                {
+                    var bankAccountObject = new JObject();
+                    bankAccountObject.Add("BankAccount", bankAccount.Account_Number);
+                    bankAccountObject.Add("BankName", bankAccount.bank.Name);
+                    bankAccountObject.Add("BankAccountId", bankAccount.ID);
+                    
+                    bankAccounts.Add(bankAccountObject);
+                }
+
+                data.Add("bankAccounts", bankAccounts);
+
+            }
+
 
             //User's policies
             JArray data1 = new JArray();
@@ -96,7 +119,7 @@ namespace InsuredTraveling.Controllers.API
 
             data.Add("policy", data1);
 
-
+            
 
             //User's quotes
             JArray data2 = new JArray();
@@ -107,6 +130,7 @@ namespace InsuredTraveling.Controllers.API
             {
                 var p = new JObject();
                 p.Add("policyNumber", p1.Policy_Number);
+                p.Add("policyId", p1.ID);
                 //p.Add("insuredAddress", p1.Adresa);
                 //p.Add("insuredPassport", p1.Broj_Pasos);
                 //p.Add("nameContractor", p1.Ime_I_Prezime);

@@ -63,12 +63,12 @@
                             <p class="smallFont">Passport No.</p>
                         </div>
                         <div class="col-xs-6" style="text-align: left">
-                            @if (ViewBag.insured != null)
+                            @if (Model.mainInsured != null)
                             {
-                                    <p class="smallFont">@ViewBag.insured.Name @ViewBag.insured.Lastname</p>
-                                    <p class="smallFont">@ViewBag.insured.Address</p>
-                                    <p class="smallFont">@ViewBag.insured.SSN</p>
-                                    <p class="smallFont">@ViewBag.insured.Passport_Number_IdNumber</p>
+                                    <p class="smallFont">@Model.mainInsured.Name.ToString()  @Model.mainInsured.Lastname.ToString() </p>
+                                    <p class="smallFont">@Model.mainInsured.Address</p>
+                                    <p class="smallFont">@Model.mainInsured.SSN</p>
+                                    <p class="smallFont">@Model.mainInsured.Passport_Number_IdNumber</p>
                             }
                         </div>
                     </div>
@@ -116,8 +116,8 @@
                         </div>
                     </div>
                 }
-                @if (group == true)
-                {
+              @*  @if (group == true)*@
+                @*{*@
                     <div class="col-xs-6">
                         <div class="row">
                             <div class="col-xs-12 borderedContent" style="height: 75px;">
@@ -128,8 +128,8 @@
                                         <p class="smallFont">Премија</p>
                                     </div>
                                     <div class="col-xs-6" style="text-align: left">
-                                        <p class="smallFont">@Model.Pat.Group_Members</p>
-                                        <p class="smallFont">@Model.Pat.Group_Total_Premium</p>
+                                        <p class="smallFont"></p>
+                                        <p class="smallFont"></p>
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +152,7 @@
                             </div>
                         </div>
                     </div>
-                }
+                @*}*@
             </div>
         </div>
         <div class="col-xs-3">
@@ -166,8 +166,8 @@
                             <p class="smallFont">Премија</p>
                         </div>
                         <div class="col-xs-6" style="text-align: left">
-                            <p class="smallFont">@ViewBag.additional_charge1</p>
-                            <p class="smallFont">@ViewBag.additional_charge2</p>
+                            <p class="smallFont">@Model.additionalCharge1</p>
+                            <p class="smallFont">@Model.additionalCharge2</p>
                             <p class="smallFont" style="font-weight: bold;">@Model.Pat.Total_Premium</p>
                         </div>
                     </div>
