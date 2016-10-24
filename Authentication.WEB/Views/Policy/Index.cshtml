@@ -1,6 +1,6 @@
 ﻿@model InsuredTraveling.Models.Policy
 @using InsuredTraveling.Filters;
-
+@using System.Web.Optimization;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -59,24 +59,22 @@
             <div class="form-group col-sm-3">
                 @Html.LabelFor(model => model.Start_Date, htmlAttributes: new { @class = "control-label" })
                 <div class="inputs-spacing">
-                    @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date", @min = ViewBag.Date } })
+                    @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
                     @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
                 </div>
 
                 @Html.LabelFor(model => model.End_Date, htmlAttributes: new { @class = "control-label" })
                 <div class="inputs-spacing">
-                    @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date", @min = ViewBag.Date } })
+                    @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
                     @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
                 </div>
 
                 @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
-                <div class="inputs-spacing">
                     <div class="input-group">
-                        @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                        @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm", @style= "position: static;" } })
                         <span class="input-group-addon">денови</span>
                     </div>
                     @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
-                </div>
             </div>
         </div>
     </div>
@@ -215,7 +213,7 @@
 
                         @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date", @max = ViewBag.Date } })
+                            @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder"} })
                             @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PassportNumber_ID, htmlAttributes: new { @class = "control-label" })
@@ -362,6 +360,9 @@
 <!-- macedonian language-->
 <script src="~/Scripts/messages_is.js"></script>
 
+@Scripts.Render("~/bundles/jqueryui")
+@Styles.Render("~/Content/jqueryuicss")  
+
 <script>
     $(document).ready(function () {
         $("#family").hide();
@@ -466,24 +467,45 @@
         }
     });
 
-    $("#startDate").focusout(function () {
-        var Edat = $("#startDate").val();
-        var Sdat = new Date($("#startDate").val());
-
-        var god = (Sdat.getFullYear() + 1);
-        var mesec = $("#startDate").val().substring(5, 7);
-        var den = $("#startDate").val().substring(8, 10);
-        var intDen = parseInt(den) + 2;
-        $("#endDate").attr('min', Edat);
-        $("#endDate").attr('max', god + "-" + mesec + "-" + intDen);
+    $("#Start_Date").datepicker({
+        dateFormat: "mm/dd/yy",
+        onSelect: function (selected) {
+            $("#End_Date").datepicker("option", "minDate", selected);
+        },
     });
+
+    $("#End_Date").datepicker({
+        dateFormat: "mm/dd/yy",
+        onSelect: function (selected) {
+            $("#Start_Date").datepicker("option", "maxDate", selected);
+        },
+    });
+
+    $("#BirthDate").datepicker({
+        dateFormat: "mm/dd/yy",
+        onSelect: function (selected) {
+        },
+    });
+
+   
+
+    //$("#startDate").focusout(function () {
+    //    var Edat = $("#startDate").val();
+    //    var Sdat = new Date($("#startDate").val());
+
+    //    var god = (Sdat.getFullYear() + 1);
+    //    var mesec = $("#startDate").val().substring(5, 7);
+    //    var den = $("#startDate").val().substring(8, 10);
+    //    var intDen = parseInt(den) + 2;
+    //    $("#endDate").attr('min', Edat);
+    //    $("#endDate").attr('max', god + "-" + mesec + "-" + intDen);
+    //});
 
     $("#vaziDenovi").focusin(function () {
         var Sdat = new Date($("#startDate").val());
         var Edat = new Date($("#endDate").val());
         if ($('#povekePatuvanja').is(':checked')) {
             $("#vaziDenovi").attr('min', 15);
-
         }
         else {
             $("#vaziDenovi").attr('min', 2);
@@ -491,17 +513,17 @@
 
     });
 
-    $('#Start_Date').change(function (event) {
+    //$('#Start_Date').change(function (event) {
 
-        var startDateChosen = $("#Start_Date").val();
-        $("#End_Date").attr("min", startDateChosen);
+    //    var startDateChosen = $("#Start_Date").val();
+    //    $("#End_Date").attr("min", startDateChosen);
 
 
-    });
-    $('#End_Date').change(function (event) {
-        var startDateChosen = $("#End_Date").val();
-        $("#Start_Date").attr("max", startDateChosen);
-    });
+    //});
+    //$('#End_Date').change(function (event) {
+    //    var startDateChosen = $("#End_Date").val();
+    //    $("#Start_Date").attr("max", startDateChosen);
+    //});
 
     $("#SSN").keydown(function (e) {
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||

@@ -540,7 +540,7 @@
         $("#tableFNOL").DataTable().destroy();
         $("#tableFNOL").DataTable({
             dom: "Bfrtip",
-            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFNOL?policyNum" + $("#PolicyNumber").val() + "&holderName=" + $("#holderName").val() + "&holderLastName=" + $("#holderLastName").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked') + "&DateAdded=" + $("#DateAdded").val() + "&operatorDateAdded=" + $("#operatorDateAdded").val(),
+            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFNOL?PolicyNumber=" + $("#PolicyNumber").val() + "&holderName=" + $("#holderName").val() + "&holderLastName=" + $("#holderLastName").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked') + "&DateAdded=" + $("#DateAdded").val() + "&operatorDateAdded=" + $("#operatorDateAdded").val(),
             columns: [
                     { data: "PolicyNumber" },
                     { data: "InsuredName" },

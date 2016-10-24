@@ -1,5 +1,5 @@
 ﻿@model InsuredTraveling.Models.FirstNoticeOfLossReportViewModel
-
+@using System.Web.Optimization;
 @{
     ViewBag.Title = "First Notice of Loss";
     var policyId = ViewBag.PolicyId;
@@ -257,7 +257,7 @@
                     
                     <div class="col-lg-7">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на заминување:</label>                        
-                        @Html.EditorFor(model => model.DepartDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date", @id= "travelDateFrom", @max=ViewBag.Date } })
+                        @Html.EditorFor(model => model.DepartDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder"} })
                         @Html.ValidationMessageFor(model => model.DepartDateTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -285,7 +285,7 @@
                     
                     <div class="col-lg-7">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на враќање:</label>
-                        @Html.EditorFor(model => model.ArrivalDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date", @id= "travelDateTo" } })
+                        @Html.EditorFor(model => model.ArrivalDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
                         @Html.ValidationMessageFor(model => model.ArrivalDateTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -319,7 +319,7 @@
                     
                     <div class="col-lg-7">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на незгодата:</label>
-                        @Html.EditorFor(model => model.AccidentDateTimeHealth, new { htmlAttributes = new { @class = "form-control input-sm", type = "date", @id= "lossDate", @max = ViewBag.Date } })
+                        @Html.EditorFor(model => model.AccidentDateTimeHealth, new { htmlAttributes = new { @class = "form-control input-sm" } })
                         @Html.ValidationMessageFor(model => model.AccidentDateTimeHealth, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -344,7 +344,7 @@
                     
                     <div class="col-lg-7">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на посета кај доктор:</label>
-                        @Html.EditorFor(model => model.DoctorVisitDateTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "date", @max = ViewBag.Date } })
+                        @Html.EditorFor(model => model.DoctorVisitDateTime, new { htmlAttributes = new { @class = "form-control input-sm" } })
                         @Html.ValidationMessageFor(model => model.DoctorVisitDateTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -394,7 +394,7 @@
                     
                     <div class="col-lg-7">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на настанот:</label>
-                        @Html.EditorFor(model => model.AccidentDateTimeLuggage, new { htmlAttributes = new { @class = "form-control input-sm", type = "date", @id= "baggageLossDate", @max = ViewBag.Date } })
+                        @Html.EditorFor(model => model.AccidentDateTimeLuggage, new { htmlAttributes = new { @class = "form-control input-sm"} })
                         @Html.ValidationMessageFor(model => model.AccidentDateTimeLuggage, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -526,7 +526,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
     </script>
 }
 
-
+@Scripts.Render("~/bundles/jqueryui")
+@Styles.Render("~/Content/jqueryuicss")
 <script type="text/javascript">
     var Banks;
     $(document).ready(function () { 
@@ -603,69 +604,110 @@ else if (ViewBag.insurance == "Luggage Insurance")
         }
     });
 
-    $('#travelDateFrom').change(function (event) {
-
-        var inputMinDate = $("#lossDate").attr("min");
-        var inputMinDate = $("#baggageLossDate").attr("min");
-        var inputMinDateArray = inputMinDate.split('-');
-        var inputStartTrip = $('#travelDateFrom').val();
-        var inputStartTripArray = inputStartTrip.split('-');
-        if (parseInt(inputStartTripArray[0]) > parseInt(inputMinDateArray[0]))
-        {
-            $("#lossDate").attr("min", inputStartTrip);
-            $("#baggageLossDate").attr("min", inputStartTrip);
-            $("#travelDateTo").attr("min", inputStartTrip);
-        }
-        else if (parseInt(inputStartTripArray[0]) == parseInt(inputMinDateArray[0]))
-        {
-            if(parseInt(inputStartTripArray[1]) > parseInt(inputMinDateArray[1]))
-            {
-                $("#lossDate").attr("min", inputStartTrip);
-                $("#baggageLossDate").attr("min", inputStartTrip);
-                $("#travelDateTo").attr("min", inputStartTrip);
-            }
-            else if (parseInt(inputStartTripArray[1]) == parseInt(inputMinDateArray[1]))
-            {
-                if(parseInt(inputStartTripArray[2]) > parseInt(inputMinDateArray[2]))
-                {
-                    $("#lossDate").attr("min", inputStartTrip);
-                    $("#baggageLossDate").attr("min", inputStartTrip);
-                    $("#travelDateTo").attr("min", inputStartTrip);
-                }
-            }
-        }
-        console.log("value changed");
+    $("#DepartDateTime").datepicker({
+        dateFormat: "mm/dd/yy",
+        onSelect: function (selected) {
+            $("#ArrivalDateTime").datepicker("option", "minDate", selected);
+            $("#AccidentDateTimeLuggage").datepicker("option", "minDate", selected);
+            $("#AccidentDateTimeHealth").datepicker("option", "minDate", selected);
+            $("#DoctorVisitDateTime").datepicker("option", "minDate", selected);
+        },
     });
 
-
-    $('#travelDateTo').change(function (event) {
-        var inputMinDate = $("#lossDate").attr("max");
-        var inputMinDate = $("#baggageLossDate").attr("max");
-        var inputMinDateArray = inputMinDate.split('-');
-        var inputStartTrip = $('#travelDateTo').val();
-        var inputStartTripArray = inputStartTrip.split('-');
-        $("#travelDateFrom").attr("max", inputStartTrip);
-        if (parseInt(inputStartTripArray[0]) < parseInt(inputMinDateArray[0])) {
-            $("#lossDate").attr("max", inputStartTrip);
-            $("#baggageLossDate").attr("max", inputStartTrip);
-
-        }
-        else if (parseInt(inputStartTripArray[0]) == parseInt(inputMinDateArray[0])) {
-            if (parseInt(inputStartTripArray[1]) < parseInt(inputMinDateArray[1])) {
-                $("#lossDate").attr("max", inputStartTrip);
-                $("#baggageLossDate").attr("max", inputStartTrip);
-
-            }
-            else if (parseInt(inputStartTripArray[1]) == parseInt(inputMinDateArray[1])) {
-                if (parseInt(inputStartTripArray[2]) < parseInt(inputMinDateArray[2])) {
-                    $("#lossDate").attr("max", inputStartTrip);
-                    $("#baggageLossDate").attr("max", inputStartTrip);
-
-                }
-            }
-        }
-        console.log("value changed");
+    $("#ArrivalDateTime").datepicker({
+        dateFormat: "mm/dd/yy",
+        onSelect: function (selected) {
+            $("#DepartDateTime").datepicker("option", "maxDate", selected);
+            $("#AccidentDateTimeLuggage").datepicker("option", "maxDate", selected);
+            $("#AccidentDateTimeHealth").datepicker("option", "maxDate", selected);
+            $("#DoctorVisitDateTime").datepicker("option", "maxDate", selected);
+        },
     });
+
+    $("#AccidentDateTimeHealth").datepicker({
+        dateFormat: "mm/dd/yy",
+        onSelect: function (selected) {
+            $("#DepartDateTime").datepicker("option", "minDate", selected);
+            $("#ArrivalDateTime").datepicker("option", "maxDate", selected);
+        },
+    });
+
+    $("#AccidentDateTimeLuggage").datepicker({
+        dateFormat: "mm/dd/yy",
+        onSelect: function (selected) {
+            
+        },
+    });
+
+    $("#DoctorVisitDateTime").datepicker({
+        dateFormat: "mm/dd/yy",
+        onSelect: function (selected) {
+            
+        },
+    });
+
+    //$('#travelDateFrom').change(function (event) {
+
+    //    var inputMinDate = $("#lossDate").attr("min");
+    //    var inputMinDate = $("#baggageLossDate").attr("min");
+    //    var inputMinDateArray = inputMinDate.split('-');
+    //    var inputStartTrip = $('#travelDateFrom').val();
+    //    var inputStartTripArray = inputStartTrip.split('-');
+    //    if (parseInt(inputStartTripArray[0]) > parseInt(inputMinDateArray[0]))
+    //    {
+    //        $("#lossDate").attr("min", inputStartTrip);
+    //        $("#baggageLossDate").attr("min", inputStartTrip);
+    //        $("#travelDateTo").attr("min", inputStartTrip);
+    //    }
+    //    else if (parseInt(inputStartTripArray[0]) == parseInt(inputMinDateArray[0]))
+    //    {
+    //        if(parseInt(inputStartTripArray[1]) > parseInt(inputMinDateArray[1]))
+    //        {
+    //            $("#lossDate").attr("min", inputStartTrip);
+    //            $("#baggageLossDate").attr("min", inputStartTrip);
+    //            $("#travelDateTo").attr("min", inputStartTrip);
+    //        }
+    //        else if (parseInt(inputStartTripArray[1]) == parseInt(inputMinDateArray[1]))
+    //        {
+    //            if(parseInt(inputStartTripArray[2]) > parseInt(inputMinDateArray[2]))
+    //            {
+    //                $("#lossDate").attr("min", inputStartTrip);
+    //                $("#baggageLossDate").attr("min", inputStartTrip);
+    //                $("#travelDateTo").attr("min", inputStartTrip);
+    //            }
+    //        }
+    //    }
+    //    console.log("value changed");
+    //});
+    //$('#travelDateTo').change(function (event) {
+    //    var inputMinDate = $("#lossDate").attr("max");
+    //    var inputMinDate = $("#baggageLossDate").attr("max");
+    //    var inputMinDateArray = inputMinDate.split('-');
+    //    var inputStartTrip = $('#travelDateTo').val();
+    //    var inputStartTripArray = inputStartTrip.split('-');
+    //    $("#travelDateFrom").attr("max", inputStartTrip);
+    //    if (parseInt(inputStartTripArray[0]) < parseInt(inputMinDateArray[0])) {
+    //        $("#lossDate").attr("max", inputStartTrip);
+    //        $("#baggageLossDate").attr("max", inputStartTrip);
+
+    //    }
+    //    else if (parseInt(inputStartTripArray[0]) == parseInt(inputMinDateArray[0])) {
+    //        if (parseInt(inputStartTripArray[1]) < parseInt(inputMinDateArray[1])) {
+    //            $("#lossDate").attr("max", inputStartTrip);
+    //            $("#baggageLossDate").attr("max", inputStartTrip);
+
+    //        }
+    //        else if (parseInt(inputStartTripArray[1]) == parseInt(inputMinDateArray[1])) {
+    //            if (parseInt(inputStartTripArray[2]) < parseInt(inputMinDateArray[2])) {
+    //                $("#lossDate").attr("max", inputStartTrip);
+    //                $("#baggageLossDate").attr("max", inputStartTrip);
+
+    //            }
+    //        }
+    //    }
+    //    console.log("value changed");
+    //});
+
     $("#ForeignBankAccount").change(function () {
         if (this.checked) {
             $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false);
@@ -717,7 +759,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $('#deponentInsured').prop('readonly', true);
         }
     });
-
 
     $('#TransactionAccount').focusout(function () {
 
@@ -780,8 +821,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
         }
     });
 
-
-      function SelectPolicy(){
+    function SelectPolicy(){
         ClearDropDownData();
         var PolicyId = $('#DropDownPolicyNumber').val();
         if (PolicyId== null || PolicyId == '')
@@ -856,8 +896,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
         $("#TransactionAccount").attr("value", "");
         $("#deponent").attr("value", "");
 
-
-
         $.each($('#DropDownBankAccountPolicyHolder option'), function (i, val) {
             if (val.value == 0) {
             }
@@ -884,8 +922,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
         });
     }
 
-
-
    //Disable other than English letters
     $(".input-sm, .text-box").keypress(function (event) {
             var ew = event.which;
@@ -899,9 +935,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 return true;
             return false;
         });
-
-
-
 
     function FillInsuredData() {
         $('#DropDownInsureds').on('change', function () {
@@ -943,7 +976,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
         });
     }
-
 
 </script>
 

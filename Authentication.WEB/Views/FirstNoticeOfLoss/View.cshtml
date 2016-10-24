@@ -241,9 +241,9 @@
                                     {
                                         <tr>
                                             <td>
-                                                @if (String.IsNullOrEmpty(doc.FilePath))
+                                                @if (!String.IsNullOrEmpty(doc.FilePath))
                                                 {
-                                                    <a href="@doc.FilePath">@doc.FileName</a>
+                                                    <a href="/FirstNoticeOfLoss/DocumentDownload/?path=@doc.FilePath">@doc.FileName</a>
                                                 }
                                             </td>
                                         </tr>
@@ -331,9 +331,9 @@
                                     {
                                         <tr>
                                             <td>
-                                                @if (String.IsNullOrEmpty(doc.FilePath))
+                                                @if (!String.IsNullOrEmpty(doc.FilePath))
                                                 {
-                                                    <a href="@doc.FilePath">@doc.FileName</a>
+                                                    <a href="/FirstNoticeOfLoss/DocumentDownload/?path=@doc.FilePath">@doc.FileName</a>
                                                 }
                                             </td>
                                         </tr>
@@ -375,9 +375,9 @@
                                 {
                                     <tr>
                                         <td>
-                                            @if (String.IsNullOrEmpty(invoice.FilePath))
+                                            @if (!String.IsNullOrEmpty(invoice.FilePath))
                                             {
-                                                <a href="@invoice.FilePath">@invoice.FileName</a>
+                                                <a href="/FirstNoticeOfLoss/DocumentDownload/?path=@invoice.FilePath">@invoice.FileName</a>
                                             }
                                         </td>
                                     </tr>
