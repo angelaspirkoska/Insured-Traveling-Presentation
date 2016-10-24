@@ -393,11 +393,12 @@
 
     $(".input-sm, .text-box").keypress(function (event) {
         var ew = event.which;
+        console.log(ew);
         if (ew == 32)
             return true;
         if (48 <= ew && ew <= 57)
             return true;
-        if (65 <= ew && ew <= 90)
+        if (64 <= ew && ew <= 90)
             return true;
         if (97 <= ew && ew <= 122)
             return true;
@@ -571,6 +572,7 @@
         }
         else {
             $("#hideWhenSamePerson").show();
+            $("#hideWhenSamePerson .form-control").prop('readonly', false);
 
         }
     });
