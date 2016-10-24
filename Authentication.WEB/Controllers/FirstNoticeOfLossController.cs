@@ -11,6 +11,7 @@ using InsuredTraveling.Helpers;
 using InsuredTraveling.ViewModels;
 using Newtonsoft.Json;
 using AutoMapper;
+using System.IO;
 
 namespace InsuredTraveling.Controllers
 {
@@ -67,6 +68,8 @@ namespace InsuredTraveling.Controllers
             if (firstNoticeOfLossViewModel.IsHealthInsurance)
             {
                 ModelState.Remove("AccidentDateTimeLuggage");
+                ModelState.Remove("Floaters");
+                ModelState.Remove("FloatersValue");
                 ModelState.Remove("AccidentPlaceLuggage");
                 ModelState.Remove("PlaceDescription");
                 ModelState.Remove("DetailDescription");
@@ -74,7 +77,8 @@ namespace InsuredTraveling.Controllers
                 ModelState.Remove("AccidentTimeLuggage");
                 ModelState.Remove("LugaggeCheckingTime");
                 ModelState.Remove("ArriveTime");
-                ViewBag.insurance = "Health Insurance";
+                ModelState.Remove("Invoices");
+                ViewBag.insurance = "Health Insurance"; 
             }
             else
             {
@@ -84,6 +88,7 @@ namespace InsuredTraveling.Controllers
                 ModelState.Remove("DoctorVisitDateTime");
                 ModelState.Remove("DoctorInfo");
                 ModelState.Remove("ArriveTime");
+                ModelState.Remove("Invoices");
                 ViewBag.insurance = "Luggage Insurance";
             }
 
@@ -125,8 +130,52 @@ namespace InsuredTraveling.Controllers
             {
                 var data = _fis.GetById(Convert.ToInt32(id));
                 model = Mapper.Map<first_notice_of_loss, FirstNoticeOfLossReportViewModel>(data);
+                model.Invoices = new List<FileDescriptionViewModel>();
+                model.InsuranceInfoDoc = new List<FileDescriptionViewModel>();
+
+                var allInvoices = _fis.GetInvoiceDocumentName(model.Id);
+                foreach (var invoice in allInvoices)
+                {
+                    var file = new FileDescriptionViewModel();
+                    file.FileName = invoice;
+                    file.FilePath = "~/DocumentsFirstNoticeOfLoss/Invoices/" + file.FileName;
+                    model.Invoices.Add(file);
+                }
+
+                var isHealthInsurance = _fis.IsHealthInsuranceByAdditionalInfoId(data.Additional_infoID);
+                var allDoc = _fis.GetHealthLuggageDocumentName(model.Id);
+                foreach (var doc in allDoc)
+                {
+                    var file = new FileDescriptionViewModel();
+                    file.FileName = doc;
+                    file.FilePath = isHealthInsurance ? "~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + file.FileName : "~/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + file.FileName;
+                    model.InsuranceInfoDoc.Add(file);
+                }
+
             }
             return View(model);
+        }
+
+        public FileResult DocumentDownload(string path)
+        {
+            try
+            {
+                string fileName = path.Substring(path.LastIndexOf("/") + 1, path.Length - path.LastIndexOf("/") - 1);
+                if (System.IO.File.Exists(Server.MapPath(path)))
+                {
+                    string contentType = "application/" + Path.GetExtension(path).Replace(".", String.Empty);
+
+                    return File(path, contentType, fileName);
+                }
+                else
+                {
+                    throw new Exception("");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("");
+            }
         }
         private bool SaveDataInDb(FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel, IEnumerable<HttpPostedFileBase> invoices, IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
         {

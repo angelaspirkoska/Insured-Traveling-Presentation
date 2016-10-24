@@ -22,6 +22,8 @@ namespace InsuredTraveling.DI
         int AddInvoice(int documentId);
         int AddDocumentToFirstNoticeOfLoss(int documentId, int firstNoticeOFLossId);
         List<first_notice_of_loss> GetByPolicyId(int policy_Id);
+        List<string> GetInvoiceDocumentName(int lossID);
+        List<string> GetHealthLuggageDocumentName(int lossID);
 
     }
 }

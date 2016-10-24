@@ -669,6 +669,7 @@
     <Compile Include="ViewModels\BankAccountInfoViewModel.cs" />
     <Compile Include="ViewModels\BankPrefixViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
+    <Compile Include="ViewModels\FileDescriptionViewModel.cs" />
     <Compile Include="ViewModels\JsonWrapperPolicyFirstNoticeOfLossViewModel.cs" />
     <Compile Include="ViewModels\SearchClientsViewModel.cs" />
     <Compile Include="ViewModels\SearchFNOLViewModel.cs" />
