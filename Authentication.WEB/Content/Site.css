@@ -160,7 +160,7 @@ form.cmxform .gray * { color: gray; }
 
 
 
-/*==========================================================================================*/
+/*====================================== Customized CSS ====================================================*/
 
 .nav-material-design {
     -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -228,4 +228,31 @@ form.cmxform .gray * { color: gray; }
 .jumbotron button {
     margin:10px;
     width:150px;
+    z-index:100;
 }
+
+/*Home page background video css*/
+video {
+    margin:0;
+    padding:0;
+    filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");
+    -webkit-filter:blur(2px);
+    -ms-filter: blur(2px);
+    -o-filter: blur(2px);
+    filter:blur(2px);
+}
+
+.video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+/*end of background video*/

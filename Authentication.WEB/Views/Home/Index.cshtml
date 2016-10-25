@@ -3,10 +3,56 @@
     ViewBag.Title = "Home";
 }
 
+@*<div class="row">
+    <div class="vid-container">
+        <video class="bgvid" autoplay="autoplay" muted="muted" preload="auto" loop>
+            <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?1410742112" type="video/webm">
+        </video>
+        <div class="inner-container">
+            <video class="bgvid inner" autoplay="autoplay" muted="muted" preload="auto" loop>
+                <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?random=1" type="video/webm">
+            </video>
+
+            <div class="container" style="margin:0;">
+                <div class="jumbotron menu-btn-align">
+                    @{
+                        RoleAuthorize r = new RoleAuthorize();
+                    }
+                    <br />
+                    <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa"> Нова полиса</button>
+                    @if (r.IsUser("admin") || r.IsUser("broker"))
+            {
+                        <button onclick="@("window.location.href='" + @Url.Action("Index", "News") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient"> Новости</button>
+                    }
+
+                    <button onclick="@("window.location.href='" + @Url.Action("Index","Search") + "'")" class="btn btn-success btn-material-design-default">Пребарај</button>
+                    <button onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'")" class="btn btn-success btn-material-design-default">Пријави штета</button>
+                    @if (r.IsUser("admin"))
+            {
+                        <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success btn-material-design-default">Админ панел</button>
+                        <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient"> Нов клиент</button>
+                    }
+                    @if (r.IsUser("broker"))
+            {
+                        <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient"> Нов клиент</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+    <video id="my-video" class="video" autoplay="autoplay" muted="muted" preload="auto" loop>
+        <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?1410742112" type="video/webm">
+        @*<source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?random=1" type="video/webm">*@
+    </video>
+
+
 <div class="row">
-    <div class="container">
+    <div class="container" style="margin:0;">
         <div class="jumbotron menu-btn-align">
-            @{ 
+            @{
                 RoleAuthorize r = new RoleAuthorize();
             }
             <br />
@@ -21,7 +67,7 @@
             @if (r.IsUser("admin"))
             {
                 <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success btn-material-design-default">Админ панел</button>
-                <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient"> Нов клиент</button>
+                        <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient"> Нов клиент</button>
             }
             @if (r.IsUser("broker"))
             {
@@ -30,5 +76,6 @@
         </div>
     </div>
 </div>
+
 
 
