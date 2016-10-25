@@ -603,69 +603,69 @@ else if (ViewBag.insurance == "Luggage Insurance")
         }
     });
 
-    $('#travelDateFrom').change(function (event) {
+    //$('#travelDateFrom').change(function (event) {
 
-        var inputMinDate = $("#lossDate").attr("min");
-        var inputMinDate = $("#baggageLossDate").attr("min");
-        var inputMinDateArray = inputMinDate.split('-');
-        var inputStartTrip = $('#travelDateFrom').val();
-        var inputStartTripArray = inputStartTrip.split('-');
-        if (parseInt(inputStartTripArray[0]) > parseInt(inputMinDateArray[0]))
-        {
-            $("#lossDate").attr("min", inputStartTrip);
-            $("#baggageLossDate").attr("min", inputStartTrip);
-            $("#travelDateTo").attr("min", inputStartTrip);
-        }
-        else if (parseInt(inputStartTripArray[0]) == parseInt(inputMinDateArray[0]))
-        {
-            if(parseInt(inputStartTripArray[1]) > parseInt(inputMinDateArray[1]))
-            {
-                $("#lossDate").attr("min", inputStartTrip);
-                $("#baggageLossDate").attr("min", inputStartTrip);
-                $("#travelDateTo").attr("min", inputStartTrip);
-            }
-            else if (parseInt(inputStartTripArray[1]) == parseInt(inputMinDateArray[1]))
-            {
-                if(parseInt(inputStartTripArray[2]) > parseInt(inputMinDateArray[2]))
-                {
-                    $("#lossDate").attr("min", inputStartTrip);
-                    $("#baggageLossDate").attr("min", inputStartTrip);
-                    $("#travelDateTo").attr("min", inputStartTrip);
-                }
-            }
-        }
-        console.log("value changed");
-    });
+    //    var inputMinDate = $("#lossDate").attr("min");
+    //    var inputMinDate = $("#baggageLossDate").attr("min");
+    //    var inputMinDateArray = inputMinDate.split('-');
+    //    var inputStartTrip = $('#travelDateFrom').val();
+    //    var inputStartTripArray = inputStartTrip.split('-');
+    //    if (parseInt(inputStartTripArray[0]) > parseInt(inputMinDateArray[0]))
+    //    {
+    //        $("#lossDate").attr("min", inputStartTrip);
+    //        $("#baggageLossDate").attr("min", inputStartTrip);
+    //        $("#travelDateTo").attr("min", inputStartTrip);
+    //    }
+    //    else if (parseInt(inputStartTripArray[0]) == parseInt(inputMinDateArray[0]))
+    //    {
+    //        if(parseInt(inputStartTripArray[1]) > parseInt(inputMinDateArray[1]))
+    //        {
+    //            $("#lossDate").attr("min", inputStartTrip);
+    //            $("#baggageLossDate").attr("min", inputStartTrip);
+    //            $("#travelDateTo").attr("min", inputStartTrip);
+    //        }
+    //        else if (parseInt(inputStartTripArray[1]) == parseInt(inputMinDateArray[1]))
+    //        {
+    //            if(parseInt(inputStartTripArray[2]) > parseInt(inputMinDateArray[2]))
+    //            {
+    //                $("#lossDate").attr("min", inputStartTrip);
+    //                $("#baggageLossDate").attr("min", inputStartTrip);
+    //                $("#travelDateTo").attr("min", inputStartTrip);
+    //            }
+    //        }
+    //    }
+    //    console.log("value changed");
+    //});
 
 
-    $('#travelDateTo').change(function (event) {
-        var inputMinDate = $("#lossDate").attr("max");
-        var inputMinDate = $("#baggageLossDate").attr("max");
-        var inputMinDateArray = inputMinDate.split('-');
-        var inputStartTrip = $('#travelDateTo').val();
-        var inputStartTripArray = inputStartTrip.split('-');
-        $("#travelDateFrom").attr("max", inputStartTrip);
-        if (parseInt(inputStartTripArray[0]) < parseInt(inputMinDateArray[0])) {
-            $("#lossDate").attr("max", inputStartTrip);
-            $("#baggageLossDate").attr("max", inputStartTrip);
+    //$('#travelDateTo').change(function (event) {
+    //    var inputMinDate = $("#lossDate").attr("max");
+    //    var inputMinDate = $("#baggageLossDate").attr("max");
+    //    var inputMinDateArray = inputMinDate.split('-');
+    //    var inputStartTrip = $('#travelDateTo').val();
+    //    var inputStartTripArray = inputStartTrip.split('-');
+    //    $("#travelDateFrom").attr("max", inputStartTrip);
+    //    if (parseInt(inputStartTripArray[0]) < parseInt(inputMinDateArray[0])) {
+    //        $("#lossDate").attr("max", inputStartTrip);
+    //        $("#baggageLossDate").attr("max", inputStartTrip);
 
-        }
-        else if (parseInt(inputStartTripArray[0]) == parseInt(inputMinDateArray[0])) {
-            if (parseInt(inputStartTripArray[1]) < parseInt(inputMinDateArray[1])) {
-                $("#lossDate").attr("max", inputStartTrip);
-                $("#baggageLossDate").attr("max", inputStartTrip);
+    //    }
+    //    else if (parseInt(inputStartTripArray[0]) == parseInt(inputMinDateArray[0])) {
+    //        if (parseInt(inputStartTripArray[1]) < parseInt(inputMinDateArray[1])) {
+    //            $("#lossDate").attr("max", inputStartTrip);
+    //            $("#baggageLossDate").attr("max", inputStartTrip);
 
-            }
-            else if (parseInt(inputStartTripArray[1]) == parseInt(inputMinDateArray[1])) {
-                if (parseInt(inputStartTripArray[2]) < parseInt(inputMinDateArray[2])) {
-                    $("#lossDate").attr("max", inputStartTrip);
-                    $("#baggageLossDate").attr("max", inputStartTrip);
+    //        }
+    //        else if (parseInt(inputStartTripArray[1]) == parseInt(inputMinDateArray[1])) {
+    //            if (parseInt(inputStartTripArray[2]) < parseInt(inputMinDateArray[2])) {
+    //                $("#lossDate").attr("max", inputStartTrip);
+    //                $("#baggageLossDate").attr("max", inputStartTrip);
 
-                }
-            }
-        }
-        console.log("value changed");
-    });
+    //            }
+    //        }
+    //    }
+    //    console.log("value changed");
+    //});
     $("#ForeignBankAccount").change(function () {
         if (this.checked) {
             $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false);
@@ -827,8 +827,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 $('#lossDate').attr("max", rez.EndDate);
                 $('#baggageLossDate').attr("min", rez.StartDate);
                 $('#baggageLossDate').attr("max", rez.EndDate);
-                $('#DoctorVisitDateTime').attr("min", rez.StartDate);
-                $('#travelDateFrom').attr("min", rez.StartDate);
+                //$('#DoctorVisitDateTime').attr("min", rez.StartDate);
+                //$('#travelDateFrom').attr("min", rez.StartDate);
                 $("#travelTimeFrom").val("00:00");
                 $("#travelTimeTo").val("00:00");
                 $("#lossTime").val("00:00");
@@ -893,7 +893,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
    //Disable other than English letters
     $(".input-sm, .text-box").keypress(function (event) {
-            var ew = event.which;
+        var ew = event.which;
             if(ew == 32)
                 return true;
             if(43 <= ew && ew <= 57)

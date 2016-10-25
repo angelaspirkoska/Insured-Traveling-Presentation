@@ -28,10 +28,11 @@ namespace Authentication.WEB.Controllers
         private IFranchiseService _fs;
         private IAdditionalChargesService _acs;
         private IUserService _us;
+        private IPolicyInsuredService _pis;
         private IInsuredsService _iss;
 
         public PolicyController(IPolicyService ps, IPolicyTypeService pts, ICountryService cs, IFranchiseService fs,
-            IAdditionalChargesService acs, IUserService us, IInsuredsService iss)
+            IAdditionalChargesService acs, IUserService us, IInsuredsService iss, IPolicyInsuredService pis)
         {
             _ps = ps;
             _pts = pts;
@@ -40,6 +41,7 @@ namespace Authentication.WEB.Controllers
             _acs = acs;
             _us = us;
             _iss = iss;
+            _pis = pis;
         }
 
         // GET: Policy
@@ -134,6 +136,21 @@ namespace Authentication.WEB.Controllers
         {
             PaymentModel pat = new PaymentModel();
             pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
+            pat.mainInsured = _pis.GetAllInsuredByPolicyId(pat.Pat.ID).First();
+            //  model.additionalCharge1 = 
+            var policy = _ps.GetPolicyById(pat.Pat.ID);
+            var additionalCharges = _acs.GetAdditionalChargesByPolicyId(pat.Pat.ID);
+
+            pat.additionalCharge1 = "Без доплаток";
+            pat.additionalCharge2 = "Без доплаток";
+            if (additionalCharges.Count >= 1 && additionalCharges[0] != null)
+            {
+                pat.additionalCharge1 = additionalCharges[0].Doplatok;
+            }
+            if (additionalCharges.Count >= 2 && additionalCharges[1] != null)
+            {
+                pat.additionalCharge2 = additionalCharges[1].Doplatok;
+            }
             return View("Print", pat);
         }
 
