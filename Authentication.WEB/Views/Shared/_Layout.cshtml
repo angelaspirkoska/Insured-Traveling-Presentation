@@ -20,7 +20,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top nav-material-design" role="navigation">
         <div class="container">
             <div class="navbar-header">
-                <button class="btn btn-success navbar-toggle">
+                <button type="button" class="btn btn-success navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                     <span class="glyphicon glyphicon-menu-hamburger"></span>
                 </button>
                 <a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Home" class="navbar-brand">
@@ -29,8 +29,8 @@
                     </div>
                 </a>
             </div>
-            <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
-                <ul class="nav navbar-nav navbar-right">
+            <div class="collapse navbar-collapse" id="myNavbar" data-collapse="!navbarExpanded">
+                <ul class="nav navbar-nav navbar-right" style="float:right;text-align:right;">
                     <li><a href="#" id="welcome">Welcome</a></li>
                     <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/account/deletetoken" id="logOut" onclick="func()">Logout</a></li>
                     <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login">Login</a></li>
