@@ -87,7 +87,8 @@ namespace InsuredTraveling.Controllers
                                    string operatorStartDate, 
                                    string operatorEndDate, 
                                    string operatorDateI, 
-                                   string operatorDateS)
+                                   string operatorDateS, 
+                                   string PolicyNumber)
         {
             DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : Convert.ToDateTime(startDate);
             DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : Convert.ToDateTime(endDate);
@@ -97,7 +98,7 @@ namespace InsuredTraveling.Controllers
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUser = _us.GetUserIdByUsername(username);
 
-            var data = _ps.GetPoliciesByCountryAndType(TypePolicy, Country, logUser);
+            var data = _ps.GetPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, logUser, PolicyNumber);
 
             if (!String.IsNullOrEmpty(startDate))
             {

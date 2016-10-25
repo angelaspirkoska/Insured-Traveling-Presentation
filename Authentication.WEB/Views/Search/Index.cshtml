@@ -42,6 +42,13 @@
                             <label for="country">Земја на патување:</label>
                             @Html.DropDownListFor(model => model.countries, (List<SelectListItem>)ViewBag.Countries, "-- Country --", new { @class = "form-control", name = "Country", id = "Country" })
                         </div>
+                        <div class="form-group col-sm-3">
+                            <label for="country">Број на полиса:</label>
+                           <input class="form-control text-box single-line" id="PolicyNumber" name="PolicyNumber"/>
+                        </div>
+
+                       
+
                     </div>
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
@@ -424,7 +431,7 @@
         $("#tablePolicies").DataTable().destroy();
         $("#tablePolicies").DataTable({
             dom: "Bfrtip",
-            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetPolicies?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val(),
+            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetPolicies?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber="+$("#PolicyNumber").val(),
             columns: [
                { data: "Polisa_Broj" },
                { data: "Country" },

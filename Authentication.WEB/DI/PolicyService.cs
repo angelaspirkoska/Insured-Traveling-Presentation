@@ -110,9 +110,9 @@ namespace InsuredTraveling.DI
             return _db.travel_policy.Where(x => x.ID == id).SingleOrDefault();
         }
 
-        public List<travel_policy> GetPoliciesByCountryAndType(int? TypePolicy, int? Country, string UserId)
+        public List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber)
         {
-            return _db.travel_policy.Where(x => (x.Created_By == UserId) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
+            return _db.travel_policy.Where(x => (x.Created_By == UserId) && (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) &&(TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
                                     (Country == null || x.CountryID == Country.Value)).ToList();
         }
         public List<travel_policy> GetPoliciesByInsuredId(int insuredId)
