@@ -38,7 +38,7 @@ namespace Authentication.WEB.Controllers
         {
            
             PaymentModel model = new PaymentModel();
-
+            //model.PolicyNumber = policy.Policy_Number;
             model.clientId = "180000069";                   //Merchant Id defined by bank to user
             model.amount = "9.95";                         //Transaction amount
             model.oid = "";                                //Order Id. Must be unique. If left blank, system will generate a unique one.
@@ -75,9 +75,11 @@ namespace Authentication.WEB.Controllers
             
             p.isMobile = false;
             var PolicyId = SavePolicyHelper.SavePolicy(p, _ps, _us, _iss, _pis, _acs);
-           model.mainInsured = _pis.GetAllInsuredByPolicyId(PolicyId).First();
+            
+            model.mainInsured = _pis.GetAllInsuredByPolicyId(PolicyId).First();
           //  model.additionalCharge1 = 
            var policy = _ps.GetPolicyById(PolicyId);
+            model.PolicyNumber = policy.Policy_Number;
             var additionalCharges = _acs.GetAdditionalChargesByPolicyId(PolicyId);
             
             model.additionalCharge1 = "Без доплаток";
@@ -139,12 +141,18 @@ namespace Authentication.WEB.Controllers
             model.TransId = Request.Form.Get("TransId");
             model.AuthCode = Request.Form.Get("AuthCode");
             model.mdStatus = Request.Form.Get("mdStatus");
+            var policyNumber = Request.Form.Get("PolicyNumber");
             if (model.mdStatus == "1" || model.mdStatus == "2" || model.mdStatus == "3" || model.mdStatus == "4")
             {
-               
-                string fullPath = System.Web.Hosting.HostingEnvironment.MapPath("~/PolicyPDF/" + model.TransId + model.amount + ".pdf");              
-                var actionResult = new ActionAsPdf("../Policy/Print");
+
+                string fullPath = System.Web.Hosting.HostingEnvironment.MapPath("~/PolicyPDF/" + model.TransId + model.amount + ".pdf");
+
+                PrintPolicyModel pat = new PrintPolicyModel();
+                pat.Pat = _ps.GetPolicyIdByPolicyNumber(policyNumber);
+                _ps.UpdatePaymentStatus(policyNumber);
+                var actionResult = new ViewAsPdf("Print", pat);
                 var byteArray = actionResult.BuildPdf(ControllerContext);
+
                 var fileStream = new FileStream(fullPath, FileMode.Create, FileAccess.Write);
                 fileStream.Write(byteArray, 0, byteArray.Length);
                 fileStream.Close();
@@ -161,6 +169,7 @@ namespace Authentication.WEB.Controllers
                 mailService.attach(new System.Net.Mail.Attachment(fullPath));
                 mailService.sendMail();
             }
+
             return View(model);
         }
 

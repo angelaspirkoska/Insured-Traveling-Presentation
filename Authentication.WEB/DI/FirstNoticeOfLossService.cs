@@ -193,5 +193,57 @@ namespace InsuredTraveling.DI
             }
             return allDoc;
         }
+
+        public List<first_notice_of_loss> GetFNOLBySearchValues(string username, string PolicyNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance)
+        {
+
+
+            string userID = _db.aspnetusers.Where(x => x.UserName == username).Select(x => x.Id).FirstOrDefault();
+            float totalPricefloat = 0;
+            int policyNum = !String.IsNullOrEmpty(PolicyNumber) ? Convert.ToInt32(PolicyNumber) : 0;
+            if (!String.IsNullOrEmpty(totalPrice))
+            {
+                float.TryParse(totalPrice, out totalPricefloat);
+            }
+            if (healthInsurance == "true")
+            {
+                return _db.first_notice_of_loss.Where(x =>
+                                   (x.travel_policy.ID == policyNum || String.IsNullOrEmpty(PolicyNumber)) &&
+                                   (x.insured.Name.Contains(insuredName) || String.IsNullOrEmpty(insuredName)) &&
+                                   (x.insured.Lastname.Contains(insuredLastName) || String.IsNullOrEmpty(insuredLastName)) &&
+                                   (x.travel_policy.insured.Name.Contains(holderName) || String.IsNullOrEmpty(holderName)) &&
+                                   (x.travel_policy.insured.Lastname.Contains(holderName) || String.IsNullOrEmpty(holderLastName)) &&
+                                   (x.travel_policy.policy_insured.Select(y => y.insured.Name).Contains(clientName) || String.IsNullOrEmpty(clientName)) &&
+                                   (x.travel_policy.policy_insured.Select(y => y.insured.Lastname).Contains(clientLastName) || String.IsNullOrEmpty(clientLastName)) &&
+                                   (x.Total_cost == totalPricefloat || String.IsNullOrEmpty(totalPrice)) &&
+                                   (x.additional_info.health_insurance_info != null) && (x.CreatedBy == userID)).ToList();
+            }
+            if (luggageInsurance == "true")
+            {
+                return _db.first_notice_of_loss.Where(x =>
+                                  (x.travel_policy.ID == policyNum || String.IsNullOrEmpty(PolicyNumber)) &&
+                                  (x.insured.Name.Contains(insuredName) || String.IsNullOrEmpty(insuredName)) &&
+                                  (x.insured.Lastname.Contains(insuredLastName) || String.IsNullOrEmpty(insuredLastName)) &&
+                                  (x.travel_policy.insured.Name.Contains(holderName) || String.IsNullOrEmpty(holderName)) &&
+                                  (x.travel_policy.insured.Lastname.Contains(holderName) || String.IsNullOrEmpty(holderLastName)) &&
+                                  (x.travel_policy.policy_insured.Select(y => y.insured.Name).Contains(clientName) || String.IsNullOrEmpty(clientName)) &&
+                                  (x.travel_policy.policy_insured.Select(y => y.insured.Lastname).Contains(clientLastName) || String.IsNullOrEmpty(clientLastName)) &&
+                                  (x.Total_cost == totalPricefloat || String.IsNullOrEmpty(totalPrice)) &&
+                                  (x.additional_info.luggage_insurance_info != null) && (x.CreatedBy == userID)).ToList();
+            }
+            else
+            {
+                return _db.first_notice_of_loss.Where(x =>
+                                (x.travel_policy.ID == policyNum || String.IsNullOrEmpty(PolicyNumber)) &&
+                                (x.insured.Name.Contains(insuredName) || String.IsNullOrEmpty(insuredName)) &&
+                                (x.insured.Lastname.Contains(insuredLastName) || String.IsNullOrEmpty(insuredLastName)) &&
+                                (x.travel_policy.insured.Name.Contains(holderName) || String.IsNullOrEmpty(holderName)) &&
+                                (x.travel_policy.insured.Lastname.Contains(holderName) || String.IsNullOrEmpty(holderLastName)) &&
+                                (x.travel_policy.policy_insured.Select(y => y.insured.Name).Contains(clientName) || String.IsNullOrEmpty(clientName)) &&
+                                (x.travel_policy.policy_insured.Select(y => y.insured.Lastname).Contains(clientLastName) || String.IsNullOrEmpty(clientLastName)) &&
+                                (x.Total_cost == totalPricefloat || String.IsNullOrEmpty(totalPrice)) && (x.CreatedBy == userID)).ToList();
+            }
+
+        }
     }
 }

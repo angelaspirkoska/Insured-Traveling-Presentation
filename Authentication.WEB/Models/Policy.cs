@@ -8,7 +8,7 @@ namespace InsuredTraveling.Models
     {
         public string Policy_Number { get; set; }
 
-        public int PaymentStatys = 0;
+        public int PaymentStatys { get; set; }
 
         public bool isMobile { get; set; }
 
@@ -166,5 +166,11 @@ namespace InsuredTraveling.Models
 
         public List<insured> insureds { get; set; }
         public List<additional_charge> additional_charges {get;set;}
+
+        public Policy()
+        {
+            PaymentStatys = 0;
+        }
+
     }
 }

@@ -1,10 +1,13 @@
-﻿using InsuredTraveling;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace InsuredTraveling.Models
 {
-    public class PaymentModel
+    public class PrintPolicyModel
     {
+
         public travel_policy Pat { get; set; }
         public string PolicyNumber { get; set; }
         public insured mainInsured { get; set; }

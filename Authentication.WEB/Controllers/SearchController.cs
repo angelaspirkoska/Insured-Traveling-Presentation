@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using InsuredTraveling.DI;
 using AutoMapper;
 using InsuredTraveling.ViewModels;
+using InsuredTraveling.Filters;
+
 
 namespace InsuredTraveling.Controllers
 {
@@ -90,6 +92,7 @@ namespace InsuredTraveling.Controllers
                                    string operatorDateS, 
                                    string PolicyNumber)
         {
+
             DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : Convert.ToDateTime(startDate);
             DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : Convert.ToDateTime(endDate);
             DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : Convert.ToDateTime(dateI);
@@ -98,8 +101,19 @@ namespace InsuredTraveling.Controllers
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUser = _us.GetUserIdByUsername(username);
 
-            var data = _ps.GetPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, logUser, PolicyNumber);
+            RoleAuthorize r = new RoleAuthorize();
 
+            List<travel_policy> data = new List<travel_policy>();
+
+            if (r.IsUser("admin"))
+            {
+                data = _ps.GetPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, PolicyNumber);
+            }
+
+            else if(r.IsUser("end user"))
+            {
+                data = _ps.GetPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, logUser, PolicyNumber);
+            }
             if (!String.IsNullOrEmpty(startDate))
             {
                 switch (operatorStartDate)
@@ -165,7 +179,23 @@ namespace InsuredTraveling.Controllers
 
         public JObject GetFNOL(string PolicyNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance, string DateAdded, string operatorDateAdded)
         {
-            var fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
+            RoleAuthorize r = new RoleAuthorize();
+
+            List<first_notice_of_loss> fnol = new List<first_notice_of_loss>();
+
+            if (r.IsUser("admin"))
+            {
+                fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
+            }
+
+            else if (r.IsUser("end user"))
+            {
+
+                fnol = _fnls.GetFNOLBySearchValues(System.Web.HttpContext.Current.User.Identity.Name,PolicyNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
+            }
+
+
+            // fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
             if (!String.IsNullOrEmpty(DateAdded))
             {
                 DateTime dateAdded = Convert.ToDateTime(DateAdded);

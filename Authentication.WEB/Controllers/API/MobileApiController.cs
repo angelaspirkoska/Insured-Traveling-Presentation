@@ -289,6 +289,8 @@ namespace InsuredTraveling.Controllers.API
                 f1.Message = f.Message;
                 f1.travel_policy.Policy_Number = f.PolicyNumber.ToString();             
                 f1.Web_Mobile = f.isMobile;
+    
+
 
                 try
                 {
@@ -330,6 +332,8 @@ namespace InsuredTraveling.Controllers.API
             try
             {
                 policyId = SavePolicyHelper.SavePolicy(f, _ps, _us, _iss, _pis, _acs);
+                _ps.UpdatePaymentStatus(_ps.GetPolicyNumberByPolicyId(policyId));
+
             }
             finally
             {

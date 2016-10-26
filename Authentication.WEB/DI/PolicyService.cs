@@ -14,9 +14,17 @@ namespace InsuredTraveling.DI
         InsuredTravelingEntity _db = new InsuredTravelingEntity();
         public int AddPolicy(travel_policy TravelPolicy)
         {
+            TravelPolicy.Payment_Status = false;
             _db.travel_policy.Add(TravelPolicy);
             _db.SaveChanges();
             return TravelPolicy.ID;
+        }
+
+        public void UpdatePaymentStatus(string PolicyNumber)
+        {
+            var Policy = _db.travel_policy.Where(x => x.Policy_Number == PolicyNumber).SingleOrDefault();
+            Policy.Payment_Status = true;
+            _db.SaveChanges();
         }
 
         public string CreatePolicyNumber()
@@ -65,13 +73,13 @@ namespace InsuredTraveling.DI
 
         public travel_policy[] GetPolicyByUsernameId(string id)
         {
-            return _db.travel_policy.Where(x => x.aspnetuser.Id == id).ToArray();
+            return _db.travel_policy.Where(x => x.aspnetuser.Id == id && x.Payment_Status == true).ToArray();
         }
 
         public travel_policy GetPolicyClientsInfo(int PolicyID)
         {
 
-            var policy = _db.travel_policy.Where(x => x.ID == PolicyID)
+            var policy = _db.travel_policy.Where(x => x.ID == PolicyID && x.Payment_Status == true)
                 .Include(x => x.insured)
                 .Include(x => x.policy_insured)
                 .Include(x => x.insured.bank_account_info)
@@ -111,29 +119,34 @@ namespace InsuredTraveling.DI
         }
 
         public List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber)
-        {
+        {            
             return _db.travel_policy.Where(x => (x.Created_By == UserId) && (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) &&(TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
-                                    (Country == null || x.CountryID == Country.Value)).ToList();
+                                    (Country == null || x.CountryID == Country.Value) && x.Payment_Status == true).ToList();
         }
         public List<travel_policy> GetPoliciesByInsuredId(int insuredId)
         {
             var allPolicies = _db.policy_insured.Where(x => x.InsuredID == insuredId).Select(x => x.PolicyID).ToList();
-            return _db.travel_policy.Where(x => (allPolicies.Contains(x.ID))).ToList();
+            return _db.travel_policy.Where(x => (allPolicies.Contains(x.ID)) && x.Payment_Status == true).ToList();
         }
 
         public List<travel_policy> GetPoliciesByHolderId(int holderId)
         {
-            return _db.travel_policy.Where(x => x.Policy_HolderID == holderId).ToList();
+            return _db.travel_policy.Where(x => x.Policy_HolderID == holderId && x.Payment_Status == true).ToList();
         }
 
         public IQueryable<SelectListItem> GetPoliciesByUserId(string userID)
         {
-            return _db.travel_policy.Where(x => x.Created_By == userID).Select(p => new SelectListItem
+            return _db.travel_policy.Where(x => x.Created_By == userID && x.Payment_Status == true).Select(p => new SelectListItem
             {
                 Text = p.Policy_Number,
                 Value = p.ID.ToString()
             });
         }
 
+        public List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string PolicyNumber)
+        {
+            return _db.travel_policy.Where(x =>  (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
+                                    (Country == null || x.CountryID == Country.Value) && x.Payment_Status == true).ToList();
+        }
     }
 }

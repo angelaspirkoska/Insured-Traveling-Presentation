@@ -589,6 +589,7 @@
     <Compile Include="Models\Policy.cs" />
     <Compile Include="Models\PolicyInfoList.cs" />
     <Compile Include="Models\Premium.cs" />
+    <Compile Include="Models\PrintPolicyModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserModel_Detail.cs" />
@@ -700,6 +701,8 @@
     <Content Include="Views\Policy\Index.cshtml" />
     <Content Include="Views\Payment\PaymentFail.cshtml" />
     <Content Include="Views\FirstNoticeOfLoss\View.cshtml" />
+    <Content Include="Views\Payment\_PolicyPrint.cshtml" />
+    <Content Include="Views\Payment\Print.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

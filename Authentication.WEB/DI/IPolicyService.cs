@@ -23,11 +23,14 @@ namespace InsuredTraveling.DI
         List<travel_policy> GetPolicyByTypePolicies(int TypePolicies);
         //ne e jasno zasto sluzi dolniot metod!!!!!
         string GetCompanyID(string PolicyNumber);
+        void UpdatePaymentStatus(string PolicyNumber);
         List<travel_policy> GetAllPolicies();
         IQueryable<SelectListItem> GetAll();
         travel_policy GetPolicyClientsInfo(int PolicyID);
         insured GetPolicyHolderByPolicyID(int PolicyID);
         List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber);
+
+        List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string PolicyNumber);
         List<travel_policy> GetPoliciesByInsuredId(int insuredId);
         List<travel_policy> GetPoliciesByHolderId(int holderId);
         IQueryable<SelectListItem> GetPoliciesByUserId(string userID);
