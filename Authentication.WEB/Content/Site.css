@@ -232,7 +232,7 @@ form.cmxform .gray * { color: gray; }
 }
 
 /*Home page background video css*/
-video {
+/*video {
     margin:0;
     padding:0;
     filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");
@@ -254,5 +254,5 @@ video {
   -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-}
+}*/
 /*end of background video*/
