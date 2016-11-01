@@ -6,9 +6,11 @@ using System.Web.Mvc;
 using System;
 using System.Linq;
 using InsuredTraveling.DI;
+using InsuredTraveling.Filters;
 
 namespace Authentication.WEB.Controllers
 {
+    
     public class ClientController : Controller
     {
         private IInsuredsService _ins;

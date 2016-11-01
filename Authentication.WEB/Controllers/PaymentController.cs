@@ -1,6 +1,5 @@
 ﻿using Authentication.WEB.Models;
 using Authentication.WEB.Services;
-using InsuredTraveling;
 using InsuredTraveling.Models;
 using Rotativa;
 using System;
@@ -11,10 +10,11 @@ using System.Web.Mvc;
 using AutoMapper;
 using InsuredTraveling.Helpers;
 using InsuredTraveling.DI;
-
+using InsuredTraveling.Filters;
 namespace Authentication.WEB.Controllers
 {
     [RoutePrefix("Payment")]
+    [SessionExpire]
     public class PaymentController : Controller
     {
         private IUserService _us;
@@ -160,8 +160,8 @@ namespace Authentication.WEB.Controllers
 
 
                 // ADD MAIL ADRESS
-
-                MailService mailService = new MailService("aleksandra@optimalreinsurance.com");
+                var PolicyHolderEmail = _ps.GetPolicyHolderEmailByPolicyId(pat.Pat.ID);
+                MailService mailService = new MailService(PolicyHolderEmail);
                 mailService.setSubject("Издадена полиса број: " + model.oid);
                 string bodyText = "Успешно извршена трансакција \n Уплатена сума: " + model.amount + " ден. \n Трансакциски код: " + model.TransId + "\n Автентикациски код: " + model.AuthCode;
 

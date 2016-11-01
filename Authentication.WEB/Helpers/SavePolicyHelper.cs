@@ -41,38 +41,9 @@ namespace InsuredTraveling.Helpers
                         
             if (p.IsSamePolicyHolderInsured && (p.isMobile || r.IsUser("end user"))) 
              {
-                var policyHolderId = _iss.GetInsuredIdBySsn(p.SSN);
-                if(policyHolderId != -1)
-                {
-                    policy.Policy_HolderID = policyHolderId;
-                }
-                else
-                {
-                    var newInsured = _iss.Create();
-
-                    newInsured.Name = p.Name;
-                    newInsured.Lastname = p.LastName;
-                    newInsured.SSN = p.SSN;
-
-                    newInsured.Email = p.Email;
-                    newInsured.DateBirth = p.BirthDate;
-                    newInsured.Phone_Number = p.PhoneNumber;
-
-                    newInsured.Passport_Number_IdNumber = p.PassportNumber_ID;
-
-                    newInsured.City = p.City;
-                    newInsured.Postal_Code = p.PostalCode;
-                    newInsured.Address = p.Address;
-
-                    newInsured.Date_Created = DateTime.Now;
-                    newInsured.Created_By = policy.Created_By;
-                    try
-                    {
-                       var Id = _iss.AddInsured(newInsured);
-                        policy.Policy_HolderID = Id;
-                    }
-                    finally { }
-                }
+               var PolicyHolderId= SaveInsuredHelper.SaveInsured(_iss, p.Name, p.LastName, p.SSN, p.Email, p.BirthDate, p.PhoneNumber, p.PassportNumber_ID, p.Address, p.City, p.PostalCode, policy.Created_By);
+                policy.Policy_HolderID = PolicyHolderId;
+              
             }
 
             if(!p.IsSamePolicyHolderInsured)

@@ -22,7 +22,7 @@ namespace InsuredTraveling.DI
 
         public bool IsHealthInsuranceByAdditionalInfoId(int id)
         {
-            var healthAdditionalInfo = _db.health_insurance_info.Single(x => x.Additional_infoId == id);
+            var healthAdditionalInfo = _db.health_insurance_info.SingleOrDefault(x => x.Additional_infoId == id);
             return healthAdditionalInfo != null;
         }
 

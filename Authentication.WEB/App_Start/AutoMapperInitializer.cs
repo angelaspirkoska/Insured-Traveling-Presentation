@@ -128,7 +128,7 @@ namespace InsuredTraveling.App_Start
                 var claimant = db.insureds.Where(x => x.ID == src.ClaimantId).FirstOrDefault();
                 var claimant_bank_account = db.bank_account_info.Where(x => x.ID == src.Claimant_bank_accountID).FirstOrDefault();
                 var claimant_bank = claimant_bank_account != null ? db.banks.Where(x => x.ID == claimant_bank_account.BankID).FirstOrDefault() : null;
-                var healthAdditionalInfo = db.health_insurance_info.Single(x => x.Additional_infoId == src.Additional_infoID);
+                var healthAdditionalInfo = db.health_insurance_info.SingleOrDefault(x => x.Additional_infoId == src.Additional_infoID);
                 var luggageInsuranceInfo = healthAdditionalInfo == null ? db.luggage_insurance_info.Single(x => x.Additional_infoId == src.Additional_infoID) : null;
                 var additional_info = db.additional_info.Where(x => x.ID == src.Additional_infoID).FirstOrDefault();
                 dst.PolicyId = src.PolicyId;

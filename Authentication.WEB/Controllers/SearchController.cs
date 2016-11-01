@@ -13,6 +13,7 @@ using InsuredTraveling.Filters;
 
 namespace InsuredTraveling.Controllers
 {
+    [SessionExpire]
     public class SearchController : Controller
     {
 

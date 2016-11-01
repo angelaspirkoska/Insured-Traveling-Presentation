@@ -9,13 +9,16 @@ using System.Data.Entity;
 using System.Collections.Generic;
 using InsuredTraveling.Helpers;
 using InsuredTraveling.ViewModels;
+using InsuredTraveling.Filters;
 using Newtonsoft.Json;
 using AutoMapper;
 using System.IO;
 
 namespace InsuredTraveling.Controllers
 {
-    [Authorize]
+    
+    [SessionExpire]
+  //  [Authorize]
     public class FirstNoticeOfLossController : Controller
     {
         private IUserService _us;
@@ -46,8 +49,9 @@ namespace InsuredTraveling.Controllers
             _fis = fis;
         }
 
+        [SessionExpire]
         public ActionResult Index(int? policyId)
-        {
+        {           
             var policies = ShowUserData();
             ViewBag.Date = DateTime.Now.Year + "-"+DateTime.Now.Month + "-" +DateTime.Now.Day;
             ViewBag.Policies = new SelectList(policies, "Value", "Text", policyId.ToString());
@@ -55,6 +59,7 @@ namespace InsuredTraveling.Controllers
             return View();
         }
 
+        [SessionExpire]
         [HttpPost]
         public async Task<ActionResult> Index(FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel, IEnumerable<HttpPostedFileBase> invoices, IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
         {
@@ -123,6 +128,7 @@ namespace InsuredTraveling.Controllers
             return View(firstNoticeOfLossViewModel);
         }
 
+        [SessionExpire]
         public ActionResult View(int? id)
         {
             var model = new FirstNoticeOfLossReportViewModel();
@@ -156,6 +162,7 @@ namespace InsuredTraveling.Controllers
             return View(model);
         }
 
+        [SessionExpire]
         public FileResult DocumentDownload(string path)
         {
             try
@@ -177,6 +184,7 @@ namespace InsuredTraveling.Controllers
                 throw new Exception("");
             }
         }
+        [SessionExpire]
         private bool SaveDataInDb(FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel, IEnumerable<HttpPostedFileBase> invoices, IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
         {
             var result = true;

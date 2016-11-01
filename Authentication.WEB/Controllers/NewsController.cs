@@ -3,9 +3,11 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using InsuredTraveling.DI;
+using InsuredTraveling.Filters;
 
 namespace Authentication.WEB.Controllers
 {
+    [SessionExpire]
     public class NewsController : Controller
     {
 

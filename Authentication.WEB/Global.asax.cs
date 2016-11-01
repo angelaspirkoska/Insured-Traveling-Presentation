@@ -7,9 +7,8 @@ using Authentication.WEB;
 using InsuredTraveling.App_Start;
 using Autofac;
 using Autofac.Integration.Mvc;
-using Autofac.Integration.WebApi;
-using InsuredTraveling.Controllers.API;
-using System.Reflection;
+using InsuredTraveling.Filters;
+
 
 namespace InsuredTraveling
 {
@@ -18,8 +17,9 @@ namespace InsuredTraveling
         protected void Application_Start()
         {
             SetupDependencyInjection();
+
             AreaRegistration.RegisterAllAreas();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);            
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
@@ -38,6 +38,8 @@ namespace InsuredTraveling
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container)); 
             
         }
+
+
 
     
 }

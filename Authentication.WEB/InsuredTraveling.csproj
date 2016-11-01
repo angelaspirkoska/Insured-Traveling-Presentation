@@ -519,6 +519,7 @@
     </Compile>
     <Compile Include="Filters\RoleAuthorize.cs" />
     <Compile Include="Filters\RecaptchaFilter.cs" />
+    <Compile Include="Filters\SessionExpireAttribute.cs" />
     <Compile Include="first_notice_of_loss.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -536,6 +537,7 @@
     </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Helpers\SaveInsuredHelper.cs" />
     <Compile Include="Helpers\SaveBankAccountInfoHelper.cs" />
     <Compile Include="Helpers\SaveFirstNoticeOfLoss.cs" />
     <Compile Include="Helpers\SavePolicyHelper.cs" />

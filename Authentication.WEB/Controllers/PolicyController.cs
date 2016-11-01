@@ -14,10 +14,11 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Data.Entity;
 using InsuredTraveling.DI;
+using InsuredTraveling.Filters;
 
 namespace Authentication.WEB.Controllers
 {
-    [Authorize]
+    [SessionExpire]
     public class PolicyController : Controller
     {
 

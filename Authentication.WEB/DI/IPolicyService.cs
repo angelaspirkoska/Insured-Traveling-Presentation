@@ -23,6 +23,7 @@ namespace InsuredTraveling.DI
         List<travel_policy> GetPolicyByTypePolicies(int TypePolicies);
         //ne e jasno zasto sluzi dolniot metod!!!!!
         string GetCompanyID(string PolicyNumber);
+        string GetPolicyHolderEmailByPolicyId(int PolicyId);
         void UpdatePaymentStatus(string PolicyNumber);
         List<travel_policy> GetAllPolicies();
         IQueryable<SelectListItem> GetAll();

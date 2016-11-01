@@ -148,5 +148,10 @@ namespace InsuredTraveling.DI
             return _db.travel_policy.Where(x =>  (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
                                     (Country == null || x.CountryID == Country.Value) && x.Payment_Status == true).ToList();
         }
+
+        public string GetPolicyHolderEmailByPolicyId(int PolicyId)
+        {
+            return _db.travel_policy.Where(x => x.ID == PolicyId).Select(x => x.insured.Email).SingleOrDefault();
+        }
     }
 }

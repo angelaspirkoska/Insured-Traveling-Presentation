@@ -61,5 +61,11 @@ namespace InsuredTraveling.DI
                                            (x.City.Contains(city) || String.IsNullOrEmpty(city)) &&
                                            (x.Passport_Number_IdNumber.Contains(passport) || String.IsNullOrEmpty(passport))).ToList();
         }
+
+        public insured GetInsuredBySsn(string Ssn)
+        {
+            var insured = _db.insureds.Where(x => x.SSN == Ssn).SingleOrDefault();
+            return insured;
+        }
     }
 }
