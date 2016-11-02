@@ -114,10 +114,11 @@ namespace InsuredTraveling.Controllers
 
                 //firstNoticeOfLossViewModel.ShortDetailed = false;
 
-                if (result)
+                if (result>0)
                 {
                     ViewBag.Message = "Successfully reported!";
-                    return View();
+                    return RedirectToAction("View", new { id = result });
+                   // return View("View", result);
                 }
                 else
                 {
@@ -419,8 +420,8 @@ namespace InsuredTraveling.Controllers
                 var EndDate = Policy.End_Date;
 
 
-                Result.Add("StartDate",  StartDate.Year+ String.Format("-{0:00}-{0:00}", +StartDate.Month , StartDate.Day));
-                Result.Add("EndDate", EndDate.Year + String.Format("-{0:00}-{0:00}", +EndDate.Month, EndDate.Day));
+                Result.Add("StartDate",  StartDate.Year+ String.Format("-{0:00}-{0:00}", StartDate.Month , StartDate.Day));
+                Result.Add("EndDate", EndDate.Year + String.Format("-{0:00}-{0:00}", EndDate.Month, EndDate.Day));
                 var PolicyHolderData = new JObject();
                 PolicyHolderData.Add("Id", PolicyHolder.ID);
                 PolicyHolderData.Add("FirstName", PolicyHolder.Name);

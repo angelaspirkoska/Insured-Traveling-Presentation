@@ -26,7 +26,7 @@ namespace InsuredTraveling.DI
         public List<SelectListItem> GetPolicyNumberListByUsernameToList(string Username)
         {
             string ID = _db.aspnetusers.Where(a => a.UserName == Username).Single().Id;
-            var PolicyNumbers = _db.travel_policy.Where(p => p.Created_By == ID).Select(p => new SelectListItem
+            var PolicyNumbers = _db.travel_policy.Where(p => p.Created_By == ID && p.Payment_Status == true).Select(p => new SelectListItem
             {
                 Text = p.Policy_Number,
                 Value = p.ID.ToString()

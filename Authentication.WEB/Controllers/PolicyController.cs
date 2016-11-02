@@ -60,7 +60,10 @@ namespace Authentication.WEB.Controllers
             ViewBag.Countries = countries.Result;
             ViewBag.Franchise = franchises.Result;
             ViewBag.additional_charges = additional_charges.Result;
-            ViewBag.Date = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
+            ViewBag.Date = DateTime.Now.Year + String.Format("/{0:00}", DateTime.Now.Month) +String.Format("/{0:00}",DateTime.Now.Day);
+            DateTime inTenDays = DateTime.Now.AddDays(9);
+             ViewBag.DateAfterTenDays = inTenDays.Year + String.Format("/{0:00}", inTenDays.Month) + String.Format("/{0:00}", inTenDays.Day);
+            //ViewBag.Date = DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day;
 
             return View();
         }
@@ -129,6 +132,22 @@ namespace Authentication.WEB.Controllers
         public ActionResult PrintPolicy(string id)
         {
             PaymentModel pat = new PaymentModel();
+            pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
+            pat.mainInsured = _pis.GetAllInsuredByPolicyId(pat.Pat.ID).First();
+            //  model.additionalCharge1 = 
+            var policy = _ps.GetPolicyById(pat.Pat.ID);
+            var additionalCharges = _acs.GetAdditionalChargesByPolicyId(pat.Pat.ID);
+
+            pat.additionalCharge1 = "Без доплаток";
+            pat.additionalCharge2 = "Без доплаток";
+            if (additionalCharges.Count >= 1 && additionalCharges[0] != null)
+            {
+                pat.additionalCharge1 = additionalCharges[0].Doplatok;
+            }
+            if (additionalCharges.Count >= 2 && additionalCharges[1] != null)
+            {
+                pat.additionalCharge2 = additionalCharges[1].Doplatok;
+            }
             pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
             return new ViewAsPdf("Print", pat);
         }

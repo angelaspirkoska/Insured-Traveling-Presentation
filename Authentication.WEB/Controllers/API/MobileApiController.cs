@@ -316,7 +316,7 @@ namespace InsuredTraveling.Controllers.API
 
 
 
-                if (result)
+                if (result>0)
                     return Ok();
 
                 else throw new Exception("Internal error: Not saved");

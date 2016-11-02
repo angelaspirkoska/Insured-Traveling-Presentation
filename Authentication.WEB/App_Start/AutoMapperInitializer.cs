@@ -188,6 +188,7 @@ namespace InsuredTraveling.App_Start
 
             Mapper.CreateMap<travel_policy, SearchPolicyViewModel>().AfterMap((src, dst) =>
             {
+                dst.PolicyHolderName = src.policy_insured.FirstOrDefault().insured.Lastname + " " + src.policy_insured.FirstOrDefault().insured.Name;
                 dst.Polisa_Id = src.ID;
                 dst.Polisa_Broj = src.Policy_Number;
                 dst.Country = src.country.Name;

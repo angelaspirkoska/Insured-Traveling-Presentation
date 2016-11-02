@@ -9,12 +9,12 @@ namespace InsuredTraveling.Helpers
 {
     public static class SaveFirstNoticeOfLossHelper
     {
-        public static bool SaveFirstNoticeOfLoss(IInsuredsService _iss, IUserService _us, IFirstNoticeOfLossService _fis,
+        public static int SaveFirstNoticeOfLoss(IInsuredsService _iss, IUserService _us, IFirstNoticeOfLossService _fis,
             IBankAccountService _bas, IPolicyTypeService _pts, IAdditionalInfoService _ais,
             FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel, IEnumerable<HttpPostedFileBase> invoices,
             IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
         {
-            var result = true;
+            var result = -1;
             var additionalInfo = _ais.Create();
             if (firstNoticeOfLossViewModel.IsHealthInsurance)
             {
@@ -43,7 +43,7 @@ namespace InsuredTraveling.Helpers
                 try
                 {
 
-                    result = _ais.AddHealthInsuranceInfo(healthInsuranceInfo) > 0;
+                    _ais.AddHealthInsuranceInfo(healthInsuranceInfo);
 
                 }
                 finally
@@ -210,8 +210,8 @@ namespace InsuredTraveling.Helpers
                     }
                 }
             }
-
-            return FirstNoticeOfLossID > 0;
+            result = FirstNoticeOfLossID;
+            return result;
 
         }
     }

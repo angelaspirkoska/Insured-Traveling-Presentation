@@ -6,7 +6,9 @@
     margin-bottom:20px;
     height:100vh !important;
 }
-
+.footer-material-design{
+    padding-top: 1%;
+}
 .btn-circle {
   width: 30px;
   height: 30px;
@@ -293,3 +295,4 @@ form.cmxform .gray * { color: gray; }
   filter:blur(2px);
 }
 /*end of background video*/
+

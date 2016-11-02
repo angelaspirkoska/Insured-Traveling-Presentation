@@ -31,7 +31,7 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right" style="float:right;text-align:right;">
-                    <li><a href="#" id="welcome">Welcome</a></li>
+                    <li><a href="#" id="welcome"></a></li>
                     <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/account/deletetoken" id="logOut" onclick="func()">Logout</a></li>
                     <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login">Login</a></li>
                     <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp" id="signup">Sign up</a></li>
@@ -57,6 +57,7 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
+
             localStorage.setItem("username", $("#userName").val());
             console.log(localStorage.getItem("username"));
             if (localStorage.getItem("username") != "") {
@@ -65,8 +66,9 @@
                 $("#login").attr("class", "hidden");
                 $("#welcome").removeAttr("class");
                 $("#logOut").removeAttr("class");
-            } else {
-                $("#welcome").attr("class", "hidden");
+            }
+             else {
+               $("#welcome").hide();
                 $("#logOut").attr("class", "hidden");
             }
 
