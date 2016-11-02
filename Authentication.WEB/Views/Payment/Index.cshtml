@@ -19,9 +19,9 @@
 @{ Html.RenderPartial("../Policy/_PolicyPrint", Model);  }    
 <form id="paymentForm" target="output_frame" method="post" action="https://entegrasyon.asseco-see.com.tr/fim/est3Dgate">
     <center>
-        <h1 id="hideMe">
+        <h3 id="hideMe">
             Плати ја полисата
-        </h1>
+        </h3>
         <br />
 
       
@@ -29,7 +29,7 @@
             <tr class="trHeader"></tr>
             <tr>
                 <td align="center" colspan="2">
-                    <input type="submit" id="button" value="Плати полиса" class="button  btn btn-lg btn-primary " />
+                    <input type="submit" id="button" value="Плати полиса" class="button  btn btn-primary " />
                 </td>
             </tr>
         </table>
@@ -49,7 +49,7 @@
         <input type="hidden" name="refreshtime" value="10" />
     </center>
 </form>
-<iframe id="output_frame" height="700px" name="output_frame" class="col-sm-12 col-md-12 col-lg-12" frameborder="0">
+<iframe id="output_frame" height="500px" name="output_frame" class="col-sm-12 col-md-12 col-lg-12" frameborder="0">
     <p>Your browser does not support iframes.</p>
 </iframe>
 <script src="~/Scripts/jquery-1.10.2.js"></script>
@@ -68,8 +68,11 @@
                     $("#button").hide();
                     $("#hideMe").hide();
                 },
-                5000);
-        $("#output_frame").show();
+                100);
+            $("#output_frame").show();
+            $('html,body').animate({
+                scrollTop: $("#output_frame").offset().top
+            }, 800);
     });
 
 
