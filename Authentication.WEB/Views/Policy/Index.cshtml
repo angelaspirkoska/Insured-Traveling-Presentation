@@ -92,7 +92,7 @@
             <div class="form-inline row">
                 <div class="form-group col-sm-3">
                     <div class="inputs-spacing">
-                        @Html.CheckBoxFor(model => model.IsExistentPolicyHolder, new { @class = "col-md-1", @style = "margin-top:3%;" }) Постоечки корисник
+                        @Html.CheckBoxFor(model => model.IsExistentPolicyHolder, new { @class = "col-md-1", @style = "" }) Постоечки корисник
                     </div>
                     <div class="hideWhenSelect">
                         @Html.LabelFor(model => model.PolicyHolderName, htmlAttributes: new { @class = "control-label" })
@@ -165,7 +165,7 @@
         <div class="form-inline row">
             <div class="form-group col-sm-3">
                 <div class="inputs-spacing">
-                    @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "col-md-1", @style = "margin-top:3%;" })
+                    @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "col-md-1", @style = "" })
 
                     @if (r.IsUser("end user"))
                     {
@@ -227,12 +227,12 @@
                         <div class="inputs-spacing">
                             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
 
-                            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", } })
-                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-                            </div>
+                        @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
@@ -320,11 +320,11 @@
                         <input type="button" value="Пресметај премија" class="btn btn-default" onclick="CalculateTotalPremium()" />
                     </div>
                 </div>
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-4" style="padding-left:0px;">
                    @Html.LabelFor(model => model.Total_Premium, htmlAttributes: new { @class = "control-label col-md-5", @id="totalPremiumLabel" })
-                    <div class="col-md-7">
+                    <div class="col-md-6">
                         <div class="input-group">
-                            @Html.EditorFor(model => model.Total_Premium, new { htmlAttributes = new { @class = "form-control", style = "width: 45%", id = "totalPremium", @readonly = "true" } })
+                            @Html.EditorFor(model => model.Total_Premium, new { htmlAttributes = new { @class = "form-control", style = "width: 45%; color:red; font-weight:bold;", id = "totalPremium", @readonly = "true" } })
 
                         </div>
                     </div>
@@ -336,20 +336,20 @@
         </div>
         <br />
         <br />
-        <div class="form-inline row">
-            <div class="form-group col-sm-3 col-md-3">
+        <div class="form-inline row col-md-9">
+            <div class="form-group col-sm-3 col-md-3" style="padding-left:0px;">
                 <div>
-                    <input type="submit" value="Купи полиса" id="buyPolicyBtn" class="btn btn-lg btn-default" @*onclick="@("window.location.href='" + @Url.Action("Index", "Payment", new { p = Model }) + "'");"*@ formmethod="post" formaction="/Payment/Index" />
+                    <input type="submit" value="Купи полиса" id="buyPolicyBtn" class="btn btn-default" @*onclick="@("window.location.href='" + @Url.Action("Index", "Payment", new { p = Model }) + "'");"*@ formmethod="post" formaction="/Payment/Index" />
                 </div>
             </div>
             <div class="form-group col-sm-3 col-md-3">
                 <div>
-                    <input type="button" value="Додади во понуди" class="btn btn-lg btn-default" />
+                    <input type="button" value="Додади во понуди" class="btn btn-default" />
                 </div>
             </div>
-            <div class="form-group col-sm-3">
+            <div class="form-group col-sm-3 col-md-3">
                 <div>
-                    <input type="button" onclick="@("window.location.href='" + @Url.Action("PrintPolicy", "Policy") + "'");" class="btn btn-lg btn-default" value="Печати Понуди" />
+                    <input type="button" onclick="@("window.location.href='" + @Url.Action("PrintPolicy", "Policy") + "'");" class="btn btn-default" value="Печати Понуди" />
                 </div>
             </div>
         </div>
