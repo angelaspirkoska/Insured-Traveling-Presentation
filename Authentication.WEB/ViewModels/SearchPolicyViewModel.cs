@@ -8,7 +8,7 @@ namespace InsuredTraveling.ViewModels
     public class SearchPolicyViewModel
     {
         public int Polisa_Id { get; set; }
-        public string PolicyHolderName { get; set; }
+        public string InsuredName { get; set; }
         public string Polisa_Broj { get; set; }
         public string Country { get; set; }
         public string Policy_type { get; set; }

@@ -426,7 +426,7 @@
 
                     <div class="col-md-7">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Место на пријавување:</label><br />
-                        @Html.EditorFor(model => model.ReportPlace, new { @class = "form-control input-sm" })
+                        @Html.TextAreaFor(model => model.ReportPlace, new { @class = "form-control input-sm" })
                         @Html.ValidationMessageFor(model => model.ReportPlace, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -434,15 +434,15 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Опис на украдените/оштетени предмети:</label>
+                        <label >Опис на украдените/оштетени предмети: </label>
                         @Html.TextAreaFor(model => model.Floaters, new { @class = "form-control input-sm" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-7">
                         <label>Вредност:</label>
-                        @Html.TextAreaFor(model => model.FloatersValue, new { @class = "form-control input-sm" })
+                        @Html.EditorFor(model => model.FloatersValue, new { @class = "form-control input-sm" })
                     </div>
                 </div>
 
@@ -518,7 +518,7 @@
 else if (ViewBag.insurance == "Luggage Insurance")
 {
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function () 
             $("#luggage").attr("checked", "true");
             $("#hiddenIsHealthInsurance").prop("checked", false);
             $("#luggageInsurance").toggle();

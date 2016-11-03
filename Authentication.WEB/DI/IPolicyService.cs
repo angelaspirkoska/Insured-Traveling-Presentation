@@ -26,6 +26,7 @@ namespace InsuredTraveling.DI
         string GetPolicyHolderEmailByPolicyId(int PolicyId);
         void UpdatePaymentStatus(string PolicyNumber);
         List<travel_policy> GetAllPolicies();
+        List<SelectListItem> GetAllPoliciesAsSelectList();
         IQueryable<SelectListItem> GetAll();
         travel_policy GetPolicyClientsInfo(int PolicyID);
         insured GetPolicyHolderByPolicyID(int PolicyID);

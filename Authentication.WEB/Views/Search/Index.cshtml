@@ -44,10 +44,10 @@
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="country">Број на полиса:</label>
-                           <input class="form-control text-box single-line" id="PolicyNumber" name="PolicyNumber"/>
+                            <input class="form-control text-box single-line" id="PolicyNumber" name="PolicyNumber" />
                         </div>
 
-                       
+
 
                     </div>
                     <div class="form-inline row">
@@ -94,7 +94,7 @@
                 </div>
                 <br />
                 <div class="row col-md-12">
-                    <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="Search" onclick="SearchPolycies()" type="button" style="float:left;"/>
+                    <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="Search" onclick="SearchPolycies()" type="button" style="float:left;" />
                     <div class="hover-tooltip">
                         <button type="button" style="float:right;" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="Додади нова полиса" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
                     </div>
@@ -110,6 +110,7 @@
                 <thead>
                     <tr>
                         <th>Број на полиса</th>
+                        <th>Име и презиме на осигуреник</th>
                         <th>Земја на патување</th>
                         <th>Вид полиса</th>
                         <th>Важи од</th>
@@ -240,6 +241,7 @@
                         <th>Датум на издавање</th>
                         <th>Датум на сторнирање</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -333,7 +335,7 @@
                 </div>
                 <br />
                 <div class="row col-md-12">
-                    <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="Search" onclick="SearchFNOL()" type="button" style="float:left;"/>
+                    <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="Search" onclick="SearchFNOL()" type="button" style="float:left;" />
                     <div class="hover-tooltip">
                         <button type="button" style="float:right;" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="Додади нова штета" onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
                     </div>
@@ -434,6 +436,7 @@
             ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetPolicies?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber="+$("#PolicyNumber").val(),
             columns: [
                { data: "Polisa_Broj" },
+               {data: "InsuredName"},
                { data: "Country" },
                { data: "Policy_type" },
                { data: "Zapocnuva_Na" },
@@ -656,6 +659,23 @@
                        }
                    }
                },
+                    {
+                        data: "Polisa_Id",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                return $('<a>')
+                                    .attr('href', '/FirstNoticeOfLoss/Index?policyId=' + data)
+                                    .attr('class', 'newLoss')
+                                    .attr('id', data)
+                                    .text("Пријави штета")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    }
             ],
             select: true
         });

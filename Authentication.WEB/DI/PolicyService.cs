@@ -35,10 +35,19 @@ namespace InsuredTraveling.DI
 
         public List<travel_policy> GetAllPolicies()
         {
-            return _db.travel_policy.ToList();
+            return _db.travel_policy.Where(x=> x.Payment_Status == true).ToList();
         }
 
-        public IQueryable<SelectListItem> GetAll()
+        public List<SelectListItem> GetAllPoliciesAsSelectList()
+        {
+            return _db.travel_policy.Where(x => x.Payment_Status == true).Select(p => new SelectListItem
+            {
+                Text = p.Policy_Number,
+                Value = p.ID.ToString()
+            }).ToList();
+        }
+      
+    public IQueryable<SelectListItem> GetAll()
         {
             var policies = _db.travel_policy.Select(p => new SelectListItem
             {

@@ -353,9 +353,22 @@ namespace InsuredTraveling.Controllers
         }
         public List<SelectListItem> ShowUserData()
         {
-            string username = System.Web.HttpContext.Current.User.Identity.Name;
-            var policies = _us.GetPolicyNumberListByUsernameToList(System.Web.HttpContext.Current.User.Identity.Name);
-            return policies;
+            RoleAuthorize r = new RoleAuthorize();
+            
+            if (r.IsUser("end user"))
+            {
+                string username = System.Web.HttpContext.Current.User.Identity.Name;
+                 var policies = _us.GetPolicyNumberListByUsernameToList(System.Web.HttpContext.Current.User.Identity.Name);
+                return policies;
+
+            }
+            else if (r.IsUser("admin"))
+            {
+                var policies = _ps.GetAllPoliciesAsSelectList();
+                return policies;
+            }
+
+            return null;
         }
 
         [HttpGet]
