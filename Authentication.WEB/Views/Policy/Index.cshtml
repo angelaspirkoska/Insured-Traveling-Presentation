@@ -60,19 +60,19 @@
             <div class="form-group col-sm-3">
                 @Html.LabelFor(model => model.Start_Date, htmlAttributes: new { @class = "control-label"})
                 <div class="inputs-spacing">
-                    @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
+                    @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField" } })
                     @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
                 </div>
                 <input type="hidden" id="inTenDays" name="inTenDays" value="@ViewBag.DateAfterTenDays">
                 @Html.LabelFor(model => model.End_Date, htmlAttributes: new { @class = "control-label" })
                 <div class="inputs-spacing">
-                    @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
+                    @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField" } })
                     @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
                 </div>
 
                 @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
                     <div class="input-group">
-                        @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm", @style= "position: static;" } })
+                        @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", @style= "position: static;", @min = "1" } })
                         <span class="input-group-addon">денови</span>
                     </div>
                     @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
@@ -97,63 +97,63 @@
                     <div class="hideWhenSelect">
                         @Html.LabelFor(model => model.PolicyHolderName, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.PolicyHolderName, new { htmlAttributes = new { @class = "form-control mandatoryField" } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderName, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.PolicyHolderLastName, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderLastName, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.EditorFor(model => model.PolicyHolderLastName, new { htmlAttributes = new { @class = "form-control mandatoryField", } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderLastName, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.PolicyHolderAddress, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderAddress, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.EditorFor(model => model.PolicyHolderAddress, new { htmlAttributes = new { @class = "form-control mandatoryField" } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderAddress, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.PolicyHolderCity, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderCity, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.EditorFor(model => model.PolicyHolderCity, new { htmlAttributes = new { @class = "form-control mandatoryField", } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderCity, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PolicyHolderPostalCode, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderPostalCode, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.EditorFor(model => model.PolicyHolderPostalCode, new { htmlAttributes = new { @class = "form-control mandatoryField" } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderPostalCode, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     @Html.LabelFor(model => model.PolicyHolderSSN, htmlAttributes: new { @class = "control-label" })
                     <div class="inputs-spacing">
-                        @Html.EditorFor(model => model.PolicyHolderSSN, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.PolicyHolderSSN, new { htmlAttributes = new { @class = "form-control mandatoryField" } })
                         @Html.ValidationMessageFor(model => model.PolicyHolderSSN, "", new { @class = "text-danger" })
                     </div>
                     <div class="hideWhenSelect">
 
                         @Html.LabelFor(model => model.PolicyHolderBirthDate, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderBirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder", type = "date", @max = ViewBag.Date } })
+                            @Html.EditorFor(model => model.PolicyHolderBirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField", type = "date", @max = ViewBag.Date } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderBirthDate, "", new { @class = "text-danger" })
                         </div>
 
 
                         @Html.LabelFor(model => model.PolicyHolderPassportNumber_ID, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderPassportNumber_ID, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.EditorFor(model => model.PolicyHolderPassportNumber_ID, new { htmlAttributes = new { @class = "form-control mandatoryField" } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderPassportNumber_ID, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.PolicyHolderEmail, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderEmail, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.EditorFor(model => model.PolicyHolderEmail, new { htmlAttributes = new { @class = "form-control mandatoryField" } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderEmail, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PolicyHolderPhoneNumber, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
                             @Html.EditorFor(model => model.PolicyHolderPhoneNumber, new { htmlAttributes = new { @class = "form-control", } })
-                            @Html.ValidationMessageFor(model => model.PolicyHolderPhoneNumber, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderPhoneNumber, "", new { @class = "text-danger mandatoryField" })
                         </div>
                     </div>
                 </div>
@@ -180,58 +180,58 @@
                     <div id="hideWhenSamePerson">
                         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control mandatoryField" } })
                             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control mandatoryField", } })
                             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control mandatoryField", } })
                             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control mandatoryField", } })
                             @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control mandatoryField", } })
                             @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control mandatoryField" } })
                             @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder"} })
+                            @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField" } })
                             @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PassportNumber_ID, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PassportNumber_ID, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.EditorFor(model => model.PassportNumber_ID, new { htmlAttributes = new { @class = "form-control mandatoryField"} })
                             @Html.ValidationMessageFor(model => model.PassportNumber_ID, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control mandatoryField"} })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control mandatoryField" } })
                             @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -317,7 +317,7 @@
             <div class="form-inline row">
                 <div class="form-group col-sm-3 col-md-3">
                     <div>
-                        <input type="button" value="Пресметај премија" class="btn btn-default" onclick="CalculateTotalPremium()" />
+                        <input type="button" id="calculateTotalPremium" value="Пресметај премија" class="btn btn-default" onclick="CalculateTotalPremium()" />
                     </div>
                 </div>
                 @*<div class="form-group col-sm-4" style="padding-left:0px;">
@@ -351,7 +351,7 @@
             </div>
             <div class="col-sm-3 col-md-3">
                 <div>
-                    <input type="submit" value="Купи полиса" id="buyPolicyBtn" class="btn btn-default" @*onclick="@("window.location.href='" + @Url.Action("Index", "Payment", new { p = Model }) + "'");"*@ formmethod="post" formaction="/Payment/Index" />
+                    <input type="submit" value="Купи полиса" class="btn btn-default hideMe" @*onclick="@("window.location.href='" + @Url.Action("Index", "Payment", new { p = Model }) + "'");"*@ formmethod="post" formaction="/Payment/Index" />
                 </div>
             </div>
         </div>
@@ -359,12 +359,12 @@
             
             <div class="form-group col-sm-3 col-md-2" style="margin-left: 0px; padding-left: 0px;">
                 <div>
-                    <input type="button" value="Додади во понуди" class="btn btn-default" />
+                    <input type="button" value="Додади во понуди" class="btn btn-default hideMe" />
                 </div>
             </div>
             <div class="form-group col-sm-3 col-md-8">
                 <div>
-                    <input type="button" onclick="@("window.location.href='" + @Url.Action("PrintPolicy", "Policy") + "'");" class="btn btn-default" value="Печати Понуди" />
+                    <input type="button" onclick="@("window.location.href='" + @Url.Action("PrintPolicy", "Policy") + "'");" class="btn btn-default hideMe" value="Печати Понуди" />
                 </div>
             </div>
         </div>
@@ -381,7 +381,7 @@
 
 <script>
     $(document).ready(function () {
-        $("#buyPolicyBtn").hide();
+        $(".hideMe").hide();        
         $("#Start_Date").val($("#todayDate").val());
         $("#End_Date").val($("#inTenDays").val());
         $("#Valid_Days").val(10);
@@ -412,7 +412,8 @@
         $("#additional_charges_1__ID").val(1);
 
     });
-
+   
+    
     $(".input-sm, .text-box").keypress(function (event) {
         var ew = event.which;
         console.log(ew);
@@ -427,23 +428,58 @@
         return false;
     });
 
-    function CalculateTotalPremium() {
-        $.ajax({
-            type: "POST",
-            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/Premium/Calculate",
-            data: $("#policy_form").serialize(),
-            success: function (result) {
-                console.log(result.PremiumAmount);
-                $("#totalPremium").val(result.PremiumAmount);
-                $("#totalPremium").show();
-                $("#totalPremiumLabel").show();
-                $("#buyPolicyBtn").show();
-                $("#errorMessage").text(" ");
-            },
-            error: function (result) {
-                $("#errorMessage").text((JSON.parse(result.responseText)).Message);
+
+    function ValidateFields() {
+        var flag = true;
+        $.each($('.mandatoryField'), function () {
+            if ($(this).val().length == "") {
+                flag = false;
             }
         });
+        if ($("#Valid_Days").val() == 0)
+            flag = false;
+        return flag;
+    }
+
+
+    function CalculateTotalPremium() {
+
+        var flag = ValidateFields();
+
+        if (flag) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/Premium/Calculate",
+                        data: $("#policy_form").serialize(),
+                        success: function (result) {
+                            console.log(result.PremiumAmount);
+                            $("#totalPremium").val(result.PremiumAmount);
+                            $("#totalPremium").show();
+                            $("#totalPremiumLabel").show();
+                            $(".hideMe").show();
+                            $("#errorMessage").text(" ");
+                        },
+                        error: function (result) {
+                            $(".hideMe").hide();
+                            $("#totalPremiumLabel").hide();
+                            $("#totalPremium").val("");
+                            $("#errorMessage").text((JSON.parse(result.responseText)).Message);
+                        }
+                    });
+        }
+        else {
+                    $(".hideMe").hide();
+                    $("#totalPremiumLabel").hide();
+                    $("#totalPremium").val("");
+                    if ($("#Valid_Days").val() == 0) {
+                        $("#errorMessage").text("Мора да имате барем еден валиден ден!");
+                    }
+                    else {
+                        $("#errorMessage").text("Внесете ги сите полиња!");
+                    }
+                    
+        }
+
     }
     $('#dugme').on('submit', function (e) {
         if (!valid) {
@@ -513,20 +549,6 @@
         },
     });
 
-   
-
-    //$("#startDate").focusout(function () {
-    //    var Edat = $("#startDate").val();
-    //    var Sdat = new Date($("#startDate").val());
-
-    //    var god = (Sdat.getFullYear() + 1);
-    //    var mesec = $("#startDate").val().substring(5, 7);
-    //    var den = $("#startDate").val().substring(8, 10);
-    //    var intDen = parseInt(den) + 2;
-    //    $("#endDate").attr('min', Edat);
-    //    $("#endDate").attr('max', god + "-" + mesec + "-" + intDen);
-    //});
-
     $("#vaziDenovi").focusin(function () {
         var Sdat = new Date($("#startDate").val());
         var Edat = new Date($("#endDate").val());
@@ -538,18 +560,6 @@
         }
 
     });
-
-    //$('#Start_Date').change(function (event) {
-
-    //    var startDateChosen = $("#Start_Date").val();
-    //    $("#End_Date").attr("min", startDateChosen);
-
-
-    //});
-    //$('#End_Date').change(function (event) {
-    //    var startDateChosen = $("#End_Date").val();
-    //    $("#Start_Date").attr("max", startDateChosen);
-    //});
 
     $("#SSN").keydown(function (e) {
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
