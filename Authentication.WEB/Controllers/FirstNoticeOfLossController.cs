@@ -13,12 +13,12 @@ using InsuredTraveling.Filters;
 using Newtonsoft.Json;
 using AutoMapper;
 using System.IO;
+using System.Linq;
 
 namespace InsuredTraveling.Controllers
 {
     
     [SessionExpire]
-  //  [Authorize]
     public class FirstNoticeOfLossController : Controller
     {
         private IUserService _us;
@@ -51,11 +51,13 @@ namespace InsuredTraveling.Controllers
 
         [SessionExpire]
         public ActionResult Index(int? policyId)
-        {           
-            var policies = ShowUserData();
-            ViewBag.Date = DateTime.Now.Year + "-"+DateTime.Now.Month + "-" +DateTime.Now.Day;
-            ViewBag.Policies = new SelectList(policies, "Value", "Text", policyId.ToString());
-            ViewBag.PolicyId = policyId != null ? policyId.ToString() : "0";
+        {
+            if (policyId != null)
+            {
+                var policy = _ps.GetPolicyById(Convert.ToInt32(policyId));
+                ViewBag.PolicyNumber = policy != null ? policy.Policy_Number : null;
+            }
+           
             return View();
         }
 
@@ -63,12 +65,8 @@ namespace InsuredTraveling.Controllers
         [HttpPost]
         public async Task<ActionResult> Index(FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel, IEnumerable<HttpPostedFileBase> invoices, IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
         {
-            var policies = ShowUserData();
-            ViewBag.Policies = new SelectList(policies, "Value", "Text", firstNoticeOfLossViewModel.PolicyId.ToString());
-            //firstNoticeOfLossViewModel.isMobile = false;
             ModelState.Remove("PolicyHolderForeignBankAccountId");
             ModelState.Remove("ClaimantForeignBankAccountId");
-
 
             if (firstNoticeOfLossViewModel.IsHealthInsurance)
             {
@@ -99,26 +97,19 @@ namespace InsuredTraveling.Controllers
 
             if (ModelState.IsValid)
             {
-               
-               // var result = SaveDataInDb(firstNoticeOfLossViewModel, invoices, documentsHealth, documentsLuggage);
+                var policy = _ps.GetPolicyIdByPolicyNumber(firstNoticeOfLossViewModel.PolicyNumber.ToString());
+                if(policy == null)
+                {
+                    return View(firstNoticeOfLossViewModel);
+                }
+                firstNoticeOfLossViewModel.PolicyId = policy.ID;
 
                 var result = SaveFirstNoticeOfLossHelper.SaveFirstNoticeOfLoss( _iss, _us, _fis,
-            _bas,  _pts, _ais, firstNoticeOfLossViewModel, invoices, documentsHealth, documentsLuggage);
-                //var uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/api/mobile/ReportLoss");
-                //var client = new HttpClient { BaseAddress = uri };
-                //var jsonFormatter = new JsonMediaTypeFormatter();
-                //HttpContent content = new ObjectContent<FirstNoticeOfLossReportViewModel>(firstNoticeOfLossViewModel,
-                //    jsonFormatter);
-                //HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
-                //string responseBody = await responseMessage.Content.ReadAsStringAsync();
-
-                //firstNoticeOfLossViewModel.ShortDetailed = false;
-
+                            _bas,  _pts, _ais, firstNoticeOfLossViewModel, invoices, documentsHealth, documentsLuggage);
                 if (result>0)
                 {
                     ViewBag.Message = "Successfully reported!";
                     return RedirectToAction("View", new { id = result });
-                   // return View("View", result);
                 }
                 else
                 {
@@ -351,21 +342,23 @@ namespace InsuredTraveling.Controllers
 
             return FirstNoticeOfLossID>0;            
         }
-        public List<SelectListItem> ShowUserData()
+
+        [HttpPost]
+        public JsonResult ShowPolicies(string Prefix)
         {
             RoleAuthorize r = new RoleAuthorize();
-            
             if (r.IsUser("end user"))
             {
-                string username = System.Web.HttpContext.Current.User.Identity.Name;
-                 var policies = _us.GetPolicyNumberListByUsernameToList(System.Web.HttpContext.Current.User.Identity.Name);
-                return policies;
+                var policies = _us.GetPoliciesByUsernameToList(System.Web.HttpContext.Current.User.Identity.Name, Prefix);
+                var policiesAutoComplete = policies.Select(Mapper.Map<travel_policy, PolicyAutoCompleteViewModel>).ToList();
+                return Json(policiesAutoComplete, JsonRequestBehavior.AllowGet);
 
             }
             else if (r.IsUser("admin"))
             {
-                var policies = _ps.GetAllPoliciesAsSelectList();
-                return policies;
+                var policies = _ps.GetAllPoliciesByPolicyNumber(Prefix);
+                var policiesAutoComplete = policies.Select(Mapper.Map<travel_policy, PolicyAutoCompleteViewModel>).ToList();
+                return Json(policiesAutoComplete, JsonRequestBehavior.AllowGet);
             }
 
             return null;
@@ -414,95 +407,87 @@ namespace InsuredTraveling.Controllers
         }
 
         [HttpGet]
-        public async Task<JObject> GetInsureds(int PolicyID)
+        public async Task<JObject> GetInsureds(string policyNumber)
         {
-            var Result = new JObject();
-            //var Result = "";
+            var result = new JObject();
 
-
-            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            //check if the policy number exsist
+            var policy = _ps.GetPolicyIdByPolicyNumber(policyNumber);
+            
+            if (policy != null)
             {
-                var Policy = _ps.GetPolicyClientsInfo(PolicyID);
-                var Banks = _bas.GetAllPrefix();
-
-                var Insureds = Policy.policy_insured;
-                var PolicyHolder = Policy.insured;
-                var PolicyHolderBankAccounts = Policy.insured.bank_account_info;
-
-                var StartDate = Policy.Start_Date;
-                var EndDate = Policy.End_Date;
-
-
-                Result.Add("StartDate",  StartDate.Year+ String.Format("-{0:00}-{0:00}", StartDate.Month , StartDate.Day));
-                Result.Add("EndDate", EndDate.Year + String.Format("-{0:00}-{0:00}", EndDate.Month, EndDate.Day));
-                var PolicyHolderData = new JObject();
-                PolicyHolderData.Add("Id", PolicyHolder.ID);
-                PolicyHolderData.Add("FirstName", PolicyHolder.Name);
-                PolicyHolderData.Add("LastName", PolicyHolder.Lastname);
-                PolicyHolderData.Add("SSN", PolicyHolder.SSN);
-                PolicyHolderData.Add("PhoneNumber", PolicyHolder.Phone_Number);
-                PolicyHolderData.Add("City", PolicyHolder.City);
-                PolicyHolderData.Add("Adress", PolicyHolder.Address);
-
-                var BankAccountsPolicyHolderJsonArray = new JArray();
-
-                foreach (var BankAccount in PolicyHolderBankAccounts)
+                if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    var NewJsonBankAccount = new JObject();
-                    NewJsonBankAccount.Add("Id", BankAccount.ID);
-                    NewJsonBankAccount.Add("AccountNumber", BankAccount.Account_Number);
-                    NewJsonBankAccount.Add("BankName", BankAccount.bank.Name);
+                    var Policy = _ps.GetPolicyClientsInfo(policy.ID);
+                    var Banks = _bas.GetAllPrefix();
 
-                    BankAccountsPolicyHolderJsonArray.Add(NewJsonBankAccount);
+                    var Insureds = Policy.policy_insured;
+                    var PolicyHolder = Policy.insured;
+                    var PolicyHolderBankAccounts = Policy.insured.bank_account_info;
+
+                    var StartDate = Policy.Start_Date;
+                    var EndDate = Policy.End_Date;
+
+                    result.Add("StartDate", StartDate.Year + String.Format("-{0:00}-{0:00}", StartDate.Month, StartDate.Day));
+                    result.Add("EndDate", EndDate.Year + String.Format("-{0:00}-{0:00}", EndDate.Month, EndDate.Day));
+                    var PolicyHolderData = new JObject();
+                    PolicyHolderData.Add("Id", PolicyHolder.ID);
+                    PolicyHolderData.Add("FirstName", PolicyHolder.Name);
+                    PolicyHolderData.Add("LastName", PolicyHolder.Lastname);
+                    PolicyHolderData.Add("SSN", PolicyHolder.SSN);
+                    PolicyHolderData.Add("PhoneNumber", PolicyHolder.Phone_Number);
+                    PolicyHolderData.Add("City", PolicyHolder.City);
+                    PolicyHolderData.Add("Adress", PolicyHolder.Address);
+
+                    var BankAccountsPolicyHolderJsonArray = new JArray();
+
+                    foreach (var BankAccount in PolicyHolderBankAccounts)
+                    {
+                        var NewJsonBankAccount = new JObject();
+                        NewJsonBankAccount.Add("Id", BankAccount.ID);
+                        NewJsonBankAccount.Add("AccountNumber", BankAccount.Account_Number);
+                        NewJsonBankAccount.Add("BankName", BankAccount.bank.Name);
+
+                        BankAccountsPolicyHolderJsonArray.Add(NewJsonBankAccount);
+                    }
+                    PolicyHolderData.Add("BankAccounts", BankAccountsPolicyHolderJsonArray);
+
+                    result.Add("policyholder", PolicyHolderData);
+
+                    var InsuredsJsonArray = new JArray();
+
+                    foreach (var v in Insureds)
+                    {
+                        var NewJsonInsured = new JObject();
+                        NewJsonInsured.Add("Id", v.insured.ID);
+                        NewJsonInsured.Add("FirstName", v.insured.Name);
+                        NewJsonInsured.Add("LastName", v.insured.Lastname);
+
+                        InsuredsJsonArray.Add(NewJsonInsured);
+                    }
+
+                    result.Add("data", InsuredsJsonArray);
+                    var BankListData = new JArray();
+                    foreach (var Bank in Banks)
+                    {
+                        var BanksData = new JObject();
+                        BanksData.Add("Prefix", Bank.Prefix_Number);
+                        BanksData.Add("BankName", Bank.bank.Name);
+                        BankListData.Add(BanksData);
+                    }
+                    result.Add("banks", BankListData);
+                    return result;
                 }
-                PolicyHolderData.Add("BankAccounts", BankAccountsPolicyHolderJsonArray);
-
-                Result.Add("policyholder", PolicyHolderData);
-
-
-                var InsuredsJsonArray = new JArray();
-
-                foreach (var v in Insureds)
+                else
                 {
-                    var NewJsonInsured = new JObject();
-                    NewJsonInsured.Add("Id", v.insured.ID);
-                    NewJsonInsured.Add("FirstName", v.insured.Name);
-                    NewJsonInsured.Add("LastName", v.insured.Lastname);
-
-                    InsuredsJsonArray.Add(NewJsonInsured);
+                    result.Add("response", "Not authenticated user");
                 }
-
-
-                Result.Add("data", InsuredsJsonArray);
-
-
-
-                var BankListData = new JArray();
-                foreach (var Bank in Banks)
-                {
-                    var BanksData = new JObject();
-                    BanksData.Add("Prefix", Bank.Prefix_Number);
-                    BanksData.Add("BankName", Bank.bank.Name);
-                    BankListData.Add(BanksData);
-                }
-                Result.Add("banks", BankListData);
-
-                
-
-
-                return Result;
-
-
             }
             else
             {
-                Result.Add("response", "Not authenticated user");
+                result.Add("response", "No policy found");
             }
-
-            return Result;
-            ;
-
-
+            return result;
         }
 
     }

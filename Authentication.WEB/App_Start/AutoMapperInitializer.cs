@@ -96,7 +96,6 @@ namespace InsuredTraveling.App_Start
                 dst.luggage_insurance = null;
             });
 
-
             Mapper.CreateMap<FirstNoticeOfLossReportViewModel, first_notice_of_loss>().AfterMap((src, dst) =>
             {
 
@@ -229,6 +228,12 @@ namespace InsuredTraveling.App_Start
                 dst.Postal_Code = src.Postal_Code;
                 dst.City = src.City;
                 dst.Email = src.Email;
+            });
+
+            Mapper.CreateMap<travel_policy, PolicyAutoCompleteViewModel>().AfterMap((src, dst) =>
+            {
+                dst.Id = src.ID;
+                dst.Name = src.Policy_Number;
             });
         }
     }

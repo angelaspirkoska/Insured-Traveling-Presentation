@@ -1,7 +1,7 @@
 ﻿@{HtmlHelper.UnobtrusiveJavaScriptEnabled = true;}
 @model InsuredTravelingEntity
 @using InsuredTraveling.Filters
-
+@using System.Web.Optimization;
 @{
     ViewBag.Title = "Search";
     RoleAuthorize r = new RoleAuthorize();
@@ -9,7 +9,6 @@
 
 <br />
 <br />
-
 <div>
     <ul class="nav nav-pills">
         <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">Полиси</a></li>
@@ -27,11 +26,6 @@
         <div class="row">
             <form method="post" style="margin-left: 20px">
                 <div class="row">
-                    @*<input type="search" id="namePolicy" class="input-sm" placeholder="Search by name" />
-                        <input type="search" id="embgPolicy" class="input-sm" placeholder="Search by EMBG" />
-                        <input type="search" id="land" class="input-sm" placeholder="Search by Land" />
-                        <input type="search" id="addressPolicy" class="input-sm" placeholder="Search by Address" />
-                        <input type="search" id="agency" class="input-sm" placeholder="Search by Agency" />*@
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
                             <label for="vidPolisa">Вид полиса :</label>
@@ -44,12 +38,8 @@
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="country">Број на полиса:</label>
-                            <input class="form-control 
-                                   " id="PolicyNumber" name="PolicyNumber" />
+                            <input class="form-control input-sm" type="text" id="PolicyNumber" name="PolicyNumber" />
                         </div>
-
-
-
                     </div>
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
@@ -281,7 +271,7 @@
                         <div class="form-group col-sm-3">
                             <label for="vidPolisa">Број на полиса :</label>
                             <br />
-                            @Html.DropDownListFor(model => model.travel_policy, (List<SelectListItem>)ViewBag.Policies, "-- Број на полиса --", new { @class = "form-control", name = "PolicyNumber", id = "PolicyNumber" })
+                            <input class="form-control input-sm" type="text" id="PolicyNumberFNL" name="PolicyNumberFNL" />
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="startDate">Датум на пријавување:</label>
@@ -368,8 +358,9 @@
     </div>
 </div>
 
+@Scripts.Render("~/bundles/jqueryui")
+@Styles.Render("~/Content/jqueryuicss")
 <script type="text/javascript">
-
     $(document).ready(function () {
         $(".hover-tooltip button").tooltip('show');
         $("#searchClients").hide();
@@ -397,6 +388,44 @@
         var Edat = $("#endDate").val();
         $("#DateS").attr('max', Edat);
         $("#startDate").attr('max', Edat);
+    });
+
+    $("#PolicyNumber").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/Search/ShowPolicies",
+                type: "POST",
+                dataType: "json",
+                data: { Prefix: request.term },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item.Name, value: item.Name };
+                    }))
+                }
+            })
+        },
+        messages: {
+            noResults: "", results: ""
+        }
+    });
+
+    $("#PolicyNumberFNL").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/Search/ShowPolicies",
+                type: "POST",
+                dataType: "json",
+                data: { Prefix: request.term },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item.Name, value: item.Name };
+                    }))
+                }
+            })
+        },
+        messages: {
+            noResults: "", results: ""
+        }
     });
 
     function ShowClients() {
@@ -551,7 +580,7 @@
         $("#tableFNOL").DataTable().destroy();
         $("#tableFNOL").DataTable({
             dom: "Bfrtip",
-            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFNOL?PolicyNumber=" + $("#PolicyNumber").val() + "&holderName=" + $("#holderName").val() + "&holderLastName=" + $("#holderLastName").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked') + "&DateAdded=" + $("#DateAdded").val() + "&operatorDateAdded=" + $("#operatorDateAdded").val(),
+            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFNOL?PolicyNumber=" + $("#PolicyNumberFNL").val() + "&holderName=" + $("#holderName").val() + "&holderLastName=" + $("#holderLastName").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked') + "&DateAdded=" + $("#DateAdded").val() + "&operatorDateAdded=" + $("#operatorDateAdded").val(),
             columns: [
                     { data: "PolicyNumber" },
                     { data: "InsuredName" },

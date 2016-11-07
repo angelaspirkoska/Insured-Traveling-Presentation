@@ -27,8 +27,6 @@ namespace InsuredTraveling.Helpers
                     d.Add(timeSpan);
                     additionalInfo.Datetime_accident = d;
                 }
-                   
-
                 var healthInsuranceInfo = new health_insurance_info
                 {
                     Additional_infoId = _ais.Add(additionalInfo),
@@ -40,23 +38,16 @@ namespace InsuredTraveling.Helpers
                     Responsible_institution = firstNoticeOfLossViewModel.ResponsibleInstitution
                 };
 
-                try
-                {
-
-                    _ais.AddHealthInsuranceInfo(healthInsuranceInfo);
+                try{
+                     _ais.AddHealthInsuranceInfo(healthInsuranceInfo);
 
                 }
-                finally
-                {
-
-                }
+                finally{}
 
             }
-
             else
             {
                 additionalInfo.Accident_place = firstNoticeOfLossViewModel.AccidentPlaceLuggage;
-
                 if (firstNoticeOfLossViewModel.AccidentDateTimeLuggage != null)
                 {                  
                     var dateTime = firstNoticeOfLossViewModel.AccidentDateTimeLuggage.Value;
@@ -64,8 +55,7 @@ namespace InsuredTraveling.Helpers
                     DateTime d = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
                     d.Add(timeSpan);
                     additionalInfo.Datetime_accident = d;
-                }
-                    
+                }   
                 var luggageInsuranceInfo = new luggage_insurance_info
                 {
                     Additional_infoId = _ais.Add(additionalInfo),
@@ -82,14 +72,8 @@ namespace InsuredTraveling.Helpers
                 {
                     _ais.AddLuggageInsuranceInfo(luggageInsuranceInfo);
                 }
-                finally
-                {
-
-                }
+                finally{}
             }
-
-
-
             var firstNoticeOfLossEntity = _fis.Create();
             firstNoticeOfLossEntity.PolicyId = firstNoticeOfLossViewModel.PolicyId;
             firstNoticeOfLossEntity.ClaimantId = firstNoticeOfLossViewModel.ClaimantId;
@@ -102,34 +86,24 @@ namespace InsuredTraveling.Helpers
             firstNoticeOfLossEntity.CreatedDateTime = DateTime.Now;
 
             string username;
-            if (firstNoticeOfLossViewModel.isMobile)
-            {
+            if (firstNoticeOfLossViewModel.isMobile){
                 username = firstNoticeOfLossViewModel.username;
             }
-            else
-            {
+            else{
                  username = System.Web.HttpContext.Current.User.Identity.Name;
             }
-           
-
             firstNoticeOfLossEntity.CreatedBy = _us.GetUserIdByUsername(username);
             firstNoticeOfLossEntity.Message = "";
-
-
-
             firstNoticeOfLossEntity.Additional_infoID = additionalInfo.ID;
-
             firstNoticeOfLossEntity.PolicyId = firstNoticeOfLossViewModel.PolicyId;
             firstNoticeOfLossEntity.ClaimantId = firstNoticeOfLossEntity.ClaimantId;
             firstNoticeOfLossEntity.Relation_claimant_policy_holder = firstNoticeOfLossEntity.Relation_claimant_policy_holder;
 
-            
             if (!firstNoticeOfLossViewModel.isMobile && firstNoticeOfLossViewModel.ClaimantExistentBankAccount)
             {
                 firstNoticeOfLossEntity.Claimant_bank_accountID = firstNoticeOfLossViewModel.ClaimantForeignBankAccountId;
             }
-            else
-            {
+            else{
                 var bankAccountId = SaveBankAccountInfoHelper.SaveBankAccountInfo(_bas, firstNoticeOfLossViewModel.ClaimantId,
                      firstNoticeOfLossViewModel.ClaimantBankName,
                      firstNoticeOfLossViewModel.ClaimantBankAccountNumber);
@@ -137,14 +111,11 @@ namespace InsuredTraveling.Helpers
                 firstNoticeOfLossEntity.Claimant_bank_accountID = bankAccountId;
             }
 
-
-
             if (firstNoticeOfLossViewModel.PolicyHolderExistentBankAccount)
             {
                 firstNoticeOfLossEntity.Policy_holder_bank_accountID = firstNoticeOfLossViewModel.PolicyHolderForeignBankAccountId;
             }
-            else
-            {
+            else{
                 var bankAccountId = SaveBankAccountInfoHelper.SaveBankAccountInfo(_bas, firstNoticeOfLossViewModel.PolicyHolderId,
                      firstNoticeOfLossViewModel.PolicyHolderBankName,
                      firstNoticeOfLossViewModel.PolicyHolderBankAccountNumber);

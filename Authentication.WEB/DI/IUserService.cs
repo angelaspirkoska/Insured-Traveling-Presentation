@@ -13,7 +13,7 @@ namespace InsuredTraveling.DI
         aspnetuser GetUserById(string id);
         string GetUserIdByUsername(string Username);
         IQueryable<SelectListItem> GetPolicyNumberListByUsername(string Username);
-        List<SelectListItem> GetPolicyNumberListByUsernameToList(string Username);
+        List<travel_policy> GetPoliciesByUsernameToList(string Username, string Prefix);
         bool IsSameLoggedUserAndInsured(string UsernameLoggedUser, int SelectedInsured);
         string GetUserSsnByUsername(string username);
     }

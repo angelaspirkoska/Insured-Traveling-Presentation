@@ -244,6 +244,27 @@ namespace InsuredTraveling.Controllers
         }
 
         [HttpPost]
+        public JsonResult ShowPolicies(string Prefix)
+        {
+            RoleAuthorize r = new RoleAuthorize();
+            if (r.IsUser("end user"))
+            {
+                var policies = _us.GetPoliciesByUsernameToList(System.Web.HttpContext.Current.User.Identity.Name, Prefix);
+                var policiesAutoComplete = policies.Select(Mapper.Map<travel_policy, PolicyAutoCompleteViewModel>).ToList();
+                return Json(policiesAutoComplete, JsonRequestBehavior.AllowGet);
+
+            }
+            else if (r.IsUser("admin"))
+            {
+                var policies = _ps.GetAllPoliciesByPolicyNumber(Prefix);
+                var policiesAutoComplete = policies.Select(Mapper.Map<travel_policy, PolicyAutoCompleteViewModel>).ToList();
+                return Json(policiesAutoComplete, JsonRequestBehavior.AllowGet);
+            }
+
+            return null;
+        }
+
+        [HttpPost]
         [Route("FNOLDetails")]
         public JObject FNOLDetails(int lossID)
         {

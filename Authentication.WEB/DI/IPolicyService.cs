@@ -21,12 +21,11 @@ namespace InsuredTraveling.DI
         travel_policy Create();
         string CreatePolicyNumber();
         List<travel_policy> GetPolicyByTypePolicies(int TypePolicies);
-        //ne e jasno zasto sluzi dolniot metod!!!!!
         string GetCompanyID(string PolicyNumber);
         string GetPolicyHolderEmailByPolicyId(int PolicyId);
         void UpdatePaymentStatus(string PolicyNumber);
         List<travel_policy> GetAllPolicies();
-        List<SelectListItem> GetAllPoliciesAsSelectList();
+        List<travel_policy> GetAllPoliciesByPolicyNumber(string Prefix);
         IQueryable<SelectListItem> GetAll();
         travel_policy GetPolicyClientsInfo(int PolicyID);
         insured GetPolicyHolderByPolicyID(int PolicyID);
