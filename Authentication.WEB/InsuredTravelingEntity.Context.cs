@@ -72,5 +72,6 @@ namespace InsuredTraveling
         public virtual DbSet<aspnetuserlogin> aspnetuserlogins { get; set; }
         public virtual DbSet<transaction> transactions { get; set; }
         public virtual DbSet<payment_status> payment_status { get; set; }
+        public virtual DbSet<language> languages { get; set; }
     }
 }

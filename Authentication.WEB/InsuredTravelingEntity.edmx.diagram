@@ -107,6 +107,7 @@
         <AssociationConnector Association="Entities.fk_policy_travel_number" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.aspnetuserroles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Entities.payment_status" Width="1.5" PointX="5.375" PointY="8.75" />
+        <EntityTypeShape EntityType="Entities.language" Width="1.5" PointX="7.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

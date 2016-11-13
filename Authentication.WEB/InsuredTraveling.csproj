@@ -562,6 +562,9 @@
     <Compile Include="invoice.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="language.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="luggage_insurance.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
