@@ -16,7 +16,6 @@
     <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
 </head>
 <body>
-
     <div class="navbar navbar-inverse navbar-fixed-top nav-material-design" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -28,8 +27,26 @@
                         <img src="~/Content/img/profile.png" class="logo" alt="logo" />Insured Traveling
                     </div>
                 </a>
+                
             </div>
             <div class="collapse navbar-collapse" id="myNavbar" data-collapse="!navbarExpanded">
+                <div class="nav navbar-nav navbar-right" style="float:right;text-align:right;">
+                    @foreach (var i in InsuredTraveling.App_Start.SiteLanguages.GetAllanguages())
+                    {
+                        if (i.CultureName == "en")
+                        {
+                            <a href="@Url.Action("ChangeLanguage", "Home", new { lang = i.CultureName })">
+                                <img src="~/Content/flags/en-US.png" />
+                            </a>
+                        }
+                        if (i.CultureName == "mk")
+                        {
+                            <a href="@Url.Action("ChangeLanguage", "Home", new { lang = i.CultureName })">
+                                <img src="~/Content/flags/mk-MK.png" />
+                            </a>
+                        }
+                    }
+                </div>
                 <ul class="nav navbar-nav navbar-right" style="float:right;text-align:right;">
                     <li><a href="#" id="welcome"></a></li>
                     <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/account/deletetoken" id="logOut" onclick="func()">Logout</a></li>
@@ -43,11 +60,8 @@
     {
         <input type="hidden" value="@System.Web.HttpContext.Current.User.Identity.Name" id="userName" />
     }
-
-
     <div class="container body-content">
         @RenderBody()
-
     </div>
     <br />
     <footer class="container-fluid footer-material-design">
@@ -55,9 +69,7 @@
     </footer>
     <script src="~/Scripts/bootstrap.js"></script>
     <script type="text/javascript">
-
         $(document).ready(function () {
-
             localStorage.setItem("username", $("#userName").val());
             console.log(localStorage.getItem("username"));
             if (localStorage.getItem("username") != "") {
@@ -71,13 +83,10 @@
                $("#welcome").hide();
                 $("#logOut").attr("class", "hidden");
             }
-
         });
-
         function func() {
             localStorage.clear();
         }
-
     </script>
 </body>
 </html>

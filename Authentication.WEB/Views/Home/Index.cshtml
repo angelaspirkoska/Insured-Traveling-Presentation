@@ -1,6 +1,7 @@
 ﻿@using InsuredTraveling.Filters;
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = InsuredTraveling.Resource.Home;
+    RoleAuthorize r = new RoleAuthorize();
 }
 
 <div class="row">
@@ -12,70 +13,31 @@
             <video class="bgvid inner" autoplay="autoplay" muted="muted" preload="auto" loop>
                 <source src="https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/1942/7/184713773/613141954.mp4?token=5810d038_0x6fd31b2436bca4f6a2bbc02539324fa58f640085" type="video/mp4">
             </video>
-
             <div class="container" style="margin:0;">
                 <div class="jumbotron menu-btn-align">
-                    @{
-                        RoleAuthorize r = new RoleAuthorize();
-                    }
                     <br />
-                    <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa"> Нова полиса</button>
+                    <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</button>
                     @if (r.IsUser("admin") || r.IsUser("broker"))
-            {
-                        <button onclick="@("window.location.href='" + @Url.Action("Index", "News") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient"> Новости</button>
+                    {
+                        <button onclick="@("window.location.href='" + @Url.Action("Index", "News") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_News</button>
                     }
 
-                    <button onclick="@("window.location.href='" + @Url.Action("Index","Search") + "'")" class="btn btn-success btn-material-design-default">Пребарај</button>
+                    <button onclick="@("window.location.href='" + @Url.Action("Index","Search") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_Search</button>
                     <button onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'")" class="btn btn-success btn-material-design-default">Пријави штета</button>
                     @if (r.IsUser("admin"))
-            {
+                    {
                         <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success btn-material-design-default">Админ панел</button>
-                        <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient"> Нов клиент</button>
+                        <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</button>
                     }
                     @if (r.IsUser("broker"))
-            {
-                        <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient"> Нов клиент</button>
+                    {
+                        <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</button>
                     }
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-    @*<video id="my-video" class="video" autoplay="autoplay" muted="muted" preload="auto" loop>
-        <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?1410742112" type="video/webm">
-       <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?random=1" type="video/webm">
-    </video>*@
-
-
-@*<div class="row">
-    <div class="container" style="margin:0;">
-        <div class="jumbotron menu-btn-align">
-            @{
-                RoleAuthorize r = new RoleAuthorize();
-            }
-            <br />
-            <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa"> Нова полиса</button>
-            @if (r.IsUser("admin") || r.IsUser("broker"))
-            {
-                <button onclick="@("window.location.href='" + @Url.Action("Index", "News") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient"> Новости</button>
-            }
-
-            <button onclick="@("window.location.href='" + @Url.Action("Index","Search") + "'")" class="btn btn-success btn-material-design-default">Пребарај</button>
-            <button onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'")" class="btn btn-success btn-material-design-default">Пријави штета</button>
-            @if (r.IsUser("admin"))
-            {
-                <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success btn-material-design-default">Админ панел</button>
-                        <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient"> Нов клиент</button>
-            }
-            @if (r.IsUser("broker"))
-            {
-                <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient"> Нов клиент</button>
-            }
-        </div>
-    </div>
-</div>*@
 
 
 

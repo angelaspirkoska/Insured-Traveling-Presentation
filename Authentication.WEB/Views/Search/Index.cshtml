@@ -3,7 +3,7 @@
 @using InsuredTraveling.Filters
 @using System.Web.Optimization;
 @{
-    ViewBag.Title = "Search";
+    ViewBag.Title = InsuredTraveling.Resource.Search;
     RoleAuthorize r = new RoleAuthorize();
 }
 
@@ -11,10 +11,10 @@
 <br />
 <div>
     <ul class="nav nav-pills">
-        <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">Полиси</a></li>
+        <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
         @if (r.IsUser("admin") || r.IsUser("broker"))
         {
-            <li id="clients"><a href="#" onclick="ShowClients()">Клиенти</a></li>
+            <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
         }
         <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">Штети </a></li>
     </ul>
@@ -28,16 +28,16 @@
                 <div class="row">
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
-                            <label for="vidPolisa">Вид полиса :</label>
+                            <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyType:</label>
                             <br />
                             @Html.DropDownListFor(model => model.policy_type, (List<SelectListItem>)ViewBag.TypeOfPolicy, "-- Type of policy --", new { @class = "form-control", name = "TypePolicy", id = "TypePolicy" })
                         </div>
                         <div class="form-group col-sm-3">
-                            <label for="country">Земја на патување:</label>
+                            <label for="country">@InsuredTraveling.Resource.Search_TravelCountry:</label>
                             @Html.DropDownListFor(model => model.countries, (List<SelectListItem>)ViewBag.Countries, "-- Country --", new { @class = "form-control", name = "Country", id = "Country" })
                         </div>
                         <div class="form-group col-sm-3">
-                            <label for="country">Број на полиса:</label>
+                            <label for="country">@InsuredTraveling.Resource.Search_PolicyNumber:</label>
                             <input class="form-control input-sm" type="text" id="PolicyNumber" name="PolicyNumber" />
                         </div>
                     </div>
@@ -85,9 +85,9 @@
                 </div>
                 <br />
                 <div class="row col-md-12">
-                    <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="Search" onclick="SearchPolycies()" type="button" style="float:left;" />
+                    <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchPolycies()" type="button" style="float:left;" />
                     <div class="hover-tooltip">
-                        <button type="button" style="float:right;" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="Додади нова полиса" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                        <button type="button" style="float:right;" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddPolicyButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
                     </div>
                 </div>
                 <br />
@@ -100,7 +100,7 @@
             <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePolicies">
                 <thead>
                     <tr>
-                        <th>Број на полиса</th>
+                        <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
                         <th>Име и презиме на осигуреник</th>
                         <th>Земја на патување</th>
                         <th>Вид полиса</th>
@@ -147,37 +147,37 @@
                 <div class="row">
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
-                            <input type="search" name="name" class="input-sm" placeholder="Search by name" id="name" />
+                            <input type="search" name="name" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="name" />
                         </div>
                         <div class="form-group col-sm-3">
-                            <input type="search" name="lastname" class="input-sm" placeholder="Search by Last Name" id="lastname" />
+                            <input type="search" name="lastname" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchLastName" id="lastname" />
                         </div>
                         <div class="form-group col-sm-3">
-                            <input type="search" name="embg" class="input-sm" placeholder="Search by EMBG" id="embg" />
-                        </div>
-                    </div>
-                    <div class="form-inline row">
-                        <div class="form-group col-sm-3">
-                            <input type="search" name="address" class="input-sm" placeholder="Search by Address" id="address" />
-                        </div>
-                        <div class="form-group col-sm-3">
-                            <input type="search" name="city" class="input-sm" placeholder="Search by City" id="city" />
+                            <input type="search" name="embg" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchSSN" id="embg" />
                         </div>
                     </div>
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
-                            <input type="search" name="postal_code" class="input-sm" placeholder="Search by postal code" id="postal_code" />
+                            <input type="search" name="address" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchAddress" id="address" />
                         </div>
                         <div class="form-group col-sm-3">
-                            <input type="search" name="phone" class="input-sm" placeholder="Search by phone number" id="phone" />
+                            <input type="search" name="city" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchCity" id="city" />
                         </div>
                     </div>
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
-                            <input type="search" name="email" class="input-sm" placeholder="Search by email" id="email" />
+                            <input type="search" name="postal_code" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchPostalCode" id="postal_code" />
                         </div>
                         <div class="form-group col-sm-3">
-                            <input type="search" name="passport" class="input-sm" placeholder="Search by passport" id="passport" />
+                            <input type="search" name="phone" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchPhoneNumber" id="phone" />
+                        </div>
+                    </div>
+                    <div class="form-inline row">
+                        <div class="form-group col-sm-3">
+                            <input type="search" name="email" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchEmail" id="email" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <input type="search" name="passport" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchPassport" id="passport" />
                         </div>
                     </div>
                 </div>
@@ -189,9 +189,9 @@
         <br />
         <br />
         <div class="row col-md-12">
-            <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="Search" onclick="SearchClients()" type="button" style="float:left;" />
+            <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchClients()" type="button" style="float:left;" />
             <div class="hover-tooltip">
-                <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" style="float:right;" title="Додади нов клиент" onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" style="float:right;" title="@InsuredTraveling.Resource.Search_AddNewClient" onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
             </div>
         </div>
         <br />

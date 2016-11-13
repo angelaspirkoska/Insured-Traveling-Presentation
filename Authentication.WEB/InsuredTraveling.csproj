@@ -278,6 +278,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\flags\en-US.png" />
+    <Content Include="Content\flags\mk-MK.png" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
@@ -406,6 +408,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\ServicesRegistration.cs" />
+    <Compile Include="App_Start\SiteLanguages.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="aspnetrole.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
@@ -439,6 +442,7 @@
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\API\AccountController.cs" />
     <Compile Include="Controllers\API\MobileApiController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\ForgetPasswordController.cs" />
     <Compile Include="Controllers\API\HalkbankPaymentApiController.cs" />
@@ -634,6 +638,16 @@
     <Compile Include="refreshtoken.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resource.mk.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.mk.resx</DependentUpon>
+    </Compile>
     <Compile Include="retaining_risk.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -721,9 +735,20 @@
     <Folder Include="DocumentsFirstNoticeOfLoss\HealthInsurance\" />
     <Folder Include="DocumentsFirstNoticeOfLoss\Invoices\" />
     <Folder Include="DocumentsFirstNoticeOfLoss\LuggageInsurance\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resource.mk.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.mk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

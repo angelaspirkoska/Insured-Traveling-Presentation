@@ -1,11 +1,12 @@
-﻿using System.Configuration;
+﻿using InsuredTraveling.App_Start;
+using System.Configuration;
 using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
 {
     [RoutePrefix("Home")]
     [Authorize(Roles ="")]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         // GET: Home        
         public ActionResult Index()
@@ -16,6 +17,24 @@ namespace InsuredTraveling.Controllers
             }
             return View();
 
+        }
+
+        public ActionResult ChangeLanguage(string lang)
+        {
+            new SiteLanguages().SetLanguage(lang);
+            return RedirectToLocal(Request.UrlReferrer.AbsoluteUri);
+        }
+
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

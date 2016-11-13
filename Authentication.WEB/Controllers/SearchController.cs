@@ -14,7 +14,7 @@ using InsuredTraveling.Filters;
 namespace InsuredTraveling.Controllers
 {
     [SessionExpire]
-    public class SearchController : Controller
+    public class SearchController : BaseController
     {
 
         private IPolicyService _ps;
