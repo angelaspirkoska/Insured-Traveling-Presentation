@@ -16,7 +16,7 @@ namespace InsuredTraveling.Filters
 
             string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName.ToLower();
             HttpSessionStateBase session = filterContext.HttpContext.Session;
-            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated && session.IsNewSession )
+            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 //Redirect
                 var url = new UrlHelper(filterContext.RequestContext);

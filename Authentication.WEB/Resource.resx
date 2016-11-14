@@ -120,6 +120,12 @@
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="Home_AdminPanel" xml:space="preserve">
+    <value>Admin site</value>
+  </data>
+  <data name="Home_FirstNoticeOfLoss" xml:space="preserve">
+    <value>First Notice of Loss</value>
+  </data>
   <data name="Home_NewClient" xml:space="preserve">
     <value>New Client</value>
   </data>
@@ -132,8 +138,71 @@
   <data name="Home_Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Seacrh_SearchTableCity" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Seacrh_SearchTableClaimantNameLastName" xml:space="preserve">
+    <value>Claimant Name and Last Name</value>
+  </data>
+  <data name="Seacrh_SearchTableEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Seacrh_SearchTableFrom" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="Seacrh_SearchTableHealthInsurance" xml:space="preserve">
+    <value>Health Insurance Yes/No</value>
+  </data>
+  <data name="Seacrh_SearchTableInsuredNameLastName" xml:space="preserve">
+    <value>Insured Name and Last Name</value>
+  </data>
+  <data name="Seacrh_SearchTableLastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Seacrh_SearchTableLuggageInsurance" xml:space="preserve">
+    <value>Luggage Insurance Yes/No</value>
+  </data>
+  <data name="Seacrh_SearchTableName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Seacrh_SearchTablePassport" xml:space="preserve">
+    <value>Passport</value>
+  </data>
+  <data name="Seacrh_SearchTablePhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="Seacrh_SearchTablePolicyType" xml:space="preserve">
+    <value>Policy Type</value>
+  </data>
+  <data name="Seacrh_SearchTablePostalCode" xml:space="preserve">
+    <value>Postal Code</value>
+  </data>
+  <data name="Seacrh_SearchTableRegistrationDate" xml:space="preserve">
+    <value>Registration Date</value>
+  </data>
+  <data name="Seacrh_SearchTableSSN" xml:space="preserve">
+    <value>SSN</value>
+  </data>
+  <data name="Seacrh_SearchTableStreet" xml:space="preserve">
+    <value>Street</value>
+  </data>
+  <data name="Seacrh_SearchTableTo" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Seacrh_SearchTableTotalCost" xml:space="preserve">
+    <value>Total Cost</value>
+  </data>
+  <data name="Seacrh_SearchTableTravelCountry" xml:space="preserve">
+    <value>Travel Country</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
+  </data>
+  <data name="Search_AddFNOLLink" xml:space="preserve">
+    <value>New FNOL</value>
   </data>
   <data name="Search_AddNewClient" xml:space="preserve">
     <value>Add new client</value>
@@ -141,17 +210,56 @@
   <data name="Search_AddPolicyButton" xml:space="preserve">
     <value>Add new Policy</value>
   </data>
+  <data name="Search_ClaimantLastName" xml:space="preserve">
+    <value>Claimant Last Name</value>
+  </data>
+  <data name="Search_ClaimantName" xml:space="preserve">
+    <value>Claimant Name</value>
+  </data>
   <data name="Search_Clients" xml:space="preserve">
     <value>Clients</value>
   </data>
+  <data name="Search_DetailsLink" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Search_FNOL" xml:space="preserve">
+    <value>First Notice of Loss</value>
+  </data>
+  <data name="Search_FNOLLink" xml:space="preserve">
+    <value>FNOL</value>
+  </data>
+  <data name="Search_HolderLastName" xml:space="preserve">
+    <value>Policy Holder Last Name</value>
+  </data>
+  <data name="Search_HolderName" xml:space="preserve">
+    <value>Policy Holder Name</value>
+  </data>
+  <data name="Search_InsuredLastName" xml:space="preserve">
+    <value>Insured Last Name</value>
+  </data>
+  <data name="Search_InsuredName" xml:space="preserve">
+    <value>Insured Name</value>
+  </data>
+  <data name="Search_InsuredPolicy" xml:space="preserve">
+    <value>Insured Policy</value>
+  </data>
   <data name="Search_Policy" xml:space="preserve">
+    <value>Policy</value>
+  </data>
+  <data name="Search_PolicyLink" xml:space="preserve">
     <value>Policy</value>
   </data>
   <data name="Search_PolicyNumber" xml:space="preserve">
     <value>Policy Number</value>
   </data>
+  <data name="Search_PolicyPolicyHolder" xml:space="preserve">
+    <value>Policy Holder</value>
+  </data>
   <data name="Search_PolicyType" xml:space="preserve">
     <value>Policy Type</value>
+  </data>
+  <data name="Search_RegistrationDate" xml:space="preserve">
+    <value>Registration Date</value>
   </data>
   <data name="Search_SearchAddress" xml:space="preserve">
     <value>Search by Address</value>
@@ -186,7 +294,13 @@
   <data name="Search_SearchTablePolicyNumber" xml:space="preserve">
     <value>Policy Number</value>
   </data>
+  <data name="Search_TotalCost" xml:space="preserve">
+    <value>Total Cost</value>
+  </data>
   <data name="Search_TravelCountry" xml:space="preserve">
     <value>Travel Country</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

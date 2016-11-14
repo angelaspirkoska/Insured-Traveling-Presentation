@@ -1,9 +1,5 @@
 ﻿using InsuredTraveling.Filters;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using InsuredTraveling.DI;
 using static InsuredTraveling.Models.AdminPanel;
@@ -13,16 +9,13 @@ namespace InsuredTraveling.Controllers
     [RoleAuthorize(roles: "admin")]
     public class AdminPanelController : Controller
     {
-
         private IRolesService _rs;
         private IOkSetupService _okss;
-
 
         public AdminPanelController(IRolesService rs, IOkSetupService okss)
         {
             _rs = rs;
             _okss = okss;
-
         }
 
         [HttpGet]

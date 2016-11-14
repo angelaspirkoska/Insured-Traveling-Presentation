@@ -70,6 +70,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin site.
+        /// </summary>
+        public static string Home_AdminPanel {
+            get {
+                return ResourceManager.GetString("Home_AdminPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Notice of Loss.
+        /// </summary>
+        public static string Home_FirstNoticeOfLoss {
+            get {
+                return ResourceManager.GetString("Home_FirstNoticeOfLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Client.
         /// </summary>
         public static string Home_NewClient {
@@ -106,11 +124,200 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        public static string Seacrh_SearchTableCity {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Claimant Name and Last Name.
+        /// </summary>
+        public static string Seacrh_SearchTableClaimantNameLastName {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableClaimantNameLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Seacrh_SearchTableEmail {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From.
+        /// </summary>
+        public static string Seacrh_SearchTableFrom {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Health Insurance Yes/No.
+        /// </summary>
+        public static string Seacrh_SearchTableHealthInsurance {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableHealthInsurance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insured Name and Last Name.
+        /// </summary>
+        public static string Seacrh_SearchTableInsuredNameLastName {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableInsuredNameLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        public static string Seacrh_SearchTableLastName {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Luggage Insurance Yes/No.
+        /// </summary>
+        public static string Seacrh_SearchTableLuggageInsurance {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableLuggageInsurance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Seacrh_SearchTableName {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passport.
+        /// </summary>
+        public static string Seacrh_SearchTablePassport {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTablePassport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone Number.
+        /// </summary>
+        public static string Seacrh_SearchTablePhoneNumber {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTablePhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Type.
+        /// </summary>
+        public static string Seacrh_SearchTablePolicyType {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTablePolicyType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal Code.
+        /// </summary>
+        public static string Seacrh_SearchTablePostalCode {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTablePostalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration Date.
+        /// </summary>
+        public static string Seacrh_SearchTableRegistrationDate {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableRegistrationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSN.
+        /// </summary>
+        public static string Seacrh_SearchTableSSN {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableSSN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Street.
+        /// </summary>
+        public static string Seacrh_SearchTableStreet {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableStreet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To.
+        /// </summary>
+        public static string Seacrh_SearchTableTo {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Cost.
+        /// </summary>
+        public static string Seacrh_SearchTableTotalCost {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableTotalCost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Travel Country.
+        /// </summary>
+        public static string Seacrh_SearchTableTravelCountry {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableTravelCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New FNOL.
+        /// </summary>
+        public static string Search_AddFNOLLink {
+            get {
+                return ResourceManager.GetString("Search_AddFNOLLink", resourceCulture);
             }
         }
         
@@ -133,11 +340,101 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Claimant Last Name.
+        /// </summary>
+        public static string Search_ClaimantLastName {
+            get {
+                return ResourceManager.GetString("Search_ClaimantLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Claimant Name.
+        /// </summary>
+        public static string Search_ClaimantName {
+            get {
+                return ResourceManager.GetString("Search_ClaimantName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clients.
         /// </summary>
         public static string Search_Clients {
             get {
                 return ResourceManager.GetString("Search_Clients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string Search_DetailsLink {
+            get {
+                return ResourceManager.GetString("Search_DetailsLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Notice of Loss.
+        /// </summary>
+        public static string Search_FNOL {
+            get {
+                return ResourceManager.GetString("Search_FNOL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FNOL.
+        /// </summary>
+        public static string Search_FNOLLink {
+            get {
+                return ResourceManager.GetString("Search_FNOLLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Holder Last Name.
+        /// </summary>
+        public static string Search_HolderLastName {
+            get {
+                return ResourceManager.GetString("Search_HolderLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Holder Name.
+        /// </summary>
+        public static string Search_HolderName {
+            get {
+                return ResourceManager.GetString("Search_HolderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insured Last Name.
+        /// </summary>
+        public static string Search_InsuredLastName {
+            get {
+                return ResourceManager.GetString("Search_InsuredLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insured Name.
+        /// </summary>
+        public static string Search_InsuredName {
+            get {
+                return ResourceManager.GetString("Search_InsuredName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insured Policy.
+        /// </summary>
+        public static string Search_InsuredPolicy {
+            get {
+                return ResourceManager.GetString("Search_InsuredPolicy", resourceCulture);
             }
         }
         
@@ -151,6 +448,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Policy.
+        /// </summary>
+        public static string Search_PolicyLink {
+            get {
+                return ResourceManager.GetString("Search_PolicyLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Policy Number.
         /// </summary>
         public static string Search_PolicyNumber {
@@ -160,11 +466,29 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Policy Holder.
+        /// </summary>
+        public static string Search_PolicyPolicyHolder {
+            get {
+                return ResourceManager.GetString("Search_PolicyPolicyHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Policy Type.
         /// </summary>
         public static string Search_PolicyType {
             get {
                 return ResourceManager.GetString("Search_PolicyType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration Date.
+        /// </summary>
+        public static string Search_RegistrationDate {
+            get {
+                return ResourceManager.GetString("Search_RegistrationDate", resourceCulture);
             }
         }
         
@@ -268,11 +592,29 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total Cost.
+        /// </summary>
+        public static string Search_TotalCost {
+            get {
+                return ResourceManager.GetString("Search_TotalCost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Travel Country.
         /// </summary>
         public static string Search_TravelCountry {
             get {
                 return ResourceManager.GetString("Search_TravelCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

@@ -2,17 +2,15 @@
 using System.Configuration;
 using System.Web.Mvc;
 using InsuredTraveling.Filters;
-
+using System;
 
 namespace InsuredTraveling.Controllers
 {
     [RoutePrefix("Home")]
     //[Authorize(Roles ="")]
     [SessionExpire]
-    public class HomeController : BaseController
-    {
-        
-        // GET: Home        
+    public class HomeController : Controller
+    {  
         public ActionResult Index()
         {
             if(!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -20,19 +18,17 @@ namespace InsuredTraveling.Controllers
                 Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");  
             }
             return View();
-
         }
         
         public ActionResult ChangeLanguage(string lang)
         {
-           
             new SiteLanguages().SetLanguage(lang);
             return RedirectToLocal(Request.UrlReferrer.AbsoluteUri);
         }
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            if (!String.IsNullOrEmpty(returnUrl))
             {
                 return Redirect(returnUrl);
             }

@@ -11,6 +11,8 @@ using AutoMapper;
 using InsuredTraveling.Helpers;
 using InsuredTraveling.DI;
 using InsuredTraveling.Filters;
+using InsuredTraveling.Controllers;
+
 namespace Authentication.WEB.Controllers
 {
     [RoutePrefix("Payment")]

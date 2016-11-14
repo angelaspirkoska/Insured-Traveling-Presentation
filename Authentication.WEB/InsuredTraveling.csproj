@@ -442,7 +442,6 @@
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\API\AccountController.cs" />
     <Compile Include="Controllers\API\MobileApiController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\ForgetPasswordController.cs" />
     <Compile Include="Controllers\API\HalkbankPaymentApiController.cs" />

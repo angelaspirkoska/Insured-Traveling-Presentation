@@ -23,10 +23,10 @@
                     }
 
                     <button onclick="@("window.location.href='" + @Url.Action("Index","Search") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_Search</button>
-                    <button onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'")" class="btn btn-success btn-material-design-default">Пријави штета</button>
+                    <button onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_FirstNoticeOfLoss</button>
                     @if (r.IsUser("admin"))
                     {
-                        <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success btn-material-design-default">Админ панел</button>
+                        <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_AdminPanel</button>
                         <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</button>
                     }
                     @if (r.IsUser("broker"))

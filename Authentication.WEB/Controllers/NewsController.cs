@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using InsuredTraveling.DI;
 using InsuredTraveling.Filters;
+using InsuredTraveling.Controllers;
 
 namespace Authentication.WEB.Controllers
 {
@@ -12,22 +13,17 @@ namespace Authentication.WEB.Controllers
     {
 
         private INewsService _ns;
-
         public NewsController(INewsService ns)
         {
             _ns = ns;
         }
 
-
         [HttpGet]
         public ActionResult Index()
         {
-
-
             IQueryable<news_all> news = _ns.GetAllNews();
             return View(news);
         }
-
         public ActionResult AddNews(string newsTitle = null, string newsContent = null, bool newsIsNotification = false)
         {
             if (newsTitle == null || newsContent == null || newsTitle == "" || newsContent == "")

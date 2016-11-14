@@ -8,7 +8,6 @@ namespace InsuredTraveling.Controllers
     {
 
         private AuthRepository _repo = null;
-
         public RefreshTokensController()
         {
             _repo = new AuthRepository();

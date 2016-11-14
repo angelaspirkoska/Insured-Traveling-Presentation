@@ -7,10 +7,10 @@ using System;
 using System.Linq;
 using InsuredTraveling.DI;
 using InsuredTraveling.Filters;
+using InsuredTraveling.Controllers;
 
 namespace Authentication.WEB.Controllers
 {
-    
     public class ClientController : Controller
     {
         private IInsuredsService _ins;
@@ -19,7 +19,6 @@ namespace Authentication.WEB.Controllers
         {
             _ins = ins;
         }
-
 
         [HttpGet]
         public ActionResult Create()
@@ -37,12 +36,9 @@ namespace Authentication.WEB.Controllers
             if (ModelState.IsValid && validationService.validateEMBG(model.SSN))
             {
                 client = Mapper.Map<CreateClientModel, insured>(model);
-               
-
                 try
                 {
                     _ins.AddInsured(client);
-                    
                 }
                 catch (Exception ex)
                 {

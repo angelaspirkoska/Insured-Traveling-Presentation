@@ -120,6 +120,12 @@
   <data name="Home" xml:space="preserve">
     <value>Почетна</value>
   </data>
+  <data name="Home_AdminPanel" xml:space="preserve">
+    <value>Админ панел</value>
+  </data>
+  <data name="Home_FirstNoticeOfLoss" xml:space="preserve">
+    <value>Пријави штета</value>
+  </data>
   <data name="Home_NewClient" xml:space="preserve">
     <value>Нов клиент</value>
   </data>
@@ -132,8 +138,71 @@
   <data name="Home_Search" xml:space="preserve">
     <value>Пребарај</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Не</value>
+  </data>
+  <data name="Seacrh_SearchTableCity" xml:space="preserve">
+    <value>Град</value>
+  </data>
+  <data name="Seacrh_SearchTableClaimantNameLastName" xml:space="preserve">
+    <value>Име и презиме на оштетениот</value>
+  </data>
+  <data name="Seacrh_SearchTableEmail" xml:space="preserve">
+    <value>Емаил</value>
+  </data>
+  <data name="Seacrh_SearchTableFrom" xml:space="preserve">
+    <value>Важи од</value>
+  </data>
+  <data name="Seacrh_SearchTableHealthInsurance" xml:space="preserve">
+    <value>Здравствено осигурување Да/Не</value>
+  </data>
+  <data name="Seacrh_SearchTableInsuredNameLastName" xml:space="preserve">
+    <value>Име и презиме на осигуреникот</value>
+  </data>
+  <data name="Seacrh_SearchTableLastName" xml:space="preserve">
+    <value>Презиме</value>
+  </data>
+  <data name="Seacrh_SearchTableLuggageInsurance" xml:space="preserve">
+    <value>Осигурување на багаж Да/Не</value>
+  </data>
+  <data name="Seacrh_SearchTableName" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="Seacrh_SearchTablePassport" xml:space="preserve">
+    <value>Број на пасош</value>
+  </data>
+  <data name="Seacrh_SearchTablePhoneNumber" xml:space="preserve">
+    <value>Телефонски број</value>
+  </data>
+  <data name="Seacrh_SearchTablePolicyType" xml:space="preserve">
+    <value>Тип на полиса</value>
+  </data>
+  <data name="Seacrh_SearchTablePostalCode" xml:space="preserve">
+    <value>Поштенски број</value>
+  </data>
+  <data name="Seacrh_SearchTableRegistrationDate" xml:space="preserve">
+    <value>Датум на пријавување</value>
+  </data>
+  <data name="Seacrh_SearchTableSSN" xml:space="preserve">
+    <value>ЕМБГ</value>
+  </data>
+  <data name="Seacrh_SearchTableStreet" xml:space="preserve">
+    <value>Улица</value>
+  </data>
+  <data name="Seacrh_SearchTableTo" xml:space="preserve">
+    <value>Важи до</value>
+  </data>
+  <data name="Seacrh_SearchTableTotalCost" xml:space="preserve">
+    <value>Вкупна цена на трошоци</value>
+  </data>
+  <data name="Seacrh_SearchTableTravelCountry" xml:space="preserve">
+    <value>Земја на патување</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Пребарај</value>
+  </data>
+  <data name="Search_AddFNOLLink" xml:space="preserve">
+    <value>Пријави штета</value>
   </data>
   <data name="Search_AddNewClient" xml:space="preserve">
     <value>Додади нов клиент</value>
@@ -141,17 +210,56 @@
   <data name="Search_AddPolicyButton" xml:space="preserve">
     <value>Додади нова полиса</value>
   </data>
+  <data name="Search_ClaimantLastName" xml:space="preserve">
+    <value>Презиме на оштетен</value>
+  </data>
+  <data name="Search_ClaimantName" xml:space="preserve">
+    <value>Име на оштетен</value>
+  </data>
   <data name="Search_Clients" xml:space="preserve">
     <value>Клиенти</value>
   </data>
+  <data name="Search_DetailsLink" xml:space="preserve">
+    <value>Детали</value>
+  </data>
+  <data name="Search_FNOL" xml:space="preserve">
+    <value>Оштетено побарување</value>
+  </data>
+  <data name="Search_FNOLLink" xml:space="preserve">
+    <value>Штети</value>
+  </data>
+  <data name="Search_HolderLastName" xml:space="preserve">
+    <value>Презиме на договорувач</value>
+  </data>
+  <data name="Search_HolderName" xml:space="preserve">
+    <value>Име на договорувач</value>
+  </data>
+  <data name="Search_InsuredLastName" xml:space="preserve">
+    <value>Презиме на осигуреник</value>
+  </data>
+  <data name="Search_InsuredName" xml:space="preserve">
+    <value>Име на осигуреник</value>
+  </data>
+  <data name="Search_InsuredPolicy" xml:space="preserve">
+    <value>Полиси за осигуреник</value>
+  </data>
   <data name="Search_Policy" xml:space="preserve">
+    <value>Полиси</value>
+  </data>
+  <data name="Search_PolicyLink" xml:space="preserve">
     <value>Полиси</value>
   </data>
   <data name="Search_PolicyNumber" xml:space="preserve">
     <value>Број на полиса</value>
   </data>
+  <data name="Search_PolicyPolicyHolder" xml:space="preserve">
+    <value>Полиси за договорувач</value>
+  </data>
   <data name="Search_PolicyType" xml:space="preserve">
     <value>Вид полиса</value>
+  </data>
+  <data name="Search_RegistrationDate" xml:space="preserve">
+    <value>Датум на пријавување</value>
   </data>
   <data name="Search_SearchAddress" xml:space="preserve">
     <value>Пребарувај по адреса</value>
@@ -186,7 +294,13 @@
   <data name="Search_SearchTablePolicyNumber" xml:space="preserve">
     <value>Број на полиса</value>
   </data>
+  <data name="Search_TotalCost" xml:space="preserve">
+    <value>Вкупна цена на трошоците</value>
+  </data>
   <data name="Search_TravelCountry" xml:space="preserve">
     <value>Земја на патување</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
   </data>
 </root>

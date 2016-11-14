@@ -9,6 +9,8 @@ namespace InsuredTraveling.App_Start
 {
     public class SiteLanguages
     {
+        public static List<language> Languages { private get; set; }
+
         public static List<language> GetAllanguages()
         {
             InsuredTravelingEntity _db = new InsuredTravelingEntity();

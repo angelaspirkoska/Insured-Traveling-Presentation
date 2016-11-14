@@ -16,7 +16,7 @@
         {
             <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
         }
-        <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">Штети </a></li>
+        <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
     </ul>
 
     <!--Table search result of policies -->
@@ -101,11 +101,11 @@
                 <thead>
                     <tr>
                         <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
-                        <th>Име и презиме на осигуреник</th>
-                        <th>Земја на патување</th>
-                        <th>Вид полиса</th>
-                        <th>Важи од</th>
-                        <th>Важи до</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTravelCountry</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
                         <th>Датум на издавање</th>
                         <th>Датум на сторнирање</th>
                         <th></th>
@@ -122,14 +122,14 @@
             <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableFNOLPolicies">
                 <thead>
                     <tr>
-                        <th>Број на полиса</th>
-                        <th>Име и презиме на осигуреник</th>
-                        <th>Име и презиме на оштетениот</th>
+                        <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableClaimantNameLastName</th>
                         <th>Сродство на оштетениот со осигуреникот</th>
-                        <th>Вкупна цена на трошоците</th>
-                        <th>Датум на пријавување</th>
-                        <th>Здраствено осигурување ДА/НЕ</th>
-                        <th>Осигурување на багаж ДА/НЕ</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTotalCost</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableRegistrationDate</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableHealthInsurance</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableLuggageInsurance</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -202,15 +202,15 @@
             <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableClients">
                 <thead>
                     <tr>
-                        <th>Име</th>
-                        <th>Презиме</th>
-                        <th>Матичен број</th>
-                        <th>Улица</th>
-                        <th>Град</th>
-                        <th>Поштенски број</th>
-                        <th>Телефонски број</th>
-                        <th>Емаил адресa</th>
-                        <th>Број на пасош</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableLastName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableSSN</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableStreet</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableCity</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePostalCode</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePhoneNumber</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableEmail</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePassport</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -220,15 +220,15 @@
         <br />
         <br />
         <div class="row">
-            <div>Полиси за осигуреник</div>
+            <div>@InsuredTraveling.Resource.Search_InsuredPolicy</div>
             <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePoliciesClients">
                 <thead>
                     <tr>
-                        <th>Број на полиса</th>
-                        <th>Земја на патување</th>
-                        <th>Вид полиса</th>
-                        <th>Важи од</th>
-                        <th>Важи до</th>
+                        <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTravelCountry</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
                         <th>Датум на издавање</th>
                         <th>Датум на сторнирање</th>
                         <th></th>
@@ -241,15 +241,15 @@
         <br />
         <br />
         <div class="row">
-            <div>Полиси за договорувач</div>
+            <div>@InsuredTraveling.Resource.Search_PolicyPolicyHolder</div>
             <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePoliciesHolders">
                 <thead>
                     <tr>
-                        <th>Број на полиса</th>
-                        <th>Земја на патување</th>
-                        <th>Вид полиса</th>
-                        <th>Важи од</th>
-                        <th>Важи до</th>
+                        <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTravelCountry</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
                         <th>Датум на издавање</th>
                         <th>Датум на сторнирање</th>
                         <th></th>
@@ -269,12 +269,12 @@
                 <div class="row">
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
-                            <label for="vidPolisa">Број на полиса :</label>
+                            <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyNumber :</label>
                             <br />
                             <input class="form-control input-sm" type="text" id="PolicyNumberFNL" name="PolicyNumberFNL" />
                         </div>
                         <div class="form-group col-sm-3">
-                            <label for="startDate">Датум на пријавување:</label>
+                            <label for="startDate">@InsuredTraveling.Resource.Search_RegistrationDate:</label>
                             <input type="date" class="form-control placeholder" id="DateAdded" />
                             <select id="operatorDateAdded">
                                 <option>&lt</option>
@@ -285,37 +285,37 @@
                     </div>
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
-                            <label for="holderName">Име на договорувач:</label>
+                            <label for="holderName">@InsuredTraveling.Resource.Search_HolderName:</label>
                             <input type="search" name="holderName" class="input-sm" placeholder="Search by name" id="holderName" />
                         </div>
                         <div class="form-group col-sm-3">
-                            <label for="holderLastName">Презиме на договорувач:</label>
+                            <label for="holderLastName">@InsuredTraveling.Resource.Search_HolderLastName:</label>
                             <input type="search" name="holderLastName" class="input-sm" placeholder="Search by last name" id="holderLastName" />
                         </div>
                     </div>
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
-                            <label for="clientName">Име на осигуреник:</label>
+                            <label for="clientName">@InsuredTraveling.Resource.Search_InsuredName:</label>
                             <input type="search" name="clientName" class="input-sm" placeholder="Search by name" id="clientName" />
                         </div>
                         <div class="form-group col-sm-3">
-                            <label for="clientLastName">Презиме на осигуреник:</label>
+                            <label for="clientLastName">@InsuredTraveling.Resource.Search_InsuredLastName:</label>
                             <input type="search" name="clientLastName" class="input-sm" placeholder="Search by last name" id="clientLastName" />
                         </div>
                     </div>
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
-                            <label for="insuredName">Име на оштетено лице:</label>
+                            <label for="insuredName">@InsuredTraveling.Resource.Search_ClaimantName:</label>
                             <input type="search" name="insuredName" class="input-sm" placeholder="Search by name" id="insuredName" />
                         </div>
                         <div class="form-group col-sm-3">
-                            <label for="insuredLastName">Презиме на оштетено лице:</label>
+                            <label for="insuredLastName">@InsuredTraveling.Resource.Search_ClaimantLastName:</label>
                             <input type="search" name="insuredLastName" class="input-sm" placeholder="Search by last name" id="insuredLastName" />
                         </div>
                     </div>
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
-                            <label for="totalPrice">Вкупна цена на трошоци:</label>
+                            <label for="totalPrice">@InsuredTraveling.Resource.Search_TotalCost:</label>
                             <input type="search" name="totalPrice" class="input-sm" placeholder="Search by Total Cost" id="totalPrice" />
                         </div>
                         <div class="form-group col-sm-3">
@@ -341,14 +341,14 @@
             <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableFNOL">
                 <thead>
                     <tr>
-                        <th>Број на полиса</th>
-                        <th>Име и презиме на осигуреник</th>
-                        <th>Име и презиме на оштетениот</th>
+                        <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableClaimantNameLastName</th>
                         <th>Сродство на оштетениот со осигуреникот</th>
-                        <th>Вкупна цена на трошоците</th>
-                        <th>Датум на пријавување</th>
-                        <th>Здраствено осигурување ДА/НЕ</th>
-                        <th>Осигурување на багаж ДА/НЕ</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTotalCost</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableRegistrationDate</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableHealthInsurance</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableLuggageInsurance</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -482,7 +482,7 @@
                                .attr('href', '/Policy/PolicyDetails?id=' + data)
                                .attr('target', '_blank')
                                .attr('class', 'details')
-                               .text("Детали")
+                               .text("@InsuredTraveling.Resource.Search_DetailsLink")
                                .wrap('<div></div>')
                                .parent()
                                .html();
@@ -499,7 +499,7 @@
                                .attr('href', 'javascript:;')
                                .attr('class', 'loss')
                                .attr('id', data)
-                               .text("Штети")
+                               .text("@InsuredTraveling.Resource.Search_FNOLLink")
                                .wrap('<div></div>')
                                .parent()
                                .html();
@@ -516,7 +516,7 @@
                                .attr('href', '/FirstNoticeOfLoss/Index?policyId=' + data)
                                .attr('class', 'newLoss')
                                .attr('id', data)
-                               .text("Пријави штета")
+                               .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
                                .wrap('<div></div>')
                                .parent()
                                .html();
@@ -561,7 +561,7 @@
                                     .attr('href', '/FirstNoticeOfLoss/View?id=' + data)
                                     .attr('target', '_blank')
                                     .attr('class', 'lossDetails')
-                                    .text("Детали")
+                                    .text("@InsuredTraveling.Resource.Search_DetailsLink")
                                     .wrap('<div></div>')
                                     .parent()
                                     .html();
@@ -599,7 +599,7 @@
                                     .attr('href', '/FirstNoticeOfLoss/View?id=' + data)
                                     .attr('target', '_blank')
                                     .attr('class', 'lossDetails')
-                                    .text("Детали")
+                                    .text("@InsuredTraveling.Resource.Search_DetailsLink")
                                     .wrap('<div></div>')
                                     .parent()
                                     .html();
@@ -637,7 +637,7 @@
                                         .attr('href', 'javascript:;')
                                         .attr('class', 'clients')
                                         .attr('id', data)
-                                        .text("Полиси")
+                                        .text("@InsuredTraveling.Resource.Search_PolicyLink")
                                         .wrap('<div></div>')
                                         .parent()
                                         .html();
@@ -680,7 +680,7 @@
                                .attr('href', '/Policy/PrintPolicy?id=' + data)
                                .attr('target', '_blank')
                                .attr('class', 'detailsInsured')
-                               .text("Детали")
+                               .text("@InsuredTraveling.Resource.Search_DetailsLink")
                                .wrap('<div></div>')
                                .parent()
                                .html();
@@ -697,7 +697,7 @@
                                     .attr('href', '/FirstNoticeOfLoss/Index?policyId=' + data)
                                     .attr('class', 'newLoss')
                                     .attr('id', data)
-                                    .text("Пријави штета")
+                                    .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
                                     .wrap('<div></div>')
                                     .parent()
                                     .html();
@@ -734,7 +734,7 @@
                                .attr('href', '/Policy/PrintPolicy?id=' + data)
                                .attr('target', '_blank')
                                .attr('class', 'detailsHolder')
-                               .text("Детали")
+                               .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
                                .wrap('<div></div>')
                                .parent()
                                .html();

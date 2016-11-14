@@ -14,7 +14,7 @@ using InsuredTraveling.Filters;
 namespace InsuredTraveling.Controllers
 {
     [SessionExpire]
-    public class SearchController : BaseController
+    public class SearchController : Controller
     {
 
         private IPolicyService _ps;
@@ -47,19 +47,15 @@ namespace InsuredTraveling.Controllers
         public async Task<ActionResult> Index()
         {
             var type_policies = GetTypeOfPolicy();
-            await Task.WhenAll(type_policies);
             ViewBag.TypeOfPolicy = type_policies.Result;
 
             var countries = GetAllCountries();
-            await Task.WhenAll(countries);
             ViewBag.Countries = countries.Result;
 
             var policies = GetAllPolicies();
-            await Task.WhenAll(policies);
             ViewBag.Policies = policies.Result;
             return View();
         }
-
 
         [HttpGet]
         [Route("GetUsers")]

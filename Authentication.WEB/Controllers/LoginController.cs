@@ -1,4 +1,5 @@
-﻿using InsuredTraveling.Models;
+﻿using InsuredTraveling.App_Start;
+using InsuredTraveling.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -58,7 +59,6 @@ namespace InsuredTraveling.Controllers
             }
             return View();
         }
-
 
         [HttpGet]
         public ActionResult Index()

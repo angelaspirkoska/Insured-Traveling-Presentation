@@ -273,8 +273,8 @@ namespace InsuredTraveling.App_Start
                 dst.Claimant_insured_relation = src.Relation_claimant_policy_holder;
                 dst.AllCosts = src.Total_cost.ToString();
                 dst.Date = src.additional_info != null ? src.additional_info.Datetime_accident.Date.ToShortDateString().ToString() : null;
-                dst.HealthInsurance = healthInsurance != null ? "Da" : "Ne";
-                dst.LuggageInsurance = luggageInsurance != null ? "Da" : "Ne";
+                dst.HealthInsurance = healthInsurance != null ? InsuredTraveling.Resource.Yes : InsuredTraveling.Resource.No;
+                dst.LuggageInsurance = luggageInsurance != null ? InsuredTraveling.Resource.Yes : InsuredTraveling.Resource.No;
             });
 
             Mapper.CreateMap<insured, SearchClientsViewModel>().AfterMap((src, dst) =>

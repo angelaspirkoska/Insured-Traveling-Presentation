@@ -15,14 +15,13 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using InsuredTraveling.DI;
 using InsuredTraveling.Filters;
+using InsuredTraveling.Controllers;
 
 namespace Authentication.WEB.Controllers
 {
     [SessionExpire]
     public class PolicyController : Controller
     {
-
-
         private IPolicyService _ps;
         private IPolicyTypeService _pts;
         private ICountryService _cs;
