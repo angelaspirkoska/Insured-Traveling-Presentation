@@ -545,6 +545,8 @@
     <Compile Include="Helpers\SaveBankAccountInfoHelper.cs" />
     <Compile Include="Helpers\SaveFirstNoticeOfLoss.cs" />
     <Compile Include="Helpers\SavePolicyHelper.cs" />
+    <Compile Include="Helpers\UpdateBankAccountInfoHelper.cs" />
+    <Compile Include="Helpers\UpdateFirstNoticeOfLossHelper.cs" />
     <Compile Include="insured.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -690,6 +692,7 @@
     <Compile Include="ViewModels\BankPrefixViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\FileDescriptionViewModel.cs" />
+    <Compile Include="ViewModels\FirstNoticeOfLossEditViewModel.cs" />
     <Compile Include="ViewModels\JsonWrapperPolicyFirstNoticeOfLossViewModel.cs" />
     <Compile Include="ViewModels\PolicyAutoCompleteViewModel.cs" />
     <Compile Include="ViewModels\SearchClientsViewModel.cs" />

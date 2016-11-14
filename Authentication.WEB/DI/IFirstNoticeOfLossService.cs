@@ -27,6 +27,8 @@ namespace InsuredTraveling.DI
         List<first_notice_of_loss> GetByPolicyId(int policy_Id);
         List<string> GetInvoiceDocumentName(int lossID);
         List<string> GetHealthLuggageDocumentName(int lossID);
+        void UpdateClaimantBankAccountId(int fnolId, int bankAccountId);
+        void UpdatePolicyHolderBankAccountId(int fnolId, int bankAccountId);
 
     }
 }

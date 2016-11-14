@@ -242,5 +242,19 @@ namespace InsuredTraveling.DI
             }
 
         }
+
+        public void UpdateClaimantBankAccountId(int fnolId, int bankAccountId)
+        {
+            var fnol = _db.first_notice_of_loss.Where(x => x.ID == fnolId).SingleOrDefault();
+            fnol.Claimant_bank_accountID = bankAccountId;
+            _db.SaveChanges();
+        }
+
+        public void UpdatePolicyHolderBankAccountId(int fnolId, int bankAccountId)
+        {
+            var fnol = _db.first_notice_of_loss.Where(x => x.ID == fnolId).SingleOrDefault();
+            fnol.Policy_holder_bank_accountID = bankAccountId;
+            _db.SaveChanges();
+        }
     }
 }

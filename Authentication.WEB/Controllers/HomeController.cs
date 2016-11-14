@@ -1,26 +1,31 @@
 ﻿using InsuredTraveling.App_Start;
 using System.Configuration;
 using System.Web.Mvc;
+using InsuredTraveling.Filters;
+
 
 namespace InsuredTraveling.Controllers
 {
     [RoutePrefix("Home")]
-    [Authorize(Roles ="")]
+    //[Authorize(Roles ="")]
+    [SessionExpire]
     public class HomeController : BaseController
     {
+        
         // GET: Home        
         public ActionResult Index()
         {
-            if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false)
+            if(!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");  
             }
             return View();
 
         }
-
+        
         public ActionResult ChangeLanguage(string lang)
         {
+           
             new SiteLanguages().SetLanguage(lang);
             return RedirectToLocal(Request.UrlReferrer.AbsoluteUri);
         }

@@ -296,3 +296,23 @@ form.cmxform .gray * { color: gray; }
 }
 /*end of background video*/
 
+.totalPremium{
+    padding-left: 0px;
+    margin-left: 0px;
+}
+#totalPremiumLabel{
+    padding-left: 0px;
+    margin-left: -10px;
+}
+.customButton{
+    height: 55px;
+    margin-left: 10px;
+}
+
+.hideMe{
+        width: 160px;
+}
+
+
+
+/*, .totalPremium label, .totalPremium col-md-6*/

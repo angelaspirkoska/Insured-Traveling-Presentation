@@ -42,6 +42,13 @@ namespace InsuredTraveling.DI
             
         }
 
+        public bool checkBankAccountInfo(int id)
+        {
+            if (_db.first_notice_of_loss.Any(x => x.Claimant_bank_accountID == id) || _db.first_notice_of_loss.Any(x => x.Policy_holder_bank_accountID == id))
+                return true;
+            return false;
+        }
+
         public bank_account_info Create()
         {
            return _db.bank_account_info.Create();
@@ -53,7 +60,12 @@ namespace InsuredTraveling.DI
             
         }
 
-
+        public void deleteBankAccountInfo(int id)
+        {
+            var bankAccount = _db.bank_account_info.Where(x => x.ID == id).FirstOrDefault();
+            _db.bank_account_info.Remove(bankAccount);
+            _db.SaveChanges();
+        }
 
         public List<bank_prefix> GetAllPrefix()
         {

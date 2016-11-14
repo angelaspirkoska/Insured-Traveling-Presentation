@@ -33,7 +33,8 @@ namespace Authentication.WEB.Controllers
         [Route("Calculate")]
         public IHttpActionResult Code(Policy policy)
         {
-            if(policy.IsSamePolicyHolderInsured)
+          
+            if(!policy.isMobile && policy.IsSamePolicyHolderInsured)
             {
                 policy.PolicyHolderName = policy.Name;
                 policy.PolicyHolderLastName = policy.LastName;
@@ -47,15 +48,19 @@ namespace Authentication.WEB.Controllers
 
               
             }
-            ModelState.Remove("PolicyHolderName");
-            ModelState.Remove("PolicyHolderLastName");
-            ModelState.Remove("PolicyHolderEmail");
-            ModelState.Remove("PolicyHolderAddress");
-            ModelState.Remove("PolicyHolderBirthDate");
-            ModelState.Remove("PolicyHolderCity");
-            ModelState.Remove("PolicyHolderPostalCode");
-            ModelState.Remove("PolicyHolderPhoneNumber");
-            ModelState.Remove("PolicyHolderSSN");
+            if(!policy.isMobile)
+            {
+                ModelState.Remove("PolicyHolderName");
+                ModelState.Remove("PolicyHolderLastName");
+                ModelState.Remove("PolicyHolderEmail");
+                ModelState.Remove("PolicyHolderAddress");
+                ModelState.Remove("PolicyHolderBirthDate");
+                ModelState.Remove("PolicyHolderCity");
+                ModelState.Remove("PolicyHolderPostalCode");
+                ModelState.Remove("PolicyHolderPhoneNumber");
+                ModelState.Remove("PolicyHolderSSN");
+            }
+           
             
             if (ModelState.IsValid && policy != null)
             {

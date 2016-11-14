@@ -18,6 +18,10 @@ namespace InsuredTraveling.DI
         bank_account_info BankAccountsInfoByIdandUser(int ID, int accountHolder);
         bank_account_info Create();
 
+        //checks if the bank account is used in other fnol's
+        bool checkBankAccountInfo(int id);
+
+        void deleteBankAccountInfo(int id);
 
         bank CreateBank();
 

@@ -119,6 +119,27 @@ namespace InsuredTraveling.Controllers
             }
             return View(firstNoticeOfLossViewModel);
         }
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            var model = new FirstNoticeOfLossEditViewModel();
+            if (id != null)
+            {
+                var data = _fis.GetById(Convert.ToInt32(id));
+                model = Mapper.Map<first_notice_of_loss, FirstNoticeOfLossEditViewModel>(data);
+            }
+
+            return View(model);
+        }
+
+
+        [SessionExpire]
+        [HttpPost]
+        public ActionResult Edit(FirstNoticeOfLossEditViewModel model)
+        {
+            return RedirectToAction("Edit", new { id = model.Id });
+        }
 
         [SessionExpire]
         public ActionResult View(int? id)
