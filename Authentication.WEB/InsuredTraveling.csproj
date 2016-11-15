@@ -725,6 +725,7 @@
     <Content Include="Views\FirstNoticeOfLoss\View.cshtml" />
     <Content Include="Views\Payment\_PolicyPrint.cshtml" />
     <Content Include="Views\Payment\Print.cshtml" />
+    <Content Include="Views\FirstNoticeOfLoss\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

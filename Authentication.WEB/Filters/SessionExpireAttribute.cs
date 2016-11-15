@@ -13,7 +13,6 @@ namespace InsuredTraveling.Filters
         public override void OnActionExecuting(ActionExecutingContext filterContext)
 
         {
-
             string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName.ToLower();
             HttpSessionStateBase session = filterContext.HttpContext.Session;
             if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)

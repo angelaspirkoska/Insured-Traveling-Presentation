@@ -117,17 +117,46 @@ namespace InsuredTraveling.Controllers
             }
             return View(firstNoticeOfLossViewModel);
         }
+
+
         [SessionExpire]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-            var model = new FirstNoticeOfLossEditViewModel();
-            if (id != null)
+            var model = new FirstNoticeOfLossEditViewModel();                    
+            if (id != null && id != 0)
             {
-                var data = _fis.GetById(Convert.ToInt32(id));
+                var data = _fis.GetById(Convert.ToInt32(id));              
                 model = Mapper.Map<first_notice_of_loss, FirstNoticeOfLossEditViewModel>(data);
-            }
 
+                //for filling the dropdown lists for existent banks
+                model.ClaimantBankAccounts = _bas.BankAccountsByInsuredId(model.ClaimantId);
+                model.PolicyHolderBankAccounts = _bas.BankAccountsByInsuredId(model.PolicyHolderId);
+
+                //documents and invoices
+                model.Invoices = new List<FileDescriptionViewModel>();
+                model.InsuranceInfoDoc = new List<FileDescriptionViewModel>();
+
+                var allInvoices = _fis.GetInvoiceDocumentName(model.Id);
+                foreach (var invoice in allInvoices)
+                {
+                    var file = new FileDescriptionViewModel();
+                    file.FileName = invoice;
+                    file.FilePath = "~/DocumentsFirstNoticeOfLoss/Invoices/" + file.FileName;
+                    model.Invoices.Add(file);
+                }
+
+                var isHealthInsurance = _fis.IsHealthInsuranceByAdditionalInfoId(data.Additional_infoID);
+                var allDoc = _fis.GetHealthLuggageDocumentName(model.Id);
+                foreach (var doc in allDoc)
+                {
+                    var file = new FileDescriptionViewModel();
+                    file.FileName = doc;
+                    file.FilePath = isHealthInsurance ? "~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + file.FileName : "~/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + file.FileName;
+                    model.InsuranceInfoDoc.Add(file);
+                }
+
+            }          
             return View(model);
         }
 
@@ -136,6 +165,10 @@ namespace InsuredTraveling.Controllers
         [HttpPost]
         public ActionResult Edit(FirstNoticeOfLossEditViewModel model)
         {
+            model.PolicyHolderBankAccountNumber = model.PolicyHolderBankAccountNumber.Trim();
+            model.ClaimantBankAccountNumber = model.ClaimantBankAccountNumber.Trim();
+            UpdateFirstNoticeOfLossHelper.UpdateFirstNoticeOfLoss(model, _fis, _bas);
+
             return RedirectToAction("Edit", new { id = model.Id });
         }
 

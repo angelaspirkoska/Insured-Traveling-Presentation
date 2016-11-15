@@ -29,6 +29,7 @@ namespace InsuredTraveling.Providers
         }
         public void Pom(OAuthMatchEndpointContext context)
         {
+            //ne e ok 
             var c = HttpContext.Current.Request.Cookies["token"];
             if (c == null) return;
 

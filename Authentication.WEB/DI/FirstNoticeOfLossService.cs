@@ -92,6 +92,7 @@ namespace InsuredTraveling.DI
            return _db.first_notice_of_loss.Where(x => x.ID == id).ToArray().First();
         }
 
+
         public first_notice_of_loss[] GetByInsuredUserId(string id)
         {
             return _db.first_notice_of_loss.Where(x => x.CreatedBy == id).ToArray();

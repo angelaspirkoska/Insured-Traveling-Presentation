@@ -15,9 +15,19 @@ namespace InsuredTraveling.Helpers
             {
                 _bas.deleteBankAccountInfo(oldBankAccountId);
             }
-            var id = SaveBankAccountInfoHelper.SaveBankAccountInfo(_bas, clientId, newBankName, newBankAccountNumber);
+            var checkForExistentBankAccount = _bas.GetBankAccountInfo(clientId, newBankAccountNumber, newBankName);
+            if (checkForExistentBankAccount != null)
+            {
+                return checkForExistentBankAccount.ID;
+            }
+            else
+            {
+                var id = SaveBankAccountInfoHelper.SaveBankAccountInfo(_bas, clientId, newBankName, newBankAccountNumber);
 
-            return id;
+                return id;
+            }
+            
+
         }
 
     }

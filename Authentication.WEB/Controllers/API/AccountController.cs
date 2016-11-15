@@ -12,6 +12,7 @@ using AutoMapper;
 
 namespace InsuredTraveling.Controllers
 {
+    [Authorize]
     [System.Web.Http.RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -144,7 +145,7 @@ namespace InsuredTraveling.Controllers
             return Ok();
         }
         
-        [System.Web.Http.AllowAnonymous]
+       // [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("FindUser")]
         public async Task<IHttpActionResult> FindUsername(Username username)
         {
@@ -255,6 +256,7 @@ namespace InsuredTraveling.Controllers
 
             return Ok();
         }
+
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("DeleteToken")]
         public IHttpActionResult DeleteToken()

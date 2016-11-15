@@ -17,17 +17,18 @@ namespace InsuredTraveling.Helpers
             var fnolPrevious = _fnol.GetById(model.Id);
             
 
+
             if (!fnolPrevious.Claimant_bank_account_info.Account_Number.ToString().Equals( model.ClaimantBankAccountNumber)
                 || !fnolPrevious.Claimant_bank_account_info.bank.Name.Equals(model.ClaimantBankName))
             {
-               var bankAccountId = UpdateBankAccountInfoHelper.UpdateBankAccountInfo(fnolPrevious.Claimant_bank_accountID, model.ClaimantBankAccountNumber, model.ClaimantBankName, fnolPrevious.ClaimantId, _bas);
+               var bankAccountId = UpdateBankAccountInfoHelper.UpdateBankAccountInfo(fnolPrevious.Claimant_bank_accountID, model.ClaimantBankAccountNumber.Trim(), model.ClaimantBankName, fnolPrevious.ClaimantId, _bas);
                 _fnol.UpdateClaimantBankAccountId(fnolPrevious.ID, bankAccountId);
             }
 
             if (!fnolPrevious.Policy_holder_bank_account_info.Account_Number.ToString().Equals(model.PolicyHolderBankAccountNumber)
                || !fnolPrevious.Policy_holder_bank_account_info.bank.Name.Equals(model.PolicyHolderBankName))
             {
-                var bankAccountId = UpdateBankAccountInfoHelper.UpdateBankAccountInfo(fnolPrevious.Claimant_bank_accountID, model.ClaimantBankAccountNumber, model.ClaimantBankName, fnolPrevious.ClaimantId, _bas);
+                var bankAccountId = UpdateBankAccountInfoHelper.UpdateBankAccountInfo(fnolPrevious.Policy_holder_bank_accountID, model.PolicyHolderBankAccountNumber.Trim(), model.PolicyHolderBankName, fnolPrevious.travel_policy.Policy_HolderID, _bas);
                 _fnol.UpdatePolicyHolderBankAccountId(fnolPrevious.ID, bankAccountId);
             }
 

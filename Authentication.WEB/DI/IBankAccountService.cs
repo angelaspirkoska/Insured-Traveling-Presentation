@@ -21,6 +21,7 @@ namespace InsuredTraveling.DI
         //checks if the bank account is used in other fnol's
         bool checkBankAccountInfo(int id);
 
+        bank_account_info GetBankAccountInfo(int clientId, string bankAccountNumber, string bankAccountName);
         void deleteBankAccountInfo(int id);
 
         bank CreateBank();

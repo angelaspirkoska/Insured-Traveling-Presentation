@@ -37,18 +37,31 @@ namespace InsuredTraveling.App_Start
             });
             Mapper.CreateMap<first_notice_of_loss, FirstNoticeOfLossEditViewModel>().AfterMap((src, dst) =>
             {
-                //var policy = src.travel_policy;
-                var policy = db.travel_policy.Where(x => x.ID == src.PolicyId).FirstOrDefault();
+                var policy = src.travel_policy;
+                //var policy = db.travel_policy.Where(x => x.ID == src.PolicyId).FirstOrDefault();
                 var user = policy != null ? policy.insured : null;
-                var policy_holder_bank_account = db.bank_account_info.Where(x => x.ID == src.Policy_holder_bank_accountID).FirstOrDefault();
-                var policy_holder_bank = policy_holder_bank_account != null ? db.banks.Where(x => x.ID == policy_holder_bank_account.BankID).FirstOrDefault() : null;
-                var claimant = db.insureds.Where(x => x.ID == src.ClaimantId).FirstOrDefault();
-                var claimant_bank_account = db.bank_account_info.Where(x => x.ID == src.Claimant_bank_accountID).FirstOrDefault();
-                var claimant_bank = claimant_bank_account != null ? db.banks.Where(x => x.ID == claimant_bank_account.BankID).FirstOrDefault() : null;
-                var healthAdditionalInfo = db.health_insurance_info.SingleOrDefault(x => x.Additional_infoId == src.Additional_infoID);
-                var luggageInsuranceInfo = healthAdditionalInfo == null ? db.luggage_insurance_info.Single(x => x.Additional_infoId == src.Additional_infoID) : null;
-                var additional_info = db.additional_info.Where(x => x.ID == src.Additional_infoID).FirstOrDefault();
+
+                //var policy_holder_bank_account = db.bank_account_info.Where(x => x.ID == src.Policy_holder_bank_accountID).FirstOrDefault();
+                //var policy_holder_bank = policy_holder_bank_account != null ? db.banks.Where(x => x.ID == policy_holder_bank_account.BankID).FirstOrDefault() : null;
+
+                var policy_holder_bank_account = src.Policy_holder_bank_account_info;
+                var policy_holder_bank = src.Policy_holder_bank_account_info.bank;
+                // var claimant = db.insureds.Where(x => x.ID == src.ClaimantId).FirstOrDefault();
+                //var claimant_bank_account = db.bank_account_info.Where(x => x.ID == src.Claimant_bank_accountID).FirstOrDefault();
+                // var claimant_bank = claimant_bank_account != null ? db.banks.Where(x => x.ID == claimant_bank_account.BankID).FirstOrDefault() : null;
+                var claimant = src.insured;
+                var claimant_bank_account = src.Claimant_bank_account_info;
+                var claimant_bank = src.Claimant_bank_account_info.bank;
+                
+                
+                //var healthAdditionalInfo = db.health_insurance_info.SingleOrDefault(x => x.Additional_infoId == src.Additional_infoID);
+                //var luggageInsuranceInfo = healthAdditionalInfo == null ? db.luggage_insurance_info.Single(x => x.Additional_infoId == src.Additional_infoID) : null;
+                //var additional_info = db.additional_info.Where(x => x.ID == src.Additional_infoID).FirstOrDefault();
+                var additional_info = src.additional_info;
+                var healthAdditionalInfo = src.additional_info.health_insurance_info;
+                var luggageInsuranceInfo = src.additional_info.luggage_insurance_info;
                 dst.PolicyId = src.PolicyId;
+                dst.PolicyHolderId = src.travel_policy.insured.ID;
                 dst.PolicyNumber = policy != null ? Convert.ToInt32(policy.Policy_Number) : 0;
                 dst.PolicyHolderName = user != null ? user.Name + " " + user.Lastname : null;
                 dst.PolicyHolderAdress = user != null ? user.Address : null;
@@ -181,18 +194,27 @@ namespace InsuredTraveling.App_Start
 
             Mapper.CreateMap<first_notice_of_loss, FirstNoticeOfLossReportViewModel>().AfterMap((src, dst) =>
             {
-                var policy = db.travel_policy.Where(x => x.ID == src.PolicyId).FirstOrDefault();
+                var policy = src.travel_policy;
                 var user = policy != null ? policy.insured : null;
-                var policy_holder_bank_account = db.bank_account_info.Where(x => x.ID == src.Policy_holder_bank_accountID).FirstOrDefault();
-                var policy_holder_bank = policy_holder_bank_account != null ? db.banks.Where(x => x.ID == policy_holder_bank_account.BankID).FirstOrDefault() : null;
-                var claimant = db.insureds.Where(x => x.ID == src.ClaimantId).FirstOrDefault();
-                var claimant_bank_account = db.bank_account_info.Where(x => x.ID == src.Claimant_bank_accountID).FirstOrDefault();
-                var claimant_bank = claimant_bank_account != null ? db.banks.Where(x => x.ID == claimant_bank_account.BankID).FirstOrDefault() : null;
-                var healthAdditionalInfo = db.health_insurance_info.SingleOrDefault(x => x.Additional_infoId == src.Additional_infoID);
-                var luggageInsuranceInfo = healthAdditionalInfo == null ? db.luggage_insurance_info.Single(x => x.Additional_infoId == src.Additional_infoID) : null;
-                var additional_info = db.additional_info.Where(x => x.ID == src.Additional_infoID).FirstOrDefault();
+                //var policy_holder_bank_account = db.bank_account_info.Where(x => x.ID == src.Policy_holder_bank_accountID).FirstOrDefault();
+                //var policy_holder_bank = policy_holder_bank_account != null ? db.banks.Where(x => x.ID == policy_holder_bank_account.BankID).FirstOrDefault() : null;
+                var policy_holder_bank_account = src.Policy_holder_bank_account_info;
+                var policy_holder_bank = src.Policy_holder_bank_account_info.bank;
+                // var claimant = db.insureds.Where(x => x.ID == src.ClaimantId).FirstOrDefault();
+                //var claimant_bank_account = db.bank_account_info.Where(x => x.ID == src.Claimant_bank_accountID).FirstOrDefault();
+                // var claimant_bank = claimant_bank_account != null ? db.banks.Where(x => x.ID == claimant_bank_account.BankID).FirstOrDefault() : null;
+                var claimant = src.insured;
+                var claimant_bank_account = src.Claimant_bank_account_info;
+                var claimant_bank = src.Claimant_bank_account_info.bank;
+                //var healthAdditionalInfo = db.health_insurance_info.SingleOrDefault(x => x.Additional_infoId == src.Additional_infoID);
+                //var luggageInsuranceInfo = healthAdditionalInfo == null ? db.luggage_insurance_info.Single(x => x.Additional_infoId == src.Additional_infoID) : null;
+                var additional_info = src.additional_info;
+                var healthAdditionalInfo = src.additional_info.health_insurance_info;
+                var luggageInsuranceInfo = src.additional_info.luggage_insurance_info;
+                //var additional_info = db.additional_info.Where(x => x.ID == src.Additional_infoID).FirstOrDefault();              
                 dst.PolicyId = src.PolicyId;
                 dst.PolicyNumber = policy != null ? Convert.ToInt32(policy.Policy_Number) : 0;
+                dst.PolicyHolderId = src.travel_policy.insured.ID;
                 dst.PolicyHolderName = user != null ? user.Name + " " + user.Lastname: null;
                 dst.PolicyHolderAdress = user != null ? user.Address : null;
                 dst.PolicyHolderPhoneNumber = user != null ? user.Phone_Number : null;
