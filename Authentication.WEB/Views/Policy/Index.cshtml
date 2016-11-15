@@ -6,12 +6,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Креирај полиса:</h2>
+<h2>@InsuredTraveling.Resource.Policy_CreatePolicy</h2>
 <form id="policy_form" metod="post">
     <div class="form-horizontal">
         <hr />
         <div class="row container">
-            <header class="well">Информации за полисата</header>
+            <header class="well">@InsuredTraveling.Resource.Policy_PolicyInformation</header>
             <div class="form-inline row col-sm-12">
 
                 <div class="form-group">
@@ -20,15 +20,11 @@
                         @Html.DropDownListFor(model => model.CountryID, (List<SelectListItem>)ViewBag.Countries, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.CountryID, "", new { @class = "text-danger" })
                     </div>
-
-
                     @Html.LabelFor(model => model.Retaining_RiskID, htmlAttributes: new { @class = "control-label" })
                     <div class="inputs-spacing">
                         @Html.DropDownListFor(model => model.Retaining_RiskID, (List<SelectListItem>)ViewBag.Franchise, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Retaining_RiskID, "", new { @class = "text-danger" })
                     </div>
-
-
                     @Html.LabelFor(model => model.Policy_TypeID, htmlAttributes: new { @class = "control-label" })
                     <div class="inputs-spacing">
                         @Html.DropDownListFor(model => model.Policy_TypeID, (List<SelectListItem>)ViewBag.TypeOfPolicy, new { @class = "form-control" })
@@ -44,13 +40,13 @@
                     <label class="radio-inline ">
                         <input type="radio" name="Travel_NumberID" checked="checked" value="1" />
                         @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "1", @text = "Едно патување" })*@
-                        <label for="radio1" checked="checked">Едно патување</label>
+                        <label for="radio1" checked="checked">@InsuredTraveling.Resource.Policy_OneTrip</label>
                     </label>
                     <br />
                     <label class="radio-inline">
                         <input type="radio" name="Travel_NumberID" value="2" />
                         @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "2", @text = "Повеќе патувања" })*@
-                        <label for="radio1">Повеќе патувања</label>
+                        <label for="radio1">@InsuredTraveling.Resource.Policy_MoreTrip</label>
                     </label>
                 </div>
             </div>
@@ -73,7 +69,7 @@
                 @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
                     <div class="input-group">
                         @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", @style= "position: static;", @min = "1" } })
-                        <span class="input-group-addon">денови</span>
+                        <span class="input-group-addon">@InsuredTraveling.Resource.Policy_Days</span>
                     </div>
                     @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
             </div>
@@ -88,11 +84,11 @@
     @if (r.IsUser("admin"))
     {
         <div class="row container">
-            <header class="well">Лични податоци за договорувач</header>
+            <header class="well">@InsuredTraveling.Resource.Policy_HolderInformation</header>
             <div class="form-inline row">
                 <div class="form-group col-sm-3">
                     <div class="inputs-spacing">
-                        @Html.CheckBoxFor(model => model.IsExistentPolicyHolder, new { @class = "col-md-1", @style = "" }) Постоечки корисник
+                        @Html.CheckBoxFor(model => model.IsExistentPolicyHolder, new { @class = "col-md-1", @style = "" }) @InsuredTraveling.Resource.Policy_ExistingUser
                     </div>
                     <div class="hideWhenSelect">
                         @Html.LabelFor(model => model.PolicyHolderName, htmlAttributes: new { @class = "control-label" })
@@ -161,7 +157,7 @@
         </div>
     }
     <div class="row container">
-        <header class="well">Лични податоци за осигуреникот</header>
+        <header class="well">@InsuredTraveling.Resource.Policy_InsuredInformation</header>
         <div class="form-inline row">
             <div class="form-group col-sm-3">
                 <div class="inputs-spacing">
@@ -169,14 +165,13 @@
 
                     @if (r.IsUser("end user"))
                     {
-                        <label> Јас сум осигуреник</label>
+                        <label>@InsuredTraveling.Resource.Policy_IamInsured</label>
                     }
                     @if (r.IsUser("admin"))
                     {
-                        <label>Договорувачот е и осигуреник</label>
+                        <label>@InsuredTraveling.Resource.Policy_HolderSameInsured</label>
                     }
                     </ div >
-
                     <div id="hideWhenSamePerson">
                         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
@@ -241,7 +236,7 @@
         <br />
         <br />
         <div class="row container">
-            <header class="well">Податоци за полисата</header>
+            <header class="well">@InsuredTraveling.Resource.Policy_PolicyData</header>
             <div class="form-inline row">
                 <div class="form-group col-sm-12">
                     @Html.LabelFor(model => model.Travel_Insurance_TypeID, htmlAttributes: new { @class = "control-label" })
@@ -249,19 +244,19 @@
                         <label class="radio-inline ">
                             <input type="radio" checked="checked" name="Travel_Insurance_TypeID" , value="1" id="single_type" />
                             @*@Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "1", id = "single_type" })*@
-                            <label for="radio1" checked="checked">Поединечно</label>
+                            <label for="radio1" checked="checked">@InsuredTraveling.Resource.Policy_PolicySingle</label>
                         </label>
                         <br />
                         <label class="radio-inline">
                             <input type="radio" name="Travel_Insurance_TypeID" , value="2" id="family_type" />
                             @*@Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "2", id = "family_type" })*@
-                            <label for="radio1">Фамилијарно</label>
+                            <label for="radio1">@InsuredTraveling.Resource.Policy_PolicyFamily</label>
                         </label>
                         <br />
                         <label class="radio-inline">
                             <input type="radio" name="Travel_Insurance_TypeID" , value="3" id="group_type" />
                             @*@Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "3", id = "group_type" })*@
-                            <label for="radio1">Групно</label>
+                            <label for="radio1">@InsuredTraveling.Resource.Policy_PolicyGroup</label>
                         </label>
                     </div>
                 </div>
@@ -271,15 +266,15 @@
                 {
                     <div class="form-inline row" style="margin-top:20px;">
                         <div class="form-group col-sm-3">
-                            <div><label style="width:40%">Име:</label></div>
+                            <div><label style="width:40%">@InsuredTraveling.Resource.Policy_InsuredName:</label></div>
                             @Html.EditorFor(model => model.insureds[i].Name, new { htmlAttributes = new { @class = "form-control input-sm", } })
                         </div>
                         <div class="form-group col-sm-3">
-                            <div><label>Презиме:</label></div>
+                            <div><label>@InsuredTraveling.Resource.Policy_InsuredLastName:</label></div>
                             @Html.EditorFor(model => model.insureds[i].Lastname, new { htmlAttributes = new { @class = "form-control input-sm", } })
                         </div>
                         <div class="form-group col-sm-3">
-                            <div><label>Матичен број:</label></div>
+                            <div><label>@InsuredTraveling.Resource.Policy_InsuredSSN:</label></div>
                             @Html.EditorFor(model => model.insureds[i].SSN, new { htmlAttributes = new { @class = "form-control input-sm", } })
                         </div>
                     </div>
@@ -293,7 +288,6 @@
                         @Html.EditorFor(model => model.Group_Members, new { htmlAttributes = new { @class = "form-control input-sm" } })
                         @Html.ValidationMessageFor(model => model.Group_Members, "", new { @class = "text-danger" })
                     </div>
-
                     @Html.LabelFor(model => model.Group_Total_Premium, htmlAttributes: new { @class = "control-label" })
                     <div class="inputs-spacing">
                         @Html.EditorFor(model => model.Group_Total_Premium, new { htmlAttributes = new { @class = "form-control input-sm" } })
@@ -305,7 +299,7 @@
                 @for (int i = 0; i < 2; i++)
                 {
                     <div class="form-group col-sm-6">
-                        <div><label>Доплаток @(i + 1)</label></div>
+                        <div><label>@InsuredTraveling.Resource.Policy_AddOn @(i + 1)</label></div>
                         <div>
                             @Html.DropDownListFor(model => model.additional_charges[i].ID, (List<SelectListItem>)ViewBag.additional_charges, new { @class = "form-control" })
                         </div>
@@ -317,7 +311,7 @@
             <div class="form-inline row">
                 <div class="form-group col-sm-3 col-md-3">
                     <div>
-                        <input type="button" id="calculateTotalPremium" value="Пресметај премија" class="btn btn-default" onclick="CalculateTotalPremium()" />
+                        <input type="button" id="calculateTotalPremium" value="@InsuredTraveling.Resource.Policy_CalculatePremium" class="btn btn-default" onclick="CalculateTotalPremium()" />
                     </div>
                 </div>
                 @*<div class="form-group col-sm-4" style="padding-left:0px;">
@@ -351,7 +345,7 @@
             </div>
             <div class="col-sm-3 col-md-3">
                 <div>
-                    <input type="submit" value="Купи полиса" class="btn btn-success hideMe customButton" @*onclick="@("window.location.href='" + @Url.Action("Index", "Payment", new { p = Model }) + "'");"*@ formmethod="post" formaction="/Payment/Index" />
+                    <input type="submit" value="@InsuredTraveling.Resource.Policy_BuyPolicy" class="btn btn-success hideMe customButton" @*onclick="@("window.location.href='" + @Url.Action("Index", "Payment", new { p = Model }) + "'");"*@ formmethod="post" formaction="/Payment/Index" />
                 </div>
             </div>
         </div>
@@ -359,12 +353,12 @@
             
             <div class="form-group col-sm-3 col-md-2" style="margin-left: 0px; padding-left: 0px;">
                 <div>
-                    <input type="button" value="Додади во понуди" class="btn btn-default hideMe" />
+                    <input type="button" value="@InsuredTraveling.Resource.Policy_AddOffer" class="btn btn-default hideMe" />
                 </div>
             </div>
             <div class="form-group col-sm-3 col-md-8">
                 <div>
-                    <input type="button" onclick="@("window.location.href='" + @Url.Action("PrintPolicy", "Policy") + "'");" class="btn btn-default hideMe" value="Печати Понуди" />
+                    <input type="button" onclick="@("window.location.href='" + @Url.Action("PrintPolicy", "Policy") + "'");" class="btn btn-default hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
                 </div>
             </div>
         </div>
@@ -472,10 +466,10 @@
                     $("#totalPremiumLabel").hide();
                     $("#totalPremium").val("");
                     if ($("#Valid_Days").val() == 0) {
-                        $("#errorMessage").text("Мора да имате барем еден валиден ден!");
+                        $("#errorMessage").text("@InsuredTraveling.Resource.Policy_ValidDate");
                     }
                     else {
-                        $("#errorMessage").text("Внесете ги сите полиња!");
+                        $("#errorMessage").text("@InsuredTraveling.Resource.Policy_FillData");
                     }
                     
         }

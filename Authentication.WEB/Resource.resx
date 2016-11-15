@@ -141,6 +141,174 @@
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="Policy_AddOffer" xml:space="preserve">
+    <value>Add to Offers</value>
+  </data>
+  <data name="Policy_AddOn" xml:space="preserve">
+    <value>Add-on</value>
+  </data>
+  <data name="Policy_BuyPolicy" xml:space="preserve">
+    <value>Buy Policy</value>
+  </data>
+  <data name="Policy_CalculatePremium" xml:space="preserve">
+    <value>Calculate Premium</value>
+  </data>
+  <data name="Policy_CreatePolicy" xml:space="preserve">
+    <value>Create Policy</value>
+  </data>
+  <data name="Policy_Days" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="Policy_Deductible" xml:space="preserve">
+    <value>Deductible</value>
+  </data>
+  <data name="Policy_DeductibleByAge" xml:space="preserve">
+    <value>Deductible By Age</value>
+  </data>
+  <data name="Policy_DeductibleByDay" xml:space="preserve">
+    <value>Deductible By Day</value>
+  </data>
+  <data name="Policy_Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="Policy_ExistingUser" xml:space="preserve">
+    <value>Existing User</value>
+  </data>
+  <data name="Policy_FillData" xml:space="preserve">
+    <value>Enter data for all the fields!</value>
+  </data>
+  <data name="Policy_HolderAddress" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Policy_HolderBirthDay" xml:space="preserve">
+    <value>Birth Date</value>
+  </data>
+  <data name="Policy_HolderCity" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Policy_HolderEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Policy_HolderInformation" xml:space="preserve">
+    <value>Holder Information</value>
+  </data>
+  <data name="Policy_HolderLastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Policy_HolderName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Policy_HolderPassport" xml:space="preserve">
+    <value>Passport/ID Cart Number</value>
+  </data>
+  <data name="Policy_HolderPhone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Policy_HolderPostalCode" xml:space="preserve">
+    <value>Postal Code</value>
+  </data>
+  <data name="Policy_HolderSameInsured" xml:space="preserve">
+    <value>Holder is insured</value>
+  </data>
+  <data name="Policy_HolderSSN" xml:space="preserve">
+    <value>SSN</value>
+  </data>
+  <data name="Policy_IamInsured" xml:space="preserve">
+    <value>I am insured</value>
+  </data>
+  <data name="Policy_InsuredAddress" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Policy_InsuredBirthDate" xml:space="preserve">
+    <value>Birth Date</value>
+  </data>
+  <data name="Policy_InsuredCity" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Policy_InsuredEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Policy_InsuredInformation" xml:space="preserve">
+    <value>Insured Information</value>
+  </data>
+  <data name="Policy_InsuredLastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Policy_InsuredName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Policy_InsuredPassport" xml:space="preserve">
+    <value>Passport/ ID Cart Number</value>
+  </data>
+  <data name="Policy_InsuredPhone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Policy_InsuredPostalCode" xml:space="preserve">
+    <value>Postal Code</value>
+  </data>
+  <data name="Policy_InsuredSSN" xml:space="preserve">
+    <value>SSN</value>
+  </data>
+  <data name="Policy_MoreTrip" xml:space="preserve">
+    <value>More Trips</value>
+  </data>
+  <data name="Policy_NumberMembers" xml:space="preserve">
+    <value>Number of Members</value>
+  </data>
+  <data name="Policy_NumberTrips" xml:space="preserve">
+    <value>Number of Trips</value>
+  </data>
+  <data name="Policy_OneTrip" xml:space="preserve">
+    <value>One Trip</value>
+  </data>
+  <data name="Policy_PolicyData" xml:space="preserve">
+    <value>Policy Data</value>
+  </data>
+  <data name="Policy_PolicyEffectiveDate" xml:space="preserve">
+    <value>Policy Effective Date</value>
+  </data>
+  <data name="Policy_PolicyExpiryDate" xml:space="preserve">
+    <value>Policy Expiry Date</value>
+  </data>
+  <data name="Policy_PolicyFamily" xml:space="preserve">
+    <value>Family</value>
+  </data>
+  <data name="Policy_PolicyGroup" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="Policy_PolicyInformation" xml:space="preserve">
+    <value>Policy Information</value>
+  </data>
+  <data name="Policy_PolicySingle" xml:space="preserve">
+    <value>Single</value>
+  </data>
+  <data name="Policy_PolicyType" xml:space="preserve">
+    <value>Policy Type</value>
+  </data>
+  <data name="Policy_PrintOffer" xml:space="preserve">
+    <value>Print offers</value>
+  </data>
+  <data name="Policy_TotalPremium" xml:space="preserve">
+    <value>Total Premium</value>
+  </data>
+  <data name="Policy_TotalPremiumInGroup" xml:space="preserve">
+    <value>Total Premium in Group</value>
+  </data>
+  <data name="Policy_TravelCountry" xml:space="preserve">
+    <value>Travel Country</value>
+  </data>
+  <data name="Policy_Type" xml:space="preserve">
+    <value>Policy Type</value>
+  </data>
+  <data name="Policy_ValidDate" xml:space="preserve">
+    <value>You must have at least one valid day!</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
+  <data name="Seacrh_SearchTableCancellationDate" xml:space="preserve">
+    <value>Cancellation date</value>
+  </data>
   <data name="Seacrh_SearchTableCity" xml:space="preserve">
     <value>City</value>
   </data>
@@ -151,10 +319,13 @@
     <value>Email</value>
   </data>
   <data name="Seacrh_SearchTableFrom" xml:space="preserve">
-    <value>From</value>
+    <value>Policy effective date</value>
   </data>
   <data name="Seacrh_SearchTableHealthInsurance" xml:space="preserve">
     <value>Health Insurance Yes/No</value>
+  </data>
+  <data name="Seacrh_SearchTableInsuredHolderRelationship" xml:space="preserve">
+    <value>Relationship between the policyholder and the insured</value>
   </data>
   <data name="Seacrh_SearchTableInsuredNameLastName" xml:space="preserve">
     <value>Insured Name and Last Name</value>
@@ -174,6 +345,9 @@
   <data name="Seacrh_SearchTablePhoneNumber" xml:space="preserve">
     <value>Phone Number</value>
   </data>
+  <data name="Seacrh_SearchTablePolicyIssuanceDate" xml:space="preserve">
+    <value>Policy issuance date</value>
+  </data>
   <data name="Seacrh_SearchTablePolicyType" xml:space="preserve">
     <value>Policy Type</value>
   </data>
@@ -181,7 +355,7 @@
     <value>Postal Code</value>
   </data>
   <data name="Seacrh_SearchTableRegistrationDate" xml:space="preserve">
-    <value>Registration Date</value>
+    <value>Date of FNOL</value>
   </data>
   <data name="Seacrh_SearchTableSSN" xml:space="preserve">
     <value>SSN</value>
@@ -190,7 +364,7 @@
     <value>Street</value>
   </data>
   <data name="Seacrh_SearchTableTo" xml:space="preserve">
-    <value>To</value>
+    <value>Policy expiry date</value>
   </data>
   <data name="Seacrh_SearchTableTotalCost" xml:space="preserve">
     <value>Total Cost</value>
@@ -201,6 +375,9 @@
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="Search_AddFNOL" xml:space="preserve">
+    <value>New FNOL</value>
+  </data>
   <data name="Search_AddFNOLLink" xml:space="preserve">
     <value>New FNOL</value>
   </data>
@@ -209,6 +386,9 @@
   </data>
   <data name="Search_AddPolicyButton" xml:space="preserve">
     <value>Add new Policy</value>
+  </data>
+  <data name="Search_CancellationDate" xml:space="preserve">
+    <value>Cancellation Date</value>
   </data>
   <data name="Search_ClaimantLastName" xml:space="preserve">
     <value>Claimant Last Name</value>
@@ -228,6 +408,9 @@
   <data name="Search_FNOLLink" xml:space="preserve">
     <value>FNOL</value>
   </data>
+  <data name="Search_HealthInsurance" xml:space="preserve">
+    <value>Health Insurance</value>
+  </data>
   <data name="Search_HolderLastName" xml:space="preserve">
     <value>Policy Holder Last Name</value>
   </data>
@@ -243,8 +426,20 @@
   <data name="Search_InsuredPolicy" xml:space="preserve">
     <value>Insured Policy</value>
   </data>
+  <data name="Search_LuggageInsurance" xml:space="preserve">
+    <value>Luggage Insurance</value>
+  </data>
   <data name="Search_Policy" xml:space="preserve">
     <value>Policy</value>
+  </data>
+  <data name="Search_PolicyEffectiveDate" xml:space="preserve">
+    <value>Policy Effective Date</value>
+  </data>
+  <data name="Search_PolicyExpiryDate" xml:space="preserve">
+    <value>Policy Expiry Date</value>
+  </data>
+  <data name="Search_PolicyIssuanceDate" xml:space="preserve">
+    <value>Policy Issuance Date</value>
   </data>
   <data name="Search_PolicyLink" xml:space="preserve">
     <value>Policy</value>
@@ -299,6 +494,9 @@
   </data>
   <data name="Search_TravelCountry" xml:space="preserve">
     <value>Travel Country</value>
+  </data>
+  <data name="WithNoAddOn" xml:space="preserve">
+    <value>With no Add-on</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>

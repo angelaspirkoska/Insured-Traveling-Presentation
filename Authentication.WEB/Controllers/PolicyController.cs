@@ -137,8 +137,8 @@ namespace Authentication.WEB.Controllers
             var policy = _ps.GetPolicyById(pat.Pat.ID);
             var additionalCharges = _acs.GetAdditionalChargesByPolicyId(pat.Pat.ID);
 
-            pat.additionalCharge1 = "Без доплаток";
-            pat.additionalCharge2 = "Без доплаток";
+            pat.additionalCharge1 = InsuredTraveling.Resource.WithNoAddOn;
+            pat.additionalCharge2 = InsuredTraveling.Resource.WithNoAddOn;
             if (additionalCharges.Count >= 1 && additionalCharges[0] != null)
             {
                 pat.additionalCharge1 = additionalCharges[0].Doplatok;
@@ -160,8 +160,8 @@ namespace Authentication.WEB.Controllers
             var policy = _ps.GetPolicyById(pat.Pat.ID);
             var additionalCharges = _acs.GetAdditionalChargesByPolicyId(pat.Pat.ID);
 
-            pat.additionalCharge1 = "Без доплаток";
-            pat.additionalCharge2 = "Без доплаток";
+            pat.additionalCharge1 = InsuredTraveling.Resource.WithNoAddOn;
+            pat.additionalCharge2 = InsuredTraveling.Resource.WithNoAddOn;
             if (additionalCharges.Count >= 1 && additionalCharges[0] != null)
             {
                 pat.additionalCharge1 = additionalCharges[0].Doplatok;
@@ -199,16 +199,9 @@ namespace Authentication.WEB.Controllers
         public async Task<JObject> GetExistentLoggedInUserData()
         {
             var Result = new JObject();
-           
-
-
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-
                 string username = System.Web.HttpContext.Current.User.Identity.Name;
-
-                //var loggedUserSsn = _us.GetUserSsnByUsername(username);
-               
                 var loggedUserSsn = _us.GetUserSsnByUsername(username);
                 var loggedUserData = _iss.GetInsuredDataBySsn(loggedUserSsn);
 
@@ -232,9 +225,7 @@ namespace Authentication.WEB.Controllers
                 insuredData.Add("Email", loggedUserData.Email);
                 insuredData.Add("PhoneNumber", loggedUserData.Phone_Number);
 
-
                 Result.Add("InsuredData",insuredData);
-
             }
             else
             {
@@ -242,7 +233,6 @@ namespace Authentication.WEB.Controllers
             }
 
             return Result;           
-
 
         }
 

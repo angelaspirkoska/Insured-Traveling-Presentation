@@ -133,6 +133,510 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to Offers.
+        /// </summary>
+        public static string Policy_AddOffer {
+            get {
+                return ResourceManager.GetString("Policy_AddOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add-on.
+        /// </summary>
+        public static string Policy_AddOn {
+            get {
+                return ResourceManager.GetString("Policy_AddOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy Policy.
+        /// </summary>
+        public static string Policy_BuyPolicy {
+            get {
+                return ResourceManager.GetString("Policy_BuyPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calculate Premium.
+        /// </summary>
+        public static string Policy_CalculatePremium {
+            get {
+                return ResourceManager.GetString("Policy_CalculatePremium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Policy.
+        /// </summary>
+        public static string Policy_CreatePolicy {
+            get {
+                return ResourceManager.GetString("Policy_CreatePolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Days.
+        /// </summary>
+        public static string Policy_Days {
+            get {
+                return ResourceManager.GetString("Policy_Days", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deductible.
+        /// </summary>
+        public static string Policy_Deductible {
+            get {
+                return ResourceManager.GetString("Policy_Deductible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deductible By Age.
+        /// </summary>
+        public static string Policy_DeductibleByAge {
+            get {
+                return ResourceManager.GetString("Policy_DeductibleByAge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deductible By Day.
+        /// </summary>
+        public static string Policy_DeductibleByDay {
+            get {
+                return ResourceManager.GetString("Policy_DeductibleByDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        public static string Policy_Duration {
+            get {
+                return ResourceManager.GetString("Policy_Duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Existing User.
+        /// </summary>
+        public static string Policy_ExistingUser {
+            get {
+                return ResourceManager.GetString("Policy_ExistingUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter data for all the fields!.
+        /// </summary>
+        public static string Policy_FillData {
+            get {
+                return ResourceManager.GetString("Policy_FillData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string Policy_HolderAddress {
+            get {
+                return ResourceManager.GetString("Policy_HolderAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Birth Date.
+        /// </summary>
+        public static string Policy_HolderBirthDay {
+            get {
+                return ResourceManager.GetString("Policy_HolderBirthDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        public static string Policy_HolderCity {
+            get {
+                return ResourceManager.GetString("Policy_HolderCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Policy_HolderEmail {
+            get {
+                return ResourceManager.GetString("Policy_HolderEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Holder Information.
+        /// </summary>
+        public static string Policy_HolderInformation {
+            get {
+                return ResourceManager.GetString("Policy_HolderInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        public static string Policy_HolderLastName {
+            get {
+                return ResourceManager.GetString("Policy_HolderLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Policy_HolderName {
+            get {
+                return ResourceManager.GetString("Policy_HolderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passport/ID Cart Number.
+        /// </summary>
+        public static string Policy_HolderPassport {
+            get {
+                return ResourceManager.GetString("Policy_HolderPassport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string Policy_HolderPhone {
+            get {
+                return ResourceManager.GetString("Policy_HolderPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal Code.
+        /// </summary>
+        public static string Policy_HolderPostalCode {
+            get {
+                return ResourceManager.GetString("Policy_HolderPostalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Holder is insured.
+        /// </summary>
+        public static string Policy_HolderSameInsured {
+            get {
+                return ResourceManager.GetString("Policy_HolderSameInsured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSN.
+        /// </summary>
+        public static string Policy_HolderSSN {
+            get {
+                return ResourceManager.GetString("Policy_HolderSSN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I am insured.
+        /// </summary>
+        public static string Policy_IamInsured {
+            get {
+                return ResourceManager.GetString("Policy_IamInsured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string Policy_InsuredAddress {
+            get {
+                return ResourceManager.GetString("Policy_InsuredAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Birth Date.
+        /// </summary>
+        public static string Policy_InsuredBirthDate {
+            get {
+                return ResourceManager.GetString("Policy_InsuredBirthDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        public static string Policy_InsuredCity {
+            get {
+                return ResourceManager.GetString("Policy_InsuredCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Policy_InsuredEmail {
+            get {
+                return ResourceManager.GetString("Policy_InsuredEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insured Information.
+        /// </summary>
+        public static string Policy_InsuredInformation {
+            get {
+                return ResourceManager.GetString("Policy_InsuredInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        public static string Policy_InsuredLastName {
+            get {
+                return ResourceManager.GetString("Policy_InsuredLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Policy_InsuredName {
+            get {
+                return ResourceManager.GetString("Policy_InsuredName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passport/ ID Cart Number.
+        /// </summary>
+        public static string Policy_InsuredPassport {
+            get {
+                return ResourceManager.GetString("Policy_InsuredPassport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string Policy_InsuredPhone {
+            get {
+                return ResourceManager.GetString("Policy_InsuredPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal Code.
+        /// </summary>
+        public static string Policy_InsuredPostalCode {
+            get {
+                return ResourceManager.GetString("Policy_InsuredPostalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSN.
+        /// </summary>
+        public static string Policy_InsuredSSN {
+            get {
+                return ResourceManager.GetString("Policy_InsuredSSN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More Trips.
+        /// </summary>
+        public static string Policy_MoreTrip {
+            get {
+                return ResourceManager.GetString("Policy_MoreTrip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of Members.
+        /// </summary>
+        public static string Policy_NumberMembers {
+            get {
+                return ResourceManager.GetString("Policy_NumberMembers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of Trips.
+        /// </summary>
+        public static string Policy_NumberTrips {
+            get {
+                return ResourceManager.GetString("Policy_NumberTrips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One Trip.
+        /// </summary>
+        public static string Policy_OneTrip {
+            get {
+                return ResourceManager.GetString("Policy_OneTrip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Data.
+        /// </summary>
+        public static string Policy_PolicyData {
+            get {
+                return ResourceManager.GetString("Policy_PolicyData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Effective Date.
+        /// </summary>
+        public static string Policy_PolicyEffectiveDate {
+            get {
+                return ResourceManager.GetString("Policy_PolicyEffectiveDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Expiry Date.
+        /// </summary>
+        public static string Policy_PolicyExpiryDate {
+            get {
+                return ResourceManager.GetString("Policy_PolicyExpiryDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Family.
+        /// </summary>
+        public static string Policy_PolicyFamily {
+            get {
+                return ResourceManager.GetString("Policy_PolicyFamily", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group.
+        /// </summary>
+        public static string Policy_PolicyGroup {
+            get {
+                return ResourceManager.GetString("Policy_PolicyGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Information.
+        /// </summary>
+        public static string Policy_PolicyInformation {
+            get {
+                return ResourceManager.GetString("Policy_PolicyInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Single.
+        /// </summary>
+        public static string Policy_PolicySingle {
+            get {
+                return ResourceManager.GetString("Policy_PolicySingle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Type.
+        /// </summary>
+        public static string Policy_PolicyType {
+            get {
+                return ResourceManager.GetString("Policy_PolicyType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print offers.
+        /// </summary>
+        public static string Policy_PrintOffer {
+            get {
+                return ResourceManager.GetString("Policy_PrintOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Premium.
+        /// </summary>
+        public static string Policy_TotalPremium {
+            get {
+                return ResourceManager.GetString("Policy_TotalPremium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Premium in Group.
+        /// </summary>
+        public static string Policy_TotalPremiumInGroup {
+            get {
+                return ResourceManager.GetString("Policy_TotalPremiumInGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Travel Country.
+        /// </summary>
+        public static string Policy_TravelCountry {
+            get {
+                return ResourceManager.GetString("Policy_TravelCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Type.
+        /// </summary>
+        public static string Policy_Type {
+            get {
+                return ResourceManager.GetString("Policy_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must have at least one valid day!.
+        /// </summary>
+        public static string Policy_ValidDate {
+            get {
+                return ResourceManager.GetString("Policy_ValidDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This field is required.
+        /// </summary>
+        public static string Required {
+            get {
+                return ResourceManager.GetString("Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancellation date.
+        /// </summary>
+        public static string Seacrh_SearchTableCancellationDate {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableCancellationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
         public static string Seacrh_SearchTableCity {
@@ -160,7 +664,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to From.
+        ///   Looks up a localized string similar to Policy effective date.
         /// </summary>
         public static string Seacrh_SearchTableFrom {
             get {
@@ -174,6 +678,15 @@ namespace InsuredTraveling {
         public static string Seacrh_SearchTableHealthInsurance {
             get {
                 return ResourceManager.GetString("Seacrh_SearchTableHealthInsurance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relationship between the policyholder and the insured.
+        /// </summary>
+        public static string Seacrh_SearchTableInsuredHolderRelationship {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableInsuredHolderRelationship", resourceCulture);
             }
         }
         
@@ -232,6 +745,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Policy issuance date.
+        /// </summary>
+        public static string Seacrh_SearchTablePolicyIssuanceDate {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTablePolicyIssuanceDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Policy Type.
         /// </summary>
         public static string Seacrh_SearchTablePolicyType {
@@ -250,7 +772,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registration Date.
+        ///   Looks up a localized string similar to Date of FNOL.
         /// </summary>
         public static string Seacrh_SearchTableRegistrationDate {
             get {
@@ -277,7 +799,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To.
+        ///   Looks up a localized string similar to Policy expiry date.
         /// </summary>
         public static string Seacrh_SearchTableTo {
             get {
@@ -315,6 +837,15 @@ namespace InsuredTraveling {
         /// <summary>
         ///   Looks up a localized string similar to New FNOL.
         /// </summary>
+        public static string Search_AddFNOL {
+            get {
+                return ResourceManager.GetString("Search_AddFNOL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New FNOL.
+        /// </summary>
         public static string Search_AddFNOLLink {
             get {
                 return ResourceManager.GetString("Search_AddFNOLLink", resourceCulture);
@@ -336,6 +867,15 @@ namespace InsuredTraveling {
         public static string Search_AddPolicyButton {
             get {
                 return ResourceManager.GetString("Search_AddPolicyButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancellation Date.
+        /// </summary>
+        public static string Search_CancellationDate {
+            get {
+                return ResourceManager.GetString("Search_CancellationDate", resourceCulture);
             }
         }
         
@@ -394,6 +934,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Health Insurance.
+        /// </summary>
+        public static string Search_HealthInsurance {
+            get {
+                return ResourceManager.GetString("Search_HealthInsurance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Policy Holder Last Name.
         /// </summary>
         public static string Search_HolderLastName {
@@ -439,11 +988,47 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Luggage Insurance.
+        /// </summary>
+        public static string Search_LuggageInsurance {
+            get {
+                return ResourceManager.GetString("Search_LuggageInsurance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Policy.
         /// </summary>
         public static string Search_Policy {
             get {
                 return ResourceManager.GetString("Search_Policy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Effective Date.
+        /// </summary>
+        public static string Search_PolicyEffectiveDate {
+            get {
+                return ResourceManager.GetString("Search_PolicyEffectiveDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Expiry Date.
+        /// </summary>
+        public static string Search_PolicyExpiryDate {
+            get {
+                return ResourceManager.GetString("Search_PolicyExpiryDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Issuance Date.
+        /// </summary>
+        public static string Search_PolicyIssuanceDate {
+            get {
+                return ResourceManager.GetString("Search_PolicyIssuanceDate", resourceCulture);
             }
         }
         
@@ -606,6 +1191,15 @@ namespace InsuredTraveling {
         public static string Search_TravelCountry {
             get {
                 return ResourceManager.GetString("Search_TravelCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With no Add-on.
+        /// </summary>
+        public static string WithNoAddOn {
+            get {
+                return ResourceManager.GetString("WithNoAddOn", resourceCulture);
             }
         }
         

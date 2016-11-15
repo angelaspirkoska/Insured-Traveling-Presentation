@@ -141,6 +141,174 @@
   <data name="No" xml:space="preserve">
     <value>Не</value>
   </data>
+  <data name="Policy_AddOffer" xml:space="preserve">
+    <value>Додади во понуди</value>
+  </data>
+  <data name="Policy_AddOn" xml:space="preserve">
+    <value>Доплаток</value>
+  </data>
+  <data name="Policy_BuyPolicy" xml:space="preserve">
+    <value>Купи полиса</value>
+  </data>
+  <data name="Policy_CalculatePremium" xml:space="preserve">
+    <value>Пресметај полиса</value>
+  </data>
+  <data name="Policy_CreatePolicy" xml:space="preserve">
+    <value>Креирај полиса</value>
+  </data>
+  <data name="Policy_Days" xml:space="preserve">
+    <value>Денови</value>
+  </data>
+  <data name="Policy_Deductible" xml:space="preserve">
+    <value>Франшиза</value>
+  </data>
+  <data name="Policy_DeductibleByAge" xml:space="preserve">
+    <value>Франшиза по години</value>
+  </data>
+  <data name="Policy_DeductibleByDay" xml:space="preserve">
+    <value>Франшиза по денови</value>
+  </data>
+  <data name="Policy_Duration" xml:space="preserve">
+    <value>Времетраење</value>
+  </data>
+  <data name="Policy_ExistingUser" xml:space="preserve">
+    <value>Постоечки корисник</value>
+  </data>
+  <data name="Policy_FillData" xml:space="preserve">
+    <value>Внесете податоци во сите полиња!</value>
+  </data>
+  <data name="Policy_HolderAddress" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="Policy_HolderBirthDay" xml:space="preserve">
+    <value>Датум на раѓање</value>
+  </data>
+  <data name="Policy_HolderCity" xml:space="preserve">
+    <value>Град</value>
+  </data>
+  <data name="Policy_HolderEmail" xml:space="preserve">
+    <value>Емаил</value>
+  </data>
+  <data name="Policy_HolderInformation" xml:space="preserve">
+    <value>Податоци за договорувач</value>
+  </data>
+  <data name="Policy_HolderLastName" xml:space="preserve">
+    <value>Презиме</value>
+  </data>
+  <data name="Policy_HolderName" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="Policy_HolderPassport" xml:space="preserve">
+    <value>Број на пасош/Број на лична карта</value>
+  </data>
+  <data name="Policy_HolderPhone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Policy_HolderPostalCode" xml:space="preserve">
+    <value>Поштенски код</value>
+  </data>
+  <data name="Policy_HolderSameInsured" xml:space="preserve">
+    <value>Договорувачот е осигуреник</value>
+  </data>
+  <data name="Policy_HolderSSN" xml:space="preserve">
+    <value>Матичен број</value>
+  </data>
+  <data name="Policy_IamInsured" xml:space="preserve">
+    <value>Јас сум осигуреник</value>
+  </data>
+  <data name="Policy_InsuredAddress" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="Policy_InsuredBirthDate" xml:space="preserve">
+    <value>Датум на раѓање</value>
+  </data>
+  <data name="Policy_InsuredCity" xml:space="preserve">
+    <value>Град</value>
+  </data>
+  <data name="Policy_InsuredEmail" xml:space="preserve">
+    <value>Емаил</value>
+  </data>
+  <data name="Policy_InsuredInformation" xml:space="preserve">
+    <value>Податоци за осигуреникот</value>
+  </data>
+  <data name="Policy_InsuredLastName" xml:space="preserve">
+    <value>Презиме</value>
+  </data>
+  <data name="Policy_InsuredName" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="Policy_InsuredPassport" xml:space="preserve">
+    <value>Број на пасош/Број на лична карта</value>
+  </data>
+  <data name="Policy_InsuredPhone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Policy_InsuredPostalCode" xml:space="preserve">
+    <value>Поштенски број</value>
+  </data>
+  <data name="Policy_InsuredSSN" xml:space="preserve">
+    <value>Матичен број</value>
+  </data>
+  <data name="Policy_MoreTrip" xml:space="preserve">
+    <value>Повеќе патувања</value>
+  </data>
+  <data name="Policy_NumberMembers" xml:space="preserve">
+    <value>Број на членови</value>
+  </data>
+  <data name="Policy_NumberTrips" xml:space="preserve">
+    <value>Број на патување</value>
+  </data>
+  <data name="Policy_OneTrip" xml:space="preserve">
+    <value>Едно патување</value>
+  </data>
+  <data name="Policy_PolicyData" xml:space="preserve">
+    <value>Податоци за полисата</value>
+  </data>
+  <data name="Policy_PolicyEffectiveDate" xml:space="preserve">
+    <value>Датум на важење од</value>
+  </data>
+  <data name="Policy_PolicyExpiryDate" xml:space="preserve">
+    <value>Датум на завршување на важење</value>
+  </data>
+  <data name="Policy_PolicyFamily" xml:space="preserve">
+    <value>Фамилијарно</value>
+  </data>
+  <data name="Policy_PolicyGroup" xml:space="preserve">
+    <value>Група</value>
+  </data>
+  <data name="Policy_PolicyInformation" xml:space="preserve">
+    <value>Имформации за полисата</value>
+  </data>
+  <data name="Policy_PolicySingle" xml:space="preserve">
+    <value>Поединечно</value>
+  </data>
+  <data name="Policy_PolicyType" xml:space="preserve">
+    <value>Тип на полиса</value>
+  </data>
+  <data name="Policy_PrintOffer" xml:space="preserve">
+    <value>Печати понуди</value>
+  </data>
+  <data name="Policy_TotalPremium" xml:space="preserve">
+    <value>Вкупна премија</value>
+  </data>
+  <data name="Policy_TotalPremiumInGroup" xml:space="preserve">
+    <value>Вкупна премија во група</value>
+  </data>
+  <data name="Policy_TravelCountry" xml:space="preserve">
+    <value>Земја на потекло</value>
+  </data>
+  <data name="Policy_Type" xml:space="preserve">
+    <value>Вид на осигурителна полиса</value>
+  </data>
+  <data name="Policy_ValidDate" xml:space="preserve">
+    <value>Морате да имате барем еден валиден ден!</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Полето е задолжително</value>
+  </data>
+  <data name="Seacrh_SearchTableCancellationDate" xml:space="preserve">
+    <value>Датум на сторнирање</value>
+  </data>
   <data name="Seacrh_SearchTableCity" xml:space="preserve">
     <value>Град</value>
   </data>
@@ -155,6 +323,9 @@
   </data>
   <data name="Seacrh_SearchTableHealthInsurance" xml:space="preserve">
     <value>Здравствено осигурување Да/Не</value>
+  </data>
+  <data name="Seacrh_SearchTableInsuredHolderRelationship" xml:space="preserve">
+    <value>Сродство на оштетениот со осигуреникот</value>
   </data>
   <data name="Seacrh_SearchTableInsuredNameLastName" xml:space="preserve">
     <value>Име и презиме на осигуреникот</value>
@@ -173,6 +344,9 @@
   </data>
   <data name="Seacrh_SearchTablePhoneNumber" xml:space="preserve">
     <value>Телефонски број</value>
+  </data>
+  <data name="Seacrh_SearchTablePolicyIssuanceDate" xml:space="preserve">
+    <value>Датум на издавање</value>
   </data>
   <data name="Seacrh_SearchTablePolicyType" xml:space="preserve">
     <value>Тип на полиса</value>
@@ -201,6 +375,9 @@
   <data name="Search" xml:space="preserve">
     <value>Пребарај</value>
   </data>
+  <data name="Search_AddFNOL" xml:space="preserve">
+    <value>Додади оштетено побарување</value>
+  </data>
   <data name="Search_AddFNOLLink" xml:space="preserve">
     <value>Пријави штета</value>
   </data>
@@ -209,6 +386,9 @@
   </data>
   <data name="Search_AddPolicyButton" xml:space="preserve">
     <value>Додади нова полиса</value>
+  </data>
+  <data name="Search_CancellationDate" xml:space="preserve">
+    <value>Датум на стонирање</value>
   </data>
   <data name="Search_ClaimantLastName" xml:space="preserve">
     <value>Презиме на оштетен</value>
@@ -228,6 +408,9 @@
   <data name="Search_FNOLLink" xml:space="preserve">
     <value>Штети</value>
   </data>
+  <data name="Search_HealthInsurance" xml:space="preserve">
+    <value>Здравствено осигурување</value>
+  </data>
   <data name="Search_HolderLastName" xml:space="preserve">
     <value>Презиме на договорувач</value>
   </data>
@@ -243,8 +426,20 @@
   <data name="Search_InsuredPolicy" xml:space="preserve">
     <value>Полиси за осигуреник</value>
   </data>
+  <data name="Search_LuggageInsurance" xml:space="preserve">
+    <value>Осигурување на багаж</value>
+  </data>
   <data name="Search_Policy" xml:space="preserve">
     <value>Полиси</value>
+  </data>
+  <data name="Search_PolicyEffectiveDate" xml:space="preserve">
+    <value>Датум на важење</value>
+  </data>
+  <data name="Search_PolicyExpiryDate" xml:space="preserve">
+    <value>Датум на завршување</value>
+  </data>
+  <data name="Search_PolicyIssuanceDate" xml:space="preserve">
+    <value>Датум на издавање</value>
   </data>
   <data name="Search_PolicyLink" xml:space="preserve">
     <value>Полиси</value>
@@ -299,6 +494,9 @@
   </data>
   <data name="Search_TravelCountry" xml:space="preserve">
     <value>Земја на патување</value>
+  </data>
+  <data name="WithNoAddOn" xml:space="preserve">
+    <value>Без доплаток</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Да</value>

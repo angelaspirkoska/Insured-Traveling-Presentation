@@ -18,52 +18,51 @@ namespace InsuredTraveling.Models
         public int? Exchange_RateID { get; set; }
 
         [Required]
-        [Display(Name = "Земја на патување:")]
+        [Display(Name = "Policy_TravelCountry", ResourceType = typeof(Resource))]
         public int CountryID { get; set; }
 
         [Required]
-        [Display(Name = "Вид на полиса:")]
+        [Display(Name = "Policy_PolicyType", ResourceType = typeof(Resource))]
         public int Policy_TypeID { get; set; }
 
         [Required]
-        [Display(Name = "Франшиза:")]
+        [Display(Name = "Policy_Deductible", ResourceType = typeof(Resource))]
         public int Retaining_RiskID { get; set; }
 
-        [Display(Name = "Франшиза според возраст:")]
+        [Display(Name = "Policy_DeductibleByAge")]
         public string Franchise_Age { get; set; }
 
         [Required]
-        [Display(Name = "Започнува на:")]
+        [Display(Name = "Policy_PolicyEffectiveDate", ResourceType = typeof(Resource))]
         public DateTime Start_Date { get; set; }
 
         [Required]
-        [Display(Name = "Завршува на:")]
+        [Display(Name = "Policy_PolicyExpiryDate", ResourceType = typeof(Resource))]
         public DateTime End_Date { get; set; }
 
         [Required]
-        [Display(Name = "Важи денови: ")]
+        [Display(Name = "Policy_Duration", ResourceType = typeof(Resource))]
         public int Valid_Days { get; set; }
 
-        [Display(Name = "Франшиза според денови:")]
+        [Display(Name = "Policy_DeductibleByDay", ResourceType = typeof(Resource))]
         public string Franchise_Days { get; set; }
 
         [Required]
-        [Display(Name = "Број на патувања: ")]
+        [Display(Name = "Policy_NumberTrips", ResourceType = typeof(Resource))]
         public int Travel_NumberID { get; set; }
 
         [Required]
-        [Display(Name = "Вид на осигурителна полиса:")]
+        [Display(Name = "Policy_Type", ResourceType = typeof(Resource))]
         public int Travel_Insurance_TypeID { get; set; }
 
-        [Display(Name = "Број на членови: ")]
+        [Display(Name = "Policy_NumberMembers", ResourceType = typeof(Resource))]
         public int? Group_Members { get; set; }
 
-        [Display(Name = "Вкупна премија во група:")]
+        [Display(Name = "Policy_TotalPremiumInGroup", ResourceType = typeof(Resource))]
         public double? Group_Total_Premium { get; set; }
 
-        [Display(Name = "Вкупна премија: ")]
+        [Display(Name = "Policy_TotalPremium", ResourceType = typeof(Resource))]
         public double? Total_Premium { get; set; }
-
 
         public string Created_By { get; set; }
         public DateTime? Date_Created { get; set; }
@@ -78,87 +77,75 @@ namespace InsuredTraveling.Models
         public bool IsExistentPolicyHolder { get; set; }
         public int PolicyHolderId { get; set; }
 
-
-
-        [Display(Name = "Име: ")]
+        [Display(Name = "Policy_HolderName", ResourceType = typeof(Resource))]
         public string PolicyHolderName { get; set; }
 
-
-        [Display(Name = "Презиме: ")]
+        [Display(Name = "Policy_HolderLastName", ResourceType = typeof(Resource))]
         public string PolicyHolderLastName { get; set; }
 
-
-        [Display(Name = "Адреса: ")]
+        [Display(Name = "Policy_HolderAddress", ResourceType = typeof(Resource))]
         public string PolicyHolderAddress { get; set; }
 
-
-        [Display(Name = "Email: ")]
+        [Display(Name = "Policy_HolderEmail", ResourceType = typeof(Resource))]
         public string PolicyHolderEmail { get; set; }
 
-
-        [Display(Name = "Дата на раѓање: ")]
+        [Display(Name = "Policy_HolderBirthDay", ResourceType = typeof(Resource))]
         public DateTime PolicyHolderBirthDate { get; set; }
 
-
-        [Display(Name = "Град: ")]
+        [Display(Name = "Policy_HolderCity", ResourceType = typeof(Resource))]
         public string PolicyHolderCity { get; set; }
 
-
-        [Display(Name = "Поштенски број: ")]
+        [Display(Name = "Policy_HolderPostalCode", ResourceType = typeof(Resource))]
         public string PolicyHolderPostalCode { get; set; }
 
-
-        [Display(Name = "Матичен број:")]
+        [Display(Name = "Policy_HolderSSN", ResourceType = typeof(Resource))]
         public string PolicyHolderSSN { get; set; }
 
-
-        [Display(Name = "Број на пасош/лична карта: ")]
+        [Display(Name = "Policy_HolderPassport", ResourceType = typeof(Resource))]
         public string PolicyHolderPassportNumber_ID { get; set; }
 
-
-        [Display(Name = "Телефонски број: ")]
+        [Display(Name = "Policy_HolderPhone", ResourceType = typeof(Resource))]
         public string PolicyHolderPhoneNumber { get; set; }
 
-
         //Podatoci za osigurenik
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Име: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Policy_InsuredName", ResourceType = typeof(Resource))]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Презиме: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Policy_InsuredLastName", ResourceType = typeof(Resource))]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Адреса: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Policy_InsuredAddress", ResourceType = typeof(Resource))]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Град: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Policy_InsuredCity", ResourceType = typeof(Resource))]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Поштенски број: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Policy_InsuredPostalCode", ResourceType = typeof(Resource))]
         public string PostalCode { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Дата на раѓање: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Policy_InsuredBirthDate", ResourceType = typeof(Resource))]
         public DateTime BirthDate { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Матичен број:")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Policy_InsuredSSN", ResourceType = typeof(Resource))]
         public string SSN { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Број на пасош/лична карта: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Policy_InsuredPassport", ResourceType = typeof(Resource))]
         public string PassportNumber_ID { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Телефонски број: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Policy_InsuredPhone", ResourceType = typeof(Resource))]
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Email: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Policy_InsuredEmail", ResourceType = typeof(Resource))]
         public string Email { get; set; }
 
         public int AdditionalChargeId1 { get; set; }

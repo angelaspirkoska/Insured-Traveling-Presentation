@@ -43,7 +43,7 @@
                     </div>
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
-                            <label for="startDate">Датум на важење од:</label>
+                            <label for="startDate">@InsuredTraveling.Resource.Search_PolicyEffectiveDate:</label>
                             <input type="date" id="startDate" class="form-control placeholder" />
                             <select id="operatorStartDate">
                                 <option>&lt</option>
@@ -52,7 +52,7 @@
                             </select>
                         </div>
                         <div class="form-group col-sm-3">
-                            <label for="endDate">Датум на завршување на важење:</label>
+                            <label for="endDate">@InsuredTraveling.Resource.Search_PolicyExpiryDate</label>
                             <input type="date" name="endDate" class="form-control" id="endDate" />
                             <select id="operatorEndDate">
                                 <option>&lt</option>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="form-inline row">
                         <div class="form-group col-sm-3">
-                            <label for="startDate">Датум на издавање:</label>
+                            <label for="startDate">@InsuredTraveling.Resource.Search_PolicyIssuanceDate:</label>
                             <input type="date" class="form-control placeholder" id="dateI" />
                             <select id="operatorDateI">
                                 <option>&lt</option>
@@ -72,7 +72,7 @@
                             </select>
                         </div>
                         <div class="form-group col-sm-3">
-                            <label for="endDate">Датум на сторнирање:</label>
+                            <label for="endDate">@InsuredTraveling.Resource.Search_CancellationDate:</label>
                             <input type="date" id="dateS" class="form-control" />
                             <select id="operatorDateS">
                                 <option>&lt</option>
@@ -106,8 +106,8 @@
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
-                        <th>Датум на издавање</th>
-                        <th>Датум на сторнирање</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyIssuanceDate</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableCancellationDate</th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -125,7 +125,7 @@
                         <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableClaimantNameLastName</th>
-                        <th>Сродство на оштетениот со осигуреникот</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredHolderRelationship</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableTotalCost</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableRegistrationDate</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableHealthInsurance</th>
@@ -229,8 +229,8 @@
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
-                        <th>Датум на издавање</th>
-                        <th>Датум на сторнирање</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyIssuanceDate</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableCancellationDate</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -250,8 +250,8 @@
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
-                        <th>Датум на издавање</th>
-                        <th>Датум на сторнирање</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyIssuanceDate</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableCancellationDate</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -309,7 +309,7 @@
                             <input type="search" name="insuredName" class="input-sm" placeholder="Search by name" id="insuredName" />
                         </div>
                         <div class="form-group col-sm-3">
-                            <label for="insuredLastName">@InsuredTraveling.Resource.Search_ClaimantLastName:</label>
+                            <label for="insuredLastName">@InsuredTraveling.Resource.Search_ClaimantLastName: </label>
                             <input type="search" name="insuredLastName" class="input-sm" placeholder="Search by last name" id="insuredLastName" />
                         </div>
                     </div>
@@ -319,8 +319,8 @@
                             <input type="search" name="totalPrice" class="input-sm" placeholder="Search by Total Cost" id="totalPrice" />
                         </div>
                         <div class="form-group col-sm-3">
-                            <input type="radio" name="typeInsurance" value="healthInsurance" id="healthInsurance"> Здравествено осигурување<br>
-                            <input type="radio" name="typeInsurance" value="luggageInsurance" id="luggageInsurance">Осигурување на багаж<br>
+                            <input type="radio" name="typeInsurance" value="healthInsurance" id="healthInsurance"> @InsuredTraveling.Resource.Search_HealthInsurance<br>
+                            <input type="radio" name="typeInsurance" value="luggageInsurance" id="luggageInsurance">@InsuredTraveling.Resource.Search_LuggageInsurance<br>
                         </div>
                     </div>
                 </div>
@@ -328,7 +328,7 @@
                 <div class="row col-md-12">
                     <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="Search" onclick="SearchFNOL()" type="button" style="float:left;" />
                     <div class="hover-tooltip">
-                        <button type="button" style="float:right;" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="Додади нова штета" onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                        <button type="button" style="float:right;" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddFNOL" onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
                     </div>
                 </div>
                 <br />
@@ -344,7 +344,7 @@
                         <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableClaimantNameLastName</th>
-                        <th>Сродство на оштетениот со осигуреникот</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredHolderRelationship</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableTotalCost</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableRegistrationDate</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableHealthInsurance</th>
