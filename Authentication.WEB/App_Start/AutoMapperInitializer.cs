@@ -80,13 +80,13 @@ namespace InsuredTraveling.App_Start
                 dst.ClaimantBankName = policy_holder_bank != null ? claimant_bank.Name : null;
                 dst.ClaimantBankAccountId = src.Claimant_bank_accountID;
                 dst.Destination = src.Destination;
-                dst.DepartDateTime = src.Depart_Date_Time;
+                dst.DepartDateTime = src.Depart_Date_Time.Date;
                 dst.DepartTime = src.Depart_Date_Time.TimeOfDay;
                 dst.TransportMeans = src.Transport_means;
-                dst.ArrivalDateTime = src.Arrival_Date_Time;
+                dst.ArrivalDateTime = src.Arrival_Date_Time.Date;
                 dst.ArriveTime = src.Arrival_Date_Time.TimeOfDay;
                 dst.IsHealthInsurance = healthAdditionalInfo != null ? true : false;
-                dst.AccidentDateTimeHealth = additional_info != null ? (DateTime?)additional_info.Datetime_accident : null;
+                dst.AccidentDateTimeHealth = additional_info != null ? (DateTime?)additional_info.Datetime_accident.Date : null;
                 dst.AccidentTimeHealth = additional_info != null ? (TimeSpan?)additional_info.Datetime_accident.TimeOfDay : null;
                 dst.AccidentPlaceHealth = additional_info != null ? additional_info.Accident_place : null;
                 dst.DoctorVisitDateTime = healthAdditionalInfo != null ? healthAdditionalInfo.Datetime_doctor_visit : null;
@@ -95,7 +95,7 @@ namespace InsuredTraveling.App_Start
                 var periousMedicalHistory = healthAdditionalInfo != null ? healthAdditionalInfo.Previous_medical_history : null;
                 dst.PreviousMedicalHistory = periousMedicalHistory != null ? Convert.ToBoolean(periousMedicalHistory) : false;
                 dst.ResponsibleInstitution = healthAdditionalInfo != null ? healthAdditionalInfo.Responsible_institution : null;
-                dst.AccidentDateTimeLuggage = additional_info != null ? (DateTime?)additional_info.Datetime_accident : null;
+                dst.AccidentDateTimeLuggage = additional_info != null ? (DateTime?)additional_info.Datetime_accident.Date : null;
                 dst.AccidentPlaceLuggage = additional_info != null ? additional_info.Accident_place : null;
                 dst.PlaceDescription = luggageInsuranceInfo != null ? luggageInsuranceInfo.Place_description : null;
                 dst.DetailDescription = luggageInsuranceInfo != null ? luggageInsuranceInfo.Detail_description : null;

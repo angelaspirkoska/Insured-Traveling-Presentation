@@ -257,5 +257,15 @@ namespace InsuredTraveling.DI
             fnol.Policy_holder_bank_accountID = bankAccountId;
             _db.SaveChanges();
         }
+
+        public void Update(first_notice_of_loss newFnol)
+        {
+            var fnol = _db.first_notice_of_loss.Where(x => x.ID == newFnol.ID).SingleOrDefault();
+           if(fnol!=null)
+            {
+                fnol = newFnol;
+            }
+            _db.SaveChanges();
+        }
     }
 }

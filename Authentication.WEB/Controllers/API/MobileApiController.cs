@@ -17,7 +17,7 @@ namespace InsuredTraveling.Controllers.API
         private IFirstNoticeOfLossService _fnls;
         private ILuggageInsuranceService _lis;
         private IOkSetupService _oss;
-        private IHealthInsurance _his;
+        private IHealthInsuranceService _his;
         private IBankAccountService _bas;
         private IInsuredsService _iss;
         private IFirstNoticeOfLossService _fis;
@@ -31,7 +31,7 @@ namespace InsuredTraveling.Controllers.API
         {
            
         }
-        public MobileApiController(IUserService us, IPolicyInsuredService pis, IAdditionalChargesService acs, IPolicyService ps, IFirstNoticeOfLossService fnls, IHealthInsurance his, ILuggageInsuranceService lis, IOkSetupService oss, IBankAccountService bas,  IInsuredsService iss, IFirstNoticeOfLossService fis, IPolicyTypeService pts, IAdditionalInfoService ais)
+        public MobileApiController(IUserService us, IPolicyInsuredService pis, IAdditionalChargesService acs, IPolicyService ps, IFirstNoticeOfLossService fnls, IHealthInsuranceService his, ILuggageInsuranceService lis, IOkSetupService oss, IBankAccountService bas,  IInsuredsService iss, IFirstNoticeOfLossService fis, IPolicyTypeService pts, IAdditionalInfoService ais)
         {
             _ps = ps;
             _us = us;

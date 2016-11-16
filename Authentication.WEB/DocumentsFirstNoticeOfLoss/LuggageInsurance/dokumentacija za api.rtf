@@ -1,0 +1,246 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil\fcharset204 Arial;}{\f2\fnil Consolas;}{\f3\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue0;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.14393}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\fs32\lang9 Register\fs22 :\par
+\fs24 post:  insuredtraveling.com/api/account/register\par
+\lang1033 body\f1\lang1071 : \f0\lang1033\par
+UserName\par
+FirstName\par
+LastName\par
+E-mail\par
+Password\par
+InsuranceCompany\par
+MobilePhoneNumber\par
+\cf1 Gender\par
+\b\fs28\lang9 Activate\lang1033  \lang9 Account:\b0\fs24\par
+\cf0 post: insuredtraveling.com/api/account/ActivateAccount\par
+\lang1033 body\f1\lang1071 : \f0\lang9\par
+username\par
+\fs32 Find User\fs24\par
+post: insuredtraveling.com/api/account/finduser\par
+\lang1033 body\f1\lang1071 : \f0\lang9\par
+username\par
+\cf1\fs32\lang1033 Get User ID\par
+\cf0\fs24\lang9 post: insuredtraveling.com/api/account/getuserid\par
+\lang1033 body\f1\lang1071 : \f0\lang9\par
+username\par
+\fs32 Fill account details\fs22\par
+\fs24 post: insuredtraveling.com/api/account/filluser\par
+\lang1033 body\f1\lang1071 : \f0\lang9\par
+\f1\lang1071\'ef\'e0\'f0\'e0\'ec\'e5\'f2\'f0\'e8: \f0\lang9\par
+\cf1 username\par
+PostalCode\par
+PassportNumber\par
+City\par
+PhoneNumber\par
+EMBG\par
+Address\par
+Municipality\par
+\fs32 Forget Password\fs24\par
+\cf0 post: insuredtraveling.com/api/account/forgetpassword\par
+\lang1033 body\f1\lang1071 : \f0\lang9\par
+username\par
+\fs32 Send SMS Code\fs24\par
+post: insuredtraveling.com/api/account/sendsmscode\par
+\lang1033 body\f1\lang1071 : \f0\lang9\par
+username\par
+\fs32 Confirm SMS\fs24\par
+post: insuredtraveling.com/api/account/confirmsms\par
+\lang1033 body\f1\lang1071 : \f0\lang9\par
+username\par
+code\par
+\cf1\fs32 Payment Handle\par
+\cf0\fs24 post: insuredtraveling.com/api/halkbankpayment/handle\par
+\fs32 Pay \fs24\par
+post: insuredtraveling.com/api/halkbankpayment/pay\par
+\lang1033 body\f1\lang1071 : \par
+\cf1\f0\lang9 PremiumAmount\par
+CreditCard\par
+expMonth\par
+expYear\par
+cv2\par
+\b\fs19\par
+\cf0\fs32 Retrieve user info (bank accounts, policies, first notices of loss)\fs24\par
+\b0 post: insuredtraveling.com/api/mobile/retrieveuserinfo\par
+\lang1033 body\f1\lang1071 : \f0\lang1033 username\lang9\par
+\cf1\f2\par
+\b\f0\fs32\lang1033 Setup for Daily Syncing \b0\fs24\lang9\par
+\cf0 post: insuredtraveling.com/api/mobile/ok_setup\par
+\lang1033 body\f1\lang1071 : \f0\lang1033\par
+InsuranceCompany\par
+Version (id for eg. 1,2,3)\par
+explanation: the mobile app sends the last version for syncing plan and if there is a new one, it will be sent as a Json Object.\par
+\par
+\b\fs32 Calculate Total Premium \b0\fs24 (before creating a policy: check the web app is necessary: {{\field{\*\fldinst{HYPERLINK http://insuredtraveling.com/Policy }}{\fldrslt{http://insuredtraveling.com/Policy\ul0\cf0}}}}\f0\fs24 )\par
+\lang9 post: insuredtraveling.com/api/premium/calculate\par
+body: \par
+\cf1 isMobile\lang1033 : true\cf0\lang9\par
+Name\par
+LastName\par
+SSN\par
+Email\par
+\cf1 Address\par
+BirthDate\cf0\par
+\cf1 City\par
+PostalCode\par
+PhoneNumber\par
+CountryID\par
+Policy_TypeID\par
+Retaining_RiskID\par
+Valid_Days\par
+Start_Date\par
+Travel_Insurance_TypeID\par
+Group_Members\par
+AdditionalChargeId1    \par
+AdditionalChargeId2\cf0\par
+\par
+\b\fs32 Get Latest News\b0\fs24\par
+get: insuredtraveling.com/api/news/getlatestnews\par
+\b\fs32 Get Notifications\b0\fs24\par
+get: insuredtraveling.com/api/news/getnotifications\par
+lastReadID = -1 \par
+\b\fs32 Create policy\b0\fs22\par
+\fs24 post: insuredtraveling.com/api/mobile/CreatePolicy\par
+\b body1: (when user is insuring himself, when not, look below!)\b0\par
+username:Korina \par
+PaymentStatys:0\par
+CountryID:1\par
+Policy_TypeID:1\par
+Retaining_RiskID:1\par
+Start_Date:2016-04-02\par
+End_Date:2016-04-07\par
+Valid_Days:6\par
+Travel_Insurance_TypeID:1\par
+Total_Premium:2000\par
+IsSamePolicyHolderInsured:true\par
+isMobile:true\par
+SSN:0402993498002\par
+AdditionalChargeId1:1\par
+AdditionalChargeId2:2\par
+Travel_NumberID:1\par
+Name:Korina\par
+LastName:Stojanovska\par
+Email:sdasldkj@dkaldsa.com\par
+BirthDate:1994-23-32\par
+PhoneNumber:342432\par
+PassportNumber_ID:a32131\par
+City:fdsadsa\par
+PostalCode:21321\par
+Address:da fdsdfs\par
+\par
+\b body2: (user is insuring someone else!)\b0\par
+username:Korina \par
+PaymentStatys:0\par
+CountryID:1\par
+Policy_TypeID:1\par
+Retaining_RiskID:1\par
+Start_Date:2016-04-02\par
+End_Date:2016-04-07\par
+Valid_Days:6\par
+Travel_Insurance_TypeID:1\par
+Total_Premium:2000\par
+IsSamePolicyHolderInsured:false\par
+isMobile:true\par
+AdditionalChargeId1:1\par
+AdditionalChargeId2:2\par
+Travel_NumberID:1\par
+Name:Magdalena\par
+LastName:Antovska\par
+Email:sdasldkj@dkaldsa.com\par
+BirthDate:1997-03-02\par
+PhoneNumber:432432\par
+PassportNumber_ID:b432432\par
+City:Bitola\par
+PostalCode:2000\par
+Address:jna 11\par
+SSN:0203977425025\par
+PolicyHolderName:Korina\par
+PolicyHolderLastName:Stojanovska\par
+PolicyHolderEmail:sdasldkj@dkaldsa.com\par
+PolicyHolderBirthDate:1993-04-02\par
+PolicyHolderPhoneNumber:076666666\par
+PolicyHolderPassportNumber_ID:A432324\par
+PolicyHolderPostalCode:1000\par
+PolicyHolderCity:Skopje\par
+PolicyHolderSSN:0402993498002\par
+PolicyHolderAddress:6 partizanska\par
+\par
+\b\fs32 Create first notice of loss\b0\fs22\par
+\fs24 post: insuredtraveling.com/api/mobile/ReportLoss\par
+\f1\lang1071\'cb\'e8\'ed\'ea \'e4\'ee \'f4\'ee\'f0\'ec\'e0\'f2\'e0 \'ed\'e0 \'e2\'e5\'e1: {{\field{\*\fldinst{HYPERLINK http://insuredtraveling.com/FirstNoticeOfLoss }}{\fldrslt{http://insuredtraveling.com/FirstNoticeOfLoss\ul0\cf0}}}}\f0\fs24\lang9\par
+body: (for \b luggage \b0 insurance)\f1\lang1071\par
+IsHealthInsurance:false \par
+AccidentPlaceLuggage:Mlado Nagoricane\par
+AccidentDateTimeLuggage:2016-03-10\par
+PlaceDescription:kade se slucilo\par
+DetailDescription:detali\par
+ReportPlace:od kade reportira\par
+Floaters:telefon i kufer\par
+FloatersValue:12000\par
+PolicyId:15\par
+ClaimantId:9\par
+Destination:Skopje\par
+DepartDateTime:2016-02-10\par
+ArrivalDateTime:2016-03-10\par
+TransportMeans:\f0\lang1033 kola\f1\lang1071\par
+TotalCost:1500\par
+ClaimantForeignBankAccountId:5\par
+ClaimantExistentBankAccount:true\par
+PolicyHolderExistentBankAccount:true\par
+PolicyHolderForeignBankAccountId:5\par
+PolicyNumber:1225\par
+username:Korina\par
+isMobile:true\par
+AccidentTimeLuggage:00:00\par
+LugaggeCheckingTime:08:03\par
+\par
+\f0\lang1033 body: (\b health \b0 insurance  and \b existent \b0 bank account)\par
+IsHealthInsurance:true \par
+AccidentPlaceHealth:Mlado Nagoricane\par
+AccidentDateTimeHealth:2016-03-10\par
+DoctorVisitDateTime:2016-03-10\par
+DoctorInfo:nemainfo\par
+MedicalCaseDescription:skleroza\par
+PreviousMedicalHistory:true\par
+ResponsibleInstitution:mvr kumanovo\par
+PolicyId:15\par
+ClaimantId:9\par
+Destination:Skopje\par
+DepartDateTime:2016-02-10\par
+ArrivalDateTime:2016-03-10\par
+TransportMeans:kola\par
+TotalCost:1500\par
+ClaimantForeignBankAccountId:5\par
+ClaimantExistentBankAccount:true\par
+PolicyHolderExistentBankAccount:true\par
+PolicyHolderForeignBankAccountId:5\par
+PolicyNumber:1225\par
+username:Korina\par
+isMobile:true\par
+AccidentTimeHealth:00:00\lang9\par
+\par
+\par
+\par
+\par
+\b\fs32 Bank Accounts \b0\f1\fs24\lang1071\'f1\'e5 \'e2\'ed\'e5\'f1\'f3\'e2\'e0\'e0\'f2 \'e8 \'e7\'e0 \b\'e4\'ee\'e3\'ee\'e2\'ee\'f0\'f3\'e2\'e0\'f7\'ee\'f2 \b0 (\'ea\'ee\'f0\'e8\'f1\'ed\'e8\'ea\'ee\'f2 \'ed\'e0 \'e0\'ef\'eb\'e8\'ea\'e0\'f6\'e8\'bc\'e0\'f2\'e0 ) \'e8 \'e7\'e0 \b\'ee\'f1\'e8\'e3\'f3\'f0\'e5\'ed\'e8\'ea\'ee\'f2\b0\par
+\'ef\'f0\'e8 \'ef\'f0\'e5\'e7\'e5\'ec\'e0\'9c\'e5 \'ed\'e0 \'ef\'ee\'e4\'e0\'f2\'ee\'f6\'e8\'f2\'e5 \'e7\'e0 \'ea\'ee\'f0\'e8\'f1\'ed\'e8\'ea\'ee\'f2 \'ed\'e0 \'e0\'ef\'eb\'e8\'ea\'e0\'f6\'e8\'bc\'e0\'f2\'e0 (insuredtraveling.com/api/mobile/RetrieveUserInfo) \'e4\'ee\'e4\'e0\'e4\'ee\'e2 \'e4\'e0 \'f1\'e5 \'ef\'f0\'e0\'9d\'e0\'e0\'f2 \'e8 \b\'f2\'f0\'e0\'ed\'f1\'e0\'ea\'f6\'e8\'f1\'ea\'e8\'f2\'e5 \b0\'f1\'ec\'e5\'f2\'ea\'e8 \'ed\'e0 \'ea\'ee\'f0\'e8\'f1\'ed\'e8\'ea\'ee\'f2. \'cf\'f0\'e8 \'ef\'f0\'e8\'bc\'e0\'e2\'f3\'e2\'e0\'9c\'e5 \'ed\'e0 \'f8\'f2\'e5\'f2\'e0, \'f0\'e0\'e7\'e3\'eb\'e5\'e4\'e0\'bc \'ea\'e0\'ea\'ee \'e5 \'ed\'e0\'ef\'f0\'e0\'e2\'e5\'ed\'ee \'e2\'ee \'e2\'e5\'e1 \'e0\'ef\'eb\'e8\'ea\'e0\'f6\'e8\'bc\'e0\'f2\'e0. \'ca\'ee\'f0\'e8\'f1\'ed\'e8\'ea\'ee\'f2 \'ec\'ee\'e6\'e5 \'e4\'e0 \'e2\'ed\'e5\'f1\'f3\'e2\'e0 \'e8 \'ed\'ee\'e2\'e0 \'f1\'ec\'e5\'f2\'ea\'e0, \'e0 \'ec\'ee\'e6\'e5 \'e4\'e0 \'e8\'e7\'e1\'e5\'f0\'e5 \'e8 \'ee\'e4 \'ef\'f0\'e5\'f2\'f5\'ee\'e4\'ed\'e8\'f2\'e5. A\'ea\'ee \'ec\'e8 \'ef\'f0\'e0\'9d\'e0\'f8 \'ef\'ee\'f1\'f2\'ee\'e5\'f7\'ea\'e0 \'f1\'ec\'e5\'f2\'ea\'e0, \'ec\'e8 \'ef\'f0\'e0\'9d\'e0\'f8 \'f1\'e0\'ec\'ee ID, \'e0\'ea\'ee \'e5 \'ed\'ee\'e2\'e0, \'ec\'e8 \'ef\'f0\'e0\'9d\'e0\'f8 \'e1\'f0\'ee\'bc \'ed\'e0 \'f1\'ec\'e5\'f2\'ea\'e0 \'e8 \'e8\'ec\'e5 \'ed\'e0 \'e1\'e0\'ed\'ea\'e0. \par
+\par
+\'c7\'e0 \'e4\'e0 \'ed\'e5 \'e1\'e8\'e4\'e5 \'ec\'ed\'ee\'e3\'f3 \'ea\'ee\'ec\'ef\'eb\'e8\'f6\'e8\'f0\'e0\'ed\'ee, \'e4\'ee\'ea\'ee\'eb\'ea\'f3 \'ee\'f1\'e8\'e3\'f3\'f0\'e5\'ed\'e8\'ea\'ee\'f2 != \'e4\'ee\'e3\'ee\'e2\'ee\'f0\'f3\'e2\'e0\'f7, \'e7\'e0 \'e4\'ee\'e3\'ee\'e2\'ee\'f0\'f3\'e2\'e0\'f7 \'9d\'e5 \'e8\'ec\'e0 \'f7\'e5\'ea\'e1\'ee\'ea\'f1 \'ea\'ee\'bc \'9d\'e5 \'ea\'e0\'e6\'f3\'e2\'e0 \'e4\'e0\'eb\'e8 \'e5 \'f1\'f2\'f0\'e0\'ed\'f1\'ea\'e0 \'e8\'eb\'e8 \'e4\'ee\'ec\'e0\'f8\'ed\'e0 \'f1\'ec\'e5\'f2\'ea\'e0. \'c0\'ea\'ee \'e5 \'e4\'ee\'ec\'e0\'f8\'ed\'e0, \'ec\'ee\'f0\'e0 \'e4\'e0 \'e5 15 \'e1\'f0\'ee\'bc\'ea\'e8 \'e8 \'e8\'ec\'e5\'f2\'ee \'ed\'e0 \'e1\'e0\'ed\'ea\'e0\'f2\'e0 \'e4\'e0 \'e5 \'e4\'f0\'ee\'ef \'e4\'e0\'f3\'ed \'f1\'ee \'f2\'ee\'f7\'ed\'ee \'f1\'eb\'e5\'e4\'ed\'e8\'f2\'e5 \'e8\'ec\'e8\'9c\'e0:\f0\lang9\par
+\b Bank List:\b0\par
+Eurostandard Banka AD Skopje\par
+Stopanska Banka AD Skopje\par
+NLB Banka AD Skopje\par
+UniBank AD Skopje\par
+Sparkasse Bank Makedonija AD Skopje\par
+Alpha Bank AD Skopje\par
+TTK BANKA AD Skopje\par
+Komercijalna Banka AD Skopje\par
+Centralna Kooperativna Banka AD Skopje\par
+Kapital Banka AD Skopje\par
+ProCredit Bank Macedonia\par
+Stopanska Banka AD Bitola\par
+Ohridska Banka AD Skopje\par
+Halkbank AD Skopje\f3\fs22\par
+\par
+}
+ 

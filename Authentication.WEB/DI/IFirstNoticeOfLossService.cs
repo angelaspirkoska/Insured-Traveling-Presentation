@@ -31,5 +31,6 @@ namespace InsuredTraveling.DI
         void UpdateClaimantBankAccountId(int fnolId, int bankAccountId);
         void UpdatePolicyHolderBankAccountId(int fnolId, int bankAccountId);
 
+        void Update(first_notice_of_loss newFnol);
     }
 }

@@ -100,20 +100,23 @@
                         @Model.ClaimantSsn
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <div class="col-lg-7">
-                        <label>Сродство со осигуреникот:</label>
-                        @if(Model.RelationClaimantPolicyHolder != null)
-                        {
-                            @Model.RelationClaimantPolicyHolder
-                        }
-                        else
-                        {
-                            @noValue
-                        }
+                @if (Model.PolicyHolderId != Model.ClaimantId)
+                {
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <label>Сродство со осигуреникот:</label>
+                            @if (Model.RelationClaimantPolicyHolder!=null)
+                            {
+                                @Model.RelationClaimantPolicyHolder
+                            }
+                            else
+                            {
+                                @noValue
+                            }
+                        </div>
                     </div>
-                </div>
+                }
+             
             </div>
             <div class="col-md-6">          
                 <div class="form-group">
@@ -137,7 +140,7 @@
                 <div class="form-group">                   
                     <div class="col-lg-7">
                         <label> Место на патување:</label>
-                        @Model.Destination)
+                        @Model.Destination
                     </div>
                 </div>
                 <div class="form-group">                  

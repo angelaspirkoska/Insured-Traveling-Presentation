@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InsuredTraveling.DI
 {
-    public class HealthInsurance : IHealthInsurance
+    public class HealthInsuranceService : IHealthInsuranceService
     {
         InsuredTravelingEntity _db = new InsuredTravelingEntity();
 

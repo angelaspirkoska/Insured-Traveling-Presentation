@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InsuredTraveling.DI
 {
@@ -58,6 +55,27 @@ namespace InsuredTraveling.DI
         public luggage_insurance_info GetLuggageInsuranceInfoById(int id)
         {
             return _db.luggage_insurance_info.Single(x => x.Additional_infoId == id);
+        }
+
+        public void UpdateAdditionalAndHealthInfo(additional_info additionalInfo, health_insurance_info HealthInfo)
+        {
+            var oldAddInfo = _db.additional_info.Where(x => x.ID == additionalInfo.ID).SingleOrDefault();
+            oldAddInfo = additionalInfo;
+
+
+            var oldHealthInfo = _db.health_insurance_info.Where(x => x.Additional_infoId == HealthInfo.Additional_infoId).SingleOrDefault();
+            oldHealthInfo = HealthInfo;
+            _db.SaveChanges();  
+        }
+
+        public void UpdateAdditionalAndLuggageInfo( additional_info additionalInfo, luggage_insurance_info LugaggeInfo)
+        {
+            var oldAddInfo = _db.additional_info.Where(x => x.ID == additionalInfo.ID).SingleOrDefault();
+            oldAddInfo = additionalInfo;
+
+            var oldLuggInfo = _db.luggage_insurance_info.Where(x => x.Additional_infoId == LugaggeInfo.Additional_infoId).SingleOrDefault();
+            oldLuggInfo = LugaggeInfo;
+            _db.SaveChanges();
         }
     }
 }

@@ -27,6 +27,8 @@ namespace InsuredTraveling.Controllers
         private IPolicyTypeService _pts;
         private IAdditionalInfoService _ais;
         private IBankAccountService _bas;
+        private IHealthInsuranceService _his;
+        private ILuggageInsuranceService _lis;
         
         public FirstNoticeOfLossController(IUserService us, 
                                            IPolicyService ps, 
@@ -35,7 +37,9 @@ namespace InsuredTraveling.Controllers
                                            IFirstNoticeOfLossService fis,
                                            IBankAccountService bas, 
                                            IPolicyTypeService pts, 
-                                           IAdditionalInfoService ais)
+                                           IAdditionalInfoService ais, 
+                                           IHealthInsuranceService his,
+                                           ILuggageInsuranceService lis)
         {
             _us = us;
             _ps = ps;
@@ -45,6 +49,8 @@ namespace InsuredTraveling.Controllers
             _pts = pts;
             _ais = ais;
             _fis = fis;
+            _his = his;
+            _lis = lis;
         }
 
         [SessionExpire]
@@ -163,13 +169,16 @@ namespace InsuredTraveling.Controllers
 
         [SessionExpire]
         [HttpPost]
-        public ActionResult Edit(FirstNoticeOfLossEditViewModel model)
+        public ActionResult Edit(FirstNoticeOfLossEditViewModel model, IEnumerable<HttpPostedFileBase> invoices, IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
         {
             model.PolicyHolderBankAccountNumber = model.PolicyHolderBankAccountNumber.Trim();
             model.ClaimantBankAccountNumber = model.ClaimantBankAccountNumber.Trim();
-            UpdateFirstNoticeOfLossHelper.UpdateFirstNoticeOfLoss(model, _fis, _bas);
+            
+            UpdateFirstNoticeOfLossHelper.UpdateFirstNoticeOfLoss(model, _fis, _bas, _ais,  _his,  _lis, invoices, documentsHealth, documentsLuggage);
 
-            return RedirectToAction("Edit", new { id = model.Id });
+
+
+            return RedirectToAction("View", new { id = model.Id });
         }
 
         [SessionExpire]

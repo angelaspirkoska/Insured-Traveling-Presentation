@@ -53,8 +53,7 @@ namespace InsuredTraveling.Helpers
                     var dateTime = firstNoticeOfLossViewModel.AccidentDateTimeLuggage.Value;
                     var timeSpan = firstNoticeOfLossViewModel.AccidentTimeLuggage.Value;
                     DateTime d = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
-                    d.Add(timeSpan);
-                    additionalInfo.Datetime_accident = d;
+                    additionalInfo.Datetime_accident = d+timeSpan;
                 }   
                 var luggageInsuranceInfo = new luggage_insurance_info
                 {

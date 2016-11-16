@@ -21,6 +21,8 @@ namespace InsuredTraveling.DI
         int AddLuggageInsuranceInfo(luggage_insurance_info luggageInsuranceInfo);
         luggage_insurance_info GetLuggageInsuranceInfoById(int id);
 
+        void UpdateAdditionalAndHealthInfo(additional_info additionalInfo, health_insurance_info HealthInfo);
+        void UpdateAdditionalAndLuggageInfo(additional_info additionalInfo, luggage_insurance_info LugaggeInfo);
 
     }
 }

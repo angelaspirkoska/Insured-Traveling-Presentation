@@ -487,10 +487,10 @@
     <Compile Include="DI\IBankAccountService.cs" />
     <Compile Include="DI\ICountryService.cs" />
     <Compile Include="DI\FirstNoticeOfLossService.cs" />
-    <Compile Include="DI\HealthInsurance.cs" />
+    <Compile Include="DI\HealthInsuranceService.cs" />
     <Compile Include="DI\IFirstNoticeOfLossService.cs" />
     <Compile Include="DI\IFranchiseService.cs" />
-    <Compile Include="DI\IHealthInsurance.cs" />
+    <Compile Include="DI\IHealthInsuranceService.cs" />
     <Compile Include="DI\IInsuredsService.cs" />
     <Compile Include="DI\ILuggageInsuranceService.cs" />
     <Compile Include="DI\INewsService.cs" />
@@ -539,6 +539,7 @@
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
+    <Compile Include="Helpers\UpdateAdditionalInfoHelper.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\SaveInsuredHelper.cs" />
     <Compile Include="Helpers\SaveBankAccountInfoHelper.cs" />

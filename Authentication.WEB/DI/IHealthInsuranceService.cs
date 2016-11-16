@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InsuredTraveling.DI
 {
-    public interface IHealthInsurance
+    public interface IHealthInsuranceService
     {
         health_insurance Create();
 

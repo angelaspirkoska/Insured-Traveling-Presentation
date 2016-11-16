@@ -29,7 +29,7 @@ namespace InsuredTraveling
             builder.RegisterType<PolicyTypeService>().As<IPolicyTypeService>().InstancePerRequest();
             builder.RegisterType<LuggageInsuranceService>().As<ILuggageInsuranceService>().InstancePerRequest();
             builder.RegisterType<TransactionsService>().As<ITransactionsService>().InstancePerRequest();
-            builder.RegisterType<HealthInsurance>().As<IHealthInsurance>().InstancePerRequest();
+            builder.RegisterType<HealthInsuranceService>().As<IHealthInsuranceService>().InstancePerRequest();
             builder.RegisterType<AdditionalChargesService>().As<IAdditionalChargesService>().InstancePerRequest();
             builder.RegisterType<FranchiseService>().As<IFranchiseService>().InstancePerRequest();
             builder.RegisterType<CountryService>().As<ICountryService>().InstancePerRequest();
