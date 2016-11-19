@@ -19,7 +19,7 @@ namespace InsuredTraveling.Models
 
         public int PolicyId { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public int PolicyNumber { get; set; }
         public List<SelectListItem> Policies { get; set; }
         public List<SelectListItem> PolicyNumberList { get; set; }
@@ -30,60 +30,60 @@ namespace InsuredTraveling.Models
 
         //PolicyHolderData
         public int PolicyHolderId { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string PolicyHolderName { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string  PolicyHolderAdress { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string PolicyHolderPhoneNumber { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string PolicyHolderSsn { get; set; }
 
         public bool PolicyHolderExistentBankAccount { get; set; }
         public bool PolicyHolderForeignBankAccount { get; set; }
         public int PolicyHolderForeignBankAccountId { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string PolicyHolderBankAccountNumber  { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string PolicyHolderBankName { get; set; }
 
         //ClaimantData
 
         public int ClaimantId { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string ClaimantName { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string ClaimantAdress { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string ClaimantPhoneNumber { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string ClaimantSsn { get; set; }
 
         public bool ClaimantExistentBankAccount { get; set; }
         public bool ClaimantForeignBankAccount { get; set; }
         public int ClaimantForeignBankAccountId { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string ClaimantBankAccountNumber { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string ClaimantBankName { get; set; }
 
         public string RelationClaimantPolicyHolder { get; set; }
 
         //TravelData
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string Destination { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public DateTime DepartDateTime { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public DateTime ArrivalDateTime { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public TimeSpan? DepartTime { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public TimeSpan? ArriveTime { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string TransportMeans { get; set; }
 
 
@@ -91,30 +91,30 @@ namespace InsuredTraveling.Models
 
         public int AdditionalInfoId { get; set; }      
         public bool IsHealthInsurance { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public DateTime? AccidentDateTimeHealth { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public DateTime? AccidentDateTimeLuggage { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public TimeSpan? AccidentTimeHealth { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public TimeSpan? AccidentTimeLuggage { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string   AccidentPlaceHealth { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string  AccidentPlaceLuggage { get; set; }
 
 
         //LugaggeInsuranceInfo
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string PlaceDescription { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string DetailDescription { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string ReportPlace { get; set; }
         public string Floaters { get; set; }
         public string FloatersValue { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public TimeSpan? LugaggeCheckingTime { get; set; }
 
         //documents?
@@ -122,16 +122,16 @@ namespace InsuredTraveling.Models
         public List<FileDescriptionViewModel> InsuranceInfoDoc { get; set; }
 
         //HealthInsuranceInfo
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public DateTime? DoctorVisitDateTime { get; set; }
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string DoctorInfo { get; set; }
         public string MedicalCaseDescription { get; set; }
         public bool PreviousMedicalHistory { get; set; }
         public string ResponsibleInstitution { get; set; }
 
         //TotalCost
-        [Required(ErrorMessage = "Полето е задолжително")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public float TotalCost { get; set; }
 
     }
