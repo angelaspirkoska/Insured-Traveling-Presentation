@@ -54,7 +54,7 @@ namespace InsuredTraveling.Controllers
                     }
                 }else
                 {
-                    ModelState.AddModelError("loginErr", "Something get wrong!");
+                    ModelState.AddModelError("loginErr", "Something went wrong!");
                 }
             }
             return View();

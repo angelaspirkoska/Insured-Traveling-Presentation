@@ -162,18 +162,22 @@ namespace InsuredTraveling.DI
         {
             var allDoc = new List<string>();
             var documents = _db.documents_first_notice_of_loss.Where(x => x.First_notice_of_lossID == lossID).ToList();
-            if(documents.Count() >0)
+            if (documents.Count() > 0)
             {
-                foreach(var doc in documents)
+                foreach (var doc in documents)
                 {
-                    var file = _db.documents.Where(x => x.ID == doc.ID && x.invoice != null).FirstOrDefault();
-                    if(file!= null)
+                    var file = _db.documents.Where(x => x.ID == doc.DocumentID).FirstOrDefault();
+                    var invoices = _db.invoices.Where(x => x.DocumentID == file.ID).FirstOrDefault();
+                    if (invoices != null)
                     {
                         allDoc.Add(file.Name);
                     }
-                  
+
                 }
             }
+
+
+
             return allDoc;
         }
 
@@ -185,8 +189,9 @@ namespace InsuredTraveling.DI
             {
                 foreach (var doc in documents)
                 {
-                    var file = _db.documents.Where(x => x.ID == doc.ID && x.invoice == null).FirstOrDefault();
-                    if (file != null)
+                    var file = _db.documents.Where(x => x.ID == doc.DocumentID ).FirstOrDefault();
+                    var invoices = _db.invoices.Where(x => x.DocumentID == file.ID).FirstOrDefault();
+                    if (file != null && invoices == null)
                     {
                         allDoc.Add(file.Name);
                     }

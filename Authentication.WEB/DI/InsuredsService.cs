@@ -67,5 +67,11 @@ namespace InsuredTraveling.DI
             var insured = _db.insureds.Where(x => x.SSN == Ssn).SingleOrDefault();
             return insured;
         }
+
+        public insured GetInsuredBySsnAndCreatedBy(string Ssn, string userId)
+        {
+            var insured = _db.insureds.Where(x => x.SSN == Ssn && x.Created_By == userId).SingleOrDefault();
+            return insured;
+        }
     }
 }

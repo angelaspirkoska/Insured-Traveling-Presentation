@@ -59,9 +59,9 @@ namespace Authentication.WEB.Controllers
             ViewBag.Countries = countries.Result;
             ViewBag.Franchise = franchises.Result;
             ViewBag.additional_charges = additional_charges.Result;
-            ViewBag.Date = DateTime.Now.Year + String.Format("/{0:00}", DateTime.Now.Month) +String.Format("/{0:00}",DateTime.Now.Day);
+            ViewBag.Date = String.Format("{0:00}", DateTime.Now.Day) +String.Format("/{0:00}/",DateTime.Now.Month)+ DateTime.Now.Year;
             DateTime inTenDays = DateTime.Now.AddDays(9);
-             ViewBag.DateAfterTenDays = inTenDays.Year + String.Format("/{0:00}", inTenDays.Month) + String.Format("/{0:00}", inTenDays.Day);
+             ViewBag.DateAfterTenDays =  String.Format("{0:00}", inTenDays.Day) + String.Format("/{0:00}/", inTenDays.Month)+ inTenDays.Year;
             //ViewBag.Date = DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day;
 
             return View();
@@ -76,9 +76,7 @@ namespace Authentication.WEB.Controllers
         public async System.Threading.Tasks.Task<ActionResult> CreatePolicy(Policy policy)
         {
             ValidationService validationService = new ValidationService();
-            RatingEngineService ratingEngineService = new RatingEngineService();
-
-            InsuredTravelingEntity entityDB = new InsuredTravelingEntity();
+            RatingEngineService ratingEngineService = new RatingEngineService();      
             travel_policy polisaEntity = new travel_policy();
 
             Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/api/premium/calculate");
@@ -203,13 +201,20 @@ namespace Authentication.WEB.Controllers
             {
                 string username = System.Web.HttpContext.Current.User.Identity.Name;
                 var loggedUserSsn = _us.GetUserSsnByUsername(username);
-                var loggedUserData = _iss.GetInsuredDataBySsn(loggedUserSsn);
-
-                if(loggedUserData == null)
+                //var loggedUserData = _iss.GetInsuredDataBySsn(loggedUserSsn);
+                var loggedUserData = _iss.GetInsuredBySsnAndCreatedBy(loggedUserSsn, _us.GetUserIdByUsername(username));
+                
+                if (loggedUserData == null)
                 {
                     Result.Add("response", "Not registered insured");
                     return Result;
                 }
+
+                if(loggedUserData.Name == null)
+                {
+                    //da vrati deka ne su vneseni podatoci!
+                }
+
 
                 JObject insuredData = new JObject();
 

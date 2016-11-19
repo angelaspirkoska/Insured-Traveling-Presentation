@@ -419,7 +419,8 @@ $.validator.addMethod( "dateFA", function( value, element ) {
 }, $.validator.messages.date );
 
 /**
- * Return true, if the value is a valid date, also making this formal check dd/mm/yyyy.
+ * Return true, if the value is a valid date, also making this formal check dd/mm
+yy.
  *
  * @example $.validator.methods.date("01/01/1900")
  * @result true

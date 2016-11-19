@@ -136,6 +136,7 @@ namespace InsuredTraveling
             return _userManager.Find(username, password);
         }
 
+        
         public async Task<IdentityResult> FindUserByUsername(string username)
         {
             var r = await _userManager.FindByNameAsync(username);

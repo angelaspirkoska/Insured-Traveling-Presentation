@@ -232,7 +232,7 @@
 
                     <div class="col-lg-7">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на заминување:</label>
-                        @Html.EditorFor(model => model.DepartDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
+                        @Html.EditorFor(model => model.DepartDateTime, "{0:dd/mm/yy}", new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
                         @Html.ValidationMessageFor(model => model.DepartDateTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -466,7 +466,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Време на пристигнување на аеродром :</label>
+                            <label>Време на пристигнување на аеродром:</label>
                             @Html.EditorFor(model => model.AccidentTimeLuggage, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
                             @Html.ValidationMessageFor(model => model.AccidentTimeLuggage, "", new { @class = "text-danger" })
                         </div>
@@ -646,7 +646,7 @@
         });
 
         $("#DepartDateTime").datepicker({
-            dateFormat: "dd-mm-yyyy",
+            dateFormat: "dd-mm-yy",
             dateonly:true,
             onSelect: function (selected) {
                 $("#ArrivalDateTime").datepicker("option", "minDate", selected);
@@ -657,7 +657,7 @@
         });
 
         $("#ArrivalDateTime").datepicker({
-            dateFormat: "dd-mm-yyyy",
+            dateFormat: "dd/mm/yy",
             dateonly: true,
             onSelect: function (selected) {
                 $("#DepartDateTime").datepicker("option", "maxDate", selected);
@@ -668,7 +668,7 @@
         });
 
         $("#AccidentDateTimeHealth").datepicker({
-            dateFormat: "dd-mm-yyyy",
+            dateFormat: "dd/mm/yy",
             dateonly: true,
             onSelect: function (selected) {
                 $("#DepartDateTime").datepicker("option", "minDate", selected);
@@ -677,7 +677,7 @@
         });
 
         $("#AccidentDateTimeLuggage").datepicker({
-            dateFormat: "dd-mm-yyyy",
+            dateFormat: "dd/mm/yy",
             dateonly: true,
             onSelect: function (selected) {
 
@@ -685,7 +685,7 @@
         });
 
         $("#DoctorVisitDateTime").datepicker({
-            dateFormat: "dd-mm-yyyy",
+            dateFormat: "dd/mm/yy",
             dateonly: true,
             onSelect: function (selected) {
 

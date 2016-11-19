@@ -26,6 +26,7 @@ namespace InsuredTraveling.ViewModels
         public int PolicyId { get; set; }
         public int PolicyNumber { get; set; }
         public string Message { get; set; }
+
         public DateTime ModifiedDateTime { get; set; }
         public string ModifiedBy { get; set; }
 
@@ -71,9 +72,12 @@ namespace InsuredTraveling.ViewModels
         //TravelData
         [Required(ErrorMessage = "Полето е задолжително")]
         public string Destination { get; set; }
+        
         [Required(ErrorMessage = "Полето е задолжително")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
         public DateTime DepartDateTime { get; set; }
         [Required(ErrorMessage = "Полето е задолжително")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
         public DateTime ArrivalDateTime { get; set; }
         [Required(ErrorMessage = "Полето е задолжително")]
         public TimeSpan? DepartTime { get; set; }
@@ -86,7 +90,9 @@ namespace InsuredTraveling.ViewModels
         public int AdditionalInfoId { get; set; }
         public bool IsHealthInsurance { get; set; }
         [Required(ErrorMessage = "Полето е задолжително")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
         public DateTime? AccidentDateTimeHealth { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
         [Required(ErrorMessage = "Полето е задолжително")]
         public DateTime? AccidentDateTimeLuggage { get; set; }
         [Required(ErrorMessage = "Полето е задолжително")]
@@ -113,6 +119,7 @@ namespace InsuredTraveling.ViewModels
         public List<FileDescriptionViewModel> InsuranceInfoDoc { get; set; }
         //HealthInsuranceInfo
         [Required(ErrorMessage = "Полето е задолжително")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
         public DateTime? DoctorVisitDateTime { get; set; }
         [Required(ErrorMessage = "Полето е задолжително")]
         public string DoctorInfo { get; set; }

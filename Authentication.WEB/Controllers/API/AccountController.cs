@@ -145,7 +145,7 @@ namespace InsuredTraveling.Controllers
             return Ok();
         }
         
-       // [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("FindUser")]
         public async Task<IHttpActionResult> FindUsername(Username username)
         {

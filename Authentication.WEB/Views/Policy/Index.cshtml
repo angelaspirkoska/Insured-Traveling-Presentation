@@ -56,7 +56,7 @@
             <div class="form-group col-sm-3">
                 @Html.LabelFor(model => model.Start_Date, htmlAttributes: new { @class = "control-label"})
                 <div class="inputs-spacing">
-                    @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField" } })
+                    @Html.EditorFor(model => model.Start_Date, "{0:dd/mm/yy}", new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField" } })
                     @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
                 </div>
                 <input type="hidden" id="inTenDays" name="inTenDays" value="@ViewBag.DateAfterTenDays">
@@ -175,58 +175,58 @@
                     <div id="hideWhenSamePerson">
                         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control mandatoryField" } })
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData" } })
                             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control mandatoryField", } })
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData", } })
                             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control mandatoryField", } })
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData", } })
                             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control mandatoryField", } })
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData", } })
                             @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control mandatoryField", } })
+                            @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData", } })
                             @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control mandatoryField" } })
+                            @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData" } })
                             @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField" } })
+                            @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField insuredData" } })
                             @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PassportNumber_ID, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PassportNumber_ID, new { htmlAttributes = new { @class = "form-control mandatoryField"} })
+                            @Html.EditorFor(model => model.PassportNumber_ID, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData" } })
                             @Html.ValidationMessageFor(model => model.PassportNumber_ID, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control mandatoryField"} })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData" } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
 
                         @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control mandatoryField" } })
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData" } })
                             @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -524,21 +524,21 @@
     });
 
     $("#Start_Date").datepicker({
-        dateFormat: "mm/dd/yy",
+        dateFormat: "dd/mm/yy",
         onSelect: function (selected) {
             $("#End_Date").datepicker("option", "minDate", selected);
         },
     });
 
     $("#End_Date").datepicker({
-        dateFormat: "mm/dd/yy",
+        dateFormat: "dd/mm/yy",
         onSelect: function (selected) {
             $("#Start_Date").datepicker("option", "maxDate", selected);
         },
     });
 
     $("#BirthDate").datepicker({
-        dateFormat: "mm/dd/yy",
+        dateFormat: "dd/mm/yy",
         onSelect: function (selected) {
         },
     });
@@ -602,6 +602,7 @@
         else {
             $("#hideWhenSamePerson").show();
             $("#hideWhenSamePerson .form-control").prop('readonly', false);
+            $(".insuredData").val("");
 
         }
     });

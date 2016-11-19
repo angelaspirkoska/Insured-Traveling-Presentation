@@ -376,7 +376,7 @@
     <value>Пребарај</value>
   </data>
   <data name="Search_AddFNOL" xml:space="preserve">
-    <value>Додади оштетено побарување</value>
+    <value>Додади оштeтно побарување</value>
   </data>
   <data name="Search_AddFNOLLink" xml:space="preserve">
     <value>Пријави штета</value>
@@ -403,7 +403,7 @@
     <value>Детали</value>
   </data>
   <data name="Search_FNOL" xml:space="preserve">
-    <value>Оштетено побарување</value>
+    <value>Оштетно побарување</value>
   </data>
   <data name="Search_FNOLLink" xml:space="preserve">
     <value>Штети</value>
