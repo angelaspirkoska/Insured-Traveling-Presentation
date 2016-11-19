@@ -35,13 +35,13 @@
                     {
                         if (i.CultureName == "en")
                         {
-                            <a href="@Url.Action("ChangeLanguage", "Home", new { lang = i.CultureName })">
+                            <a href="@Url.Action("ChangeLanguage", "ChangeLanuage", new { lang = i.CultureName })">
                                 <img src="~/Content/flags/en-US.png" />
                             </a>
                         }
                         if (i.CultureName == "mk")
                         {
-                            <a href="@Url.Action("ChangeLanguage", "Home", new { lang = i.CultureName })">
+                            <a href="@Url.Action("ChangeLanguage", "ChangeLanuage", new { lang = i.CultureName })">
                                 <img src="~/Content/flags/mk-MK.png" />
                             </a>
                         }
@@ -49,9 +49,9 @@
                 </div>
                 <ul class="nav navbar-nav navbar-right" style="float:right;text-align:right;">
                     <li><a href="#" id="welcome"></a></li>
-                    <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/account/deletetoken" id="logOut" onclick="func()">Logout</a></li>
-                    <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login">Login</a></li>
-                    <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp" id="signup">Sign up</a></li>
+                    <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/account/deletetoken" id="logOut" onclick="func()">@InsuredTraveling.Resource.LogOut</a></li>
+                    <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login">@InsuredTraveling.Resource.Login</a></li>
+                    <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp" id="signup">@InsuredTraveling.Resource.SignUp</a></li>
                 </ul>
             </div>
         </div>

@@ -117,6 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FNOL_Address" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="FNOL_Name" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="FNOL_Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="FNOL_PolicyHolderInfo" xml:space="preserve">
+    <value>Информации за договорувач</value>
+  </data>
+  <data name="FNOL_PolicyNumber" xml:space="preserve">
+    <value>Број на полиса</value>
+  </data>
+  <data name="FNOL_SSN" xml:space="preserve">
+    <value>ЕМБГ</value>
+  </data>
+  <data name="FNOL_SuccessfullyAddedFNOL" xml:space="preserve">
+    <value>Оспешно е додадено оштетено побарување!</value>
+  </data>
+  <data name="FNOL_Title" xml:space="preserve">
+    <value>Оштетено побарување</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Почетна</value>
   </data>
@@ -124,7 +148,7 @@
     <value>Админ панел</value>
   </data>
   <data name="Home_FirstNoticeOfLoss" xml:space="preserve">
-    <value>Пријави штета</value>
+    <value>Оштетено побарување</value>
   </data>
   <data name="Home_NewClient" xml:space="preserve">
     <value>Нов клиент</value>
@@ -500,5 +524,251 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Да</value>
+  </data>
+  <data name="FNOL_AccidentDate" xml:space="preserve">
+    <value>Датум  на несреќата</value>
+  </data>
+  <data name="FNOL_AccidentDescription" xml:space="preserve">
+    <value>Опис на несреќата</value>
+  </data>
+  <data name="FNOL_AccidentDescriptionDetails" xml:space="preserve">
+    <value>Детален опис на несреќата</value>
+  </data>
+  <data name="FNOL_AccidentPlace" xml:space="preserve">
+    <value>Место на несреќата</value>
+  </data>
+  <data name="FNOL_AccidentTime" xml:space="preserve">
+    <value>Врме на несреќата</value>
+  </data>
+  <data name="FNOL_AirportTimeArrival" xml:space="preserve">
+    <value>Време на пристигнување на аеродром</value>
+  </data>
+  <data name="FNOL_Bank" xml:space="preserve">
+    <value>Банка</value>
+  </data>
+  <data name="FNOL_BankAccount" xml:space="preserve">
+    <value>Трансакциска сметка</value>
+  </data>
+  <data name="FNOL_CostInformation" xml:space="preserve">
+    <value>Информации за трошокот</value>
+  </data>
+  <data name="FNOL_DateWhenDoctorVisit" xml:space="preserve">
+    <value>Датум на посета на доктор</value>
+  </data>
+  <data name="FNOL_DiseaseDescription" xml:space="preserve">
+    <value>Опис на болета</value>
+  </data>
+  <data name="FNOL_DoctorInfo" xml:space="preserve">
+    <value>Информации а докторот</value>
+  </data>
+  <data name="FNOL_DocumentsAsProof" xml:space="preserve">
+    <value>Документи како доказ</value>
+  </data>
+  <data name="FNOL_EndDate" xml:space="preserve">
+    <value>Датум на пристигнување</value>
+  </data>
+  <data name="FNOL_EndTime" xml:space="preserve">
+    <value>Време на пристигнување</value>
+  </data>
+  <data name="FNOL_FloatersDescription" xml:space="preserve">
+    <value>Украдени предмети</value>
+  </data>
+  <data name="FNOL_FloatersValue" xml:space="preserve">
+    <value>Вредност на украдените предмети</value>
+  </data>
+  <data name="FNOL_HealthInsuranceInfo" xml:space="preserve">
+    <value>Здравствено осигурување</value>
+  </data>
+  <data name="FNOL_InsuredInfo" xml:space="preserve">
+    <value>Информации за осигуреникот</value>
+  </data>
+  <data name="FNOL_InvoicesAsProof" xml:space="preserve">
+    <value>Фактури како доказ</value>
+  </data>
+  <data name="FNOL_LuggageCheckInTime" xml:space="preserve">
+    <value>Време на пријавување на багаж</value>
+  </data>
+  <data name="FNOL_LuggageInsurance" xml:space="preserve">
+    <value>Oсигурување на багаж</value>
+  </data>
+  <data name="FNOL_Number" xml:space="preserve">
+    <value>Оштетено побарување бр.</value>
+  </data>
+  <data name="FNOL_PreviousDiseaseHistory" xml:space="preserve">
+    <value>предходна историја со истата болест</value>
+  </data>
+  <data name="FNOL_RelationshipInsuredHolder" xml:space="preserve">
+    <value>Сродство на оштетениот со осигуреникот</value>
+  </data>
+  <data name="FNOL_ReportPlace" xml:space="preserve">
+    <value>Место на пријавување</value>
+  </data>
+  <data name="FNOL_ReportWroted" xml:space="preserve">
+    <value>Во случај на тешка повреда или смрт, кој орган составил записник и детален опис на настанот</value>
+  </data>
+  <data name="FNOL_StartDate" xml:space="preserve">
+    <value>Датум на заминување</value>
+  </data>
+  <data name="FNOL_StartTime" xml:space="preserve">
+    <value>Време на заминување</value>
+  </data>
+  <data name="FNOL_TotalCost" xml:space="preserve">
+    <value>Вкупно</value>
+  </data>
+  <data name="FNOL_TravelInformation" xml:space="preserve">
+    <value>Информации за патувањето</value>
+  </data>
+  <data name="FNOL_TravelPlace" xml:space="preserve">
+    <value>Место на патувањето</value>
+  </data>
+  <data name="FNOL_Vehicle" xml:space="preserve">
+    <value>Превозно средтсво</value>
+  </data>
+  <data name="FNOL_ViewTitle" xml:space="preserve">
+    <value>Преглед на оштетено побарување</value>
+  </data>
+  <data name="Client" xml:space="preserve">
+    <value>Клиент</value>
+  </data>
+  <data name="Client_Add" xml:space="preserve">
+    <value>Додади клиент</value>
+  </data>
+  <data name="Client_AddButton" xml:space="preserve">
+    <value>Додади</value>
+  </data>
+  <data name="Client_Address" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="Client_Age" xml:space="preserve">
+    <value>Возраст</value>
+  </data>
+  <data name="Client_City" xml:space="preserve">
+    <value>Град</value>
+  </data>
+  <data name="Client_DateBirth" xml:space="preserve">
+    <value>Датум на раѓање</value>
+  </data>
+  <data name="Client_Email" xml:space="preserve">
+    <value>Е-маил</value>
+  </data>
+  <data name="Client_LastName" xml:space="preserve">
+    <value>Презиме</value>
+  </data>
+  <data name="Client_Name" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="Client_NotSuccessfullyAdded" xml:space="preserve">
+    <value>Клиентот е не успешно додаден</value>
+  </data>
+  <data name="Client_Passport" xml:space="preserve">
+    <value>Пасош/идентификациски број</value>
+  </data>
+  <data name="Client_Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Client_PostalCode" xml:space="preserve">
+    <value>Поштенски број</value>
+  </data>
+  <data name="Client_SSN" xml:space="preserve">
+    <value>ЕМБГ</value>
+  </data>
+  <data name="Client_SuccessfullyAdded" xml:space="preserve">
+    <value>Клиентот е успешно додаден</value>
+  </data>
+  <data name="EmailNotValid" xml:space="preserve">
+    <value>Е-маил не е валиден</value>
+  </data>
+  <data name="FNOL_Add" xml:space="preserve">
+    <value>Додади</value>
+  </data>
+  <data name="FNOL_ChooseBankAccount" xml:space="preserve">
+    <value>Избери трансакциска сметка</value>
+  </data>
+  <data name="FNOL_ChooseInsured" xml:space="preserve">
+    <value>Избери корисник</value>
+  </data>
+  <data name="FNOL_ChoosePreviousBankAccount" xml:space="preserve">
+    <value>Користи предходна трансакциска сметка</value>
+  </data>
+  <data name="FNOL_ForeignBankAccount" xml:space="preserve">
+    <value>Странска сметка</value>
+  </data>
+  <data name="FNOL_HealthInsurance" xml:space="preserve">
+    <value>Здравствено осигурување</value>
+  </data>
+  <data name="FNOL_InsuranceType" xml:space="preserve">
+    <value>Тип на осигурување</value>
+  </data>
+  <data name="FNOL_NotSuccessfullyAddedFNOL" xml:space="preserve">
+    <value>Оштетеното побарување не е успешно додадено</value>
+  </data>
+  <data name="FNOL_PolicyWithProvideNumberNotExist" xml:space="preserve">
+    <value>Полиса со внесениот број не постои</value>
+  </data>
+  <data name="FNOL_Search" xml:space="preserve">
+    <value>Пребарај</value>
+  </data>
+  <data name="FNOL_UseNumberLatinLetters" xml:space="preserve">
+    <value>Користете само бројки и латински букви</value>
+  </data>
+  <data name="FNOL_UsePreviousBankAccount" xml:space="preserve">
+    <value>Користи предходна трансакциска сметка</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Најава</value>
+  </data>
+  <data name="Login_ForgotPassword" xml:space="preserve">
+    <value>Заборавена лозинка?</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>Лозинка</value>
+  </data>
+  <data name="Login_Title" xml:space="preserve">
+    <value>Најава</value>
+  </data>
+  <data name="Login_UserName" xml:space="preserve">
+    <value>Корисничко име</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Одјави се</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>Новости</value>
+  </data>
+  <data name="News_Add" xml:space="preserve">
+    <value>Додади</value>
+  </data>
+  <data name="News_AddTitle" xml:space="preserve">
+    <value>Додади новост</value>
+  </data>
+  <data name="News_Content" xml:space="preserve">
+    <value>Содржина</value>
+  </data>
+  <data name="News_Delete" xml:space="preserve">
+    <value>Избриши</value>
+  </data>
+  <data name="News_Edit" xml:space="preserve">
+    <value>Измени</value>
+  </data>
+  <data name="News_Image" xml:space="preserve">
+    <value>Слика</value>
+  </data>
+  <data name="News_NoNews" xml:space="preserve">
+    <value>Нема новости во овој момент</value>
+  </data>
+  <data name="News_Notification" xml:space="preserve">
+    <value>Нотификација</value>
+  </data>
+  <data name="News_Save" xml:space="preserve">
+    <value>Зачувај</value>
+  </data>
+  <data name="News_Title" xml:space="preserve">
+    <value>Наслов</value>
+  </data>
+  <data name="OnlyNumbers" xml:space="preserve">
+    <value>Внесете само бројки</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Регистрирај се</value>
   </data>
 </root>

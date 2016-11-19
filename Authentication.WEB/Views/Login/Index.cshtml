@@ -2,13 +2,13 @@
 @model InsuredTraveling.Models.LoginUser
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = InsuredTraveling.Resource.Login;
 }
 
 <div class="col-md-offset-3 col-md-6">
     @using (Html.BeginForm())
     {
-        <h2 class="panel-heading">Login</h2>
+        <h2 class="panel-heading">@InsuredTraveling.Resource.Login_Title</h2>
         @*<h4 style="color:red">@Html.ValidationSummary(false, "", new { @class = "alert alert-error" })</h4>*@
     if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
     {
@@ -44,7 +44,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-8  text-right " style="margin-bottom:10px"><a href="/ForgetPassword/EnterUsernameOrMail">Forgot your password?</a></div>
+            <div class="col-md-offset-2 col-md-8  text-right " style="margin-bottom:10px"><a href="/ForgetPassword/EnterUsernameOrMail">@InsuredTraveling.Resource.Login_ForgotPassword</a></div>
         </div>
 
         <div class="row">
@@ -54,7 +54,7 @@
         </div>
          <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input class="btn btn-success" value="Log in" type="submit">
+                <input class="btn btn-success" value="@InsuredTraveling.Resource.Login" type="submit">
             </div>
         </div>
     }

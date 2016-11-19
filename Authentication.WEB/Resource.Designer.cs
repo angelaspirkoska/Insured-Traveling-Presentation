@@ -61,6 +61,645 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Client.
+        /// </summary>
+        public static string Client {
+            get {
+                return ResourceManager.GetString("Client", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Client.
+        /// </summary>
+        public static string Client_Add {
+            get {
+                return ResourceManager.GetString("Client_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string Client_AddButton {
+            get {
+                return ResourceManager.GetString("Client_AddButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string Client_Address {
+            get {
+                return ResourceManager.GetString("Client_Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Age.
+        /// </summary>
+        public static string Client_Age {
+            get {
+                return ResourceManager.GetString("Client_Age", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        public static string Client_City {
+            get {
+                return ResourceManager.GetString("Client_City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Birth Date.
+        /// </summary>
+        public static string Client_DateBirth {
+            get {
+                return ResourceManager.GetString("Client_DateBirth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Client_Email {
+            get {
+                return ResourceManager.GetString("Client_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        public static string Client_LastName {
+            get {
+                return ResourceManager.GetString("Client_LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Client_Name {
+            get {
+                return ResourceManager.GetString("Client_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client is not successfully added.
+        /// </summary>
+        public static string Client_NotSuccessfullyAdded {
+            get {
+                return ResourceManager.GetString("Client_NotSuccessfullyAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passport/ ID Number.
+        /// </summary>
+        public static string Client_Passport {
+            get {
+                return ResourceManager.GetString("Client_Passport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string Client_Phone {
+            get {
+                return ResourceManager.GetString("Client_Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal Code.
+        /// </summary>
+        public static string Client_PostalCode {
+            get {
+                return ResourceManager.GetString("Client_PostalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSN.
+        /// </summary>
+        public static string Client_SSN {
+            get {
+                return ResourceManager.GetString("Client_SSN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client is successfully added.
+        /// </summary>
+        public static string Client_SuccessfullyAdded {
+            get {
+                return ResourceManager.GetString("Client_SuccessfullyAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is not valid.
+        /// </summary>
+        public static string EmailNotValid {
+            get {
+                return ResourceManager.GetString("EmailNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accident Date.
+        /// </summary>
+        public static string FNOL_AccidentDate {
+            get {
+                return ResourceManager.GetString("FNOL_AccidentDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accident Description.
+        /// </summary>
+        public static string FNOL_AccidentDescription {
+            get {
+                return ResourceManager.GetString("FNOL_AccidentDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details about the accident.
+        /// </summary>
+        public static string FNOL_AccidentDescriptionDetails {
+            get {
+                return ResourceManager.GetString("FNOL_AccidentDescriptionDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accident Place.
+        /// </summary>
+        public static string FNOL_AccidentPlace {
+            get {
+                return ResourceManager.GetString("FNOL_AccidentPlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accident Time.
+        /// </summary>
+        public static string FNOL_AccidentTime {
+            get {
+                return ResourceManager.GetString("FNOL_AccidentTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string FNOL_Add {
+            get {
+                return ResourceManager.GetString("FNOL_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string FNOL_Address {
+            get {
+                return ResourceManager.GetString("FNOL_Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Airport arrival time.
+        /// </summary>
+        public static string FNOL_AirportTimeArrival {
+            get {
+                return ResourceManager.GetString("FNOL_AirportTimeArrival", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bank.
+        /// </summary>
+        public static string FNOL_Bank {
+            get {
+                return ResourceManager.GetString("FNOL_Bank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bank Account.
+        /// </summary>
+        public static string FNOL_BankAccount {
+            get {
+                return ResourceManager.GetString("FNOL_BankAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose Bank Account.
+        /// </summary>
+        public static string FNOL_ChooseBankAccount {
+            get {
+                return ResourceManager.GetString("FNOL_ChooseBankAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose Insured.
+        /// </summary>
+        public static string FNOL_ChooseInsured {
+            get {
+                return ResourceManager.GetString("FNOL_ChooseInsured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose Previous Bank Account.
+        /// </summary>
+        public static string FNOL_ChoosePreviousBankAccount {
+            get {
+                return ResourceManager.GetString("FNOL_ChoosePreviousBankAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cost Information.
+        /// </summary>
+        public static string FNOL_CostInformation {
+            get {
+                return ResourceManager.GetString("FNOL_CostInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date when the doctor was visited.
+        /// </summary>
+        public static string FNOL_DateWhenDoctorVisit {
+            get {
+                return ResourceManager.GetString("FNOL_DateWhenDoctorVisit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disease Description.
+        /// </summary>
+        public static string FNOL_DiseaseDescription {
+            get {
+                return ResourceManager.GetString("FNOL_DiseaseDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information about the doctor.
+        /// </summary>
+        public static string FNOL_DoctorInfo {
+            get {
+                return ResourceManager.GetString("FNOL_DoctorInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Documents as proof.
+        /// </summary>
+        public static string FNOL_DocumentsAsProof {
+            get {
+                return ResourceManager.GetString("FNOL_DocumentsAsProof", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Travel End Date.
+        /// </summary>
+        public static string FNOL_EndDate {
+            get {
+                return ResourceManager.GetString("FNOL_EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Travel End Time.
+        /// </summary>
+        public static string FNOL_EndTime {
+            get {
+                return ResourceManager.GetString("FNOL_EndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stolen stuff.
+        /// </summary>
+        public static string FNOL_FloatersDescription {
+            get {
+                return ResourceManager.GetString("FNOL_FloatersDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stolen stuff value.
+        /// </summary>
+        public static string FNOL_FloatersValue {
+            get {
+                return ResourceManager.GetString("FNOL_FloatersValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foreign Bank Account.
+        /// </summary>
+        public static string FNOL_ForeignBankAccount {
+            get {
+                return ResourceManager.GetString("FNOL_ForeignBankAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Health Insurance.
+        /// </summary>
+        public static string FNOL_HealthInsurance {
+            get {
+                return ResourceManager.GetString("FNOL_HealthInsurance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Health Insurance.
+        /// </summary>
+        public static string FNOL_HealthInsuranceInfo {
+            get {
+                return ResourceManager.GetString("FNOL_HealthInsuranceInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type of Insurance.
+        /// </summary>
+        public static string FNOL_InsuranceType {
+            get {
+                return ResourceManager.GetString("FNOL_InsuranceType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inured Information.
+        /// </summary>
+        public static string FNOL_InsuredInfo {
+            get {
+                return ResourceManager.GetString("FNOL_InsuredInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoices as proof.
+        /// </summary>
+        public static string FNOL_InvoicesAsProof {
+            get {
+                return ResourceManager.GetString("FNOL_InvoicesAsProof", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Luggage check-in time.
+        /// </summary>
+        public static string FNOL_LuggageCheckInTime {
+            get {
+                return ResourceManager.GetString("FNOL_LuggageCheckInTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Luggage Insurance.
+        /// </summary>
+        public static string FNOL_LuggageInsurance {
+            get {
+                return ResourceManager.GetString("FNOL_LuggageInsurance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string FNOL_Name {
+            get {
+                return ResourceManager.GetString("FNOL_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The FNOL is not successfully added!.
+        /// </summary>
+        public static string FNOL_NotSuccessfullyAddedFNOL {
+            get {
+                return ResourceManager.GetString("FNOL_NotSuccessfullyAddedFNOL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FNOL Number.
+        /// </summary>
+        public static string FNOL_Number {
+            get {
+                return ResourceManager.GetString("FNOL_Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string FNOL_Phone {
+            get {
+                return ResourceManager.GetString("FNOL_Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Holder Information.
+        /// </summary>
+        public static string FNOL_PolicyHolderInfo {
+            get {
+                return ResourceManager.GetString("FNOL_PolicyHolderInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Number.
+        /// </summary>
+        public static string FNOL_PolicyNumber {
+            get {
+                return ResourceManager.GetString("FNOL_PolicyNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy with the provided number not exist.
+        /// </summary>
+        public static string FNOL_PolicyWithProvideNumberNotExist {
+            get {
+                return ResourceManager.GetString("FNOL_PolicyWithProvideNumberNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous disease history.
+        /// </summary>
+        public static string FNOL_PreviousDiseaseHistory {
+            get {
+                return ResourceManager.GetString("FNOL_PreviousDiseaseHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relationship between the policyholder and the insured.
+        /// </summary>
+        public static string FNOL_RelationshipInsuredHolder {
+            get {
+                return ResourceManager.GetString("FNOL_RelationshipInsuredHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report Place.
+        /// </summary>
+        public static string FNOL_ReportPlace {
+            get {
+                return ResourceManager.GetString("FNOL_ReportPlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In case of serious injury or death, who wrote the report and gave detail explanation .
+        /// </summary>
+        public static string FNOL_ReportWroted {
+            get {
+                return ResourceManager.GetString("FNOL_ReportWroted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string FNOL_Search {
+            get {
+                return ResourceManager.GetString("FNOL_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSN.
+        /// </summary>
+        public static string FNOL_SSN {
+            get {
+                return ResourceManager.GetString("FNOL_SSN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Travel Begin Date.
+        /// </summary>
+        public static string FNOL_StartDate {
+            get {
+                return ResourceManager.GetString("FNOL_StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Travel Begin Time.
+        /// </summary>
+        public static string FNOL_StartTime {
+            get {
+                return ResourceManager.GetString("FNOL_StartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The First Notice of Loss is successfully added!.
+        /// </summary>
+        public static string FNOL_SuccessfullyAddedFNOL {
+            get {
+                return ResourceManager.GetString("FNOL_SuccessfullyAddedFNOL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Notice of Loss.
+        /// </summary>
+        public static string FNOL_Title {
+            get {
+                return ResourceManager.GetString("FNOL_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Cost.
+        /// </summary>
+        public static string FNOL_TotalCost {
+            get {
+                return ResourceManager.GetString("FNOL_TotalCost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Travel Information.
+        /// </summary>
+        public static string FNOL_TravelInformation {
+            get {
+                return ResourceManager.GetString("FNOL_TravelInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place to Travel.
+        /// </summary>
+        public static string FNOL_TravelPlace {
+            get {
+                return ResourceManager.GetString("FNOL_TravelPlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use only numbers or latin letters!.
+        /// </summary>
+        public static string FNOL_UseNumberLatinLetters {
+            get {
+                return ResourceManager.GetString("FNOL_UseNumberLatinLetters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use previous bank account.
+        /// </summary>
+        public static string FNOL_UsePreviousBankAccount {
+            get {
+                return ResourceManager.GetString("FNOL_UsePreviousBankAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vehicle.
+        /// </summary>
+        public static string FNOL_Vehicle {
+            get {
+                return ResourceManager.GetString("FNOL_Vehicle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FNOL View.
+        /// </summary>
+        public static string FNOL_ViewTitle {
+            get {
+                return ResourceManager.GetString("FNOL_ViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
@@ -124,11 +763,173 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot password?.
+        /// </summary>
+        public static string Login_ForgotPassword {
+            get {
+                return ResourceManager.GetString("Login_ForgotPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string Login_Password {
+            get {
+                return ResourceManager.GetString("Login_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string Login_Title {
+            get {
+                return ResourceManager.GetString("Login_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string Login_UserName {
+            get {
+                return ResourceManager.GetString("Login_UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        public static string LogOut {
+            get {
+                return ResourceManager.GetString("LogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to News.
+        /// </summary>
+        public static string News {
+            get {
+                return ResourceManager.GetString("News", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string News_Add {
+            get {
+                return ResourceManager.GetString("News_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add News.
+        /// </summary>
+        public static string News_AddTitle {
+            get {
+                return ResourceManager.GetString("News_AddTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content.
+        /// </summary>
+        public static string News_Content {
+            get {
+                return ResourceManager.GetString("News_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string News_Delete {
+            get {
+                return ResourceManager.GetString("News_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string News_Edit {
+            get {
+                return ResourceManager.GetString("News_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image.
+        /// </summary>
+        public static string News_Image {
+            get {
+                return ResourceManager.GetString("News_Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no news at this moment.
+        /// </summary>
+        public static string News_NoNews {
+            get {
+                return ResourceManager.GetString("News_NoNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification.
+        /// </summary>
+        public static string News_Notification {
+            get {
+                return ResourceManager.GetString("News_Notification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string News_Save {
+            get {
+                return ResourceManager.GetString("News_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string News_Title {
+            get {
+                return ResourceManager.GetString("News_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter only numbers.
+        /// </summary>
+        public static string OnlyNumbers {
+            get {
+                return ResourceManager.GetString("OnlyNumbers", resourceCulture);
             }
         }
         
@@ -1191,6 +1992,15 @@ namespace InsuredTraveling {
         public static string Search_TravelCountry {
             get {
                 return ResourceManager.GetString("Search_TravelCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign up.
+        /// </summary>
+        public static string SignUp {
+            get {
+                return ResourceManager.GetString("SignUp", resourceCulture);
             }
         }
         

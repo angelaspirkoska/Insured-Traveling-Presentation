@@ -1,7 +1,7 @@
 ﻿@model InsuredTraveling.Models.CreateClientModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = InsuredTraveling.Resource.Client;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,10 +9,10 @@
 <form method="post" action="@Url.Action("Create")" style="margin-top:40px;">
 
     <div class="form-horizontal">
-        <h4>Креирај клиент/осигуреник</h4>
+        <h4>@InsuredTraveling.Resource.Client_Add</h4>
         <br />
         <br />
-        <div><h5>Задолжителни полиња <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:red"></span></h5></div>
+        <div><h5>@InsuredTraveling.Resource.Required <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:red"></span></h5></div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -23,7 +23,7 @@
                     <div class="row" style="width:35%;">
                         <div class="alert alert-dismissible alert-success" style="margin-top: 27%;margin-left:12px; width:211%">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <strong>Одлично! </strong> <span>@ViewBag.Message</span>
+                            <span>@InsuredTraveling.Resource.Client_SuccessfullyAdded</span>
                         </div>
                     </div>
             }
@@ -32,7 +32,7 @@
                 <div class="row" style="width:35%;">
                     <div class="alert alert-dismissible alert-danger" style="margin-top: 27%; margin-left:12px; width:211%">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <strong></strong> <span>@ViewBag.Message</span>
+                        <span>@InsuredTraveling.Resource.Client_NotSuccessfullyAdded</span>
                     </div>
                 </div>
                 }
@@ -171,7 +171,7 @@
 
         <div class="form-group">
             <div class="col-md-10" style="padding:0;">
-                <input type="submit" value="Креирај" class="btn btn-default" />
+                <input type="submit" value="@InsuredTraveling.Resource.Client_AddButton" class="btn btn-default" />
             </div>
         </div>
     </div>

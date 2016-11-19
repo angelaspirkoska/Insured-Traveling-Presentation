@@ -1,7 +1,7 @@
 ﻿@model InsuredTraveling.Models.FirstNoticeOfLossReportViewModel
 
 @{
-    ViewBag.Title = "First Notice of Loss";
+    ViewBag.Title = InsuredTraveling.Resource.FNOL_ViewTitle;
     var noValue = "/";
 }
  @if (ViewBag.Message != null && ViewBag.Message == "Successfully reported!")
@@ -9,18 +9,18 @@
     <div class="row" style="width:35%;">
         <div class="alert alert-dismissible alert-success" style="margin-top: 27%;margin-left:12px; width:211%">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Great!</strong> <span>Успешно ја пријавивте штетата!</span>
+            <span>@InsuredTraveling.Resource.FNOL_SuccessfullyAddedFNOL</span>
         </div>
     </div>
  }
     <div class="form-horizontal">
-        <h3>Штета број @Model.Id</h3>
+        <h3>@InsuredTraveling.Resource.FNOL_Number @Model.Id</h3>
         <hr />
         <div class="row container">
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Број на полиса: </label>
+                        <label>@InsuredTraveling.Resource.FNOL_PolicyNumber: </label>
                         <label>
                             @Model.PolicyNumber
                         </label>
@@ -36,30 +36,30 @@
             </div>
         </div>
         <div class="row container">
-            <header class="well">Податоци за договорувач</header>
+            <header class="well">@InsuredTraveling.Resource.FNOL_PolicyHolderInfo</header>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-lg-8">
-                        <label>Договорувач:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_Name:</label>
                         @Model.PolicyHolderName
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-8">
-                        <label>Адреса:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_Address:</label>
                         @Model.PolicyHolderAdress                    
                     </div>
                 </div>  
                 <div class="form-group">
                     <div class="col-lg-8">
-                        <label>Телефон:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_Phone:</label>
                         @Model.PolicyHolderPhoneNumber
 
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-8">
-                        <label>ЕМБГ:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_SSN:</label>
                         @Model.PolicyHolderSsn                    
                     </div>
                 </div>
@@ -67,43 +67,43 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-lg-6">
-                        <label>Трансакциона сметка:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_BankAccount:</label>
                         @Model.PolicyHolderBankAccountNumber
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-6">
-                       <label>Депонент банка:</label>
+                       <label>@InsuredTraveling.Resource.FNOL_Bank:</label>
                        @Model.PolicyHolderBankName
                     </div>                   
                 </div>
             </div>
         </div>
         <div class="row container">
-            <header class="well">Корисник на осигурувањето</header>
+            <header class="well">@InsuredTraveling.Resource.FNOL_InsuredInfo</header>
             <div class="col-md-6">
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label> Оштетен:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_Name:</label>
                             @Model.ClaimantName
                         </div>
                     </div>
                 <div class="form-group">
                     
                     <div class="col-lg-7">
-                        <label> Адреса:</label>
+                        <label> @InsuredTraveling.Resource.FNOL_Address:</label>
                         @Model.ClaimantAdress                   
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Телефон:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_Phone:</label>
                         @Model.ClaimantPhoneNumber                                      
                     </div>
                 </div>
                 <div class="form-group">
                   <div class="col-lg-7">
-                        <label>ЕМБГ:</label>                        
+                        <label>@InsuredTraveling.Resource.FNOL_SSN:</label>                        
                         @Model.ClaimantSsn
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                 {
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Сродство со осигуреникот:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_RelationshipInsuredHolder:</label>
                             @if (Model.RelationClaimantPolicyHolder!=null)
                             {
                                 @Model.RelationClaimantPolicyHolder
@@ -128,37 +128,37 @@
             <div class="col-md-6">          
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Трансакциона с-ка:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_BankAccount:</label>
                         @Model.ClaimantBankAccountNumber
                     </div>
                 </div>
                 <div class="form-group">
                     
                     <div class="col-lg-7">
-                        <label>Депонент банка:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_Bank:</label>
                         @Model.ClaimantBankName
                     </div>
                 </div>
             </div>
         </div>
         <div class="row container">
-            <header class="well">Податоци за патувањето</header>
+            <header class="well">@InsuredTraveling.Resource.FNOL_TravelInformation</header>
             <div class="col-md-6">
                 <div class="form-group">                   
                     <div class="col-lg-7">
-                        <label> Место на патување:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_TravelPlace:</label>
                         @Model.Destination
                     </div>
                 </div>
                 <div class="form-group">                  
                     <div class="col-lg-7">
-                        <label>Датум на заминување:</label>   
+                        <label>@InsuredTraveling.Resource.FNOL_StartDate:</label>   
                         @Model.DepartDateTime.Date.ToShortDateString()                     
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Време на заминување:</label>                       
+                        <label>@InsuredTraveling.Resource.FNOL_StartTime:</label>                       
                         @Model.DepartTime
                     </div>
                 </div>
@@ -167,19 +167,19 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Превозно средство:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_Vehicle:</label>
                           @Model.TransportMeans
                     </div>
                 </div>
                 <div class="form-group">
                    <div class="col-lg-7">
-                        <label>Датум на враќање:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_EndDate:</label>
                          @Model.ArrivalDateTime.Date.ToShortDateString()       
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Време на враќање:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_EndTime:</label>
                         @Model.ArriveTime
                     </div>
                 </div>
@@ -188,11 +188,11 @@
         @if (Model.IsHealthInsurance)
         {
             <div class="row container">
-                <header class="well">Податоци за штетата - Здравствено осигурување</header>
+                <header class="well">@InsuredTraveling.Resource.FNOL_HealthInsuranceInfo</header>
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Датум на незгодата:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_AccidentDate:</label>
                             @if (Model.AccidentDateTimeHealth.HasValue)
                             {
                                 @Model.AccidentDateTimeHealth.Value.Date.ToShortDateString()
@@ -201,19 +201,19 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Време на незгодата:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_AccidentTime:</label>
                             @Model.AccidentTimeHealth
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Место на незгодата:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_AccidentPlace:</label>
                             @Model.AccidentPlaceHealth
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Датум на посета кај доктор:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_DateWhenDoctorVisit:</label>
                             @if (Model.DoctorVisitDateTime.HasValue)
                             {
                                 @Model.DoctorVisitDateTime.Value.Date.ToShortDateString()
@@ -222,7 +222,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Податоци за докторот:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_DoctorInfo:</label>
                             @Model.DoctorInfo
                         </div>
                     </div>
@@ -230,13 +230,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Опис на болеста:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_DiseaseDescription:</label>
                             @Model.MedicalCaseDescription
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Претходно сте биле лекувани од истата:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_PreviousDiseaseHistory:</label>
                             @if(Model.PreviousMedicalHistory)
                             {
                                 var valueYes = "Да";
@@ -251,7 +251,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Документи приложени како доказ:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_DocumentsAsProof:</label>
                             <br />
                             <table>
                                 @if (Model.InsuranceInfoDoc != null)
@@ -278,9 +278,10 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Во случај на тешка повреда или смрт, кој орган составил записник и детален опис на настанот :</label>
+                            <label>@InsuredTraveling.Resource.FNOL_ReportWroted :</label>
                             @Model.ResponsibleInstitution
                         </div>
+                       
                     </div>
                 </div>
 
@@ -289,12 +290,12 @@
         else
         {
             <div class="row container">
-                <header class="well">Податоци за штетата - Осигурување на багаж</header>
+                <header class="well">@InsuredTraveling.Resource.FNOL_LuggageInsurance</header>
                 <div class="col-md-6">
                     <div class="form-group">
 
                         <div class="col-lg-7">
-                            <label>Датум на настанот:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_AccidentDate:</label>
                             @if (Model.AccidentDateTimeLuggage.HasValue)
                             {
                                 @Model.AccidentDateTimeLuggage.Value.Date.ToShortDateString()
@@ -303,25 +304,25 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-7">
-                            <label>Место на незгодата:</label><br />
+                            <label>@InsuredTraveling.Resource.FNOL_AccidentPlace:</label><br />
                             @Model.AccidentPlaceLuggage
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Опис на настанот:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_AccidentDescription:</label>
                             @Model.PlaceDescription
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Детален опис на настанот:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_AccidentDescriptionDetails:</label>
                             @Model.DetailDescription
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-7">
-                            <label> Место на пријавување:</label><br />
+                            <label> @InsuredTraveling.Resource.FNOL_ReportPlace:</label><br />
                             @Model.ReportPlace
                         </div>
                     </div>
@@ -329,19 +330,19 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Опис на украдените/оштетени предмети:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_FloatersDescription:</label>
                             @Model.Floaters
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Вредност:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_FloatersValue:</label>
                             @Model.FloatersValue
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Документи приложени како доказ :</label>
+                            <label>@InsuredTraveling.Resource.FNOL_DocumentsAsProof :</label>
                             <br/>
                             <table>
                                 @if (Model.InsuranceInfoDoc != null)
@@ -367,13 +368,13 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Време на пристигнување на аеродром :</label>
+                            <label>@InsuredTraveling.Resource.FNOL_AirportTimeArrival :</label>
                             @Model.AccidentTimeLuggage
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Време на предавање на багаж :</label>
+                            <label>@InsuredTraveling.Resource.FNOL_LuggageCheckInTime :</label>
                             @Model.LugaggeCheckingTime
                         </div>
                     </div>
@@ -381,11 +382,11 @@
             </div>
         }
         <div class="row container">
-            <header class="well">Податоци за трошоци</header>
+            <header class="well">@InsuredTraveling.Resource.FNOL_CostInformation</header>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Фактури како доказ:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_InvoicesAsProof:</label>
                         <br/>
                         <table>
                             @if (Model.Invoices != null)
@@ -411,7 +412,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Вкупна вредност на сите трошоци:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_TotalCost:</label>
                         <div class="input-group">
                             @Model.TotalCost
                             <span class="input-group-addon">.00 денари</span>

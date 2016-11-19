@@ -72,5 +72,7 @@ namespace InsuredTraveling.Controllers
             }
             return View();
         }
+
+       
     }
 }

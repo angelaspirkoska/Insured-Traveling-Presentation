@@ -117,6 +117,219 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Client" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="Client_Add" xml:space="preserve">
+    <value>Add Client</value>
+  </data>
+  <data name="Client_AddButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Client_Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Client_Age" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="Client_City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Client_DateBirth" xml:space="preserve">
+    <value>Birth Date</value>
+  </data>
+  <data name="Client_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Client_LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Client_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Client_NotSuccessfullyAdded" xml:space="preserve">
+    <value>Client is not successfully added</value>
+  </data>
+  <data name="Client_Passport" xml:space="preserve">
+    <value>Passport/ ID Number</value>
+  </data>
+  <data name="Client_Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Client_PostalCode" xml:space="preserve">
+    <value>Postal Code</value>
+  </data>
+  <data name="Client_SSN" xml:space="preserve">
+    <value>SSN</value>
+  </data>
+  <data name="Client_SuccessfullyAdded" xml:space="preserve">
+    <value>Client is successfully added</value>
+  </data>
+  <data name="EmailNotValid" xml:space="preserve">
+    <value>Email is not valid</value>
+  </data>
+  <data name="FNOL_AccidentDate" xml:space="preserve">
+    <value>Accident Date</value>
+  </data>
+  <data name="FNOL_AccidentDescription" xml:space="preserve">
+    <value>Accident Description</value>
+  </data>
+  <data name="FNOL_AccidentDescriptionDetails" xml:space="preserve">
+    <value>Details about the accident</value>
+  </data>
+  <data name="FNOL_AccidentPlace" xml:space="preserve">
+    <value>Accident Place</value>
+  </data>
+  <data name="FNOL_AccidentTime" xml:space="preserve">
+    <value>Accident Time</value>
+  </data>
+  <data name="FNOL_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="FNOL_Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="FNOL_AirportTimeArrival" xml:space="preserve">
+    <value>Airport arrival time</value>
+  </data>
+  <data name="FNOL_Bank" xml:space="preserve">
+    <value>Bank</value>
+  </data>
+  <data name="FNOL_BankAccount" xml:space="preserve">
+    <value>Bank Account</value>
+  </data>
+  <data name="FNOL_ChooseBankAccount" xml:space="preserve">
+    <value>Choose Bank Account</value>
+  </data>
+  <data name="FNOL_ChooseInsured" xml:space="preserve">
+    <value>Choose Insured</value>
+  </data>
+  <data name="FNOL_ChoosePreviousBankAccount" xml:space="preserve">
+    <value>Choose Previous Bank Account</value>
+  </data>
+  <data name="FNOL_CostInformation" xml:space="preserve">
+    <value>Cost Information</value>
+  </data>
+  <data name="FNOL_DateWhenDoctorVisit" xml:space="preserve">
+    <value>Date when the doctor was visited</value>
+  </data>
+  <data name="FNOL_DiseaseDescription" xml:space="preserve">
+    <value>Disease Description</value>
+  </data>
+  <data name="FNOL_DoctorInfo" xml:space="preserve">
+    <value>Information about the doctor</value>
+  </data>
+  <data name="FNOL_DocumentsAsProof" xml:space="preserve">
+    <value>Documents as proof</value>
+  </data>
+  <data name="FNOL_EndDate" xml:space="preserve">
+    <value>Travel End Date</value>
+  </data>
+  <data name="FNOL_EndTime" xml:space="preserve">
+    <value>Travel End Time</value>
+  </data>
+  <data name="FNOL_FloatersDescription" xml:space="preserve">
+    <value>Stolen stuff</value>
+  </data>
+  <data name="FNOL_FloatersValue" xml:space="preserve">
+    <value>Stolen stuff value</value>
+  </data>
+  <data name="FNOL_ForeignBankAccount" xml:space="preserve">
+    <value>Foreign Bank Account</value>
+  </data>
+  <data name="FNOL_HealthInsurance" xml:space="preserve">
+    <value>Health Insurance</value>
+  </data>
+  <data name="FNOL_HealthInsuranceInfo" xml:space="preserve">
+    <value>Health Insurance</value>
+  </data>
+  <data name="FNOL_InsuranceType" xml:space="preserve">
+    <value>Type of Insurance</value>
+  </data>
+  <data name="FNOL_InsuredInfo" xml:space="preserve">
+    <value>Inured Information</value>
+  </data>
+  <data name="FNOL_InvoicesAsProof" xml:space="preserve">
+    <value>Invoices as proof</value>
+  </data>
+  <data name="FNOL_LuggageCheckInTime" xml:space="preserve">
+    <value>Luggage check-in time</value>
+  </data>
+  <data name="FNOL_LuggageInsurance" xml:space="preserve">
+    <value>Luggage Insurance</value>
+  </data>
+  <data name="FNOL_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="FNOL_NotSuccessfullyAddedFNOL" xml:space="preserve">
+    <value>The FNOL is not successfully added!</value>
+  </data>
+  <data name="FNOL_Number" xml:space="preserve">
+    <value>FNOL Number</value>
+  </data>
+  <data name="FNOL_Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="FNOL_PolicyHolderInfo" xml:space="preserve">
+    <value>Policy Holder Information</value>
+  </data>
+  <data name="FNOL_PolicyNumber" xml:space="preserve">
+    <value>Policy Number</value>
+  </data>
+  <data name="FNOL_PolicyWithProvideNumberNotExist" xml:space="preserve">
+    <value>Policy with the provided number not exist</value>
+  </data>
+  <data name="FNOL_PreviousDiseaseHistory" xml:space="preserve">
+    <value>Previous disease history</value>
+  </data>
+  <data name="FNOL_RelationshipInsuredHolder" xml:space="preserve">
+    <value>Relationship between the policyholder and the insured</value>
+  </data>
+  <data name="FNOL_ReportPlace" xml:space="preserve">
+    <value>Report Place</value>
+  </data>
+  <data name="FNOL_ReportWroted" xml:space="preserve">
+    <value>In case of serious injury or death, who wrote the report and gave detail explanation </value>
+  </data>
+  <data name="FNOL_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="FNOL_SSN" xml:space="preserve">
+    <value>SSN</value>
+  </data>
+  <data name="FNOL_StartDate" xml:space="preserve">
+    <value>Travel Begin Date</value>
+  </data>
+  <data name="FNOL_StartTime" xml:space="preserve">
+    <value>Travel Begin Time</value>
+  </data>
+  <data name="FNOL_SuccessfullyAddedFNOL" xml:space="preserve">
+    <value>The First Notice of Loss is successfully added!</value>
+  </data>
+  <data name="FNOL_Title" xml:space="preserve">
+    <value>First Notice of Loss</value>
+  </data>
+  <data name="FNOL_TotalCost" xml:space="preserve">
+    <value>Total Cost</value>
+  </data>
+  <data name="FNOL_TravelInformation" xml:space="preserve">
+    <value>Travel Information</value>
+  </data>
+  <data name="FNOL_TravelPlace" xml:space="preserve">
+    <value>Place to Travel</value>
+  </data>
+  <data name="FNOL_UseNumberLatinLetters" xml:space="preserve">
+    <value>Use only numbers or latin letters!</value>
+  </data>
+  <data name="FNOL_UsePreviousBankAccount" xml:space="preserve">
+    <value>Use previous bank account</value>
+  </data>
+  <data name="FNOL_Vehicle" xml:space="preserve">
+    <value>Vehicle</value>
+  </data>
+  <data name="FNOL_ViewTitle" xml:space="preserve">
+    <value>FNOL View</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -138,8 +351,62 @@
   <data name="Home_Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Login_ForgotPassword" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Login_Title" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Login_UserName" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="News_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="News_AddTitle" xml:space="preserve">
+    <value>Add News</value>
+  </data>
+  <data name="News_Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="News_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="News_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="News_Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="News_NoNews" xml:space="preserve">
+    <value>There is no news at this moment</value>
+  </data>
+  <data name="News_Notification" xml:space="preserve">
+    <value>Notification</value>
+  </data>
+  <data name="News_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="News_Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="OnlyNumbers" xml:space="preserve">
+    <value>Enter only numbers</value>
   </data>
   <data name="Policy_AddOffer" xml:space="preserve">
     <value>Add to Offers</value>
@@ -494,6 +761,9 @@
   </data>
   <data name="Search_TravelCountry" xml:space="preserve">
     <value>Travel Country</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign up</value>
   </data>
   <data name="WithNoAddOn" xml:space="preserve">
     <value>With no Add-on</value>

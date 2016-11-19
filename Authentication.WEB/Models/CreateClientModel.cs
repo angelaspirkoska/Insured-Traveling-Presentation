@@ -5,52 +5,52 @@ namespace InsuredTraveling.Models
 {
     public class CreateClientModel
     {
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name="Име: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Client_Name", ResourceType = typeof(Resource))]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Презиме: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Client_LastName", ResourceType = typeof(Resource))]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [RegularExpression("^[0-9]*$", ErrorMessage = "Полето треба да е составено само од цифри")]
-        [Display(Name = "Матичен број: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [RegularExpression("^[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "OnlyNumbers")]
+        [Display(Name = "Client_SSN", ResourceType = typeof(Resource))]
         public string SSN { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Датум на раѓање: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Client_DateBirth", ResourceType = typeof(Resource))]
         public DateTime DateBirth { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Возраст: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Client_Age", ResourceType = typeof(Resource))]
         public int Age { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [EmailAddress(ErrorMessage = "Адресата не е валидна")]
-        [Display(Name = "Е - маил: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [EmailAddress(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "EmailNotValid")]
+        [Display(Name = "Client_Email", ResourceType = typeof(Resource))]
         public string Email { get; set; }
 
-        [RegularExpression("^[0-9]*$", ErrorMessage = "Полето треба да е составено само од цифри")]
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Телефонски број: ")]
+        [RegularExpression("^[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "OnlyNumbers")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Client_Phone", ResourceType = typeof(Resource))]
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Град: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Client_City", ResourceType = typeof(Resource))]
         public string City { get; set; }
 
-        [RegularExpression("^[0-9]*$", ErrorMessage = "Полето треба да е составено само од цифри")]
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Пошетенски број: ")]
+        [RegularExpression("^[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "OnlyNumbers")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Client_PostalCode", ResourceType = typeof(Resource))]
         public string Postal_Code { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Адреса: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Client_Address", ResourceType = typeof(Resource))]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "Полето е задолжително")]
-        [Display(Name = "Број на пасош/идентификација: ")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Client_Passport", ResourceType = typeof(Resource))]
         public string Passport_Number_IdNumber { get; set; }
 
         public int Type_InsuredID { get; set; }

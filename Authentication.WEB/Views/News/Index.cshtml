@@ -2,29 +2,29 @@
 
 <div class="container">
     <div class="row" style="margin-top: 20px;">
-        <h3>Додај новост</h3>
+        <h3>@InsuredTraveling.Resource.News_AddTitle</h3>
         <hr />
         <div col-sm-12>
             <div class="col-sm-3 col-md-12 "></div>
             <div class="col-md-6">
                 <form id="newsForm">
                     <div class="form-group">
-                        <label for="newsTitle">Наслов</label>
-                        <input type="text" class="form-control" name="newsTitle" id="newsTitle" placeholder="Наслов">
+                        <label for="newsTitle">@InsuredTraveling.Resource.News_Title</label>
+                        <input type="text" class="form-control" name="newsTitle" id="newsTitle" placeholder="@InsuredTraveling.Resource.News_Title">
                     </div>
                     <div class="form-group">
-                        <label for="newsImage">Слика</label>
+                        <label for="newsImage">@InsuredTraveling.Resource.News_Image</label>
                         <input type="file" id="newsImage" accept="image/*">
                     </div>
                     <div class="form-group">
-                        <label for="newsContent">Содржина</label>
-                        <textarea class="form-control " name="newsContent" id="newsContent" rows="10" placeholder="Содржина"></textarea>
+                        <label for="newsContent">@InsuredTraveling.Resource.News_Content</label>
+                        <textarea class="form-control " name="newsContent" id="newsContent" rows="10" placeholder="@InsuredTraveling.Resource.News_Content"></textarea>
                     </div>
                     <div class="form-group">
                         <input type="checkbox" id="newsIsNotification" name="newsIsNotification" />
-                        <label for="newsIsNotification">Дали е нотификација</label>
+                        <label for="newsIsNotification">@InsuredTraveling.Resource.News_Notification</label>
                     </div>
-                    <button style="width:100px; margin-left:20px;" type="button" id="addNewsBtn" class="btn btn-success">Креирај</button>
+                    <button style="width:100px; margin-left:20px;" type="button" id="addNewsBtn" class="btn btn-success">@InsuredTraveling.Resource.News_Add</button>
                 </form>
             </div>
         </div>
@@ -32,12 +32,12 @@
     <div class="row">
         @if (Model == null || Model.Count() == 0)
         {
-            <h3>Нема новости во овој момент</h3>
+            <h3>@InsuredTraveling.Resource.News_NoNews</h3>
         }
         else
         {
             <br />
-            <h3>Новости:</h3>
+            <h3>@InsuredTraveling.Resource.News:</h3>
             <hr />
             foreach (var news in Model)
             {
@@ -52,9 +52,9 @@
                         <p class="media-content">@news.Content</p>
                         @*<div id="buttons" class="col-sm-2">*@
                         <span hidden id="newsId">@news.ID</span>
-                        <button onclick="editNews(this)" style="width: 50px;" class="btn btn-xs btn-info btnEditNews">edit</button>
-                        <button onclick="saveNews(this)" style="display:none; width: 50px;" class="btn btn-xs btn-success btnSaveNews">save</button>
-                        <button onclick="deleteNews(this)" style="width: 50px;" class="btn btn-xs btn-danger btnDeleteNews">delete</button>
+                        <button onclick="editNews(this)" style="width: 50px;" class="btn btn-xs btn-info btnEditNews">@InsuredTraveling.Resource.News_Edit</button>
+                        <button onclick="saveNews(this)" style="display:none; width: 50px;" class="btn btn-xs btn-success btnSaveNews">@InsuredTraveling.Resource.News_Save</button>
+                        <button onclick="deleteNews(this)" style="width: 50px;" class="btn btn-xs btn-danger btnDeleteNews">@InsuredTraveling.Resource.News_Delete</button>
                         @*</div>*@
                     </div>
                 </div>

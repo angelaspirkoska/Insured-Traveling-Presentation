@@ -19,23 +19,5 @@ namespace InsuredTraveling.Controllers
             }
             return View();
         }
-        
-        public ActionResult ChangeLanguage(string lang)
-        {
-            new SiteLanguages().SetLanguage(lang);
-            return RedirectToLocal(Request.UrlReferrer.AbsoluteUri);
-        }
-
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (!String.IsNullOrEmpty(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
     }
 }
