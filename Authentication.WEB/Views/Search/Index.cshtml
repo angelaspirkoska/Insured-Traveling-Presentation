@@ -1,4 +1,5 @@
-﻿@{HtmlHelper.UnobtrusiveJavaScriptEnabled = true;}
+﻿
+@{HtmlHelper.UnobtrusiveJavaScriptEnabled = true;}
 @model InsuredTravelingEntity
 @using InsuredTraveling.Filters
 @using System.Web.Optimization;
@@ -26,60 +27,113 @@
         <div class="row">
             <form method="post" style="margin-left: 20px">
                 <div class="row">
-                    <div class="form-inline row">
-                        <div class="form-group col-sm-3">
-                            <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyType:</label>
-                            <br />
-                            @Html.DropDownListFor(model => model.policy_type, (List<SelectListItem>)ViewBag.TypeOfPolicy, "-- Type of policy --", new { @class = "form-control", name = "TypePolicy", id = "TypePolicy" })
+                    
+                    <div class="row">
+                        
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyType:</label>
+                                <br />
+                                @Html.DropDownListFor(model => model.policy_type, (List<SelectListItem>)ViewBag.TypeOfPolicy, "-- Type of policy --", new { @class = "form-control", name = "TypePolicy", id = "TypePolicy" })
+                            </div>
                         </div>
-                        <div class="form-group col-sm-3">
-                            <label for="country">@InsuredTraveling.Resource.Search_TravelCountry:</label>
-                            @Html.DropDownListFor(model => model.countries, (List<SelectListItem>)ViewBag.Countries, "-- Country --", new { @class = "form-control", name = "Country", id = "Country" })
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="country">@InsuredTraveling.Resource.Search_TravelCountry:</label>
+                                @Html.DropDownListFor(model => model.countries, (List<SelectListItem>) ViewBag.Countries, "-- Country --", new {@class = "form-control", name = "Country", id = "Country"})
+                            </div>
                         </div>
-                        <div class="form-group col-sm-3">
-                            <label for="country">@InsuredTraveling.Resource.Search_PolicyNumber:</label>
-                            <input class="form-control input-sm" type="text" id="PolicyNumber" name="PolicyNumber" />
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="country">@InsuredTraveling.Resource.Search_PolicyNumber:</label>
+                                <input class="form-control" type="text" id="PolicyNumber" name="PolicyNumber" />
+                            </div>
                         </div>
+
                     </div>
-                    <div class="form-inline row">
-                        <div class="form-group col-sm-3">
-                            <label for="startDate">@InsuredTraveling.Resource.Search_PolicyEffectiveDate:</label>
-                            <input type="date" id="startDate" class="form-control placeholder" />
-                            <select id="operatorStartDate">
-                                <option>&lt</option>
-                                <option>=</option>
-                                <option>&gt</option>
-                            </select>
+
+                    <div class="row">
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="startDate">@InsuredTraveling.Resource.Search_PolicyEffectiveDate:</label>
+                                <div class="input-group">
+                                    <input type="date" id="startDate" class="form-control placeholder"/>
+                                    <div class="input-group-btn">
+                                        <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                            = <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li onclick="$('#operatorStartDate').html(' = ');">=</li>
+                                            <li onclick="$('#operatorStartDate').html(' < ');">&lt</li>
+                                            <li onclick="$('#operatorStartDate').html(' > ');">&gt</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group col-sm-3">
-                            <label for="endDate">@InsuredTraveling.Resource.Search_PolicyExpiryDate</label>
-                            <input type="date" name="endDate" class="form-control" id="endDate" />
-                            <select id="operatorEndDate">
-                                <option>&lt</option>
-                                <option>=</option>
-                                <option>&gt</option>
-                            </select>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="endDate">@InsuredTraveling.Resource.Search_PolicyExpiryDate</label>
+                                <div class="input-group">
+                                    <input type="date" name="endDate" class="form-control" id="endDate"/>
+                                    <div class="input-group-btn">
+                                        <button type="button" id="operatorEndDate" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                            = <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li onclick="$('#operatorEndDate').html(' = ');">=</li>
+                                            <li onclick="$('#operatorEndDate').html(' < ');">&lt</li>
+                                            <li onclick="$('#operatorEndDate').html(' > ');">&gt</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
-                    <div class="form-inline row">
-                        <div class="form-group col-sm-3">
-                            <label for="startDate">@InsuredTraveling.Resource.Search_PolicyIssuanceDate:</label>
-                            <input type="date" class="form-control placeholder" id="dateI" />
-                            <select id="operatorDateI">
-                                <option>&lt</option>
-                                <option>=</option>
-                                <option>&gt</option>
-                            </select>
+
+                    <div class="row">
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="startDate">@InsuredTraveling.Resource.Search_PolicyIssuanceDate:</label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control placeholder" id="dateI"/>
+                                    <div class="input-group-btn">
+                                        <button type="button" id="operatorDateI" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                            = <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li onclick="$('#operatorDateI').html(' = ');">=</li>
+                                            <li onclick="$('#operatorDateI').html(' < ');">&lt</li>
+                                            <li onclick="$('#operatorDateI').html(' > ');">&gt</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group col-sm-3">
-                            <label for="endDate">@InsuredTraveling.Resource.Search_CancellationDate:</label>
-                            <input type="date" id="dateS" class="form-control" />
-                            <select id="operatorDateS">
-                                <option>&lt</option>
-                                <option>=</option>
-                                <option>&gt</option>
-                            </select>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="endDate">@InsuredTraveling.Resource.Search_CancellationDate:</label>
+                                <div class="input-group">
+                                    <input type="date" id="dateS" class="form-control" />
+                                    <div class="input-group-btn">
+                                        <button type="button" id="operatorDateS" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                            = <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li onclick="$('#operatorDateS').html(' = ');">=</li>
+                                            <li onclick="$('#operatorDateS').html(' < ');">&lt</li>
+                                            <li onclick="$('#operatorDateS').html(' > ');">&gt</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -145,42 +199,70 @@
         <div class="row">
             <form method="post" style="margin-left:20px;">
                 <div class="row">
-                    <div class="form-inline row">
-                        <div class="form-group col-sm-3">
-                            <input type="search" name="name" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="name" />
+                    
+                    <div class="row">
+                        
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="search" name="name" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="name"/>
+                            </div>
                         </div>
-                        <div class="form-group col-sm-3">
-                            <input type="search" name="lastname" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchLastName" id="lastname" />
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="search" name="lastname" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchLastName" id="lastname"/>
+                            </div>
                         </div>
-                        <div class="form-group col-sm-3">
-                            <input type="search" name="embg" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchSSN" id="embg" />
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="search" name="embg" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchSSN" id="embg"/>
+                            </div>
                         </div>
+
                     </div>
-                    <div class="form-inline row">
-                        <div class="form-group col-sm-3">
-                            <input type="search" name="address" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchAddress" id="address" />
+
+                    <div class="row">
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="search" name="address" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchAddress" id="address" />
+                            </div>
                         </div>
-                        <div class="form-group col-sm-3">
-                            <input type="search" name="city" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchCity" id="city" />
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="search" name="city" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchCity" id="city" />
+                            </div>
                         </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="search" name="postal_code" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchPostalCode" id="postal_code" />
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="form-inline row">
-                        <div class="form-group col-sm-3">
-                            <input type="search" name="postal_code" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchPostalCode" id="postal_code" />
+
+                    <div class="row">
+                        
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="search" name="phone" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchPhoneNumber" id="phone" />
+                            </div>
                         </div>
-                        <div class="form-group col-sm-3">
-                            <input type="search" name="phone" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchPhoneNumber" id="phone" />
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="search" name="email" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchEmail" id="email" />
+                            </div>
                         </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="search" name="passport" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchPassport" id="passport" />
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="form-inline row">
-                        <div class="form-group col-sm-3">
-                            <input type="search" name="email" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchEmail" id="email" />
-                        </div>
-                        <div class="form-group col-sm-3">
-                            <input type="search" name="passport" class="input-sm" placeholder="@InsuredTraveling.Resource.Search_SearchPassport" id="passport" />
-                        </div>
-                    </div>
+
                 </div>
+
                 <br />
                 <br />
             </form>
@@ -267,63 +349,109 @@
         <div class="row" id="searchFNOLAttributes">
             <form method="post" style="margin-left: 20px">
                 <div class="row">
+                    
                     <div class="form-inline row">
-                        <div class="form-group col-sm-3">
-                            <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyNumber :</label>
-                            <br />
-                            <input class="form-control input-sm" type="text" id="PolicyNumberFNL" name="PolicyNumberFNL" />
+                        
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyNumber :</label>
+                                <br />
+                                <input class="form-control" type="text" id="PolicyNumberFNL" name="PolicyNumberFNL" />
+                            </div>
                         </div>
-                        <div class="form-group col-sm-3">
-                            <label for="startDate">@InsuredTraveling.Resource.Search_RegistrationDate:</label>
-                            <input type="date" class="form-control placeholder" id="DateAdded" />
-                            <select id="operatorDateAdded">
-                                <option>&lt</option>
-                                <option>=</option>
-                                <option>&gt</option>
-                            </select>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="startDate">@InsuredTraveling.Resource.Search_RegistrationDate:</label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control placeholder" id="DateAdded"/>
+                                    <div class="input-group-btn">
+                                        <button type="button" id="operatorDateAdded" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                            = <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li onclick="$('#operatorDateAdded').html(' = ');">=</li>
+                                            <li onclick="$('#operatorDateAdded').html(' < ');">&lt</li>
+                                            <li onclick="$('#operatorDateAdded').html(' > ');">&gt</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
+
                     <div class="form-inline row">
-                        <div class="form-group col-sm-3">
-                            <label for="holderName">@InsuredTraveling.Resource.Search_HolderName:</label>
-                            <input type="search" name="holderName" class="input-sm" placeholder="Search by name" id="holderName" />
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="holderName">@InsuredTraveling.Resource.Search_HolderName:</label>
+                                <input type="search" name="holderName" class="form-control" placeholder="Search by name" id="holderName"/>
+                            </div>
                         </div>
-                        <div class="form-group col-sm-3">
-                            <label for="holderLastName">@InsuredTraveling.Resource.Search_HolderLastName:</label>
-                            <input type="search" name="holderLastName" class="input-sm" placeholder="Search by last name" id="holderLastName" />
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="holderLastName">@InsuredTraveling.Resource.Search_HolderLastName:</label>
+                                <input type="search" name="holderLastName" class="form-control" placeholder="Search by last name" id="holderLastName"/>
+                            </div>
                         </div>
+
                     </div>
+
                     <div class="form-inline row">
-                        <div class="form-group col-sm-3">
-                            <label for="clientName">@InsuredTraveling.Resource.Search_InsuredName:</label>
-                            <input type="search" name="clientName" class="input-sm" placeholder="Search by name" id="clientName" />
+                        
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="clientName">@InsuredTraveling.Resource.Search_InsuredName:</label>
+                                <input type="search" name="clientName" class="form-control" placeholder="Search by name" id="clientName" />
+                            </div>
                         </div>
-                        <div class="form-group col-sm-3">
-                            <label for="clientLastName">@InsuredTraveling.Resource.Search_InsuredLastName:</label>
-                            <input type="search" name="clientLastName" class="input-sm" placeholder="Search by last name" id="clientLastName" />
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="clientLastName">@InsuredTraveling.Resource.Search_InsuredLastName:</label>
+                                <input type="search" name="clientLastName" class="form-control" placeholder="Search by last name" id="clientLastName" />
+                            </div>
                         </div>
+
                     </div>
+
                     <div class="form-inline row">
-                        <div class="form-group col-sm-3">
-                            <label for="insuredName">@InsuredTraveling.Resource.Search_ClaimantName:</label>
-                            <input type="search" name="insuredName" class="input-sm" placeholder="Search by name" id="insuredName" />
+                        
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="insuredName">@InsuredTraveling.Resource.Search_ClaimantName:</label>
+                                <input type="search" name="insuredName" class="form-control" placeholder="Search by name" id="insuredName" />
+                            </div>
                         </div>
-                        <div class="form-group col-sm-3">
-                            <label for="insuredLastName">@InsuredTraveling.Resource.Search_ClaimantLastName: </label>
-                            <input type="search" name="insuredLastName" class="input-sm" placeholder="Search by last name" id="insuredLastName" />
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="insuredLastName">@InsuredTraveling.Resource.Search_ClaimantLastName: </label>
+                                <input type="search" name="insuredLastName" class="form-control" placeholder="Search by last name" id="insuredLastName" />
+                            </div>
                         </div>
+
                     </div>
+
                     <div class="form-inline row">
-                        <div class="form-group col-sm-3">
-                            <label for="totalPrice">@InsuredTraveling.Resource.Search_TotalCost:</label>
-                            <input type="search" name="totalPrice" class="input-sm" placeholder="Search by Total Cost" id="totalPrice" />
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="totalPrice">@InsuredTraveling.Resource.Search_TotalCost:</label>
+                                <input type="search" name="totalPrice" class="form-control" placeholder="Search by Total Cost" id="totalPrice" />
+                            </div>
                         </div>
-                        <div class="form-group col-sm-3">
-                            <input type="radio" name="typeInsurance" value="healthInsurance" id="healthInsurance"> @InsuredTraveling.Resource.Search_HealthInsurance<br>
-                            <input type="radio" name="typeInsurance" value="luggageInsurance" id="luggageInsurance">@InsuredTraveling.Resource.Search_LuggageInsurance<br>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="col-md-12">&nbsp;</label>
+                                <input type="radio" name="typeInsurance" value="healthInsurance" id="healthInsurance"> @InsuredTraveling.Resource.Search_HealthInsurance<br>
+                                <input type="radio" name="typeInsurance" value="luggageInsurance" id="luggageInsurance">@InsuredTraveling.Resource.Search_LuggageInsurance<br>
+                            </div>
                         </div>
+
                     </div>
+
                 </div>
+
                 <br />
                 <div class="row col-md-12">
                     <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="Search" onclick="SearchFNOL()" type="button" style="float:left;" />
