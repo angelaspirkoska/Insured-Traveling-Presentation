@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using InsuredTraveling.DI;
 using InsuredTraveling.Filters;
-using InsuredTraveling.Controllers;
 
 namespace Authentication.WEB.Controllers
 {
@@ -59,9 +58,9 @@ namespace Authentication.WEB.Controllers
             ViewBag.Countries = countries.Result;
             ViewBag.Franchise = franchises.Result;
             ViewBag.additional_charges = additional_charges.Result;
-            ViewBag.Date = String.Format("{0:00}", DateTime.Now.Day) +String.Format("/{0:00}/",DateTime.Now.Month)+ DateTime.Now.Year;
+            ViewBag.Date = DateTime.Now.Year +String.Format("/{0:00}/",DateTime.Now.Month)+ String.Format("{0:00}", DateTime.Now.Day);
             DateTime inTenDays = DateTime.Now.AddDays(9);
-             ViewBag.DateAfterTenDays =  String.Format("{0:00}", inTenDays.Day) + String.Format("/{0:00}/", inTenDays.Month)+ inTenDays.Year;
+            ViewBag.DateAfterTenDays = inTenDays.Year + String.Format("/{0:00}/", inTenDays.Month)+ String.Format("{0:00}", inTenDays.Day);
             //ViewBag.Date = DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day;
 
             return View();
@@ -130,8 +129,9 @@ namespace Authentication.WEB.Controllers
         {
             PaymentModel pat = new PaymentModel();
             pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
-            pat.mainInsured = _pis.GetAllInsuredByPolicyId(pat.Pat.ID).First();
-            //  model.additionalCharge1 = 
+            
+            pat.mainInsured = _pis.GetAllInsuredByPolicyIdAndInsuredCreatedBy(pat.Pat.ID, pat.Pat.Created_By).First();
+            //  model.additionalCharge1 = s
             var policy = _ps.GetPolicyById(pat.Pat.ID);
             var additionalCharges = _acs.GetAdditionalChargesByPolicyId(pat.Pat.ID);
 
@@ -203,20 +203,39 @@ namespace Authentication.WEB.Controllers
                 var loggedUserSsn = _us.GetUserSsnByUsername(username);
                 //var loggedUserData = _iss.GetInsuredDataBySsn(loggedUserSsn);
                 var loggedUserData = _iss.GetInsuredBySsnAndCreatedBy(loggedUserSsn, _us.GetUserIdByUsername(username));
-                
+                JObject insuredData = new JObject();
                 if (loggedUserData == null)
                 {
+                    var loggedUser = _us.GetUserDataByUsername(username);
+                    //if (loggedUser.Address == null || loggedUser.Municipality == null || loggedUser.PostalCode == null || loggedUser.PassportNumber == null || loggedUser.EMBG == null )
+                    //{
+                    //    Result.Add("response", "Ne e popolneto se");
+                    //    return Result;
+                    //}
+                    //else
+                    //{
+
+                    //}
+                    
+                    insuredData.Add("FirstName", loggedUser.FirstName);
+                    insuredData.Add("Name", loggedUser.LastName);
+                    insuredData.Add("Address", loggedUser.Address);
+                    insuredData.Add("City", loggedUser.City);
+                    insuredData.Add("PostalCode", loggedUser.PostalCode);
+                    insuredData.Add("Ssn", loggedUser.EMBG);
+
+                    insuredData.Add("DateBirth", loggedUser.DateOfBirth.Year + String.Format("-{0:00}-{0:00}", +loggedUser.DateOfBirth.Month, loggedUser.DateOfBirth.Day));
+                    insuredData.Add("PassportID", loggedUser.PassportNumber);
+                    insuredData.Add("Email", loggedUser.Email);
+                    insuredData.Add("PhoneNumber", loggedUser.MobilePhoneNumber);
+
+                    Result.Add("InsuredData", insuredData);
+
                     Result.Add("response", "Not registered insured");
                     return Result;
                 }
 
-                if(loggedUserData.Name == null)
-                {
-                    //da vrati deka ne su vneseni podatoci!
-                }
-
-
-                JObject insuredData = new JObject();
+               
 
                 insuredData.Add("FirstName", loggedUserData.Name);
                 insuredData.Add("Name", loggedUserData.Lastname);

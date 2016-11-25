@@ -14,9 +14,13 @@ namespace InsuredTraveling.DI
         insured GetInsuredData(int InsuredId);
         insured GetInsuredDataBySsn(string Ssn);
         int GetInsuredIdBySsn(string Ssn);
+        int GetInsuredIdBySsnAndCreatedBy(string Ssn, string userId);
         insured GetInsuredBySsn(string Ssn);
         insured GetInsuredBySsnAndCreatedBy(string Ssn, string userId);
         List<insured> GetInsuredBySearchValues(string name, string lastname, string embg, string address, string email, string postal_code, string phone, string city, string passport);
+
+        void UpdateInsuredData(insured insured);
+
 
     }
 }

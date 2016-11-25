@@ -38,13 +38,13 @@
                 @Html.LabelFor(model => model.Travel_NumberID, htmlAttributes: new { @class = "control-label" })
                 <div class="checkbox-container">
                     <label class="radio-inline ">
-                        <input type="radio" name="Travel_NumberID" checked="checked" value="1" />
+                        <input type="radio" name="Travel_NumberID" checked="checked" value="1" class="numberTrips" />
                         @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "1", @text = "Едно патување" })*@
                         <label for="radio1" checked="checked">@InsuredTraveling.Resource.Policy_OneTrip</label>
                     </label>
                     <br />
                     <label class="radio-inline">
-                        <input type="radio" name="Travel_NumberID" value="2" />
+                        <input type="radio" name="Travel_NumberID" value="2"  class="numberTrips"/>
                         @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "2", @text = "Повеќе патувања" })*@
                         <label for="radio1">@InsuredTraveling.Resource.Policy_MoreTrip</label>
                     </label>
@@ -56,7 +56,7 @@
             <div class="form-group col-sm-3">
                 @Html.LabelFor(model => model.Start_Date, htmlAttributes: new { @class = "control-label"})
                 <div class="inputs-spacing">
-                    @Html.EditorFor(model => model.Start_Date, "{0:dd/mm/yy}", new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField" } })
+                    @Html.EditorFor(model => model.Start_Date, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField" } })
                     @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
                 </div>
                 <input type="hidden" id="inTenDays" name="inTenDays" value="@ViewBag.DateAfterTenDays">
@@ -148,8 +148,8 @@
                         </div>
                         @Html.LabelFor(model => model.PolicyHolderPhoneNumber, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderPhoneNumber, new { htmlAttributes = new { @class = "form-control", } })
-                            @Html.ValidationMessageFor(model => model.PolicyHolderPhoneNumber, "", new { @class = "text-danger mandatoryField" })
+                            @Html.EditorFor(model => model.PolicyHolderPhoneNumber, new { htmlAttributes = new { @class = "form-control  mandatoryField", } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderPhoneNumber, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
@@ -407,6 +407,11 @@
 
     });
    
+    $(".mandatoryField, #Policy_TypeID, #Retaining_RiskID, #CountryID, .numberTrips, #additional_charges_1__ID, #additional_charges_0__ID, #single_type, #family_type, #group_type").on('change', function () {
+        alert("neso");
+        $(".hideMe").hide();
+    })
+    
     
     $(".input-sm, .text-box").keypress(function (event) {
         var ew = event.which;
@@ -425,8 +430,11 @@
 
     function ValidateFields() {
         var flag = true;
+        
         $.each($('.mandatoryField'), function () {
             if ($(this).val().length == "") {
+                alert("foro" + this);
+                console.log(this);
                 flag = false;
             }
         });
@@ -437,9 +445,9 @@
 
 
     function CalculateTotalPremium() {
-
+        
         var flag = ValidateFields();
-
+        console.log(flag);
         if (flag) {
                     $.ajax({
                         type: "POST",
@@ -524,21 +532,21 @@
     });
 
     $("#Start_Date").datepicker({
-        dateFormat: "dd/mm/yy",
+        dateFormat: "mm/dd/yy",
         onSelect: function (selected) {
             $("#End_Date").datepicker("option", "minDate", selected);
         },
     });
 
     $("#End_Date").datepicker({
-        dateFormat: "dd/mm/yy",
+        dateFormat: "mm/dd/yy",
         onSelect: function (selected) {
             $("#Start_Date").datepicker("option", "maxDate", selected);
         },
     });
 
     $("#BirthDate").datepicker({
-        dateFormat: "dd/mm/yy",
+        dateFormat: "mm/dd/yy",
         onSelect: function (selected) {
         },
     });
@@ -579,7 +587,7 @@
     $("#IsSamePolicyHolderInsured").change(function () {
         if (this.checked) {
             // $("#hideWhenSamePerson").hide();
-            $("#hideWhenSamePerson .form-control").prop('readonly', true);
+           // $("#hideWhenSamePerson .form-control").prop('readonly', true);
             $.ajax({
                 type: "GET",
                 url: "/Policy/GetExistentLoggedInUserData",

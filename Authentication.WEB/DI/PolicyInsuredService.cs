@@ -29,6 +29,12 @@ namespace InsuredTraveling.DI
            
             return insuredsID;
         }
-      
+        public List<insured> GetAllInsuredByPolicyIdAndInsuredCreatedBy(int id, string createdById)
+        {
+            var insuredsID = _db.policy_insured.Where(x => x.PolicyID == id && x.insured.Created_By == createdById).Select(x => x.insured).ToList();
+
+            return insuredsID;
+        }
+
     }
 }

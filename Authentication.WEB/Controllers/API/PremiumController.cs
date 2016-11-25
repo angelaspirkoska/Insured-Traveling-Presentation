@@ -59,6 +59,9 @@ namespace Authentication.WEB.Controllers
                 ModelState.Remove("PolicyHolderPostalCode");
                 ModelState.Remove("PolicyHolderPhoneNumber");
                 ModelState.Remove("PolicyHolderSSN");
+              //  string[] s = policy.test.ToString().Split('/');
+
+              //  policy.Start_Date = new System.DateTime();
             }
            
             

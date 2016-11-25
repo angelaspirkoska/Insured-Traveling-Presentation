@@ -64,5 +64,12 @@ namespace InsuredTraveling.DI
             return SSNLoggedUser.Equals(SSNSelectedInsured);
 
         }
+
+        public void UpdateSsnById(string id, string ssn)
+        {
+            var user = _db.aspnetusers.Where(x => x.Id.Equals(id)).FirstOrDefault();
+            user.EMBG = ssn;
+            _db.SaveChanges();
+        }
     }
 }

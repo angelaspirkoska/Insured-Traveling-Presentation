@@ -33,12 +33,14 @@ namespace InsuredTraveling.Models
         public string Franchise_Age { get; set; }
 
         [Required]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
-        [Display(Name = "Policy_PolicyEffectiveDate", ResourceType = typeof(Resource))]     
+        // [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        [Display(Name = "Policy_PolicyEffectiveDate", ResourceType = typeof(Resource))]
         public DateTime Start_Date { get; set; }
 
+        public string test { get; set; }
+
         [Required]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
         [Display(Name = "Policy_PolicyExpiryDate", ResourceType = typeof(Resource))]       
         public DateTime End_Date { get; set; }
 

@@ -17,7 +17,30 @@ namespace InsuredTraveling.Helpers
             //update na razlicni polinja?!?!?!
             if (insuredId != -1)
             {
-              return insuredId;
+                insured updateInsuredData = new insured();
+
+                
+                updateInsuredData.ID = insuredId;
+                updateInsuredData.Name = FirstName;
+                updateInsuredData.Lastname = LastName;
+                updateInsuredData.SSN = SSN;
+
+                updateInsuredData.Email = Email;
+                updateInsuredData.DateBirth = BirthDate;
+                updateInsuredData.Phone_Number = PhoneNumber;
+
+                updateInsuredData.Passport_Number_IdNumber = PassportNumber_ID;
+
+                updateInsuredData.City = City;
+                updateInsuredData.Postal_Code = PostalCode;
+                updateInsuredData.Address = Address;
+
+                updateInsuredData.Date_Modified = DateTime.Now;
+                updateInsuredData.Modified_By = CreatedById;
+
+                _iss.UpdateInsuredData(updateInsuredData);
+
+                return insuredId;
             }
 
        

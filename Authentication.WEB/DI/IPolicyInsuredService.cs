@@ -11,7 +11,7 @@ namespace InsuredTraveling.DI
         List<insured> GetAllInsuredByPolicyId(int id);
 
         int Add(policy_insured policyInsured);
-
+        List<insured> GetAllInsuredByPolicyIdAndInsuredCreatedBy(int id, string createdById);
         policy_insured Create();
        
     }
