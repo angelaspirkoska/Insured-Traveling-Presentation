@@ -10,14 +10,21 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Doplatok" Type="text" Nullable="false" />
           <Property Name="Percentage" Type="double" />
-          <Property Name="Surcharge" Type="text" />
           <Property Name="Created_Date" Type="date" Nullable="false" />
           <Property Name="Created_By" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="Modified_Date" Type="date" Nullable="false" />
           <Property Name="Modified_By" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="Version" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="additional_charge_name">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="additional_charge_id" Type="int" Nullable="false" />
+          <Property Name="language_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="additional_info">
           <Key>
@@ -143,6 +150,15 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="countries_name">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="countries_id" Type="int" Nullable="false" />
+          <Property Name="language_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="discount_age">
           <Key>
@@ -470,6 +486,15 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="type" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="policy_type_name">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="policy_type_id" Type="int" Nullable="false" />
+          <Property Name="language_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
         <EntityType Name="refreshtokens">
           <Key>
             <PropertyRef Name="Id" />
@@ -488,6 +513,15 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Franchise" Type="text" Nullable="false" />
           <Property Name="Dedactible" Type="text" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="retaining_risk_name">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="retaining_risk_id" Type="int" Nullable="false" />
+          <Property Name="language_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -604,6 +638,30 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <Property Name="DateBirth" Type="date" Nullable="false" />
           <Property Name="Gender" Type="varchar" MaxLength="64" Nullable="false" />
         </EntityType>
+        <Association Name="additional_charge_name_ibfk_1">
+          <End Role="languages" Type="Self.languages" Multiplicity="1" />
+          <End Role="additional_charge_name" Type="Self.additional_charge_name" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="languages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="additional_charge_name">
+              <PropertyRef Name="language_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="additional_charge_name_ibfk_2">
+          <End Role="additional_charge" Type="Self.additional_charge" Multiplicity="1" />
+          <End Role="additional_charge_name" Type="Self.additional_charge_name" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="additional_charge">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="additional_charge_name">
+              <PropertyRef Name="additional_charge_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="bank_account_info_ibfk_1">
           <End Role="insured" Type="Self.insured" Multiplicity="1" />
           <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="*" />
@@ -1286,6 +1344,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
         </Association>
         <EntityContainer Name="EntitiesStoreContainer">
           <EntitySet Name="additional_charge" EntityType="Self.additional_charge" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="additional_charge_name" EntityType="Self.additional_charge_name" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="additional_info" EntityType="Self.additional_info" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="aspnetroles" EntityType="Self.aspnetroles" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaims" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1297,6 +1356,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="clients" EntityType="Self.clients" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="company" EntityType="Self.company" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="countries" EntityType="Self.countries" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="countries_name" EntityType="Self.countries_name" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="discount_age" EntityType="Self.discount_age" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="discount_country" EntityType="Self.discount_country" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="discount_days" EntityType="Self.discount_days" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1324,8 +1384,10 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="policy_insured" EntityType="Self.policy_insured" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="policy_status" EntityType="Self.policy_status" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="policy_type" EntityType="Self.policy_type" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="policy_type_name" EntityType="Self.policy_type_name" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="refreshtokens" EntityType="Self.refreshtokens" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="retaining_risk" EntityType="Self.retaining_risk" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="retaining_risk_name" EntityType="Self.retaining_risk_name" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="travel_duration" EntityType="Self.travel_duration" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="travel_insurance_type" EntityType="Self.travel_insurance_type" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="travel_number" EntityType="Self.travel_number" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1358,6 +1420,14 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
 `transaction`.`Ime_I_ Prezime`
 FROM `transaction` AS `transaction`</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="additional_charge_name_ibfk_1" Association="Self.additional_charge_name_ibfk_1">
+            <End Role="languages" EntitySet="languages" />
+            <End Role="additional_charge_name" EntitySet="additional_charge_name" />
+          </AssociationSet>
+          <AssociationSet Name="additional_charge_name_ibfk_2" Association="Self.additional_charge_name_ibfk_2">
+            <End Role="additional_charge" EntitySet="additional_charge" />
+            <End Role="additional_charge_name" EntitySet="additional_charge_name" />
+          </AssociationSet>
           <AssociationSet Name="bank_account_info_ibfk_1" Association="Self.bank_account_info_ibfk_1">
             <End Role="insured" EntitySet="insured" />
             <End Role="bank_account_info" EntitySet="bank_account_info" />
@@ -1592,9 +1662,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Doplatok" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Percentage" Type="Double" />
-          <Property Name="Surcharge" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Created_Date" Type="DateTime" Nullable="false" />
           <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Modified_Date" Type="DateTime" Nullable="false" />
@@ -1603,6 +1671,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="aspnetuser" Relationship="Self.fk_additional_charge_created_by" FromRole="additional_charge" ToRole="aspnetusers" />
           <NavigationProperty Name="policy_additional_charge" Relationship="Self.fk_additional_charge_id" FromRole="additional_charge" ToRole="policy_additional_charge" />
           <NavigationProperty Name="aspnetuser1" Relationship="Self.fk_additional_charge_modified_by" FromRole="additional_charge" ToRole="aspnetusers" />
+          <NavigationProperty Name="additional_charge_name" Relationship="Entities.additional_charge_name_ibfk_2" FromRole="additional_charge" ToRole="additional_charge_name" />
         </EntityType>
         <EntityType Name="additional_info">
           <Key>
@@ -3197,6 +3266,18 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           </AssociationSet>
           <EntitySet Name="payment_status" EntityType="Entities.payment_status" />
           <EntitySet Name="languages" EntityType="Entities.language" />
+          <EntitySet Name="additional_charge_name" EntityType="Entities.additional_charge_name" />
+          <EntitySet Name="countries_name" EntityType="Entities.countries_name" />
+          <EntitySet Name="policy_type_name" EntityType="Entities.policy_type_name" />
+          <EntitySet Name="retaining_risk_name" EntityType="Entities.retaining_risk_name" />
+          <AssociationSet Name="additional_charge_name_ibfk_2" Association="Entities.additional_charge_name_ibfk_2">
+            <End Role="additional_charge" EntitySet="additional_charge" />
+            <End Role="additional_charge_name" EntitySet="additional_charge_name" />
+          </AssociationSet>
+          <AssociationSet Name="additional_charge_name_ibfk_1" Association="Entities.additional_charge_name_ibfk_1">
+            <End Role="language" EntitySet="languages" />
+            <End Role="additional_charge_name" EntitySet="additional_charge_name" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -3213,7 +3294,70 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="CultureName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="additional_charge_name" Relationship="Entities.additional_charge_name_ibfk_1" FromRole="language" ToRole="additional_charge_name" />
         </EntityType>
+        <EntityType Name="additional_charge_name">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="additional_charge_id" Type="Int32" Nullable="false" />
+          <Property Name="language_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="additional_charge" Relationship="Entities.additional_charge_name_ibfk_2" FromRole="additional_charge_name" ToRole="additional_charge" />
+          <NavigationProperty Name="language" Relationship="Entities.additional_charge_name_ibfk_1" FromRole="additional_charge_name" ToRole="language" />
+        </EntityType>
+        <EntityType Name="countries_name">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="countries_id" Type="Int32" Nullable="false" />
+          <Property Name="language_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="policy_type_name">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="policy_type_id" Type="Int32" Nullable="false" />
+          <Property Name="language_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="retaining_risk_name">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="retaining_risk_id" Type="Int32" Nullable="false" />
+          <Property Name="language_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="additional_charge_name_ibfk_2">
+          <End Type="Entities.additional_charge" Role="additional_charge" Multiplicity="1" />
+          <End Type="Entities.additional_charge_name" Role="additional_charge_name" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="additional_charge">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="additional_charge_name">
+              <PropertyRef Name="additional_charge_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="additional_charge_name_ibfk_1">
+          <End Type="Entities.language" Role="language" Multiplicity="1" />
+          <End Type="Entities.additional_charge_name" Role="additional_charge_name" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="additional_charge_name">
+              <PropertyRef Name="language_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3224,9 +3368,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <EntityTypeMapping TypeName="Entities.additional_charge">
               <MappingFragment StoreEntitySet="additional_charge">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Doplatok" ColumnName="Doplatok" />
                 <ScalarProperty Name="Percentage" ColumnName="Percentage" />
-                <ScalarProperty Name="Surcharge" ColumnName="Surcharge" />
                 <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
                 <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="Modified_Date" ColumnName="Modified_Date" />
@@ -3844,6 +3986,46 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="CultureName" ColumnName="CultureName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="additional_charge_name">
+            <EntityTypeMapping TypeName="Entities.additional_charge_name">
+              <MappingFragment StoreEntitySet="additional_charge_name">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="language_id" ColumnName="language_id" />
+                <ScalarProperty Name="additional_charge_id" ColumnName="additional_charge_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="countries_name">
+            <EntityTypeMapping TypeName="Entities.countries_name">
+              <MappingFragment StoreEntitySet="countries_name">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="language_id" ColumnName="language_id" />
+                <ScalarProperty Name="countries_id" ColumnName="countries_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="policy_type_name">
+            <EntityTypeMapping TypeName="Entities.policy_type_name">
+              <MappingFragment StoreEntitySet="policy_type_name">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="language_id" ColumnName="language_id" />
+                <ScalarProperty Name="policy_type_id" ColumnName="policy_type_id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="retaining_risk_name">
+            <EntityTypeMapping TypeName="Entities.retaining_risk_name">
+              <MappingFragment StoreEntitySet="retaining_risk_name">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="language_id" ColumnName="language_id" />
+                <ScalarProperty Name="retaining_risk_id" ColumnName="retaining_risk_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

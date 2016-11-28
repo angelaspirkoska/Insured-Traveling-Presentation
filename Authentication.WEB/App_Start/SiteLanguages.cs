@@ -14,7 +14,7 @@ namespace InsuredTraveling.App_Start
         public static List<language> GetAllanguages()
         {
             InsuredTravelingEntity _db = new InsuredTravelingEntity();
-            return  _db.languages.Where(x => x.Active == true).ToList();
+            return _db.languages.Where(x => x.Active == true).ToList();
         }
         public static bool IsLanguageAvailable(string lang)
         {
@@ -41,6 +41,33 @@ namespace InsuredTraveling.App_Start
 
             }
             catch (Exception ex) { }
+        }
+
+        public static string GetCurrentCultureSign()
+        {
+            var langCookie = HttpContext.Current.Request.Cookies["culture"];
+            string lang = null;
+            if (langCookie != null)
+            {
+                return langCookie.Value;
+            }
+            return lang;
+        }
+
+        public static int CurrentLanguageId()
+        {
+            var lang = GetCurrentCultureSign();
+            if(!String.IsNullOrEmpty(lang))
+            {
+                var language = GetAllanguages().Where(x => x.CultureName.Equals(lang)).FirstOrDefault();
+                return language != null ? language.Id : GetDefaultLanguageId();
+            }
+            return GetDefaultLanguageId();           
+        }
+
+        public static int GetDefaultLanguageId()
+        {
+            return GetAllanguages().FirstOrDefault().Id;
         }
     }
 }

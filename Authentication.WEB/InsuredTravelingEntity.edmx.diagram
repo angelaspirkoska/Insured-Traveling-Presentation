@@ -108,6 +108,12 @@
         <AssociationConnector Association="Entities.aspnetuserroles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Entities.payment_status" Width="1.5" PointX="5.375" PointY="8.75" />
         <EntityTypeShape EntityType="Entities.language" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="Entities.additional_charge_name" Width="1.5" PointX="9.75" PointY="8.75" />
+        <EntityTypeShape EntityType="Entities.countries_name" Width="1.5" PointX="11.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Entities.policy_type_name" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="Entities.retaining_risk_name" Width="1.5" PointX="2.75" PointY="11.75" />
+        <AssociationConnector Association="Entities.additional_charge_name_ibfk_2" />
+        <AssociationConnector Association="Entities.additional_charge_name_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

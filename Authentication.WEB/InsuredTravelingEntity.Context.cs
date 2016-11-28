@@ -73,5 +73,9 @@ namespace InsuredTraveling
         public virtual DbSet<transaction> transactions { get; set; }
         public virtual DbSet<payment_status> payment_status { get; set; }
         public virtual DbSet<language> languages { get; set; }
+        public virtual DbSet<additional_charge_name> additional_charge_name { get; set; }
+        public virtual DbSet<countries_name> countries_name { get; set; }
+        public virtual DbSet<policy_type_name> policy_type_name { get; set; }
+        public virtual DbSet<retaining_risk_name> retaining_risk_name { get; set; }
     }
 }

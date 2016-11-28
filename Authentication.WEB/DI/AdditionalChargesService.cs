@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InsuredTraveling.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Web.Mvc;
 
 namespace InsuredTraveling.DI
 {
-   public class AdditionalChargesService : IAdditionalChargesService
+    public class AdditionalChargesService : IAdditionalChargesService
     {
         InsuredTravelingEntity _db = new InsuredTravelingEntity();
 
@@ -25,17 +26,26 @@ namespace InsuredTraveling.DI
 
         public List<additional_charge> GetAdditionalChargesByPolicyId(int policyId)
         {
-          return  _db.policy_additional_charge.Where(x => x.PolicyID == policyId).Select(x => x.additional_charge).ToList();
+            return _db.policy_additional_charge.Where(x => x.PolicyID == policyId).Select(x => x.additional_charge).ToList();
         }
 
         public IQueryable<SelectListItem> GetAll()
         {
-            var AdditionalCharge = _db.additional_charge.Select(p => new SelectListItem
+            var languageId = SiteLanguages.CurrentLanguageId();
+
+            var additionalCharges = _db.additional_charge_name.Where(x => x.language_id == languageId).Select(p => new SelectListItem
             {
-                Text = p.Doplatok,
-                Value = p.ID.ToString()
+                Text = p.name,
+                Value = p.additional_charge_id.ToString()
             });
-            return AdditionalCharge;
+            return additionalCharges;
+        }
+
+        public string GetAdditionalChargeName(int chargeId)
+        {
+            var languageId = SiteLanguages.CurrentLanguageId();
+            var chargeName =  _db.additional_charge_name.Where(x => x.additional_charge_id == chargeId && x.language_id == languageId).FirstOrDefault();
+            return chargeName != null ? chargeName.name : null;
         }
     }
 }

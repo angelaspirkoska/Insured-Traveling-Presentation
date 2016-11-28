@@ -18,12 +18,11 @@ namespace InsuredTraveling
         public additional_charge()
         {
             this.policy_additional_charge = new HashSet<policy_additional_charge>();
+            this.additional_charge_name = new HashSet<additional_charge_name>();
         }
     
         public int ID { get; set; }
-        public string Doplatok { get; set; }
         public Nullable<double> Percentage { get; set; }
-        public string Surcharge { get; set; }
         public System.DateTime Created_Date { get; set; }
         public string Created_By { get; set; }
         public System.DateTime Modified_Date { get; set; }
@@ -34,5 +33,7 @@ namespace InsuredTraveling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<policy_additional_charge> policy_additional_charge { get; set; }
         public virtual aspnetuser aspnetuser1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<additional_charge_name> additional_charge_name { get; set; }
     }
 }

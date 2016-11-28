@@ -37,7 +37,6 @@ namespace Authentication.WEB.Controllers
         // GET: Payment
         public ActionResult Index()
         {
-           
             PaymentModel model = new PaymentModel();
             //model.PolicyNumber = policy.Policy_Number;
             model.clientId = "180000069";                   //Merchant Id defined by bank to user
@@ -55,16 +54,7 @@ namespace Authentication.WEB.Controllers
             System.Security.Cryptography.SHA1 sha = new System.Security.Cryptography.SHA1CryptoServiceProvider();
             model.hashbytes = System.Text.Encoding.GetEncoding("ISO-8859-9").GetBytes(model.hashstr);
             model.inputbytes = sha.ComputeHash(model.hashbytes);
-
-
             model.hash = Convert.ToBase64String(model.inputbytes); //Hash value used for validation
-
-            //p.Created_By = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
-            //p.Date_Created = DateTime.Now;
-            //InsuredTravelingEntity _db = new InsuredTravelingEntity();
-            //var p1 = _db.travel_policy.Create();
-            //p1 = Mapper.Map<Policy, travel_policy>(p);
-            //model.Pat = p1;
             return View(model);
         }
 
@@ -87,13 +77,13 @@ namespace Authentication.WEB.Controllers
             model.additionalCharge2 = "Без доплаток";
             if (additionalCharges.Count >= 1 && additionalCharges[0] != null)
             {
-                model.additionalCharge1 = additionalCharges[0].Doplatok;                
+                model.additionalCharge1 = _acs.GetAdditionalChargeName(additionalCharges[0].ID);
             }
             if (additionalCharges.Count >= 2 && additionalCharges[1] != null)
             {
-                model.additionalCharge2 = additionalCharges[1].Doplatok;
+                model.additionalCharge2 = _acs.GetAdditionalChargeName(additionalCharges[1].ID);
             }
-           
+
             model.clientId = "180000069";                   //Merchant Id defined by bank to user
             model.amount = p.Total_Premium.ToString();
              //   "9.95";                         //Transaction amount
@@ -111,26 +101,11 @@ namespace Authentication.WEB.Controllers
             model.hashbytes = System.Text.Encoding.GetEncoding("ISO-8859-9").GetBytes(model.hashstr);
             model.inputbytes = sha.ComputeHash(model.hashbytes);
 
-
             model.hash = Convert.ToBase64String(model.inputbytes); //Hash value used for validation
 
-
             model.Pat = policy;
-
-            //viewbag da dodam!!!!!!!!!
-
-
             return View(model);
         }
-
-
-
-
-
-
-
-
-
 
         [Route("PaymentSuccess")]
         public ActionResult PaymentSuccess()
@@ -157,8 +132,6 @@ namespace Authentication.WEB.Controllers
                 var fileStream = new FileStream(fullPath, FileMode.Create, FileAccess.Write);
                 fileStream.Write(byteArray, 0, byteArray.Length);
                 fileStream.Close();
-
-
 
                 // ADD MAIL ADRESS
                 var PolicyHolderEmail = _ps.GetPolicyHolderEmailByPolicyId(pat.Pat.ID);

@@ -61,7 +61,6 @@ namespace Authentication.WEB.Controllers
             ViewBag.Date = DateTime.Now.Year +String.Format("/{0:00}/",DateTime.Now.Month)+ String.Format("{0:00}", DateTime.Now.Day);
             DateTime inTenDays = DateTime.Now.AddDays(9);
             ViewBag.DateAfterTenDays = inTenDays.Year + String.Format("/{0:00}/", inTenDays.Month)+ String.Format("{0:00}", inTenDays.Day);
-            //ViewBag.Date = DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day;
 
             return View();
         }
@@ -131,7 +130,6 @@ namespace Authentication.WEB.Controllers
             pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
             
             pat.mainInsured = _pis.GetAllInsuredByPolicyIdAndInsuredCreatedBy(pat.Pat.ID, pat.Pat.Created_By).First();
-            //  model.additionalCharge1 = s
             var policy = _ps.GetPolicyById(pat.Pat.ID);
             var additionalCharges = _acs.GetAdditionalChargesByPolicyId(pat.Pat.ID);
 
@@ -139,11 +137,11 @@ namespace Authentication.WEB.Controllers
             pat.additionalCharge2 = InsuredTraveling.Resource.WithNoAddOn;
             if (additionalCharges.Count >= 1 && additionalCharges[0] != null)
             {
-                pat.additionalCharge1 = additionalCharges[0].Doplatok;
+                pat.additionalCharge1 = _acs.GetAdditionalChargeName(additionalCharges[0].ID);
             }
             if (additionalCharges.Count >= 2 && additionalCharges[1] != null)
             {
-                pat.additionalCharge2 = additionalCharges[1].Doplatok;
+                pat.additionalCharge2 = _acs.GetAdditionalChargeName(additionalCharges[1].ID);
             }
             pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
             return new ViewAsPdf("Print", pat);
@@ -162,11 +160,11 @@ namespace Authentication.WEB.Controllers
             pat.additionalCharge2 = InsuredTraveling.Resource.WithNoAddOn;
             if (additionalCharges.Count >= 1 && additionalCharges[0] != null)
             {
-                pat.additionalCharge1 = additionalCharges[0].Doplatok;
+                pat.additionalCharge1 = _acs.GetAdditionalChargeName(additionalCharges[0].ID);
             }
             if (additionalCharges.Count >= 2 && additionalCharges[1] != null)
             {
-                pat.additionalCharge2 = additionalCharges[1].Doplatok;
+                pat.additionalCharge2 = _acs.GetAdditionalChargeName(additionalCharges[1].ID);
             }
             return View("Print", pat);
         }
@@ -207,16 +205,6 @@ namespace Authentication.WEB.Controllers
                 if (loggedUserData == null)
                 {
                     var loggedUser = _us.GetUserDataByUsername(username);
-                    //if (loggedUser.Address == null || loggedUser.Municipality == null || loggedUser.PostalCode == null || loggedUser.PassportNumber == null || loggedUser.EMBG == null )
-                    //{
-                    //    Result.Add("response", "Ne e popolneto se");
-                    //    return Result;
-                    //}
-                    //else
-                    //{
-
-                    //}
-                    
                     insuredData.Add("FirstName", loggedUser.FirstName);
                     insuredData.Add("Name", loggedUser.LastName);
                     insuredData.Add("Address", loggedUser.Address);
@@ -234,9 +222,6 @@ namespace Authentication.WEB.Controllers
                     Result.Add("response", "Not registered insured");
                     return Result;
                 }
-
-               
-
                 insuredData.Add("FirstName", loggedUserData.Name);
                 insuredData.Add("Name", loggedUserData.Lastname);
                 insuredData.Add("Address", loggedUserData.Address);
@@ -259,9 +244,5 @@ namespace Authentication.WEB.Controllers
             return Result;           
 
         }
-
-
-
-
     }
 }
