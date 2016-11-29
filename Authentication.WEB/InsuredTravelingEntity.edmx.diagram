@@ -114,6 +114,8 @@
         <EntityTypeShape EntityType="Entities.retaining_risk_name" Width="1.5" PointX="2.75" PointY="11.75" />
         <AssociationConnector Association="Entities.additional_charge_name_ibfk_2" />
         <AssociationConnector Association="Entities.additional_charge_name_ibfk_1" />
+        <AssociationConnector Association="Entities.countries_name_ibfk_1" />
+        <AssociationConnector Association="Entities.countries_name_ibfk_2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

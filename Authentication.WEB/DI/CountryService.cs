@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InsuredTraveling.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,14 +11,17 @@ namespace InsuredTraveling.DI
     public class CountryService : ICountryService
     {
         InsuredTravelingEntity _db = new InsuredTravelingEntity();
+
         public IQueryable<SelectListItem> GetAll()
         {
-            var Countries = _db.countries.Select(p => new SelectListItem
+            var languageId = SiteLanguages.CurrentLanguageId(); 
+
+            var countries = _db.countries_name.Where(x => x.language_id == languageId).Select(p => new SelectListItem
             {
-                Text = p.Name,
-                Value = p.ID.ToString()
+                Text = p.name,
+                Value = p.countries_id.ToString()
             });
-            return Countries;
+            return countries;
         }
     }
 }

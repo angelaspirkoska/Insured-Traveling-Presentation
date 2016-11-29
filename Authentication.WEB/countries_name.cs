@@ -18,5 +18,8 @@ namespace InsuredTraveling
         public int countries_id { get; set; }
         public int language_id { get; set; }
         public string name { get; set; }
+    
+        public virtual country country { get; set; }
+        public virtual language language { get; set; }
     }
 }

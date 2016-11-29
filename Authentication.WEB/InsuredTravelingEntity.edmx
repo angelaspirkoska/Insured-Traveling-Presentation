@@ -149,7 +149,6 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="countries_name">
           <Key>
@@ -683,6 +682,30 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Principal>
             <Dependent Role="bank_account_info">
               <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="countries_name_ibfk_1">
+          <End Role="countries" Type="Self.countries" Multiplicity="1" />
+          <End Role="countries_name" Type="Self.countries_name" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="countries">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="countries_name">
+              <PropertyRef Name="countries_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="countries_name_ibfk_2">
+          <End Role="languages" Type="Self.languages" Multiplicity="1" />
+          <End Role="countries_name" Type="Self.countries_name" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="languages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="countries_name">
+              <PropertyRef Name="language_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1436,6 +1459,14 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="banks" EntitySet="banks" />
             <End Role="bank_account_info" EntitySet="bank_account_info" />
           </AssociationSet>
+          <AssociationSet Name="countries_name_ibfk_1" Association="Self.countries_name_ibfk_1">
+            <End Role="countries" EntitySet="countries" />
+            <End Role="countries_name" EntitySet="countries_name" />
+          </AssociationSet>
+          <AssociationSet Name="countries_name_ibfk_2" Association="Self.countries_name_ibfk_2">
+            <End Role="languages" EntitySet="languages" />
+            <End Role="countries_name" EntitySet="countries_name" />
+          </AssociationSet>
           <AssociationSet Name="discount_days_ibfk_1" Association="Self.discount_days_ibfk_1">
             <End Role="policy_type" EntitySet="policy_type" />
             <End Role="discount_days" EntitySet="discount_days" />
@@ -1808,9 +1839,9 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="discount_country" Relationship="Self.fk_country_id" FromRole="countries" ToRole="discount_country" />
           <NavigationProperty Name="travel_policy" Relationship="Self.fk_travel_policy_country" FromRole="countries" ToRole="travel_policy" />
+          <NavigationProperty Name="countries_name" Relationship="Entities.countries_name_ibfk_1" FromRole="country" ToRole="countries_name" />
         </EntityType>
         <EntityType Name="discount_age">
           <Key>
@@ -3278,6 +3309,14 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="language" EntitySet="languages" />
             <End Role="additional_charge_name" EntitySet="additional_charge_name" />
           </AssociationSet>
+          <AssociationSet Name="countries_name_ibfk_1" Association="Entities.countries_name_ibfk_1">
+            <End Role="country" EntitySet="countries" />
+            <End Role="countries_name" EntitySet="countries_name" />
+          </AssociationSet>
+          <AssociationSet Name="countries_name_ibfk_2" Association="Entities.countries_name_ibfk_2">
+            <End Role="language" EntitySet="languages" />
+            <End Role="countries_name" EntitySet="countries_name" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -3295,6 +3334,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="CultureName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="additional_charge_name" Relationship="Entities.additional_charge_name_ibfk_1" FromRole="language" ToRole="additional_charge_name" />
+          <NavigationProperty Name="countries_name" Relationship="Entities.countries_name_ibfk_2" FromRole="language" ToRole="countries_name" />
         </EntityType>
         <EntityType Name="additional_charge_name">
           <Key>
@@ -3315,6 +3355,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="countries_id" Type="Int32" Nullable="false" />
           <Property Name="language_id" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="country" Relationship="Entities.countries_name_ibfk_1" FromRole="countries_name" ToRole="country" />
+          <NavigationProperty Name="language" Relationship="Entities.countries_name_ibfk_2" FromRole="countries_name" ToRole="language" />
         </EntityType>
         <EntityType Name="policy_type_name">
           <Key>
@@ -3354,6 +3396,30 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="additional_charge_name">
+              <PropertyRef Name="language_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="countries_name_ibfk_1">
+          <End Type="Entities.country" Role="country" Multiplicity="1" />
+          <End Type="Entities.countries_name" Role="countries_name" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="country">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="countries_name">
+              <PropertyRef Name="countries_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="countries_name_ibfk_2">
+          <End Type="Entities.language" Role="language" Multiplicity="1" />
+          <End Type="Entities.countries_name" Role="countries_name" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="countries_name">
               <PropertyRef Name="language_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -3488,7 +3554,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <EntityTypeMapping TypeName="Entities.country">
               <MappingFragment StoreEntitySet="countries">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

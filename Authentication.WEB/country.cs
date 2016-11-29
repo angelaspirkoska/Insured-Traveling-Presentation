@@ -19,14 +19,16 @@ namespace InsuredTraveling
         {
             this.discount_country = new HashSet<discount_country>();
             this.travel_policy = new HashSet<travel_policy>();
+            this.countries_name = new HashSet<countries_name>();
         }
     
         public int ID { get; set; }
-        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<discount_country> discount_country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<travel_policy> travel_policy { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<countries_name> countries_name { get; set; }
     }
 }
