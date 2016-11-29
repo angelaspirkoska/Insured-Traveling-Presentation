@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InsuredTraveling.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,12 @@ namespace InsuredTraveling.DI
 
         public IQueryable<SelectListItem> GetAll()
         {
-            var franchise = _db.retaining_risk.Select(p => new SelectListItem
+            var languageId = SiteLanguages.CurrentLanguageId();
+
+            var franchise = _db.retaining_risk_name.Where(x => x.language_id == languageId).Select(p => new SelectListItem
             {
-                Text = p.Franchise,
-                Value = p.ID.ToString()
+                Text = p.name,
+                Value = p.retaining_risk_id.ToString()
             });
 
             return franchise;

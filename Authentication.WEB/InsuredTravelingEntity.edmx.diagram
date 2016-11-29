@@ -116,6 +116,8 @@
         <AssociationConnector Association="Entities.additional_charge_name_ibfk_1" />
         <AssociationConnector Association="Entities.countries_name_ibfk_1" />
         <AssociationConnector Association="Entities.countries_name_ibfk_2" />
+        <AssociationConnector Association="Entities.retaining_risk_name_ibfk_2" />
+        <AssociationConnector Association="Entities.retaining_risk_name_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

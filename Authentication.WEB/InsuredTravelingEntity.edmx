@@ -509,8 +509,6 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Franchise" Type="text" Nullable="false" />
-          <Property Name="Dedactible" Type="text" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="retaining_risk_name">
@@ -1353,6 +1351,30 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="retaining_risk_name_ibfk_1">
+          <End Role="retaining_risk" Type="Self.retaining_risk" Multiplicity="1" />
+          <End Role="retaining_risk_name" Type="Self.retaining_risk_name" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="retaining_risk">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="retaining_risk_name">
+              <PropertyRef Name="retaining_risk_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="retaining_risk_name_ibfk_2">
+          <End Role="languages" Type="Self.languages" Multiplicity="1" />
+          <End Role="retaining_risk_name" Type="Self.retaining_risk_name" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="languages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="retaining_risk_name">
+              <PropertyRef Name="language_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="travel_policy_ibfk_1">
           <End Role="insured" Type="Self.insured" Multiplicity="1" />
           <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="*" />
@@ -1678,6 +1700,14 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="policy_insured_ibfk_1" Association="Self.policy_insured_ibfk_1">
             <End Role="insured" EntitySet="insured" />
             <End Role="policy_insured" EntitySet="policy_insured" />
+          </AssociationSet>
+          <AssociationSet Name="retaining_risk_name_ibfk_1" Association="Self.retaining_risk_name_ibfk_1">
+            <End Role="retaining_risk" EntitySet="retaining_risk" />
+            <End Role="retaining_risk_name" EntitySet="retaining_risk_name" />
+          </AssociationSet>
+          <AssociationSet Name="retaining_risk_name_ibfk_2" Association="Self.retaining_risk_name_ibfk_2">
+            <End Role="languages" EntitySet="languages" />
+            <End Role="retaining_risk_name" EntitySet="retaining_risk_name" />
           </AssociationSet>
           <AssociationSet Name="travel_policy_ibfk_1" Association="Self.travel_policy_ibfk_1">
             <End Role="insured" EntitySet="insured" />
@@ -2222,10 +2252,9 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Franchise" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Dedactible" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="travel_policy" Relationship="Self.fk_travel_policy_retaining_risk" FromRole="retaining_risk" ToRole="travel_policy" />
+          <NavigationProperty Name="retaining_risk_name" Relationship="Entities.retaining_risk_name_ibfk_1" FromRole="retaining_risk" ToRole="retaining_risk_name" />
         </EntityType>
         <EntityType Name="travel_duration">
           <Key>
@@ -3317,6 +3346,14 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="language" EntitySet="languages" />
             <End Role="countries_name" EntitySet="countries_name" />
           </AssociationSet>
+          <AssociationSet Name="retaining_risk_name_ibfk_2" Association="Entities.retaining_risk_name_ibfk_2">
+            <End Role="language" EntitySet="languages" />
+            <End Role="retaining_risk_name" EntitySet="retaining_risk_name" />
+          </AssociationSet>
+          <AssociationSet Name="retaining_risk_name_ibfk_1" Association="Entities.retaining_risk_name_ibfk_1">
+            <End Role="retaining_risk" EntitySet="retaining_risk" />
+            <End Role="retaining_risk_name" EntitySet="retaining_risk_name" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -3335,6 +3372,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="additional_charge_name" Relationship="Entities.additional_charge_name_ibfk_1" FromRole="language" ToRole="additional_charge_name" />
           <NavigationProperty Name="countries_name" Relationship="Entities.countries_name_ibfk_2" FromRole="language" ToRole="countries_name" />
+          <NavigationProperty Name="retaining_risk_name" Relationship="Entities.retaining_risk_name_ibfk_2" FromRole="language" ToRole="retaining_risk_name" />
         </EntityType>
         <EntityType Name="additional_charge_name">
           <Key>
@@ -3375,6 +3413,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="retaining_risk_id" Type="Int32" Nullable="false" />
           <Property Name="language_id" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="language" Relationship="Entities.retaining_risk_name_ibfk_2" FromRole="retaining_risk_name" ToRole="language" />
+          <NavigationProperty Name="retaining_risk" Relationship="Entities.retaining_risk_name_ibfk_1" FromRole="retaining_risk_name" ToRole="retaining_risk" />
         </EntityType>
         <Association Name="additional_charge_name_ibfk_2">
           <End Type="Entities.additional_charge" Role="additional_charge" Multiplicity="1" />
@@ -3421,6 +3461,30 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="countries_name">
               <PropertyRef Name="language_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="retaining_risk_name_ibfk_2">
+          <End Type="Entities.language" Role="language" Multiplicity="1" />
+          <End Type="Entities.retaining_risk_name" Role="retaining_risk_name" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="retaining_risk_name">
+              <PropertyRef Name="language_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="retaining_risk_name_ibfk_1">
+          <End Type="Entities.retaining_risk" Role="retaining_risk" Multiplicity="1" />
+          <End Type="Entities.retaining_risk_name" Role="retaining_risk_name" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="retaining_risk">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="retaining_risk_name">
+              <PropertyRef Name="retaining_risk_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3907,8 +3971,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="retaining_risk">
             <EntityTypeMapping TypeName="Entities.retaining_risk">
               <MappingFragment StoreEntitySet="retaining_risk">
-                <ScalarProperty Name="Franchise" ColumnName="Franchise" />
-                <ScalarProperty Name="Dedactible" ColumnName="Dedactible" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

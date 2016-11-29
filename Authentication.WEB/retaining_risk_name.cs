@@ -18,5 +18,8 @@ namespace InsuredTraveling
         public int retaining_risk_id { get; set; }
         public int language_id { get; set; }
         public string name { get; set; }
+    
+        public virtual language language { get; set; }
+        public virtual retaining_risk retaining_risk { get; set; }
     }
 }

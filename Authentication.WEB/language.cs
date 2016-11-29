@@ -19,6 +19,7 @@ namespace InsuredTraveling
         {
             this.additional_charge_name = new HashSet<additional_charge_name>();
             this.countries_name = new HashSet<countries_name>();
+            this.retaining_risk_name = new HashSet<retaining_risk_name>();
         }
     
         public int Id { get; set; }
@@ -30,5 +31,7 @@ namespace InsuredTraveling
         public virtual ICollection<additional_charge_name> additional_charge_name { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<countries_name> countries_name { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<retaining_risk_name> retaining_risk_name { get; set; }
     }
 }
