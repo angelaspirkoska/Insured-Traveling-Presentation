@@ -71,7 +71,7 @@ namespace InsuredTraveling.Helpers
                      ssn = _us.GetUserSsnByUsername(username);
                 }
               
-                var policyHolderId = _iss.GetInsuredIdBySsnAndCreatedBy(ssn, p.Created_By);
+                var policyHolderId = _iss.GetInsuredIdBySsnAndCreatedBy(ssn, policy.Created_By);
                 if (policyHolderId != -1)
                 {
                     insured updateInsuredData = new insured();

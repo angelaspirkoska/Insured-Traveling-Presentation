@@ -3,6 +3,7 @@ using Authentication.WEB.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,7 +48,7 @@ namespace InsuredTraveling
 
             //Random r = new Random();
             //string id = "1234" + r.Next(1000, 9999).ToString() + r.Next(100,999).ToString();
-
+                    
             ApplicationUser user = new ApplicationUser
             {
                 UserName = userModel.UserName,

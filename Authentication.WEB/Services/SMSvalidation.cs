@@ -6,7 +6,7 @@ namespace Authentication.WEB.Services
 
     public class SMSvalidation
     {
-        public string SendMessage(string PhoneNumber = "+38977916316", string ValidationCode = "testCode", bool UseCode = false)
+        public string SendMessage(string PhoneNumber = "+38970498501", string ValidationCode = "testCode", bool UseCode = false)
         {
             string tempCode = null;
             if (UseCode)
@@ -20,11 +20,11 @@ namespace Authentication.WEB.Services
                 tempCode = num.ToString();
             }
 
-            string AccountSid = "ACe3ee0e5c96203dc9d1fb0787b0c535f0";
-            string AuthToken = "67fc302c8782cfd2a80aa4a828d1b0f9";
+            string AccountSid = "AC3fb1aa69fa5a4982d954366956a1e65f";
+            string AuthToken = "04f48ad727a3b427cd1f4055a38e144c";
             var twilio = new TwilioRestClient(AccountSid, AuthToken);
-
-            var message = twilio.SendMessage("+16313434353", PhoneNumber, tempCode);
+            
+            var message = twilio.SendMessage("+18503168234", PhoneNumber, tempCode);
             Console.WriteLine(message.Sid);
 
             return tempCode;

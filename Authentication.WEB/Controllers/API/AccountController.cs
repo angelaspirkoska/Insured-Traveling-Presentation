@@ -5,10 +5,12 @@ using System;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Net;
 using System.Linq;
 using static InsuredTraveling.Models.AdminPanel;
 using System.Configuration;
 using AutoMapper;
+using System.Net.Http;
 
 namespace InsuredTraveling.Controllers
 {
@@ -65,6 +67,10 @@ namespace InsuredTraveling.Controllers
         [Route("AddUserToRole")]
         public IHttpActionResult AddUserToRole(Roles r)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             IdentityResult result =_repo.AddUserToRole(r.UserID, r.Name);
 
             IHttpActionResult errorResult = GetErrorResult(result);
@@ -81,6 +87,10 @@ namespace InsuredTraveling.Controllers
         [Route("AddRole")]
         public IHttpActionResult AddRole(Roles r)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             IdentityResult result =  _repo.AddRole(r);
 
             IHttpActionResult errorResult = GetErrorResult(result);
@@ -99,11 +109,19 @@ namespace InsuredTraveling.Controllers
         {
             
             if (!ModelState.IsValid)
-            {
+            {                       
                 return BadRequest(ModelState);
             }
+            IdentityResult results = _repo.FindUserByUsername(userModel.UserName).Result;
+            var pp = results.Errors.ToList();
+             
 
-            IdentityResult result = await _repo.RegisterUser(userModel);
+            if ( pp[0] == "OK" )
+            {
+
+
+
+                IdentityResult result = await _repo.RegisterUser(userModel);
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -111,8 +129,16 @@ namespace InsuredTraveling.Controllers
             {
                 return errorResult;
             }
-
-            return Ok();
+              var id =  _repo.GetUserID(userModel.UserName);
+            return Ok("userId: "+id);
+            }
+            string errorString = "";
+            foreach (var err in results.Errors)
+            {
+                errorString = errorString + " "+ err.ToString();
+            }
+           return  BadRequest(errorString);
+            
         }
 
         [System.Web.Http.AllowAnonymous]
@@ -259,6 +285,7 @@ namespace InsuredTraveling.Controllers
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("DeleteToken")]
+        [AllowAnonymous]
         public IHttpActionResult DeleteToken()
         {
             if (HttpContext.Current.Request.Cookies["token"] == null) return Redirect(ConfigurationManager.AppSettings["webpage_url"] +"/Login");

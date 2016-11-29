@@ -31,6 +31,7 @@ namespace InsuredTraveling.Controllers.API
         {
            
         }
+
         public MobileApiController(IUserService us, IPolicyInsuredService pis, IAdditionalChargesService acs, IPolicyService ps, IFirstNoticeOfLossService fnls, IHealthInsuranceService his, ILuggageInsuranceService lis, IOkSetupService oss, IBankAccountService bas,  IInsuredsService iss, IFirstNoticeOfLossService fis, IPolicyTypeService pts, IAdditionalInfoService ais)
         {
             _ps = ps;
@@ -48,6 +49,7 @@ namespace InsuredTraveling.Controllers.API
             _acs = acs;
 
         }
+        [AllowAnonymous]
         [Route("RetrieveUserInfo")]
         public JObject RetrieveUserInformation(Username username)
         {
@@ -56,6 +58,10 @@ namespace InsuredTraveling.Controllers.API
 
             //User data
             aspnetuser user = _us.GetUserDataByUsername(username.username);
+            if(user == null)
+            {
+                throw new HttpResponseException(System.Net.HttpStatusCode.NotFound);
+            }
             // aspnetuser user = db.aspnetusers.Where(x => x.UserName == username.username).ToArray().First();
 
             var u = new JObject();
@@ -79,7 +85,13 @@ namespace InsuredTraveling.Controllers.API
             var ssn = _us.GetUserSsnByUsername(username.username);
 
             var insured = _iss.GetInsuredDataBySsn(ssn);
-            if(insured != null)
+
+            if (insured == null)
+            {
+                return  new JObject("SSN of the insured is not found");            
+            }
+
+            if (insured != null)
             {
                 //User's bank accounts
                 JArray bankAccounts = new JArray();
@@ -284,6 +296,8 @@ namespace InsuredTraveling.Controllers.API
                 first_notice_of_loss f1 = _fnls.Create();
                 //f1.insured
                 var user = _ps.GetPolicyHolderByPolicyID(f1.PolicyId);
+                //if(user == null)
+                     
                 f1.travel_policy.Policy_HolderID = user.ID;
 
                 f1.Message = f.Message;
@@ -308,13 +322,12 @@ namespace InsuredTraveling.Controllers.API
                 
 
                 var user = _ps.GetPolicyHolderByPolicyID(_ps.GetPolicyIdByPolicyNumber(f.PolicyNumber.ToString()).ID);
+                if (user == null)
+                    throw new Exception("Policy not found");
                 f.PolicyHolderId = user.ID;
 
                 var result = SaveFirstNoticeOfLossHelper.SaveFirstNoticeOfLoss(_iss, _us, _fis,
             _bas, _pts, _ais, f, null, null, null);
-
-
-
 
                 if (result>0)
                     return Ok();
