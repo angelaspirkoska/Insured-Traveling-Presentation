@@ -19,6 +19,7 @@ namespace InsuredTraveling.Controllers
         [HttpPost]
         public async Task<ActionResult> Index(LoginUser user, bool CaptchaValid)
         {
+
             if (!CaptchaValid)
             {
                 ModelState.AddModelError("reCaptcha", "Invalid reCaptcha");

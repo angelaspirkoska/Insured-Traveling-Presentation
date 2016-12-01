@@ -8,15 +8,17 @@ namespace InsuredTraveling
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
-                "~/Scripts/jquery-3.1.0.min.js",
+                "~/Scripts/jquery-3.1.1.min.js",
                 "~/Scripts/bootstrap.min.js",
-                "~/Scripts/jquery.tablesorter.min.js"));
+                "~/Scripts/jquery.tablesorter.min.js",
+                "~/Scripts/jquery.signalR-2.2.1.min.js",
+                "~/signalr/hubs"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui-1.12.0.min.js"));
+                        "~/Scripts/jquery-ui.min.js"));
 
             bundles.Add(new ScriptBundle("~/Content/jqueryuicss").Include(
-                    "~/Content/themes/base/jquery-ui.min.css"));
+                    "~/Content/jquery-ui.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      "~/Content/bootstrap.min.css",

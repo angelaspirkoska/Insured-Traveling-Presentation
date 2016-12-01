@@ -18,6 +18,7 @@ namespace InsuredTraveling
             ConfigureOAuth(app);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
+            app.MapSignalR();
         }
 
         public void ConfigureOAuth(IAppBuilder app)
