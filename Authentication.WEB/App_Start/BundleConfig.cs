@@ -12,7 +12,8 @@ namespace InsuredTraveling
                 "~/Scripts/bootstrap.min.js",
                 "~/Scripts/jquery.tablesorter.min.js",
                 "~/Scripts/jquery.signalR-2.2.1.min.js",
-                "~/signalr/hubs"));
+                "~/signalr/hubs",
+                "~/Scripts/Chat/chat.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui.min.js"));

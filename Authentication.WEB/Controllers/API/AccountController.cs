@@ -164,6 +164,7 @@ namespace InsuredTraveling.Controllers
         }
 
         [HttpPost]
+        [System.Web.Http.AllowAnonymous]
         [Route("ActivateAccount")]
         public IHttpActionResult ActivateAccount(string username)
         {

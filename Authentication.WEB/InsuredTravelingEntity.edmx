@@ -125,6 +125,16 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="text" Nullable="false" />
         </EntityType>
+        <EntityType Name="chat_requests">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Requested_by" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Datetime_request" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Accepted_by" Type="varchar" MaxLength="256" />
+          <Property Name="Accepted" Type="bool" Nullable="false" />
+        </EntityType>
         <EntityType Name="clients">
           <Key>
             <PropertyRef Name="Id" />
@@ -143,6 +153,14 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="conversation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="admin" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="user" Type="varchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="countries">
           <Key>
@@ -374,6 +392,15 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Floaters" Type="text" />
           <Property Name="Floaters_value" Type="float" />
           <Property Name="Luggage_checking_Time" Type="time" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConversationID" Type="int" Nullable="false" />
+          <Property Name="Text" Type="text" Nullable="false" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="min_premium">
           <Key>
@@ -935,6 +962,18 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_conversation_message">
+          <End Role="conversation" Type="Self.conversation" Multiplicity="1" />
+          <End Role="message" Type="Self.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="conversation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="ConversationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_country_id">
           <End Role="countries" Type="Self.countries" Multiplicity="0..1" />
           <End Role="discount_country" Type="Self.discount_country" Multiplicity="*" />
@@ -1398,8 +1437,10 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="bank_account_info" EntityType="Self.bank_account_info" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="bank_prefix" EntityType="Self.bank_prefix" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="banks" EntityType="Self.banks" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="chat_requests" EntityType="Self.chat_requests" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="clients" EntityType="Self.clients" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="company" EntityType="Self.company" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="conversation" EntityType="Self.conversation" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="countries" EntityType="Self.countries" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="countries_name" EntityType="Self.countries_name" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="discount_age" EntityType="Self.discount_age" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1419,6 +1460,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="languages" EntityType="Self.languages" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="luggage_insurance" EntityType="Self.luggage_insurance" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="luggage_insurance_info" EntityType="Self.luggage_insurance_info" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="message" EntityType="Self.message" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="min_premium" EntityType="Self.min_premium" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="news_all" EntityType="Self.news_all" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="ok_setup" EntityType="Self.ok_setup" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1564,6 +1606,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="fk_bank" Association="Self.fk_bank">
             <End Role="banks" EntitySet="banks" />
             <End Role="bank_prefix" EntitySet="bank_prefix" />
+          </AssociationSet>
+          <AssociationSet Name="fk_conversation_message" Association="Self.fk_conversation_message">
+            <End Role="conversation" EntitySet="conversation" />
+            <End Role="message" EntitySet="message" />
           </AssociationSet>
           <AssociationSet Name="fk_country_id" Association="Self.fk_country_id">
             <End Role="countries" EntitySet="countries" />
@@ -3354,6 +3400,13 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="retaining_risk" EntitySet="retaining_risk" />
             <End Role="retaining_risk_name" EntitySet="retaining_risk_name" />
           </AssociationSet>
+          <EntitySet Name="chat_requests" EntityType="Entities.chat_requests" />
+          <EntitySet Name="conversations" EntityType="Entities.conversation" />
+          <EntitySet Name="messages" EntityType="Entities.message" />
+          <AssociationSet Name="fk_conversation_message" Association="Entities.fk_conversation_message">
+            <End Role="conversation" EntitySet="conversations" />
+            <End Role="message" EntitySet="messages" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -3485,6 +3538,47 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="retaining_risk_name">
               <PropertyRef Name="retaining_risk_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="chat_requests">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Requested_by" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Datetime_request" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Accepted_by" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Accepted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="conversation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="admin" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="user" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="messages" Relationship="Entities.fk_conversation_message" FromRole="conversation" ToRole="message" />
+        </EntityType>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConversationID" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="conversation" Relationship="Entities.fk_conversation_message" FromRole="message" ToRole="conversation" />
+        </EntityType>
+        <Association Name="fk_conversation_message">
+          <End Type="Entities.conversation" Role="conversation" Multiplicity="1" />
+          <End Type="Entities.message" Role="message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="conversation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="ConversationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4152,6 +4246,36 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="language_id" ColumnName="language_id" />
                 <ScalarProperty Name="retaining_risk_id" ColumnName="retaining_risk_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chat_requests">
+            <EntityTypeMapping TypeName="Entities.chat_requests">
+              <MappingFragment StoreEntitySet="chat_requests">
+                <ScalarProperty Name="Accepted" ColumnName="Accepted" />
+                <ScalarProperty Name="Accepted_by" ColumnName="Accepted_by" />
+                <ScalarProperty Name="Datetime_request" ColumnName="Datetime_request" />
+                <ScalarProperty Name="Requested_by" ColumnName="Requested_by" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="conversations">
+            <EntityTypeMapping TypeName="Entities.conversation">
+              <MappingFragment StoreEntitySet="conversation">
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="admin" ColumnName="admin" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="messages">
+            <EntityTypeMapping TypeName="Entities.message">
+              <MappingFragment StoreEntitySet="message">
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ConversationID" ColumnName="ConversationID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

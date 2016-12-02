@@ -86,10 +86,12 @@ namespace InsuredTraveling.Controllers.API
 
             var insured = _iss.GetInsuredDataBySsn(ssn);
 
-            if (insured == null)
-            {
-                return  new JObject("SSN of the insured is not found");            
-            }
+            //if (insured == null)
+            //{
+                
+            //    u.Add("error", "SSN of the insured is not found");
+            //    return u;            
+            //}
 
             if (insured != null)
             {

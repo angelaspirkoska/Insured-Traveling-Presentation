@@ -4,6 +4,14 @@
     ViewBag.Title = InsuredTraveling.Resource.FNOL_Title;
     var policyNumber = ViewBag.PolicyNumber != null ? Convert.ToInt32(ViewBag.PolicyNumber) : 0;
 }
+@using InsuredTraveling.Filters
+@{
+    ViewBag.Title = InsuredTraveling.Resource.Search;
+    RoleAuthorize r = new RoleAuthorize();
+}
+
+
+
 
 <form style="margin-top:40px;" method="post" enctype="multipart/form-data" action="@Url.Action("Index")">
     <div class="form-horizontal">
@@ -484,6 +492,13 @@
             <div class="col-md-2">
                 <input type="submit" value="@InsuredTraveling.Resource.FNOL_Add" class="btn btn-default" />
             </div>
+            @if (r.IsUser("end user"))
+            {
+                <div class="col-md-4">
+                    <input type="submit" id="requestChatBtn" value="@InsuredTraveling.Resource.RequestChat" class="btn btn-primary" />
+                </div>
+            }
+           
         </div>    
     </div>
 </form>

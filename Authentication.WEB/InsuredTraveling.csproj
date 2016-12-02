@@ -300,6 +300,7 @@
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Scripts\Chat\Chat.js" />
     <Content Include="Scripts\contact_me.js" />
     <Content Include="Scripts\freelancer.min.js" />
     <Content Include="Scripts\jqBootstrapValidation.js" />
@@ -388,6 +389,9 @@
     <Compile Include="bank_prefix.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="chat_requests.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="client.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -414,6 +418,9 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Controllers\ValidateMailController.cs" />
+    <Compile Include="conversation.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="countries_name.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -556,6 +563,9 @@
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="luggage_insurance_info.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="message.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />

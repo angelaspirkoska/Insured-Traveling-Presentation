@@ -1420,6 +1420,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Need assistance? Request a chat!.
+        /// </summary>
+        public static string RequestChat {
+            get {
+                return ResourceManager.GetString("RequestChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This field is required.
         /// </summary>
         public static string Required {

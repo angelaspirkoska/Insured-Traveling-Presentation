@@ -118,6 +118,10 @@
         <AssociationConnector Association="Entities.countries_name_ibfk_2" />
         <AssociationConnector Association="Entities.retaining_risk_name_ibfk_2" />
         <AssociationConnector Association="Entities.retaining_risk_name_ibfk_1" />
+        <EntityTypeShape EntityType="Entities.chat_requests" Width="1.5" PointX="11.375" PointY="3.75" />
+        <EntityTypeShape EntityType="Entities.conversation" Width="1.5" PointX="5.375" PointY="13" />
+        <EntityTypeShape EntityType="Entities.message" Width="1.5" PointX="7.625" PointY="12.875" />
+        <AssociationConnector Association="Entities.fk_conversation_message" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

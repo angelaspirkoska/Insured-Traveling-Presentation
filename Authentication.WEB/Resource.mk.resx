@@ -771,4 +771,7 @@
   <data name="SignUp" xml:space="preserve">
     <value>Регистрирај се</value>
   </data>
+  <data name="RequestChat" xml:space="preserve">
+    <value>Потребна Ви е помош? Побарај разговор!</value>
+  </data>
 </root>

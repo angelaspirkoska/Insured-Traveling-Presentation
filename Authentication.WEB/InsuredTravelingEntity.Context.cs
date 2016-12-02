@@ -77,5 +77,8 @@ namespace InsuredTraveling
         public virtual DbSet<countries_name> countries_name { get; set; }
         public virtual DbSet<policy_type_name> policy_type_name { get; set; }
         public virtual DbSet<retaining_risk_name> retaining_risk_name { get; set; }
+        public virtual DbSet<chat_requests> chat_requests { get; set; }
+        public virtual DbSet<conversation> conversations { get; set; }
+        public virtual DbSet<message> messages { get; set; }
     }
 }

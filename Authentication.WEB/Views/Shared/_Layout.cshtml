@@ -15,7 +15,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
 </head>
-<body>
+<body onload="prepareSocket()">
     <div class="navbar navbar-inverse navbar-fixed-top nav-material-design" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -49,6 +49,7 @@
                 </div>
                 <ul class="nav navbar-nav navbar-right" style="float:right;text-align:right;">
                     <li><a href="#" id="welcome"></a></li>
+                    @*<li></li>*@
                     <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/account/deletetoken" id="logOut" onclick="func()">@InsuredTraveling.Resource.LogOut</a></li>
                     <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login">@InsuredTraveling.Resource.Login</a></li>
                     <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp" id="signup">@InsuredTraveling.Resource.SignUp</a></li>
@@ -67,8 +68,12 @@
     <footer class="container-fluid footer-material-design">
         <p class="container" style="color:#ffffff">&copy; @DateTime.Now.Year - Insured Traveling</p>
     </footer>
-    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script> 
+    <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>        
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/Chat/Chat.js"></script>
     <script type="text/javascript">
+        
         $(document).ready(function () {
             localStorage.setItem("username", $("#userName").val());
             console.log(localStorage.getItem("username"));
@@ -87,6 +92,8 @@
         function func() {
             localStorage.clear();
         }
+         
     </script>
+   
 </body>
 </html>

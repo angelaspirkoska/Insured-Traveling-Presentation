@@ -231,11 +231,14 @@ form.cmxform .gray * { color: gray; }
     flex-wrap:wrap;
     background-color:#fff;
     padding-top:60px;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    
 }
 
 .jumbotron button {
-    margin:10px;
-    width:150px;
+    margin:3px;
+    width:180px;
     z-index:100;
 }
 
@@ -311,6 +314,10 @@ form.cmxform .gray * { color: gray; }
 
 .hideMe{
         width: 160px;
+}
+
+.menu-btn-align{
+
 }
 
 

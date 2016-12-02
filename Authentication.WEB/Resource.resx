@@ -771,4 +771,7 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="RequestChat" xml:space="preserve">
+    <value>Need assistance? Request a chat!</value>
+  </data>
 </root>

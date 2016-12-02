@@ -6,7 +6,7 @@ namespace Authentication.WEB.Services
 
     public class SMSvalidation
     {
-        public string SendMessage(string PhoneNumber = "+38970498501", string ValidationCode = "testCode", bool UseCode = false)
+        public string SendMessage(string PhoneNumber = "+38975358537", string ValidationCode = "testCode", bool UseCode = false)
         {
             string tempCode = null;
             if (UseCode)
