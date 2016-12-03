@@ -426,14 +426,11 @@
         return false;
     });
 
-
     function ValidateFields() {
         var flag = true;
         
         $.each($('.mandatoryField'), function () {
             if ($(this).val().length == "") {
-                alert("foro" + this);
-                console.log(this);
                 flag = false;
             }
         });
@@ -442,46 +439,43 @@
         return flag;
     }
 
-
     function CalculateTotalPremium() {
-        
         var flag = ValidateFields();
         console.log(flag);
         if (flag) {
-                    $.ajax({
-                        type: "POST",
-                        url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/Premium/Calculate",
-                        data: $("#policy_form").serialize(),
-                        success: function (result) {
-                            console.log(result.PremiumAmount);
-                            $("#totalPremium").val(result.PremiumAmount);
-                            $("#totalPremium").show();
-                            $("#totalPremiumLabel").show();
-                            $(".hideMe").show();
-                            $("#errorMessage").text(" ");
-                        },
-                        error: function (result) {
-                            $(".hideMe").hide();
-                            $("#totalPremiumLabel").hide();
-                            $("#totalPremium").val("");
-                            $("#errorMessage").text((JSON.parse(result.responseText)).Message);
-                        }
-                    });
-        }
-        else {
+            $.ajax({
+                type: "POST",
+                url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/Premium/Calculate",
+                data: $("#policy_form").serialize(),
+                success: function (result) {
+                    console.log(result.PremiumAmount);
+                    $("#totalPremium").val(result.PremiumAmount);
+                    $("#totalPremium").show();
+                    $("#totalPremiumLabel").show();
+                    $(".hideMe").show();
+                    $("#errorMessage").text(" ");
+                },
+                error: function (result) {
                     $(".hideMe").hide();
                     $("#totalPremiumLabel").hide();
                     $("#totalPremium").val("");
-                    if ($("#Valid_Days").val() == 0) {
-                        $("#errorMessage").text("@InsuredTraveling.Resource.Policy_ValidDate");
-                    }
-                    else {
-                        $("#errorMessage").text("@InsuredTraveling.Resource.Policy_FillData");
-                    }
-                    
+                    $("#errorMessage").text((JSON.parse(result.responseText)).Message);
+                }
+            });
         }
+        else {
+            $(".hideMe").hide();
+            $("#totalPremiumLabel").hide();
+            $("#totalPremium").val("");
+            if ($("#Valid_Days").val() == 0) {
+                $("#errorMessage").text("@InsuredTraveling.Resource.Policy_ValidDate");
+            }
+            else {
+                $("#errorMessage").text("@InsuredTraveling.Resource.Policy_FillData");
+            }
 
-    }
+        }
+    };
     $('#dugme').on('submit', function (e) {
         if (!valid) {
             e.preventDefault();
@@ -573,7 +567,6 @@
         }
     });
 
-
     $("#IsExistentPolicyHolder").change(function () {
         if (this.checked) {
             $(".hideWhenSelect").hide();
@@ -585,24 +578,22 @@
 
     $("#IsSamePolicyHolderInsured").change(function () {
         if (this.checked) {
-            // $("#hideWhenSamePerson").hide();
-           // $("#hideWhenSamePerson .form-control").prop('readonly', true);
             $.ajax({
                 type: "GET",
                 url: "/Policy/GetExistentLoggedInUserData",
                 success: function (result) {
                     var rez = JSON.parse(result);
                     console.log(rez);
-                    $("#Name").attr("value", rez.InsuredData.FirstName);
-                    $("#LastName").attr("value", rez.InsuredData.Name);
-                    $("#Address").attr("value", rez.InsuredData.Address);
-                    $("#City").attr("value", rez.InsuredData.City);
-                    $("#PostalCode").attr("value", rez.InsuredData.PostalCode);
-                    $("#SSN").attr("value", rez.InsuredData.Ssn);
-                    $("#BirthDate").attr("value", rez.InsuredData.DateBirth);
-                    $("#PassportNumber_ID").attr("value", rez.InsuredData.PassportID);
-                    $("#Email").attr("value", rez.InsuredData.Email);
-                    $("#PhoneNumber").attr("value", rez.InsuredData.PhoneNumber);
+                    $("#Name").val(rez.InsuredData.FirstName);
+                    $("#LastName").val(rez.InsuredData.Name);
+                    $("#Address").val(rez.InsuredData.Address);
+                    $("#City").val(rez.InsuredData.City);
+                    $("#PostalCode").val(rez.InsuredData.PostalCode);
+                    $("#SSN").val(rez.InsuredData.Ssn);
+                    $("#BirthDate").val(rez.InsuredData.DateBirth);
+                    $("#PassportNumber_ID").val(rez.InsuredData.PassportID);
+                    $("#Email").val(rez.InsuredData.Email);
+                    $("#PhoneNumber").val(rez.InsuredData.PhoneNumber);
                 }
             });
         }
