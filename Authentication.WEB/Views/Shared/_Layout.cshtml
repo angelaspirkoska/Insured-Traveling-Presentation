@@ -78,7 +78,7 @@
             localStorage.setItem("username", $("#userName").val());
             console.log(localStorage.getItem("username"));
             if (localStorage.getItem("username") != "") {
-                $("#welcome").text("Welcome " + localStorage.getItem("username"));
+                $("#welcome").text("@InsuredTraveling.Resource.Welcome " + localStorage.getItem("username"));
                 $("#signup").attr("class", "hidden");
                 $("#login").attr("class", "hidden");
                 $("#welcome").removeAttr("class");
