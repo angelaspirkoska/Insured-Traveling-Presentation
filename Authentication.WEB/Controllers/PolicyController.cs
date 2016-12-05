@@ -57,11 +57,7 @@ namespace Authentication.WEB.Controllers
             ViewBag.TypeOfPolicy = type_policies.Result;
             ViewBag.Countries = countries.Result;
             ViewBag.Franchise = franchises.Result;
-            ViewBag.additional_charges = additional_charges.Result;
-            ViewBag.Date = DateTime.Now.Year +String.Format("/{0:00}/",DateTime.Now.Month)+ String.Format("{0:00}", DateTime.Now.Day);
-            DateTime inTenDays = DateTime.Now.AddDays(9);
-            ViewBag.DateAfterTenDays = inTenDays.Year + String.Format("/{0:00}/", inTenDays.Month)+ String.Format("{0:00}", inTenDays.Day);
-
+            ViewBag.additional_charges = additional_charges.Result;       
             return View();
         }
 
