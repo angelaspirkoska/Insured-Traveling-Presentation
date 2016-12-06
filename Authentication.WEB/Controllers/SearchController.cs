@@ -174,7 +174,19 @@ namespace InsuredTraveling.Controllers
             return JSONObject;
         }
 
-        public JObject GetFNOL(string PolicyNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance, string DateAdded, string operatorDateAdded)
+        public JObject GetFNOL(string PolicyNumber, 
+                               string holderName, 
+                               string holderLastName, 
+                               string clientName, 
+                               string clientLastName, 
+                               string insuredName, 
+                               string insuredLastName, 
+                               string totalPrice, 
+                               string healthInsurance, 
+                               string luggageInsurance, 
+                               string DateAdded, 
+                               string operatorDateAdded, 
+                               string operatorTotalCost)
         {
             RoleAuthorize r = new RoleAuthorize();
 
@@ -201,6 +213,18 @@ namespace InsuredTraveling.Controllers
                     case "<": fnol = fnol.Where(x => x.additional_info.Datetime_accident < dateAdded).ToList(); break;
                     case "=": fnol = fnol.Where(x => x.additional_info.Datetime_accident == dateAdded).ToList(); break;
                     case ">": fnol = fnol.Where(x => x.additional_info.Datetime_accident > dateAdded).ToList(); break;
+                    default: break;
+                }
+            }
+            if (!String.IsNullOrEmpty(totalPrice))
+            {
+                float price = 0;
+                float.TryParse(totalPrice, out price);
+                switch (operatorTotalCost)
+                {
+                    case "<": fnol = fnol.Where(x => x.Total_cost < price).ToList(); break;
+                    case "=": fnol = fnol.Where(x => x.Total_cost == price).ToList(); break;
+                    case ">": fnol = fnol.Where(x => x.Total_cost > price).ToList(); break;
                     default: break;
                 }
             }

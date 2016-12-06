@@ -437,7 +437,17 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="totalPrice">@InsuredTraveling.Resource.Search_TotalCost:</label>
-                                <input type="search" name="totalPrice" class="form-control" placeholder="Search by Total Cost" id="totalPrice" />
+                                <div class="input-group-btn">
+                                    <input type="search" name="totalPrice" class="form-control" placeholder="Search by Total Cost" id="totalPrice" />
+                                    <button type="button" id="totalCostOperator" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                        = <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li onclick="$('#totalCostOperator').html(' = '); $('#totalCostOperator').val('=');">=</li>
+                                        <li onclick="$('#totalCostOperator').html(' < '); $('#totalCostOperator').val('<');">&lt</li>
+                                        <li onclick="$('#totalCostOperator').html(' > '); $('#totalCostOperator').val('>');">&gt</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -708,7 +718,7 @@
         $("#tableFNOL").DataTable().destroy();
         $("#tableFNOL").DataTable({
             dom: "Bfrtip",
-            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFNOL?PolicyNumber=" + $("#PolicyNumberFNL").val() + "&holderName=" + $("#holderName").val() + "&holderLastName=" + $("#holderLastName").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked') + "&DateAdded=" + $("#DateAdded").val() + "&operatorDateAdded=" + $("#operatorDateAdded").val(),
+            ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFNOL?PolicyNumber=" + $("#PolicyNumberFNL").val() + "&holderName=" + $("#holderName").val() + "&holderLastName=" + $("#holderLastName").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked') + "&DateAdded=" + $("#DateAdded").val() + "&operatorDateAdded=" + $("#operatorDateAdded").val() + "&operatorTotalCost=" + $("#totalCostOperator").val(),
             columns: [
                     { data: "PolicyNumber" },
                     { data: "InsuredName" },
