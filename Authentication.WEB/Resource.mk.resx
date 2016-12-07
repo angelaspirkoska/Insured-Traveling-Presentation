@@ -508,7 +508,7 @@
     <value>Пребарај по поштенски број</value>
   </data>
   <data name="Search_SearchSSN" xml:space="preserve">
-    <value>Пребарувај по ЕНБГ</value>
+    <value>Пребарувај по ЕМБГ</value>
   </data>
   <data name="Search_SearchTablePolicyNumber" xml:space="preserve">
     <value>Број на полиса</value>
