@@ -17,6 +17,9 @@ namespace InsuredTraveling.DI
         List<additional_charge> GetAdditionalChargesByPolicyId(int policyId);
 
         string GetAdditionalChargeName(int chargeId);
+        List<additional_charge> GetAllAdditionalCharge();
+        additional_charge_name GetAdditionalChargeENData(int chargeId);
+        additional_charge_name GetAdditionalChargeMKData(int chargeId);
 
     }
 

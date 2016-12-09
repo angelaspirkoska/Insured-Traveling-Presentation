@@ -24,5 +24,22 @@ namespace InsuredTraveling.DI
 
             return franchise;
         }
+
+        public List<retaining_risk> GetAllRetainingRisks()
+        {
+            return _db.retaining_risk.ToList();
+        }
+
+        public retaining_risk_name GetRetainingRiskENData(int retainingRiskID)
+        {
+            var language = _db.languages.Where(x => x.CultureName == "en").FirstOrDefault();
+            return _db.retaining_risk_name.Where(x => x.retaining_risk_id == retainingRiskID && x.language_id == language.Id).FirstOrDefault();
+        }
+
+        public retaining_risk_name GetRetainingRiskMKData(int retainingRiskID)
+        {
+            var language = _db.languages.Where(x => x.CultureName == "mk").FirstOrDefault();
+            return _db.retaining_risk_name.Where(x => x.retaining_risk_id == retainingRiskID && x.language_id == language.Id).FirstOrDefault();
+        }
     }
 }

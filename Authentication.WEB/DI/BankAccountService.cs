@@ -88,5 +88,10 @@ namespace InsuredTraveling.DI
         {
            return _db.bank_account_info.Where(x => x.Account_HolderID == clientId && x.Account_Number.Equals(bankAccountNumber) && x.bank.Name.Equals(bankAccountName)).SingleOrDefault();          
         }
+
+        public List<bank> GetAllBanks()
+        {
+            return _db.banks.ToList();
+        }
     }
 }

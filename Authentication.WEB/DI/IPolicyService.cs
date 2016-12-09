@@ -18,6 +18,7 @@ namespace InsuredTraveling.DI
         DateTime GetStartDateByPolicyId(int PolicyID);
         DateTime GetEndDateByPolicyId(int PolicyID);
         travel_policy[] GetPolicyByUsernameId(string id);
+        travel_policy[] GetPolicyNotPayedByUsernameId(string id);
         travel_policy Create();
         string CreatePolicyNumber();
         List<travel_policy> GetPolicyByTypePolicies(int TypePolicies);

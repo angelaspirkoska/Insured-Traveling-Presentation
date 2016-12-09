@@ -47,5 +47,22 @@ namespace InsuredTraveling.DI
             var chargeName =  _db.additional_charge_name.Where(x => x.additional_charge_id == chargeId && x.language_id == languageId).FirstOrDefault();
             return chargeName != null ? chargeName.name : null;
         }
+
+        public List<additional_charge> GetAllAdditionalCharge()
+        {
+            return _db.additional_charge.ToList();
+        }
+
+        public additional_charge_name GetAdditionalChargeENData(int chargeId)
+        {
+            var language = _db.languages.Where(x => x.CultureName == "en").FirstOrDefault();
+            return _db.additional_charge_name.Where(x => x.additional_charge_id == chargeId && x.language_id == language.Id).FirstOrDefault();
+        }
+
+        public additional_charge_name GetAdditionalChargeMKData(int chargeId)
+        {
+            var language = _db.languages.Where(x=>x.CultureName == "mk").FirstOrDefault();
+            return _db.additional_charge_name.Where(x => x.additional_charge_id == chargeId && x.language_id == language.Id).FirstOrDefault();
+        }
     }
 }

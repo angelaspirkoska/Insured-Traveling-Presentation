@@ -81,6 +81,11 @@ namespace InsuredTraveling.DI
             return _db.travel_policy.Where(x => x.aspnetuser.Id == id && x.Payment_Status == true).ToArray();
         }
 
+        public travel_policy[] GetPolicyNotPayedByUsernameId(string id)
+        {
+            return _db.travel_policy.Where(x => x.aspnetuser.Id == id && x.Payment_Status == false).ToArray();
+        }
+
         public travel_policy GetPolicyClientsInfo(int PolicyID)
         {
 

@@ -22,6 +22,11 @@ namespace InsuredTraveling.DI
             });
 
             return policy; 
+        }
+
+        public List<policy_type> GetAllPolicyType()
+        {
+            return _db.policy_type.ToList();
+        }
     }
-}
 }

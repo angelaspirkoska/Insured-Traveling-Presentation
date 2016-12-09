@@ -11,6 +11,9 @@ namespace InsuredTraveling.DI
     {
 
         IQueryable<SelectListItem> GetAll();
+        List<retaining_risk> GetAllRetainingRisks();
+        retaining_risk_name GetRetainingRiskENData(int retainingRiskID);
+        retaining_risk_name GetRetainingRiskMKData(int retainingRiskID);
 
     }
 }

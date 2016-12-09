@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace InsuredTraveling.DI
 {
-    public interface IPolicyTypeService
+    public interface IExchangeRateService
     {
-        IQueryable<SelectListItem> GetAll();
-        List<policy_type> GetAllPolicyType();
+        List<exchange_rate> GetAllExchangeRates();
     }
 }

@@ -27,5 +27,7 @@ namespace InsuredTraveling.DI
         bank CreateBank();
 
         bank GetBank(string bankName);
+
+        List<bank> GetAllBanks();
     }
 }
