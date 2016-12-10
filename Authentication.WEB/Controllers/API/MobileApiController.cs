@@ -90,6 +90,7 @@ namespace InsuredTraveling.Controllers.API
             foreach (travel_policy policy in policies)
             {
                 var userPolicy = new JObject();
+                userPolicy.Add("ID", policy.ID);
                 userPolicy.Add("Policy_Number", policy.Policy_Number);
                 userPolicy.Add("Exchange_RateID", policy.Exchange_RateID);
                 userPolicy.Add("CountryID", policy.CountryID);
@@ -100,8 +101,6 @@ namespace InsuredTraveling.Controllers.API
                 userPolicy.Add("Valid_Days", policy.Valid_Days);
                 userPolicy.Add("Travel_NumberID", policy.Travel_NumberID);
                 userPolicy.Add("Travel_Insurance_TypeID", policy.Travel_Insurance_TypeID);
-                userPolicy.Add("Group_Members", policy.Group_Members);
-                userPolicy.Add("Group_Total_Premium", policy.Group_Total_Premium);
                 userPolicy.Add("Created_By", policy.Created_By);
                 userPolicy.Add("Date_Created", policy.Date_Created);
                 userPolicy.Add("Date_Modified", policy.Date_Modified);
@@ -151,7 +150,7 @@ namespace InsuredTraveling.Controllers.API
                     foreach (var insured in policy.policy_insured)
                     {
                         var policyInsured = new JObject();
-                        policyInsured.Add("ID", policy.Policy_HolderID);
+                        policyInsured.Add("Insured_ID", policy.Policy_HolderID);
                         policyInsured.Add("Name", policy.insured.Name);
                         policyInsured.Add("Lastname", policy.insured.Lastname);
                         policyInsured.Add("SSN", policy.insured.SSN);
@@ -188,7 +187,6 @@ namespace InsuredTraveling.Controllers.API
                 userQuote.Add("End_Date", policy.End_Date);
                 userQuote.Add("Valid_Days", policy.Valid_Days);
                 userQuote.Add("Travel_NumberID", policy.Travel_NumberID);
-                userQuote.Add("Travel_Insurance_TypeID", policy.Travel_Insurance_TypeID);
                 userQuote.Add("Group_Members", policy.Group_Members);
                 userQuote.Add("Group_Total_Premium", policy.Group_Total_Premium);
                 userQuote.Add("Created_By", policy.Created_By);
