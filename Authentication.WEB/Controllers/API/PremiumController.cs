@@ -17,7 +17,7 @@ namespace Authentication.WEB.Controllers
             RatingService ratingService = new RatingService();
             Premium Premium = new Premium();
             //Calculates premium
-          //  Premium.PremiumAmount = ratingService.calculatePremium(ratingEnginePath, value1, value2);
+            //  Premium.PremiumAmount = ratingService.calculatePremium(ratingEnginePath, value1, value2);
 
             var quotePath = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/QuoteDocument.docx");
             var quotePathCopy = System.Web.Hosting.HostingEnvironment.MapPath("~/Files/QuoteDocumentCopy.docx");
@@ -33,8 +33,8 @@ namespace Authentication.WEB.Controllers
         [Route("Calculate")]
         public IHttpActionResult Code(Policy policy)
         {
-          
-            if(!policy.isMobile && policy.IsSamePolicyHolderInsured)
+
+            if (!policy.isMobile && policy.IsSamePolicyHolderInsured)
             {
                 policy.PolicyHolderName = policy.Name;
                 policy.PolicyHolderLastName = policy.LastName;
@@ -46,9 +46,9 @@ namespace Authentication.WEB.Controllers
                 policy.PolicyHolderPostalCode = policy.PostalCode;
                 policy.PolicyHolderPhoneNumber = policy.PhoneNumber;
 
-              
+
             }
-            if(!policy.isMobile)
+            if (!policy.isMobile)
             {
                 ModelState.Remove("PolicyHolderName");
                 ModelState.Remove("PolicyHolderLastName");
@@ -59,12 +59,8 @@ namespace Authentication.WEB.Controllers
                 ModelState.Remove("PolicyHolderPostalCode");
                 ModelState.Remove("PolicyHolderPhoneNumber");
                 ModelState.Remove("PolicyHolderSSN");
-              //  string[] s = policy.test.ToString().Split('/');
-
-              //  policy.Start_Date = new System.DateTime();
             }
-           
-            
+
             if (ModelState.IsValid && policy != null)
             {
                 RatingEngineService ratingEngineService = new RatingEngineService();
@@ -72,10 +68,21 @@ namespace Authentication.WEB.Controllers
                 Premium Premium = new Premium();
                 Premium.PremiumAmount = (int)ratingEngineService.totalPremium(policy);
                 return Ok(new { PremiumAmount = Premium.PremiumAmount });
-            }else
+            }
+            else
             {
                 return BadRequest("Внесете ги сите полиња!");
             }
+        }
+
+        [HttpPost]
+        [Route("CalculatePremium")]
+        public IHttpActionResult CalculatePremium(Policy policy)
+        {
+            RatingEngineService ratingEngineService = new RatingEngineService();
+            Premium Premium = new Premium();
+            Premium.PremiumAmount = (int)ratingEngineService.totalPremium(policy);
+            return Ok(new { PremiumAmount = Premium.PremiumAmount });
         }
     }
 }

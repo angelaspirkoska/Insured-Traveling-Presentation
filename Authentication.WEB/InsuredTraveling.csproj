@@ -469,6 +469,7 @@
     <Compile Include="DI\IPolicyTypeService.cs" />
     <Compile Include="DI\IRolesService.cs" />
     <Compile Include="DI\ITransactionsService.cs" />
+    <Compile Include="DI\ITravelNumberService.cs" />
     <Compile Include="DI\IUserService.cs" />
     <Compile Include="DI\LuggageInsuranceService.cs" />
     <Compile Include="DI\NewsService.cs" />
@@ -478,6 +479,7 @@
     <Compile Include="DI\PolicyTypeService.cs" />
     <Compile Include="DI\RolesService.cs" />
     <Compile Include="DI\TransactionsService.cs" />
+    <Compile Include="DI\TravelNumberService.cs" />
     <Compile Include="DI\UserService.cs" />
     <Compile Include="document.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
@@ -682,9 +684,11 @@
     <Compile Include="user.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AddPolicyMobileViewModel.cs" />
     <Compile Include="ViewModels\BankAccountInfoViewModel.cs" />
     <Compile Include="ViewModels\BankPrefixViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
+    <Compile Include="ViewModels\DetailFirstNoticeOfLossViewModel.cs" />
     <Compile Include="ViewModels\FileDescriptionViewModel.cs" />
     <Compile Include="ViewModels\FirstNoticeOfLossEditViewModel.cs" />
     <Compile Include="ViewModels\JsonWrapperPolicyFirstNoticeOfLossViewModel.cs" />
@@ -692,6 +696,7 @@
     <Compile Include="ViewModels\SearchClientsViewModel.cs" />
     <Compile Include="ViewModels\SearchFNOLViewModel.cs" />
     <Compile Include="ViewModels\SearchPolicyViewModel.cs" />
+    <Compile Include="ViewModels\ShortFirstNoticeOfLossViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

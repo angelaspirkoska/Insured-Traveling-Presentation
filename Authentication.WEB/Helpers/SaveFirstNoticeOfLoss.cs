@@ -3,7 +3,7 @@ using System.Web;
 using InsuredTraveling.Models;
 using System;
 using System.Collections.Generic;
-
+using InsuredTraveling.ViewModels;
 
 namespace InsuredTraveling.Helpers
 {
@@ -20,7 +20,7 @@ namespace InsuredTraveling.Helpers
             {
                 additionalInfo.Accident_place = firstNoticeOfLossViewModel.AccidentPlaceHealth;
                 if (firstNoticeOfLossViewModel.AccidentDateTimeHealth != null)
-                {                    
+                {
                     var dateTime = firstNoticeOfLossViewModel.AccidentDateTimeHealth.Value;
                     var timeSpan = firstNoticeOfLossViewModel.AccidentTimeHealth.Value;
                     DateTime d = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
@@ -38,23 +38,24 @@ namespace InsuredTraveling.Helpers
                     Responsible_institution = firstNoticeOfLossViewModel.ResponsibleInstitution
                 };
 
-                try{
-                     _ais.AddHealthInsuranceInfo(healthInsuranceInfo);
+                try
+                {
+                    _ais.AddHealthInsuranceInfo(healthInsuranceInfo);
 
                 }
-                finally{}
+                finally { }
 
             }
             else
             {
                 additionalInfo.Accident_place = firstNoticeOfLossViewModel.AccidentPlaceLuggage;
                 if (firstNoticeOfLossViewModel.AccidentDateTimeLuggage != null)
-                {                  
+                {
                     var dateTime = firstNoticeOfLossViewModel.AccidentDateTimeLuggage.Value;
                     var timeSpan = firstNoticeOfLossViewModel.AccidentTimeLuggage.Value;
                     DateTime d = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
-                    additionalInfo.Datetime_accident = d+timeSpan;
-                }   
+                    additionalInfo.Datetime_accident = d + timeSpan;
+                }
                 var luggageInsuranceInfo = new luggage_insurance_info
                 {
                     Additional_infoId = _ais.Add(additionalInfo),
@@ -71,7 +72,7 @@ namespace InsuredTraveling.Helpers
                 {
                     _ais.AddLuggageInsuranceInfo(luggageInsuranceInfo);
                 }
-                finally{}
+                finally { }
             }
             var firstNoticeOfLossEntity = _fis.Create();
             firstNoticeOfLossEntity.PolicyId = firstNoticeOfLossViewModel.PolicyId;
@@ -85,11 +86,13 @@ namespace InsuredTraveling.Helpers
             firstNoticeOfLossEntity.CreatedDateTime = DateTime.Now;
 
             string username;
-            if (firstNoticeOfLossViewModel.isMobile){
+            if (firstNoticeOfLossViewModel.isMobile)
+            {
                 username = firstNoticeOfLossViewModel.username;
             }
-            else{
-                 username = System.Web.HttpContext.Current.User.Identity.Name;
+            else
+            {
+                username = System.Web.HttpContext.Current.User.Identity.Name;
             }
             firstNoticeOfLossEntity.CreatedBy = _us.GetUserIdByUsername(username);
             firstNoticeOfLossEntity.Message = "";
@@ -102,7 +105,8 @@ namespace InsuredTraveling.Helpers
             {
                 firstNoticeOfLossEntity.Claimant_bank_accountID = firstNoticeOfLossViewModel.ClaimantForeignBankAccountId;
             }
-            else{
+            else
+            {
                 var bankAccountId = SaveBankAccountInfoHelper.SaveBankAccountInfo(_bas, firstNoticeOfLossViewModel.ClaimantId,
                      firstNoticeOfLossViewModel.ClaimantBankName,
                      firstNoticeOfLossViewModel.ClaimantBankAccountNumber);
@@ -114,7 +118,8 @@ namespace InsuredTraveling.Helpers
             {
                 firstNoticeOfLossEntity.Policy_holder_bank_accountID = firstNoticeOfLossViewModel.PolicyHolderForeignBankAccountId;
             }
-            else{
+            else
+            {
                 var bankAccountId = SaveBankAccountInfoHelper.SaveBankAccountInfo(_bas, firstNoticeOfLossViewModel.PolicyHolderId,
                      firstNoticeOfLossViewModel.PolicyHolderBankName,
                      firstNoticeOfLossViewModel.PolicyHolderBankAccountNumber);
@@ -131,7 +136,7 @@ namespace InsuredTraveling.Helpers
 
             finally { }
 
-            if(invoices != null)
+            if (invoices != null)
             {
                 foreach (var file in invoices)
                 {
@@ -184,5 +189,74 @@ namespace InsuredTraveling.Helpers
             return result;
 
         }
+
+        public static bool SaveDetailFirstNoticeOdLoss(DetailFirstNoticeOfLossViewModel addDetailLoss,
+                                                       travel_policy policy,
+                                                       IFirstNoticeOfLossService _fis,
+                                                       IAdditionalInfoService _ais)
+        {
+            try
+            {
+                var loss = _fis.Create();
+                loss.PolicyId = policy.ID;
+                loss.ClaimantId = addDetailLoss.ClaimantId;
+                loss.Relation_claimant_policy_holder = addDetailLoss.RelationClaimantPolicyHolder;
+                loss.Policy_holder_bank_accountID = addDetailLoss.PolicyHolder_Account_HolderID;
+                loss.Claimant_bank_accountID = addDetailLoss.Claimant_Account_HolderID;
+                loss.Destination = addDetailLoss.Destination;
+                loss.Depart_Date_Time = addDetailLoss.Depart_Date_Time;
+                loss.Arrival_Date_Time = addDetailLoss.Arrival_Date_Time;
+                loss.Transport_means = addDetailLoss.Transport_means;
+                loss.Total_cost = addDetailLoss.Total_cost;
+                loss.CreatedDateTime = addDetailLoss.CreatedDateTime;
+
+                var additionalInfo = _ais.Create();
+                additionalInfo.Accident_place = addDetailLoss.Accident_place;
+                additionalInfo.Datetime_accident = addDetailLoss.Datetime_accident;
+                var additionalInfoID = _ais.Add(additionalInfo);
+
+                if (addDetailLoss.HealthInsurance_Y_N.Equals("Y"))
+                {
+                    var healthInsuranceInfo = new health_insurance_info
+                    {
+                        Additional_infoId = additionalInfoID,
+                        additional_info = additionalInfo,
+                        Datetime_doctor_visit = addDetailLoss.Datetime_doctor_visit,
+                        Doctor_info = addDetailLoss.Doctor_info,
+                        Medical_case_description = addDetailLoss.Medical_case_description,
+                        Previous_medical_history = addDetailLoss.Previous_medical_history,
+                        Responsible_institution = addDetailLoss.Responsible_institution
+                    };
+
+                    _ais.AddHealthInsuranceInfo(healthInsuranceInfo);
+                }
+                else if (addDetailLoss.LuggageInsurance_Y_N.Equals("Y"))
+                {
+                    float floaterValue = 0;
+                    float.TryParse(addDetailLoss.Floaters_value, out floaterValue);
+                    var luggageInsuranceInfo = new luggage_insurance_info
+                    {
+                        Additional_infoId = additionalInfoID,
+                        additional_info = additionalInfo,
+                        Place_description = addDetailLoss.Place_description,
+                        Detail_description = addDetailLoss.Detail_description,
+                        Report_place = addDetailLoss.Report_place,
+                        Floaters = addDetailLoss.Floaters,
+                        Floaters_value = floaterValue,
+                        Luggage_checking_Time = addDetailLoss.Luggage_checking_Time ?? new TimeSpan(0, 0, 0)
+                    };
+
+                    _ais.AddLuggageInsuranceInfo(luggageInsuranceInfo);
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+
+            }
+        }
     }
 }
+
+    

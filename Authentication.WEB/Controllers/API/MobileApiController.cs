@@ -6,6 +6,7 @@ using System;
 using InsuredTraveling.DI;
 using InsuredTraveling.Helpers;
 using System.Text;
+using InsuredTraveling.ViewModels;
 
 namespace InsuredTraveling.Controllers.API
 {
@@ -28,14 +29,30 @@ namespace InsuredTraveling.Controllers.API
         private ICountryService _coun;
         private IExchangeRateService _exch;
         private IFranchiseService _fran;
+        private ITravelNumberService _tn;
 
         public MobileApiController()
         {
 
         }
 
-        public MobileApiController(IUserService us, IPolicyInsuredService pis, IAdditionalChargesService acs, IPolicyService ps, IFirstNoticeOfLossService fnls, IHealthInsuranceService his, ILuggageInsuranceService lis, IOkSetupService oss, IBankAccountService bas, IInsuredsService iss, IFirstNoticeOfLossService fis, IPolicyTypeService pts, IAdditionalInfoService ais, ICountryService coun
-            , IExchangeRateService exch, IFranchiseService fran)
+        public MobileApiController(IUserService us, 
+                                   IPolicyInsuredService pis, 
+                                   IAdditionalChargesService acs, 
+                                   IPolicyService ps, 
+                                   IFirstNoticeOfLossService fnls, 
+                                   IHealthInsuranceService his, 
+                                   ILuggageInsuranceService lis, 
+                                   IOkSetupService oss, 
+                                   IBankAccountService bas, 
+                                   IInsuredsService iss, 
+                                   IFirstNoticeOfLossService fis, 
+                                   IPolicyTypeService pts, 
+                                   IAdditionalInfoService ais, 
+                                   ICountryService coun,
+                                   IExchangeRateService exch, 
+                                   IFranchiseService fran,
+                                   ITravelNumberService tn)
         {
             _ps = ps;
             _us = us;
@@ -53,7 +70,7 @@ namespace InsuredTraveling.Controllers.API
             _coun = coun;
             _exch = exch;
             _fran = fran;
-
+            _tn = tn;
         }
         [AllowAnonymous]
         [Route("RetrieveUserInfo")]
@@ -163,6 +180,18 @@ namespace InsuredTraveling.Controllers.API
                         policyInsured.Add("Address", policy.insured.Address);
                         policyInsured.Add("Passport_Number_IdNumber", policy.insured.Passport_Number_IdNumber);
                         policyInsured.Add("Type_InsuredID", policy.insured.Type_InsuredID);
+
+                        JArray bankAccounts = new JArray();
+                        var banks = _bas.BankAccountsByInsuredId(insured.InsuredID);
+                        foreach (bank_account_info bankAccount in banks)
+                        {
+                            var bankAccountObject = new JObject();
+                            bankAccountObject.Add("BankAccount", bankAccount.Account_Number);
+                            bankAccountObject.Add("BankName", bankAccount.bank.Name);
+                            bankAccountObject.Add("BankAccountId", bankAccount.ID);
+                            bankAccounts.Add(bankAccountObject);
+                        }
+                        policyInsured.Add("insuredBankAccounts", bankAccounts);
                         policyInsureds.Add(policyInsured);
                     }
 
@@ -251,6 +280,18 @@ namespace InsuredTraveling.Controllers.API
                         quoteInsured.Add("Address", policy.insured.Address);
                         quoteInsured.Add("Passport_Number_IdNumber", policy.insured.Passport_Number_IdNumber);
                         quoteInsured.Add("Type_InsuredID", policy.insured.Type_InsuredID);
+
+                        JArray bankAccounts = new JArray();
+                        var banks = _bas.BankAccountsByInsuredId(insured.InsuredID);
+                        foreach (bank_account_info bankAccount in banks)
+                        {
+                            var bankAccountObject = new JObject();
+                            bankAccountObject.Add("BankAccount", bankAccount.Account_Number);
+                            bankAccountObject.Add("BankName", bankAccount.bank.Name);
+                            bankAccountObject.Add("BankAccountId", bankAccount.ID);
+                            bankAccounts.Add(bankAccountObject);
+                        }
+                        quoteInsured.Add("insuredBankAccounts", bankAccounts);
                         quoteInsureds.Add(quoteInsured);
                     }
 
@@ -273,6 +314,7 @@ namespace InsuredTraveling.Controllers.API
                     fnolObject.Add("Message", fnol.Message);
                     fnolObject.Add("ID", fnol.ID);
                     fnolObject.Add("Policy_Number", fnol.travel_policy.Policy_Number);
+                    fnolObject.Add("Short_Detailed", fnol.Short_Detailed);
                 }
                 else
                 {
@@ -397,18 +439,11 @@ namespace InsuredTraveling.Controllers.API
             {
 
                 first_notice_of_loss f1 = _fnls.Create();
-                //f1.insured
                 var user = _ps.GetPolicyHolderByPolicyID(f1.PolicyId);
-                //if(user == null)
-
                 f1.travel_policy.Policy_HolderID = user.ID;
-
                 f1.Message = f.Message;
                 f1.travel_policy.Policy_Number = f.PolicyNumber.ToString();
                 f1.Web_Mobile = f.isMobile;
-
-
-
                 try
                 {
                     _fnls.Add(f1);
@@ -422,15 +457,13 @@ namespace InsuredTraveling.Controllers.API
             }
             else
             {
-
-
                 var user = _ps.GetPolicyHolderByPolicyID(_ps.GetPolicyIdByPolicyNumber(f.PolicyNumber.ToString()).ID);
                 if (user == null)
                     throw new Exception("Policy not found");
                 f.PolicyHolderId = user.ID;
 
                 var result = SaveFirstNoticeOfLossHelper.SaveFirstNoticeOfLoss(_iss, _us, _fis,
-            _bas, _pts, _ais, f, null, null, null);
+                                                    _bas, _pts, _ais, f, null, null, null);
 
                 if (result > 0)
                     return Ok();
@@ -439,22 +472,34 @@ namespace InsuredTraveling.Controllers.API
             }
         }
 
+        [HttpPost]
+        [Route("ReportDetailLoss")]
+        public IHttpActionResult ReportDetailLoss(DetailFirstNoticeOfLossViewModel addLoss)
+        {
+            if(addLoss == null)
+            {
+                throw new Exception("Internal error: Empty Loss");
+            }
+            var policy = _ps.GetPolicyIdByPolicyNumber(addLoss.Policy_Number);
+            if (policy == null)
+                throw new Exception("Policy not found");
+
+            var result = SaveFirstNoticeOfLossHelper.SaveDetailFirstNoticeOdLoss(addLoss, policy, _fis, _ais);
+            if (result)
+                return Ok();
+            else throw new Exception("Internal error: Not saved");
+        }
 
         [HttpPost]
         [Route("CreatePolicy")]
-        public IHttpActionResult CreatePolicy(Policy f)
+        public IHttpActionResult CreatePolicy(AddPolicyMobileViewModel addPolicy)
         {
-            var policyId = -1;
-            try
+            if(addPolicy == null)
             {
-                policyId = SavePolicyHelper.SavePolicy(f, _ps, _us, _iss, _pis, _acs);
-                _ps.UpdatePaymentStatus(_ps.GetPolicyNumberByPolicyId(policyId));
-
+                throw new Exception("Internal error: Empty Policy");
             }
-            finally
-            {
-            }
-            if (policyId != -1)
+            bool result = SavePolicyHelper.SavePolicyFromMobile(addPolicy, _ps, _us, _iss, _pis, _acs);
+            if (result)
                 return Ok();
             else throw new Exception("Internal error: Not saved");
         }
@@ -468,14 +513,14 @@ namespace InsuredTraveling.Controllers.API
             //additional_charge
             JArray additionalCharges = new JArray();
             var allCharges = _acs.GetAllAdditionalCharge();
-            foreach(var charge in allCharges)
+            foreach (var charge in allCharges)
             {
                 JObject additionalCharge = new JObject();
                 additionalCharge.Add("ID", charge.ID);
                 additionalCharge.Add("Percentage", charge.Percentage);
                 additionalCharge.Add("Version", charge.Version);
                 var chargeDataEN = _acs.GetAdditionalChargeENData(charge.ID);
-                if(chargeDataEN != null)
+                if (chargeDataEN != null)
                 {
                     additionalCharge.Add("NameEN", chargeDataEN.name);
                 }
@@ -492,7 +537,7 @@ namespace InsuredTraveling.Controllers.API
             //banks
             JArray banks = new JArray();
             var allBanks = _bas.GetAllBanks();
-            foreach(var bank in allBanks)
+            foreach (var bank in allBanks)
             {
                 JObject bankObject = new JObject();
                 bankObject.Add("ID", bank.ID);
@@ -512,6 +557,18 @@ namespace InsuredTraveling.Controllers.API
                 banksPrefix.Add(prefixObject);
             }
             data.Add("banksPrefix", banksPrefix);
+
+            //travel number
+            JArray travelNumber = new JArray();
+            var allTravelNumber = _tn.GetAllTravelNumbers();
+            foreach (var number in allTravelNumber)
+            {
+                JObject numberObject = new JObject();
+                numberObject.Add("ID", number.ID);
+                numberObject.Add("Name", number.Name);
+                travelNumber.Add(numberObject);
+            }
+            data.Add("travelNumber", travelNumber);
 
             //countries
             JArray countries = new JArray();

@@ -5,12 +5,18 @@ using System.Web;
 using InsuredTraveling.Models;
 using InsuredTraveling.DI;
 using InsuredTraveling.Filters;
+using InsuredTraveling.ViewModels;
 
 namespace InsuredTraveling.Helpers
 {
     public static class SavePolicyHelper
     {
-        public static int SavePolicy(Policy p, IPolicyService _ps, IUserService _us, IInsuredsService _iss, IPolicyInsuredService _pis, IAdditionalChargesService _acs)
+        public static int SavePolicy(Policy p, 
+                                     IPolicyService _ps, 
+                                     IUserService _us, 
+                                     IInsuredsService _iss, 
+                                     IPolicyInsuredService _pis, 
+                                     IAdditionalChargesService _acs)
         {
             var policy = _ps.Create();
             var username = "";
@@ -25,9 +31,8 @@ namespace InsuredTraveling.Helpers
                 policy.Created_By = _us.GetUserIdByUsername(username);
             }
 
-            policy.Date_Created = DateTime.Now;
+            policy.Date_Created = DateTime.UtcNow;
             policy.Policy_Number = _ps.CreatePolicyNumber();
-
             policy.CountryID = p.CountryID;
             policy.Exchange_RateID = (p.Exchange_RateID.HasValue) ? p.Exchange_RateID.Value : 1;
             policy.Policy_TypeID = p.Policy_TypeID;
@@ -195,6 +200,90 @@ namespace InsuredTraveling.Helpers
             }
             return policyID;
 
+        }
+
+        public static bool SavePolicyFromMobile(AddPolicyMobileViewModel addPolicyMobile,
+                                                IPolicyService _ps,
+                                                IUserService _us,
+                                                IInsuredsService _iss,
+                                                IPolicyInsuredService _pis,
+                                                IAdditionalChargesService _acs)
+        {
+            try
+            {
+                //add policy details
+                var policy = _ps.Create();
+                var username = addPolicyMobile.Username;
+                policy.Created_By = _us.GetUserIdByUsername(addPolicyMobile.Username);
+                policy.Date_Created = DateTime.UtcNow;
+                policy.Policy_Number = addPolicyMobile.Policy_Number;
+                policy.CountryID = addPolicyMobile.CountryID;
+                policy.Exchange_RateID = addPolicyMobile.Exchange_RateID;
+                policy.Policy_TypeID = addPolicyMobile.Policy_TypeID;
+                policy.Retaining_RiskID = addPolicyMobile.Retaining_RiskID;
+                policy.Start_Date = addPolicyMobile.Start_Date;
+                policy.End_Date = addPolicyMobile.End_Date;
+                policy.Valid_Days = addPolicyMobile.Valid_Days;
+                policy.Travel_NumberID = addPolicyMobile.Travel_NumberID;
+                policy.Total_Premium = addPolicyMobile.Total_Premium;
+                policy.Payment_Status = addPolicyMobile.Payment_Status;
+                policy.Travel_Insurance_TypeID = addPolicyMobile.Travel_Insurance_TypeID;
+
+                //add policy holder
+                var policyHolder = _iss.GetInsuredBySsn(addPolicyMobile.SSN);
+                if (policyHolder == null)
+                {
+                    var policyHolderID = SaveInsuredHelper.SaveInsured(_iss, addPolicyMobile.Name, addPolicyMobile.LastName, addPolicyMobile.SSN, addPolicyMobile.Email,
+                             addPolicyMobile.DateBirth, addPolicyMobile.Phone_Number, addPolicyMobile.Passport_Number_IdNumber, addPolicyMobile.Address, addPolicyMobile.City, 
+                             addPolicyMobile.Postal_Code, addPolicyMobile.Created_By);
+                    policy.Policy_HolderID = policyHolderID;
+                }
+                else
+                {
+                    policy.Policy_HolderID = policyHolder.ID;
+                }
+
+                var policyID = _ps.AddPolicy(policy);
+
+                if (addPolicyMobile.Insureds != null)
+                {
+                    foreach(var insured in addPolicyMobile.Insureds)
+                    {
+                        var addInsured = _iss.GetInsuredBySsn(insured.SSN);
+                        var addInsuredID = SaveInsuredHelper.SaveInsured(_iss, insured.Name, insured.Lastname, insured.SSN, insured.Email,
+                                                insured.DateBirth, insured.Phone_Number, insured.Passport_Number_IdNumber, insured.Address, insured.City,
+                                                insured.Postal_Code, insured.Created_By);
+
+
+                        var policyInsured = _pis.Create();
+                        policyInsured.InsuredID = addInsuredID;
+                        policyInsured.PolicyID = policyID;
+                        _pis.Add(policyInsured);
+                    }
+                }
+
+                if(addPolicyMobile.Additional_charges != null)
+                {
+                    foreach (var additionalChargeId in addPolicyMobile.Additional_charges)
+                    {
+                        var additionalChargeObject = _acs.GetAdditionalChargeById(additionalChargeId);
+                        if (additionalChargeObject != null)
+                        {
+                            var addNewCharge = _acs.Create();
+                            addNewCharge.PolicyID = policyID;
+                            addNewCharge.Additional_ChargeID = additionalChargeObject.ID;
+                            _acs.AddAdditionalChargesPolicy(addNewCharge);
+                        }
+                    }
+                }
+                return true;
+                
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+           
         }
     }
 }

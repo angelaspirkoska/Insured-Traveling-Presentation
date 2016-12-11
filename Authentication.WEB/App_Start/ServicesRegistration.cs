@@ -37,6 +37,7 @@ namespace InsuredTraveling
             builder.RegisterType<BankAccountService>().As<IBankAccountService>().InstancePerRequest();
             builder.RegisterType<AdditionalInfoService>().As<IAdditionalInfoService>().InstancePerRequest();
             builder.RegisterType<ExchangeRateService>().As<IExchangeRateService>().InstancePerRequest();
+            builder.RegisterType< TravelNumberService>().As<ITravelNumberService>().InstancePerRequest();
 
             base.Load(builder);
 

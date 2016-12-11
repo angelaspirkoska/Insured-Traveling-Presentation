@@ -48,6 +48,11 @@ namespace InsuredTraveling.DI
             return chargeName != null ? chargeName.name : null;
         }
 
+        public additional_charge GetAdditionalChargeById(int chargeId)
+        {
+            return _db.additional_charge.Where(x => x.ID == chargeId).FirstOrDefault();
+        }
+
         public List<additional_charge> GetAllAdditionalCharge()
         {
             return _db.additional_charge.ToList();
