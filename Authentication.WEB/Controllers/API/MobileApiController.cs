@@ -86,6 +86,7 @@ namespace InsuredTraveling.Controllers.API
 
             //information about the user
             var userJson = new JObject();
+            userJson.Add("User_ID", user.Id);
             userJson.Add("FirstName", user.FirstName);
             userJson.Add("LastName", user.LastName);
             userJson.Add("Municipality", user.Municipality);
