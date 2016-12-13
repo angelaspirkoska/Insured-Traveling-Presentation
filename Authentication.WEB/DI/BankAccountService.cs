@@ -14,14 +14,14 @@ namespace InsuredTraveling.DI
         public int AddBank(bank bank)
         {
             _db.banks.Add(bank);
-             _db.SaveChanges();
+            _db.SaveChanges();
             return bank.ID;
         }
 
         public int AddBankAccountInfo(bank_account_info bankAccountInfo)
         {
             _db.bank_account_info.Add(bankAccountInfo);
-             _db.SaveChanges();
+            _db.SaveChanges();
             return bankAccountInfo.ID;
         }
 
@@ -32,14 +32,20 @@ namespace InsuredTraveling.DI
 
         public List<bank_account_info> BankAccountsByInsuredId(int insuredId)
         {
-           return _db.bank_account_info.Where(x => x.Account_HolderID == insuredId).ToList();            
+            return _db.bank_account_info.Where(x => x.Account_HolderID == insuredId).ToList();
+        }
+
+        public bool CheckIfBankAccountExist(int insuredID, string accountNumber, int bankID)
+        {
+            var bankAccount = _db.bank_account_info.Where(x => x.Account_HolderID == insuredID && x.Account_Number.Equals(accountNumber) && x.BankID == bankID).FirstOrDefault();
+            return bankAccount != null ? true : false;
         }
 
         public bank_account_info BankAccountsInfoByIdandUser(int ID, int accountHolder)
         {
             return (bank_account_info)_db.bank_account_info.Where(x => x.Account_HolderID == ID).Where(x => x.ID == ID);
-                
-            
+
+
         }
 
         public bool checkBankAccountInfo(int id)
@@ -51,13 +57,13 @@ namespace InsuredTraveling.DI
 
         public bank_account_info Create()
         {
-           return _db.bank_account_info.Create();
+            return _db.bank_account_info.Create();
         }
 
         public bank CreateBank()
         {
             return _db.banks.Create();
-            
+
         }
 
         public void deleteBankAccountInfo(int id)
@@ -69,7 +75,7 @@ namespace InsuredTraveling.DI
 
         public List<bank_prefix> GetAllPrefix()
         {
-            
+
             return _db.bank_prefix.ToList();
         }
 
@@ -81,17 +87,22 @@ namespace InsuredTraveling.DI
         public bank GetBank(string bankName)
         {
             return _db.banks.Single(x => x.Name.Equals(bankName));
-           
+
         }
 
         public bank_account_info GetBankAccountInfo(int clientId, string bankAccountNumber, string bankAccountName)
         {
-           return _db.bank_account_info.Where(x => x.Account_HolderID == clientId && x.Account_Number.Equals(bankAccountNumber) && x.bank.Name.Equals(bankAccountName)).SingleOrDefault();          
+            return _db.bank_account_info.Where(x => x.Account_HolderID == clientId && x.Account_Number.Equals(bankAccountNumber) && x.bank.Name.Equals(bankAccountName)).SingleOrDefault();
         }
 
         public List<bank> GetAllBanks()
         {
             return _db.banks.ToList();
+        }
+
+        public bank_account_info GetBankAccountInfo(int clientId, string bankAccountNumber, int bankID)
+        {
+            return _db.bank_account_info.Where(x => x.Account_HolderID == clientId && x.Account_Number.Equals(bankAccountNumber) && x.BankID == bankID).SingleOrDefault();
         }
     }
 }

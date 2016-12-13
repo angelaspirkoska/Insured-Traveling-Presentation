@@ -9,7 +9,7 @@ namespace InsuredTraveling.DI
     public interface IBankAccountService
     {
         List<bank_account_info> BankAccountsByInsuredId(int InsuredId);
-
+        bool CheckIfBankAccountExist(int insuredID, string accountNumber, int bankID);
         int AddBank(bank bank);
         int AddBankAccountInfo(bank_account_info bankAccountInfo);
         List<bank_prefix> GetAllPrefix();
@@ -29,5 +29,7 @@ namespace InsuredTraveling.DI
         bank GetBank(string bankName);
 
         List<bank> GetAllBanks();
+
+        bank_account_info GetBankAccountInfo(int clientId, string bankAccountNumber, int bankID);
     }
 }

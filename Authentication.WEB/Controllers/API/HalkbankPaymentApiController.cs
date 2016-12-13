@@ -17,7 +17,7 @@ namespace Authentication.WEB.Controllers
         ITransactionsService _ts;
 
 
-        HalkbankPaymentApiController(ITransactionsService ts)
+        public HalkbankPaymentApiController(ITransactionsService ts)
         {
             _ts = ts;
         }
