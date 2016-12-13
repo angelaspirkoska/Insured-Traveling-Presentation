@@ -139,7 +139,7 @@
     <value>Оспешно е додадено оштетено побарување!</value>
   </data>
   <data name="FNOL_Title" xml:space="preserve">
-    <value>Оштетено побарување</value>
+    <value>Оштетно побарување</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Почетна</value>
@@ -148,7 +148,7 @@
     <value>Админ панел</value>
   </data>
   <data name="Home_FirstNoticeOfLoss" xml:space="preserve">
-    <value>Оштетено побарување</value>
+    <value>Оштетно побарување</value>
   </data>
   <data name="Home_NewClient" xml:space="preserve">
     <value>Нов клиент</value>
@@ -301,7 +301,7 @@
     <value>Група</value>
   </data>
   <data name="Policy_PolicyInformation" xml:space="preserve">
-    <value>Имформации за полисата</value>
+    <value>Информации за полисата</value>
   </data>
   <data name="Policy_PolicySingle" xml:space="preserve">
     <value>Поединечно</value>
@@ -556,10 +556,10 @@
     <value>Датум на посета на доктор</value>
   </data>
   <data name="FNOL_DiseaseDescription" xml:space="preserve">
-    <value>Опис на болета</value>
+    <value>Опис на болеста</value>
   </data>
   <data name="FNOL_DoctorInfo" xml:space="preserve">
-    <value>Информации а докторот</value>
+    <value>Информации за докторот</value>
   </data>
   <data name="FNOL_DocumentsAsProof" xml:space="preserve">
     <value>Документи како доказ</value>
@@ -776,5 +776,59 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Добредојде</value>
+  </data>
+  <data name="User_UserName" xml:space="preserve">
+    <value>Корисничко име</value>
+  </data>
+  <data name="User_FirstName" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="User_LastName" xml:space="preserve">
+    <value>Презиме</value>
+  </data>
+  <data name="User_Email" xml:space="preserve">
+    <value>Емаил</value>
+  </data>
+  <data name="User_Password" xml:space="preserve">
+    <value>Лозинка</value>
+  </data>
+  <data name="User_ConfirmPassword" xml:space="preserve">
+    <value>Потврди Лозинка</value>
+  </data>
+  <data name="User_EMBG" xml:space="preserve">
+    <value>ЕМБГ</value>
+  </data>
+  <data name="User_Address" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="User_Municipality" xml:space="default">
+    <value>Општина</value>
+  </data>
+  <data name="User_InsuranceCompany" xml:space="default">
+    <value>Insurance Company</value>
+  </data>
+  <data name="User_PhoneNumber" xml:space="default">
+    <value>Телефонски број</value>
+  </data>
+  <data name="User_MobilePhoneNumber" xml:space="default">
+    <value>Мобилен телефон</value>
+  </data>
+  <data name="User_PostalCode" xml:space="default">
+    <value>Поштенски код</value>
+  </data>
+  <data name="User_PassportNumber" xml:space="default">
+    <value>Број на пасош</value>
+  </data>
+  <data name="User_DateOfBirth" xml:space="default">
+    <value>Дата на раѓање</value>
+  </data>
+  <data name="User_Gender" xml:space="default">
+    <value>Пол</value>
+  </data>
+  <data name="User_SelectGender" xml:space="default">
+    <value>---Изберете пол---</value> 
+  </data>
+  <data name="RequiredField" xml:space="default">
+    <value>Задолжителни полиња</value>
   </data>
 </root>

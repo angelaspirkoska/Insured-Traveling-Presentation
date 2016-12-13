@@ -1438,6 +1438,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Required field.
+        /// </summary>
+        public static string RequiredField {
+            get {
+                return ResourceManager.GetString("RequiredField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancellation date.
         /// </summary>
         public static string Seacrh_SearchTableCancellationDate {
@@ -2010,6 +2019,159 @@ namespace InsuredTraveling {
         public static string SignUp {
             get {
                 return ResourceManager.GetString("SignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string User_Address {
+            get {
+                return ResourceManager.GetString("User_Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Password.
+        /// </summary>
+        public static string User_ConfirmPassword {
+            get {
+                return ResourceManager.GetString("User_ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date of birth.
+        /// </summary>
+        public static string User_DateOfBirth {
+            get {
+                return ResourceManager.GetString("User_DateOfBirth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string User_Email {
+            get {
+                return ResourceManager.GetString("User_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSN.
+        /// </summary>
+        public static string User_EMBG {
+            get {
+                return ResourceManager.GetString("User_EMBG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Name.
+        /// </summary>
+        public static string User_FirstName {
+            get {
+                return ResourceManager.GetString("User_FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gender.
+        /// </summary>
+        public static string User_Gender {
+            get {
+                return ResourceManager.GetString("User_Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insurance Company.
+        /// </summary>
+        public static string User_InsuranceCompany {
+            get {
+                return ResourceManager.GetString("User_InsuranceCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        public static string User_LastName {
+            get {
+                return ResourceManager.GetString("User_LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mobile Phone Number.
+        /// </summary>
+        public static string User_MobilePhoneNumber {
+            get {
+                return ResourceManager.GetString("User_MobilePhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Municipality.
+        /// </summary>
+        public static string User_Municipality {
+            get {
+                return ResourceManager.GetString("User_Municipality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passport Number.
+        /// </summary>
+        public static string User_PassportNumber {
+            get {
+                return ResourceManager.GetString("User_PassportNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string User_Password {
+            get {
+                return ResourceManager.GetString("User_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone Number.
+        /// </summary>
+        public static string User_PhoneNumber {
+            get {
+                return ResourceManager.GetString("User_PhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal Code.
+        /// </summary>
+        public static string User_PostalCode {
+            get {
+                return ResourceManager.GetString("User_PostalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ---Select gender---.
+        /// </summary>
+        public static string User_SelectGender {
+            get {
+                return ResourceManager.GetString("User_SelectGender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string User_UserName {
+            get {
+                return ResourceManager.GetString("User_UserName", resourceCulture);
             }
         }
         
