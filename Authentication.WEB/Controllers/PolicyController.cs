@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using InsuredTraveling.DI;
 using InsuredTraveling.Filters;
+using InsuredTraveling.Helpers;
 
 namespace Authentication.WEB.Controllers
 {
@@ -120,6 +121,16 @@ namespace Authentication.WEB.Controllers
             return Json(new { success = true, responseText = "Success." }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult RedirectPrintOffer(Policy policy)
+        {
+            policy.isMobile = false;
+            var PolicyId = SavePolicyHelper.SavePolicy(policy, _ps, _us, _iss, _pis, _acs);
+
+            var pNumber = _ps.GetPolicyNumberByPolicyId(PolicyId);
+            return RedirectToAction("PolicyDetails", new { policyNumber = pNumber });
+        }
+
         public ActionResult PrintPolicy(string id)
         {
             PaymentModel pat = new PaymentModel();
@@ -143,11 +154,11 @@ namespace Authentication.WEB.Controllers
             return new ViewAsPdf("Print", pat);
         }
 
-        public ActionResult PolicyDetails(string id)
+        public ActionResult PolicyDetails(string policyNumber)
         {
             PaymentModel pat = new PaymentModel();
-            pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
-            pat.mainInsured = _pis.GetAllInsuredByPolicyId(pat.Pat.ID).First();
+            pat.Pat = _ps.GetPolicyIdByPolicyNumber(policyNumber);
+            pat.mainInsured = _pis.GetAllInsuredByPolicyId(pat.Pat.ID).FirstOrDefault();
             //  model.additionalCharge1 = 
             var policy = _ps.GetPolicyById(pat.Pat.ID);
             var additionalCharges = _acs.GetAdditionalChargesByPolicyId(pat.Pat.ID);

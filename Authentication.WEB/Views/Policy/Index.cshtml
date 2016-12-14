@@ -415,7 +415,7 @@
 
             <div class="form-group col-sm-3 col-md-8">
                 <div>
-                    <input type="button" onclick="@("window.location.href='" + @Url.Action("PrintPolicy", "Policy") + "'");" class="btn btn-default hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
+                    <input type="submit" formmethod="post" formaction="/Policy/RedirectPrintOffer" class="btn btn-default hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
                 </div>
             </div>
         </div>
@@ -659,8 +659,8 @@
         }
     });
     var future = new Date();
-    $("#Start_Date").val($.datepicker.formatDate("dd/mm/yy", new Date()));
-    $("#End_Date").val($.datepicker.formatDate("dd/mm/yy", new Date(future.setDate(future.getDate() + 10))));
+    $("#Start_Date").val($.datepicker.formatDate("mm/dd/yy", new Date()));
+    $("#End_Date").val($.datepicker.formatDate("mm/dd/yy", new Date(future.setDate(future.getDate() + 10))));
 
     $('#PolicyPolicyInformation').click(function () {
         $("#PolicyPolicyInformationContent").toggle();
