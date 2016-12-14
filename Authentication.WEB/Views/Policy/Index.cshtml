@@ -579,21 +579,21 @@
     });
 
     $("#Start_Date").datepicker({
-        dateFormat: "dd/mm/yy",
+        dateFormat: "mm/dd/yy",
         onSelect: function (selected) {
             $("#End_Date").datepicker("option", "minDate", selected);
         },
     });
 
     $("#End_Date").datepicker({
-        dateFormat: "dd/mm/yy",
+        dateFormat: "mm/dd/yy",
         onSelect: function (selected) {
             $("#Start_Date").datepicker("option", "maxDate", selected);
         },
     });
 
     $("#BirthDate").datepicker({
-        dateFormat: "dd/mm/yy",
+        dateFormat: "mm/dd/yy",
         onSelect: function (selected) {
         },
     });
