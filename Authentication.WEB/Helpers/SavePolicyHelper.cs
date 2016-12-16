@@ -212,30 +212,39 @@ namespace InsuredTraveling.Helpers
             try
             {
                 //add policy details
-                var policy = _ps.Create();
                 var username = addPolicyMobile.Username;
-                policy.Created_By = _us.GetUserIdByUsername(addPolicyMobile.Username);
-                policy.Date_Created = DateTime.UtcNow;
-                policy.Policy_Number = addPolicyMobile.Policy_Number;
-                policy.CountryID = addPolicyMobile.CountryID;
+
+                var policy = _ps.Create();
+                policy.Policy_Number = _ps.CreatePolicyNumber();
                 policy.Exchange_RateID = addPolicyMobile.Exchange_RateID;
+                policy.CountryID = addPolicyMobile.CountryID;
                 policy.Policy_TypeID = addPolicyMobile.Policy_TypeID;
                 policy.Retaining_RiskID = addPolicyMobile.Retaining_RiskID;
                 policy.Start_Date = addPolicyMobile.Start_Date;
                 policy.End_Date = addPolicyMobile.End_Date;
                 policy.Valid_Days = addPolicyMobile.Valid_Days;
                 policy.Travel_NumberID = addPolicyMobile.Travel_NumberID;
-                policy.Total_Premium = addPolicyMobile.Total_Premium;
-                policy.Payment_Status = addPolicyMobile.Payment_Status;
                 policy.Travel_Insurance_TypeID = addPolicyMobile.Travel_Insurance_TypeID;
+                policy.Total_Premium = addPolicyMobile.Total_Premium;
+                policy.Created_By = addPolicyMobile.Created_By;
+                policy.Date_Created = DateTime.UtcNow;
+                policy.Payment_Status = false;
 
                 //add policy holder
-                var policyHolder = _iss.GetInsuredBySsn(addPolicyMobile.SSN);
+                var policyHolder = _iss.GetInsuredBySsnAndCreatedBy(addPolicyMobile.SSN, addPolicyMobile.Created_By);
                 if (policyHolder == null)
                 {
-                    var policyHolderID = SaveInsuredHelper.SaveInsured(_iss, addPolicyMobile.Name, addPolicyMobile.LastName, addPolicyMobile.SSN, addPolicyMobile.Email,
-                             addPolicyMobile.DateBirth, addPolicyMobile.Phone_Number, addPolicyMobile.Passport_Number_IdNumber, addPolicyMobile.Address, addPolicyMobile.City, 
-                             addPolicyMobile.Postal_Code, addPolicyMobile.Created_By);
+                    var policyHolderID = SaveInsuredHelper.SaveInsured(_iss, addPolicyMobile.Name, 
+                                                                             addPolicyMobile.LastName, 
+                                                                             addPolicyMobile.SSN, 
+                                                                             addPolicyMobile.Email,
+                                                                             addPolicyMobile.DateBirth, 
+                                                                             addPolicyMobile.Phone_Number, 
+                                                                             addPolicyMobile.Passport_Number_IdNumber, 
+                                                                             addPolicyMobile.Address, 
+                                                                             addPolicyMobile.City,
+                                                                             addPolicyMobile.Postal_Code, 
+                                                                             addPolicyMobile.Created_By);
                     policy.Policy_HolderID = policyHolderID;
                 }
                 else
@@ -249,11 +258,18 @@ namespace InsuredTraveling.Helpers
                 {
                     foreach(var insured in addPolicyMobile.Insureds)
                     {
-                        var addInsured = _iss.GetInsuredBySsn(insured.SSN);
-                        var addInsuredID = SaveInsuredHelper.SaveInsured(_iss, insured.Name, insured.Lastname, insured.SSN, insured.Email,
-                                                insured.DateBirth, insured.Phone_Number, insured.Passport_Number_IdNumber, insured.Address, insured.City,
-                                                insured.Postal_Code, insured.Created_By);
-
+                        var addInsured = _iss.GetInsuredBySsnAndCreatedBy(insured.SSN, addPolicyMobile.Created_By);
+                        var addInsuredID = SaveInsuredHelper.SaveInsured(_iss, insured.Name, 
+                                                                               insured.Lastname, 
+                                                                               insured.SSN, 
+                                                                               insured.Email,
+                                                                               insured.DateBirth, 
+                                                                               insured.Phone_Number,
+                                                                               insured.Passport_Number_IdNumber, 
+                                                                               insured.Address, 
+                                                                               insured.City, 
+                                                                               insured.Postal_Code, 
+                                                                               insured.Created_By);
 
                         var policyInsured = _pis.Create();
                         policyInsured.InsuredID = addInsuredID;

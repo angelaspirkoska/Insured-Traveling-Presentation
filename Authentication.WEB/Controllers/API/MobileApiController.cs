@@ -202,7 +202,7 @@ namespace InsuredTraveling.Controllers.API
             }
             data.Add("policy", userPolicies);
 
-            //user's quotes
+           // user's quotes
             JArray userQuotes = new JArray();
             travel_policy[] quotes = _ps.GetPolicyNotPayedByUsernameId(user.Id);
             foreach (travel_policy policy in quotes)
@@ -485,7 +485,7 @@ namespace InsuredTraveling.Controllers.API
             if (policy == null)
                 throw new Exception("Policy not found");
 
-            var result = SaveFirstNoticeOfLossHelper.SaveDetailFirstNoticeOdLoss(addLoss, policy, _fis, _ais);
+            var result = SaveFirstNoticeOfLossHelper.SaveDetailFirstNoticeOdLoss(addLoss, policy, _fis, _ais, _bas);
             if (result)
                 return Ok();
             else throw new Exception("Internal error: Not saved");

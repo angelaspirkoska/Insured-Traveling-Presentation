@@ -4,6 +4,7 @@ using InsuredTraveling.Models;
 using System;
 using System.Collections.Generic;
 using InsuredTraveling.ViewModels;
+using System.Linq;
 
 namespace InsuredTraveling.Helpers
 {
@@ -193,27 +194,66 @@ namespace InsuredTraveling.Helpers
         public static bool SaveDetailFirstNoticeOdLoss(DetailFirstNoticeOfLossViewModel addDetailLoss,
                                                        travel_policy policy,
                                                        IFirstNoticeOfLossService _fis,
-                                                       IAdditionalInfoService _ais)
+                                                       IAdditionalInfoService _ais,
+                                                       IBankAccountService _bas)
         {
             try
             {
                 var loss = _fis.Create();
                 loss.PolicyId = policy.ID;
-                loss.ClaimantId = addDetailLoss.ClaimantId;
+                loss.ClaimantId = addDetailLoss.Claimant_ID;
                 loss.Relation_claimant_policy_holder = addDetailLoss.RelationClaimantPolicyHolder;
-                loss.Policy_holder_bank_accountID = addDetailLoss.PolicyHolder_Account_HolderID;
-                loss.Claimant_bank_accountID = addDetailLoss.Claimant_Account_HolderID;
                 loss.Destination = addDetailLoss.Destination;
                 loss.Depart_Date_Time = addDetailLoss.Depart_Date_Time;
                 loss.Arrival_Date_Time = addDetailLoss.Arrival_Date_Time;
                 loss.Transport_means = addDetailLoss.Transport_means;
                 loss.Total_cost = addDetailLoss.Total_cost;
-                loss.CreatedDateTime = addDetailLoss.CreatedDateTime;
-
+                loss.CreatedDateTime = DateTime.UtcNow;
+                loss.Message = "";
+                loss.CreatedBy = addDetailLoss.CreatedBy;
+               
+                //additional info
                 var additionalInfo = _ais.Create();
                 additionalInfo.Accident_place = addDetailLoss.Accident_place;
                 additionalInfo.Datetime_accident = addDetailLoss.Datetime_accident;
                 var additionalInfoID = _ais.Add(additionalInfo);
+                loss.Additional_infoID = additionalInfoID;
+
+                //bank accounts for policy holder
+                var holderBankAccountsExist = _bas.CheckIfBankAccountExist(addDetailLoss.Policy_HolderID, addDetailLoss.PolicyHolder_BankAccount, addDetailLoss.PolicyHolder_BankID);
+                if(!holderBankAccountsExist)
+                {
+                    var bankAccount = new bank_account_info();
+                    bankAccount.Account_HolderID = addDetailLoss.Policy_HolderID;
+                    bankAccount.BankID = addDetailLoss.PolicyHolder_BankID;
+                    bankAccount.Account_Number = addDetailLoss.PolicyHolder_BankAccount;
+                    var policyHolerBankAccount = _bas.AddBankAccountInfo(bankAccount);
+                    loss.Policy_holder_bank_accountID = policyHolerBankAccount;
+                }
+                else
+                {
+                    var policyHolderBankAccount = _bas.GetBankAccountInfo(addDetailLoss.Policy_HolderID, addDetailLoss.PolicyHolder_BankAccount, addDetailLoss.PolicyHolder_BankID);
+                    loss.Policy_holder_bank_accountID = policyHolderBankAccount.ID;
+                }
+
+                //bank accounts for claimant
+                var claimantBankAccountsExist = _bas.CheckIfBankAccountExist(addDetailLoss.Claimant_ID, addDetailLoss.Claimant_BankAccount, addDetailLoss.Claimant_BankID);
+                if (!claimantBankAccountsExist)
+                {
+                    var bankAccount = new bank_account_info();
+                    bankAccount.Account_HolderID = addDetailLoss.Claimant_ID;
+                    bankAccount.BankID = addDetailLoss.Claimant_BankID;
+                    bankAccount.Account_Number = addDetailLoss.Claimant_BankAccount;
+                    var claimantBankAccount = _bas.AddBankAccountInfo(bankAccount);
+                    loss.Claimant_bank_accountID = claimantBankAccount;
+                }
+                else
+                {
+                    var claimantBankAccount = _bas.GetBankAccountInfo(addDetailLoss.Claimant_ID, addDetailLoss.Claimant_BankAccount, addDetailLoss.Claimant_BankID);
+                    loss.Claimant_bank_accountID = claimantBankAccount.ID;
+                }
+
+                var lossID = _fis.Add(loss);
 
                 if (addDetailLoss.HealthInsurance_Y_N.Equals("Y"))
                 {

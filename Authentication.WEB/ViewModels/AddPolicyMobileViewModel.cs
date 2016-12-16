@@ -13,7 +13,6 @@ namespace InsuredTraveling.ViewModels
             Additional_charges = new List<int>();
         }
         public string Username { get; set; }
-        public string Policy_Number { get; set; }
         public int Exchange_RateID { get; set; }
         public int CountryID { get; set; }
         public int Policy_TypeID { get; set; }
@@ -25,12 +24,7 @@ namespace InsuredTraveling.ViewModels
         public int Travel_Insurance_TypeID { get; set; }
         public double? Total_Premium { get; set; }
         public string Created_By { get; set; }
-        public DateTime Date_Created { get; set; }
-        public DateTime Date_Modified { get; set; }
-        public string Modified_By { get; set; }
         public bool Payment_Status { get; set; }
-        public DateTime? Date_Cancellation { get; set; }
-        public int PolicyHolderId { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string SSN { get; set; }
