@@ -320,6 +320,26 @@ namespace InsuredTraveling.App_Start
                 dst.Id = src.ID;
                 dst.Name = src.Policy_Number;
             });
+
+            Mapper.CreateMap<CalculatePremiumViewModel, Policy>().AfterMap((src, dst) =>
+            {
+                dst.CountryID = src.CountryID;
+                dst.Group_Members = src.Group_Members;
+                dst.Policy_TypeID = src.Policy_TypeID;
+                dst.Retaining_RiskID = src.Retaining_RiskID;
+                dst.Start_Date = src.Start_Date;
+                dst.Valid_Days = src.Valid_Days;
+                dst.Name = src.Policy_Holder != null? src.Policy_Holder.Name : "";
+                dst.LastName = src.Policy_Holder != null ? src.Policy_Holder.Lastname : "";
+                dst.SSN = src.Policy_Holder != null ? src.Policy_Holder.SSN : "";
+                dst.insureds = src.Insureds;
+                foreach (var charge in src.additional_charges)
+                {
+                    var additionalCharge = db.additional_charge.Where(x => x.ID == charge).FirstOrDefault();
+                    if(additionalCharge != null)
+                        dst.additional_charges.Add(additionalCharge);
+                }
+            });
         }
     }
 }

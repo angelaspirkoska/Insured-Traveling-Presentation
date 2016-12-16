@@ -687,6 +687,7 @@
     <Compile Include="ViewModels\AddPolicyMobileViewModel.cs" />
     <Compile Include="ViewModels\BankAccountInfoViewModel.cs" />
     <Compile Include="ViewModels\BankPrefixViewModel.cs" />
+    <Compile Include="ViewModels\CalculatePremiumViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\DetailFirstNoticeOfLossViewModel.cs" />
     <Compile Include="ViewModels\FileDescriptionViewModel.cs" />

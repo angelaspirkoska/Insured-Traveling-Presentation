@@ -1,6 +1,10 @@
 ﻿using Authentication.WEB.Models;
 using Authentication.WEB.Services;
+using AutoMapper;
+using InsuredTraveling;
 using InsuredTraveling.Models;
+using InsuredTraveling.ViewModels;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Services.Description;
 
@@ -77,10 +81,15 @@ namespace Authentication.WEB.Controllers
 
         [HttpPost]
         [Route("CalculatePremium")]
-        public IHttpActionResult CalculatePremium(Policy policy)
+        public IHttpActionResult CalculatePremium(CalculatePremiumViewModel data)
         {
             RatingEngineService ratingEngineService = new RatingEngineService();
             Premium Premium = new Premium();
+
+            var policy = new Policy();
+            policy.additional_charges = new List<additional_charge>();
+            policy = Mapper.Map<CalculatePremiumViewModel, Policy>(data);
+
             Premium.PremiumAmount = (int)ratingEngineService.totalPremium(policy);
             return Ok(new { PremiumAmount = Premium.PremiumAmount });
         }
