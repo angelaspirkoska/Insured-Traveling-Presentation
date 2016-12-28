@@ -321,7 +321,7 @@
     function FindUsername() {
         $.ajax({
             type: "POST",
-            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/account/FindUser",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/FindUser",
             data: jQuery.param({ username: $("#username").val() })
         })
         .done(function (result) {
@@ -335,7 +335,7 @@
     function ActivateAccount() {
         $.ajax({
             type: "POST",
-            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/account/ActivateAccount?username=" + $("#username").val()
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/ActivateAccount?username=" + $("#username").val()
             //data: jQuery.param({ username: $("#username").val() }),
             })
             .done(function (result) {
@@ -346,7 +346,7 @@
     function SendSMSCode() {
         $.ajax({
             type: "POST",
-            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/account/SendSMSCode",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/SendSMSCode",
             data: jQuery.param({ username: $("#username").val() }),
         })
         .done(function (result) {
