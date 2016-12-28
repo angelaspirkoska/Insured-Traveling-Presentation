@@ -546,7 +546,7 @@
         if (flag) {
             $.ajax({
                 type: "POST",
-                url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/api/Premium/Calculate",
+                url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/Premium/Calculate",
                 data: $("#policy_form").serialize(),
                 success: function (result) {
                     console.log(result.PremiumAmount);
