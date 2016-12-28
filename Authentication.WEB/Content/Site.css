@@ -110,7 +110,7 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+     width: 280px;
 }
 
 /*CSS text form create*/
@@ -314,10 +314,6 @@ form.cmxform .gray * { color: gray; }
 
 .hideMe{
         width: 160px;
-}
-
-.menu-btn-align{
-
 }
 
 
