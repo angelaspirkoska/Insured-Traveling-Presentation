@@ -801,35 +801,37 @@
   <data name="User_Address" xml:space="preserve">
     <value>Address</value>
   </data>
-  <data name="User_Municipality" xml:space="default">
-    <value>Municipality</value> 
+  <data name="User_Municipality" xml:space="preserve">
+    <value>Municipality</value>
   </data>
-  <data name="User_InsuranceCompany" xml:space="default">
+  <data name="User_InsuranceCompany" xml:space="preserve">
     <value>Insurance Company</value>
   </data>
-  <data name="User_PhoneNumber" xml:space="default">
+  <data name="User_PhoneNumber" xml:space="preserve">
     <value>Phone Number</value>
   </data>
-  <data name="User_MobilePhoneNumber" xml:space="default">
+  <data name="User_MobilePhoneNumber" xml:space="preserve">
     <value>Mobile Phone Number</value>
   </data>
-  <data name="User_PostalCode" xml:space="default">
+  <data name="User_PostalCode" xml:space="preserve">
     <value>Postal Code</value>
   </data>
-  <data name="User_PassportNumber" xml:space="default">
+  <data name="User_PassportNumber" xml:space="preserve">
     <value>Passport Number</value>
   </data>
-  <data name="User_DateOfBirth" xml:space="default">
+  <data name="User_DateOfBirth" xml:space="preserve">
     <value>Date of birth</value>
   </data>
-  <data name="User_Gender" xml:space="default">
+  <data name="User_Gender" xml:space="preserve">
     <value>Gender</value>
   </data>
-  <data name="User_SelectGender" xml:space="default">
+  <data name="User_SelectGender" xml:space="preserve">
     <value>---Select gender---</value>
   </data>
-  <data name="RequiredField" xml:space="default">
+  <data name="RequiredField" xml:space="preserve">
     <value>Required field</value>
   </data>
-  
+  <data name="Policy_UseNumberLatinLetters" xml:space="preserve">
+    <value>Use only numbers or latin letters!</value>
+  </data>
 </root>

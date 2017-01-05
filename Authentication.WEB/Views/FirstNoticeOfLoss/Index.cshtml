@@ -655,7 +655,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
     });
 
     $("#AccidentDateTimeHealth").datepicker({
-        dateFormat: "dd/mm/yy",
+        dateFormat: "mm/dd/yy",
         onSelect: function (selected) {
             $("#DepartDateTime").datepicker("option", "minDate", selected);
             $("#ArrivalDateTime").datepicker("option", "maxDate", selected);
@@ -663,12 +663,12 @@ else if (ViewBag.insurance == "Luggage Insurance")
     });
 
     $("#AccidentDateTimeLuggage").datepicker({
-        dateFormat: "dd/mm/yy",
+        dateFormat: "mm/dd/yy",
         onSelect: function (selected) {},
     });
 
     $("#DoctorVisitDateTime").datepicker({
-        dateFormat: "dd/mm/yy",
+        dateFormat: "mm/dd/yy",
         onSelect: function (selected) {},
     });
 

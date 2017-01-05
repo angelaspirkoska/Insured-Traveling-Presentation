@@ -2,6 +2,7 @@
 using Authentication.WEB.Services;
 using AutoMapper;
 using InsuredTraveling;
+using InsuredTraveling.App_Start;
 using InsuredTraveling.Models;
 using InsuredTraveling.ViewModels;
 using System.Collections.Generic;

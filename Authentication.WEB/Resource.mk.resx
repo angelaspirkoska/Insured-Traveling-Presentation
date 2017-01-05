@@ -280,7 +280,7 @@
     <value>Број на членови</value>
   </data>
   <data name="Policy_NumberTrips" xml:space="preserve">
-    <value>Број на патување</value>
+    <value>Број на патувања</value>
   </data>
   <data name="Policy_OneTrip" xml:space="preserve">
     <value>Едно патување</value>
@@ -801,34 +801,37 @@
   <data name="User_Address" xml:space="preserve">
     <value>Адреса</value>
   </data>
-  <data name="User_Municipality" xml:space="default">
+  <data name="User_Municipality" xml:space="preserve">
     <value>Општина</value>
   </data>
-  <data name="User_InsuranceCompany" xml:space="default">
+  <data name="User_InsuranceCompany" xml:space="preserve">
     <value>Insurance Company</value>
   </data>
-  <data name="User_PhoneNumber" xml:space="default">
+  <data name="User_PhoneNumber" xml:space="preserve">
     <value>Телефонски број</value>
   </data>
-  <data name="User_MobilePhoneNumber" xml:space="default">
+  <data name="User_MobilePhoneNumber" xml:space="preserve">
     <value>Мобилен телефон</value>
   </data>
-  <data name="User_PostalCode" xml:space="default">
+  <data name="User_PostalCode" xml:space="preserve">
     <value>Поштенски код</value>
   </data>
-  <data name="User_PassportNumber" xml:space="default">
+  <data name="User_PassportNumber" xml:space="preserve">
     <value>Број на пасош</value>
   </data>
-  <data name="User_DateOfBirth" xml:space="default">
+  <data name="User_DateOfBirth" xml:space="preserve">
     <value>Дата на раѓање</value>
   </data>
-  <data name="User_Gender" xml:space="default">
+  <data name="User_Gender" xml:space="preserve">
     <value>Пол</value>
   </data>
-  <data name="User_SelectGender" xml:space="default">
-    <value>---Изберете пол---</value> 
+  <data name="User_SelectGender" xml:space="preserve">
+    <value>---Изберете пол---</value>
   </data>
-  <data name="RequiredField" xml:space="default">
+  <data name="RequiredField" xml:space="preserve">
     <value>Задолжителни полиња</value>
+  </data>
+  <data name="Policy_UseNumberLatinLetters" xml:space="preserve">
+    <value>Користете само бројки и латински букви</value>
   </data>
 </root>

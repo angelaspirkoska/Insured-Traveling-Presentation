@@ -1411,6 +1411,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use only numbers or latin letters!.
+        /// </summary>
+        public static string Policy_UseNumberLatinLetters {
+            get {
+                return ResourceManager.GetString("Policy_UseNumberLatinLetters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must have at least one valid day!.
         /// </summary>
         public static string Policy_ValidDate {

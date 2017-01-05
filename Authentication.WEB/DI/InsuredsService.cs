@@ -40,7 +40,7 @@ namespace InsuredTraveling.DI
 
         public int GetInsuredIdBySsn(string Ssn)
         {
-            var insured = _db.insureds.Where(x => x.SSN == Ssn).SingleOrDefault();
+            var insured = _db.insureds.Where(x => x.SSN == Ssn).FirstOrDefault();
             if (insured != null)
             {
                 return insured.ID;
@@ -70,7 +70,7 @@ namespace InsuredTraveling.DI
 
         public insured GetInsuredBySsnAndCreatedBy(string Ssn, string userId)
         {
-            var insured = _db.insureds.Where(x => x.SSN == Ssn && x.Created_By == userId).SingleOrDefault();
+            var insured = _db.insureds.Where(x => x.SSN == Ssn && x.Created_By == userId). FirstOrDefault();
             return insured;
         }
 

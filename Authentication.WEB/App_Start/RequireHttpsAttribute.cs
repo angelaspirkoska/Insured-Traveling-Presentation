@@ -22,7 +22,7 @@ namespace InsuredTraveling.App_Start
                 
                 if(actionContext.Request.IsLocal())
                 {
-                    uriBuilder.Port = 4437;
+                    uriBuilder.Port = 44375;
                 }
                 else
                 {

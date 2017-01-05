@@ -22,7 +22,7 @@ namespace InsuredTraveling.Controllers
 
             if (ModelState.IsValid && CaptchaValid)
             {
-                Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/api/account/RegisterWeb");
+                Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/account/RegisterWeb");
                 HttpClient client = new HttpClient();
                 client.BaseAddress = uri;
                 var jsonFormatter = new JsonMediaTypeFormatter();

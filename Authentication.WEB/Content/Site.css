@@ -110,7 +110,7 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+     width: 280px;
 }
 
 /*CSS text form create*/
@@ -316,9 +316,6 @@ form.cmxform .gray * { color: gray; }
         width: 160px;
 }
 
-.menu-btn-align{
-
-}
 .portlet {
     border: 1px solid;
 }
@@ -447,7 +444,6 @@ form.cmxform .gray * { color: gray; }
     color: #fff;
     background-color: #34495e;
 }
-
 .portlet-basic,
 .portlet-basic>.portlet-heading {
     border-color: #333;
