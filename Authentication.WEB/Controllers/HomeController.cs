@@ -13,9 +13,23 @@ namespace InsuredTraveling.Controllers
     {  
         public ActionResult Index()
         {
-            if(!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            try
             {
-                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");  
+                if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                
+                    Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
+               
+                 
+            }
+            }
+            catch
+            {
+                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
+            }
+            finally
+            {
+               
             }
             return View();
         }

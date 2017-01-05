@@ -25,7 +25,7 @@ namespace InsuredTraveling
                      "~/Content/bootstrap.min.css",
                      "~/Content/themes/base/jquery-ui.css",
                      "~/Content/sorter/style.css",
-                      "~/Content/FontAwesome/font-awesome.min.css",
+                      "~/Content/font-awesome.min.css",
                      "~/Content/site.css"));
         }
     }

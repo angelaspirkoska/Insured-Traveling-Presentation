@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNet.SignalR;
 using InsuredTraveling.Filters;
 using Newtonsoft.Json.Linq;
@@ -43,9 +41,19 @@ namespace InsuredTraveling.Hubs
             }
             return base.OnConnected();
         }
+
+        public void OnConnectedMobile(string username)
+        {
+            Groups.Add(Context.ConnectionId, username);
+        }
+
         public void SendRequest()
         {
             var username = Context.User.Identity.Name;
+            var listRequestsByUser = _db.chat_requests.Where(x => x.Requested_by == username && x.Accepted == false).ToList();
+            if (listRequestsByUser.Count == 0)
+            {
+        
             var request = new chat_requests {
                 Requested_by = username
             };
@@ -63,20 +71,82 @@ namespace InsuredTraveling.Hubs
             {
 
             }
+            var numberRequests = _db.chat_requests.Where(x => x.Accepted == false).ToList();
 
-            var response = new JObject();
-            response.Add("numberRequests", 1);
+            var responseAdmins = new JObject();
+            responseAdmins.Add("numberRequests", numberRequests.Count);
             var array = new JArray();
-            array.Add(new
-            {
-                from = username,
-                timestamp = request.Datetime_request
-            });
-            response.Add("data", array);
-            Clients.Group("Admins").MessageRequest(response);
-
+            foreach(chat_requests chatRequest in numberRequests)
+                {
+                    array.Add(new JObject(new JProperty("from", chatRequest.Requested_by), new JProperty("timestamp", chatRequest.Datetime_request.ToString())));
+                }
+            
+            responseAdmins.Add("data", array);
+            Clients.Group("Admins").MessageRequest(responseAdmins);
+            }
         }
 
+
+        public void SendRequestMobile(string username)
+        {
+            //var username = Context.User.Identity.Name;
+            var listRequestsByUser = _db.chat_requests.Where(x => x.Requested_by == username && x.Accepted == false).ToList();
+            if (listRequestsByUser.Count == 0)
+            {
+
+                var request = new chat_requests
+                {
+                    Requested_by = username
+                };
+
+                try
+                {
+                    _db.chat_requests.Add(request);
+                    _db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                }
+                finally
+                {
+
+                }
+                var numberRequests = _db.chat_requests.Where(x => x.Accepted == false).ToList();
+
+                var responseAdmins = new JObject();
+                responseAdmins.Add("numberRequests", numberRequests.Count);
+                var array = new JArray();
+                foreach (chat_requests chatRequest in numberRequests)
+                {
+                    array.Add(new JObject(new JProperty("from", chatRequest.Requested_by), new JProperty("timestamp", chatRequest.Datetime_request.ToString())));
+                }
+
+                responseAdmins.Add("data", array);
+                Clients.Group("Admins").MessageRequest(responseAdmins);
+            }
+        }
+
+        public void SendMessageMobile(String from, String to, String message)
+        {
+           // var from = Context.User.Identity.Name;
+            var data = new JObject();
+            data.Add("from", from);
+            data.Add("message", message);
+            Clients.Group(to).ReceiveMessage(data);
+
+            //zacuvuvanje u bazu fali!!!
+        }
+        public void SendMessage(String to, String message)
+        {
+            var from = Context.User.Identity.Name;
+            var data = new JObject();
+            data.Add("from", from);
+            data.Add("message", message);
+            Clients.Group(to).ReceiveMessage(data);
+
+            //zacuvuvanje u bazu fali!!!
+        }
         public void AcceptRequest(string enduser)
         {
             var username = Context.User.Identity.Name;
@@ -91,9 +161,10 @@ namespace InsuredTraveling.Hubs
             var conversation = _db.conversations.FirstOrDefault(conv => conv.admin == username && conv.user == enduser);
             if(conversation == null)
             {
-                conversation.admin = username;
-                conversation.user = enduser;
-                _db.conversations.Add(conversation);
+                var conversationNew = new conversation();
+                conversationNew.admin = username;
+                conversationNew.user = enduser;
+                _db.conversations.Add(conversationNew);
             }
 
             try
@@ -109,15 +180,31 @@ namespace InsuredTraveling.Hubs
 
             }
 
-            var response = new
-            {
-                conversationId = conversation.ID,
-                admin = username
-            };
+            var response = new JObject();
+            response.Add("conversationId", conversation.ID);
+            response.Add("admin", username);
 
             Clients.Group(enduser).SendAcknowledge(response);
             Clients.Group(username).ReceiveId(conversation.ID);
+            //Clients.Group(username).MessageRequest(response);
+
+            var numberRequests = _db.chat_requests.Where(x => x.Accepted == false).ToList();
+
+            var responseAdmins = new JObject();
+            responseAdmins.Add("numberRequests", numberRequests.Count);
+            var array = new JArray();
+            foreach (chat_requests chatRequest in numberRequests)
+            {
+                array.Add(new JObject(new JProperty("from", chatRequest.Requested_by), new JProperty("timestamp", chatRequest.Datetime_request.ToString())));
+            }
+
+            responseAdmins.Add("data", array);
+            Clients.Group("Admins").MessageRequest(responseAdmins);
+
         }
+
+
+
 
     }
 }
