@@ -191,7 +191,7 @@ namespace InsuredTraveling.Helpers
 
         }
 
-        public static bool SaveDetailFirstNoticeOdLoss(DetailFirstNoticeOfLossViewModel addDetailLoss,
+        public static int  SaveDetailFirstNoticeOdLoss(DetailFirstNoticeOfLossViewModel addDetailLoss,
                                                        travel_policy policy,
                                                        IFirstNoticeOfLossService _fis,
                                                        IAdditionalInfoService _ais,
@@ -287,12 +287,13 @@ namespace InsuredTraveling.Helpers
                     };
 
                     _ais.AddLuggageInsuranceInfo(luggageInsuranceInfo);
+                  
                 }
-                return true;
+                return lossID;
             }
             catch (Exception e)
             {
-                return false;
+                return -1;
 
             }
         }

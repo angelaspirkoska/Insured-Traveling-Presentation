@@ -8,6 +8,12 @@ using InsuredTraveling.Helpers;
 using System.Text;
 using InsuredTraveling.ViewModels;
 using InsuredTraveling.App_Start;
+using System.Net.Http;
+using System.Net;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using System.Configuration;
 
 namespace InsuredTraveling.Controllers.API
 {
@@ -407,6 +413,27 @@ namespace InsuredTraveling.Controllers.API
                             }
                         }
                     }
+                    JArray invoices = new JArray();
+                    var allInvoices = _fis.GetInvoiceDocumentName(fnol.ID);
+                    foreach (var invoice in allInvoices)
+                    {
+                        var invoiceObject = new JObject();
+                        invoiceObject.Add("invoicePath" , ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/Invoices/" + invoice);
+                        invoices.Add(invoiceObject);
+                    }
+                    fnolObject.Add("invoices", invoices);
+
+                    JArray documents = new JArray();
+                    var allDoc = _fis.GetHealthLuggageDocumentName(fnol.ID);
+                    foreach (var doc in allDoc)
+                    {
+                        var document = new JObject();
+                        document.Add("documentPath" , healthInsurance != null ? ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/HealthInsurance/" + doc : ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + doc);
+                        documents.Add(document);
+                    }
+
+                    fnolObject.Add("documents", documents);
+
                     userFNOL.Add(fnolObject);
                 }
             }
@@ -476,7 +503,7 @@ namespace InsuredTraveling.Controllers.API
 
         [HttpPost]
         [Route("ReportDetailLoss")]
-        public IHttpActionResult ReportDetailLoss(DetailFirstNoticeOfLossViewModel addLoss)
+        public JObject ReportDetailLoss(DetailFirstNoticeOfLossViewModel addLoss)
         {
             if(addLoss == null)
             {
@@ -486,9 +513,13 @@ namespace InsuredTraveling.Controllers.API
             if (policy == null)
                 throw new Exception("Policy not found");
 
-            var result = SaveFirstNoticeOfLossHelper.SaveDetailFirstNoticeOdLoss(addLoss, policy, _fis, _ais, _bas);
-            if (result)
-                return Ok();
+            var idFNOL = SaveFirstNoticeOfLossHelper.SaveDetailFirstNoticeOdLoss(addLoss, policy, _fis, _ais, _bas);
+            if (idFNOL != -1)
+            {
+                JObject data = new JObject();
+                data.Add("Id", idFNOL);
+                return data;
+            }
             else throw new Exception("Internal error: Not saved");
         }
 
@@ -642,6 +673,97 @@ namespace InsuredTraveling.Controllers.API
             }
             data.Add("retainingRisk", retainingRisks);
             return data;
+        }
+
+        [HttpPost]
+        [Route("SaveInvoices/{id}")]
+        public async Task<IHttpActionResult> SaveInvoices(int id)
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            try
+            {
+                var provider = new MultipartMemoryStreamProvider();
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                foreach (var file in provider.Contents)
+                {
+                    var fileName = file.Headers.ContentDisposition.FileName.Trim('\"');
+                    var buffer = await file.ReadAsByteArrayAsync();
+                    File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(@"~/DocumentsFirstNoticeOfLoss/Invoices/" + fileName), buffer);
+
+                    var document = new document();
+                    document.Name = fileName;
+                    var documentID = _fis.AddDocument(document);
+                    _fis.AddInvoice(documentID);
+                    _fis.AddDocumentToFirstNoticeOfLoss(documentID, id);
+                }
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                throw new Exception("Internal error: Not saved");
+            }
+        }
+
+        [HttpPost]
+        [Route("SaveHealthDocuments/{id}")]
+        public async Task<IHttpActionResult> SaveHealthDocuments(int id)
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            try
+            {
+                var provider = new MultipartMemoryStreamProvider();
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                foreach (var file in provider.Contents)
+                {
+                    var fileName = file.Headers.ContentDisposition.FileName.Trim('\"');
+                    var buffer = await file.ReadAsByteArrayAsync();
+                    File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(@"~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + fileName), buffer);
+
+                    var document = new document();
+                    document.Name = fileName;
+                    var documentID = _fis.AddDocument(document);
+                    _fis.AddDocumentToFirstNoticeOfLoss(documentID, id);
+                }
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Internal error: Not saved");
+            }
+        }
+
+        [HttpPost]
+        [Route("SaveLuggageDocuments/{id}")]
+        public async Task<IHttpActionResult> SaveLuggageDocuments(int id)
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            try
+            {
+                var provider = new MultipartMemoryStreamProvider();
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                foreach (var file in provider.Contents)
+                {
+                    var fileName = file.Headers.ContentDisposition.FileName.Trim('\"');
+                    var buffer = await file.ReadAsByteArrayAsync();
+                    File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(@"~/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + fileName), buffer);
+
+                    var document = new document();
+                    document.Name = fileName;
+                    var documentID = _fis.AddDocument(document);
+                    _fis.AddDocumentToFirstNoticeOfLoss(documentID, id);
+                }
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Internal error: Not saved");
+            }
         }
     }
 }
