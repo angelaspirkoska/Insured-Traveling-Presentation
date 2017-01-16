@@ -1,4 +1,5 @@
 ﻿@using InsuredTraveling.Filters;
+@using InsuredTraveling.FormBuilder;
 @{
     ViewBag.Title = InsuredTraveling.Resource.Home;
     RoleAuthorize r = new RoleAuthorize();
@@ -34,8 +35,11 @@
                         <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</button>
                     }
                 </div>
+                
             </div>
+           @FormBuilder.CreateForm()
         </div>
+        
     </div>
 </div>
 

@@ -524,6 +524,19 @@
     <Compile Include="first_notice_of_loss.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="FormBuilder\SelectTag.cs" />
+    <Compile Include="FormBuilder\RadioButtonTag.cs" />
+    <Compile Include="FormBuilder\CheckBoxTag.cs" />
+    <Compile Include="FormBuilder\FormBuilder.cs" />
+    <Compile Include="FormBuilder\HeaderTag.cs" />
+    <Compile Include="FormBuilder\LabelTag.cs" />
+    <Compile Include="FormBuilder\OptionTag.cs" />
+    <Compile Include="FormBuilder\TextAreaTag.cs" />
+    <Compile Include="FormBuilder\EmailTag.cs" />
+    <Compile Include="FormBuilder\FileTag.cs" />
+    <Compile Include="FormBuilder\DateTag.cs" />
+    <Compile Include="FormBuilder\TimeTag.cs" />
+    <Compile Include="FormBuilder\TextBoxTag.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
