@@ -19,5 +19,6 @@ namespace InsuredTraveling
         public System.DateTime Datetime_request { get; set; }
         public string Accepted_by { get; set; }
         public bool Accepted { get; set; }
+        public Nullable<bool> fnol_created { get; set; }
     }
 }

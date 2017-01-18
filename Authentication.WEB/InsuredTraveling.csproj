@@ -407,6 +407,7 @@
     </Compile>
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\API\AccountController.cs" />
+    <Compile Include="Controllers\API\ChatController.cs" />
     <Compile Include="Controllers\API\MobileApiController.cs" />
     <Compile Include="Controllers\ChangeLanuageController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
@@ -453,12 +454,14 @@
     <Compile Include="DI\AdditionalChargesService.cs" />
     <Compile Include="DI\AdditionalInfoService.cs" />
     <Compile Include="DI\BankAccountService.cs" />
+    <Compile Include="DI\ChatService.cs" />
     <Compile Include="DI\CountryService.cs" />
     <Compile Include="DI\ExchangeRateService.cs" />
     <Compile Include="DI\FranchiseService.cs" />
     <Compile Include="DI\IAdditionalChargesService.cs" />
     <Compile Include="DI\IAdditionalInfoService.cs" />
     <Compile Include="DI\IBankAccountService.cs" />
+    <Compile Include="DI\IChatService.cs" />
     <Compile Include="DI\ICountryService.cs" />
     <Compile Include="DI\FirstNoticeOfLossService.cs" />
     <Compile Include="DI\HealthInsuranceService.cs" />
@@ -701,6 +704,7 @@
     <Compile Include="ViewModels\FirstNoticeOfLossEditViewModel.cs" />
     <Compile Include="ViewModels\JsonWrapperPolicyFirstNoticeOfLossViewModel.cs" />
     <Compile Include="ViewModels\PolicyAutoCompleteViewModel.cs" />
+    <Compile Include="ViewModels\Request.cs" />
     <Compile Include="ViewModels\SearchClientsViewModel.cs" />
     <Compile Include="ViewModels\SearchFNOLViewModel.cs" />
     <Compile Include="ViewModels\SearchPolicyViewModel.cs" />

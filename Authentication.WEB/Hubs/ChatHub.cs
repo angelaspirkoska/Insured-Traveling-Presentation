@@ -50,18 +50,21 @@ namespace InsuredTraveling.Hubs
         public void SendRequest()
         {
             var username = Context.User.Identity.Name;
+            int requestId = 0;
             var listRequestsByUser = _db.chat_requests.Where(x => x.Requested_by == username && x.Accepted == false).ToList();
+
             if (listRequestsByUser.Count == 0)
             {
         
             var request = new chat_requests {
                 Requested_by = username
             };
-
+                
             try
             {
-                _db.chat_requests.Add(request);
+               var a = _db.chat_requests.Add(request);
                 _db.SaveChanges();
+                    requestId = a.ID;
             }
             catch(Exception ex)
             {
@@ -84,6 +87,13 @@ namespace InsuredTraveling.Hubs
             responseAdmins.Add("data", array);
             Clients.Group("Admins").MessageRequest(responseAdmins);
             }
+            else
+            {
+                requestId = listRequestsByUser.Last().ID;
+            }
+            JObject requestIdJson = new JObject();
+            requestIdJson.Add("requestId", requestId);
+            Clients.Group(username).RequestId(requestId);
         }
 
 
@@ -101,7 +111,7 @@ namespace InsuredTraveling.Hubs
 
                 try
                 {
-                    _db.chat_requests.Add(request);
+                   var a = _db.chat_requests.Add(request);
                     _db.SaveChanges();
                 }
                 catch (Exception ex)
@@ -124,6 +134,8 @@ namespace InsuredTraveling.Hubs
 
                 responseAdmins.Add("data", array);
                 Clients.Group("Admins").MessageRequest(responseAdmins);
+
+
             }
         }
 
@@ -135,7 +147,12 @@ namespace InsuredTraveling.Hubs
             data.Add("message", message);
             Clients.Group(to).ReceiveMessage(data);
 
-            //zacuvuvanje u bazu fali!!!
+
+            var request = _db.chat_requests.Where(x => (x.Accepted_by == from && x.Accepted_by == to) && (x.Requested_by == from && x.Requested_by == to)
+                              && x.fnol_created == false && x.Accepted == true).SingleOrDefault();
+
+            SaveMessage(request.ID, from, message);
+
         }
         public void SendMessage(String to, String message)
         {
@@ -145,27 +162,24 @@ namespace InsuredTraveling.Hubs
             data.Add("message", message);
             Clients.Group(to).ReceiveMessage(data);
 
+            var request = _db.chat_requests.Where(x => (x.Accepted_by == from || x.Accepted_by == to) && (x.Requested_by == from || x.Requested_by == to)
+                                && x.fnol_created == false && x.Accepted == true).SingleOrDefault();
+
+            SaveMessage(request.ID, from, message);
+
             //zacuvuvanje u bazu fali!!!
         }
+
+      
         public void AcceptRequest(string enduser)
         {
             var username = Context.User.Identity.Name;
 
-            var requests = _db.chat_requests.Where(request => request.Requested_by == enduser && request.Accepted == false).ToList();
-            requests.ForEach(delegate(chat_requests request)
-            {
-                request.Accepted_by = username;
-                request.Accepted = true;
-            });
+            var request = _db.chat_requests.Where(x => x.Requested_by == enduser && x.Accepted == false).SingleOrDefault();
 
-            var conversation = _db.conversations.FirstOrDefault(conv => conv.admin == username && conv.user == enduser);
-            if(conversation == null)
-            {
-                var conversationNew = new conversation();
-                conversationNew.admin = username;
-                conversationNew.user = enduser;
-                _db.conversations.Add(conversationNew);
-            }
+
+            request.Accepted_by = username;
+            request.Accepted = true;
 
             try
             {
@@ -181,12 +195,11 @@ namespace InsuredTraveling.Hubs
             }
 
             var response = new JObject();
-            response.Add("conversationId", conversation.ID);
+            response.Add("requestId", request.ID);
             response.Add("admin", username);
 
             Clients.Group(enduser).SendAcknowledge(response);
-            Clients.Group(username).ReceiveId(conversation.ID);
-            //Clients.Group(username).MessageRequest(response);
+            Clients.Group(username).ReceiveId(request.ID);
 
             var numberRequests = _db.chat_requests.Where(x => x.Accepted == false).ToList();
 
@@ -204,7 +217,16 @@ namespace InsuredTraveling.Hubs
         }
 
 
+        private void SaveMessage(int requestId, string fromUsername, string textMessage)
+        {
+            message message = new message();
+            message.ConversationID = requestId;
+            message.Text = textMessage;
+            message.Timestamp = DateTime.Now;
 
+            _db.messages.Add(message);
+            _db.SaveChangesAsync();
+        }
 
     }
 }

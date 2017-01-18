@@ -134,6 +134,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Datetime_request" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Accepted_by" Type="varchar" MaxLength="256" />
           <Property Name="Accepted" Type="bool" Nullable="false" />
+          <Property Name="fnol_created" Type="bool" />
         </EntityType>
         <EntityType Name="clients">
           <Key>
@@ -282,8 +283,8 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="PolicyId" Type="int" Nullable="false" />
           <Property Name="ClaimantId" Type="int" Nullable="false" />
           <Property Name="Relation_claimant_policy_holder" Type="text" />
-          <Property Name="Policy_holder_bank_accountID" Type="int" Nullable="false" />
-          <Property Name="Claimant_bank_accountID" Type="int" Nullable="false" />
+          <Property Name="Policy_holder_bank_accountID" Type="int" />
+          <Property Name="Claimant_bank_accountID" Type="int" />
           <Property Name="Destination" Type="text" Nullable="false" />
           <Property Name="Depart_Date_Time" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Arrival_Date_Time" Type="datetime" Precision="0" Nullable="false" />
@@ -843,7 +844,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="first_notice_of_loss_ibfk_3">
-          <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="1" />
+          <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="0..1" />
           <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="bank_account_info">
@@ -855,7 +856,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="first_notice_of_loss_ibfk_4">
-          <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="1" />
+          <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="0..1" />
           <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="bank_account_info">
@@ -3550,6 +3551,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Datetime_request" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Accepted_by" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="Accepted" Type="Boolean" Nullable="false" />
+          <Property Name="fnol_created" Type="Boolean" />
         </EntityType>
         <EntityType Name="conversation">
           <Key>
@@ -4253,6 +4255,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="chat_requests">
             <EntityTypeMapping TypeName="Entities.chat_requests">
               <MappingFragment StoreEntitySet="chat_requests">
+                <ScalarProperty Name="fnol_created" ColumnName="fnol_created" />
                 <ScalarProperty Name="Accepted" ColumnName="Accepted" />
                 <ScalarProperty Name="Accepted_by" ColumnName="Accepted_by" />
                 <ScalarProperty Name="Datetime_request" ColumnName="Datetime_request" />

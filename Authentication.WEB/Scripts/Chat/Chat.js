@@ -16,7 +16,7 @@ function prepareSocket() {
         console.log("message request function response");
         console.log(data);
         // $(this).find('.glyphicon').css("color", "#FFF000");
-        if (data.numberRequests != 0)
+        if (data.numberRequests !== 0)
         {
             console.log("ima requesti");
             $("#messageRequests span").css("color", "#FF0000");
@@ -31,6 +31,10 @@ function prepareSocket() {
         }
        // $("#messageRequests").text("new " + data.numberRequests + " requests");
         $("#chatRequests").show();
+    });
+
+    hProxy.on("RequestId", function (data) {
+        console.log("RequestID: "+data);
     });
 
     hProxy.on("ReceiveMessage", function (data) {
@@ -111,16 +115,19 @@ function openChat(data) {
             //    hProxy.invoke("FromAdminToAdmin", data.from, message);
             //else
             //    hProxy.invoke("FromAdminToVessel", data.from, message);
-
+            console.log("podatoci: " + data);
+            var last = $("div#" + data + " .row")[$("div#" + data + " .row").length - 1];
 
             var $div = $("div#" + data + " .portlet-body");
-
-            var last = $("div#" + data + " .row")[$("div#" + data + " .row").length - 1];
-            //grupiranje na poraki (ako nekoj pratil multiple poraki)
-            if (last !== undefined) {
+            console.log("kurac last"+last);
+           
+           // grupiranje na poraki (ako nekoj pratil multiple poraki)
+            if (last !== undefined ){
                 var p = "<p>" + message + "</p>";
                 $(last).children().children().children().append(p);
-            } else {
+            } else 
+            {
+                console.log("pratil poraka: "+localStorage.getItem("username"));
                 var date = new Date();
                 var row = "<div class='row " + localStorage.getItem("username") + "'>" +
                     "<div class='col-lg-12'>" +

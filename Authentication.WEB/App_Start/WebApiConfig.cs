@@ -11,6 +11,7 @@ using System;
 using System.Net;
 using System.Text;
 using InsuredTraveling.App_Start;
+using InsuredTraveling.Controllers.API;
 
 namespace Authentication.WEB
 {
@@ -31,6 +32,8 @@ namespace Authentication.WEB
             builder.RegisterApiControllers(typeof(InsuredTraveling.Controllers.API.MobileApiController).Assembly);
             builder.RegisterApiControllers(typeof(HalkbankPaymentApiController).Assembly);
             builder.RegisterApiControllers(typeof(NewsApiController).Assembly);
+            builder.RegisterApiControllers(typeof(InsuredTraveling.Controllers.API.ChatController).Assembly);
+            
             builder.RegisterWebApiFilterProvider(GlobalConfiguration.Configuration);
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             
