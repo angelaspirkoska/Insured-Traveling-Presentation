@@ -23,6 +23,7 @@ namespace InsuredTraveling
         public int ID { get; set; }
         public string admin { get; set; }
         public string user { get; set; }
+        public Nullable<int> requestID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<message> messages { get; set; }

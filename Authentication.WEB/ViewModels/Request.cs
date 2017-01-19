@@ -8,5 +8,6 @@ namespace InsuredTraveling.ViewModels
     public class Request
     {
         public int requestId { get; set; }
+        public int messageId { get; set; }
     }
 }

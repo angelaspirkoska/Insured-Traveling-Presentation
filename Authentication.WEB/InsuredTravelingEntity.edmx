@@ -162,6 +162,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="admin" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="user" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="requestID" Type="int" />
         </EntityType>
         <EntityType Name="countries">
           <Key>
@@ -402,6 +403,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="ConversationID" Type="int" Nullable="false" />
           <Property Name="Text" Type="text" Nullable="false" />
           <Property Name="Timestamp" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="from_username" Type="varchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="min_premium">
           <Key>
@@ -964,10 +966,10 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_conversation_message">
-          <End Role="conversation" Type="Self.conversation" Multiplicity="1" />
+          <End Role="chat_requests" Type="Self.chat_requests" Multiplicity="1" />
           <End Role="message" Type="Self.message" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="conversation">
+            <Principal Role="chat_requests">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="message">
@@ -1609,7 +1611,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="bank_prefix" EntitySet="bank_prefix" />
           </AssociationSet>
           <AssociationSet Name="fk_conversation_message" Association="Self.fk_conversation_message">
-            <End Role="conversation" EntitySet="conversation" />
+            <End Role="chat_requests" EntitySet="chat_requests" />
             <End Role="message" EntitySet="message" />
           </AssociationSet>
           <AssociationSet Name="fk_country_id" Association="Self.fk_country_id">
@@ -3408,6 +3410,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="conversation" EntitySet="conversations" />
             <End Role="message" EntitySet="messages" />
           </AssociationSet>
+          <AssociationSet Name="fk_conversation_message1" Association="Entities.fk_conversation_message1">
+            <End Role="chat_requests" EntitySet="chat_requests" />
+            <End Role="message" EntitySet="messages" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -3552,6 +3558,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Accepted_by" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="Accepted" Type="Boolean" Nullable="false" />
           <Property Name="fnol_created" Type="Boolean" />
+          <NavigationProperty Name="messages" Relationship="Entities.fk_conversation_message1" FromRole="chat_requests" ToRole="message" />
         </EntityType>
         <EntityType Name="conversation">
           <Key>
@@ -3561,6 +3568,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="admin" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="user" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="messages" Relationship="Entities.fk_conversation_message" FromRole="conversation" ToRole="message" />
+          <Property Name="requestID" Type="Int32" />
         </EntityType>
         <EntityType Name="message">
           <Key>
@@ -3571,12 +3579,26 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Text" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Timestamp" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="conversation" Relationship="Entities.fk_conversation_message" FromRole="message" ToRole="conversation" />
+          <Property Name="from_username" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="chat_requests" Relationship="Entities.fk_conversation_message1" FromRole="message" ToRole="chat_requests" />
         </EntityType>
         <Association Name="fk_conversation_message">
           <End Type="Entities.conversation" Role="conversation" Multiplicity="1" />
           <End Type="Entities.message" Role="message" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="conversation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="ConversationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_conversation_message1">
+          <End Type="Entities.chat_requests" Role="chat_requests" Multiplicity="1" />
+          <End Type="Entities.message" Role="message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chat_requests">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="message">
@@ -4267,6 +4289,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="conversations">
             <EntityTypeMapping TypeName="Entities.conversation">
               <MappingFragment StoreEntitySet="conversation">
+                <ScalarProperty Name="requestID" ColumnName="requestID" />
                 <ScalarProperty Name="user" ColumnName="user" />
                 <ScalarProperty Name="admin" ColumnName="admin" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -4276,6 +4299,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="messages">
             <EntityTypeMapping TypeName="Entities.message">
               <MappingFragment StoreEntitySet="message">
+                <ScalarProperty Name="from_username" ColumnName="from_username" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="ConversationID" ColumnName="ConversationID" />

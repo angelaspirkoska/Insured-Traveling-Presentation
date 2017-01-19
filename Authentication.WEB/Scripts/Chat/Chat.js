@@ -10,8 +10,6 @@ function prepareSocket() {
     var connection = $.hubConnection();
      hProxy = connection.createHubProxy("chatHub");
 
-    
-
     hProxy.on("MessageRequest", function (data) {
         console.log("message request function response");
         console.log(data);
@@ -44,11 +42,18 @@ function prepareSocket() {
         
     });
 
+    hProxy.on("ReceiveId", function (data) {
+        console.log("receiveid");
+        openChat(data.enduser, data.requestId);
+
+    });
+    
+
     hProxy.on("SendAcknowledge", function (data) {
         console.log("accepted request");
 
         console.log(data);
-        openChat(data.admin);
+        openChat(data.admin, data.requestId);
     });
     $("#requestChatBtn").click(function () {
         hProxy.invoke("SendRequest");
@@ -65,11 +70,13 @@ function acceptChat(data) {
     hProxy.invoke("AcceptRequest", data);
     console.log(" accepted ");
 
-    openChat(data);
-
-
+   // openChat(data);
 }
-function openChat(data) {
+
+
+
+
+function openChat(data, requestId) {
 
     if ($("div#" + data).length) {
 
@@ -78,7 +85,9 @@ function openChat(data) {
     }
     var chat = $("#chat_template").html();
     $("#chats").append(chat);
+    $("#none").attr("requestId", requestId);
     $("#none").attr("id", data);
+   
     var offset = 260 * openChats + 2 * openChats;
     $("div#" + data).css("right", offset + "px");
 
@@ -86,6 +95,7 @@ function openChat(data) {
     $("div#" + data + " textarea").focus();
     var children = $("div#" + data + " .row").children();
     //children[children.length - 1].scrollIntoView();
+    $("div#" + data + " textarea").attr("requestId", requestId);
     openChats++;
     $("div#" + data + " #close").click(function (e) {
         e.preventDefault();
@@ -105,9 +115,9 @@ function openChat(data) {
             var message = $(this).val();
             if (message === "")
                 return false;
+            //da se zeme requestID
 
-
-            hProxy.invoke("SendMessage", data, message);
+            hProxy.invoke("SendMessage", data, message, requestId);
 
             //var admin = $("#admin").text();
 
@@ -119,13 +129,13 @@ function openChat(data) {
             var last = $("div#" + data + " .row")[$("div#" + data + " .row").length - 1];
 
             var $div = $("div#" + data + " .portlet-body");
-            console.log("kurac last"+last);
+            
            
            // grupiranje na poraki (ako nekoj pratil multiple poraki)
-            if (last !== undefined ){
-                var p = "<p>" + message + "</p>";
-                $(last).children().children().children().append(p);
-            } else 
+            //if (last !== undefined ){
+            //    var p = "<p>" + message + "</p>";
+            //    $(last).children().children().children().append(p);
+            //} else 
             {
                 console.log("pratil poraka: "+localStorage.getItem("username"));
                 var date = new Date();
@@ -166,7 +176,7 @@ function openChat(data) {
 
 function pushMessageToChat(data) {
     if (!$("div#" + data.from).length) {
-        openChat(data.from);
+        openChat(data.from, data.requestId);
     }
 
     var $div = $("div#" + data.from + " .portlet-body");

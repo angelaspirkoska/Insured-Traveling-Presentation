@@ -10,5 +10,8 @@ namespace InsuredTraveling.DI
     {
         chat_requests ChatRequest(int requestID);
 
+        List<message> LastTenMessagesByRequest(int requestID);
+
+        List<message> NextTenMessagesByRequest(int requestID, int MessageID);
     }
 }
