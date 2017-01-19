@@ -55,16 +55,17 @@ namespace InsuredTraveling.Hubs
 
             if (listRequestsByUser.Count == 0)
             {
-        
-            var request = new chat_requests {
-                Requested_by = username
+
+                var request = new chat_requests {
+                    Requested_by = username,
+                    fnol_created = false
             };
                 
             try
             {
                var a = _db.chat_requests.Add(request);
-                _db.SaveChanges();
-                    requestId = a.ID;
+               var b= _db.SaveChanges();
+                  requestId = a.ID;
             }
             catch(Exception ex)
             {
