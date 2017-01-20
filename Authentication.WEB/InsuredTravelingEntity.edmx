@@ -135,6 +135,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Accepted_by" Type="varchar" MaxLength="256" />
           <Property Name="Accepted" Type="bool" Nullable="false" />
           <Property Name="fnol_created" Type="bool" />
+          <Property Name="discarded" Type="bool" />
         </EntityType>
         <EntityType Name="clients">
           <Key>
@@ -3559,6 +3560,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Accepted" Type="Boolean" Nullable="false" />
           <Property Name="fnol_created" Type="Boolean" />
           <NavigationProperty Name="messages" Relationship="Entities.fk_conversation_message1" FromRole="chat_requests" ToRole="message" />
+          <Property Name="discarded" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="conversation">
           <Key>
@@ -4277,6 +4279,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="chat_requests">
             <EntityTypeMapping TypeName="Entities.chat_requests">
               <MappingFragment StoreEntitySet="chat_requests">
+                <ScalarProperty Name="discarded" ColumnName="discarded" />
                 <ScalarProperty Name="fnol_created" ColumnName="fnol_created" />
                 <ScalarProperty Name="Accepted" ColumnName="Accepted" />
                 <ScalarProperty Name="Accepted_by" ColumnName="Accepted_by" />

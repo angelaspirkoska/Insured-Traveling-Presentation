@@ -29,7 +29,8 @@ namespace InsuredTraveling.Controllers.API
             response.Add("requestId", requestInfo.ID);
             response.Add("isAccepted", requestInfo.Accepted);
             response.Add("acceptedBy", requestInfo.Accepted_by);
-            response.Add("isClosed", requestInfo.fnol_created);
+            response.Add("isFnolCreated", requestInfo.fnol_created);
+            response.Add("isDiscarded", requestInfo.discarded);
             return response;
         }
 

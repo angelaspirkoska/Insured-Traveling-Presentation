@@ -58,7 +58,8 @@ namespace InsuredTraveling.Hubs
 
                 var request = new chat_requests {
                     Requested_by = username,
-                    fnol_created = false
+                    fnol_created = false,
+                    discarded = false
             };
                 
             try
@@ -97,7 +98,6 @@ namespace InsuredTraveling.Hubs
             Clients.Group(username).RequestId(requestId);
         }
 
-
         public void SendRequestMobile(string username)
         {
             int requestId = 0;
@@ -108,7 +108,9 @@ namespace InsuredTraveling.Hubs
 
                 var request = new chat_requests
                 {
-                    Requested_by = username
+                    Requested_by = username,
+                    fnol_created = false,
+                    discarded = false
                 };
 
                 try
@@ -147,36 +149,7 @@ namespace InsuredTraveling.Hubs
             Clients.Group(username).RequestId(new JObject("requestId",requestId));
 
         }
-        
 
-        public void SendMessageMobile(string from, string to, string message, string requestId)
-        {
-           // var from = Context.User.Identity.Name;
-            var data = new JObject();
-            data.Add("from", from);
-            data.Add("message", message);
-            data.Add("requestId", requestId);
-                
-            Clients.Group(to).ReceiveMessage(data);
-
-            SaveMessage(int.Parse(requestId), from, message);
-
-        }
-        public void SendMessage(String to, String message, string requestId)
-        {
-            var from = Context.User.Identity.Name;
-            var data = new JObject();
-            data.Add("from", from);
-            data.Add("message", message);
-            data.Add("requestId", requestId);
-            Clients.Group(to).ReceiveMessage(data);    
-
-            SaveMessage(int.Parse(requestId), from, message);
-
-            //zacuvuvanje u bazu fali!!!
-        }
-
-      
         public void AcceptRequest(string enduser)
         {
             var username = Context.User.Identity.Name;
@@ -225,7 +198,94 @@ namespace InsuredTraveling.Hubs
             Clients.Group("Admins").MessageRequest(responseAdmins);
 
         }
+     
+        public void SendMessage(String to, String message, string requestId)
+        {
+            var from = Context.User.Identity.Name;
+            var data = new JObject();
+            data.Add("from", from);
+            data.Add("message", message);
+            data.Add("requestId", requestId);
+            Clients.Group(to).ReceiveMessage(data);    
 
+            SaveMessage(int.Parse(requestId), from, message);
+
+            //zacuvuvanje u bazu fali!!!
+        }
+
+        public void SendMessageMobile(string from, string to, string message, string requestId)
+        {
+            // var from = Context.User.Identity.Name;
+            var data = new JObject();
+            data.Add("from", from);
+            data.Add("message", message);
+            data.Add("requestId", requestId);
+
+            Clients.Group(to).ReceiveMessage(data);
+
+            SaveMessage(int.Parse(requestId), from, message);
+
+        }
+
+        public void DiscardMessage(int requestId)
+        {          
+            JObject adminResponse = new JObject();
+            var request = _db.chat_requests.Where(x => x.ID == requestId).SingleOrDefault();
+            if (!request.fnol_created)
+            {
+                request.discarded = true;
+                _db.SaveChanges();
+
+                JObject enduserResponse = new JObject();
+                enduserResponse.Add("requestId", request.ID);
+                enduserResponse.Add("message", "Your request has been discarded. First notice of loss is not created.");
+
+                Clients.Group(request.Requested_by).DiscardedMessage(enduserResponse);
+
+                
+                adminResponse.Add("requestId", request.ID);
+                adminResponse.Add("discarded", "true");
+                adminResponse.Add("message", "You discarded the request. First notice of loss is not created.");
+            }
+
+            adminResponse.Add("requestId", request.ID);
+            adminResponse.Add("discarded", "false");
+            adminResponse.Add("message", "You can't discard this chat. First notice of loss was created.");
+            Clients.Group(request.Accepted_by).Discarded(adminResponse);
+        }
+
+        public void CreateFnol(int requestId)
+        {
+            var request = _db.chat_requests.Where(x => x.ID == requestId).SingleOrDefault();
+            JObject adminResponse = new JObject();
+
+            if (!request.discarded)
+            {
+                request.fnol_created = true;
+                _db.SaveChanges();
+
+                //da se kreira fnol vo baza
+
+                JObject enduserResponse = new JObject();
+                enduserResponse.Add("requestId", request.ID);
+                enduserResponse.Add("message", "First notice of loss was created successfully.");
+
+                Clients.Group(request.Requested_by).FnolCreatedMessage(enduserResponse);
+               
+                adminResponse.Add("requestId", request.ID);
+                adminResponse.Add("fnolCreated", "true");
+                adminResponse.Add("message", "First notice of loss was created successfully.");     
+
+            } else
+            {
+                adminResponse.Add("requestId", request.ID);
+                adminResponse.Add("fnolCreated", "false");
+                adminResponse.Add("message", "This chat was already discarded.");             
+            }
+
+            Clients.Group(request.Accepted_by).FnolCreated(adminResponse);
+
+        }
 
         private void SaveMessage(int requestId, string fromUsername, string textMessage)
         {

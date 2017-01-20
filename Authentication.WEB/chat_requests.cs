@@ -25,7 +25,8 @@ namespace InsuredTraveling
         public System.DateTime Datetime_request { get; set; }
         public string Accepted_by { get; set; }
         public bool Accepted { get; set; }
-        public Nullable<bool> fnol_created { get; set; }
+        public bool fnol_created { get; set; }
+        public bool discarded { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<message> messages { get; set; }
