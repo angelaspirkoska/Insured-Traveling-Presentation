@@ -100,14 +100,21 @@ namespace InsuredTraveling
 
             if (result.Succeeded)
             {
-                string body = "Welcome to Optimal Insurance " + " " + ",";
-                body += "<br /><br />Please click the following link to activate your account";
-                body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
-                body += "<br /><br />Thanks";
-                MailService mailService = new MailService("slobodanka@optimalreinsurance.com"); //Change the email with the email user mail
-                mailService.setSubject("Account Activation Validation");
-                mailService.setBodyText(body, true);
-                mailService.sendMail();
+                try
+                {
+                    string body = "Welcome to Optimal Insurance " + " " + ",";
+                    body += "<br /><br />Please click the following link to activate your account";
+                    body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
+                    body += "<br /><br />Thanks";
+                    MailService mailService = new MailService(userModel.Email); //Change the email with the email user mail
+                    mailService.setSubject("Account Activation Validation");
+                    mailService.setBodyText(body, true);
+                    mailService.sendMail();
+                }
+                catch(Exception e)
+                {
+                    return null;
+                }
             }
 
             var result2 = _userManager.AddToRole(user.Id, "end user");
