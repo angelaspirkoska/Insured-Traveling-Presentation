@@ -9,6 +9,9 @@ function prepareSocket() {
         
     var connection = $.hubConnection();
     hProxy = connection.createHubProxy("chatHub");
+    connection.start().done(function () {
+        console.log("connection established");
+    });
 
     hProxy.on("MessageRequest", function (data) {
         console.log("message request function response");
@@ -35,16 +38,22 @@ function prepareSocket() {
     });
 
     hProxy.on("ReceiveMessage", function (data) {
-        console.log("message");
-        pushMessageToChat(data);
-        console.log(data);
-        
+        pushMessageToChat(data);       
     });
+
+
+    hProxy.on("UpdateChat", function (data) {
+        console.log("update");      
+        //tuj neki refresh
+        console.log(data);
+
+    });
+    
 
     hProxy.on("ReceiveId", function (data) {
         console.log("receiveid");
         openChat(data.enduser, data.requestId);
-
+        //$("$a"+data.requestId).
     });
     
     hProxy.on("Discarded", function (data) {
@@ -63,6 +72,13 @@ function prepareSocket() {
             $("#" + data.requestId).attr("placeholder", data.message);
         }
     });
+ 
+
+    hProxy.on("ActiveMessages", function (data) {
+        console.log("messages");
+        console.log(data);
+        fillMessages(data);
+    });
 
     hProxy.on("SendAcknowledge", function (data) {
         console.log("accepted request");
@@ -72,31 +88,192 @@ function prepareSocket() {
 
     $("#requestChatBtn").click(function () {
         hProxy.invoke("SendRequest");
+        //hProxy.invoke("SendRequestMobile", "Sofija");
+        $("#requestChatBtn").val("Request sent");
         console.log("request sent");
     });
-    connection.start().done(function () {
-        console.log("connection established");
-    });
 
 
 }
+
 function acceptChat(data) {
-    console.log(data);
     hProxy.invoke("AcceptRequest", data);
-    console.log(" accepted ");
-   // openChat(data);
 }
 
+function openMessageInChat(requestId, from, admin) {  
+    var selection = $("div#" + from);
+    var chat = document.getElementById("from");
+            if (!document.getElementById(from)){
+                
+                console.log("ne postoi");
+                //open new chat
+                if (admin) {
+                    openChat(from, requestId);
+                }
+                else {
+                    openChatEndUser(from, requestId);   
+                }
 
+                getLastTenMessages(requestId);
+            }
+            else {
+
+                var $div = $('div[requestId = ' + requestId + ']');
+
+                if ($div) {
+
+                    if (admin) {
+                        openChat(from, requestId);
+                    }
+                    else {
+                        openChatEndUser(from, requestId);
+                    }
+
+                }
+            }
+    }
+
+function getLastTenMessages(requestId)
+{
+    var username = localStorage.getItem("username");
+    $.ajax({
+        type: "GET",
+        url: "/api/chat/lasttenmessagesweb",
+        data: {"requestId": requestId, "username": username},
+        dataType: "json",
+        success: function (result) {
+            console.log(result);
+            var ichatwith = result.ichatwith;
+            var first = 0;
+            
+            //addShowMoreButton(requestId, result.messages[0].ID);
+            
+            $.each(result.Messages, function (key, value) {
+                if (first === 0) {
+                    console.log("idto na porakata " + value.Id);
+                    addShowMoreButton(requestId, value.Id);
+                }
+                pushOldMessage(value, ichatwith, requestId);
+                first++;
+            });
+        }
+    });
+}
+
+function LoadNextTenMessages(requestId, lastMessageId) {
+    $.ajax({
+        type: "GET",
+        url: "/api/chat/nexttenmessagesweb",
+        data: { "requestId": requestId, "messageId": lastMessageId, "username": localStorage.getItem("username") },
+        dataType: "json",
+        success: function (result) {
+            if (result.Messages === "End")
+            {
+                console.log("kraj");
+                $("div[requestId="+requestId+"] button[messageId=" + lastMessageId + "]").hide();
+            }
+            else {
+
+                var $button = $("div[requestId=" + requestId + "] button[messageId=" + lastMessageId + "]");
+                var lastMessageIdNew = lastMessageId;
+
+                $.each(result.Messages, function (key, value) {                   
+                    pushOldMessageNext(value, requestId, lastMessageId);
+                    lastMessageIdNew = value.Id;
+                });
+
+                $("div[requestId="+requestId+"] button[messageId="+lastMessageId+"]").attr("messageid", lastMessageIdNew);
+                $("div[requestId=" + requestId + "] button[messageId=" + lastMessageIdNew + "]").attr("onclick", "LoadNextTenMessages(" + requestId + "," + lastMessageIdNew + ")");
+            }
+            console.log(result);
+          
+        }
+    });
+}
+
+function pushOldMessageNext(data, requestId, lastMessageId) {
+    console.log("pushing");
+    var $button = $("div[requestId=" + requestId + "] button[messageId=" + lastMessageId + "]");
+    var message = "<div class='row " + data.From + "'>" +
+        "<div class='col-lg-12'>" +
+        "<div class='media'>" +
+        "<div class='media-body " + data.From + "'>" +
+        "<h4 class='media-heading'>" +
+        data.From +
+        "<span class='small pull-right'>" + data.Date + " " + data.Hour + ":" + data.Minute + "</span>" +
+        "</h4>" +
+        "<p>" +
+        data.Text +
+        "</p>" +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        "<hr/>";
+    $(message).insertAfter($button);
+   // $div.append(message);
+   // var children = $div.children();
+    //children[children.length - 1].scrollIntoView();
+}
+function addShowMoreButton(requestId, lastMessageId)
+{
+    var $div = $('div[requestId = ' + requestId + '] .portlet-body');
+    var message = "<div class='row'><div class='col-lg-12'><button type='button' class='btn btn-default' onclick='LoadNextTenMessages("+requestId+","+lastMessageId+")' messageId="+lastMessageId+"> Show more </button> </div></div>";
+
+
+    $div.append(message);
+
+   
+}
+
+function pushOldMessage(data, ichatwith, requestId) {
+    
+    var $div = $('div[requestId = ' + requestId + '] .portlet-body');
+    var message = "<div class='row " + data.From + "'>" +
+        "<div class='col-lg-12'>" +
+        "<div class='media'>" +
+        "<div class='media-body " + data.From + "'>" +
+        "<h4 class='media-heading'>" +
+        data.From +
+        "<span class='small pull-right'>" +data.Date +" " + data.Hour + ":" + data.Minute + "</span>" +
+        "</h4>" +
+        "<p>" +
+        data.Text +
+        "</p>" +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        "<hr/>";
+
+    $div.append(message);
+    var children = $div.children();
+    children[children.length - 1].scrollIntoView();
+}
+
+function fillMessages(data) {
+    var message;
+    for (i = 0; i < data.messages.length; i++) {
+        message = $("#message_template").html();
+        $("#messages").append(message);
+        $("#none .media").attr("onclick", "openMessageInChat(" + data.messages[i].requestId + ",'" + data.messages[i].ichatwith + "'," + data.messages[i].admin + ");");
+        $("#none .media .media-body .timestamp").text(data.messages[i].timestamp);
+        $("#none .media .media-body .message").text(data.messages[i].message);
+        $("#none .media .media-body .media-heading").attr("name", data.messages[i].from);
+        $("#none .media .media-body .media-heading strong").html(data.messages[i].from);
+        $("#none").attr("id", data.messages[i].requestId);
+        $("#messageId").attr("id", data.messages[i].messageId);
+       
+    }
+}
 
 function openChatEndUser(data, requestId) {
-    console.log("otvorennn");
     console.log("div#" + data + " #discardChat");
 
-    
-    if ($("div#" + data).length) {
+    var $div = $('div[requestId = ' + requestId + '] .portlet-body');
+    if ($div) {
 
-        $("#" + data + " textarea").focus();
+        $($div + " textarea").focus();
         return;
     }
     var chat = $("#chat_template").html();
@@ -174,12 +351,14 @@ function openChatEndUser(data, requestId) {
 }
 
 function openChat(data, requestId) {
-    
-    if ($("div#" + data).length) {
+    console.log("moeto username: " + localStorage.getItem("username"));
+    var $div = $('div[requestId = ' + requestId + '] .portlet-body');
+    console.log("divooo " + $div);
+    //if ($div) {
 
-        $("#" + data + " textarea").focus();
-        return;
-    }
+    //    $('div[requestId = ' + requestId + '] textarea').focus();
+    //    return;
+    //}
     var chat = $("#chat_template").html();
     $("#chats").append(chat);
     $("#none").attr("requestId", requestId);
@@ -223,7 +402,7 @@ function openChat(data, requestId) {
                 return false;
 
             hProxy.invoke("SendMessage", data, message, requestId);
-            console.log("podatoci: " + data);
+            
             var last = $("div#" + data + " .row")[$("div#" + data + " .row").length - 1];
 
             var $div = $("div#" + data + " .portlet-body");
@@ -234,7 +413,7 @@ function openChat(data, requestId) {
             }
             else
             {
-                console.log("pratil poraka: "+localStorage.getItem("username"));
+              
                 var date = new Date();
                 var row = "<div class='row " + localStorage.getItem("username") + "'>" +
                     "<div class='col-lg-12'>" +
@@ -263,10 +442,18 @@ function openChat(data, requestId) {
 }
 
 
+
 function pushMessageToChat(data) {
-   
+    console.log("dali e admin: ", data.admin);
+   // console.log("moeto username: " + localStorage.getItem("username"));
     if (!$("div#" + data.from).length) {
-        openChat(data.from, data.requestId);
+        if (data.admin) {
+
+            openChatEndUser(data.from, data.requestId);
+        }
+        else {
+            openChat(data.from, data.requestId);
+        }
     }
 
     var $div = $("div#" + data.from + " .portlet-body");

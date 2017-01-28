@@ -20,14 +20,14 @@ namespace InsuredTraveling.DI
         public List<message> LastTenMessagesByRequest(int requestID)
         {
             //Take(10)
-            return _db.messages.Where(x => x.ConversationID == requestID).OrderBy(dt => dt.Timestamp).Take(10).ToList();
+            return _db.messages.Where(x => x.ConversationID == requestID).OrderByDescending(dt => dt.ID).Take(10).ToList();
 
 
         }
 
         public List<message> NextTenMessagesByRequest(int requestID, int MessageID)
         {
-            return _db.messages.Where(x => x.ConversationID == requestID && x.ID > MessageID).OrderBy(dt => dt.Timestamp).Take(10).ToList();
+            return _db.messages.Where(x => x.ConversationID == requestID && x.ID < MessageID).OrderBy(dt => dt.Timestamp).Take(10).ToList();
         }
     }
 }

@@ -14,7 +14,8 @@ namespace InsuredTraveling.Hubs
         public override Task OnConnected()
         {
             RoleAuthorize r = new RoleAuthorize();
-           var username = System.Web.HttpContext.Current.User.Identity.Name;
+
+            var username = System.Web.HttpContext.Current.User.Identity.Name;
             if (r.IsUser("admin"))
             {
                 Groups.Add(Context.ConnectionId, "Admins");
@@ -33,11 +34,64 @@ namespace InsuredTraveling.Hubs
                 response.Add("data", JArray.FromObject(responseList));
 
                 Clients.Group(username).MessageRequest(response);
+
+                var chatsActive = _db.chat_requests.Where(x => x.Accepted == true && x.Accepted_by.Equals(username) && x.discarded == false
+                                                        && x.fnol_created == false).ToList();
+                JObject messages = new JObject();
+               
+                JArray messageList = new JArray();
+                foreach (chat_requests chat in chatsActive)
+                {
+                    var messageLast = _db.messages.Where(x => x.ConversationID == chat.ID).OrderByDescending(x => x.Timestamp).FirstOrDefault();
+                    if(messageLast != null)
+                    {
+                        JObject temp = new JObject();
+                        temp.Add("requestId", chat.ID);
+                        temp.Add("from", messageLast.from_username);
+                        temp.Add("timestamp", messageLast.Timestamp);
+                        temp.Add("messageId", messageLast.ID);
+                        temp.Add("message", messageLast.Text);
+                        temp.Add("admin", "true");
+                        temp.Add("ichatwith", chat.Requested_by);
+                        messageList.Add(temp);
+                    }
+                    
+                }
+                messages.Add("messages", messageList);
+                Clients.Group(username).ActiveMessages(messages);
             }
             else if(r.IsUser("end user"))
             {
                 //Groups.Add(Context.ConnectionId, "Admins");
                 Groups.Add(Context.ConnectionId, username);
+
+                var chatsActive = _db.chat_requests.Where(x => x.Accepted == true && x.Requested_by.Equals(username) && x.discarded == false
+                                                     && x.fnol_created == false).ToList();
+                JObject messages = new JObject();
+                JArray messageList = new JArray();
+                foreach (chat_requests chat in chatsActive)
+                {
+                    var messageLast = _db.messages.Where(x => x.ConversationID == chat.ID).OrderByDescending(x => x.Timestamp).FirstOrDefault();
+
+
+
+                    if (messageLast != null)
+                    {
+                        JObject temp = new JObject();
+                        temp.Add("requestId", chat.ID);
+                        temp.Add("from", messageLast.from_username);
+                        temp.Add("timestamp", messageLast.Timestamp);
+                        temp.Add("messageId", messageLast.ID);
+                        temp.Add("message", messageLast.Text);
+                        temp.Add("ichatwith", chat.Accepted_by);
+                        temp.Add("admin", "true");
+                        messageList.Add(temp);
+                    }
+
+                }
+                messages.Add("messages", messageList);
+                Clients.Group(username).ActiveMessages(messages);
+
             }
             return base.OnConnected();
         }
@@ -144,9 +198,14 @@ namespace InsuredTraveling.Hubs
             {
                 requestId = listRequestsByUser.Last().ID;
             }
-            JObject requestIdJson = new JObject();
-            requestIdJson.Add("requestId", requestId);
-            Clients.Group(username).RequestId(new JObject("requestId",requestId));
+            JProperty nes = new JProperty("requestId", requestId);
+            JObject requestIdJson = JObject.FromObject(new
+            {
+                requestId = requestId
+            });
+            Clients.Group(username).RequestId("{ requestId: "+requestId+" }");
+           // requestIdJson.Property("requestId", requestId);
+           // Clients.Group(username).RequestId(requestIdJson);
 
         }
 
@@ -202,10 +261,15 @@ namespace InsuredTraveling.Hubs
         public void SendMessage(String to, String message, string requestId)
         {
             var from = Context.User.Identity.Name;
+            RoleAuthorize r = new RoleAuthorize();
+            bool admin = false;
+            if (r.IsUser("admin"))
+                admin = true;
             var data = new JObject();
             data.Add("from", from);
             data.Add("message", message);
             data.Add("requestId", requestId);
+            data.Add("admin", admin);
             Clients.Group(to).ReceiveMessage(data);    
 
             SaveMessage(int.Parse(requestId), from, message);
@@ -287,16 +351,39 @@ namespace InsuredTraveling.Hubs
 
         }
 
-        private void SaveMessage(int requestId, string fromUsername, string textMessage)
+        public void SaveMessage(int requestId, string fromUsername, string textMessage)
         {
             message message = new message();
             message.ConversationID = requestId;
             message.Text = textMessage;
             message.Timestamp = DateTime.Now;
             message.from_username = fromUsername;
-            _db.messages.Add(message);
+            var  m =_db.messages.Add(message);
             _db.SaveChangesAsync();
+
+            var chatReq = _db.chat_requests.Where(x => x.ID == requestId).SingleOrDefault();
+            JObject adminUpdate = new JObject();
+            adminUpdate.Add("requestId", requestId);
+            adminUpdate.Add("timestamp", message.Timestamp);
+            adminUpdate.Add("from", chatReq.Requested_by);
+            adminUpdate.Add("message", textMessage);
+            adminUpdate.Add("messageId", m.ID);
+            adminUpdate.Add("admin", "true");
+
+            Clients.Group(chatReq.Accepted_by).UpdateChat(adminUpdate);
+
+            JObject enduserUpdate = new JObject();
+            enduserUpdate.Add("requestId", requestId);
+            enduserUpdate.Add("timestamp", message.Timestamp);
+            enduserUpdate.Add("from", chatReq.Accepted_by);
+            enduserUpdate.Add("message", textMessage);
+            enduserUpdate.Add("messageId", m.ID);
+            enduserUpdate.Add("admin", "false");
+
+            Clients.Group(chatReq.Requested_by).UpdateChat(enduserUpdate);
         }
+
+
 
     }
 }

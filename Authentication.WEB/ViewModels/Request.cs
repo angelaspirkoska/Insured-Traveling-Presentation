@@ -9,5 +9,7 @@ namespace InsuredTraveling.ViewModels
     {
         public int requestId { get; set; }
         public int messageId { get; set; }
+
+        public string username { get; set; }
     }
 }

@@ -60,58 +60,11 @@
                     {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                            <ul class="dropdown-menu message-dropdown">
-                                <li class="message-preview">
-                                    <a href="#">
-                                        <div class="media">
-                                            <span class="pull-left">
-                                                <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                            </span>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">
-                                                    <strong>John Smith</strong>
-                                                </h5>
-                                                <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                                <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="message-preview">
-                                    <a href="#">
-                                        <div class="media">
-                                            <span class="pull-left">
-                                                <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                            </span>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">
-                                                    <strong>John Smith</strong>
-                                                </h5>
-                                                <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                                <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="message-preview">
-                                    <a href="#">
-                                        <div class="media">
-                                            <span class="pull-left">
-                                                <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                            </span>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">
-                                                    <strong>John Smith</strong>
-                                                </h5>
-                                                <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                                <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="message-footer">
+                            <ul id="messages" class="dropdown-menu message-dropdown">
+                               
+                                @*<li class="message-footer">
                                     <a href="#">Read All New Messages</a>
-                                </li>
+                                </li>*@
                             </ul>
                         </li>
                        if (r.IsUser("admin")){
@@ -121,15 +74,6 @@
                         </a>
                         <ul class="dropdown-menu alert-dropdown" id="ul_alerts">
 
-                            <li>
-                                <button class="btn btn-default btn-sm remove_alert" style="position: absolute; left: 80%;"><span class="glyphicon glyphicon-remove"></span></button>
-                                <a href="#">
-                                    <p>
-                                    <label class="label label-default text-center">blabla</label>
-                                        </p>
-                                    <p>message bla bla</p>
-                                </a>
-                            </li>
 
                         </ul>
                         </li>
@@ -156,7 +100,7 @@
         @RenderBody()
     </div>
     <br />
-    <div id = "chats" ></ div >
+    <div id="chats" ></ div >
     @*<footer class="text-center" style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: white; z-index: 10000">*@
         <footer class="container-fluid footer-material-design">
             <p class="container" style="color:#ffffff">&copy; @DateTime.Now.Year - Insured Traveling</p>
@@ -234,6 +178,25 @@
                 </div>
             </div>
         </script>
+        <script id="message_template" type="text/x-custom-template">
+            <li class="message-preview">
+                <a href="#" id="none">
+                    <div class="media">
+                        <span class="pull-left">
+                            <img class="media-object" src="http://placehold.it/50x50" alt="">
+                        </span>
+                        <div class="media-body">
+                            <h5 class="media-heading"  name="name">
+                                <strong>John Smith</strong>
+                            </h5>
+                            <p class="small text-muted"><i class="fa fa-clock-o"></i> <span class="timestamp"></span> </p>
+                            <p class="message" id="messageId"> </p>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </script>
+
 
 </body>
 </html>
