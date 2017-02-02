@@ -13,6 +13,7 @@ using InsuredTraveling.Filters;
 
 namespace InsuredTraveling.Controllers
 {
+    [Authorize]
     [SessionExpire]
     public class SearchController : Controller
     {
@@ -24,6 +25,7 @@ namespace InsuredTraveling.Controllers
         private IInsuredsService _iss;
         private IBankAccountService _bas;
         private ICountryService _countryService;
+        private IChatService _ics;
 
         public SearchController(IPolicyService ps, 
                                 IFirstNoticeOfLossService fnls, 
@@ -31,7 +33,8 @@ namespace InsuredTraveling.Controllers
                                 IPolicyTypeService pts, 
                                 IInsuredsService iss, 
                                 IBankAccountService bas,
-                                ICountryService countryService)
+                                ICountryService countryService,
+                                IChatService ics)
         {
             _ps = ps;
             _fnls = fnls;
@@ -40,6 +43,7 @@ namespace InsuredTraveling.Controllers
             _iss = iss;
             _bas = bas;
             _countryService = countryService;
+            _ics = ics;
 
         }
 
@@ -68,6 +72,77 @@ namespace InsuredTraveling.Controllers
             var array = JArray.FromObject(searchModel.ToArray());
             JSONObject.Add("data", array);
             return JSONObject;
+        }
+
+        [HttpGet]
+        
+        [Route("GetChats")]
+        public JObject GetChats(string username, string chatId, bool all, bool active, bool discarded, bool noticed)
+        {
+            JObject result = new JObject();
+            RoleAuthorize r = new RoleAuthorize();
+            List<chat_requests> chats = new List<chat_requests>();
+            JArray chatJArray = new JArray();
+            bool isAdmin = false;
+
+            if (r.IsUser("admin"))
+            {
+                isAdmin = true;
+                chats = _ics.GetChatsAdmin(System.Web.HttpContext.Current.User.Identity.Name);
+                if (!String.IsNullOrEmpty(username))
+                {
+                    chats = chats.Where(x => x.Requested_by.Equals(username)).ToList();
+                }
+            }
+            else if (r.IsUser("end user"))
+            {
+                chats = _ics.GetChatsEndUser(System.Web.HttpContext.Current.User.Identity.Name);
+                chats = chats.Where(x => x.Accepted_by.Equals(username)).ToList();
+            }
+
+            if(!String.IsNullOrEmpty(chatId))
+            {
+                chats = chats.Where(x => x.ID == Int32.Parse(chatId)).ToList();
+            }
+
+            if(!all)
+            {
+                if (active)
+                {
+                    chats.Where(x => x.fnol_created == false && x.discarded == false && x.Accepted == true).ToList();
+                }
+                else if (discarded)
+                {
+                    chats.Where(x => x.fnol_created == false && x.discarded == true && x.Accepted == true).ToList();
+                }
+                else if (noticed)
+                {
+                    chats.Where(x => x.fnol_created == true && x.discarded == false && x.Accepted == true).ToList();
+                }
+            }
+           
+            foreach(chat_requests chat in chats)
+            {
+                JObject temp = new JObject();
+                temp.Add("chatId:", chat.ID.ToString());
+
+                if (isAdmin)
+                {
+                    temp.Add("chatWith", chat.Requested_by);
+                }
+                else
+                {
+                    temp.Add("chatWith", chat.Accepted_by);
+                }
+                temp.Add("noticed", chat.fnol_created);
+                temp.Add("discarded", chat.discarded);
+
+                chatJArray.Add(temp);
+            }
+
+            result.Add("data",chatJArray);
+
+            return result;
         }
 
         [HttpGet]

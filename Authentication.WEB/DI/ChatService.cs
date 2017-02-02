@@ -17,6 +17,15 @@ namespace InsuredTraveling.DI
             return _db.chat_requests.Where(x => x.ID == requestID).SingleOrDefault();
         }
 
+        public List<chat_requests> GetChatsAdmin(string username)
+        {
+            return _db.chat_requests.Where(x => x.Accepted_by.Equals(username)).ToList();
+        }
+        public List<chat_requests> GetChatsEndUser(string username)
+        {
+            return _db.chat_requests.Where(x => x.Requested_by.Equals(username)).ToList();
+        }
+
         public List<message> LastTenMessagesByRequest(int requestID)
         {
             //Take(10)

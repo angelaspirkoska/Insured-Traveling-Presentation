@@ -61,6 +61,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chats.
+        /// </summary>
+        public static string Chats {
+            get {
+                return ResourceManager.GetString("Chats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Client.
         /// </summary>
         public static string Client {
@@ -1663,6 +1672,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string Search_Active {
+            get {
+                return ResourceManager.GetString("Search_Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New FNOL.
         /// </summary>
         public static string Search_AddFNOL {
@@ -1699,11 +1717,29 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string Search_All {
+            get {
+                return ResourceManager.GetString("Search_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancellation Date.
         /// </summary>
         public static string Search_CancellationDate {
             get {
                 return ResourceManager.GetString("Search_CancellationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chat with.
+        /// </summary>
+        public static string Search_ChatWith {
+            get {
+                return ResourceManager.GetString("Search_ChatWith", resourceCulture);
             }
         }
         
@@ -1744,11 +1780,38 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discarded.
+        /// </summary>
+        public static string Search_Discarded {
+            get {
+                return ResourceManager.GetString("Search_Discarded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discarded.
+        /// </summary>
+        public static string Search_DiscardedChat {
+            get {
+                return ResourceManager.GetString("Search_DiscardedChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First Notice of Loss.
         /// </summary>
         public static string Search_FNOL {
             get {
                 return ResourceManager.GetString("Search_FNOL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Noticed.
+        /// </summary>
+        public static string Search_FNOLChat {
+            get {
+                return ResourceManager.GetString("Search_FNOLChat", resourceCulture);
             }
         }
         
@@ -1789,6 +1852,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chat Number.
+        /// </summary>
+        public static string Search_Id {
+            get {
+                return ResourceManager.GetString("Search_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insured Last Name.
         /// </summary>
         public static string Search_InsuredLastName {
@@ -1821,6 +1893,15 @@ namespace InsuredTraveling {
         public static string Search_LuggageInsurance {
             get {
                 return ResourceManager.GetString("Search_LuggageInsurance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Noticed.
+        /// </summary>
+        public static string Search_Noticed {
+            get {
+                return ResourceManager.GetString("Search_Noticed", resourceCulture);
             }
         }
         

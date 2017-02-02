@@ -834,4 +834,31 @@
   <data name="Policy_UseNumberLatinLetters" xml:space="preserve">
     <value>Use only numbers or latin letters!</value>
   </data>
+  <data name="Chats" xml:space="preserve">
+    <value>Chats</value>
+  </data>
+  <data name="Search_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Search_Discarded" xml:space="preserve">
+    <value>Discarded</value>
+  </data>
+  <data name="Search_Noticed" xml:space="preserve">
+    <value>Noticed</value>
+  </data>
+  <data name="Search_ChatWith" xml:space="preserve">
+    <value>Chat with</value>
+  </data>
+  <data name="Search_DiscardedChat" xml:space="preserve">
+    <value>Discarded</value>
+  </data>
+  <data name="Search_FNOLChat" xml:space="preserve">
+    <value>Noticed</value>
+  </data>
+  <data name="Search_Id" xml:space="preserve">
+    <value>Chat Number</value>
+  </data>
+  <data name="Search_All" xml:space="preserve">
+    <value>All</value>
+  </data>
 </root>

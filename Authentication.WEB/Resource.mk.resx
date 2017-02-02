@@ -834,4 +834,31 @@
   <data name="Policy_UseNumberLatinLetters" xml:space="preserve">
     <value>Користете само бројки и латински букви</value>
   </data>
+  <data name="Chats" xml:space="preserve">
+    <value>Разговори</value>
+  </data>
+  <data name="Search_Active" xml:space="preserve">
+    <value>Активни</value>
+  </data>
+  <data name="Search_Discarded" xml:space="preserve">
+    <value>Отфрлени</value>
+  </data>
+  <data name="Search_Noticed" xml:space="preserve">
+    <value>Пријавени</value>
+  </data>
+  <data name="Search_ChatWith" xml:space="preserve">
+    <value>Разговор со</value>
+  </data>
+  <data name="Search_DiscardedChat" xml:space="preserve">
+    <value>Отфрлен</value>
+  </data>
+  <data name="Search_FNOLChat" xml:space="preserve">
+    <value>Пријавен</value>
+  </data>
+  <data name="Search_Id" xml:space="preserve">
+    <value>Број на разговор</value>
+  </data>
+  <data name="Search_All" xml:space="preserve">
+    <value>Сите</value>
+  </data>
 </root>

@@ -13,5 +13,8 @@ namespace InsuredTraveling.DI
         List<message> LastTenMessagesByRequest(int requestID);
 
         List<message> NextTenMessagesByRequest(int requestID, int MessageID);
+
+        List<chat_requests> GetChatsAdmin(string username);
+        List<chat_requests> GetChatsEndUser(string username);
     }
 }

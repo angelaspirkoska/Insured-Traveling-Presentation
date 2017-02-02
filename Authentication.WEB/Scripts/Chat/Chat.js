@@ -271,11 +271,11 @@ function openChatEndUser(data, requestId) {
     console.log("div#" + data + " #discardChat");
 
     var $div = $('div[requestId = ' + requestId + '] .portlet-body');
-    if ($div) {
+    //if ($div) {
 
-        $($div + " textarea").focus();
-        return;
-    }
+    //    $($div + " textarea").focus();
+    //    return;
+    //}
     var chat = $("#chat_template").html();
     $("#chats").append(chat);
     $("#none").attr("requestId", requestId);
@@ -448,12 +448,17 @@ function pushMessageToChat(data) {
    // console.log("moeto username: " + localStorage.getItem("username"));
     if (!$("div#" + data.from).length) {
         if (data.admin) {
-
+            //getLastTenMessages
             openChatEndUser(data.from, data.requestId);
+            getLastTenMessages(data.requestId);
+
+
         }
         else {
             openChat(data.from, data.requestId);
+            getLastTenMessages(data.requestId);
         }
+        return;
     }
 
     var $div = $("div#" + data.from + " .portlet-body");
