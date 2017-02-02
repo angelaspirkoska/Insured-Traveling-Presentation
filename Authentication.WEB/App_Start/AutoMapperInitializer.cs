@@ -287,7 +287,8 @@ namespace InsuredTraveling.App_Start
             Mapper.CreateMap<first_notice_of_loss, SearchFNOLViewModel>().AfterMap((src, dst) =>
             {
                 dst.ID = src.ID;
-                var policy = db.travel_policy.Where(x => x.ID == src.PolicyId).FirstOrDefault();
+                var policyId = src.PolicyId;
+                var policy = db.travel_policy.Where(x => x.ID == policyId).FirstOrDefault();
                 var healthInsurance = db.health_insurance_info.SingleOrDefault(x => x.additional_info.ID == src.Additional_infoID);
                 var luggageInsurance = db.luggage_insurance_info.SingleOrDefault(x => x.additional_info.ID == src.Additional_infoID);
                 var user = policy != null ? policy.insured : null;
