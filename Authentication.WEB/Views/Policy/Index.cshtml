@@ -668,7 +668,7 @@
             username: 'demo'
         }, function (result) {
             console.log(result.countryName);
-            if (result.countryName != "Macedonia") {
+            if (result.countryName == "Macedonia") {
                 var submitBtn = document.getElementById("buyPolicyBtn");
                 
                 submitBtn.setAttribute("formmethod", "post");
