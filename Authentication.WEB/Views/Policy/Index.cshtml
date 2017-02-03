@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>@InsuredTraveling.Resource.Policy_CreatePolicy</h2>
-<form id="policy_form" metod="post">
+<form id="policy_form" metod="post" >
     <div class="form-horizontal">
         <hr />
         <div class="row container">
@@ -348,36 +348,46 @@
         </div>
         <br />
         <br />
-        <div class="col-md-6">
-            <div class="form-group col-sm-4 col-md-4 totalPremium">
-                @Html.LabelFor(model => model.Total_Premium, htmlAttributes: new { @class = "control-label col-md-5", @id = "totalPremiumLabel" })
-                <div class="col-md-6">
-                    <div class="input-group">
-                        @Html.EditorFor(model => model.Total_Premium, new { htmlAttributes = new { @class = "", style = "width: 100px; border:none; font-size:24px; color:red; font-weight:bold;", id = "totalPremium", @readonly = "true" } })
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group col-sm-4 col-md-4 totalPremium">
+                    @Html.LabelFor(model => model.Total_Premium, htmlAttributes: new { @class = "control-label col-md-5", @id = "totalPremiumLabel" })
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            @Html.EditorFor(model => model.Total_Premium, new { htmlAttributes = new { @class = "", style = "width: 100px; border:none; font-size:24px; color:red; font-weight:bold;", id = "totalPremium", @readonly = "true" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <label id="errorMessage" style="color:red"></label>
+                </div>
+                <div class="col-sm-3 col-md-6">
+                    <div>
+                        <!-- So JS se dodavaat formaction="/Payment/Index"
+                            formmethod="post" -->
+                        <input type="button" value="@InsuredTraveling.Resource.Policy_BuyPolicy" class="btn btn-success hideMe customButton" id="buyPolicyBtn" @*onclick="@("window.location.href='" + @Url.Action("Index", "Payment", new { p = Model }) + "'");"*@ />
                     </div>
                 </div>
             </div>
-            <div class="">
-                <label id="errorMessage" style="color:red"></label>
-            </div>
-            <div class="col-sm-3 col-md-3">
-                <div>
-                    <input type="submit" value="@InsuredTraveling.Resource.Policy_BuyPolicy" class="btn btn-success hideMe customButton" @*onclick="@("window.location.href='" + @Url.Action("Index", "Payment", new { p = Model }) + "'");"*@ formmethod="post" formaction="/Payment/Index" />
-                </div>
+            <div class="col-md-4">
+                <p id="locationError"></p>
             </div>
         </div>
-        <div class="form-inline row col-md-12">
-            <div class="form-group col-sm-3 col-md-2" style="margin-left: 0px; padding-left: 0px;">
-                <div>
-                    <input type="button" value="@InsuredTraveling.Resource.Policy_AddOffer" class="btn btn-default hideMe" />
+        <div class="row">
+            <div class="form-inline col-md-12">
+                <div class="form-group col-sm-3 col-md-2" style="margin-left: 0px; padding-left: 0px;">
+                    <div>
+                        <input type="button" value="@InsuredTraveling.Resource.Policy_AddOffer" class="btn btn-default hideMe" />
+                    </div>
                 </div>
-            </div>
-            <div class="form-group col-sm-3 col-md-8">
-                <div>
-                    <input type="submit" formmethod="post" formaction="/Policy/RedirectPrintOffer" class="btn btn-default hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
+                <div class="form-group col-sm-3 col-md-8">
+                    <div>
+                        <input type="submit" formmethod="post" formaction="/Policy/RedirectPrintOffer" class="btn btn-default hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
+                    </div>
                 </div>
-            </div>
-        </div>
+            </div>     
+        </div>        
+        
     </div>
 </form>
 <script src="~/Scripts/jquery.validate.js"></script>
@@ -414,6 +424,8 @@
 
         $("#additional_charges_0__ID").val(1);
         $("#additional_charges_1__ID").val(1);
+
+        getLocation();
 
     });
 
@@ -635,4 +647,40 @@
 
     });
 
+    // Check the user's location
+    var x = document.getElementById("location");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        //x.innerHTML = "Latitude: " + position.coords.latitude +
+        //"<br>Longitude: " + position.coords.longitude;
+        $.getJSON('http://ws.geonames.org/countryCode', {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+            type: 'JSON',
+            username: 'demo'
+        }, function (result) {
+            console.log(result.countryName);
+            if (result.countryName != "Macedonia") {
+                var submitBtn = document.getElementById("buyPolicyBtn");
+                
+                submitBtn.setAttribute("formmethod", "post");
+                submitBtn.setAttribute("formaction", "/Payment/Index");
+                submitBtn.setAttribute("type", "submit");
+            }
+            else {
+                $("#locationError").text("Не може да купите полиса ако сте надвор од Македонија!");
+                $("#locationError").css("display", "none"); //block
+                $("#buyPolicyBtn").prop('disabled', true);
+            }
+        });
+    }
+   
 </script>
