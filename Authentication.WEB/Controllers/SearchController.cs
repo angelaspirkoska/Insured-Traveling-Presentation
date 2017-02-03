@@ -97,7 +97,10 @@ namespace InsuredTraveling.Controllers
             else if (r.IsUser("end user"))
             {
                 chats = _ics.GetChatsEndUser(System.Web.HttpContext.Current.User.Identity.Name);
-                chats = chats.Where(x => x.Accepted_by.Equals(username)).ToList();
+                if (!String.IsNullOrEmpty(username))
+                {
+                    chats = chats.Where(x => x.Accepted_by.Equals(username)).ToList();
+                }
             }
 
             if(!String.IsNullOrEmpty(chatId))
@@ -109,22 +112,22 @@ namespace InsuredTraveling.Controllers
             {
                 if (active)
                 {
-                    chats.Where(x => x.fnol_created == false && x.discarded == false && x.Accepted == true).ToList();
+                    chats = chats.Where(x => x.fnol_created == false && x.discarded == false && x.Accepted == true).ToList();
                 }
                 else if (discarded)
                 {
-                    chats.Where(x => x.fnol_created == false && x.discarded == true && x.Accepted == true).ToList();
+                    chats = chats.Where(x => x.fnol_created == false && x.discarded == true && x.Accepted == true).ToList();
                 }
                 else if (noticed)
                 {
-                    chats.Where(x => x.fnol_created == true && x.discarded == false && x.Accepted == true).ToList();
+                    chats = chats.Where(x => x.fnol_created == true && x.discarded == false && x.Accepted == true).ToList();
                 }
             }
            
             foreach(chat_requests chat in chats)
             {
                 JObject temp = new JObject();
-                temp.Add("chatId:", chat.ID.ToString());
+                temp.Add("chatId", chat.ID.ToString());
 
                 if (isAdmin)
                 {
@@ -136,14 +139,34 @@ namespace InsuredTraveling.Controllers
                 }
                 temp.Add("noticed", chat.fnol_created);
                 temp.Add("discarded", chat.discarded);
-
+                temp.Add("isAdmin", isAdmin);
                 chatJArray.Add(temp);
             }
 
             result.Add("data",chatJArray);
-
+           
             return result;
         }
+
+
+        [HttpGet]
+        [Route("IsAdmin")]
+        public JObject isAdmin()
+        {
+            RoleAuthorize r = new RoleAuthorize();
+            JObject response = new JObject();
+            if(r.IsUser("admin"))
+            {
+                response.Add("isAdmin", true);
+            }
+            else
+            {
+                response.Add("isAdmin", false);
+            }
+            return response;
+        }
+
+
 
         [HttpGet]
         [Route("GetPolicies")]

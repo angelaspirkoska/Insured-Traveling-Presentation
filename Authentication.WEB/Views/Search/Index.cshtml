@@ -558,7 +558,7 @@
             </div>
 
             <div class="row" style="width: 70%;">
-                <table style="width: 70%;" class="table table-bordered table-hover table-striped" id="tableChats">
+                <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableChats">
                     <thead>
                         <tr>
                             <th>@InsuredTraveling.Resource.Search_Id</th>
@@ -579,6 +579,7 @@
         @Scripts.Render("~/bundles/jqueryui")
         @Styles.Render("~/Content/jqueryuicss")
         <script type="text/javascript">
+            var isAdmin = false;
             $(document).ready(function () {
                 $(".hover-tooltip button").tooltip('show');
                 $("#searchClients").hide();
@@ -593,6 +594,17 @@
                 $("#tableFNOLPolicies").css("display", "none");
                 $("#tablePoliciesClients").css("display", "none");
                 $("#tablePoliciesHolders").css("display", "none");
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Search/IsAdmin",
+                    success: function (result) {
+                        var result = JSON.parse(result);
+                        isAdmin = result.isAdmin;      
+                    }
+                });
+
+
             });
 
             $("#DateI").focusout(function () {
@@ -707,13 +719,12 @@
                         { data: "chatWith" },
                         { data: "noticed" },
                         { data: "discarded" },
-                         {
-                             data: "chatId",
-                             "render": function (data, type, row, meta) {
+                        { data: "chatId",
+                            "render": function (data, type, row, meta) {
                                  if (type === 'display') {
-                                     return $('<div>')
-                                         
-                                         .attr('onlick', 'ShowChatDetails()')
+                                     return $('<a>')
+                                         .attr('href', 'javascript:;')
+                                         .attr('onclick', 'ShowChatDetails("' + row.chatWith +'",'+ data + ');')
                                          .attr('class', 'chat')
                                          .attr('id', data)
                                          .text("@InsuredTraveling.Resource.Search_DetailsLink")
@@ -736,8 +747,15 @@
                 $(this).toggleClass('selected');
             });
 
-            function ShowChatDetails() {
-                alert("opened");
+            function ShowChatDetails(chatWith, requestId) {
+                if (isAdmin) {
+
+                    openChat(chatWith, requestId);
+                }
+                else {
+                    openChatEndUser(chatWith, requestId);
+                }
+                getLastTenMessages(requestId);
             }
 
             function SearchPolycies() {

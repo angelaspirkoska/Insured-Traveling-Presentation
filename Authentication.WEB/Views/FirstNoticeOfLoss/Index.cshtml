@@ -816,7 +816,9 @@ else if (ViewBag.insurance == "Luggage Insurance")
                           .attr("value", val.Id)
                           .text(val.FirstName + " " + val.LastName));
                     });
+
                     FillInsuredData();
+
                     $('#lossDate').attr("min", rez.StartDate);
                     $('#lossDate').attr("max", rez.EndDate);
                     $('#baggageLossDate').attr("min", rez.StartDate);

@@ -23,7 +23,7 @@ namespace InsuredTraveling.DI
         }
         public List<chat_requests> GetChatsEndUser(string username)
         {
-            return _db.chat_requests.Where(x => x.Requested_by.Equals(username)).ToList();
+            return _db.chat_requests.Where(x => x.Requested_by==username).ToList();
         }
 
         public List<message> LastTenMessagesByRequest(int requestID)

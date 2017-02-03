@@ -92,8 +92,9 @@ namespace InsuredTraveling.Controllers.API
             JObject response = new JObject();
             JArray listMessages = new JArray();
             var messages = _ics.LastTenMessagesByRequest(requestId).OrderBy(x => x.ID);
-            var requestedby = messages.FirstOrDefault().chat_requests.Requested_by;
-            var acceptedby = messages.FirstOrDefault().chat_requests.Accepted_by;
+            var request = _ics.ChatRequest(requestId);
+            var requestedby = request.Requested_by;
+            var acceptedby = request.Accepted_by;
 
             if (username.Equals(requestedby) || username.Equals(acceptedby))
             {
