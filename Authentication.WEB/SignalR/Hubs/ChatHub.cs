@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using InsuredTraveling.Filters;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
+using InsuredTraveling.SignalR.DTOs;
 
 namespace InsuredTraveling.Hubs
 {
@@ -14,15 +16,15 @@ namespace InsuredTraveling.Hubs
         public override Task OnConnected()
         {
             RoleAuthorize r = new RoleAuthorize();
-
             var username = System.Web.HttpContext.Current.User.Identity.Name;
             if (r.IsUser("admin"))
             {
                 Groups.Add(Context.ConnectionId, "Admins");
                 Groups.Add(Context.ConnectionId, username);
 
-                
-                var responseList = _db.chat_requests.Where(x => x.Accepted == false).Select(x => new {
+
+                var responseList = _db.chat_requests.Where(x => x.Accepted == false).Select(x => new
+                {
                     from = x.Requested_by,
                     timestamp = x.Datetime_request.ToString()
                 }).ToArray();
@@ -38,12 +40,12 @@ namespace InsuredTraveling.Hubs
                 var chatsActive = _db.chat_requests.Where(x => x.Accepted == true && x.Accepted_by.Equals(username) && x.discarded == false
                                                         && x.fnol_created == false).ToList();
                 JObject messages = new JObject();
-               
+
                 JArray messageList = new JArray();
                 foreach (chat_requests chat in chatsActive)
                 {
                     var messageLast = _db.messages.Where(x => x.ConversationID == chat.ID).OrderByDescending(x => x.Timestamp).FirstOrDefault();
-                    if(messageLast != null)
+                    if (messageLast != null)
                     {
                         JObject temp = new JObject();
                         temp.Add("requestId", chat.ID);
@@ -55,12 +57,12 @@ namespace InsuredTraveling.Hubs
                         temp.Add("ichatwith", chat.Requested_by);
                         messageList.Add(temp);
                     }
-                    
+
                 }
                 messages.Add("messages", messageList);
                 Clients.Group(username).ActiveMessages(messages);
             }
-            else if(r.IsUser("end user"))
+            else if (r.IsUser("end user"))
             {
                 //Groups.Add(Context.ConnectionId, "Admins");
                 Groups.Add(Context.ConnectionId, username);
@@ -110,38 +112,39 @@ namespace InsuredTraveling.Hubs
             if (listRequestsByUser.Count == 0)
             {
 
-                var request = new chat_requests {
+                var request = new chat_requests
+                {
                     Requested_by = username,
                     fnol_created = false,
                     discarded = false
-            };
-                
-            try
-            {
-               var a = _db.chat_requests.Add(request);
-               var b= _db.SaveChanges();
-                  requestId = a.ID;
-            }
-            catch(Exception ex)
-            {
-                
-            }
-            finally
-            {
+                };
 
-            }
-            var numberRequests = _db.chat_requests.Where(x => x.Accepted == false).ToList();
+                try
+                {
+                    var a = _db.chat_requests.Add(request);
+                    var b = _db.SaveChanges();
+                    requestId = a.ID;
+                }
+                catch (Exception ex)
+                {
 
-            var responseAdmins = new JObject();
-            responseAdmins.Add("numberRequests", numberRequests.Count);
-            var array = new JArray();
-            foreach(chat_requests chatRequest in numberRequests)
+                }
+                finally
+                {
+
+                }
+                var numberRequests = _db.chat_requests.Where(x => x.Accepted == false).ToList();
+
+                var responseAdmins = new JObject();
+                responseAdmins.Add("numberRequests", numberRequests.Count);
+                var array = new JArray();
+                foreach (chat_requests chatRequest in numberRequests)
                 {
                     array.Add(new JObject(new JProperty("from", chatRequest.Requested_by), new JProperty("timestamp", chatRequest.Datetime_request.ToString())));
                 }
-            
-            responseAdmins.Add("data", array);
-            Clients.Group("Admins").MessageRequest(responseAdmins);
+
+                responseAdmins.Add("data", array);
+                Clients.Group("Admins").MessageRequest(responseAdmins);
             }
             else
             {
@@ -175,11 +178,7 @@ namespace InsuredTraveling.Hubs
                 }
                 catch (Exception ex)
                 {
-
-                }
-                finally
-                {
-
+                    Debug.WriteLine(ex.ToString());
                 }
                 var numberRequests = _db.chat_requests.Where(x => x.Accepted == false).ToList();
 
@@ -198,15 +197,11 @@ namespace InsuredTraveling.Hubs
             {
                 requestId = listRequestsByUser.Last().ID;
             }
-            JProperty nes = new JProperty("requestId", requestId);
-            JObject requestIdJson = JObject.FromObject(new
+            var sendRequestIdDTO = new SendRequestIdDTO
             {
-                requestId = requestId
-            });
-            Clients.Group(username).RequestId("{ requestId: "+requestId+" }");
-           // requestIdJson.Property("requestId", requestId);
-           // Clients.Group(username).RequestId(requestIdJson);
-
+                RequestId = requestId
+            };
+            Clients.Group(username).RequestId(sendRequestIdDTO);
         }
 
         public void AcceptRequest(string enduser)
@@ -232,16 +227,20 @@ namespace InsuredTraveling.Hubs
 
             }
 
-            var response = new JObject();
-            response.Add("requestId", request.ID);
-            response.Add("admin", username);
+            var endUserResponseDTO = new SendAcknowledgeToEndUserDTO
+            {
+                RequestId = request.ID,
+                Admin = username
+            };
 
-            var responseAdmin = new JObject();
-            responseAdmin.Add("requestId", request.ID);
-            responseAdmin.Add("enduser", enduser);
+            var adminResponseDTO = new SendAcknowledgeToAdminDTO
+            {
+                RequestId = request.ID,
+                EndUser = enduser
+            };
 
-            Clients.Group(enduser).SendAcknowledge(response);
-            Clients.Group(username).ReceiveId(responseAdmin);
+            Clients.Group(enduser).SendAcknowledge(endUserResponseDTO);
+            Clients.Group(username).ReceiveId(adminResponseDTO);
 
             var numberRequests = _db.chat_requests.Where(x => x.Accepted == false).ToList();
 
@@ -257,7 +256,7 @@ namespace InsuredTraveling.Hubs
             Clients.Group("Admins").MessageRequest(responseAdmins);
 
         }
-     
+
         public void SendMessage(String to, String message, string requestId)
         {
             var from = Context.User.Identity.Name;
@@ -270,29 +269,30 @@ namespace InsuredTraveling.Hubs
             data.Add("message", message);
             data.Add("requestId", requestId);
             data.Add("admin", admin);
-            Clients.Group(to).ReceiveMessage(data);    
+            Clients.Group(to).ReceiveMessage(data);
 
             SaveMessage(int.Parse(requestId), from, message);
 
             //zacuvuvanje u bazu fali!!!
         }
 
-        public void SendMessageMobile(string from, string to, string message, string requestId)
+        public void SendMessageMobile(string from, string to, string message, int requestId)
         {
             // var from = Context.User.Identity.Name;
-            var data = new JObject();
-            data.Add("from", from);
-            data.Add("message", message);
-            data.Add("requestId", requestId);
+            var sendMessageMobileDTO = new SendMessageMobileDTO
+            {
+                From = from,
+                Message = message,
+                RequestId = requestId
+            };
+            Clients.Group(to).ReceiveMessage(sendMessageMobileDTO);
 
-            Clients.Group(to).ReceiveMessage(data);
-
-            SaveMessage(int.Parse(requestId), from, message);
+            SaveMessage(requestId, from, message);
 
         }
 
         public void DiscardMessage(int requestId)
-        {          
+        {
             JObject adminResponse = new JObject();
             var request = _db.chat_requests.Where(x => x.ID == requestId).SingleOrDefault();
             if (!request.fnol_created)
@@ -306,7 +306,7 @@ namespace InsuredTraveling.Hubs
 
                 Clients.Group(request.Requested_by).DiscardedMessage(enduserResponse);
 
-                
+
                 adminResponse.Add("requestId", request.ID);
                 adminResponse.Add("discarded", "true");
                 adminResponse.Add("message", "You discarded the request. First notice of loss is not created.");
@@ -335,16 +335,17 @@ namespace InsuredTraveling.Hubs
                 enduserResponse.Add("message", "First notice of loss was created successfully.");
 
                 Clients.Group(request.Requested_by).FnolCreatedMessage(enduserResponse);
-               
+
                 adminResponse.Add("requestId", request.ID);
                 adminResponse.Add("fnolCreated", "true");
-                adminResponse.Add("message", "First notice of loss was created successfully.");     
+                adminResponse.Add("message", "First notice of loss was created successfully.");
 
-            } else
+            }
+            else
             {
                 adminResponse.Add("requestId", request.ID);
                 adminResponse.Add("fnolCreated", "false");
-                adminResponse.Add("message", "This chat was already discarded.");             
+                adminResponse.Add("message", "This chat was already discarded.");
             }
 
             Clients.Group(request.Accepted_by).FnolCreated(adminResponse);
@@ -358,7 +359,7 @@ namespace InsuredTraveling.Hubs
             message.Text = textMessage;
             message.Timestamp = DateTime.Now;
             message.from_username = fromUsername;
-            var  m =_db.messages.Add(message);
+            var m = _db.messages.Add(message);
             _db.SaveChangesAsync();
 
             var chatReq = _db.chat_requests.Where(x => x.ID == requestId).SingleOrDefault();
@@ -382,8 +383,5 @@ namespace InsuredTraveling.Hubs
 
             Clients.Group(chatReq.Requested_by).UpdateChat(enduserUpdate);
         }
-
-
-
     }
 }

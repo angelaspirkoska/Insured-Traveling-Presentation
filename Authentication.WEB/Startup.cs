@@ -1,4 +1,6 @@
-﻿using InsuredTraveling.Providers;
+﻿using InsuredTraveling.Hubs.PipelineModules;
+using InsuredTraveling.Providers;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
@@ -14,6 +16,7 @@ namespace InsuredTraveling
         
         public void Configuration(IAppBuilder app)
         {
+            GlobalHost.HubPipeline.AddModule(new ExceptionPipelineModule());
             var config = new HttpConfiguration();            
             ConfigureOAuth(app);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);

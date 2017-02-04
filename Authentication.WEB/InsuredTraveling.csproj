@@ -548,7 +548,12 @@
     <Compile Include="Helpers\SavePolicyHelper.cs" />
     <Compile Include="Helpers\UpdateBankAccountInfoHelper.cs" />
     <Compile Include="Helpers\UpdateFirstNoticeOfLossHelper.cs" />
-    <Compile Include="Hubs\ChatHub.cs" />
+    <Compile Include="SignalR\DTOs\BaseRequestIdDTO.cs" />
+    <Compile Include="SignalR\DTOs\SendAcknowledgeDTO.cs" />
+    <Compile Include="SignalR\DTOs\SendRequestIdDTO.cs" />
+    <Compile Include="SignalR\DTOs\SendMessageMobileDTO.cs" />
+    <Compile Include="SignalR\Hubs\ChatHub.cs" />
+    <Compile Include="SignalR\Hubs\PipelineModules\ExceptionPipelineModule.cs" />
     <Compile Include="insured.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
