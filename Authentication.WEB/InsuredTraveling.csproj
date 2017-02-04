@@ -270,6 +270,8 @@
     <Content Include="Content\img\portfolio\safe.png" />
     <Content Include="Content\img\portfolio\submarine.png" />
     <Content Include="Content\img\profile.png" />
+    <Content Include="Content\loader.css" />
+    <Content Include="Content\loader\page-loader.gif" />
     <Content Include="Content\Site.css" />
     <Content Include="Errors\401.aspx" />
     <Content Include="Errors\401.html" />

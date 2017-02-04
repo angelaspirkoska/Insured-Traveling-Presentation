@@ -7,6 +7,7 @@
 }
 <h2>@InsuredTraveling.Resource.Policy_CreatePolicy</h2>
 <form id="policy_form" metod="post" >
+    <div class="loader" style="display:none"></div>
     <div class="form-horizontal">
         <hr />
         <div class="row container">
@@ -396,6 +397,7 @@
 <script src="~/Scripts/messages_is.js"></script>
 @Scripts.Render("~/bundles/jqueryui")
 @Styles.Render("~/Content/jqueryuicss")
+@Styles.Render("~/Content/loader")
 <script>
     $(document).ready(function () {
         $(".hideMe").hide();
@@ -464,12 +466,14 @@
     function CalculateTotalPremium() {
         var flag = ValidateFields();
         console.log(flag);
+        $(".loader").css("display", "inline");
         if (flag) {
             $.ajax({
                 type: "POST",
                 url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/Premium/Calculate",
                 data: $("#policy_form").serialize(),
                 success: function (result) {
+                    $(".loader").css("display", "none");
                     console.log(result.PremiumAmount);
                     $("#totalPremium").val(result.PremiumAmount);
                     $("#totalPremium").show();
@@ -498,6 +502,7 @@
 
         }
     };
+
     $('#dugme').on('submit', function (e) {
         if (!valid) {
             e.preventDefault();

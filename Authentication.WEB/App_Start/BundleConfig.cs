@@ -27,6 +27,9 @@ namespace InsuredTraveling
                      "~/Content/sorter/style.css",
                       "~/Content/font-awesome.min.css",
                      "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/loader").Include(
+                     "~/Content/loader.css"));
         }
     }
 }
