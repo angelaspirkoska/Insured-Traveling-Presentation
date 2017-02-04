@@ -2,29 +2,46 @@
 using InsuredTraveling.Providers;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System;
 using System.Web.Http;
-
 
 [assembly: OwinStartup("InsuredTravelingStartup", typeof(InsuredTraveling.Startup))]
 namespace InsuredTraveling
 {
     public class Startup
     {
-        
+        IAppBuilder _app;
+        HttpConfiguration _config;
         public void Configuration(IAppBuilder app)
         {
-            GlobalHost.HubPipeline.AddModule(new ExceptionPipelineModule());
-            var config = new HttpConfiguration();            
-            ConfigureOAuth(app);
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            app.UseWebApi(config);
-            app.MapSignalR();
+            _app = app;
+            _config = new HttpConfiguration();
+
+            ConfigureOAuth();
+
+            ConfigureSignalR();
+
         }
 
-        public void ConfigureOAuth(IAppBuilder app)
+        private void ConfigureSignalR()
+        {
+            GlobalHost.HubPipeline.AddModule(new ExceptionPipelineModule());
+
+            var hubConfig = new HubConfiguration
+            {
+                EnableJavaScriptProxies = true,
+                EnableDetailedErrors = true,
+                EnableJSONP = true,
+            };
+            _app.UseCors(CorsOptions.AllowAll);
+            _app.UseWebApi(_config);
+            _app.MapSignalR(hubConfig);
+        }
+
+        public void ConfigureOAuth()
         {
             var oAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
@@ -35,11 +52,9 @@ namespace InsuredTraveling
                 //RefreshTokenProvider = new SimpleRefreshTokenProvider()
             };
 
-             // Token Generation
-            app.UseOAuthAuthorizationServer(oAuthServerOptions);
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-
+            // Token Generation
+            _app.UseOAuthAuthorizationServer(oAuthServerOptions);
+            _app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
-
     }
 }

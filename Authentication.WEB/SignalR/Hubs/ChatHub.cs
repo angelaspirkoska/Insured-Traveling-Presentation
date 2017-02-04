@@ -197,20 +197,17 @@ namespace InsuredTraveling.Hubs
             {
                 requestId = listRequestsByUser.Last().ID;
             }
-            var sendRequestIdDTO = new SendRequestIdDTO
+            var requestIdDTO = new RequestIdDTO
             {
                 RequestId = requestId
             };
-            Clients.Group(username).RequestId(sendRequestIdDTO);
+            Clients.Group(username).RequestId(requestIdDTO);
         }
 
         public void AcceptRequest(string enduser)
         {
             var username = Context.User.Identity.Name;
-
             var request = _db.chat_requests.Where(x => x.Requested_by == enduser && x.Accepted == false).SingleOrDefault();
-
-
             request.Accepted_by = username;
             request.Accepted = true;
 
@@ -222,18 +219,12 @@ namespace InsuredTraveling.Hubs
             {
 
             }
-            finally
-            {
-
-            }
-
-            var endUserResponseDTO = new SendAcknowledgeToEndUserDTO
+            var endUserResponseDTO = new AcknowledgeEndUserDTO
             {
                 RequestId = request.ID,
                 Admin = username
             };
-
-            var adminResponseDTO = new SendAcknowledgeToAdminDTO
+            var adminResponseDTO = new AcknowledgeAdminDTO
             {
                 RequestId = request.ID,
                 EndUser = enduser
@@ -279,13 +270,13 @@ namespace InsuredTraveling.Hubs
         public void SendMessageMobile(string from, string to, string message, int requestId)
         {
             // var from = Context.User.Identity.Name;
-            var sendMessageMobileDTO = new SendMessageMobileDTO
+            var messageMobileDTO = new MessageMobileDTO
             {
                 From = from,
                 Message = message,
                 RequestId = requestId
             };
-            Clients.Group(to).ReceiveMessage(sendMessageMobileDTO);
+            Clients.Group(to).ReceiveMessage(messageMobileDTO);
 
             SaveMessage(requestId, from, message);
 
