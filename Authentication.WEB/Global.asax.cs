@@ -20,14 +20,14 @@ namespace InsuredTraveling
         {
             SetupDependencyInjection();
 
-            AreaRegistration.RegisterAllAreas();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
-            ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new CustomViewEngine());
-            AutoMapperInitializer.Initialize();
+            //AreaRegistration.RegisterAllAreas();
+            ////FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            //GlobalConfiguration.Configure(WebApiConfig.Register);
+            //RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //ViewEngines.Engines.Clear();
+            //ViewEngines.Engines.Add(new CustomViewEngine());
+            //AutoMapperInitializer.Initialize();
         }
         protected void Application_BeginRequest(object sender, EventArgs e)
         {

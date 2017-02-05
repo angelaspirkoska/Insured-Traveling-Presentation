@@ -14,7 +14,7 @@ namespace InsuredTraveling.App_Start
         public static void Initialize()
         {
             InsuredTravelingEntity db = new InsuredTravelingEntity();
-
+          
             Mapper.CreateMap<CreateClientModel , insured>().AfterMap((src, dst) =>
             {
                 dst.Name = src.Name;
