@@ -19,6 +19,7 @@ namespace InsuredTraveling.DI
         {
             news_all newsForDelete = _db.news_all.Where(x => x.ID == id).FirstOrDefault();
             _db.news_all.Remove(newsForDelete);
+            _db.SaveChanges();
         }
 
         public IQueryable<news_all> GetAllNews()

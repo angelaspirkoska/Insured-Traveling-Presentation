@@ -50,12 +50,9 @@ namespace Authentication.WEB.Controllers
 
         public ActionResult DeleteNews(int newsId)
         {
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
-
-            if (!_ns.IsNull(newsId))
+           if (_ns.IsNull(newsId))
                 return Json(new { Success = "False", Message = "Database problem" }, JsonRequestBehavior.AllowGet);
-            _ns.DeleteNews(newsId);
-
+            
             try
             {
                 _ns.DeleteNews(newsId);
