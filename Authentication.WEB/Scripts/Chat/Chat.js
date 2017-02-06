@@ -451,7 +451,9 @@ function openChat(data, requestId) {
 }
 
 
-
+//function isChatOpened(sender) {
+    //    return $("div#" + sender).length;
+    //}
 function pushMessageToChat(messageDTO) {
     var isAdmin = messageDTO.Admin != undefined && messageDTO.Admin;
     var sender = messageDTO.From;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace InsuredTraveling.SignalR.DTOs
+namespace InsuredTraveling.DTOs
 {
     public class BaseRequestIdDTO
     {

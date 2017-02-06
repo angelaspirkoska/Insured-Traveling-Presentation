@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace InsuredTraveling.SignalR.DTOs
+﻿namespace InsuredTraveling.DTOs
 {
     //TODO use once all chat hub DTOs have been refactored with PascalCase
     public class AcknowledgeAdminDTO : BaseRequestIdDTO

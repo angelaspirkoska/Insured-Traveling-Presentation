@@ -30,6 +30,30 @@ namespace InsuredTraveling
             ConfigureSignalR();
         }
 
+        public void ConfigureOAuth()
+        {
+            _app.UseCookieAuthentication(new CookieAuthenticationOptions());
+            _app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+            PublicClientId = "self";
+            var OAuthOptions = new OAuthAuthorizationServerOptions()
+            {
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/token"),
+                //changed due to testing
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                Provider = new SimpleAuthorizationServerProvider(),
+                //Provider = new ApplicationOAuthProvider(PublicClientId)
+                RefreshTokenProvider = new SimpleRefreshTokenProvider()
+            };
+
+            // Token Generation
+            //_app.UseOAuthBearerTokens(OAuthOptions);
+
+            _app.UseOAuthAuthorizationServer(OAuthOptions);
+            _app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+        }
+
         private void ConfigureSignalR()
         {
             GlobalHost.HubPipeline.AddModule(new ExceptionPipelineModule());
@@ -48,30 +72,6 @@ namespace InsuredTraveling
             _app.UseCors(CorsOptions.AllowAll);
             _app.UseWebApi(_config);
             _app.MapSignalR(hubConfig);
-        }
-
-        public void ConfigureOAuth()
-        {
-            _app.UseCookieAuthentication(new CookieAuthenticationOptions());
-            _app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-
-            PublicClientId = "self";
-            var OAuthOptions = new OAuthAuthorizationServerOptions()
-            {
-                AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/token"),
-                //changed due to testing
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(30),
-                Provider = new SimpleAuthorizationServerProvider(),
-                //Provider = new ApplicationOAuthProvider(PublicClientId)
-                RefreshTokenProvider = new SimpleRefreshTokenProvider()
-            };
-
-            // Token Generation
-            //_app.UseOAuthBearerTokens(OAuthOptions);
-
-            _app.UseOAuthAuthorizationServer(OAuthOptions);
-            _app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
     }
 }

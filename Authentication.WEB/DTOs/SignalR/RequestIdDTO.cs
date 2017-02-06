@@ -1,4 +1,4 @@
-﻿namespace InsuredTraveling.SignalR.DTOs
+﻿namespace InsuredTraveling.DTOs
 {
     public class RequestIdDTO : BaseRequestIdDTO
     {

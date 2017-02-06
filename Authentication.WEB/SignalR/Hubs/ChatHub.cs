@@ -5,7 +5,7 @@ using Microsoft.AspNet.SignalR;
 using InsuredTraveling.Filters;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
-using InsuredTraveling.SignalR.DTOs;
+using InsuredTraveling.DTOs;
 
 namespace InsuredTraveling.Hubs
 {
@@ -29,7 +29,6 @@ namespace InsuredTraveling.Hubs
             {
                 Groups.Add(Context.ConnectionId, "Admins");
                 Groups.Add(Context.ConnectionId, username);
-
 
                 var responseList = _db.chat_requests.Where(x => x.Accepted == false).Select(x => new
                 {
@@ -263,9 +262,9 @@ namespace InsuredTraveling.Hubs
         {
             var from = Context.User.Identity.Name;
             RoleAuthorize r = new RoleAuthorize();
-            bool admin = false;
+            bool isAdmin = false;
             if (r.IsUser("admin"))
-                admin = true;
+                isAdmin = true;
             //var data = new JObject();
             //data.Add("from", from);
             //data.Add("message", message);
@@ -276,7 +275,7 @@ namespace InsuredTraveling.Hubs
                 From = from,
                 Message = message,
                 RequestId = int.Parse(requestId),
-                Admin = admin
+                Admin = isAdmin
             };
             Clients.Group(to).ReceiveMessage(messageMobileDTO);
 
