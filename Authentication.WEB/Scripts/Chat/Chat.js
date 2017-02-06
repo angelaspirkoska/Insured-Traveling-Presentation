@@ -1,13 +1,21 @@
 ﻿var hProxy;
 var openChats = 0;
+var connection;
 
 function prepareSocket() {
     if (window.location.pathname.split("/")[1] === "Login") {
         console.log("Terminate socket init");
         return;
     }
-        
-    var connection = $.hubConnection();
+    connection = $.hubConnection();
+
+    //continuously reconnect if disconnected
+    $.connection.hub.disconnected(function () {
+        setTimeout(function () {
+            $.connection.hub.start();
+        }, 5000); // Restart connection after 5 seconds.
+    });
+
     hProxy = connection.createHubProxy("chatHub");
     connection.start().done(function () {
         console.log("connection established");
@@ -52,7 +60,7 @@ function prepareSocket() {
 
     hProxy.on("ReceiveId", function (data) {
         console.log("receiveid");
-        openChat(data.enduser, data.requestId);
+        openChat(data.EndUser, data.RequestId);
         //$("$a"+data.requestId).
     });
     
@@ -97,6 +105,7 @@ function prepareSocket() {
 }
 
 function acceptChat(data) {
+    //if(connection.st)
     hProxy.invoke("AcceptRequest", data);
 }
 
@@ -443,38 +452,41 @@ function openChat(data, requestId) {
 
 
 
-function pushMessageToChat(data) {
-    console.log("dali e admin: ", data.admin);
+function pushMessageToChat(messageDTO) {
+    var isAdmin = messageDTO.Admin != undefined && messageDTO.Admin;
+    var sender = messageDTO.From;
+    var requestId = messageDTO.RequestId;
+    var message = messageDTO.Message;
+    console.log("dali e admin: ", isAdmin);
    // console.log("moeto username: " + localStorage.getItem("username"));
-    if (!$("div#" + data.from).length) {
-        if (data.admin) {
-
-            openChatEndUser(data.from, data.requestId);
+    if (!$("div#" + sender).length) {
+        if (isAdmin) {
+            openChatEndUser(sender, requestId);
         }
         else {
-            openChat(data.from, data.requestId);
+            openChat(sender, requestId);
         }
     }
 
-    var $div = $("div#" + data.from + " .portlet-body");
+    var $div = $("div#" + sender + " .portlet-body");
 
-    var last = $("div#" + data.from + " .row")[$("div#" + data.from + " .row").length - 1];
+    var last = $("div#" + sender + " .row")[$("div#" + sender + " .row").length - 1];
 
-    if (last !== undefined && $(last).hasClass(data.from)) {
-        var p = "<p>" + data.message + "</p>";
+    if (last !== undefined && $(last).hasClass(sender)) {
+        var p = "<p>" + message + "</p>";
         $(last).children().children().children().append(p);
     } else {
         var date = new Date();
-        var message = "<div class='row " + data.from + "'>" +
+        var message = "<div class='row " + sender + "'>" +
             "<div class='col-lg-12'>" +
             "<div class='media'>" +
-            "<div class='media-body " + data.from + "'>" +
+            "<div class='media-body " + sender + "'>" +
             "<h4 class='media-heading'>" +
-            data.from +
+            sender +
             "<span class='small pull-right'>" + date.getHours() + ":" + date.getMinutes() + "</span>" +
             "</h4>" +
             "<p>" +
-            data.message +
+            message +
             "</p>" +
             "</div>" +
             "</div>" +

@@ -11,6 +11,10 @@ namespace InsuredTraveling.Hubs.PipelineModules
     {
         protected override bool OnBeforeIncoming(IHubIncomingInvokerContext context)
         {
+            if (string.IsNullOrWhiteSpace(context.Hub.Context.Request.Headers["Authorization"]))
+            {
+     
+            }
             Debug.WriteLine("=> Invoking " + context.MethodDescriptor.Name + " on hub " + context.MethodDescriptor.Hub.Name);
             return base.OnBeforeIncoming(context);
         }

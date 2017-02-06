@@ -25,7 +25,7 @@ namespace InsuredTraveling
             _app = app;
             _config = new HttpConfiguration();
 
-            //ConfigureOAuth();
+            ConfigureOAuth();
 
             ConfigureSignalR();
         }
@@ -34,6 +34,7 @@ namespace InsuredTraveling
         {
             GlobalHost.HubPipeline.AddModule(new ExceptionPipelineModule());
             GlobalHost.HubPipeline.AddModule(new LoggingPipelineModule());
+            //GlobalHost.HubPipeline.RequireAuthentication();
 
             GlobalHost.Configuration.ConnectionTimeout = TimeSpan.FromSeconds(110);
             GlobalHost.Configuration.DisconnectTimeout = TimeSpan.FromSeconds(30);
@@ -41,11 +42,11 @@ namespace InsuredTraveling
 
             var hubConfig = new HubConfiguration
             {
-                EnableJavaScriptProxies = false,
+                EnableJavaScriptProxies = true,
                 EnableDetailedErrors = true
             };
             _app.UseCors(CorsOptions.AllowAll);
-            //_app.UseWebApi(_config);
+            _app.UseWebApi(_config);
             _app.MapSignalR(hubConfig);
         }
 
@@ -59,16 +60,18 @@ namespace InsuredTraveling
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
-                Provider = new ApplicationOAuthProvider(PublicClientId)
-                //RefreshTokenProvider = new SimpleRefreshTokenProvider()
+                //changed due to testing
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(30),
+                Provider = new SimpleAuthorizationServerProvider(),
+                //Provider = new ApplicationOAuthProvider(PublicClientId)
+                RefreshTokenProvider = new SimpleRefreshTokenProvider()
             };
 
             // Token Generation
-            _app.UseOAuthBearerTokens(OAuthOptions);
+            //_app.UseOAuthBearerTokens(OAuthOptions);
 
-            //_app.UseOAuthAuthorizationServer(oAuthServerOptions);
-            //_app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+            _app.UseOAuthAuthorizationServer(OAuthOptions);
+            _app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
     }
 }

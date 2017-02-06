@@ -13,6 +13,14 @@ namespace InsuredTraveling.Hubs
     {
         readonly InsuredTravelingEntity _db = new InsuredTravelingEntity();
 
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            return base.OnDisconnected(stopCalled);
+        }
+        public override Task OnReconnected()
+        {
+            return base.OnReconnected();
+        }
         public override Task OnConnected()
         {
             RoleAuthorize r = new RoleAuthorize();
@@ -208,6 +216,9 @@ namespace InsuredTraveling.Hubs
         {
             var username = Context.User.Identity.Name;
             var request = _db.chat_requests.Where(x => x.Requested_by == enduser && x.Accepted == false).SingleOrDefault();
+            if (request == null)
+                return;
+
             request.Accepted_by = username;
             request.Accepted = true;
 
@@ -255,12 +266,19 @@ namespace InsuredTraveling.Hubs
             bool admin = false;
             if (r.IsUser("admin"))
                 admin = true;
-            var data = new JObject();
-            data.Add("from", from);
-            data.Add("message", message);
-            data.Add("requestId", requestId);
-            data.Add("admin", admin);
-            Clients.Group(to).ReceiveMessage(data);
+            //var data = new JObject();
+            //data.Add("from", from);
+            //data.Add("message", message);
+            //data.Add("requestId", requestId);
+            //data.Add("admin", admin);
+            var messageMobileDTO = new MessageMobileDTO
+            {
+                From = from,
+                Message = message,
+                RequestId = int.Parse(requestId),
+                Admin = admin
+            };
+            Clients.Group(to).ReceiveMessage(messageMobileDTO);
 
             SaveMessage(int.Parse(requestId), from, message);
 
