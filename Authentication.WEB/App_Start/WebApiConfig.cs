@@ -29,10 +29,10 @@ namespace Authentication.WEB
 
             var builder = new ContainerBuilder();
 
-            builder.RegisterApiControllers(typeof(InsuredTraveling.Controllers.API.MobileApiController).Assembly);
+            builder.RegisterApiControllers(typeof(MobileApiController).Assembly);
             builder.RegisterApiControllers(typeof(HalkbankPaymentApiController).Assembly);
             builder.RegisterApiControllers(typeof(NewsApiController).Assembly);
-            builder.RegisterApiControllers(typeof(InsuredTraveling.Controllers.API.ChatController).Assembly);
+            builder.RegisterApiControllers(typeof(ChatController).Assembly);
             
             builder.RegisterWebApiFilterProvider(GlobalConfiguration.Configuration);
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
