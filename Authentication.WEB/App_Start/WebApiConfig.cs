@@ -4,6 +4,13 @@ using Autofac.Integration.WebApi;
 using System.Reflection;
 using InsuredTraveling;
 using Authentication.WEB.Controllers;
+using System.Web.Http.Filters;
+using System.Web.Http.Controllers;
+using System.Net.Http;
+using System;
+using System.Net;
+using System.Text;
+using InsuredTraveling.App_Start;
 using InsuredTraveling.Controllers.API;
 
 namespace Authentication.WEB
@@ -34,7 +41,7 @@ namespace Authentication.WEB
                 new ServicesRegistration("InsuredTravelingEntity")); 
 
             var container = builder.Build();
-
+            config.Filters.Add(new RequireHttpsAttribute());
             config.DependencyResolver = new AutofacWebApiDependencyResolver(
                 container);
         }

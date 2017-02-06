@@ -7,6 +7,7 @@ using InsuredTraveling.DI;
 using InsuredTraveling.Helpers;
 using System.Text;
 using InsuredTraveling.ViewModels;
+using InsuredTraveling.App_Start;
 using System.Net.Http;
 using System.Net;
 using System.Collections.Generic;
@@ -78,7 +79,7 @@ namespace InsuredTraveling.Controllers.API
             _fran = fran;
             _tn = tn;
         }
-        [AllowAnonymous]
+
         [Route("RetrieveUserInfo")]
         public JObject RetrieveUserInformation(Username username)
         {
