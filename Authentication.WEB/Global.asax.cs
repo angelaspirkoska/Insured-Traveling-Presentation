@@ -11,6 +11,7 @@ using InsuredTraveling.Filters;
 using System;
 using System.Threading;
 using System.Globalization;
+using System.Web.Security;
 
 namespace InsuredTraveling
 {
@@ -42,11 +43,26 @@ namespace InsuredTraveling
             }
             else
             {
-               lang = SiteLanguages.GetDefaultLanguage();
-               new SiteLanguages().SetLanguage(lang);
-            }          
+                lang = SiteLanguages.GetDefaultLanguage();
+                new SiteLanguages().SetLanguage(lang);
+            }
         }
+        protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
+        {
+            if (HttpContext.Current.User == null) return;
+            if (!HttpContext.Current.User.Identity.IsAuthenticated) return;
+            if (!(HttpContext.Current.User.Identity is FormsIdentity)) return;
 
+            //var id = (FormsIdentity)HttpContext.Current.User.Identity;
+            //var ticket = (id.Ticket);
+
+            //if (string.IsNullOrEmpty(ticket.UserData)) return;
+            //string userData = ticket.UserData;
+
+            //string[] roles = userData.Split(',');
+
+            //HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(id, roles);
+        }
         private void SetupDependencyInjection()
         {
             var builder = new ContainerBuilder();
