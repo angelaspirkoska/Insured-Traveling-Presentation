@@ -19,13 +19,18 @@
         }
         <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
 
-        <li id="first_notice_of_loss"><a href="#" onclick="ShowChats()" >@InsuredTraveling.Resource.Chats</a></li>
+        <li id="searchChat"><a href="#" onclick="ShowChats()" >@InsuredTraveling.Resource.Chats</a></li>
     </ul>
 
     <!--Table search result of policies -->
-    <div class="container" id="searchPolycies">
+    <div class="" id="searchPolycies">
         <br />
         <br />
+        <div class="">
+            <form method="post">
+                <div class="">                    
+                    <div class="row">                        
+                        <div class="col-md-4 col-sm-4">
         <div class="row">
             <form method="post" style="margin-left: 20px">
                 <div class="row">
@@ -39,24 +44,21 @@
                                 @Html.DropDownListFor(model => model.policy_type, (List<SelectListItem>)ViewBag.TypeOfPolicy, "-- Type of policy --", new { @class = "form-control", name = "TypePolicy", id = "TypePolicy" })
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label for="country">@InsuredTraveling.Resource.Search_TravelCountry:</label>
                                 @Html.DropDownListFor(model => model.countries, (List<SelectListItem>) ViewBag.Countries, "-- Country --", new {@class = "form-control", name = "Country", id = "Country"})
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label for="country">@InsuredTraveling.Resource.Search_PolicyNumber:</label>
                                 <input class="form-control" type="text" id="PolicyNumber" name="PolicyNumber" />
                             </div>
                         </div>
-
                     </div>
-
                     <div class="row">
-
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="startDate">@InsuredTraveling.Resource.Search_PolicyEffectiveDate:</label>
                                 <div class="input-group">
@@ -74,8 +76,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="endDate">@InsuredTraveling.Resource.Search_PolicyExpiryDate</label>
                                 <div class="input-group">
@@ -93,12 +94,9 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                     <div class="row">
-
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="startDate">@InsuredTraveling.Resource.Search_PolicyIssuanceDate:</label>
                                 <div class="input-group">
@@ -116,8 +114,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="endDate">@InsuredTraveling.Resource.Search_CancellationDate:</label>
                                 <div class="input-group">
@@ -135,17 +132,19 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
                 <br />
-                <div class="row col-md-12">
-                    <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchPolycies()" type="button" style="float:left;" />
-                    <div class="hover-tooltip">
-                        <button type="button" style="float:right;" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddPolicyButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchPolycies()" type="button" style="float:left;" />
                     </div>
-                </div>
+                    <div class="col-md-offset-4 col-md-4">
+                        <div class="hover-tooltip">
+                            <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddPolicyButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                        </div>
+                    </div>
+                </div>                
                 <br />
             </form>
         </div>
@@ -195,15 +194,12 @@
     </div>
 
     <!--Table search result of clients -->
-    <div class="container" id="searchClients">
+    <div class="" id="searchClients">
         <br />
         <br />
-        <div class="row">
-            <form method="post" style="margin-left:20px;">
-                <div class="row">
-                    
-                    <div class="row">
-                        
+        <div class="">
+            <form method="post">                  
+                    <div class="row">                        
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <input type="search" name="name" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="name"/>
@@ -263,8 +259,6 @@
 
                     </div>
 
-                </div>
-
                 <br />
                 <br />
             </form>
@@ -273,7 +267,7 @@
         <br />
         <br />
         <div class="row col-md-12">
-            <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchClients()" type="button" style="float:left;" />
+            <input id="btnSubmit" class="btn btn-primary btn-material-design-success btn-block" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchClients()" type="button" style="float:left;" />
             <div class="hover-tooltip">
                 <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" style="float:right;" title="@InsuredTraveling.Resource.Search_AddNewClient" onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
             </div>
@@ -345,26 +339,22 @@
     </div>
 
     <!--Table search result of first notice of loss -->
-    <div class="container" id="searchFNOL">
+    <div class="" id="searchFNOL">
         <br />
         <br />
-        <div class="row" id="searchFNOLAttributes">
-            <form method="post" style="margin-left: 20px">
-                <div class="row">
-                    
-                    <div class="form-inline row">
-                        
-                        <div class="col-sm-3">
+        <div class="" id="searchFNOLAttributes">
+            <form method="post">                   
+                    <div class="row">                        
+                        <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyNumber :</label>
+                                <label for="vidPolisa" class="label-position">@InsuredTraveling.Resource.Search_PolicyNumber :</label>
                                 <br />
                                 <input class="form-control" type="text" id="PolicyNumberFNL" name="PolicyNumberFNL" />
                             </div>
                         </div>
-
-                        <div class="col-sm-3">
+                        <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <label for="startDate">@InsuredTraveling.Resource.Search_RegistrationDate:</label>
+                                <label for="startDate" class="label-position">@InsuredTraveling.Resource.Search_RegistrationDate:</label>
                                 <div class="input-group">
                                     <input type="date" class="form-control placeholder" id="DateAdded"/>
                                     <div class="input-group-btn">
@@ -380,65 +370,53 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-                    <div class="form-inline row">
-
-                        <div class="col-sm-3">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <label for="holderName">@InsuredTraveling.Resource.Search_HolderName:</label>
+                                <label for="holderName" class="label-position">@InsuredTraveling.Resource.Search_HolderName:</label>
                                 <input type="search" name="holderName" class="form-control" placeholder="Search by name" id="holderName"/>
                             </div>
                         </div>
-
-                        <div class="col-sm-3">
+                        <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <label for="holderLastName">@InsuredTraveling.Resource.Search_HolderLastName:</label>
+                                <label for="holderLastName" class="label-position">@InsuredTraveling.Resource.Search_HolderLastName:</label>
                                 <input type="search" name="holderLastName" class="form-control" placeholder="Search by last name" id="holderLastName"/>
                             </div>
                         </div>
-
                     </div>
-
-                    <div class="form-inline row">
-                        
-                        <div class="col-sm-3">
+                    <div class="row">                        
+                        <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <label for="clientName">@InsuredTraveling.Resource.Search_InsuredName:</label>
+                                <label for="clientName" class="label-position">@InsuredTraveling.Resource.Search_InsuredName:</label>
                                 <input type="search" name="clientName" class="form-control" placeholder="Search by name" id="clientName" />
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <label for="clientLastName">@InsuredTraveling.Resource.Search_InsuredLastName:</label>
+                                <label for="clientLastName" class="label-position">@InsuredTraveling.Resource.Search_InsuredLastName:</label>
                                 <input type="search" name="clientLastName" class="form-control" placeholder="Search by last name" id="clientLastName" />
                             </div>
                         </div>
-
                     </div>
-
-                    <div class="form-inline row">
-                        
-                        <div class="col-sm-3">
+                    <div class="row">                        
+                        <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <label for="insuredName">@InsuredTraveling.Resource.Search_ClaimantName:</label>
+                                <label for="insuredName" class="label-position">@InsuredTraveling.Resource.Search_ClaimantName:</label>
                                 <input type="search" name="insuredName" class="form-control" placeholder="Search by name" id="insuredName" />
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <label for="insuredLastName">@InsuredTraveling.Resource.Search_ClaimantLastName: </label>
+                                <label for="insuredLastName" class="label-position">@InsuredTraveling.Resource.Search_ClaimantLastName: </label>
                                 <input type="search" name="insuredLastName" class="form-control" placeholder="Search by last name" id="insuredLastName" />
                             </div>
                         </div>
-
                     </div>
-
                     <div class="form-inline row">
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label for="totalPrice">@InsuredTraveling.Resource.Search_TotalCost:</label>
+                                <label for="totalPrice" class="label-position">@InsuredTraveling.Resource.Search_TotalCost:</label>
                                 <div class="input-group-btn">
                                     <input type="search" name="totalPrice" class="form-control" placeholder="Search by Total Cost" id="totalPrice" />
                                     <button type="button" id="totalCostOperator" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
@@ -452,29 +430,29 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-md-offset-1 col-sm-3">
                             <div class="form-group">
                                 <label class="col-md-12">&nbsp;</label>
-                                <input type="radio" name="typeInsurance" value="healthInsurance" id="healthInsurance"> @InsuredTraveling.Resource.Search_HealthInsurance<br>
-                                <input type="radio" name="typeInsurance" value="luggageInsurance" id="luggageInsurance">@InsuredTraveling.Resource.Search_LuggageInsurance<br>
+                                <input type="radio" name="typeInsurance" value="healthInsurance" id="healthInsurance" class="radiobtn-position"> @InsuredTraveling.Resource.Search_HealthInsurance<br>
+                                <input type="radio" name="typeInsurance" value="luggageInsurance" id="luggageInsurance" class="radiobtn-position">@InsuredTraveling.Resource.Search_LuggageInsurance<br>
                             </div>
                         </div>
-
                     </div>
-
-                </div>
-
                 <br />
-                <div class="row col-md-12">
-                    <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="Search" onclick="SearchFNOL()" type="button" style="float:left;" />
-                    <div class="hover-tooltip">
-                        <button type="button" style="float:right;" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddFNOL" onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="Search" onclick="SearchFNOL()" type="button" style="float:left;" />
+                    </div>
+                    <div class="col-md-offset-4 col-md-4">
+                        <div class="hover-tooltip">
+                            <button type="button" style="float:right;" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddFNOL" onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                        </div>
                     </div>
                 </div>
+                
                 <br />
             </form>
         </div>
-        <br />
         <br />
         <br />
         <div class="row">
@@ -501,10 +479,7 @@
     <div id="searchChats" class="container">
     <br />
     <br />
-        <div class="row">
-
             <div class="row">
-
                 <div class="col-sm-3">
                     <div class="form-group">
                         <input type="search" name="name" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="nameChat" />
@@ -522,7 +497,10 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label class="radio-inline"  value="chat">@InsuredTraveling.Resource.Search_All<input  id="all" type="radio" name="chat" checked="checked" /></label>
+                        <label class="radio-inline"  value="chat">
+                            <input id="all" type="radio" name="chat" checked="checked" class="radiobtn-position" />
+                            <label>@InsuredTraveling.Resource.Search_All</label> 
+                        </label>
                         <br />
                     </div>
                 </div>
@@ -530,7 +508,10 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label class="radio-inline"   value="chat">@InsuredTraveling.Resource.Search_Active<input  id="active" type="radio" name="chat" /></label>
+                        <label class="radio-inline" value="chat">
+                            <input  id="active" type="radio" name="chat" class="radiobtn-position" />
+                            <label>@InsuredTraveling.Resource.Search_Active</label>
+                        </label>
                         <br />
                     </div>
                 </div>
@@ -538,46 +519,56 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label class="radio-inline"   value="chat">@InsuredTraveling.Resource.Search_Discarded<input type="radio" id="discarded" name="chat" /></label>
+                        <label class="radio-inline" value="chat">
+                            <input type="radio" id="discarded" name="chat" class="radiobtn-position" />
+                            <label>@InsuredTraveling.Resource.Search_Discarded</label>
+                        </label>
                         <br />
                     </div>
                  </div>
-             </div>
-            
+            </div>            
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label class="radio-inline" value="chat">@InsuredTraveling.Resource.Search_Noticed<input id="noticed"  type="radio"  name="chat"  /></label>
+                        <label class="radio-inline" value="chat">
+                            <input id="noticed"  type="radio"  name="chat" class="radiobtn-position"  />
+                            <label>@InsuredTraveling.Resource.Search_Noticed</label>
+                        </label>
                         <br />
                     </div>
                    </div>
-                </div>
+             </div>
             <br />
             <div class="row">
-                <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchChat()" type="button" style="float:left;" />
+                <div class="col-md-4">
+                    <input id="btnSubmit" class="btn btn-primary btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchChat()" type="button" />
+                </div>
             </div>
-
-            <div class="row" style="width: 70%;">
-                <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableChats">
-                    <thead>
-                        <tr>
-                            <th>@InsuredTraveling.Resource.Search_Id</th>
-                            <th>@InsuredTraveling.Resource.Search_ChatWith</th>
-                            <th>@InsuredTraveling.Resource.Search_FNOLChat</th>
-                            <th>@InsuredTraveling.Resource.Search_DiscardedChat</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+            <br/>
+            <div class="row">
+                <div class="col-md-12">
+                    <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableChats">
+                        <thead>
+                            <tr>
+                                <th>@InsuredTraveling.Resource.Search_Id</th>
+                                <th>@InsuredTraveling.Resource.Search_ChatWith</th>
+                                <th>@InsuredTraveling.Resource.Search_FNOLChat</th>
+                                <th>@InsuredTraveling.Resource.Search_DiscardedChat</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>                
             </div>
-
-        </div>
       </div>
 
 
         @Scripts.Render("~/bundles/jqueryui")
         @Scripts.Render("~/bundles/search")
         @Styles.Render("~/Content/jqueryuicss")
+                $("#searchChat").removeAttr("class");
+
+                $("#searchChat").attr("class", "active");
         
 

@@ -5,7 +5,8 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion></ProductVersion>
+    <ProductVersion>
+    </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7D6E9F6F-83DA-4A68-96DF-FF66DDF52B00}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -20,7 +21,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -499,6 +501,10 @@
     <Compile Include="documents_first_notice_of_loss.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="DTOs\SignalR\AcknowledgeDTO.cs" />
+    <Compile Include="DTOs\SignalR\BaseRequestIdDTO.cs" />
+    <Compile Include="DTOs\SignalR\MessageMobileDTO.cs" />
+    <Compile Include="DTOs\SignalR\RequestIdDTO.cs" />
     <Compile Include="Errors\401.aspx.cs">
       <DependentUpon>401.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -552,10 +558,6 @@
     <Compile Include="Helpers\UpdateFirstNoticeOfLossHelper.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="SignalR\Hubs\PipelineModules\LoggingPipelineModule.cs" />
-    <Compile Include="DTOs\AcknowledgeDTO.cs" />
-    <Compile Include="DTOs\BaseRequestIdDTO.cs" />
-    <Compile Include="DTOs\MessageMobileDTO.cs" />
-    <Compile Include="DTOs\RequestIdDTO.cs" />
     <Compile Include="SignalR\Hubs\ChatHub.cs" />
     <Compile Include="SignalR\Hubs\PipelineModules\ExceptionPipelineModule.cs" />
     <Compile Include="insured.cs">
@@ -790,7 +792,8 @@
           <IISUrl>http://localhost:19655/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl></CustomServerUrl>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

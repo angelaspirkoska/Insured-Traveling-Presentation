@@ -170,6 +170,10 @@ form.cmxform .gray * { color: gray; }
     width: 15px;
 }
 
+.radiobtn-position {
+    width: 16px !important;
+}
+
 .checkbox-policyholder {
     margin-left:50px !important; 
     color:#E41B17; 
@@ -184,6 +188,10 @@ form.cmxform .gray * { color: gray; }
     width: 75% !important;
 }
 
+.label-position {
+    padding-left: 1px;
+}
+
 .centeredUnderlined {
     text-align: center;
     text-decoration: underline;
@@ -191,7 +199,14 @@ form.cmxform .gray * { color: gray; }
     margin: 5px;
 }
 
+.radio-btn {
+    width: 50px;
+}
 
+.row-position {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
 
 /*====================================== Customized CSS ====================================================*/
 

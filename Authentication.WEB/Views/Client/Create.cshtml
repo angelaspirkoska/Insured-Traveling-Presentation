@@ -5,9 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<form method="post" action="@Url.Action("Create")" style="margin-top:40px;">
-
+<form method="post" action="@Url.Action("Create")" style="margin-top:30px;">
     <div class="form-horizontal">
         <h4>@InsuredTraveling.Resource.Client_Add</h4>
         <br />
@@ -15,7 +13,6 @@
         <div><h5>@InsuredTraveling.Resource.Required <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:red"></span></h5></div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
         @if (ViewBag.Message != null){
                 if (ViewBag.Message == "Успешно го креиравте клиентот!")
                 {
@@ -37,149 +34,142 @@
                 </div>
                 }
         }
-        <div class="form-group">
-            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "" })<br />
-            <div class="col-md-10" style="margin-bottom:10px; padding:0;">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", style = "width: 35%" } })
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "col-md-6 text-danger" })
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control placeholder", type = "date" } })
+                            @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-offset-1 col-md-5">
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.Postal_Code, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.Postal_Code, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Postal_Code, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.Passport_Number_IdNumber, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.Passport_Number_IdNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Passport_Number_IdNumber, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
         <div class="form-group">
-            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "" })<br />
-            <div class="col-md-10" style="margin-bottom:10px; padding:0;">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
-                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", style = "width: 35%" } })
-                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "col-md-6 text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
-            @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "" })<br />
-            <div class="col-md-10" style="margin-bottom:10px; padding:0;">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
-                    @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control", style = "width: 35%" } })
-                    @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "col-md-6 text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
-            @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "" })<br />
-            <div class="col-md-10" style="margin-bottom:10px; padding:0;">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
-                    @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control placeholder", type = "date", style = "width: 35%" } })
-                    @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "col-md-6 text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
-            @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "" })<br />
-            <div class="col-md-10" style="margin-bottom:10px; padding:0;">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
-                    @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", style = "width: 35%" } })
-                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "col-md-6 text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "" })<br />
-            <div class="col-md-10" style="margin-bottom:10px; padding:0;">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", style = "width: 35%" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "col-md-6 text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
-            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "" })<br />
-            <div class="col-md-10" style="margin-bottom:10px; padding:0;">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
-                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", style = "width: 35%" } })
-                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "col-md-6 text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
-            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "" })<br />
-            <div class="col-md-10" style="margin-bottom:10px; padding:0;">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
-                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", style = "width: 35%" } })
-                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "col-md-6 text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
-            @Html.LabelFor(model => model.Postal_Code, htmlAttributes: new { @class = "" })<br />
-            <div class="col-md-10" style="margin-bottom:10px; padding:0;">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
-                    @Html.EditorFor(model => model.Postal_Code, new { htmlAttributes = new { @class = "form-control", style = "width: 35%" } })
-                    @Html.ValidationMessageFor(model => model.Postal_Code, "", new { @class = "col-md-6 text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
-            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "" })<br />
-            <div class="col-md-10" style="margin-bottom:10px; padding:0;">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
-                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", style = "width: 35%" } })
-                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "col-md-6 text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
-            @Html.LabelFor(model => model.Passport_Number_IdNumber, htmlAttributes: new { @class = "" })<br />
-            <div class="col-md-10" style="margin-bottom:10px; padding:0;">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
-                    @Html.EditorFor(model => model.Passport_Number_IdNumber, new { htmlAttributes = new { @class = "form-control", style = "width: 35%" } })
-                    @Html.ValidationMessageFor(model => model.Passport_Number_IdNumber, "", new { @class = "col-md-6 text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10" style="padding:0;">
-                <input type="submit" value="@InsuredTraveling.Resource.Client_AddButton" class="btn btn-default" />
+            <div class="col-md-5" style="padding:0;">
+                <input type="submit" value="@InsuredTraveling.Resource.Client_AddButton" class="btn btn-default btn-block" />
             </div>
         </div>
     </div>
 </form>
 
-
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-
 <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
 <script type="text/javascript" src="~/Scripts/additional-methods.js"></script>
 <!-- macedonian language-->
