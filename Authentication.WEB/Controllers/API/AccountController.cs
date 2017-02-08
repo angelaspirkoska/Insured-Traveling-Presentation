@@ -14,7 +14,6 @@ using System.Net.Http;
 
 namespace InsuredTraveling.Controllers
 {
-    [Authorize]
     [System.Web.Http.RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -81,6 +80,23 @@ namespace InsuredTraveling.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("AddClient")]
+        public IHttpActionResult AddClient(Client c)
+        {
+            if (_repo.AddClient(c) != -1)
+                return Ok();
+            return InternalServerError();
+        }
+
+        [HttpGet]
+        [Route("RefreshToken")]
+        public async Task<IHttpActionResult> RefreshToken(string refresh_token)
+        {
+            string refresh_tokenNew = await _repo.RefreshToken(refresh_token);
+            return Ok(new { refresh_tokenNew });
         }
 
         [HttpPost]

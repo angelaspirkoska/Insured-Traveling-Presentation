@@ -12,19 +12,19 @@ namespace InsuredTraveling
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class InsuredTravelingEntity : DbContext
     {
         public InsuredTravelingEntity()
             : base("name=InsuredTravelingEntity")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<additional_charge> additional_charge { get; set; }
         public virtual DbSet<additional_info> additional_info { get; set; }
         public virtual DbSet<aspnetrole> aspnetroles { get; set; }

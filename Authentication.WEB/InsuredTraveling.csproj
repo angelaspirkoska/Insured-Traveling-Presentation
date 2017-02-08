@@ -411,6 +411,7 @@
     <Compile Include="Controllers\API\AccountController.cs" />
     <Compile Include="Controllers\API\ChatController.cs" />
     <Compile Include="Controllers\API\MobileApiController.cs" />
+    <Compile Include="Controllers\API\RefreshTokenController.cs" />
     <Compile Include="Controllers\ChangeLanuageController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\ForgetPasswordController.cs" />
@@ -523,6 +524,7 @@
     <Compile Include="exchange_rate.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Filters\AuthorizeRequestFilter.cs" />
     <Compile Include="Filters\RoleAuthorize.cs" />
     <Compile Include="Filters\RecaptchaFilter.cs" />
     <Compile Include="Filters\SessionExpireAttribute.cs" />
@@ -661,8 +663,8 @@
     <Compile Include="retaining_risk_name.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Scripts\Entities\Client.cs" />
-    <Compile Include="Scripts\Entities\RefreshToken.cs" />
+    <Compile Include="Models\Entities\Client.cs" />
+    <Compile Include="Models\Entities\RefreshToken.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Providers\SimpleRefreshTokenProvider.cs" />
     <Compile Include="Services\ConditionalValidationAttribute.cs" />
@@ -754,6 +756,7 @@
     <Folder Include="DocumentsFirstNoticeOfLoss\LuggageInsurance\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ChangeLanuage\" />
+    <Folder Include="Views\RefreshToken\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

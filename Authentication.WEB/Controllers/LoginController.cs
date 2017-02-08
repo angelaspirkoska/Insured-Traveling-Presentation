@@ -34,6 +34,7 @@ namespace InsuredTraveling.Controllers
                 userData.Add("username", user.username);
                 userData.Add("password", user.password);
                 userData.Add("grant_type", user.grant_type);
+                userData.Add("client_id", "InsuredTravel");
                 HttpContent content = new FormUrlEncodedContent(userData);
                 content.Headers.Remove("Content-Type");
                 content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
@@ -43,10 +44,16 @@ namespace InsuredTraveling.Controllers
                     var responseBody = await responseMessage.Content.ReadAsStringAsync();
                     dynamic data = JObject.Parse(responseBody);
                     string token = data.access_token;
+                    string refresh_token = data.refresh_token;
                     if (!String.IsNullOrEmpty(token))
                     {
-                        var c = new HttpCookie("token") { ["t"] = (string.IsNullOrEmpty(token)) ? " " : token };
-                        HttpContext.Response.Cookies.Add(c);
+                        HttpCookie cookieToken = new HttpCookie("token", token);
+                        cookieToken.Expires = DateTime.Now.AddYears(1);
+                        HttpContext.Response.Cookies.Add(cookieToken);
+
+                        HttpCookie cookieRefreshToken = new HttpCookie("refresh_token", refresh_token);
+                        cookieRefreshToken.Expires = DateTime.Now.AddYears(1);
+                        HttpContext.Response.Cookies.Add(cookieRefreshToken);
                         Response.Redirect("/home");
                     }
                     else

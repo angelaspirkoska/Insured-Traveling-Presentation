@@ -295,7 +295,7 @@ namespace InsuredTraveling.Hubs
         {          
             JObject adminResponse = new JObject();
             var request = _db.chat_requests.Where(x => x.ID == requestId).SingleOrDefault();
-            if (!request.fnol_created)
+            if (true != request.fnol_created)
             {
                 request.discarded = true;
                 _db.SaveChanges();

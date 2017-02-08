@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace InsuredTraveling.Entities
+namespace InsuredTraveling.Models
 {
     public class RefreshToken
     {

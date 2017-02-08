@@ -7,10 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using InsuredTraveling.Entities;
+using InsuredTraveling.Models;
 using System.Security.Claims;
 using static InsuredTraveling.Models.AdminPanel;
 using System.Configuration;
+using System.Net.Http;
+using System.Web;
+using Newtonsoft.Json.Linq;
 
 namespace InsuredTraveling
 {
@@ -69,6 +72,62 @@ namespace InsuredTraveling
             var result2 = _userManager.AddToRole(user.Id, "end user");
 
             return result;
+        }
+
+        public int AddClient(Client c)
+        {
+            Client client = new Client
+            {
+                Id = c.Id,
+                Secret = Helper.GetHash(c.Secret),
+                Name = c.Name,
+                ApplicationType = Enums.ApplicationTypes.NativeConfidential,
+                Active = true,
+                RefreshTokenLifeTime = 1234,
+                AllowedOrigin = "*"
+            };
+            AuthContext db = new AuthContext();
+            db.Clients.Add(client);
+            var rez = db.SaveChanges();
+
+            return rez;
+
+        }
+
+        public async Task<string> RefreshToken(string refresh_token = "")
+        {
+            var uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/token");
+            var refresh_tokenCookie = HttpContext.Current.Request.Cookies["refresh_token"];
+            var client = new HttpClient { BaseAddress = uri };
+            IDictionary<string, string> userData = new Dictionary<string, string>();
+            userData.Add("client_id", "InsuredTravel");
+            userData.Add("refresh_token", refresh_tokenCookie != null? refresh_tokenCookie.Value : refresh_token);
+            userData.Add("grant_type", "refresh_token");
+            HttpContent content = new FormUrlEncodedContent(userData);
+            content.Headers.Remove("Content-Type");
+            content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+            var responseMessage = client.PostAsync(uri, content).Result;
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseBody = await responseMessage.Content.ReadAsStringAsync();
+                dynamic data =  JObject.Parse(responseBody);
+                string token = data.access_token;
+                string refresh_token2 = data.refresh_token;
+                if (!String.IsNullOrEmpty(token))
+                {
+                    HttpCookie cookieToken = new HttpCookie("token", token);
+                    cookieToken.Expires = DateTime.Now.AddYears(1);
+                    HttpContext.Current.Response.Cookies.Add(cookieToken);
+
+                    HttpCookie cookieRefreshToken = new HttpCookie("refresh_token", refresh_token2);
+                    cookieRefreshToken.Expires = DateTime.Now.AddYears(1);
+                    HttpContext.Current.Response.Cookies.Add(cookieRefreshToken);
+
+                    return refresh_token2;
+                }
+                return " ";
+            }
+            return " ";     
         }
 
         public async Task<IdentityResult> RegisterUserWeb(User userModel)
