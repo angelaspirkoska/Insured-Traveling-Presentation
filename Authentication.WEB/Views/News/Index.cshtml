@@ -54,9 +54,10 @@
                         <span hidden id="newsId">@news.ID</span>
                         <button onclick="editNews(this)" style="width: 50px;" class="btn btn-xs btn-info btnEditNews">@InsuredTraveling.Resource.News_Edit</button>
                         <button onclick="saveNews(this)" style="display:none; width: 50px;" class="btn btn-xs btn-success btnSaveNews">@InsuredTraveling.Resource.News_Save</button>
-                        <button onclick="deleteNews(this)" style="width: 50px;" class="btn btn-xs btn-danger btnDeleteNews">@InsuredTraveling.Resource.News_Delete</button>
-                        @*</div>*@
-                    </div>
+                        <button onclick="deleteNews(@news.ID)" id=@news.ID style="width: 50px;" class="btn btn-xs btn-danger btnDeleteNews">@InsuredTraveling.Resource.News_Delete</button>                        
+                        
+                            @*</div>*@
+</div>
                 </div>
                 <hr />
             }
@@ -64,7 +65,7 @@
     </div>
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script>
 
     function saveNews(element) {
@@ -77,13 +78,14 @@
         $(element).hide();
     }
 
-    function deleteNews(element) {
-        var newsId = $(element).parents("#buttons").find("#newsId").html();
+    function deleteNews(newsId) {
+        console.log(newsId);
+        console.log(newsId);
         $.ajax({
             type: "POST",
-            url: "../SavaNews/DeleteNews",
+            url: "../News/DeleteNews",
             data: {
-                "newsId": newsId
+                newsId
             },
             dataType: "json",
             success: function (status) {

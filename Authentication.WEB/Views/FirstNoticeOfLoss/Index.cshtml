@@ -10,51 +10,55 @@
     RoleAuthorize r = new RoleAuthorize();
 }
 
-
 <form style="margin-top:40px;" method="post" enctype="multipart/form-data" action="@Url.Action("Index")">
     <div class="form-horizontal">
-        <div class="row container">
+        <div class="">
             @if (ViewBag.Message != null)
             {
                 if (ViewBag.Message == "Something went wrong!")
                 {
-                    <div class="row" style="width:35%;">
-                        <div class="alert alert-dismissible alert-danger" style="margin-top: 27%; margin-left:12px; width:211%">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <span>@InsuredTraveling.Resource.FNOL_SuccessfullyAddedFNOL</span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert alert-dismissible alert-danger" style="margin-left:12px; width:211%">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <span>@InsuredTraveling.Resource.FNOL_SuccessfullyAddedFNOL</span>
+                            </div>
                         </div>
                     </div>
                 }
                 else
                 {
-                    <div class="row" style="width:35%;">
-                        <div class="alert alert-dismissible alert-success" style="margin-top: 27%;margin-left:12px; width:211%">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <span>@InsuredTraveling.Resource.FNOL_NotSuccessfullyAddedFNOL</span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert alert-dismissible alert-success" style="margin-left:12px; width:211%">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <span>@InsuredTraveling.Resource.FNOL_NotSuccessfullyAddedFNOL</span>
+                            </div>
                         </div>
                     </div>
                 }
             }
             else
             {
-                <div class="row" style="width:50%; float:left; margin-right:10px;">
-                    <div class="alert alert-dismissible alert-info" style="width:100%;">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <strong><span>@InsuredTraveling.Resource.FNOL_UseNumberLatinLetters</span></strong>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="alert alert-dismissible alert-info" style="width:100%;">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong><span>@InsuredTraveling.Resource.FNOL_UseNumberLatinLetters</span></strong>
+                        </div>
                     </div>
                 </div>
-
             }
-            <div class="row" id="errorNoPolicyFound" style="width:35%;display:none;">
-                <div class="alert alert-dismissible alert-danger" style="margin-top: 27%; margin-left:12px; width:211%">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <span>@InsuredTraveling.Resource.FNOL_PolicyWithProvideNumberNotExist</span>
+            <div class="row" id="errorNoPolicyFound" style="display:none;">
+                <div class="col-md-6">
+                    <div class="alert alert-dismissible alert-danger" style="width:100%">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <span>@InsuredTraveling.Resource.FNOL_PolicyWithProvideNumberNotExist</span>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div>            
         <h3>@InsuredTraveling.Resource.FNOL_Title</h3>
-        <br />
-        <br />
         <div>
             <h5>
                 @InsuredTraveling.Resource.Required: 
@@ -63,47 +67,48 @@
         </div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="row container">
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_PolicyNumber:</label>
                         @Html.TextBoxFor(model => model.PolicyNumber, new { @Value = policyNumber != 0 ? policyNumber : null, @class = "form-control input-sm", @id = "DropDownPolicyNumber" })
                         @Html.ValidationMessageFor(model => model.PolicyNumber, "", new { @class = "text-danger input-sm" })
                     </div>
-                    <input type="button" value="@InsuredTraveling.Resource.FNOL_Search" id="search" style="margin-top: 20px;" class="btn btn-default" />
+                    <input type="button" value="@InsuredTraveling.Resource.FNOL_Search" id="search" class="btn btn-default btn-block row-position" />
                 </div>
             </div>
         </div>
-        <div class="row container">
-            <header class="well" id="clientInfo">
-                <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                <a href="javascript:void(0)" id="clientInfo">@InsuredTraveling.Resource.FNOL_PolicyHolderInfo</a>
-            </header>
+        <div class="row">
+            <div class="col-md-12">
+                <header class="well" id="clientInfo">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                    <a href="javascript:void(0)" id="clientInfo">@InsuredTraveling.Resource.FNOL_PolicyHolderInfo</a>
+                </header>
+            </div>            
             <div id="clientInfoContent" style="display:none;">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <div class="col-lg-8">
+                        <div class="col-md-10">
                             <label>@InsuredTraveling.Resource.FNOL_Name:</label>
                             @Html.TextBoxFor(model => model.PolicyHolderName, new { @class = "form-control input-sm", @id = "PolicyHolderName", @readonly = true })
                         </div>
                     </div>
                     @Html.TextBoxFor(model => model.PolicyHolderId, new { @class = "form-control input-sm", @id = "PolicyHolderId", @style = "display: none;" })
                     <div class="form-group">
-                        <div class="col-lg-8">
+                        <div class="col-md-10">
                             <label>@InsuredTraveling.Resource.FNOL_Address:</label>
                             @Html.TextBoxFor(model => model.PolicyHolderAdress, new { @class = "form-control input-sm", @id = "PolicyHolderAddress", @readonly = true })
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-8">
+                        <div class="col-md-10">
                             <label>@InsuredTraveling.Resource.FNOL_Phone:</label>
                             @Html.TextBoxFor(model => model.PolicyHolderPhoneNumber, new { @class = "form-control input-sm", @id = "PolicyHolderPhone", @readonly = true })
-
-                        </div>
+                    </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-8">
+                        <div class="col-md-10">
                             <label>@InsuredTraveling.Resource.FNOL_SSN:</label>
                             @Html.TextBoxFor(model => model.PolicyHolderSsn, new { @class = "form-control input-sm", @id = "PolicyHolderSSN", @readonly = true })
                         </div>
@@ -111,19 +116,15 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        @Html.CheckBoxFor(model => model.PolicyHolderExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccount", @readonly = true, @style = "margin-top:3%;" })
-                        <div class="col-lg-8 col-md-8">
-                            <label class="control-label">@InsuredTraveling.Resource.FNOL_UsePreviousBankAccount</label>
-                        </div>
+                        @Html.CheckBoxFor(model => model.PolicyHolderExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccount", @readonly = true, @style = "margin-top:15px;" })
+                        <label class="control-label">@InsuredTraveling.Resource.FNOL_UsePreviousBankAccount</label>
                     </div>
                     <div class="form-group">
-                        @Html.CheckBoxFor(model => model.PolicyHolderForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccount", @readonly = true, @style = "margin-top:3%;" })
-                        <div class="col-lg-4 col-md-4">
-                            <label class="control-label">@InsuredTraveling.Resource.FNOL_ForeignBankAccount</label>
-                        </div>
+                        @Html.CheckBoxFor(model => model.PolicyHolderForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccount", @readonly = true, @style = "margin-top:15px;" })
+                        <label class="control-label">@InsuredTraveling.Resource.FNOL_ForeignBankAccount</label>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-12">
+                        <div class="col-md-10">
                             @Html.TextBoxFor(model => model.PolicyHolderForeignBankAccountId, new { @class = "form-control input-sm", @id = "hiddenDropDownBankAccountPolicyHolder", @style = "display: none;" })
                             <select class="form-control" data-val="true" id="DropDownBankAccountPolicyHolder" name="PolicyHolderForeignBankAccountId">
                                 <option value="0">@InsuredTraveling.Resource.FNOL_ChooseBankAccount</option>
@@ -131,7 +132,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-6">
+                        <div class="col-md-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="taccountspan"></span> @InsuredTraveling.Resource.FNOL_BankAccount:</label>
                             @Html.EditorFor(model => model.PolicyHolderBankAccountNumber, new { htmlAttributes = new { @class = "form-control input-sm", @maxLength = "15", @id = "TransactionAccount" } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderBankAccountNumber, "", new { @class = "text-danger input-sm" })
@@ -139,26 +140,27 @@
 
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-6">
+                        <div class="col-md-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="deponentspan"></span> @InsuredTraveling.Resource.FNOL_Bank:</label>
                             @Html.EditorFor(model => model.PolicyHolderBankName, new { htmlAttributes = new { @class = "form-control input-sm", @id = "deponent" } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderBankName, "", new { @class = "text-danger input-sm" })
 
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row container" >
-            <header class="well" id="insuredInfo">
-                <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+        <div class="row" >
+            <div class="col-md-12">
+                <header class="well" id="insuredInfo">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
                     <a href="javascript:void(0)" id="insuredInfo">@InsuredTraveling.Resource.FNOL_InsuredInfo</a>
-            </header>
+                </header>
+            </div>            
             <div id="insuredInfoContent" style="display:none;">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <div class="col-md-8">
+                        <div class="col-md-10">
                             @Html.TextBoxFor(model => model.ClaimantId, new { @class = "form-control input-sm", @id = "hiddenDropDownInsureds", @style = "display: none;" })
                             <select class="form-control" data-val="true" id="DropDownInsureds" name="ClaimantId">
                                 <option value="0">@InsuredTraveling.Resource.FNOL_ChooseInsured</option>
@@ -166,40 +168,35 @@
                         </div>
                     </div>
                     <div class="form-group">
-
-                        <div class="col-lg-7">
+                        <div class="col-md-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_Name:</label>
                             @Html.TextBoxFor(model => model.ClaimantName, new { @class = "form-control input-sm", @id = "InsuredName", @readonly = true })
                             @Html.ValidationMessageFor(model => model.ClaimantName, "", new { @class = "text-danger input-sm" })
                         </div>
                     </div>
                     <div class="form-group">
-
-                        <div class="col-lg-7">
+                        <div class="col-md-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_Address:</label>
                             @Html.TextBoxFor(model => model.ClaimantAdress, new { @class = "form-control input-sm", @id = "InsuredAdress", @readonly = true })
                             @Html.ValidationMessageFor(model => model.ClaimantAdress, "", new { @class = "text-danger input-sm" })
                         </div>
                     </div>
                     <div class="form-group">
-
-                        <div class="col-lg-7">
+                        <div class="col-md-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_Phone:</label>
                             @Html.TextBoxFor(model => model.ClaimantPhoneNumber, new { @class = "form-control input-sm", @id = "InsuredPhone", @readonly = true })
                             @Html.ValidationMessageFor(model => model.ClaimantPhoneNumber, "", new { @class = "text-danger input-sm" })
                         </div>
                     </div>
                     <div class="form-group">
-
-                        <div class="col-lg-7">
+                        <div class="col-md-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_SSN:</label>
                             @Html.TextBoxFor(model => model.ClaimantSsn, new { @class = "form-control input-sm", @id = "InsuredSSN", @readonly = true })
                             @Html.ValidationMessageFor(model => model.ClaimantSsn, "", new { @class = "text-danger input-sm" })
                         </div>
                     </div>
-
                     <div class="form-group" id="HideWhenSameUserAndSelectedInsured">
-                        <div class="col-lg-7">
+                        <div class="col-md-10">
                             <label>@InsuredTraveling.Resource.FNOL_RelationshipInsuredHolder:</label>
                             @Html.EditorFor(model => model.RelationClaimantPolicyHolder, new { htmlAttributes = new { @class = "form-control input-sm", @id = "relationship" } })
                             @Html.ValidationMessageFor(model => model.RelationClaimantPolicyHolder, "", new { @class = "text-danger" })
@@ -209,17 +206,12 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         @Html.CheckBoxFor(model => model.ClaimantExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccountInsured", @readonly = true, @style = "margin-top:3%;" })
-                        <div class="col-lg-8 col-md-8">
-                            <label class="control-label">@InsuredTraveling.Resource.FNOL_UsePreviousBankAccount:</label>
-                        </div>
+                        <label class="control-label">@InsuredTraveling.Resource.FNOL_UsePreviousBankAccount:</label>
                     </div>
                     <div class="form-group">
                         @Html.CheckBoxFor(model => model.ClaimantForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccountInsured", @readonly = true, @style = "margin-top:3%;" })
-                        <div class="col-lg-4 col-md-4">
-                            <label class="control-label">@InsuredTraveling.Resource.FNOL_ForeignBankAccount</label>
-                        </div>
+                        <label class="control-label">@InsuredTraveling.Resource.FNOL_ForeignBankAccount</label>
                     </div>
-
                     <div class="form-group">
                         <div class="col-md-12">
                             @Html.TextBoxFor(model => model.ClaimantForeignBankAccountId, new { @class = "form-control input-sm", @id = "hiddenDropDownBankAccountInsured", @style = "display: none;" })
@@ -228,9 +220,7 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="form-group">
-
                         <div class="col-lg-7">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_BankAccount:</label>
                             @Html.EditorFor(model => model.ClaimantBankAccountNumber, new { htmlAttributes = new { @class = "form-control input-sm", @maxLength = "15", @id = "insuredTransactionAccount" } })
@@ -238,7 +228,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-
                         <div class="col-lg-7">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_Bank:</label>
                             @Html.EditorFor(model => model.ClaimantBankName, new { htmlAttributes = new { @class = "form-control input-sm", @id = "deponentInsured" } })
@@ -248,29 +237,31 @@
                 </div>
             </div>          
         </div>
-        <div class="row container" >
-            <header class="well" id="travelInfo">
-                <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+        <div class="row" >
+            <div class="col-md-12">
+                <header class="well" id="travelInfo">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
                     <a href="javascript:void(0)" id="travelInfo">@InsuredTraveling.Resource.FNOL_TravelInformation</a>
-            </header>
+                </header>        
+            </div>            
             <div id="travelInfoContent" style="display:none;">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <div class="col-lg-7">
+                        <div class="col-md-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_TravelPlace:</label>
                             @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control input-sm", @id = "travelDestination" } })
                             @Html.ValidationMessageFor(model => model.Destination, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-7">
+                        <div class="col-md-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_StartDate:</label>
                             @Html.EditorFor(model => model.DepartDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
                             @Html.ValidationMessageFor(model => model.DepartDateTime, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-7">
+                        <div class="col-md-10">
                             <label>@InsuredTraveling.Resource.FNOL_StartTime:</label>
                             @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id = "travelTimeFrom" } })
                             @Html.ValidationMessageFor(model => model.DepartTime, "", new { @class = "text-danger" })
@@ -279,21 +270,21 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <div class="col-lg-7">
+                        <div class="col-md-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>@InsuredTraveling.Resource.FNOL_Vehicle:</label>
                             @Html.EditorFor(model => model.TransportMeans, new { htmlAttributes = new { @class = "form-control input-sm", @id = "transportationType" } })
                             @Html.ValidationMessageFor(model => model.TransportMeans, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-7">
+                        <div class="col-md-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_EndDate:</label>
                             @Html.EditorFor(model => model.ArrivalDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
                             @Html.ValidationMessageFor(model => model.ArrivalDateTime, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-7">
+                        <div class="col-md-10">
                             <label>@InsuredTraveling.Resource.FNOL_EndTime:</label>
                             @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id = "travelTimeTo" } })
                             @Html.ValidationMessageFor(model => model.DepartTime, "", new { @class = "text-danger" })
@@ -302,54 +293,62 @@
                 </div>
             </div>          
         </div>
-        <div class="row container">
-            <header class="well" id="insureType">
-                <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;">  </span>
+        <div class="row">
+            <div class="col-md-12">
+                <header class="well" id="insureType">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;">  </span>
                     <a href="javascript:void(0)" id="insureType"> @InsuredTraveling.Resource.FNOL_InsuranceType</a>
-            </header>
-            <div id="insureTypeContent" style="display:none;">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.RadioButtonFor(m => m.IsHealthInsurance, "true", new { @onchange = "InsuranceType('HealthInsurance');", @id = "health", @required = "true", @class = "required" })  @InsuredTraveling.Resource.FNOL_HealthInsurance
-                        <br /><br />
-                        @Html.RadioButtonFor(m => m.IsHealthInsurance, "false", new { @onchange = "InsuranceType('LuggageInsurance');", @id = "luggage", @required = "true", @class = "required" })  @InsuredTraveling.Resource.FNOL_LuggageInsurance
+                </header>
+            </div>  
+            <div class="col-md-12">
+                <div id="insureTypeContent" style="display:none;">
+                    <div class="">
+                        <div class="form-group">
+                            @Html.RadioButtonFor(m => m.IsHealthInsurance, "true", new { @onchange = "InsuranceType('HealthInsurance');", @id = "health", @required = "true", @class = "required radio-btn" })
+                            <label>@InsuredTraveling.Resource.FNOL_HealthInsurance</label>
+                            <br />
+                            @Html.RadioButtonFor(m => m.IsHealthInsurance, "false", new { @onchange = "InsuranceType('LuggageInsurance');", @id = "luggage", @required = "true", @class = "required radio-btn" })
+                            <label>@InsuredTraveling.Resource.FNOL_LuggageInsurance</label>
+                        </div>
                     </div>
-                </div> 
-            </div>        
+                </div>         
+            </div>                         
         </div>
-        <div class="row container" hidden id="healthInsurance">
-            <header class="well">@InsuredTraveling.Resource.FNOL_HealthInsuranceInfo</header>
+        <div class="row" hidden id="healthInsurance">
+            <div class="col-md-12">
+                <header class="well">@InsuredTraveling.Resource.FNOL_HealthInsuranceInfo</header>
+            </div>            
             <div class="col-md-6">
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_AccidentDate:</label>
                         @Html.EditorFor(model => model.AccidentDateTimeHealth, new { htmlAttributes = new { @class = "form-control input-sm" } })
                         @Html.ValidationMessageFor(model => model.AccidentDateTimeHealth, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_AccidentTime:</label>
                         @Html.EditorFor(model => model.AccidentTimeHealth, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id = "lossTime" } })
                         @Html.ValidationMessageFor(model => model.AccidentTimeHealth, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_AccidentPlace:</label>
                         @Html.EditorFor(model => model.AccidentPlaceHealth, new { htmlAttributes = new { @class = "form-control input-sm", @id = "placeLoss" } })
                         @Html.ValidationMessageFor(model => model.AccidentPlaceHealth, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_DateWhenDoctorVisit:</label>
                         @Html.EditorFor(model => model.DoctorVisitDateTime, new { htmlAttributes = new { @class = "form-control input-sm" } })
                         @Html.ValidationMessageFor(model => model.DoctorVisitDateTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label>@InsuredTraveling.Resource.FNOL_DoctorInfo:</label>
                         @Html.TextAreaFor(model => model.DoctorInfo, new { @class = "form-control input-sm" })
                     </div>
@@ -357,65 +356,66 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label>@InsuredTraveling.Resource.FNOL_DiseaseDescription:</label>
                         @Html.TextAreaFor(model => model.MedicalCaseDescription, new { @class = "form-control input-sm", @id = "illnessInfo" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         @Html.CheckBoxFor(model => model.PreviousMedicalHistory, new { @class = "col-md-1", @style = "margin-top:3%;" })
                         <label>@InsuredTraveling.Resource.FNOL_PreviousDiseaseHistory</label>
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label>@InsuredTraveling.Resource.FNOL_DocumentsAsProof:</label>
                         <input type="file" name="documentsHealth" id="documentsHealth" multiple />
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label>@InsuredTraveling.Resource.FNOL_ReportWroted:</label>
                         @Html.EditorFor(model => model.ResponsibleInstitution, new { @class = "form-control input-sm" })
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row container" hidden id="luggageInsurance">
-            <header class="well">@InsuredTraveling.Resource.FNOL_LuggageInsurance</header>
+        <div class="row" hidden id="luggageInsurance">
+            <div class="col-md-12">
+                <header class="well">@InsuredTraveling.Resource.FNOL_LuggageInsurance</header>
+            </div>            
             <div class="col-md-6">
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_AccidentDate:</label>
                         @Html.EditorFor(model => model.AccidentDateTimeLuggage, new { htmlAttributes = new { @class = "form-control input-sm" } })
                         @Html.ValidationMessageFor(model => model.AccidentDateTimeLuggage, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-7">
+                    <div class="col-md-10">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>@InsuredTraveling.Resource.FNOL_AccidentPlace:</label>
                         @Html.EditorFor(model => model.AccidentPlaceLuggage, new { htmlAttributes = new { @class = "form-control input-sm" } })
                         @Html.ValidationMessageFor(model => model.AccidentPlaceLuggage, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_AccidentDescription:</label>
                         @Html.TextAreaFor(model => model.PlaceDescription, new { @class = "form-control input-sm" })
                         @Html.ValidationMessageFor(model => model.PlaceDescription, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_AccidentDescriptionDetails:</label>
                         @Html.TextAreaFor(model => model.DetailDescription, new { @class = "form-control input-sm" })
                         @Html.ValidationMessageFor(model => model.DetailDescription, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-7">
+                    <div class="col-md-10">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_ReportPlace:</label><br />
                         @Html.TextAreaFor(model => model.ReportPlace, new { @class = "form-control input-sm" })
                         @Html.ValidationMessageFor(model => model.ReportPlace, "", new { @class = "text-danger" })
@@ -424,34 +424,33 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label>@InsuredTraveling.Resource.FNOL_FloatersDescription: </label>
                         @Html.TextAreaFor(model => model.Floaters, new { @class = "form-control input-sm" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-7">
+                    <div class="col-md-10">
                         <label>@InsuredTraveling.Resource.FNOL_FloatersValue:</label>
                         @Html.EditorFor(model => model.FloatersValue, new { htmlAttributes = new { @class = "form-control input-sm" } })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label>@InsuredTraveling.Resource.FNOL_DocumentsAsProof :</label>
                         <input type="file" name="documentsLuggage" id="documentsLuggage" multiple />
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_AirportTimeArrival :</label>
                         @Html.EditorFor(model => model.AccidentTimeLuggage, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
                         @Html.ValidationMessageFor(model => model.AccidentTimeLuggage, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-
-                    <div class="col-lg-7">
+                    <div class="col-md-10">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_LuggageCheckInTime :</label>
                         @Html.EditorFor(model => model.LugaggeCheckingTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
                         @Html.ValidationMessageFor(model => model.LugaggeCheckingTime, "", new { @class = "text-danger" })
@@ -459,11 +458,13 @@
                 </div>
             </div>
         </div>      
-        <div class="row container">
-            <header class="well" id="cost">
-                <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+        <div class="row">
+            <div class="col-md-12">
+                <header class="well" id="cost">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
                     <a href="javascript:void(0)" id="cost">@InsuredTraveling.Resource.FNOL_CostInformation</a>
-            </header>
+                </header>
+            </div>            
             <div id="costContent" style="display:none;">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -482,22 +483,24 @@
                             @Html.ValidationMessageFor(model => model.TotalCost, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>
-               
+                </div>               
             </div>      
         </div>
-        <div class="form-group">
-            <div class="col-md-2">
-                <input type="submit" value="@InsuredTraveling.Resource.FNOL_Add" class="btn btn-default" />
-            </div>
-            @if (r.IsUser("end user"))
-            {
-                <div class="col-md-4">
-                    <input type="submit" id="requestChatBtn" value="@InsuredTraveling.Resource.RequestChat" class="btn btn-primary" />
-                </div>
-            }
-           
-        </div>    
+        <div class="row row-position">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="col-md-4" style="padding-left: 0px;">
+                        <input type="submit" value="@InsuredTraveling.Resource.FNOL_Add" class="btn btn-default btn-block" />
+                    </div>
+                    @if (r.IsUser("end user"))
+                    {
+                        <div class="col-md-offset-4 col-md-4">
+                            <input type="submit" id="requestChatBtn" value="@InsuredTraveling.Resource.RequestChat" class="btn btn-primary btn-block" />
+                        </div>
+                    }
+                </div>  
+            </div>                         
+        </div>           
     </div>
 </form>
 

@@ -5,6 +5,7 @@ using System.Data.Entity;
 
 namespace InsuredTraveling
 {
+
     public class AuthContext : IdentityDbContext<ApplicationUser>
     {
         public AuthContext() : base("AuthContext3", throwIfV1Schema: true)
