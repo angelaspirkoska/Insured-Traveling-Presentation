@@ -5,6 +5,9 @@ using System.Web.Mvc;
 using InsuredTraveling.DI;
 using InsuredTraveling.Filters;
 using InsuredTraveling.Controllers;
+using System.IO;
+using System.Web;
+using System.Collections.Generic;
 
 namespace Authentication.WEB.Controllers
 {
@@ -24,10 +27,14 @@ namespace Authentication.WEB.Controllers
             IQueryable<news_all> news = _ns.GetAllNews();
             return View(news);
         }
-        public ActionResult AddNews(string newsTitle = null, string newsContent = null, bool newsIsNotification = false)
+
+        public ActionResult AddNews(HttpPostedFileBase newsImage, string newsTitle = null, string newsContent = null, bool newsIsNotification = false)
         {
-            if (newsTitle == null || newsContent == null || newsTitle == "" || newsContent == "")
-                return Json(new { Success = "False", Message = "All fields are required" }, JsonRequestBehavior.AllowGet); ;
+            if (newsImage == null || newsTitle == null || newsContent == null || newsTitle == "" || newsContent == "")
+                return Json(new { Success = "False", Message = "All fields are required" }, JsonRequestBehavior.AllowGet); 
+
+            var path = @"~/News/" + newsImage.FileName;
+            newsImage.SaveAs(Server.MapPath(path));
 
             news_all news = new news_all();
             news.Title = newsTitle;
@@ -35,24 +42,42 @@ namespace Authentication.WEB.Controllers
             news.isNotification = newsIsNotification;
             news.DataCreated = DateTime.Now;
             news.InsuranceCompany = "Eurolink";
+            news.ImageLocation = newsImage.FileName;
 
             try
             {
                 _ns.AddNews(news);
-
-                return Json(new { Success = "True" }, JsonRequestBehavior.AllowGet);
+                ViewBag.Success = true;
+                return RedirectToAction("Index", "News");
             }
             catch
             {
-                return Json(new { Success = "False", Message = "Database problem" }, JsonRequestBehavior.AllowGet);
+                // return Json(new { Success = "False", Message = "Database problem" }, JsonRequestBehavior.AllowGet);
+                ViewBag.Success = false;
+                return RedirectToAction("Index", "News");
             }
         }
 
         public ActionResult DeleteNews(int newsId)
         {
-           if (_ns.IsNull(newsId))
-                return Json(new { Success = "False", Message = "Database problem" }, JsonRequestBehavior.AllowGet);
-            
+            var news = _ns.GetNewsById(newsId);
+            if (news == null)
+                return Json(new { Success = "False", Message = "Not found" }, JsonRequestBehavior.AllowGet);
+            if(news.ImageLocation != null)
+            {
+                var fixedPath = Server.MapPath("~/News/" + news.ImageLocation);
+
+                if (System.IO.Directory.Exists(fixedPath))
+                {
+                    try
+                    {
+                        System.IO.File.Delete(fixedPath);
+                    }
+                    catch { }
+                    finally { }
+                }
+            }
+           
             try
             {
                 _ns.DeleteNews(newsId);

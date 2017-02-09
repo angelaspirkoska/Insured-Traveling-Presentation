@@ -33,6 +33,11 @@ namespace InsuredTraveling.DI
             return _db.news_all.OrderByDescending(x => x.DataCreated).Take(20);
         }
 
+        public news_all GetNewsById(int id)
+        {
+            return _db.news_all.Where(x => x.ID == id).FirstOrDefault();
+        }
+
         public bool IsNull(int id)
         {
             if (_db.news_all.Where(x => x.ID == id).FirstOrDefault() == null)
