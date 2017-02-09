@@ -25,24 +25,17 @@ namespace Authentication.WEB.Controllers
             MailNewsService mailNewsService = new MailNewsService();
             mailNewsService.getUnreadEmails();
 
-
-            IQueryable<news_all> eurolinkNews = _ns.GetLatestTwentyNews();
+            IQueryable<news_all> lastTwentyNews = _ns.GetLatestTwentyNews();
 
 
             List<News> news = new List<News>();
 
-            foreach (news_all n in eurolinkNews)
+            foreach (news_all lastNews in lastTwentyNews)
             {
-                News npom = new News();
-                npom.id = n.ID.ToString();
-                npom.title = n.Title;
-                npom.content = n.Content;
-                npom.InsuranceCompany = n.InsuranceCompany;
-
-                news.Add(npom);
+                lastNews.ImageLocation = System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"].ToString() + "/News/" + lastNews.ImageLocation;        
             }
 
-            return Ok(new { News = eurolinkNews });
+            return Ok(new { News = lastTwentyNews });
         }
 
         [Route("getNotifications")]
@@ -51,7 +44,6 @@ namespace Authentication.WEB.Controllers
         {
             if (lastReadID == -1)
                 return null;
-
             MailNewsService mailNewsService = new MailNewsService();
             mailNewsService.getUnreadEmails();
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
@@ -72,9 +64,9 @@ namespace Authentication.WEB.Controllers
                 if ((bool)n.isNotification)
                 {
                     News npom = new News();
-                    npom.id = n.ID.ToString();
-                    npom.title = n.Title;
-                    npom.content = n.Content;
+                    npom.Id = n.ID.ToString();
+                    npom.Title = n.Title;
+                    npom.Content = n.Content;
                     notifications.Add(npom);
                 }
             }

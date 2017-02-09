@@ -761,6 +761,7 @@
     <Folder Include="DocumentsFirstNoticeOfLoss\HealthInsurance\" />
     <Folder Include="DocumentsFirstNoticeOfLoss\Invoices\" />
     <Folder Include="DocumentsFirstNoticeOfLoss\LuggageInsurance\" />
+    <Folder Include="News\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ChangeLanuage\" />
   </ItemGroup>
@@ -772,6 +773,7 @@
     <EmbeddedResource Include="Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

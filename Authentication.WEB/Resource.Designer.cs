@@ -889,7 +889,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is no news at this moment.
+        ///   Looks up a localized string similar to There are no news at this moment.
         /// </summary>
         public static string News_NoNews {
             get {

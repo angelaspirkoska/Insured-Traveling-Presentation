@@ -391,7 +391,7 @@
     <value>Image</value>
   </data>
   <data name="News_NoNews" xml:space="preserve">
-    <value>There is no news at this moment</value>
+    <value>There are no news at this moment</value>
   </data>
   <data name="News_Notification" xml:space="preserve">
     <value>Notification</value>
