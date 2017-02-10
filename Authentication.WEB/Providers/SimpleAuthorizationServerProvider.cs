@@ -27,11 +27,11 @@ namespace InsuredTraveling.Providers
         }
         public void Pom(OAuthMatchEndpointContext context)
         {
-            //ne e ok 
+            //ne e ok C:\Users\Slobodanka\Documents\GitHub\InsuredTravelingWeb\Authentication.WEB\Providers\SimpleAuthorizationServerProvider.cs
             var cookieToken = HttpContext.Current.Request.Cookies["token"];
             if (cookieToken == null) return;
 
-            var t = cookieToken.Value;
+            var t = EncryptionHelper.Decrypt(HttpUtility.UrlDecode(cookieToken.Value));
             var s = new string[1];
             s[0] = "Bearer " + t;
             if (!context.Request.Headers.ContainsKey("Authorization"))

@@ -93,14 +93,13 @@ namespace InsuredTraveling
 
         }
 
-        public async Task<string> RefreshToken(string refresh_token = "")
+        public async void RefreshToken(string refresh_token = "")
         {
             var uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/token");
-            var refresh_tokenCookie = HttpContext.Current.Request.Cookies["refresh_token"];
             var client = new HttpClient { BaseAddress = uri };
             IDictionary<string, string> userData = new Dictionary<string, string>();
             userData.Add("client_id", "InsuredTravel");
-            userData.Add("refresh_token", refresh_tokenCookie != null? refresh_tokenCookie.Value : refresh_token);
+            userData.Add("refresh_token", refresh_token);
             userData.Add("grant_type", "refresh_token");
             HttpContent content = new FormUrlEncodedContent(userData);
             content.Headers.Remove("Content-Type");
@@ -108,25 +107,29 @@ namespace InsuredTraveling
             var responseMessage = client.PostAsync(uri, content).Result;
             if (responseMessage.IsSuccessStatusCode)
             {
-                var responseBody = await responseMessage.Content.ReadAsStringAsync();
-                dynamic data =  JObject.Parse(responseBody);
+                var responseBody = returnContent(responseMessage);
+                await Task.WhenAll(responseBody);
+                dynamic data =  JObject.Parse(responseBody.Result);
                 string token = data.access_token;
                 string refresh_token2 = data.refresh_token;
                 if (!String.IsNullOrEmpty(token))
                 {
-                    HttpCookie cookieToken = new HttpCookie("token", token);
+                    string encryptedToken = HttpUtility.UrlEncode(EncryptionHelper.Encrypt(token));
+                    HttpCookie cookieToken = new HttpCookie("token", encryptedToken);
                     cookieToken.Expires = DateTime.Now.AddYears(1);
                     HttpContext.Current.Response.Cookies.Add(cookieToken);
 
+                    //string encryptedRefreshToken = HttpUtility.UrlEncode(EncryptionHelper.Encrypt(refresh_token2));
                     HttpCookie cookieRefreshToken = new HttpCookie("refresh_token", refresh_token2);
                     cookieRefreshToken.Expires = DateTime.Now.AddYears(1);
                     HttpContext.Current.Response.Cookies.Add(cookieRefreshToken);
-
-                    return refresh_token2;
                 }
-                return " ";
-            }
-            return " ";     
+            }  
+        }
+
+        public async Task<string> returnContent(HttpResponseMessage responseMessage)
+        {
+            return await responseMessage.Content.ReadAsStringAsync();
         }
 
         public async Task<IdentityResult> RegisterUserWeb(User userModel)

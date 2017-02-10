@@ -48,15 +48,16 @@ namespace InsuredTraveling.Controllers
                     if (!String.IsNullOrEmpty(token))
                     {
                         string encryptedToken = HttpUtility.UrlEncode(EncryptionHelper.Encrypt(token));
-                        string decryptToken = EncryptionHelper.Decrypt(HttpUtility.UrlDecode(encryptedToken));
-                        HttpCookie cookieToken = new HttpCookie("token", token);
+                        HttpCookie cookieToken = new HttpCookie("token", encryptedToken);
                         cookieToken.Expires = DateTime.Now.AddYears(1);
                         HttpContext.Response.Cookies.Add(cookieToken);
 
-                       // string encryptedRefreshToken = HttpUtility.UrlEncode(EncryptionHelper.Encrypt(refresh_token));
+                        //string encryptedRefreshToken = HttpUtility.UrlEncode(EncryptionHelper.Encrypt(refresh_token));
+                        //string decryptedRefreshToken = EncryptionHelper.Decrypt(HttpUtility.UrlEncode(encryptedRefreshToken));
                         HttpCookie cookieRefreshToken = new HttpCookie("refresh_token", refresh_token);
                         cookieRefreshToken.Expires = DateTime.Now.AddYears(1);
                         HttpContext.Response.Cookies.Add(cookieRefreshToken);
+
                         Response.Redirect("/home");
                     }
                     else

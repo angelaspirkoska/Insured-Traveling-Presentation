@@ -10,13 +10,13 @@ namespace InsuredTraveling.Filters
  
     public class SessionExpireAttribute : ActionFilterAttribute
     {
-        public override async void OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName.ToLower();
             HttpSessionStateBase session = filterContext.HttpContext.Session;
 
-            
-             if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+
+            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var refresh_tokenCookie = HttpContext.Current.Request.Cookies["refresh_token"];
                 var tokenCookie = HttpContext.Current.Request.Cookies["token"];
@@ -29,8 +29,8 @@ namespace InsuredTraveling.Filters
                 }else
                 {
                     AuthRepository _repo = new AuthRepository();
-                    string refresh_tokenNew = await _repo.RefreshToken(refresh_tokenCookie.Value);
-                    refresh_tokenCookie.Value = refresh_tokenNew;
+                     _repo.RefreshToken(refresh_tokenCookie.Value);
+                    
                 }
 
             }

@@ -106,32 +106,7 @@
             <p class="container" style="color:#ffffff">&copy; @DateTime.Now.Year - Insured Traveling</p>
 
         </footer>
-
-       @*@if (@System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-       {
-           <script type="text/javascript">
-               $(document).ready(function () {
-                   setInterval(function () {
-                        @{ 
-                            var refresh_token = HttpContext.Current.Request.Cookies["refresh_token"];
-                        }
-                       var rt = "@refresh_token.Value";
-                       console.log(rt);
-                       $.ajax({
-                           type: "GET",
-                           beforeSend: function (request) {
-                               request.setRequestHeader("Access-Control-Allow-Origin", "*");
-                           },
-                           url: "/api/account/RefreshToken?refresh_token=" + rt,
-                           success: function (data) {
-                               console.log(data.refresh_tokenNew);
-                               rt = data.refresh_tokenNew;
-                           }
-                       });
-                   }, 40000);
-               });
-           </script>
-                                   }*@
+                          
         <script src="~/Scripts/bootstrap.js"></script>
         <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
         <script src="~/signalr/hubs"></script>

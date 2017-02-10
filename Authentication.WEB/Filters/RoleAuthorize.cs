@@ -21,6 +21,8 @@ namespace InsuredTraveling.Filters
             {
                 var user = httpContext.User;
                 var selectedUser = context.aspnetusers.Single(m => m.UserName == user.Identity.Name);
+                if (selectedUser == null)
+                    return false;
                 if(selectedUser.aspnetroles.Count == 0)
                 {
                     authorize = false;
@@ -39,7 +41,9 @@ namespace InsuredTraveling.Filters
         {
             bool authorize = false;
             var user = System.Web.HttpContext.Current.User;
-            var selectedUser = context.aspnetusers.Where(m => m.UserName == user.Identity.Name).FirstOrDefault();
+            var selectedUser = context.aspnetusers.Where(m => m.UserName == user.Identity.Name).Single();
+            if (selectedUser == null)
+                return false;
             if (selectedUser.aspnetroles.Count == 0)
             {
                 authorize = false;
