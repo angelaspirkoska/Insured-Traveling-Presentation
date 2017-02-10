@@ -20,7 +20,6 @@ namespace InsuredTraveling
         public System.DateTime Timestamp { get; set; }
         public string from_username { get; set; }
     
-        public virtual conversation conversation { get; set; }
         public virtual chat_requests chat_requests { get; set; }
     }
 }

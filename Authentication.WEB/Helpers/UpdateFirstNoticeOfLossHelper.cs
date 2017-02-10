@@ -13,8 +13,9 @@ namespace InsuredTraveling.Helpers
             IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
         {
           
-            var fnol = _fnol.GetById(model.Id);        
+            var fnol = _fnol.GetById(model.Id);
             //bank accounts update    
+            var isArchived = ArchiveFirstNoticeOfLossHelper.ArchiveFirstNoticeOfLoss(fnol, model.ModifiedBy, _fnol);
             if (!fnol.Claimant_bank_account_info.Account_Number.ToString().Equals( model.ClaimantBankAccountNumber)
                 || !fnol.Claimant_bank_account_info.bank.Name.Equals(model.ClaimantBankName))
             {
@@ -33,7 +34,8 @@ namespace InsuredTraveling.Helpers
 
             //jos vkupna vrednost i dokumenti
             var newFnol = fnol;
-
+            newFnol.Modified_Datetime = DateTime.Now;
+            newFnol.ModifiedBy = model.ModifiedBy;
             newFnol.Destination = model.Destination;
             newFnol.Depart_Date_Time = model.DepartDateTime.Date;
             newFnol.Depart_Date_Time = model.DepartDateTime.Date + (model.DepartTime ?? new TimeSpan(0, 0, 0));

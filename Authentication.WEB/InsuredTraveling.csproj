@@ -431,9 +431,6 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Controllers\ValidateMailController.cs" />
-    <Compile Include="conversation.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="countries_name.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -537,6 +534,9 @@
     <Compile Include="first_notice_of_loss.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="first_notice_of_loss_archive.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -550,6 +550,7 @@
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
+    <Compile Include="Helpers\ArchiveFirstNoticeOfLossHelper.cs" />
     <Compile Include="Helpers\UpdateAdditionalInfoHelper.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\SaveInsuredHelper.cs" />

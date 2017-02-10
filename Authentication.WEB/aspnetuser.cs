@@ -38,6 +38,8 @@ namespace InsuredTraveling
             this.travel_duration1 = new HashSet<travel_duration>();
             this.users = new HashSet<user>();
             this.aspnetroles = new HashSet<aspnetrole>();
+            this.first_notice_of_loss_archive = new HashSet<first_notice_of_loss_archive>();
+            this.first_notice_of_loss1 = new HashSet<first_notice_of_loss>();
         }
     
         public string Id { get; set; }
@@ -110,5 +112,9 @@ namespace InsuredTraveling
         public virtual ICollection<user> users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aspnetrole> aspnetroles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<first_notice_of_loss> first_notice_of_loss1 { get; set; }
     }
 }

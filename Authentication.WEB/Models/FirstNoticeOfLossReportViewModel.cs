@@ -23,7 +23,7 @@ namespace InsuredTraveling.Models
         public int PolicyNumber { get; set; }
         public List<SelectListItem> Policies { get; set; }
         public List<SelectListItem> PolicyNumberList { get; set; }
-        public string Message { get; set; }
+        public int ChatId { get; set; }
         public DateTime CreatedDateTime { get; set; }
         public string CreatedBy { get; set; }
 

@@ -18,6 +18,7 @@ namespace InsuredTraveling
         public first_notice_of_loss()
         {
             this.documents_first_notice_of_loss = new HashSet<documents_first_notice_of_loss>();
+            this.first_notice_of_loss_archive = new HashSet<first_notice_of_loss_archive>();
         }
     
         public int ID { get; set; }
@@ -33,10 +34,12 @@ namespace InsuredTraveling
         public int Additional_infoID { get; set; }
         public float Total_cost { get; set; }
         public Nullable<bool> Web_Mobile { get; set; }
-        public string Message { get; set; }
         public Nullable<bool> Short_Detailed { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDateTime { get; set; }
+        public Nullable<int> ChatId { get; set; }
+        public string ModifiedBy { get; set; }
+        public Nullable<System.DateTime> Modified_Datetime { get; set; }
     
         public virtual additional_info additional_info { get; set; }
         public virtual aspnetuser aspnetuser { get; set; }
@@ -48,5 +51,8 @@ namespace InsuredTraveling
         public virtual travel_policy travel_policy { get; set; }
         public virtual health_insurance health_insurance { get; set; }
         public virtual luggage_insurance luggage_insurance { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
+        public virtual aspnetuser aspnetuser1 { get; set; }
     }
 }

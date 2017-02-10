@@ -187,7 +187,7 @@ namespace InsuredTraveling.App_Start
                 dst.Additional_infoID = src.AdditionalInfoId;
                 dst.Total_cost = src.TotalCost;
                 dst.Web_Mobile = src.isMobile;
-                dst.Message = src.Message;
+                dst.ChatId = src.ChatId;
                 dst.Short_Detailed = src.ShortDetailed;
                 
             });
