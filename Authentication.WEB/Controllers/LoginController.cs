@@ -47,10 +47,13 @@ namespace InsuredTraveling.Controllers
                     string refresh_token = data.refresh_token;
                     if (!String.IsNullOrEmpty(token))
                     {
+                        string encryptedToken = HttpUtility.UrlEncode(EncryptionHelper.Encrypt(token));
+                        string decryptToken = EncryptionHelper.Decrypt(HttpUtility.UrlDecode(encryptedToken));
                         HttpCookie cookieToken = new HttpCookie("token", token);
                         cookieToken.Expires = DateTime.Now.AddYears(1);
                         HttpContext.Response.Cookies.Add(cookieToken);
 
+                       // string encryptedRefreshToken = HttpUtility.UrlEncode(EncryptionHelper.Encrypt(refresh_token));
                         HttpCookie cookieRefreshToken = new HttpCookie("refresh_token", refresh_token);
                         cookieRefreshToken.Expires = DateTime.Now.AddYears(1);
                         HttpContext.Response.Cookies.Add(cookieRefreshToken);

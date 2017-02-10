@@ -20,7 +20,6 @@ namespace InsuredTraveling
     public class AuthRepository : IDisposable
     {
         private AuthContext _ctx;
-
         private UserManager<ApplicationUser> _userManager;
         private RoleManager<IdentityRole> roleManager;
 

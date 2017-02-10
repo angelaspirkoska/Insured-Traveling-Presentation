@@ -21,14 +21,6 @@ namespace InsuredTraveling.Filters
                 var refresh_tokenCookie = HttpContext.Current.Request.Cookies["refresh_token"];
                 var tokenCookie = HttpContext.Current.Request.Cookies["token"];
 
-
-                string tokenEncrypted = Helper.GetHash(tokenCookie.Value);
-                string tokenDecrypted = Helper.GetHash(tokenEncrypted);
-                if(tokenCookie.Value == tokenDecrypted)
-                {
-                    bool ok = true;
-                }
-
                 if(refresh_tokenCookie == null || tokenCookie == null)
                 {
                     var url = new UrlHelper(filterContext.RequestContext);

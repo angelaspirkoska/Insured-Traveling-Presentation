@@ -9,7 +9,6 @@ namespace InsuredTraveling.Controllers
     [RoutePrefix("Home")]
     //[Authorize(Roles ="")]
     [SessionExpire]
-    [AuthorizeRequestFilter]   
     public class HomeController : Controller
     {  
         public ActionResult Index()

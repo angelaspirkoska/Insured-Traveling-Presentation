@@ -503,6 +503,7 @@
     <Compile Include="DTOs\SignalR\BaseRequestIdDTO.cs" />
     <Compile Include="DTOs\SignalR\MessageMobileDTO.cs" />
     <Compile Include="DTOs\SignalR\RequestIdDTO.cs" />
+    <Compile Include="EncryptionHelper.cs" />
     <Compile Include="Errors\401.aspx.cs">
       <DependentUpon>401.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -527,7 +528,6 @@
     <Compile Include="exchange_rate.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Filters\AuthorizeRequestFilter.cs" />
     <Compile Include="Filters\RoleAuthorize.cs" />
     <Compile Include="Filters\RecaptchaFilter.cs" />
     <Compile Include="Filters\SessionExpireAttribute.cs" />
