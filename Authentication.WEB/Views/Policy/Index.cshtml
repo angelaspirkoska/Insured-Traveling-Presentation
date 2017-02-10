@@ -71,8 +71,6 @@
                             </div>
                         </div>
                     </div>
-                    <br />
-                    <br />
             </div>        
     </div>
     @{
@@ -229,14 +227,11 @@
                             @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData field-size" } })
                             @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <br />
-    <br />
     @* Policy data *@
     <div class="row">
         <header class="well" id="PolicyData">
@@ -245,7 +240,7 @@
         </header>
         <div id="PolicyDataContent" style="display:none;">
             <div class="">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-inline">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Travel_Insurance_TypeID, htmlAttributes: new { @class = "control-label" })
@@ -292,7 +287,7 @@
                     }
                 </div>
                 <div class="form-horizontal" id="group" hidden>
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-md-2 col-sm-2">
                         @Html.LabelFor(model => model.Group_Members, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
                             @Html.EditorFor(model => model.Group_Members, new { htmlAttributes = new { @class = "form-control input-sm" } })
@@ -305,22 +300,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="">
                     <div class="form-horizontal">
-                        <div class="">
                             @for (int i = 0; i < 2; i++)
                             {
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div><label>@InsuredTraveling.Resource.Policy_AddOn @(i + 1)</label></div>
                                     <div>
                                         @Html.DropDownListFor(model => model.additional_charges[i].ID, (List<SelectListItem>)ViewBag.additional_charges, new { @class = "form-control" })
                                     </div>
                                 </div>
                             }
-                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-inline">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Travel_NumberID, htmlAttributes: new { @class = "control-label" })
@@ -341,8 +332,6 @@
                     </div>
                 </div>
             </div>
-            <br />
-            <br />
         </div>
     </div>
     <div class="row">

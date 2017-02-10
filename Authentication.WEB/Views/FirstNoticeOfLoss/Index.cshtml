@@ -492,15 +492,17 @@
                     <div class="col-md-4" style="padding-left: 0px;">
                         <input type="submit" value="@InsuredTraveling.Resource.FNOL_Add" class="btn btn-default btn-block" />
                     </div>
-                    @if (r.IsUser("end user"))
-                    {
-                        <div class="col-md-offset-4 col-md-4">
-                            <input type="submit" id="requestChatBtn" value="@InsuredTraveling.Resource.RequestChat" class="btn btn-primary btn-block" />
-                        </div>
-                    }
+                    
                 </div>  
-            </div>                         
-        </div>           
+            </div>  
+                              
+        </div>   
+             @if (r.IsUser("end user"))
+            {
+                <div class="chat-btn">
+                    <input type="submit" id="requestChatBtn" value="@InsuredTraveling.Resource.RequestChat" class="btn btn-primary chat-btn--rotate" />
+                </div>
+             }        
     </div>
 </form>
 
