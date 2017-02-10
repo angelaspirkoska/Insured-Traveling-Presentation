@@ -17,7 +17,7 @@
         }
         <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
 
-        <li id="first_notice_of_loss"><a href="#" onclick="ShowChats()" >@InsuredTraveling.Resource.Chats</a></li>
+        <li id="searchChat"><a href="#" onclick="ShowChats()" >@InsuredTraveling.Resource.Chats</a></li>
     </ul>
 
     <!--Table search result of policies -->
@@ -635,6 +635,7 @@
                 $("#clients").attr("class", "active");
                 $("#tablePoliciesClients").css("display", "none");
                 $("#tablePoliciesHolders").css("display", "none");
+                $("#searchChat").removeAttr("class");
             };
 
             function ShowPolycies() {
@@ -646,6 +647,7 @@
                 $("#first_notice_of_loss").removeAttr("class");
                 $("#polycies").attr("class", "active");
                 $("#tableFNOLPolicies").css("display", "none");
+                $("#searchChat").removeAttr("class");
             };
 
             function ShowFNOL() {
@@ -656,6 +658,7 @@
                 $("#polycies").removeAttr("class");
                 $("#clients").removeAttr("class");
                 $("#first_notice_of_loss").attr("class", "active");
+                $("#searchChat").removeAttr("class");
             };
 
             function ShowChats() {
@@ -672,13 +675,16 @@
                 $("#tablePoliciesClients").css("display", "none");
                 $("#tablePoliciesHolders").css("display", "none");
                 $("#tableFNOLPolicies").css("display", "none");
+
+                              
+                $("#searchChat").attr("class", "active");
             };
             function SearchChat() {
                 console.log("username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&active=" + $("#active").is(':checked') + "&discarded=" + $("#discarded").is(':checked') + "&noticed" + $("#noticed").is(':checked'));
                 $("#tableChats").DataTable().destroy();
                 $("#tableChats").DataTable({
                     dom: "Bfrtip",
-                    ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&all=" + $("#all").is(':checked') + "&active=" + $("#active").is(':checked') + "&discarded=" + $("#discarded").is(':checked') + "&noticed=" + $("#noticed").is(':checked'),
+                    ajax: "/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&all=" + $("#all").is(':checked') + "&active=" + $("#active").is(':checked') + "&discarded=" + $("#discarded").is(':checked') + "&noticed=" + $("#noticed").is(':checked'),
                     columns: [
                         { data: "chatId" },
                         { data: "chatWith" },
@@ -727,7 +733,7 @@
                 $("#tablePolicies").DataTable().destroy();
                 $("#tablePolicies").DataTable({
                     dom: "Bfrtip",
-                    ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetPolicies?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val(),
+                    ajax: "/Search/GetPolicies?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val(),
                     columns: [
                        { data: "Polisa_Broj" },
                        { data: "InsuredName" },
@@ -806,7 +812,7 @@
                 $("#tableFNOLPolicies").DataTable().destroy();
                 $("#tableFNOLPolicies").DataTable({
                     dom: "Bfrtip",
-                    ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFNOLByPolicyNumber?number=" + policy_number,
+                    ajax: "/Search/GetFNOLByPolicyNumber?number=" + policy_number,
                     columns: [
                             { data: "PolicyNumber" },
                             { data: "InsuredName" },
@@ -844,7 +850,7 @@
                 $("#tableFNOL").DataTable().destroy();
                 $("#tableFNOL").DataTable({
                     dom: "Bfrtip",
-                    ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFNOL?PolicyNumber=" + $("#PolicyNumberFNL").val() + "&holderName=" + $("#holderName").val() + "&holderLastName=" + $("#holderLastName").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked') + "&DateAdded=" + $("#DateAdded").val() + "&operatorDateAdded=" + $("#operatorDateAdded").val() + "&operatorTotalCost=" + $("#totalCostOperator").val(),
+                    ajax: "/Search/GetFNOL?PolicyNumber=" + $("#PolicyNumberFNL").val() + "&holderName=" + $("#holderName").val() + "&holderLastName=" + $("#holderLastName").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked') + "&DateAdded=" + $("#DateAdded").val() + "&operatorDateAdded=" + $("#operatorDateAdded").val() + "&operatorTotalCost=" + $("#totalCostOperator").val(),
                     columns: [
                             { data: "PolicyNumber" },
                             { data: "InsuredName" },
@@ -882,7 +888,7 @@
                 $("#tableClients").DataTable().destroy();
                 var table = $("#tableClients").DataTable({
                     dom: "Bfrtip",
-                    ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetUsers?name=" + $("#name").val() + "&lastname=" + $("#lastname").val() + "&embg=" + $("#embg").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() + "&phone=" + $("#phone").val() + "&postal_code=" + $("#postal_code").val() + "&passport=" + $("#passport").val() + "&city=" + $("#city").val(),
+                    ajax: "/Search/GetUsers?name=" + $("#name").val() + "&lastname=" + $("#lastname").val() + "&embg=" + $("#embg").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() + "&phone=" + $("#phone").val() + "&postal_code=" + $("#postal_code").val() + "&passport=" + $("#passport").val() + "&city=" + $("#city").val(),
                     columns: [
                                 { data: "Name" },
                                 { data: "Lastname" },
@@ -926,7 +932,7 @@
                 $("#tablePoliciesClients").DataTable().destroy();
                 $("#tablePoliciesClients").DataTable({
                     dom: "Bfrtip",
-                    ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/CreatePoliciesByInsuredId?insuredId=" + insuredId,
+                    ajax: "/Search/CreatePoliciesByInsuredId?insuredId=" + insuredId,
                     columns: [
                        { data: "Polisa_Broj" },
                        { data: "Country" },
@@ -980,7 +986,7 @@
                 $("#tablePoliciesHolders").DataTable().destroy();
                 $("#tablePoliciesHolders").DataTable({
                     dom: "Bfrtip",
-                    ajax: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/CreatePoliciesByHolderId?holderId=" + holderId,
+                    ajax: "/Search/CreatePoliciesByHolderId?holderId=" + holderId,
                     columns: [
                        { data: "Polisa_Broj" },
                        { data: "Country" },
