@@ -17,11 +17,13 @@ function prepareSocket() {
     });
 
     hProxy = connection.createHubProxy("chatHub");
+
     connection.start().done(function () {
         console.log("connection established");
     });
 
     hProxy.on("MessageRequest", function (data) {
+        $("#ul_alerts").empty();
         console.log("message request function response");
         console.log(data);
         if (data.numberRequests !== 0)
@@ -29,14 +31,16 @@ function prepareSocket() {
             console.log("ima requesti");
             $("#messageRequests span").css("color", "#FF0000");
             $.each(data.data, function (i, val) {
-                $("#ul_alerts").prepend("<li><a href='#'><p><label class='label label-default text-center'>" + this.from + "</label></p> <p>" + this.timestamp + "</p><input type='button' value='Accept' onclick='acceptChat(\"" + this.from + "\")' class='btn btn-primary acceptChat' text=" + this.from + "/>Accept</a></li>");
+                $("#ul_alerts").prepend("<li><a href='#'><p><label class='label label-default text-center'>" + this.from + "</label></p> <p>" + this.timestamp + "</p><input type='button' value='Accept' onclick='acceptChat(\"" + this.from + "\")' class='btn btn-primary acceptChat' text=" + this.from + "/></a></li>");
 
                 console.log(this.from);
            });
         }
         else {
-            $("#messageRequests span").css("color", "#FFFFFF");
+            $("#messageRequests span").css("color", "#FFFFFF"); 
         }
+        if ($("#ul_alerts").children().length === 0)
+            $("#ul_alerts").prepend("<p> There are no requests </p>")
        // $("#messageRequests").text("new " + data.numberRequests + " requests");
         $("#chatRequests").show();
     });
@@ -49,7 +53,6 @@ function prepareSocket() {
         pushMessageToChat(data);       
     });
 
-
     hProxy.on("UpdateChat", function (data) {
         console.log("update");      
         //tuj neki refresh
@@ -57,30 +60,35 @@ function prepareSocket() {
 
     });
     
-
-    hProxy.on("ReceiveId", function (data) {
-        console.log("receiveid");
-        openChat(data.EndUser, data.RequestId);
-        //$("$a"+data.requestId).
+    hProxy.on("ReceiveId", function (adminResponseDTO) {
+        openChatU(adminResponseDTO.EndUser, adminResponseDTO.RequestId, true);
     });
     
     hProxy.on("Discarded", function (data) {
         console.log("reqid " + data.requestId + " dali " + data.discarded + " message " + data.message)
         if (data.discarded === "true") {
-            $("#" + data.requestId).attr("readonly", true);
-            $("#" + data.requestId).attr("placeholder", data.message);
+            $("textarea").attr('id', data.requestId).attr("readonly", true)
+            $("textarea").attr('id', data.requestId).attr("placeholder", data.message);
         }
     });
-
+    hProxy.on("DiscardedMessage", function (data) {
+        console.log("reqid " + data.requestId + " dali " + data.discarded + " message " + data.message)
+            $("textarea").attr('id', data.requestId).attr("readonly", true)
+            $("textarea").attr('id', data.requestId).attr("placeholder", data.message);        
+    });
 
     hProxy.on("FnolCreated", function (data) {
         console.log("reqid " + data.requestId + " dali " + data.fnolCreated + " message " + data.message)
         if (data.fnolCreated === "true") {
-            $("#" + data.requestId).attr("readonly", true);
-            $("#" + data.requestId).attr("placeholder", data.message);
+            $("textarea").attr('id', data.requestId).attr("readonly", true)
+            $("textarea").attr('id', data.requestId).attr("placeholder", data.message);
         }
     });
- 
+
+    hProxy.on("FnolCreatedMessage", function (data) {      
+            $("textarea").attr('id', data.requestId).attr("readonly", true)
+            $("textarea").attr('id', data.requestId).attr("placeholder", data.message);
+    });   
 
     hProxy.on("ActiveMessages", function (data) {
         console.log("messages");
@@ -91,16 +99,15 @@ function prepareSocket() {
     hProxy.on("SendAcknowledge", function (data) {
         console.log("accepted request");
         console.log(data);
-        openChatEndUser(data.admin, data.requestId);
+        openChatU(data.Admin, data.RequestId, false);
+        //openChatEndUser(data.admin, data.requestId);
     });
 
     $("#requestChatBtn").click(function () {
         hProxy.invoke("SendRequest");
-        //hProxy.invoke("SendRequestMobile", "Sofija");
         $("#requestChatBtn").val("Request sent");
         console.log("request sent");
     });
-
 
 }
 
@@ -354,6 +361,7 @@ function openChatEndUser(data, requestId) {
             $(this).val("");
             return false;
         }
+        //ako e end user!!!
         $("div#" + data + " #discardChat").hide();
         $("div#" + data + " #createFnol").hide();
     });
@@ -361,6 +369,7 @@ function openChatEndUser(data, requestId) {
 
 function openChat(data, requestId) {
     console.log("moeto username: " + localStorage.getItem("username"));
+    console.log("misterious data: " + data);
     var $div = $('div[requestId = ' + requestId + '] .portlet-body');
     console.log("divooo " + $div);
     //if ($div) {
@@ -386,12 +395,12 @@ function openChat(data, requestId) {
 
     $("div#" + data + " #discardChat").click(function (e) {
         var requestId = $("div#" + data).attr("requestid");
-        hProxy.invoke("DiscardMessage", $("#Sofija").attr("requestid"));
+        hProxy.invoke("DiscardMessage", requestId);
     });
 
     $("div#" + data + " #createFnol").click(function (e) {
         var requestId = $("div#" + data).attr("requestid");
-        hProxy.invoke("CreateFnol", $("#Sofija").attr("requestid"));
+        hProxy.invoke("CreateFnol", requestId);
     });
 
     $("div#" + data + " #close").click(function (e) {
@@ -450,27 +459,122 @@ function openChat(data, requestId) {
     });
 }
 
+function openChatU(data, requestId, isAdmin) {
+    console.log("moeto username: " + localStorage.getItem("username"));
+    var $div = $('div[requestId = ' + requestId + '] .portlet-body');
+    console.log("divooo " + $div);
+    //if ($div) {
+
+    //    $('div[requestId = ' + requestId + '] textarea').focus();
+    //    return;
+    //}
+    var chat = $("#chat_template").html();
+    $("#chats").append(chat);
+    $("#none").attr("requestId", requestId);
+    $("#none").attr("id", data);
+
+
+    var offset = 260 * openChats + 2 * openChats;
+    $("div#" + data).css("right", offset + "px");
+
+    $("div#" + data + " .portlet-title>h4").text(data);
+    $("div#" + data + " textarea").focus();
+    var children = $("div#" + data + " .row").children();
+    //children[children.length - 1].scrollIntoView();
+    $("div#" + data + " textarea").attr("id", requestId);
+    openChats++;
+
+    $("div#" + data + " #discardChat").click(function (e) {
+        var requestId = $("div#" + data).attr("requestid");
+        hProxy.invoke("DiscardMessage", $("#"+data).attr("requestid",requestId));
+    });
+
+    $("div#" + data + " #createFnol").click(function (e) {
+        var requestId = $("div#" + data).attr("requestid");
+        hProxy.invoke("CreateFnol", $("#Sofija").attr("requestid"));
+    });
+
+    $("div#" + data + " #close").click(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).parent().parent().parent().parent().remove();
+        openChats--;
+        shiftToRight();
+    });
+
+
+    $("div#" + data + " textarea").keydown(function (e) {
+        if (e.which === 13) {
+
+            var message = $(this).val();
+            if (message === "")
+                return false;
+
+            hProxy.invoke("SendMessage", data, message, requestId);
+
+            var last = $("div#" + data + " .row")[$("div#" + data + " .row").length - 1];
+
+            var $div = $("div#" + data + " .portlet-body");
+
+            if (last !== undefined && $(last).hasClass(data.from)) {
+                var p = "<p>" + data.message + "</p>";
+                $(last).children().children().children().append(p);
+            }
+            else {
+
+                var date = new Date();
+                var row = "<div class='row " + localStorage.getItem("username") + "'>" +
+                    "<div class='col-lg-12'>" +
+                    "<div class='media'>" +
+                    "<div class='media-body'>" +
+                    "<h4 class='media-heading'>" +
+                    localStorage.getItem("username") +
+                    "<span class='small pull-right'>" + date.getHours() + ":" + date.getMinutes() + "</span>" +
+                    "</h4>" +
+                    "<p>" +
+                    message +
+                    "</p>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>" +
+                    "<hr/>";
+                $div.append(row);
+            }
+            children = $div.children();
+            children[children.length - 1].scrollIntoView();
+            $(this).val("");
+            return false;
+        }
+
+        if(!isAdmin)
+        {
+            $("div#" + data + " #discardChat").hide();
+            $("div#" + data + " #createFnol").hide();
+        }
+    });
+}
+
 
 //function isChatOpened(sender) {
     //    return $("div#" + sender).length;
     //}
 function pushMessageToChat(messageDTO) {
-    var isAdmin = messageDTO.Admin != undefined && messageDTO.Admin;
+    var isAdmin = messageDTO.Admin !== undefined && messageDTO.Admin;
     var sender = messageDTO.From;
     var requestId = messageDTO.RequestId;
     var message = messageDTO.Message;
     console.log("dali e admin: ", isAdmin);
-   // console.log("moeto username: " + localStorage.getItem("username"));
     if (!$("div#" + sender).length) {
         if (isAdmin) {
             openChatEndUser(sender, requestId);
-            getLastTenMessages(data.requestId);
+            getLastTenMessages(requestId);
 
 
         }
         else {
             openChat(sender, requestId);
-            getLastTenMessages(data.requestId);
+            getLastTenMessages(requestId);
         }
         return;
     }
@@ -484,7 +588,7 @@ function pushMessageToChat(messageDTO) {
         $(last).children().children().children().append(p);
     } else {
         var date = new Date();
-        var message = "<div class='row " + sender + "'>" +
+         message = "<div class='row " + sender + "'>" +
             "<div class='col-lg-12'>" +
             "<div class='media'>" +
             "<div class='media-body " + sender + "'>" +

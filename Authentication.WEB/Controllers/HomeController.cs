@@ -7,7 +7,6 @@ using System;
 namespace InsuredTraveling.Controllers
 {
     [RoutePrefix("Home")]
-    //[Authorize(Roles ="")]
     [SessionExpire]
     public class HomeController : Controller
     {  

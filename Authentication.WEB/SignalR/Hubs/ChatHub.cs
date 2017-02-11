@@ -45,7 +45,7 @@ namespace InsuredTraveling.Hubs
                 Clients.Group(username).MessageRequest(response);
 
                 var chatsActive = _db.chat_requests.Where(x => x.Accepted == true && x.Accepted_by.Equals(username) && x.discarded == false
-                                                        && x.fnol_created == false).ToList();
+                                                        && x.fnol_created == false).OrderByDescending(x => x.Datetime_request).Take(5).ToList();
                 JObject messages = new JObject();
 
                 JArray messageList = new JArray();
@@ -311,18 +311,17 @@ namespace InsuredTraveling.Hubs
                 JObject enduserResponse = new JObject();
                 enduserResponse.Add("requestId", request.ID);
                 enduserResponse.Add("message", "Your request has been discarded. First notice of loss is not created.");
-
                 Clients.Group(request.Requested_by).DiscardedMessage(enduserResponse);
-
-
                 adminResponse.Add("requestId", request.ID);
                 adminResponse.Add("discarded", "true");
                 adminResponse.Add("message", "You discarded the request. First notice of loss is not created.");
             }
-
-            adminResponse.Add("requestId", request.ID);
-            adminResponse.Add("discarded", "false");
-            adminResponse.Add("message", "You can't discard this chat. First notice of loss was created.");
+            else
+            {
+                adminResponse.Add("requestId", request.ID);
+                adminResponse.Add("discarded", "false");
+                adminResponse.Add("message", "You can't discard this chat. First notice of loss was created.");
+            }            
             Clients.Group(request.Accepted_by).Discarded(adminResponse);
         }
 

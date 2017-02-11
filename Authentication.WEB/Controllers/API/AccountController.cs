@@ -14,6 +14,7 @@ using System.Net.Http;
 
 namespace InsuredTraveling.Controllers
 {
+    [Authorize]
     [System.Web.Http.RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
