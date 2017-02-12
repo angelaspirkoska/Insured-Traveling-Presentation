@@ -183,9 +183,9 @@ namespace InsuredTraveling.Controllers
         [HttpPost]
         [System.Web.Http.AllowAnonymous]
         [Route("ActivateAccount")]
-        public IHttpActionResult ActivateAccount(string username)
+        public IHttpActionResult ActivateAccount(Username username)
         {
-             _repo.ActivateAccount(username);
+             _repo.ActivateAccount(username.username);
             return Ok();
         }
         
