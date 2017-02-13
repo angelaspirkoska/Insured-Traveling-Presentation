@@ -20,9 +20,10 @@ namespace InsuredTraveling.Filters
             foreach (var role in allowedroles)
             {
                 var user = httpContext.User;
-                var selectedUser = context.aspnetusers.Single(m => m.UserName == user.Identity.Name);
-                if (selectedUser == null)
+                var aspnetuser = context.aspnetusers.Where(m => m.UserName == user.Identity.Name);
+                if (aspnetuser.Count() == 0)
                     return false;
+                var selectedUser = aspnetuser.Single();
                 if(selectedUser.aspnetroles.Count == 0)
                 {
                     authorize = false;
@@ -41,7 +42,10 @@ namespace InsuredTraveling.Filters
         {
             bool authorize = false;
             var user = System.Web.HttpContext.Current.User;
-            var selectedUser = context.aspnetusers.Where(m => m.UserName == user.Identity.Name).Single();
+            var aspnetuser = context.aspnetusers.Where(m => m.UserName == user.Identity.Name);
+            if (aspnetuser.Count() == 0)
+                return authorize;
+            var selectedUser = aspnetuser.Single();            
             if (selectedUser == null)
                 return false;
             if (selectedUser.aspnetroles.Count == 0)
