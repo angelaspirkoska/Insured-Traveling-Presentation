@@ -861,4 +861,85 @@
   <data name="Search_All" xml:space="preserve">
     <value>Сите</value>
   </data>
+  <data name="PolicyPrint_AdditionalPremium" xml:space="preserve">
+    <value>Доплатоци</value>
+  </data>
+  <data name="PolicyPrint_Address" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="PolicyPrint_Agency" xml:space="preserve">
+    <value>Агенција</value>
+  </data>
+  <data name="PolicyPrint_BasicPremium" xml:space="preserve">
+    <value>Основна премија</value>
+  </data>
+  <data name="PolicyPrint_Code" xml:space="preserve">
+    <value>Код</value>
+  </data>
+  <data name="PolicyPrint_Currency" xml:space="preserve">
+    <value>ден.</value>
+  </data>
+  <data name="PolicyPrint_DateOfBirth" xml:space="preserve">
+    <value>Дата на раѓање</value>
+  </data>
+  <data name="PolicyPrint_DateOfInssuance" xml:space="preserve">
+    <value>Датум на издавање</value>
+  </data>
+  <data name="PolicyPrint_Deductible" xml:space="preserve">
+    <value>Франшиза</value>
+  </data>
+  <data name="PolicyPrint_Insured" xml:space="preserve">
+    <value>ОСИГУРЕНИК</value>
+  </data>
+  <data name="PolicyPrint_InsuredDays" xml:space="preserve">
+    <value>Осигурани денови</value>
+  </data>
+  <data name="PolicyPrint_Insurer" xml:space="preserve">
+    <value>ОСИГУРУВАЧ</value>
+  </data>
+  <data name="PolicyPrint_Name" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="PolicyPrint_Number" xml:space="preserve">
+    <value>Број на полиса</value>
+  </data>
+  <data name="PolicyPrint_NumberOfInsured" xml:space="preserve">
+    <value>Број на осигуреници</value>
+  </data>
+  <data name="PolicyPrint_NumberOfTrips" xml:space="preserve">
+    <value>Број на патувања</value>
+  </data>
+  <data name="PolicyPrint_PassportNo" xml:space="preserve">
+    <value>Бр. на пасош</value>
+  </data>
+  <data name="PolicyPrint_PlaceOfInssuance" xml:space="preserve">
+    <value>Место на издавање</value>
+  </data>
+  <data name="PolicyPrint_PolicyHolder" xml:space="preserve">
+    <value>ДОГОВАРАЧ</value>
+  </data>
+  <data name="PolicyPrint_PolicyInfo" xml:space="preserve">
+    <value>ИНФОРМАЦИИ ЗА ПОЛИСАТА</value>
+  </data>
+  <data name="PolicyPrint_PremiumInfo" xml:space="preserve">
+    <value>ИНФОРМАЦИИ ЗА ПРЕМИЈАТА</value>
+  </data>
+  <data name="PolicyPrint_SSN" xml:space="preserve">
+    <value>ЕМБГ</value>
+  </data>
+  <data name="PolicyPrint_Title" xml:space="preserve">
+    <value>ПОЛИСА ЗА ПАТНИЧКО ОСИГУРУВАЊЕ</value>
+  </data>
+  <data name="PolicyPrint_TotalPremium" xml:space="preserve">
+    <value>Вкупна премија</value>
+  </data>
+  <data name="PolicyPrint_TypeOfPolicy" xml:space="preserve">
+    <value>Вид на полиса</value>
+  </data>
+  <data name="PolicyPrint_ValidFrom" xml:space="preserve">
+    <value>Започнува на</value>
+  </data>
+  <data name="PolicyPrint_ValidUntil" xml:space="preserve">
+    <value>Завршува на</value>
+  </data>
 </root>

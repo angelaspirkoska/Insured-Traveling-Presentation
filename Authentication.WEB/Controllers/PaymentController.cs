@@ -55,6 +55,9 @@ namespace Authentication.WEB.Controllers
             model.hashbytes = System.Text.Encoding.GetEncoding("ISO-8859-9").GetBytes(model.hashstr);
             model.inputbytes = sha.ComputeHash(model.hashbytes);
             model.hash = Convert.ToBase64String(model.inputbytes); //Hash value used for validation
+
+            var a = model.Pat.policy_additional_charge.ToArray().ElementAt(0);
+           
             return View(model);
         }
 
@@ -102,7 +105,11 @@ namespace Authentication.WEB.Controllers
             model.inputbytes = sha.ComputeHash(model.hashbytes);
 
             model.hash = Convert.ToBase64String(model.inputbytes); //Hash value used for validation
-
+            var retainingRisks = model.Pat.retaining_risk.retaining_risk_name.ToArray();
+            model.retaining_risk = "No Deductible";
+            model.retaining_risk_mk = "Без франшиза";
+            model.retaining_risk = retainingRisks[0].name;
+            model.retaining_risk_mk = retainingRisks[1].name;
             model.Pat = policy;
             return View(model);
         }

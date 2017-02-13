@@ -10,6 +10,8 @@ namespace InsuredTraveling.Models
         public insured mainInsured { get; set; }
         public string additionalCharge1 { get; set; }
         public string additionalCharge2 { get; set; }
+        public string retaining_risk_mk { get; set; }
+        public string retaining_risk { get; set; }
         public string clientId { get; set; }
         public string amount { get; set; }
         public string oid { get; set; }

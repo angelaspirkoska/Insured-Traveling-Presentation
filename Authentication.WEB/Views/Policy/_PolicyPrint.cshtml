@@ -1,11 +1,12 @@
 ﻿@model InsuredTraveling.Models.PaymentModel
-@{ bool? individual = Model.Pat.Travel_Insurance_TypeID == 1;
-   bool? group = Model.Pat.Travel_Insurance_TypeID == 2;
-   bool? family = Model.Pat.Travel_Insurance_TypeID == 3;
+@{ 
+    bool? individual = Model.Pat.Travel_Insurance_TypeID == 1;
+    bool? group = Model.Pat.Travel_Insurance_TypeID == 2;
+    bool? family = Model.Pat.Travel_Insurance_TypeID == 3;
 }
-<div class="container">
+@*<div class="container">
     <div class="row">
-        <div class="col-xs-6">Полиса број @Model.Pat.Policy_Number</div>
+        <div class="col-xs-6"> @Model.Pat.Policy_Number</div>
         <div class="col-xs-6">
             <div class="row">
                 <div class="col-xs-4">
@@ -21,31 +22,64 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-4 borderedContent" style="height: 65px; padding-top: 2px;">
-                 
-                    @if(individual == true) {   <input style="margin: 0;" checked type="checkbox" readonly /><span style="margin-left: 2px;" class="smallFont">Individual</span><br />  }
-                   else { <input style="margin: 0;" type="checkbox" /><span style="margin-left: 2px;" class="smallFont">Individual</span><br /> }
+                <div class="col-xs-4 borderedContent" style="height: 65px; padding-top: 2px;">                 
+                    @if(individual == true) {
+                        <input style="margin: 0;" checked type="checkbox" readonly />
+                        <span style="margin-left: 2px;" class="smallFont">Individual
+                        </span><br />  
+                    }
+                    else {
+                        <input style="margin: 0;" type="checkbox" />
+                        <span style="margin-left: 2px;" class="smallFont">Individual
+                        </span><br /> }
                     @if (group == true)
                     {
-                        <input style="margin: 0;" type="checkbox" readonly checked /><span style="margin-left: 2px;" class="smallFont">Group</span><br /> }
+                        <input style="margin: 0;" type="checkbox" readonly checked />
+                        <span style="margin-left: 2px;" class="smallFont">Group
+                        </span><br /> }
                     else
-                    { <input style="margin: 0;" type="checkbox" readonly /><span style="margin-left: 2px;" class="smallFont">Group</span><br />
+                    { 
+                        <input style="margin: 0;" type="checkbox" readonly />
+                        <span style="margin-left: 2px;" class="smallFont">Group
+                        </span><br />
                     }
                     @if (family == true)
                     {
-                        <input style="margin: 0;" type="checkbox" readonly checked /><span style="margin-left: 2px;" class="smallFont">Family</span> }
+                        <input style="margin: 0;" type="checkbox" readonly checked />
+                        <span style="margin-left: 2px;" class="smallFont">Family
+                        </span> 
+                    }
                     else
-                    { <input style="margin: 0;" type="checkbox" readonly /><span style="margin-left: 2px;" class="smallFont">Family</span> }
+                    {   <input style="margin: 0;" type="checkbox" readonly />
+                        <span style="margin-left: 2px;" class="smallFont">Family
+                        </span> }
                 </div>
                 <div class="col-xs-4 borderedContent" style="height: 65px; padding-top: 2px;">
-                    @{ bool? singleTrip = Model.Pat.Travel_NumberID==1, MultiTrip = Model.Pat.Travel_NumberID == 2;}
-                    @if(singleTrip == true) {   <input style="margin: 0;" type="checkbox" checked /><span style="margin-left: 2px;" class="smallFont">Single trip</span><br />                         }
+                    @{ 
+                        bool? singleTrip = Model.Pat.Travel_NumberID==1, MultiTrip = Model.Pat.Travel_NumberID == 2;
+                    }
+                    @if(singleTrip == true) {
+                        <input style="margin: 0;" type="checkbox" checked />
+                        <span style="margin-left: 2px;" class="smallFont">Single trip
+                        </span><br />                         
+                    }
                     else {
-                        <input style="margin: 0;" type="checkbox" readonly /><span style="margin-left: 2px;" class="smallFont">Single trip</span><br /> }
+                        <input style="margin: 0;" type="checkbox" readonly />
+                        <span style="margin-left: 2px;" class="smallFont">Single trip
+                        </span><br /> 
+                    }
                     @if (MultiTrip == true)
-                    {  <input style="margin: 0;" type="checkbox" readonly checked /><span style="margin-left: 2px;" class="smallFont">Multi trip</span> }
+                    {
+                        <input style="margin: 0;" type="checkbox" readonly checked />
+                        <span style="margin-left: 2px;" class="smallFont">Multi trip
+                        </span> 
+                    }
                     else
-                 {   <input style="margin: 0;" type="checkbox" readonly /><span style="margin-left: 2px;" class="smallFont">Multi trip</span> }
+                    {
+                        <input style="margin: 0;" type="checkbox" readonly />
+                        <span style="margin-left: 2px;" class="smallFont">Multi trip
+                        </span> 
+                    }
                 </div>
             </div>
         </div>
@@ -116,8 +150,8 @@
                         </div>
                     </div>
                 }
-              @*  @if (group == true)*@
-                @*{*@
+              @*  @if (group == true)
+                {
                     <div class="col-xs-6">
                         <div class="row">
                             <div class="col-xs-12 borderedContent" style="height: 75px;">
@@ -152,7 +186,7 @@
                             </div>
                         </div>
                     </div>
-                @*}*@
+                @*}
             </div>
         </div>
         <div class="col-xs-3">
@@ -202,4 +236,161 @@
             </p>
         </div>
     </div>
+</div>*@
+<!-- New type of print version for the policy-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            Тип на покритие / Coverage type:
+            @Model.Pat.policy_type.type
+        </div>
+        <div class="pull-right">
+           Број на полиса / Policy number:
+            <span class="policy-number">@Model.Pat.Policy_Number</span>             
+        </div>
+        <div class="col-md-12">
+            <h3 class="text-center policy-print-title">ПОЛИСА ЗА ПАТНИЧКО ОСИГУРУВАЊЕ <br />
+              TRAVEL INSURANCE POLICY
+            </h3>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12 text-center policy-print-title">ОСИГУРУВАЧ / INSURER</div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-5">
+            <p>Агенција / Agency:</p>
+        </div>
+        <div class="col-md-6">
+            <p>INSURED TRAVELING</p>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12 text-center policy-print-title">ДОГОВАРАЧ / POLICY HOLDER</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-5">
+            <p>Име / Name:</p>
+        </div>
+        <div class="col-md-6"><p> @Model.Pat.insured.Name @Model.Pat.insured.Lastname</p></div>
+    </div>   
+    <hr />
+    <div class="row">
+        <div class="col-md-12 text-center policy-print-title">ОСИГУРЕНИК / INSURED</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-5">
+            <p>Име / Name:</p>
+            <p>Адреса / Address:</p>
+            <p>Бр. на пасош / Passport no:</p>
+            <p>ЕМБГ / Social Security no:</p>
+            <p>Датум на раѓање / Date of birth: </p>
+        </div>        
+        <div class="col-md-6">
+            @if (Model.mainInsured != null)
+            {
+                <p class="">@Model.mainInsured.Name.ToString()  @Model.mainInsured.Lastname.ToString() </p>
+                <p class="">@Model.mainInsured.Address</p>
+                <p class="">@Model.mainInsured.Passport_Number_IdNumber</p>
+                <p class="">@Model.mainInsured.SSN</p>
+                <p class="">@Model.mainInsured.DateBirth.ToShortDateString() </p>
+            }
+        </div>        
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12 text-center policy-print-title">ИНФОРМАЦИИ ЗА ПОЛИСАТА / POLICY INFORMATION</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-5">
+            <p>Датум на издавање / Date of issuance:</p>
+            <p>Место на издавање / Place of issuance:</p>
+            <p>Вид на полиса / Type of policy: </p>
+            <p>Број на осигуреници / Number of insured:</p> @*samo ako e semejna polisa*@
+            <p>Број на патувања / No. of trips: </p>
+            <p>Започнува на / Valid from: </p>
+            <p>Завршува на / Valid until:	</p>
+            <p>Осигурани денови / Insured days: </p>
+        </div>
+        <div class="col-md-6">
+            @if (Model.mainInsured != null)
+            {
+                <p class="">@Model.Pat.Start_Date.ToString().Substring(0, 10)</p>
+                <p class=""> Р. Македонија / R. Macedonia </p>
+                if (individual == true)
+                {
+                    <p class="">ИНДИВИДУАЛНА / INDIVIUAL</p>
+                }
+                else if (group == true)
+                {
+                    <p class="">ГРУПНА / GROUP</p>
+                }
+                else if (family == true)
+                {
+                    <p class="">СЕМЕЈНА / FAMILY</p>
+                }
+            }
+            @if (Model.mainInsured != null)
+            {
+                if (family == true)
+                {
+                    <p class=""> 4 </p>
+                }
+                else
+                {
+                    <p class=""> 1 </p>
+                }
+            }
+            @{
+                bool? SingleTrip = Model.Pat.Travel_NumberID == 1, MultiTrip = Model.Pat.Travel_NumberID == 2;
+            }
+            @if (SingleTrip == true)
+            { 
+                <p>Едно Патување / Single Trip</p>
+            }
+            else if (MultiTrip == true)
+            {
+                <p>Повеќе патувања / Multiple Trips</p>
+            }   
+                <p class="">@Model.Pat.Start_Date.ToString().Substring(0, 10)</p>
+                <p class="">@Model.Pat.End_Date.ToString().Substring(0, 10)</p>
+                <p class="">@Model.Pat.Valid_Days</p>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12 text-center policy-print-title">ИНФОРМАЦИИ ЗА ПРЕМИЈАТА / PREMIUM INFORMATION</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-5">
+            <p>Основна премија / Basic Premium:</p>
+            <p>Доплаток 1 / Additional Premium 1:</p>
+            <p>Доплаток 2 / Additional Premium 2:</p>
+            <p>Франшиза / Deductible: </p>
+            <p>Вкупна премија  / Total premium:</p>
+        </div>
+        <div class="col-md-6">
+            <p> @Model.Pat.Total_Premium ден. / den. </p>
+            <p class="">@Model.additionalCharge1</p>
+            <p class="">@Model.additionalCharge2</p>
+            <p> @Model.retaining_risk_mk / @Model.retaining_risk </p>
+            <p class="" style="font-weight: bold;">@Model.Pat.Total_Premium ден. / den.</p>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12 small">
+            *ДДВ: Согласно ЗДДВ, член 23, точка 6, дејноста осигурување е ослободена од плаќање данок без право на одбиток на претходно платен данок. <br/>
+            **Осигурувањето важи во сите земји. / Valid for all countries. <br/>
+            ***Овластувам болница, лекар или друго лице кое ме придружува или испитува, да побара од Осигурителот или негов претставник, податоци за мојата здравствена состојба и лекување. Го овластувам Осигурителот да побара податоци за мојата здравствена состојба и лекување, во врска со договорот за осигурување. Го ослободувам од обврската за чување на професионална тајна и ги овластувам здравствените институции да ги дадат бараните податоци на Осигурителот.
+        </div>
+    </div>
+    <hr/>
 </div>

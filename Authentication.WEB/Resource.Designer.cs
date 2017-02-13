@@ -1438,6 +1438,249 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Additional Premium.
+        /// </summary>
+        public static string PolicyPrint_AdditionalPremium {
+            get {
+                return ResourceManager.GetString("PolicyPrint_AdditionalPremium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string PolicyPrint_Address {
+            get {
+                return ResourceManager.GetString("PolicyPrint_Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Agency.
+        /// </summary>
+        public static string PolicyPrint_Agency {
+            get {
+                return ResourceManager.GetString("PolicyPrint_Agency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Basic Premium.
+        /// </summary>
+        public static string PolicyPrint_BasicPremium {
+            get {
+                return ResourceManager.GetString("PolicyPrint_BasicPremium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Code.
+        /// </summary>
+        public static string PolicyPrint_Code {
+            get {
+                return ResourceManager.GetString("PolicyPrint_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to den..
+        /// </summary>
+        public static string PolicyPrint_Currency {
+            get {
+                return ResourceManager.GetString("PolicyPrint_Currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date of Birth.
+        /// </summary>
+        public static string PolicyPrint_DateOfBirth {
+            get {
+                return ResourceManager.GetString("PolicyPrint_DateOfBirth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date of Inssuance.
+        /// </summary>
+        public static string PolicyPrint_DateOfInssuance {
+            get {
+                return ResourceManager.GetString("PolicyPrint_DateOfInssuance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deductible.
+        /// </summary>
+        public static string PolicyPrint_Deductible {
+            get {
+                return ResourceManager.GetString("PolicyPrint_Deductible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INSURED.
+        /// </summary>
+        public static string PolicyPrint_Insured {
+            get {
+                return ResourceManager.GetString("PolicyPrint_Insured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insured Days.
+        /// </summary>
+        public static string PolicyPrint_InsuredDays {
+            get {
+                return ResourceManager.GetString("PolicyPrint_InsuredDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INSURER.
+        /// </summary>
+        public static string PolicyPrint_Insurer {
+            get {
+                return ResourceManager.GetString("PolicyPrint_Insurer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string PolicyPrint_Name {
+            get {
+                return ResourceManager.GetString("PolicyPrint_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Number.
+        /// </summary>
+        public static string PolicyPrint_Number {
+            get {
+                return ResourceManager.GetString("PolicyPrint_Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of Insured.
+        /// </summary>
+        public static string PolicyPrint_NumberOfInsured {
+            get {
+                return ResourceManager.GetString("PolicyPrint_NumberOfInsured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of Trips.
+        /// </summary>
+        public static string PolicyPrint_NumberOfTrips {
+            get {
+                return ResourceManager.GetString("PolicyPrint_NumberOfTrips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passport no.
+        /// </summary>
+        public static string PolicyPrint_PassportNo {
+            get {
+                return ResourceManager.GetString("PolicyPrint_PassportNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place of Inssuance.
+        /// </summary>
+        public static string PolicyPrint_PlaceOfInssuance {
+            get {
+                return ResourceManager.GetString("PolicyPrint_PlaceOfInssuance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Holder.
+        /// </summary>
+        public static string PolicyPrint_PolicyHolder {
+            get {
+                return ResourceManager.GetString("PolicyPrint_PolicyHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to POLICY INFORMATION.
+        /// </summary>
+        public static string PolicyPrint_PolicyInfo {
+            get {
+                return ResourceManager.GetString("PolicyPrint_PolicyInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PREMIUM INFORMATION.
+        /// </summary>
+        public static string PolicyPrint_PremiumInfo {
+            get {
+                return ResourceManager.GetString("PolicyPrint_PremiumInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Social Security no.
+        /// </summary>
+        public static string PolicyPrint_SSN {
+            get {
+                return ResourceManager.GetString("PolicyPrint_SSN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TRAVEL INSURANCE POLICY.
+        /// </summary>
+        public static string PolicyPrint_Title {
+            get {
+                return ResourceManager.GetString("PolicyPrint_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TotalPremium.
+        /// </summary>
+        public static string PolicyPrint_TotalPremium {
+            get {
+                return ResourceManager.GetString("PolicyPrint_TotalPremium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type of Policy.
+        /// </summary>
+        public static string PolicyPrint_TypeOfPolicy {
+            get {
+                return ResourceManager.GetString("PolicyPrint_TypeOfPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid from.
+        /// </summary>
+        public static string PolicyPrint_ValidFrom {
+            get {
+                return ResourceManager.GetString("PolicyPrint_ValidFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid until.
+        /// </summary>
+        public static string PolicyPrint_ValidUntil {
+            get {
+                return ResourceManager.GetString("PolicyPrint_ValidUntil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Need assistance? Request a chat!.
         /// </summary>
         public static string RequestChat {
