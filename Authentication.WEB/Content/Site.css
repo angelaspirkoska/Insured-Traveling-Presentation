@@ -149,6 +149,8 @@ input:focus { border: 1px dotted black; }
 input.error { border: 1px dotted red; }
 form.cmxform .gray * { color: gray; }
 
+/*====================================== Customized CSS ====================================================*/
+
 .borderedContent {
     border: solid 1px #646464;
 }
@@ -247,6 +249,8 @@ form.cmxform .gray * { color: gray; }
     -moz-transform: rotate(-90deg); 
 	-o-transform: rotate(-90deg); 
 	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    border: none;
+    background-color: #149c82;
     display: block; 
     text-align:center;
     font-weight: bold;
@@ -256,7 +260,20 @@ form.cmxform .gray * { color: gray; }
     text-decoration: none; 				
 }
 
-/*====================================== Customized CSS ====================================================*/
+.heading-padding {
+    margin: 43px 0px 33px 0px !important;
+}
+
+.alert-position {
+    margin-top:38px;
+}
+
+.signup-btn-style {
+    margin-left: 20px;
+    width: 91%;
+    height: 70px;
+    font-weight: bold;
+}
 
 .nav-material-design {
     -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);

@@ -942,4 +942,16 @@
   <data name="PolicyPrint_ValidUntil" xml:space="preserve">
     <value>Завршува на</value>
   </data>
+  <data name="SignUp_Step1" xml:space="preserve">
+    <value>Чекор 1</value>
+  </data>
+  <data name="SignUp_Step2" xml:space="preserve">
+    <value>Чекор 2</value>
+  </data>
+  <data name="SignUp_Continue" xml:space="preserve">
+    <value>Продолжи</value>
+  </data>
+  <data name="SignUp_Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
 </root>

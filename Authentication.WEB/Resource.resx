@@ -942,4 +942,16 @@
   <data name="PolicyPrint_ValidUntil" xml:space="preserve">
     <value>Valid until</value>
   </data>
+  <data name="SignUp_Step1" xml:space="preserve">
+    <value>Step 1</value>
+  </data>
+  <data name="SignUp_Step2" xml:space="preserve">
+    <value>Step 2</value>
+  </data>
+  <data name="SignUp_Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="SignUp_Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
 </root>

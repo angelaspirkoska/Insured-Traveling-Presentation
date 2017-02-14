@@ -2356,6 +2356,42 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string SignUp_Back {
+            get {
+                return ResourceManager.GetString("SignUp_Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        public static string SignUp_Continue {
+            get {
+                return ResourceManager.GetString("SignUp_Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 1.
+        /// </summary>
+        public static string SignUp_Step1 {
+            get {
+                return ResourceManager.GetString("SignUp_Step1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 2.
+        /// </summary>
+        public static string SignUp_Step2 {
+            get {
+                return ResourceManager.GetString("SignUp_Step2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address.
         /// </summary>
         public static string User_Address {
