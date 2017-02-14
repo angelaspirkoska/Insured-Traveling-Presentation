@@ -6,6 +6,8 @@ using InsuredTraveling.Filters;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using InsuredTraveling.DTOs;
+using InsuredTraveling.DTOs.SignalR;
+using System.Collections.Generic;
 
 namespace InsuredTraveling.Hubs
 {
@@ -25,91 +27,26 @@ namespace InsuredTraveling.Hubs
         {
             RoleAuthorize r = new RoleAuthorize();
             var username = System.Web.HttpContext.Current.User.Identity.Name;
+            List<LastMessagesDTO> lastMessages = new List<LastMessagesDTO>();
             if (r.IsUser("admin"))
             {
                 Groups.Add(Context.ConnectionId, "Admins");
                 Groups.Add(Context.ConnectionId, username);
 
-                var responseList = _db.chat_requests.Where(x => x.Accepted == false).Select(x => new
-                {
-                    from = x.Requested_by,
-                    timestamp = x.Datetime_request.ToString()
-                }).ToArray();
-
-                JObject response = new JObject();
-
-                response.Add("numberRequests", responseList.Length);
-
-                response.Add("data", JArray.FromObject(responseList));
-
-                Clients.Group(username).MessageRequest(response);
-
-                var chatsActive = _db.chat_requests.Where(x => x.Accepted == true && x.Accepted_by.Equals(username) && x.discarded == false
-                                                        && x.fnol_created == false).OrderByDescending(x => x.Datetime_request).Take(5).ToList();
-                JObject messages = new JObject();
-
-                JArray messageList = new JArray();
-                foreach (chat_requests chat in chatsActive)
-                {
-                    var messageLast = _db.messages.Where(x => x.ConversationID == chat.ID).OrderByDescending(x => x.Timestamp).FirstOrDefault();
-                    if (messageLast != null)
-                    {
-                        JObject temp = new JObject();
-                        temp.Add("requestId", chat.ID);
-                        temp.Add("from", messageLast.from_username);
-                        temp.Add("timestamp", messageLast.Timestamp);
-                        temp.Add("messageId", messageLast.ID);
-                        temp.Add("message", messageLast.Text);
-                        temp.Add("admin", "true");
-                        temp.Add("ichatwith", chat.Requested_by);
-                        messageList.Add(temp);
-                    }
-
-                }
-                messages.Add("messages", messageList);
-                Clients.Group(username).ActiveMessages(messages);
+                Clients.Group(username).MessageRequest(GetActiveRequests());
+                lastMessages = GetLastMessages(username, true);
+                
             }
             else if (r.IsUser("end user"))
             {
-                //Groups.Add(Context.ConnectionId, "Admins");
                 Groups.Add(Context.ConnectionId, username);
-
-                var chatsActive = _db.chat_requests.Where(x => x.Accepted == true && x.Requested_by.Equals(username) && x.discarded == false
-                                                     && x.fnol_created == false).ToList();
-                JObject messages = new JObject();
-                JArray messageList = new JArray();
-                foreach (chat_requests chat in chatsActive)
-                {
-                    var messageLast = _db.messages.Where(x => x.ConversationID == chat.ID).OrderByDescending(x => x.Timestamp).FirstOrDefault();
-
-
-
-                    if (messageLast != null)
-                    {
-                        JObject temp = new JObject();
-                        temp.Add("requestId", chat.ID);
-                        temp.Add("from", messageLast.from_username);
-                        temp.Add("timestamp", messageLast.Timestamp);
-                        temp.Add("messageId", messageLast.ID);
-                        temp.Add("message", messageLast.Text);
-                        temp.Add("ichatwith", chat.Accepted_by);
-                        temp.Add("admin", "true");
-                        messageList.Add(temp);
-                    }
-
-                }
-                messages.Add("messages", messageList);
-                Clients.Group(username).ActiveMessages(messages);
-
+                lastMessages = GetLastMessages(username, false);
             }
+
+            Clients.Group(username).ActiveMessages(lastMessages);
+
             return base.OnConnected();
         }
-
-        public void OnConnectedMobile(string username)
-        {
-            Groups.Add(Context.ConnectionId, username);
-        }
-
         public void SendRequest()
         {
             var username = Context.User.Identity.Name;
@@ -138,79 +75,19 @@ namespace InsuredTraveling.Hubs
                 }
                 finally
                 {
-
+                    Clients.Group("Admins").MessageRequest(GetActiveRequests());
                 }
-                var numberRequests = _db.chat_requests.Where(x => x.Accepted == false).ToList();
-
-                var responseAdmins = new JObject();
-                responseAdmins.Add("numberRequests", numberRequests.Count);
-                var array = new JArray();
-                foreach (chat_requests chatRequest in numberRequests)
-                {
-                    array.Add(new JObject(new JProperty("from", chatRequest.Requested_by), new JProperty("timestamp", chatRequest.Datetime_request.ToString())));
-                }
-
-                responseAdmins.Add("data", array);
-                Clients.Group("Admins").MessageRequest(responseAdmins);
+                
+               
             }
             else
             {
                 requestId = listRequestsByUser.Last().ID;
             }
-            JObject requestIdJson = new JObject();
-            requestIdJson.Add("requestId", requestId);
-            Clients.Group(username).RequestId(requestId);
+            BaseRequestIdDTO RequestIdDTO = new BaseRequestIdDTO();
+            RequestIdDTO.RequestId = requestId;
+            Clients.Group(username).RequestId(RequestIdDTO);
         }
-
-        public void SendRequestMobile(string username)
-        {
-            int requestId = 0;
-            var listRequestsByUser = _db.chat_requests.Where(x => x.Requested_by == username && x.Accepted == false).ToList();
-
-            if (listRequestsByUser.Count == 0)
-            {
-
-                var request = new chat_requests
-                {
-                    Requested_by = username,
-                    fnol_created = false,
-                    discarded = false
-                };
-
-                try
-                {
-                    var a = _db.chat_requests.Add(request);
-                    _db.SaveChanges();
-                    requestId = a.ID;
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.ToString());
-                }
-                var numberRequests = _db.chat_requests.Where(x => x.Accepted == false).ToList();
-
-                var responseAdmins = new JObject();
-                responseAdmins.Add("numberRequests", numberRequests.Count);
-                var array = new JArray();
-                foreach (chat_requests chatRequest in numberRequests)
-                {
-                    array.Add(new JObject(new JProperty("from", chatRequest.Requested_by), new JProperty("timestamp", chatRequest.Datetime_request.ToString())));
-                }
-
-                responseAdmins.Add("data", array);
-                Clients.Group("Admins").MessageRequest(responseAdmins);
-            }
-            else
-            {
-                requestId = listRequestsByUser.Last().ID;
-            }
-            var requestIdDTO = new RequestIdDTO
-            {
-                RequestId = requestId
-            };
-            Clients.Group(username).RequestId(requestIdDTO);
-        }
-
         public void AcceptRequest(string enduser)
         {
             var username = Context.User.Identity.Name;
@@ -242,125 +119,90 @@ namespace InsuredTraveling.Hubs
 
             Clients.Group(enduser).SendAcknowledge(endUserResponseDTO);
             Clients.Group(username).ReceiveId(adminResponseDTO);
-
-            var numberRequests = _db.chat_requests.Where(x => x.Accepted == false).ToList();
-
-            var responseAdmins = new JObject();
-            responseAdmins.Add("numberRequests", numberRequests.Count);
-            var array = new JArray();
-            foreach (chat_requests chatRequest in numberRequests)
-            {
-                array.Add(new JObject(new JProperty("from", chatRequest.Requested_by), new JProperty("timestamp", chatRequest.Datetime_request.ToString())));
-            }
-
-            responseAdmins.Add("data", array);
-            Clients.Group("Admins").MessageRequest(responseAdmins);
+            Clients.Group("Admins").MessageRequest(GetActiveRequests());
 
         }
-
-        public void SendMessage(String to, String message, string requestId)
+        public void SendMessage(MessageDTO message)
         {
             var from = Context.User.Identity.Name;
             RoleAuthorize r = new RoleAuthorize();
             bool isAdmin = false;
             if (r.IsUser("admin"))
                 isAdmin = true;
-            //var data = new JObject();
-            //data.Add("from", from);
-            //data.Add("message", message);
-            //data.Add("requestId", requestId);
-            //data.Add("admin", admin);
-            var messageMobileDTO = new MessageMobileDTO
+
+            var messageDTO = new MessageDTO
             {
                 From = from,
-                Message = message,
-                RequestId = int.Parse(requestId),
+                Message = message.Message,
+                RequestId = message.RequestId,
                 Admin = isAdmin
             };
-            Clients.Group(to).ReceiveMessage(messageMobileDTO);
-
-            SaveMessage(int.Parse(requestId), from, message);
-
-            //zacuvuvanje u bazu fali!!!
+            Clients.Group(message.To).ReceiveMessage(messageDTO);
+            SaveMessage(messageDTO);
         }
-
-        public void SendMessageMobile(string from, string to, string message, int requestId)
+        public void DiscardMessage(BaseRequestIdDTO requestIdDTO)
         {
-            // var from = Context.User.Identity.Name;
-            var messageMobileDTO = new MessageMobileDTO
-            {
-                From = from,
-                Message = message,
-                RequestId = requestId
-            };
-            Clients.Group(to).ReceiveMessage(messageMobileDTO);
-
-            SaveMessage(requestId, from, message);
-
-        }
-
-        public void DiscardMessage(int requestId)
-        {
-            JObject adminResponse = new JObject();
+            ChatStatusUpdateDTO adminResponse = new ChatStatusUpdateDTO();
+            var requestId = requestIdDTO.RequestId;
             var request = _db.chat_requests.Where(x => x.ID == requestId).SingleOrDefault();
             if (request.fnol_created.HasValue && request.fnol_created.Value == false)
             {
                 request.discarded = true;
                 _db.SaveChanges();
 
-                JObject enduserResponse = new JObject();
-                enduserResponse.Add("requestId", request.ID);
-                enduserResponse.Add("message", "Your request has been discarded. First notice of loss is not created.");
+                ChatStatusUpdateDTO enduserResponse = new ChatStatusUpdateDTO();
+                enduserResponse.RequestId = request.ID;
+                enduserResponse.Message = "Your request has been discarded. First notice of loss is not created.";
                 Clients.Group(request.Requested_by).DiscardedMessage(enduserResponse);
-                adminResponse.Add("requestId", request.ID);
-                adminResponse.Add("discarded", "true");
-                adminResponse.Add("message", "You discarded the request. First notice of loss is not created.");
+                adminResponse.RequestId = request.ID;
+                adminResponse.Success = true;
+                adminResponse.Message = "You discarded the request. First notice of loss is not created.";
             }
             else
             {
-                adminResponse.Add("requestId", request.ID);
-                adminResponse.Add("discarded", "false");
-                adminResponse.Add("message", "You can't discard this chat. First notice of loss was created.");
+                adminResponse.RequestId = request.ID;
+                adminResponse.Success = false;
+                adminResponse.Message = "You can't discard this chat. First notice of loss was created.";         
             }            
             Clients.Group(request.Accepted_by).Discarded(adminResponse);
         }
-
-        public void CreateFnol(int requestId)
+        public void CreateFnol(BaseRequestIdDTO requestIdDTO)
         {
-            var request = _db.chat_requests.Where(x => x.ID == requestId).SingleOrDefault();
-            JObject adminResponse = new JObject();
+            var request = _db.chat_requests.Where(x => x.ID == requestIdDTO.RequestId).SingleOrDefault();
+            ChatStatusUpdateDTO adminResponse = new ChatStatusUpdateDTO();
 
             if (!request.discarded)
             {
                 request.fnol_created = true;
                 _db.SaveChanges();
 
-                //da se kreira fnol vo baza
+                //TODO create fnol in db
 
-                JObject enduserResponse = new JObject();
-                enduserResponse.Add("requestId", request.ID);
-                enduserResponse.Add("message", "First notice of loss was created successfully.");
-
+                ChatStatusUpdateDTO enduserResponse = new ChatStatusUpdateDTO();
+                enduserResponse.RequestId = request.ID;
+                enduserResponse.Message = "First notice of loss was created successfully.";      
                 Clients.Group(request.Requested_by).FnolCreatedMessage(enduserResponse);
-
-                adminResponse.Add("requestId", request.ID);
-                adminResponse.Add("fnolCreated", "true");
-                adminResponse.Add("message", "First notice of loss was created successfully.");
+                adminResponse.RequestId = request.ID;
+                adminResponse.Success = true;
+                adminResponse.Message = "First notice of loss was created successfully.";
 
             }
             else
             {
-                adminResponse.Add("requestId", request.ID);
-                adminResponse.Add("fnolCreated", "false");
-                adminResponse.Add("message", "This chat was already discarded.");
+                adminResponse.RequestId = request.ID;
+                adminResponse.Success = false;
+                adminResponse.Message = "This chat was already discarded.";
             }
 
             Clients.Group(request.Accepted_by).FnolCreated(adminResponse);
 
         }
 
-        public void SaveMessage(int requestId, string fromUsername, string textMessage)
+        private void SaveMessage(MessageDTO messageDTO)
         {
+            int requestId = messageDTO.RequestId;
+            string fromUsername = messageDTO.From;
+            string textMessage = messageDTO.Message;           
             message message = new message();
             message.ConversationID = requestId;
             message.Text = textMessage;
@@ -368,27 +210,80 @@ namespace InsuredTraveling.Hubs
             message.from_username = fromUsername;
             var m = _db.messages.Add(message);
             _db.SaveChangesAsync();
-
-            var chatReq = _db.chat_requests.Where(x => x.ID == requestId).SingleOrDefault();
-            JObject adminUpdate = new JObject();
-            adminUpdate.Add("requestId", requestId);
-            adminUpdate.Add("timestamp", message.Timestamp);
-            adminUpdate.Add("from", chatReq.Requested_by);
-            adminUpdate.Add("message", textMessage);
-            adminUpdate.Add("messageId", m.ID);
-            adminUpdate.Add("admin", "true");
-
-            Clients.Group(chatReq.Accepted_by).UpdateChat(adminUpdate);
-
-            JObject enduserUpdate = new JObject();
-            enduserUpdate.Add("requestId", requestId);
-            enduserUpdate.Add("timestamp", message.Timestamp);
-            enduserUpdate.Add("from", chatReq.Accepted_by);
-            enduserUpdate.Add("message", textMessage);
-            enduserUpdate.Add("messageId", m.ID);
-            enduserUpdate.Add("admin", "false");
-
-            Clients.Group(chatReq.Requested_by).UpdateChat(enduserUpdate);
         }
+
+        private MessageRequestsDTO GetActiveRequests()
+        {
+            var responseList = _db.chat_requests.Where(x => x.Accepted == false).Select(x => new RequestDTO
+            {
+                RequestedBy = x.Requested_by,
+                Timestamp = x.Datetime_request.ToString()
+            }).ToList();
+
+            MessageRequestsDTO messageRequests = new MessageRequestsDTO
+            {
+                RequestNumber = responseList.Count,
+                Requests = responseList
+            };
+
+            return messageRequests;
+        }
+
+        private List<LastMessagesDTO> GetLastMessages(string username, bool isAdmin)
+        {
+            List<chat_requests> chatsActive = new List<chat_requests>();
+            if(isAdmin)
+            {
+                chatsActive = _db.chat_requests.Where(x => x.Accepted == true && x.Accepted_by.Equals(username) && x.discarded == false
+                                           && x.fnol_created == false).Take(5).ToList();
+            } else
+            {
+                chatsActive = _db.chat_requests.Where(x => x.Accepted == true && x.Requested_by.Equals(username) && x.discarded == false
+                                            && x.fnol_created == false).Take(5).ToList();
+            }
+           
+
+            List<LastMessagesDTO> lastMessagesDTO = new List<LastMessagesDTO>();
+
+            foreach (chat_requests chat in chatsActive)
+            {
+                LastMessagesDTO messageLast = null;
+                if (isAdmin)
+                {
+                    messageLast = chat.messages.Where(x => x.ConversationID == chat.ID).OrderByDescending(x => x.Timestamp).Select(x => new LastMessagesDTO
+                    {
+                        From = x.from_username,
+                        Message = x.Text,
+                        Admin = isAdmin,
+                        Timestamp = x.Timestamp,
+                        ChatWith = chat.Requested_by,
+                        MessageId = x.ID,
+                        RequestId = chat.ID
+                    }).FirstOrDefault();
+                }
+                else
+                {
+                    messageLast = chat.messages.Where(x => x.ConversationID == chat.ID).OrderByDescending(x => x.Timestamp).Select(x => new LastMessagesDTO
+                    {
+                        From = x.from_username,
+                        Message = x.Text,
+                        Admin = isAdmin,
+                        Timestamp = x.Timestamp,
+                        ChatWith = chat.Accepted_by,
+                        MessageId = x.ID,
+                        RequestId = chat.ID
+                    }).FirstOrDefault();
+                }
+
+                if (messageLast != null)
+                {
+                    lastMessagesDTO.Add(messageLast);
+                }
+
+            }
+
+            return lastMessagesDTO;
+        }
+
     }
 }

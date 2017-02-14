@@ -2,7 +2,7 @@
 
 namespace InsuredTraveling.Models
 {
-    public class Username
+    public class UserDTO
     {
         public String username { get; set; }
 

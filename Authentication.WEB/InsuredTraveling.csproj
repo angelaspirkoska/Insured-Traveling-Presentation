@@ -502,8 +502,11 @@
     </Compile>
     <Compile Include="DTOs\SignalR\AcknowledgeDTO.cs" />
     <Compile Include="DTOs\SignalR\BaseRequestIdDTO.cs" />
-    <Compile Include="DTOs\SignalR\MessageMobileDTO.cs" />
-    <Compile Include="DTOs\SignalR\RequestIdDTO.cs" />
+    <Compile Include="DTOs\SignalR\ChatStatusUpdateDTO.cs" />
+    <Compile Include="DTOs\SignalR\LastMessagesDTO.cs" />
+    <Compile Include="DTOs\SignalR\MessageDTO.cs" />
+    <Compile Include="DTOs\SignalR\MessageRequestsDTO.cs" />
+    <Compile Include="DTOs\SignalR\RequestDTO.cs" />
     <Compile Include="EncryptionHelper.cs" />
     <Compile Include="Errors\401.aspx.cs">
       <DependentUpon>401.aspx</DependentUpon>
@@ -626,7 +629,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserModel_Detail.cs" />
-    <Compile Include="Models\Username.cs" />
+    <Compile Include="Models\UserDTO.cs" />
     <Compile Include="Models\ValidationModel.cs" />
     <Compile Include="Authentication\MySqlConfiguration.cs" />
     <Compile Include="Authentication\MySqlHistoryContext.cs" />

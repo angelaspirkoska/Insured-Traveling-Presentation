@@ -1,5 +1,4 @@
 ﻿using InsuredTraveling.Models;
-using InsuredTraveling.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 

@@ -184,7 +184,7 @@ namespace InsuredTraveling.Controllers
         [HttpPost]
         [System.Web.Http.AllowAnonymous]
         [Route("ActivateAccount")]
-        public IHttpActionResult ActivateAccount(Username username)
+        public IHttpActionResult ActivateAccount(UserDTO username)
         {
              _repo.ActivateAccount(username.username);
             return Ok();
@@ -192,7 +192,7 @@ namespace InsuredTraveling.Controllers
         
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("FindUser")]
-        public async Task<IHttpActionResult> FindUsername(Username username)
+        public async Task<IHttpActionResult> FindUsername(UserDTO username)
         {
             if (!String.IsNullOrEmpty(username.username))
             {
@@ -212,7 +212,7 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("GetUserID")]
-        public IHttpActionResult GetUserID(Username username)
+        public IHttpActionResult GetUserID(UserDTO username)
         {
             if (username != null)
             {
@@ -256,7 +256,7 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("ForgetPassword")]
-        public void ForgetPassword(Username username)
+        public void ForgetPassword(UserDTO username)
         {
             if (username.username !=null)
             {
@@ -272,7 +272,7 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("SendSmSCode")]
-        public async Task<IHttpActionResult> SendSmsCode(Username user)
+        public async Task<IHttpActionResult> SendSmsCode(UserDTO user)
         {
             var result = await  _repo.SendSmsCode(user.username);
 
@@ -289,7 +289,7 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("ConfirmSms")]
-        public async Task<IHttpActionResult> ConfirmSms(Username user)
+        public async Task<IHttpActionResult> ConfirmSms(UserDTO user)
         {
             var result = await _repo.ConfirmSmsCode(user.username, user.code);
 

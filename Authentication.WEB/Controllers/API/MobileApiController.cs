@@ -81,7 +81,7 @@ namespace InsuredTraveling.Controllers.API
         }
 
         [Route("RetrieveUserInfo")]
-        public JObject RetrieveUserInformation(Username username)
+        public JObject RetrieveUserInformation(UserDTO username)
         {
             JObject data = new JObject();
             aspnetuser user = _us.GetUserDataByUsername(username.username);

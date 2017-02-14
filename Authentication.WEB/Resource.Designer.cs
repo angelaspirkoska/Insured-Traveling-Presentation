@@ -808,7 +808,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username.
+        ///   Looks up a localized string similar to LoginDTO.
         /// </summary>
         public static string Login_UserName {
             get {
@@ -2536,7 +2536,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username.
+        ///   Looks up a localized string similar to LoginDTO.
         /// </summary>
         public static string User_UserName {
             get {
