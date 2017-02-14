@@ -1,4 +1,5 @@
 ﻿using InsuredTraveling.App_Start;
+using InsuredTraveling.Filters;
 using InsuredTraveling.Models;
 using Newtonsoft.Json.Linq;
 using System;
@@ -13,6 +14,7 @@ using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
 {
+    [SmarteraspDownHandlingFilter]
     public class LoginController : Controller
     {
 

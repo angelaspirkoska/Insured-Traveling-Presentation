@@ -1,4 +1,5 @@
-﻿using InsuredTraveling.Models;
+﻿using InsuredTraveling.Filters;
+using InsuredTraveling.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
 {
+    [SmarteraspDownHandlingFilter]
     [RoutePrefix("SignUp")]
     [AllowAnonymous]
     public class SignUpController : Controller

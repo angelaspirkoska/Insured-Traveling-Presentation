@@ -7,6 +7,7 @@ using System;
 namespace InsuredTraveling.Controllers
 {
     [RoutePrefix("Home")]
+    [SmarteraspDownHandlingFilter]
     [SessionExpire]
     public class HomeController : Controller
     {  

@@ -94,7 +94,7 @@ namespace InsuredTraveling.Controllers
 
         [HttpGet]
         [Route("RefreshToken")]
-        public async Task<IHttpActionResult> RefreshToken(string refresh_token)
+        public IHttpActionResult RefreshToken(string refresh_token)
         {
             _repo.RefreshToken(refresh_token);
             return Ok();

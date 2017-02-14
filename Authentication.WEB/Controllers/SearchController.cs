@@ -14,6 +14,7 @@ using InsuredTraveling.Filters;
 namespace InsuredTraveling.Controllers
 {
     [Authorize]
+    [SmarteraspDownHandlingFilter]
     [SessionExpire]
     public class SearchController : Controller
     {

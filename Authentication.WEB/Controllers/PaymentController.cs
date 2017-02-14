@@ -15,6 +15,7 @@ using InsuredTraveling.Controllers;
 
 namespace Authentication.WEB.Controllers
 {
+    [SmarteraspDownHandlingFilter]
     [RoutePrefix("Payment")]
     public class PaymentController : Controller
     {

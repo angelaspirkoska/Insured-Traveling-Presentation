@@ -528,6 +528,7 @@
     <Compile Include="exchange_rate.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Filters\SmarteraspDownHandlingFilter.cs" />
     <Compile Include="Filters\RoleAuthorize.cs" />
     <Compile Include="Filters\RecaptchaFilter.cs" />
     <Compile Include="Filters\SessionExpireAttribute.cs" />

@@ -1,10 +1,12 @@
-﻿using InsuredTraveling.Models;
+﻿using InsuredTraveling.Filters;
+using InsuredTraveling.Models;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
 {
+    [SmarteraspDownHandlingFilter]
     [RoutePrefix("ForgetPassword")]
     public class ForgetPasswordController : Controller
     {

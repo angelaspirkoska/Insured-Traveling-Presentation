@@ -1,8 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using InsuredTraveling.Filters;
+using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
 {
-
+    [SmarteraspDownHandlingFilter]
     [RoutePrefix("ValidateMail")]
     public class ValidateMailController : Controller
     {
