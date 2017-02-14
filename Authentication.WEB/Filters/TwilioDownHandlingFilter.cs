@@ -8,18 +8,18 @@ using System.Web.Mvc;
 
 namespace InsuredTraveling.Filters
 {
-    public class SmarteraspDownHandlingFilter : ActionFilterAttribute
+    public class TwilioDownHandlingFilter : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            WebRequest request = WebRequest.Create("http://smarterasp.net/");
+            WebRequest request = WebRequest.Create("https://www.twilio.com/");
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             if (response == null || response.StatusCode != HttpStatusCode.OK)
             {
                 try
                 {
-                    string body = "The smarterasp.net site is down and insuredtraveling is facing problem with normaly running the site";
-                    MailService mailService = new MailService("info@optimalreinsurance.com"); 
+                    string body = "The www.twilio.com site is down and insuredtraveling is facing problem with normaly running the site";
+                    MailService mailService = new MailService("info@optimalreinsurance.com");
                     mailService.setSubject("InsuredTraveling - ErrorHandler");
                     mailService.setBodyText(body, true);
                     mailService.sendMail();
@@ -33,5 +33,6 @@ namespace InsuredTraveling.Filters
                 filterContext.HttpContext.Response.Redirect(loginUrl, true);
             }
         }
+
     }
 }

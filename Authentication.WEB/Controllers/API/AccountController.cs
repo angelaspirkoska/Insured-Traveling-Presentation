@@ -11,6 +11,7 @@ using static InsuredTraveling.Models.AdminPanel;
 using System.Configuration;
 using AutoMapper;
 using System.Net.Http;
+using InsuredTraveling.Filters;
 
 namespace InsuredTraveling.Controllers
 {
@@ -267,6 +268,7 @@ namespace InsuredTraveling.Controllers
             }
         }
 
+        [TwilioDownHandlingFilter]
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("SendSmSCode")]

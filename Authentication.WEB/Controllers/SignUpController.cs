@@ -16,7 +16,7 @@ namespace InsuredTraveling.Controllers
     [AllowAnonymous]
     public class SignUpController : Controller
     {
-        
+       
         [HttpPost]
         public async Task<ActionResult> Index(User user, bool CaptchaValid)
         {
