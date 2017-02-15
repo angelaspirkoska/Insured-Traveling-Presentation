@@ -235,11 +235,11 @@ namespace InsuredTraveling.Hubs
             if(isAdmin)
             {
                 chatsActive = _db.chat_requests.Where(x => x.Accepted == true && x.Accepted_by.Equals(username) && x.discarded == false
-                                           && x.fnol_created == false).Take(5).ToList();
+                                           && x.fnol_created == false).OrderByDescending(x => x.ID).Take(5).ToList();
             } else
             {
                 chatsActive = _db.chat_requests.Where(x => x.Accepted == true && x.Requested_by.Equals(username) && x.discarded == false
-                                            && x.fnol_created == false).Take(5).ToList();
+                                            && x.fnol_created == false).OrderByDescending(x => x.ID).Take(5).ToList();
             }
            
 
