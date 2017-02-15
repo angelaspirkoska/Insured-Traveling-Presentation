@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace InsuredTraveling.Hubs
 {
+    [Authorize]
     public class ChatHub : Hub
     {
         readonly InsuredTravelingEntity _db = new InsuredTravelingEntity();
