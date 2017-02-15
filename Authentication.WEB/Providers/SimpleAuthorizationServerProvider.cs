@@ -22,12 +22,11 @@ namespace InsuredTraveling.Providers
 
         public override Task MatchEndpoint(OAuthMatchEndpointContext context)
         {
-            Pom(context);
+            AddingAuthorizationHeader(context);
             return base.MatchEndpoint(context);
         }
-        public void Pom(OAuthMatchEndpointContext context)
+        public void AddingAuthorizationHeader(OAuthMatchEndpointContext context)
         {
-            //ne e ok C:\Users\Slobodanka\Documents\GitHub\InsuredTravelingWeb\Authentication.WEB\Providers\SimpleAuthorizationServerProvider.cs
             var cookieToken = HttpContext.Current.Request.Cookies["token"];
             if (cookieToken == null) return;
 

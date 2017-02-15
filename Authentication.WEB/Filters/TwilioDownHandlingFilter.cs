@@ -26,11 +26,13 @@ namespace InsuredTraveling.Filters
                 }
                 catch (Exception e)
                 {
-
+                    var url2 = new UrlHelper(filterContext.RequestContext);
+                    var errorUrl2 = url2.Content("~/Error/Mail");
+                    filterContext.HttpContext.Response.Redirect(errorUrl2, true);
                 }
                 var url = new UrlHelper(filterContext.RequestContext);
-                var loginUrl = url.Content("~/Error/Index");
-                filterContext.HttpContext.Response.Redirect(loginUrl, true);
+                var errorUrl = url.Content("~/Error/Index");
+                filterContext.HttpContext.Response.Redirect(errorUrl, true);
             }
         }
 

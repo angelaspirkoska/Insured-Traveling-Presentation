@@ -11,7 +11,6 @@ using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
 {
-    [SmarteraspDownHandlingFilter]
     [RoutePrefix("SignUp")]
     [AllowAnonymous]
     public class SignUpController : Controller

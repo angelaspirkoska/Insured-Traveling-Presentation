@@ -532,11 +532,11 @@
     <Compile Include="exchange_rate.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Filters\SmarteraspDownHandlingFilter.cs" />
     <Compile Include="Filters\RoleAuthorize.cs" />
     <Compile Include="Filters\RecaptchaFilter.cs" />
     <Compile Include="Filters\SessionExpireAttribute.cs" />
     <Compile Include="Filters\TwilioDownHandlingFilter.cs" />
+    <Compile Include="Filters\ZohoDownHandlingFilter.cs" />
     <Compile Include="first_notice_of_loss.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -769,6 +769,7 @@
     <Content Include="Views\Error\RequestTimeout.cshtml" />
     <Content Include="Views\Error\UnsupportedMediaType.cshtml" />
     <Content Include="Views\Error\ServiceUnavailable.cshtml" />
+    <Content Include="Views\Error\Mail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

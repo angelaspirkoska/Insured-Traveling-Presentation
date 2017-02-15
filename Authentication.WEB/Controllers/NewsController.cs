@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Authentication.WEB.Controllers
 {
-    [SmarteraspDownHandlingFilter]
+
     [SessionExpire]
     public class NewsController : Controller
     {

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
 {
-    [SmarteraspDownHandlingFilter]
+
     [RoutePrefix("ForgetPassword")]
     public class ForgetPasswordController : Controller
     {

@@ -62,5 +62,10 @@ namespace InsuredTraveling.Controllers
         {
             return View();
         }
+
+        public ActionResult Mail()
+        {
+            return View();
+        }
     }
 }
