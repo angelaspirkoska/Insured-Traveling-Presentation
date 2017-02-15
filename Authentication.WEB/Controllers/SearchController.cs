@@ -273,6 +273,7 @@ namespace InsuredTraveling.Controllers
         }
 
         public JObject GetFNOL(string PolicyNumber, 
+                               string FNOLNumber,
                                string holderName, 
                                string holderLastName, 
                                string clientName, 
@@ -292,13 +293,13 @@ namespace InsuredTraveling.Controllers
 
             if (r.IsUser("admin"))
             {
-                fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
+                fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
             }
 
             else if (r.IsUser("end user"))
             {
 
-                fnol = _fnls.GetFNOLBySearchValues(System.Web.HttpContext.Current.User.Identity.Name,PolicyNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
+                fnol = _fnls.GetFNOLBySearchValues(System.Web.HttpContext.Current.User.Identity.Name,PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
             }
 
 

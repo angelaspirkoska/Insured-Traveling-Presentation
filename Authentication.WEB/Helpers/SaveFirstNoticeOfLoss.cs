@@ -85,6 +85,7 @@ namespace InsuredTraveling.Helpers
             firstNoticeOfLossEntity.Transport_means = firstNoticeOfLossViewModel.TransportMeans;
             firstNoticeOfLossEntity.Total_cost = firstNoticeOfLossViewModel.TotalCost;
             firstNoticeOfLossEntity.CreatedDateTime = DateTime.Now;
+            firstNoticeOfLossEntity.FNOL_Number = _fis.CreateFNOLNumber();
 
             string username;
             if (firstNoticeOfLossViewModel.isMobile)
@@ -209,6 +210,8 @@ namespace InsuredTraveling.Helpers
                 loss.Transport_means = addDetailLoss.Transport_means;
                 loss.Total_cost = addDetailLoss.Total_cost;
                 loss.CreatedDateTime = DateTime.UtcNow;
+                loss.FNOL_Number = _fis.CreateFNOLNumber();
+
                 //loss.Message = "";
                 loss.CreatedBy = addDetailLoss.CreatedBy;
                

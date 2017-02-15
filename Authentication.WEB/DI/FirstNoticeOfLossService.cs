@@ -33,7 +33,7 @@ namespace InsuredTraveling.DI
         {
            return _db.first_notice_of_loss.ToList();
         }
-        public List<first_notice_of_loss> GetFNOLBySearchValues(string PolicyNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance)
+        public List<first_notice_of_loss> GetFNOLBySearchValues(string PolicyNumber, string FNOLNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance)
         {
             float totalPricefloat = 0;
             int policyNum = !String.IsNullOrEmpty(PolicyNumber) ? Convert.ToInt32(PolicyNumber) : 0;
@@ -45,6 +45,7 @@ namespace InsuredTraveling.DI
             {
                 return _db.first_notice_of_loss.Where(x =>
                                    (x.travel_policy.ID == policyNum || String.IsNullOrEmpty(PolicyNumber)) &&
+                                   (x.FNOL_Number == FNOLNumber || String.IsNullOrEmpty(FNOLNumber)) &&
                                    (x.insured.Name.Contains(insuredName) || String.IsNullOrEmpty(insuredName)) &&
                                    (x.insured.Lastname.Contains(insuredLastName) || String.IsNullOrEmpty(insuredLastName)) &&
                                    (x.travel_policy.insured.Name.Contains(holderName) || String.IsNullOrEmpty(holderName)) &&
@@ -57,6 +58,7 @@ namespace InsuredTraveling.DI
             {
                 return _db.first_notice_of_loss.Where(x =>
                                   (x.travel_policy.ID == policyNum || String.IsNullOrEmpty(PolicyNumber)) &&
+                                  (x.FNOL_Number == FNOLNumber || String.IsNullOrEmpty(FNOLNumber)) &&
                                   (x.insured.Name.Contains(insuredName) || String.IsNullOrEmpty(insuredName)) &&
                                   (x.insured.Lastname.Contains(insuredLastName) || String.IsNullOrEmpty(insuredLastName)) &&
                                   (x.travel_policy.insured.Name.Contains(holderName) || String.IsNullOrEmpty(holderName)) &&
@@ -69,6 +71,7 @@ namespace InsuredTraveling.DI
             {
                 return _db.first_notice_of_loss.Where(x =>
                                 (x.travel_policy.ID == policyNum || String.IsNullOrEmpty(PolicyNumber)) &&
+                                (x.FNOL_Number == FNOLNumber || String.IsNullOrEmpty(FNOLNumber)) &&
                                 (x.insured.Name.Contains(insuredName) || String.IsNullOrEmpty(insuredName)) &&
                                 (x.insured.Lastname.Contains(insuredLastName) || String.IsNullOrEmpty(insuredLastName)) &&
                                 (x.travel_policy.insured.Name.Contains(holderName) || String.IsNullOrEmpty(holderName)) &&
@@ -178,7 +181,7 @@ namespace InsuredTraveling.DI
             return allDoc;
         }
 
-        public List<first_notice_of_loss> GetFNOLBySearchValues(string username, string PolicyNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance)
+        public List<first_notice_of_loss> GetFNOLBySearchValues(string username, string PolicyNumber, string FNOLNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance)
         {
             string userID = _db.aspnetusers.Where(x => x.UserName == username).Select(x => x.Id).FirstOrDefault();
             float totalPricefloat = 0;
@@ -190,6 +193,7 @@ namespace InsuredTraveling.DI
             {
                 return _db.first_notice_of_loss.Where(x =>
                                    (x.travel_policy.Policy_Number == PolicyNumber || String.IsNullOrEmpty(PolicyNumber)) &&
+                                   (x.FNOL_Number == FNOLNumber || String.IsNullOrEmpty(FNOLNumber)) &&
                                    (x.insured.Name.Contains(insuredName) || String.IsNullOrEmpty(insuredName)) &&
                                    (x.insured.Lastname.Contains(insuredLastName) || String.IsNullOrEmpty(insuredLastName)) &&
                                    (x.travel_policy.insured.Name.Contains(holderName) || String.IsNullOrEmpty(holderName)) &&
@@ -202,6 +206,7 @@ namespace InsuredTraveling.DI
             {
                 return _db.first_notice_of_loss.Where(x =>
                                   (x.travel_policy.Policy_Number == PolicyNumber || String.IsNullOrEmpty(PolicyNumber)) &&
+                                  (x.FNOL_Number == FNOLNumber || String.IsNullOrEmpty(FNOLNumber)) &&
                                   (x.insured.Name.Contains(insuredName) || String.IsNullOrEmpty(insuredName)) &&
                                   (x.insured.Lastname.Contains(insuredLastName) || String.IsNullOrEmpty(insuredLastName)) &&
                                   (x.travel_policy.insured.Name.Contains(holderName) || String.IsNullOrEmpty(holderName)) &&
@@ -214,6 +219,7 @@ namespace InsuredTraveling.DI
             {
                 return _db.first_notice_of_loss.Where(x =>
                                (x.travel_policy.Policy_Number == PolicyNumber || String.IsNullOrEmpty(PolicyNumber)) &&
+                                (x.FNOL_Number == FNOLNumber || String.IsNullOrEmpty(FNOLNumber)) &&
                                 (x.insured.Name.Contains(insuredName) || String.IsNullOrEmpty(insuredName)) &&
                                 (x.insured.Lastname.Contains(insuredLastName) || String.IsNullOrEmpty(insuredLastName)) &&
                                 (x.travel_policy.insured.Name.Contains(holderName) || String.IsNullOrEmpty(holderName)) &&
@@ -254,6 +260,11 @@ namespace InsuredTraveling.DI
             _db.first_notice_of_loss_archive.Add(archiveFnol);
             _db.SaveChanges();
             return archiveFnol.ID;
+        }
+
+        public string CreateFNOLNumber()
+        {
+            return (Int64.Parse(_db.first_notice_of_loss.OrderByDescending(f => f.ID).Select(r => r.FNOL_Number).FirstOrDefault()) + 1).ToString();
         }
     }
 }

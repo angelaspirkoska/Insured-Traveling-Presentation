@@ -808,7 +808,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LoginDTO.
+        ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string Login_UserName {
             get {
@@ -2068,6 +2068,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FNOL Number.
+        /// </summary>
+        public static string Search_FNOLNumber {
+            get {
+                return ResourceManager.GetString("Search_FNOLNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Health Insurance.
         /// </summary>
         public static string Search_HealthInsurance {
@@ -2320,6 +2329,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FNOL Number.
+        /// </summary>
+        public static string Search_SearchTableFNOLNumber {
+            get {
+                return ResourceManager.GetString("Search_SearchTableFNOLNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Policy Number.
         /// </summary>
         public static string Search_SearchTablePolicyNumber {
@@ -2536,7 +2554,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LoginDTO.
+        ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string User_UserName {
             get {

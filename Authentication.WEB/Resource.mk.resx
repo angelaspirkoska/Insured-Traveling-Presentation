@@ -954,4 +954,10 @@
   <data name="SignUp_Back" xml:space="preserve">
     <value>Назад</value>
   </data>
+  <data name="Search_FNOLNumber" xml:space="preserve">
+    <value>Број на оштетно побарување</value>
+  </data>
+  <data name="Search_SearchTableFNOLNumber" xml:space="preserve">
+    <value>Број на оштетно побарување</value>
+  </data>
 </root>

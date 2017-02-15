@@ -16,7 +16,7 @@
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <form style="margin-top:40px;" method="post" enctype="multipart/form-data" action="@Url.Action("Edit")">
     <div class="form-horizontal">
-        <h3>Штета број @Model.Id</h3>
+        <h3>Штета број @Model.FNOLNumber</h3>
         @Html.TextBoxFor(model => model.Id, new { @class = "form-control input-sm", @style = "display: none;" })
 
         <hr />

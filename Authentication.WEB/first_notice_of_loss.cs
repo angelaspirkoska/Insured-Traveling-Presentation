@@ -40,6 +40,7 @@ namespace InsuredTraveling
         public Nullable<int> ChatId { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> Modified_Datetime { get; set; }
+        public string FNOL_Number { get; set; }
     
         public virtual additional_info additional_info { get; set; }
         public virtual aspnetuser aspnetuser { get; set; }

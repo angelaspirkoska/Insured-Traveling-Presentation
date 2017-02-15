@@ -954,4 +954,10 @@
   <data name="SignUp_Back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="Search_FNOLNumber" xml:space="preserve">
+    <value>FNOL Number</value>
+  </data>
+  <data name="Search_SearchTableFNOLNumber" xml:space="preserve">
+    <value>FNOL Number</value>
+  </data>
 </root>
