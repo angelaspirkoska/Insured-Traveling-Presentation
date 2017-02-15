@@ -458,8 +458,9 @@
     function CalculateTotalPremium() {
         var flag = ValidateFields();
         console.log(flag);
-        $(".loader").css("display", "inline");
         if (flag) {
+            $("#errorMessage").text("");
+            $(".loader").css("display", "inline");
             $.ajax({
                 type: "POST",
                 url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/Premium/Calculate",
@@ -474,6 +475,7 @@
                     $("#errorMessage").text(" ");
                 },
                 error: function (result) {
+                    $(".loader").css("display", "none");
                     $(".hideMe").hide();
                     $("#totalPremiumLabel").hide();
                     $("#totalPremium").val("");
@@ -646,7 +648,7 @@
 
     // Check the user's location
     function getLocation() {
-        if (navigator.geolocation) {            
+        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
         } else {
             x.innerHTML = "Geolocation is not supported by this browser.";
@@ -667,7 +669,7 @@
             result.countryName = "Macedonia";
             if (result.countryName == "Macedonia") {
                 var submitBtn = document.getElementById("buyPolicyBtn");
-                
+
                 submitBtn.setAttribute("formmethod", "post");
                 submitBtn.setAttribute("formaction", "/Payment/Index");
                 submitBtn.setAttribute("type", "submit");
@@ -680,5 +682,5 @@
             }
         });
     }
-   
+
 </script>
