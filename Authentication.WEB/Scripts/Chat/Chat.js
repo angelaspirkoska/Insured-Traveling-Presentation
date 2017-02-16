@@ -27,7 +27,6 @@ function prepareSocket() {
         $("#ul_alerts").empty();
         if (numberRequests !== 0)
         {
-            console.log("ima requesti");
             $("#messageRequests span").css("color", "#FF0000");
             $.each(MessageRequestsDTO.Requests, function (i, val) {
                 var requestedBy = this.RequestedBy;
@@ -44,16 +43,15 @@ function prepareSocket() {
     });
 
     hProxy.on("RequestId", function (RequestIdDTO) {
-        console.log("RequestID: " + RequestIdDTO);
     });
 
     hProxy.on("ReceiveMessage", function (messageDTO) {
         pushMessageToChat(messageDTO);
     });
-
     
     hProxy.on("ReceiveId", function (adminResponseDTO) {
-        openChatU(adminResponseDTO.EndUser, adminResponseDTO.RequestId, true);
+        var chatDTO = { Sender: adminResponseDTO.EndUser, RequestId: adminResponseDTO.RequestId, Admin: true };
+        openChatU(chatDTO);
     });
     
     hProxy.on("Discarded", function (ChatStatusUpdateDTO) {
@@ -98,55 +96,46 @@ function prepareSocket() {
     });
 
     hProxy.on("SendAcknowledge", function (endUserResponseDTO) {
-        openChatU(endUserResponseDTO.Admin, endUserResponseDTO.RequestId, false);
-        //openChatEndUser(data.admin, data.requestId);
+        var chatDTO = { Sender: endUserResponseDTO.Admin, RequestId: endUserResponseDTO.RequestId, Admin: false };
+        openChatU(chatDTO);
     });
 
     $("#requestChatBtn").click(function () {
         hProxy.invoke("SendRequest");
-        $("#requestChatBtn").val("Request sent");
-        console.log("request sent");
+        $("#requestChatBtn").val("Request sent"); 
     });
 
 }
 
-function acceptChat(data) {
-    //if(connection.st)
-    hProxy.invoke("AcceptRequest", data);
+function acceptChat(requestedBy) {
+    hProxy.invoke("AcceptRequest", requestedBy);
 }
 
 function openMessageInChat(requestId, from, admin) {  
     var selection = $("div#" + from);
     var chat = document.getElementById("from");
-            if (!document.getElementById(from)){
-                
-                console.log("ne postoi");
-                //open new chat
+            if (!document.getElementById(from)){                
+                var chatDTO;
                 if (admin) {
-                    openChatU(from, requestId, true);
-                    //openChat(from, requestId);
+                    chatDTO = { Sender: from, RequestId: requestId, Admin: true };
                 }
                 else {
-                    openChatU(from, requestId, false);   
+                    chatDTO = { Sender: from, RequestId: requestId, Admin: false }; 
                 }
-
+                openChatU(chatDTO);
                 getLastTenMessages(requestId);
             }
             else {
-
                 var $div = $('div[requestId = ' + requestId + ']');
-
                 if ($div) {
 
                     if (admin) {
-                        openChatU(from, requestId, true);
-                        //openChat(from, requestId);
+                        chatDTO = { Sender: from, RequestId: requestId, Admin: true };
                     }
                     else {
-                        openChatU(from, requestId, false);
-                        //openChatEndUser(from, requestId);
+                        chatDTO = { Sender: from, RequestId: requestId, Admin: false };
                     }
-
+                    openChatU(chatDTO);
                 }
             }
     }
@@ -163,12 +152,8 @@ function getLastTenMessages(requestId)
             console.log(result);
             var ichatwith = result.ichatwith;
             var first = 0;
-            
-            //addShowMoreButton(requestId, result.messages[0].ID);
-            
             $.each(result.Messages, function (key, value) {
                 if (first === 0) {
-                    console.log("idto na porakata " + value.Id);
                     addShowMoreButton(requestId, value.Id);
                 }
                 pushOldMessage(value, ichatwith, requestId);
@@ -209,64 +194,68 @@ function LoadNextTenMessages(requestId, lastMessageId) {
     });
 }
 
-function pushOldMessageNext(data, requestId, lastMessageId) {
-    console.log("pushing");
-    var $button = $("div[requestId=" + requestId + "] button[messageId=" + lastMessageId + "]");
-    var message = "<div class='row " + data.From + "'>" +
-        "<div class='col-lg-12'>" +
-        "<div class='media'>" +
-        "<div class='media-body " + data.From + "'>" +
-        "<h4 class='media-heading'>" +
-        data.From +
-        "<span class='small pull-right'>" + data.Date + " " + data.Hour + ":" + data.Minute + "</span>" +
-        "</h4>" +
-        "<p>" +
-        data.Text +
-        "</p>" +
-        "</div>" +
-        "</div>" +
-        "</div>" +
-        "</div>" +
-        "<hr/>";
-    $(message).insertAfter($button);
-   // $div.append(message);
-   // var children = $div.children();
-    //children[children.length - 1].scrollIntoView();
+function pushOldMessage(messageDTO, ichatwith, requestId) {
+   
+    var PushMessageDTO = { Sender: messageDTO.From, Message: messageDTO.Text, Date: messageDTO.Date + " " + messageDTO.Hour + ":" + messageDTO.Minute };
+    var $div = $('div[requestId = ' + requestId + '] .portlet-body');
+    var row = generateMessage(PushMessageDTO);
+    if (row !== undefined) {
+        $div.append(row);
+    }
+
+    var children = $div.children();
+    children[children.length - 1].scrollIntoView();
 }
+
+function pushOldMessageNext(data, requestId, lastMessageId) {
+    var $button = $("div[requestId=" + requestId + "] button[messageId=" + lastMessageId + "]");
+    var PushMessageDTO = { Sender: data.From, Message: data.Text, Date: data.Date + " " +data.Hour + ":" + data.Minute };
+    var $div = $('div[requestId = ' + requestId + '] .portlet-body');
+    var row = generateMessage(PushMessageDTO);
+    if (row !== undefined) {
+        $(row).insertAfter($button);
+    }
+}
+
 function addShowMoreButton(requestId, lastMessageId)
 {
     var $div = $('div[requestId = ' + requestId + '] .portlet-body');
     var message = "<div class='row'><div class='col-lg-12'><button type='button' class='btn btn-default' onclick='LoadNextTenMessages("+requestId+","+lastMessageId+")' messageId="+lastMessageId+"> Show more </button> </div></div>";
-
-
     $div.append(message);
-
-   
 }
 
-function pushOldMessage(data, ichatwith, requestId) {
-    
-    var $div = $('div[requestId = ' + requestId + '] .portlet-body');
-    var message = "<div class='row " + data.From + "'>" +
-        "<div class='col-lg-12'>" +
-        "<div class='media'>" +
-        "<div class='media-body " + data.From + "'>" +
-        "<h4 class='media-heading'>" +
-        data.From +
-        "<span class='small pull-right'>" +data.Date +" " + data.Hour + ":" + data.Minute + "</span>" +
-        "</h4>" +
-        "<p>" +
-        data.Text +
-        "</p>" +
-        "</div>" +
-        "</div>" +
-        "</div>" +
-        "</div>" +
-        "<hr/>";
+function generateMessage(PushMessageDTO)
+{
+    var last = PushMessageDTO.Last;
+    var lastSender = PushMessageDTO.LastSender
+    var sender = PushMessageDTO.Sender;
+    var message = PushMessageDTO.Message;
+    var date = PushMessageDTO.Date;
 
-    $div.append(message);
-    var children = $div.children();
-    children[children.length - 1].scrollIntoView();
+    if (last !== undefined && $(last).hasClass(lastSender)) {
+        alert("da");
+        var p = "<p>" + message + "</p>";
+        $(last).children().children().children().append(p);
+    }
+    else {
+        var row = "<div class='row " + sender + "'>" +
+            "<div class='col-lg-12'>" +
+            "<div class='media'>" +
+            "<div class='media-body'>" +
+            "<h4 class='media-heading'>" +
+            sender +
+            "<span class='small pull-right'>" + date + "</span>" +
+            "</h4>" +
+            "<p>" +
+            message +
+            "</p>" +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            "<hr/>";
+        return row;
+    }
 }
 
 function fillMessages(LastMessagesDTOs) {
@@ -292,32 +281,40 @@ function fillMessages(LastMessagesDTOs) {
     }
 }
 
-function openChatU(data, requestId, isAdmin) {
+function openChatU(chatDTO) {
+    var sender = chatDTO.Sender;
+    var requestId = chatDTO.RequestId;
+    var isAdmin = chatDTO.Admin;
 
     var $div = $('div[requestId = ' + requestId + '] .portlet-body');
     var chat = $("#chat_template").html();
     $("#chats").append(chat);
     $("#none").attr("requestId", requestId);
-    $("#none").attr("id", data);
+    $("#none").attr("id", sender);
     var offset = 260 * openChats + 2 * openChats;
-    $("div#" + data).css("right", offset + "px");
-    $("div#" + data + " .portlet-title>h4").text(data);
-    $("div#" + data + " textarea").focus();
-    var children = $("div#" + data + " .row").children();
-    $("div#" + data + " textarea").attr("id", requestId);
+    $("div#" + sender).css("right", offset + "px");
+    $("div#" + sender + " .portlet-title>h4").text(sender);
+    $("div#" + sender + " textarea").focus();
+    var children = $("div#" + sender + " .row").children();
+    $("div#" + sender + " textarea").attr("id", requestId);
+
+    if (!isAdmin) {
+        $("div#" + sender + " #discardChat").hide();
+        $("div#" + sender + " #createFnol").hide();
+    }
+
     openChats++;
 
-    $("div#" + data + " #discardChat").click(function (e) {
+    $("div#" + sender + " #discardChat").click(function (e) {
         var BaseRequestIdDTO = { RequestId: requestId };
         hProxy.invoke("DiscardMessage", BaseRequestIdDTO);
     });
-
-    $("div#" + data + " #createFnol").click(function (e) {
+    $("div#" + sender + " #createFnol").click(function (e) {
         var BaseRequestIdDTO = { RequestId: requestId };
         hProxy.invoke("CreateFnol", BaseRequestIdDTO);
     });
 
-    $("div#" + data + " #close").click(function (e) {
+    $("div#" + sender + " #close").click(function (e) {
         e.preventDefault();
         e.stopPropagation();
         $(this).parent().parent().parent().parent().remove();
@@ -325,55 +322,35 @@ function openChatU(data, requestId, isAdmin) {
         shiftToRight();
     });
 
-    $("div#" + data + " textarea").keydown(function (e) {
+    $("div#" + sender + " textarea").keydown(function (e) {
         if (e.which === 13) {
 
             var message = $(this).val();
             if (message === "")
                 return false;
 
-            var MessageDTO = { To: data, Message: message, RequestId: requestId };
-            console.log("sending message " + MessageDTO);
+            var MessageDTO = { To: sender, Message: message, RequestId: requestId };
             hProxy.invoke("SendMessage", MessageDTO);
-            var last = $("div#" + data + " .row")[$("div#" + data + " .row").length - 1];
-            var $div = $("div#" + data + " .portlet-body");
 
-            if (last !== undefined && $(last).hasClass(data.from)) {
-                var p = "<p>" + data.message + "</p>";
-                $(last).children().children().children().append(p);
-            }
-            else {
+            var date = new Date();
 
-                var date = new Date();
-                var row = "<div class='row " + localStorage.getItem("username") + "'>" +
-                    "<div class='col-lg-12'>" +
-                    "<div class='media'>" +
-                    "<div class='media-body'>" +
-                    "<h4 class='media-heading'>" +
-                    localStorage.getItem("username") +
-                    "<span class='small pull-right'>" + date.getHours() + ":" + date.getMinutes() + "</span>" +
-                    "</h4>" +
-                    "<p>" +
-                    message +
-                    "</p>" +
-                    "</div>" +
-                    "</div>" +
-                    "</div>" +
-                    "</div>" +
-                    "<hr/>";
+            var last = $("div#" + sender + " .row")[$("div#" + sender + " .row").length - 1];
+            var $div = $("div#" + sender + " .portlet-body");
+            console.log(date.getHours() + ":" + date.getMinutes());
+            var PushMessageDTO = { Last: last, LastSender: localStorage.getItem("username"), Sender: localStorage.getItem("username"), Message: message, Date: date.getHours() + ":" + date.getMinutes() };
+            console.log(PushMessageDTO);
+            var row = generateMessage(PushMessageDTO);
+            if (row !== undefined) {
                 $div.append(row);
             }
+
             children = $div.children();
             children[children.length - 1].scrollIntoView();
             $(this).val("");
             return false;
         }
 
-        if(!isAdmin)
-        {
-            $("div#" + data + " #discardChat").hide();
-            $("div#" + data + " #createFnol").hide();
-        }
+       
     });
 }
 
@@ -384,50 +361,30 @@ function pushMessageToChat(messageDTO) {
     var message = messageDTO.Message;
     console.log("dali e admin: ", isAdmin);
     if (!$("div#" + sender).length) {
+        var chatDTO;
         if (isAdmin) {
-            openChatU(sender, requestId, true);
-            //openChatEndUser(sender, requestId);
-            getLastTenMessages(requestId);
+            chatDTO = { Sender: sender, RequestId: requestId, Admin: true };          
         }
         else {
-            openChatU(sender, requestId, false);
-            getLastTenMessages(requestId);
+            chatDTO = { Sender: sender, RequestId: requestId, Admin: false };
         }
+        openChatU(chatDTO);
+        getLastTenMessages(requestId);
         return;
     }
 
-    var $div = $("div#" + sender + " .portlet-body");
+    var date = new Date();
 
     var last = $("div#" + sender + " .row")[$("div#" + sender + " .row").length - 1];
-
-    if (last !== undefined && $(last).hasClass(sender)) {
-        var p = "<p>" + message + "</p>";
-        $(last).children().children().children().append(p);
-    } else {
-        var date = new Date();
-         message = "<div class='row " + sender + "'>" +
-            "<div class='col-lg-12'>" +
-            "<div class='media'>" +
-            "<div class='media-body " + sender + "'>" +
-            "<h4 class='media-heading'>" +
-            sender +
-            "<span class='small pull-right'>" + date.getHours() + ":" + date.getMinutes() + "</span>" +
-            "</h4>" +
-            "<p>" +
-            message +
-            "</p>" +
-            "</div>" +
-            "</div>" +
-            "</div>" +
-            "</div>" +
-            "<hr/>";
-
-        $div.append(message);
-    }   
+    var $div = $("div#" + sender + " .portlet-body");
+    var PushMessageDTO = { Last: last, LastSender: sender, Sender: sender, Message: message, Date: date.getHours() + ":" +date.getMinutes() };
+    var row = generateMessage(PushMessageDTO);
+    if (row !== undefined) {
+        $div.append(row);
+    }
     var children = $div.children();
     children[children.length - 1].scrollIntoView();
 }
-
 
 function shiftToRight() {
     $.each($("#chats").children(), function (i, value) {

@@ -165,6 +165,7 @@
             <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableFNOLPolicies">
                 <thead>
                     <tr>
+                        <th>@InsuredTraveling.Resource.Search_SearchTableFNOLNumber</th>
                         <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableClaimantNameLastName</th>
@@ -325,6 +326,13 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-4">
                         <div class="form-group">
+                            <label for="vidPolisa">@InsuredTraveling.Resource.Search_FNOLNumber :</label>
+                            <br />
+                            <input class="form-control" type="text" id="FNOLNumber" name="FNOLNumber" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
                             <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyNumber :</label>
                             <br />
                             <input class="form-control" type="text" id="PolicyNumberFNL" name="PolicyNumberFNL" />
@@ -427,8 +435,10 @@
                         </div>
                     </div>
                 </div>
-                <br />
-            </form>
+                <div class="row">
+                 </div>
+                    <br />
+</form>
         </div>
         <br />
         <br />
@@ -437,6 +447,7 @@
             <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableFNOL">
                 <thead>
                     <tr>
+                        <th>@InsuredTraveling.Resource.Search_SearchTableFNOLNumber</th>
                         <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
                         <th>@InsuredTraveling.Resource.Seacrh_SearchTableClaimantNameLastName</th>
@@ -814,6 +825,7 @@
                     dom: "Bfrtip",
                     ajax: "/Search/GetFNOLByPolicyNumber?number=" + policy_number,
                     columns: [
+                            { data: "FNOLNumber" },
                             { data: "PolicyNumber" },
                             { data: "InsuredName" },
                             { data: "ClaimantPersonName" },
@@ -850,8 +862,9 @@
                 $("#tableFNOL").DataTable().destroy();
                 $("#tableFNOL").DataTable({
                     dom: "Bfrtip",
-                    ajax: "/Search/GetFNOL?PolicyNumber=" + $("#PolicyNumberFNL").val() + "&holderName=" + $("#holderName").val() + "&holderLastName=" + $("#holderLastName").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked') + "&DateAdded=" + $("#DateAdded").val() + "&operatorDateAdded=" + $("#operatorDateAdded").val() + "&operatorTotalCost=" + $("#totalCostOperator").val(),
+                    ajax: "/Search/GetFNOL?PolicyNumber=" + $("#PolicyNumberFNL").val() + "&FNOLNumber=" + $("#FNOLNumber").val() + "&holderName=" + $("#holderName").val() + "&holderLastName=" + $("#holderLastName").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked') + "&DateAdded=" + $("#DateAdded").val() + "&operatorDateAdded=" + $("#operatorDateAdded").val() + "&operatorTotalCost=" + $("#totalCostOperator").val(),
                     columns: [
+                            { data: "FNOLNumber" },
                             { data: "PolicyNumber" },
                             { data: "InsuredName" },
                             { data: "ClaimantPersonName" },

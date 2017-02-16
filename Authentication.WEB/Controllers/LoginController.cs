@@ -14,7 +14,6 @@ using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
 {
-    [SmarteraspDownHandlingFilter]
     public class LoginController : Controller
     {
 

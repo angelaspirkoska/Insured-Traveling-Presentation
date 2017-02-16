@@ -19,6 +19,8 @@ namespace InsuredTraveling.Models
 
         public int PolicyId { get; set; }
 
+        public string FNOLNumber { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public int PolicyNumber { get; set; }
         public List<SelectListItem> Policies { get; set; }

@@ -19,7 +19,7 @@ using InsuredTraveling.Helpers;
 
 namespace Authentication.WEB.Controllers
 {
-    [SmarteraspDownHandlingFilter]
+
     [SessionExpire]
     public class PolicyController : Controller
     {

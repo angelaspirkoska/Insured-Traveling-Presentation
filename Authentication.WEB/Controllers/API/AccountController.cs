@@ -309,11 +309,18 @@ namespace InsuredTraveling.Controllers
         public IHttpActionResult DeleteToken()
         {
             if (HttpContext.Current.Request.Cookies["token"] == null) return Redirect(ConfigurationManager.AppSettings["webpage_url"] +"/Login");
-            var c = HttpContext.Current.Request.Cookies["token"];
-            c.Expires = DateTime.Now.AddYears(-1);
+            var token = HttpContext.Current.Request.Cookies["token"];
+            token.Expires = DateTime.Now.AddYears(-1);
             HttpContext.Current.Response.Cookies.Remove("token");
             HttpContext.Current.Response.Cookies.Clear();
-            HttpContext.Current.Response.Cookies.Set(c);
+            HttpContext.Current.Response.Cookies.Set(token);
+
+            var refresh_token = HttpContext.Current.Request.Cookies["refresh_token"];
+            refresh_token.Expires = DateTime.Now.AddYears(-1);
+            HttpContext.Current.Response.Cookies.Remove("refresh_token");
+            HttpContext.Current.Response.Cookies.Clear();
+            HttpContext.Current.Response.Cookies.Set(refresh_token);
+
             return Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
         }
 

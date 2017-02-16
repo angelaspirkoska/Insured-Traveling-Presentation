@@ -291,6 +291,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="CreatedDateTime" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="128" />
           <Property Name="Modified_Datetime" Type="datetime" Precision="0" />
+          <Property Name="FNOL_Number" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="first_notice_of_loss_archive">
           <Key>
@@ -2167,6 +2168,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Modified_Datetime" Type="DateTime" />
           <NavigationProperty Name="aspnetuser1" Relationship="Entities.first_notice_of_loss_ibfk_8" FromRole="first_notice_of_loss" ToRole="aspnetuser" />
+          <Property Name="FNOL_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="group">
           <Key>
@@ -4017,6 +4019,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="first_notice_of_loss">
             <EntityTypeMapping TypeName="Entities.first_notice_of_loss">
               <MappingFragment StoreEntitySet="first_notice_of_loss">
+                <ScalarProperty Name="FNOL_Number" ColumnName="FNOL_Number" />
                 <ScalarProperty Name="Modified_Datetime" ColumnName="Modified_Datetime" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ChatId" ColumnName="ChatId" />

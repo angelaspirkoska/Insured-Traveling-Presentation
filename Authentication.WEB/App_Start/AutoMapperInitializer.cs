@@ -47,6 +47,7 @@ namespace InsuredTraveling.App_Start
                 var healthAdditionalInfo = src.additional_info.health_insurance_info;
                 var luggageInsuranceInfo = src.additional_info.luggage_insurance_info;
                 dst.PolicyId = src.PolicyId;
+                dst.FNOLNumber = src.FNOL_Number;
                 dst.PolicyHolderId = src.travel_policy.insured.ID;
                 dst.PolicyNumber = policy != null ? Convert.ToInt32(policy.Policy_Number) : 0;
                 dst.PolicyHolderName = user != null ? user.Name + " " + user.Lastname : null;
@@ -191,6 +192,7 @@ namespace InsuredTraveling.App_Start
                 var healthAdditionalInfo = src.additional_info.health_insurance_info;
                 var luggageInsuranceInfo = src.additional_info.luggage_insurance_info;                           
                 dst.PolicyId = src.PolicyId;
+                dst.FNOLNumber = src.FNOL_Number;
                 dst.PolicyNumber = policy != null ? Convert.ToInt32(policy.Policy_Number) : 0;
                 dst.PolicyHolderId = src.travel_policy.insured.ID;
                 dst.PolicyHolderName = user != null ? user.Name + " " + user.Lastname: null;
@@ -271,6 +273,7 @@ namespace InsuredTraveling.App_Start
                 var luggageInsurance = src.additional_info.luggage_insurance_info;
                 var user = policy != null ? policy.insured : null;
                 dst.PolicyNumber = policy != null ? policy.Policy_Number : null;
+                dst.FNOLNumber = src.FNOL_Number;
                 dst.InsuredName = user != null ? user.Name + " " + user.Lastname : null;
                 dst.ClaimantPersonName = src.insured != null ? src.insured.Name + " " + src.insured.Lastname : null;
                 dst.Claimant_insured_relation = src.Relation_claimant_policy_holder;

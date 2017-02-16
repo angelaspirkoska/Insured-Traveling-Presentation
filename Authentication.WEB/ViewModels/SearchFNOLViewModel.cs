@@ -8,6 +8,7 @@ namespace InsuredTraveling.ViewModels
     public class SearchFNOLViewModel
     {
         public int ID { get; set; }
+        public string FNOLNumber { get; set; }
         public string PolicyNumber { get; set; }
         public string InsuredName { get; set; }
         public string ClaimantPersonName { get; set; }

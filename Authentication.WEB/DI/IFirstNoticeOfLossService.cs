@@ -9,8 +9,8 @@ namespace InsuredTraveling.DI
     public interface IFirstNoticeOfLossService
     {
         List<first_notice_of_loss> GetAll();
-        List<first_notice_of_loss> GetFNOLBySearchValues(string PolicyNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance);
-        List<first_notice_of_loss> GetFNOLBySearchValues(string username, string PolicyNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance);
+        List<first_notice_of_loss> GetFNOLBySearchValues(string PolicyNumber, string FNOLNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance);
+        List<first_notice_of_loss> GetFNOLBySearchValues(string username, string PolicyNumber, string FNOLNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance);
         luggage_insurance_info isHealthInsurance(int lossId);
         first_notice_of_loss GetById(int id);
         first_notice_of_loss[] GetByInsuredUserId(string id);
@@ -29,5 +29,6 @@ namespace InsuredTraveling.DI
         void UpdatePolicyHolderBankAccountId(int fnolId, int bankAccountId);
         void Update(first_notice_of_loss newFnol);
         int Archive(first_notice_of_loss_archive archiveFnol);
+        string CreateFNOLNumber();
     }
 }

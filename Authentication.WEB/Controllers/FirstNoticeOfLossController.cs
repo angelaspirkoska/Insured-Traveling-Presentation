@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace InsuredTraveling.Controllers
 {
-    [SmarteraspDownHandlingFilter]
+
     [SessionExpire]
     public class FirstNoticeOfLossController : Controller
     {
