@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
-namespace InsuredTraveling.Hubs.PipelineModules
+namespace InsuredTraveling.SignalR.PipelineModules
 {
     public class LoggingPipelineModule : HubPipelineModule
     {

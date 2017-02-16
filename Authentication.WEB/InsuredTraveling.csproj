@@ -500,13 +500,13 @@
     <Compile Include="documents_first_notice_of_loss.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="DTOs\SignalR\AcknowledgeDTO.cs" />
-    <Compile Include="DTOs\SignalR\BaseRequestIdDTO.cs" />
-    <Compile Include="DTOs\SignalR\ChatStatusUpdateDTO.cs" />
-    <Compile Include="DTOs\SignalR\LastMessagesDTO.cs" />
-    <Compile Include="DTOs\SignalR\MessageDTO.cs" />
-    <Compile Include="DTOs\SignalR\MessageRequestsDTO.cs" />
-    <Compile Include="DTOs\SignalR\RequestDTO.cs" />
+    <Compile Include="DTOs\Chat\AcknowledgeDTO.cs" />
+    <Compile Include="DTOs\Chat\BaseRequestIdDTO.cs" />
+    <Compile Include="DTOs\Chat\StatusUpdateDTO.cs" />
+    <Compile Include="DTOs\Chat\LastMessagesDTO.cs" />
+    <Compile Include="DTOs\Chat\MessageDTO.cs" />
+    <Compile Include="DTOs\Chat\MessageRequestsDTO.cs" />
+    <Compile Include="DTOs\Chat\RequestDTO.cs" />
     <Compile Include="EncryptionHelper.cs" />
     <Compile Include="Errors\401.aspx.cs">
       <DependentUpon>401.aspx</DependentUpon>
@@ -566,9 +566,9 @@
     <Compile Include="Helpers\UpdateBankAccountInfoHelper.cs" />
     <Compile Include="Helpers\UpdateFirstNoticeOfLossHelper.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
-    <Compile Include="SignalR\Hubs\PipelineModules\LoggingPipelineModule.cs" />
+    <Compile Include="SignalR\PipelineModules\LoggingPipelineModule.cs" />
     <Compile Include="SignalR\Hubs\ChatHub.cs" />
-    <Compile Include="SignalR\Hubs\PipelineModules\ExceptionPipelineModule.cs" />
+    <Compile Include="SignalR\PipelineModules\ExceptionPipelineModule.cs" />
     <Compile Include="insured.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>

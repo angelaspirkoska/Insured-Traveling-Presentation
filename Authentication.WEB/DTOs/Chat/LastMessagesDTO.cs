@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace InsuredTraveling.DTOs.SignalR
+namespace InsuredTraveling.DTOs
 {
     public class LastMessagesDTO : MessageDTO
     {

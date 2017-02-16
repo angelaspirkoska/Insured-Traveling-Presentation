@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
-namespace InsuredTraveling.Hubs.PipelineModules
+namespace InsuredTraveling.SignalR.PipelineModules
 {
     public class ExceptionPipelineModule : HubPipelineModule
     {
@@ -21,19 +21,21 @@ namespace InsuredTraveling.Hubs.PipelineModules
             try
             {
                 MethodDescriptor method = invokerContext.MethodDescriptor;
-                var msg = string.Format("Exception thrown by: {0}.{1}({2}):3}", method.Hub.Name, method.Name, string.Join(", ", invokerContext.Args),
-                    exceptionContext.Error);
+                var msg = string.Format($"Exception thrown by: {method.Hub.Name}.{method.Name}({string.Join(", ", invokerContext.Args)}):{exceptionContext.Error}");
                 trace.TraceError(msg);
                 Debug.WriteLine(msg);
             }
-            finally { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
 
             //2. inform client of exception
-            try
-            {
-                invokerContext.Hub.Clients.Caller.notifyOfException();
-            }
-            finally { }
+            //try
+            //{
+            //    invokerContext.Hub.Clients.Caller.notifyOfException();
+            //}
+            //finally { }
 
             //3. propagate error back the normal way base.
             OnIncomingError(exceptionContext, invokerContext);
