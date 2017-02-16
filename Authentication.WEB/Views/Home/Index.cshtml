@@ -19,7 +19,7 @@
                     <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</button>
                     @if (r.IsUser("admin") || r.IsUser("broker"))
                     {
-                        <button onclick="@("window.location.href='" + @Url.Action("Index", "News") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_News</button>
+                        <button onclick="@("window.location.href='/News/Index'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_News</button>
                     }
 
                     <button onclick="@("window.location.href='" + @Url.Action("Index","Search") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_Search</button>

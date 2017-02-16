@@ -12,6 +12,7 @@ using System;
 using System.Threading;
 using System.Globalization;
 using System.Web.Security;
+using System.Web.Http.Dispatcher;
 
 namespace InsuredTraveling
 {
@@ -19,8 +20,8 @@ namespace InsuredTraveling
     {
         protected void Application_Start()
         {
+            GlobalConfiguration.Configuration.Services.Replace(typeof(IAssembliesResolver), new CustomAssemblyResolver());
             SetupDependencyInjection();
-
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -29,6 +30,7 @@ namespace InsuredTraveling
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new CustomViewEngine());
             AutoMapperInitializer.Initialize();
+            
         }
         protected void Application_BeginRequest(object sender, EventArgs e)
         {

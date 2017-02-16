@@ -282,6 +282,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="HalkbankPaymentPlugin\HalkbankPayment.HalkbankSmartPayment.dll" />
     <Content Include="index.html" />
     <Content Include="InsuredTravelingEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -328,6 +329,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="HalkbankPaymentPlugin\license.lic" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -418,7 +420,6 @@
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ForgetPasswordController.cs" />
-    <Compile Include="Controllers\API\HalkbankPaymentApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\API\MobilePolicyApiController.cs" />
@@ -438,6 +439,7 @@
     <Compile Include="country.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="CustomAssemblyResolver.cs" />
     <Compile Include="CustomViewEngine.cs" />
     <Compile Include="discount_age.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>

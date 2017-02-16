@@ -30,7 +30,7 @@ namespace Authentication.WEB
             var builder = new ContainerBuilder();
 
             builder.RegisterApiControllers(typeof(MobileApiController).Assembly);
-            builder.RegisterApiControllers(typeof(HalkbankPaymentApiController).Assembly);
+            //builder.RegisterApiControllers(typeof(HalkbankPaymentApiController).Assembly);
             builder.RegisterApiControllers(typeof(NewsApiController).Assembly);
             builder.RegisterApiControllers(typeof(ChatController).Assembly);
             
