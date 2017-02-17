@@ -215,6 +215,15 @@ form.cmxform .gray * { color: gray; }
     margin-left: 110px !important;
 }
 
+.toolbar-padding {
+    padding: 35px 0px 0px 0px;
+    margin: 0px;
+}
+
+.toolbar-margin {
+    margin-left: -45px;
+}
+
 .btns-position {
     padding-left: 0px;
 }

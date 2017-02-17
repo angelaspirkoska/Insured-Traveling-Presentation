@@ -96,6 +96,36 @@
                        {
         <input type = "hidden" value = "@System.Web.HttpContext.Current.User.Identity.Name" id = "userName" />
     }
+
+    @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        <div class="container">
+            <div class="row toolbar-margin">
+                <div class="jumbotron menu-btn-align toolbar-padding">
+                    <br />
+                    <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</button>
+                    @if (r.IsUser("admin") || r.IsUser("broker"))
+                {
+                        <button onclick="@("window.location.href='/News/Index'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_News</button>
+                    }
+
+                    <button onclick="@("window.location.href='" + @Url.Action("Index","Search") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_Search</button>
+                    <button onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_FirstNoticeOfLoss</button>
+                    @if (r.IsUser("admin"))
+                {
+                        <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_AdminPanel</button>
+                        <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</button>
+                    }
+                    @if (r.IsUser("broker"))
+                {
+                        <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</button>
+                    }
+                </div>
+            </div>            
+        </div>
+    }
+
+
     <div class="container body-content">
         @RenderBody()
     </div>
