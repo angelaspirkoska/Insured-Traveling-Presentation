@@ -315,6 +315,7 @@ namespace InsuredTraveling.Controllers
             HttpContext.Current.Response.Cookies.Clear();
             HttpContext.Current.Response.Cookies.Set(token);
 
+            if (HttpContext.Current.Request.Cookies["refresh_token"] == null) return Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
             var refresh_token = HttpContext.Current.Request.Cookies["refresh_token"];
             refresh_token.Expires = DateTime.Now.AddYears(-1);
             HttpContext.Current.Response.Cookies.Remove("refresh_token");

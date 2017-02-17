@@ -133,6 +133,11 @@ namespace InsuredTraveling.DI
             return _db.travel_policy.Where(x => (x.Created_By == UserId) && (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) &&(TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
                                     (Country == null || x.CountryID == Country.Value) && x.Payment_Status == true).ToList();
         }
+        public List<travel_policy> GetQuotesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber)
+        {
+            return _db.travel_policy.Where(x => (x.Created_By == UserId) && (x.Payment_Status == false) && (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
+                                    (Country == null || x.CountryID == Country.Value) && x.Payment_Status == true).ToList();
+        }
         public List<travel_policy> GetPoliciesByInsuredId(int insuredId)
         {
             var allPolicies = _db.policy_insured.Where(x => x.InsuredID == insuredId).Select(x => x.PolicyID).ToList();
@@ -156,7 +161,13 @@ namespace InsuredTraveling.DI
         public List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string PolicyNumber)
         {
             return _db.travel_policy.Where(x =>  (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
-                                    (Country == null || x.CountryID == Country.Value) && x.Payment_Status == true).ToList();
+                                    (Country == null || x.CountryID == Country.Value)).ToList();
+        }
+
+        public List<travel_policy> GetQuotesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string PolicyNumber)
+        {
+            return _db.travel_policy.Where(x => (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (x.Payment_Status == false) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
+                                    (Country == null || x.CountryID == Country.Value)).ToList();
         }
 
         public string GetPolicyHolderEmailByPolicyId(int PolicyId)

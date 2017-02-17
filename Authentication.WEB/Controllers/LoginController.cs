@@ -63,11 +63,11 @@ namespace InsuredTraveling.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("loginErr", "Invalid username or password");
+                        ModelState.AddModelError("loginErr", "The user name or password is incorrect.");
                     }
                 }else
                 {
-                    ModelState.AddModelError("loginErr", "Something went wrong!");
+                    ModelState.AddModelError("loginErr", "The user name or password is incorrect!");
                 }
             }
             return View();

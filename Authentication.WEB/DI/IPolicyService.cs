@@ -33,6 +33,8 @@ namespace InsuredTraveling.DI
         List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber);
 
         List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string PolicyNumber);
+        List<travel_policy> GetQuotesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber);
+        List<travel_policy> GetQuotesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string PolicyNumber);
         List<travel_policy> GetPoliciesByInsuredId(int insuredId);
         List<travel_policy> GetPoliciesByHolderId(int holderId);
         IQueryable<SelectListItem> GetPoliciesByUserId(string userID);

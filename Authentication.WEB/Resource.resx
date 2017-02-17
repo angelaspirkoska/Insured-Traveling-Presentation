@@ -960,4 +960,7 @@
   <data name="Search_SearchTableFNOLNumber" xml:space="preserve">
     <value>FNOL Number</value>
   </data>
+  <data name="Quotes" xml:space="preserve">
+    <value>Quotes</value>
+  </data>
 </root>

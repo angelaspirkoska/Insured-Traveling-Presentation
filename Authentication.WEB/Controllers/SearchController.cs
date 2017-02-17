@@ -258,7 +258,96 @@ namespace InsuredTraveling.Controllers
             JSONObject.Add("data", array);
             return JSONObject;
         }
+        [HttpGet]
+        [Route("GetQuotes")]
+        public JObject GetQuotes(string name,
+                                  string embg,
+                                  string land,
+                                  string address,
+                                  int? TypePolicy,
+                                  int? Country,
+                                  string agency,
+                                  string startDate,
+                                  string endDate,
+                                  string dateI,
+                                  string dateS,
+                                  string operatorStartDate,
+                                  string operatorEndDate,
+                                  string operatorDateI,
+                                  string operatorDateS,
+                                  string PolicyNumber)
+        {
 
+            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : Convert.ToDateTime(startDate);
+            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : Convert.ToDateTime(endDate);
+            DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : Convert.ToDateTime(dateI);
+            DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : Convert.ToDateTime(dateS);
+
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            var logUser = _us.GetUserIdByUsername(username);
+
+            RoleAuthorize r = new RoleAuthorize();
+
+            List<travel_policy> data = new List<travel_policy>();
+
+            if (r.IsUser("admin"))
+            {
+                data = _ps.GetQuotesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, PolicyNumber);
+            }
+
+            else if (r.IsUser("end user"))
+            {
+                data = _ps.GetQuotesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, logUser, PolicyNumber);
+            }
+            if (!String.IsNullOrEmpty(startDate))
+            {
+                switch (operatorStartDate)
+                {
+                    case "<": data = data.Where(x => x.Start_Date < startDate1).ToList(); break;
+                    case "=": data = data.Where(x => x.Start_Date == startDate1).ToList(); break;
+                    case ">": data = data.Where(x => x.Start_Date > startDate1).ToList(); break;
+                    default: break;
+                }
+            }
+            if (!String.IsNullOrEmpty(endDate))
+            {
+                switch (operatorEndDate)
+                {
+                    case "<": data = data.Where(x => x.End_Date < endDate1).ToList(); break;
+                    case "=": data = data.Where(x => x.End_Date == endDate1).ToList(); break;
+                    case ">": data = data.Where(x => x.End_Date > endDate1).ToList(); break;
+                    default: break;
+                }
+            }
+            if (!String.IsNullOrEmpty(dateI))
+            {
+                switch (operatorDateI)
+                {
+                    case "<": data = data.Where(x => x.Date_Created < dateI1).ToList(); break;
+                    case "=": data = data.Where(x => x.Date_Created == dateI1).ToList(); break;
+                    case ">": data = data.Where(x => x.Date_Created > dateI1).ToList(); break;
+                    default: break;
+                }
+            }
+            if (!String.IsNullOrEmpty(dateS))
+            {
+                switch (operatorDateS)
+                {
+                    case "<": data = data.Where(x => x.Date_Cancellation < dateS2).ToList(); break;
+                    case "=": data = data.Where(x => x.Date_Cancellation == dateS2).ToList(); break;
+                    case ">": data = data.Where(x => x.Date_Cancellation > dateS2).ToList(); break;
+                    default: break;
+                }
+            }
+
+            var JSONObject = new JObject();
+            var dataJSON = new JArray();
+
+            var searchModel = data.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
+            var array = JArray.FromObject(searchModel.ToArray());
+            JSONObject.Add("data", array);
+            return JSONObject;
+        }
         public JObject GetFNOLByPolicyNumber(string number)
         {
             int id = !String.IsNullOrEmpty(number) ? Convert.ToInt32(number) : 0;

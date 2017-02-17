@@ -1681,6 +1681,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quotes.
+        /// </summary>
+        public static string Quotes {
+            get {
+                return ResourceManager.GetString("Quotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Need assistance? Request a chat!.
         /// </summary>
         public static string RequestChat {

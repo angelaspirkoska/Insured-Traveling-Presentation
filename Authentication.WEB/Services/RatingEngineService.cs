@@ -152,7 +152,7 @@ namespace Authentication.WEB.Services
 
             double? additional_charge1 = 1;
             double? additional_charge2 = 1;
-            if (aditional_charges != null)
+            if (aditional_charges.Count() != 0)
             {
                 int id1 = aditional_charges[0].ID;
                 int id2 = aditional_charges[1].ID;                               

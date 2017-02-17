@@ -252,7 +252,7 @@ namespace InsuredTraveling.App_Start
             {
                 var languageId = SiteLanguages.CurrentLanguageId();
                 var countryName = db.countries_name.Where(x => x.language_id == languageId && x.countries_id == src.country.ID).FirstOrDefault();
-                dst.InsuredName = src.policy_insured.FirstOrDefault().insured.Lastname + " " + src.policy_insured.FirstOrDefault().insured.Name;
+                dst.InsuredName = src.policy_insured.Count() == 0 ? " " : src.policy_insured.FirstOrDefault().insured.Lastname + " " + src.policy_insured.FirstOrDefault().insured.Name;
                 dst.Polisa_Id = src.ID;
                 dst.Polisa_Broj = src.Policy_Number;
                 dst.Country = countryName.name;
