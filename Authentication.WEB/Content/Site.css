@@ -173,7 +173,7 @@ form.cmxform .gray * { color: gray; }
 }
 
 .radiobtn-position {
-    width: 16px !important;
+    width: 20px !important;
 }
 
 .checkbox-policyholder {
@@ -217,6 +217,10 @@ form.cmxform .gray * { color: gray; }
 
 .btns-position {
     padding-left: 0px;
+}
+
+.form-padding {
+    padding: 40px 0px;
 }
 
 /* Style for the headings in the print version of the policy */
@@ -266,6 +270,10 @@ form.cmxform .gray * { color: gray; }
 
 .alert-position {
     margin-top:38px;
+}
+
+.hideItem {
+    visibility: hidden;
 }
 
 .signup-btn-style {

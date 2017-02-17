@@ -30,13 +30,13 @@
                             <div class="form-group">
                                 <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyType:</label>
                                 <br />
-                                @Html.DropDownListFor(model => model.policy_type, (List<SelectListItem>)ViewBag.TypeOfPolicy, "-- Type of policy --", new { @class = "form-control", name = "TypePolicy", id = "TypePolicy" })
+                                @Html.DropDownListFor(model => model.policy_type, (List<SelectListItem>)ViewBag.TypeOfPolicy, @InsuredTraveling.Resource.Policy_TypeDD, new { @class = "form-control", name = "TypePolicy", id = "TypePolicy" })
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label for="country">@InsuredTraveling.Resource.Search_TravelCountry:</label>
-                                @Html.DropDownListFor(model => model.countries, (List<SelectListItem>) ViewBag.Countries, "-- Country --", new {@class = "form-control", name = "Country", id = "Country"})
+                                @Html.DropDownListFor(model => model.countries, (List<SelectListItem>) ViewBag.Countries, @InsuredTraveling.Resource.Policy_CountryDD, new {@class = "form-control", name = "Country", id = "Country"})
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4">
@@ -103,7 +103,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label for="endDate">@InsuredTraveling.Resource.Search_CancellationDate:</label>
@@ -361,13 +360,13 @@
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label for="holderName">@InsuredTraveling.Resource.Search_HolderName:</label>
-                                <input type="search" name="holderName" class="form-control" placeholder="Search by name" id="holderName"/>
+                                <input type="search" name="holderName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="holderName"/>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label for="holderLastName">@InsuredTraveling.Resource.Search_HolderLastName:</label>
-                                <input type="search" name="holderLastName" class="form-control" placeholder="Search by last name" id="holderLastName"/>
+                                <input type="search" name="holderLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="holderLastName"/>
                             </div>
                         </div>
                  </div>
@@ -375,13 +374,13 @@
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label for="clientName">@InsuredTraveling.Resource.Search_InsuredName:</label>
-                                <input type="search" name="clientName" class="form-control" placeholder="Search by name" id="clientName" />
+                                <input type="search" name="clientName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="clientName" />
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label for="clientLastName">@InsuredTraveling.Resource.Search_InsuredLastName:</label>
-                                <input type="search" name="clientLastName" class="form-control" placeholder="Search by last name" id="clientLastName" />
+                                <input type="search" name="clientLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="clientLastName" />
                             </div>
                         </div>
                     </div>
@@ -389,13 +388,13 @@
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label for="insuredName">@InsuredTraveling.Resource.Search_ClaimantName:</label>
-                                <input type="search" name="insuredName" class="form-control" placeholder="Search by name" id="insuredName" />
+                                <input type="search" name="insuredName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="insuredName" />
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <label for="insuredLastName">@InsuredTraveling.Resource.Search_ClaimantLastName: </label>
-                                <input type="search" name="insuredLastName" class="form-control" placeholder="Search by last name" id="insuredLastName" />
+                                <input type="search" name="insuredLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="insuredLastName" />
                             </div>
                         </div>
                     </div>
@@ -404,7 +403,7 @@
                             <div class="form-group">
                                 <label for="totalPrice">@InsuredTraveling.Resource.Search_TotalCost:</label>
                                 <div class="input-group-btn">
-                                    <input type="search" name="totalPrice" class="form-control" placeholder="Search by Total Cost" id="totalPrice" />
+                                    <input type="search" name="totalPrice" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLtotalcost" id="totalPrice" />
                                     <button type="button" id="totalCostOperator" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
                                         = <span class="caret"></span>
                                     </button>
@@ -438,7 +437,7 @@
                 <div class="row">
                  </div>
                     <br />
-</form>
+            </form>
         </div>
         <br />
         <br />

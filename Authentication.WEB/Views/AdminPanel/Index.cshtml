@@ -5,23 +5,21 @@
 }
 
 <div class="container">
-    <h2 class="page-header">Admin panel</h2>
+    <h2 class="page-header"> @InsuredTraveling.Resource.AdminPanel_Title </h2>
     <br />
     <ul class="nav nav-pills">
-        <li class="active"><a data-toggle="pill" href="#home">Roles</a></li>
-        <li><a data-toggle="pill" href="#menu1">Ok_Setup</a></li>
-        <li><a data-toggle="pill" href="#menu2">Menu 2</a></li>
-        <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>
+        <li class="active"><a data-toggle="pill" href="#home"> @InsuredTraveling.Resource.AdminPanel_Roles </a></li>
+        <li><a data-toggle="pill" href="#menu1"> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </a></li>
     </ul>
 
     <div class="tab-content">
         <div id="home" class="tab-pane fade in active">
-            <h3>ROLES</h3>
+            <h3 class="text-capitalize"> @InsuredTraveling.Resource.AdminPanel_Roles  </h3>
             <table class="table table-striped table-hover ">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Role Name</th>
+                        <th> @InsuredTraveling.Resource.AdminPanel_RoleName </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,43 +39,41 @@
                 </tbody>
               </table>
               
-            <button class="btn btn-primary" onclick="AddRole()">Add Role</button>
+            <button class="btn btn-primary" onclick="AddRole()"> @InsuredTraveling.Resource.AdminPanel_AddRoleBtn </button>
 
-            <form id="addRoleForm" hidden method="post" action="@Url.Action("AddRole")">
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            <label class="control-label col-md-2">Role Name:</label>
-                            <div class="col-md-10" style="margin-bottom:10px">
-                                <input type="text" class="form-control" name="Name" />
-                            </div>
+            <form id="addRoleForm" class="form-padding" hidden method="post" action="@Url.Action("AddRole")">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Role Name:</label>
+                        <div class="col-md-6" style="margin-bottom:10px">
+                            <input type="text" class="form-control" name="Name" />
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-4" style="margin-bottom:10px">
-                                <input type="submit" class="form-control btn btn-success" value="Add" />
-                            </div>
-                        </div>
-
                     </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-3" style="margin-bottom:10px">
+                            <input type="submit" class="form-control btn btn-success" value="Add" />
+                        </div>
+                    </div>
+                </div>                                        
             </form>
-
         </div>
-
-
+        @*Insurance Company setup*@
         <div id="menu1" class="tab-pane fade">
-            <h3>OK_Setup</h3>
+            <h3> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </h3>
             <table class="table table-striped table-hover ">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>ID</th>
-                        <th>SMS code seconds</th>
-                        <th>Number of attepmts[sms code]</th>
-                        <th>Number of news</th>
-                        <th>Notification time</th>
-                        <th>Number of Last messages</th>
-                        <th>Insurance Company</th>
-                        <th>Version number</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_ID</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_SMSCode</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_NumAttepmts</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_NumViews</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_Notification</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_NumMessage</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_InsuranceCompany</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_VersionNumber</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -103,73 +99,61 @@
                     }
                 </tbody>
             </table>
-
-            <button class="btn btn-primary" onclick="AddOK_SetupRecord()">Add OK_Setup record</button>
-
-            <form id="addOK_setupForm" hidden method="post" action="@Url.Action("AddOK_setup")">
+            <button class="btn btn-primary" onclick="AddOK_SetupRecord()"> @InsuredTraveling.Resource.AdminPanel_AddRecordBtn </button>
+            <form id="addOK_setupForm" class="form-padding" hidden method="post" action="@Url.Action("AddOK_setup")">
                 <div class="form-horizontal">
-                    <h4> Required fields *</h4>
+                    <h4> @InsuredTraveling.Resource.AdminPanel_RequiredFields *</h4>
                     <div class="form-group">
-                        <label class="control-label col-md-2">Sms code seconds *:</label>
-                        <div class="col-md-10" style="margin-bottom:10px">
+                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_SMSCode *:</label>
+                        <div class="col-md-6" style="margin-bottom:10px">
                             <input type="text" class="form-control" name="Sms_Code_Seconds" required />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-2">Number of attepmts *:</label>
-                        <div class="col-md-10" style="margin-bottom:10px">
+                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_NumAttepmts * :</label>
+                        <div class="col-md-6" style="margin-bottom:10px">
                             <input type="text" class="form-control" name="NumberOfAttempts" required/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-2">Number of news *:</label>
-                        <div class="col-md-10" style="margin-bottom:10px">
+                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_NumViews *:</label>
+                        <div class="col-md-6" style="margin-bottom:10px">
                             <input type="text" class="form-control" name="NumberOfNews" required/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-2">Notification time *:</label>
-                        <div class="col-md-10" style="margin-bottom:10px">
+                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_Notification *:</label>
+                        <div class="col-md-6" style="margin-bottom:10px">
                             <input type="time" class="form-control" name="NotificationTime" required/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-2">Number of last messages *:</label>
-                        <div class="col-md-10" style="margin-bottom:10px">
+                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_NumMessage *:</label>
+                        <div class="col-md-6" style="margin-bottom:10px">
                             <input type="text" class="form-control" name="NumberOfLastMsg" required/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-2">Insurance Company *:</label>
-                        <div class="col-md-10" style="margin-bottom:10px">
+                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_InsuranceCompany *:</label>
+                        <div class="col-md-6" style="margin-bottom:10px">
                             <input type="text" class="form-control" name="InsuranceCompany" required/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-2">Version Number* :</label>
-                        <div class="col-md-10" style="margin-bottom:10px">
+                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_VersionNumber * :</label>
+                        <div class="col-md-6" style="margin-bottom:10px">
                             <input type="text" class="form-control" name="VersionNumber" required/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-4" style="margin-bottom:10px">
-                            <input type="submit" class="form-control btn btn-success" value="Add" />
+                        <div class="col-md-offset-2 col-md-4" style="margin-bottom:10px">
+                            <button type="submit" class="form-control btn btn-success">
+                                @InsuredTraveling.Resource.AdminPanel_AddRecButton
+                            </button>
                         </div>
                     </div>
-
                 </div>
             </form>
-        </div>
-
-
-
-        <div id="menu2" class="tab-pane fade">
-            <h3>Menu 2</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-        </div>
-        <div id="menu3" class="tab-pane fade">
-            <h3>Menu 3</h3>
-            <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
         </div>
     </div>
 </div>
