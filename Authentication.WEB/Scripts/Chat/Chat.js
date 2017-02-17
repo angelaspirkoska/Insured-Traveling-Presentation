@@ -233,7 +233,6 @@ function generateMessage(PushMessageDTO)
     var date = PushMessageDTO.Date;
 
     if (last !== undefined && $(last).hasClass(lastSender)) {
-        alert("da");
         var p = "<p>" + message + "</p>";
         $(last).children().children().children().append(p);
     }

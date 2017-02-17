@@ -247,7 +247,7 @@ namespace InsuredTraveling.Hubs
                 : _db.chat_requests.Where(x => x.Requested_by.Equals(username));
 
             chatsActive = chatsActiveByRole.Where(x => x.Accepted == true && x.discarded == false
-                                           && x.fnol_created == false).Take(5).ToList();
+                                           && x.fnol_created == false).OrderByDescending(x => x.ID).Take(5).ToList();
 
             List<LastMessagesDTO> lastMessagesDTO = new List<LastMessagesDTO>();
 
