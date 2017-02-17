@@ -13,7 +13,7 @@ namespace InsuredTraveling.Controllers
             _repo = new AuthRepository();
         }
 
-        [Authorize(Users = "Admin")]
+        //[Authorize(Users = "Admin")]
         [Route("")]
         public IHttpActionResult Get()
         {

@@ -11,6 +11,7 @@ using static InsuredTraveling.Models.AdminPanel;
 using System.Configuration;
 using AutoMapper;
 using System.Net.Http;
+using InsuredTraveling.Filters;
 
 namespace InsuredTraveling.Controllers
 {
@@ -80,6 +81,23 @@ namespace InsuredTraveling.Controllers
                 return errorResult;
             }
 
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("AddClient")]
+        public IHttpActionResult AddClient(Client c)
+        {
+            if (_repo.AddClient(c) != -1)
+                return Ok();
+            return InternalServerError();
+        }
+
+        [HttpGet]
+        [Route("RefreshToken")]
+        public IHttpActionResult RefreshToken(string refresh_token)
+        {
+            _repo.RefreshToken(refresh_token);
             return Ok();
         }
 
@@ -166,15 +184,15 @@ namespace InsuredTraveling.Controllers
         [HttpPost]
         [System.Web.Http.AllowAnonymous]
         [Route("ActivateAccount")]
-        public IHttpActionResult ActivateAccount(string username)
+        public IHttpActionResult ActivateAccount(UserDTO username)
         {
-             _repo.ActivateAccount(username);
+             _repo.ActivateAccount(username.username);
             return Ok();
         }
         
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("FindUser")]
-        public async Task<IHttpActionResult> FindUsername(Username username)
+        public async Task<IHttpActionResult> FindUsername(UserDTO username)
         {
             if (!String.IsNullOrEmpty(username.username))
             {
@@ -194,7 +212,7 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("GetUserID")]
-        public IHttpActionResult GetUserID(Username username)
+        public IHttpActionResult GetUserID(UserDTO username)
         {
             if (username != null)
             {
@@ -238,7 +256,7 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("ForgetPassword")]
-        public void ForgetPassword(Username username)
+        public void ForgetPassword(UserDTO username)
         {
             if (username.username !=null)
             {
@@ -250,10 +268,11 @@ namespace InsuredTraveling.Controllers
             }
         }
 
+        [TwilioDownHandlingFilter]
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("SendSmSCode")]
-        public async Task<IHttpActionResult> SendSmsCode(Username user)
+        public async Task<IHttpActionResult> SendSmsCode(UserDTO user)
         {
             var result = await  _repo.SendSmsCode(user.username);
 
@@ -270,7 +289,7 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("ConfirmSms")]
-        public async Task<IHttpActionResult> ConfirmSms(Username user)
+        public async Task<IHttpActionResult> ConfirmSms(UserDTO user)
         {
             var result = await _repo.ConfirmSmsCode(user.username, user.code);
 
@@ -290,11 +309,18 @@ namespace InsuredTraveling.Controllers
         public IHttpActionResult DeleteToken()
         {
             if (HttpContext.Current.Request.Cookies["token"] == null) return Redirect(ConfigurationManager.AppSettings["webpage_url"] +"/Login");
-            var c = HttpContext.Current.Request.Cookies["token"];
-            c.Expires = DateTime.Now.AddYears(-1);
+            var token = HttpContext.Current.Request.Cookies["token"];
+            token.Expires = DateTime.Now.AddYears(-1);
             HttpContext.Current.Response.Cookies.Remove("token");
             HttpContext.Current.Response.Cookies.Clear();
-            HttpContext.Current.Response.Cookies.Set(c);
+            HttpContext.Current.Response.Cookies.Set(token);
+
+            var refresh_token = HttpContext.Current.Request.Cookies["refresh_token"];
+            refresh_token.Expires = DateTime.Now.AddYears(-1);
+            HttpContext.Current.Response.Cookies.Remove("refresh_token");
+            HttpContext.Current.Response.Cookies.Clear();
+            HttpContext.Current.Response.Cookies.Set(refresh_token);
+
             return Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
         }
 

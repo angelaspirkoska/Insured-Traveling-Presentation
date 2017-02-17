@@ -38,6 +38,7 @@ namespace InsuredTraveling
             builder.RegisterType<AdditionalInfoService>().As<IAdditionalInfoService>().InstancePerRequest();
             builder.RegisterType<ExchangeRateService>().As<IExchangeRateService>().InstancePerRequest();
             builder.RegisterType< TravelNumberService>().As<ITravelNumberService>().InstancePerRequest();
+            builder.RegisterType<ChatService>().As<IChatService>().InstancePerRequest();
 
             base.Load(builder);
 

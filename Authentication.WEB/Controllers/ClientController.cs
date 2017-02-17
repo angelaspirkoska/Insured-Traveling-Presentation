@@ -11,6 +11,7 @@ using InsuredTraveling.Controllers;
 
 namespace Authentication.WEB.Controllers
 {
+
     public class ClientController : Controller
     {
         private IInsuredsService _ins;

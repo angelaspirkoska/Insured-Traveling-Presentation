@@ -11,18 +11,30 @@ namespace InsuredTraveling.Filters
     public class SessionExpireAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
-
         {
             string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName.ToLower();
             HttpSessionStateBase session = filterContext.HttpContext.Session;
+
+
             if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                //Redirect
-                var url = new UrlHelper(filterContext.RequestContext);
-                var loginUrl = url.Content("~/Login/Index");
-                filterContext.HttpContext.Response.Redirect(loginUrl, true);
-            }
+                var refresh_tokenCookie = HttpContext.Current.Request.Cookies["refresh_token"];
+                var tokenCookie = HttpContext.Current.Request.Cookies["token"];
 
+                if(refresh_tokenCookie == null || tokenCookie == null)
+                {
+                    var url = new UrlHelper(filterContext.RequestContext);
+                    var loginUrl = url.Content("~/Login/Index");
+                    filterContext.HttpContext.Response.Redirect(loginUrl, true);
+                }else
+                {
+                    AuthRepository _repo = new AuthRepository();
+                     _repo.RefreshToken(refresh_tokenCookie.Value);
+                    
+                }
+
+            }
+            
         }
     }
 }

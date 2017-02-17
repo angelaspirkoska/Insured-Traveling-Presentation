@@ -834,4 +834,130 @@
   <data name="Policy_UseNumberLatinLetters" xml:space="preserve">
     <value>Користете само бројки и латински букви</value>
   </data>
+  <data name="Chats" xml:space="preserve">
+    <value>Разговори</value>
+  </data>
+  <data name="Search_Active" xml:space="preserve">
+    <value>Активни</value>
+  </data>
+  <data name="Search_Discarded" xml:space="preserve">
+    <value>Отфрлени</value>
+  </data>
+  <data name="Search_Noticed" xml:space="preserve">
+    <value>Пријавени</value>
+  </data>
+  <data name="Search_ChatWith" xml:space="preserve">
+    <value>Разговор со</value>
+  </data>
+  <data name="Search_DiscardedChat" xml:space="preserve">
+    <value>Отфрлен</value>
+  </data>
+  <data name="Search_FNOLChat" xml:space="preserve">
+    <value>Пријавен</value>
+  </data>
+  <data name="Search_Id" xml:space="preserve">
+    <value>Број на разговор</value>
+  </data>
+  <data name="Search_All" xml:space="preserve">
+    <value>Сите</value>
+  </data>
+  <data name="PolicyPrint_AdditionalPremium" xml:space="preserve">
+    <value>Доплатоци</value>
+  </data>
+  <data name="PolicyPrint_Address" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="PolicyPrint_Agency" xml:space="preserve">
+    <value>Агенција</value>
+  </data>
+  <data name="PolicyPrint_BasicPremium" xml:space="preserve">
+    <value>Основна премија</value>
+  </data>
+  <data name="PolicyPrint_Code" xml:space="preserve">
+    <value>Код</value>
+  </data>
+  <data name="PolicyPrint_Currency" xml:space="preserve">
+    <value>ден.</value>
+  </data>
+  <data name="PolicyPrint_DateOfBirth" xml:space="preserve">
+    <value>Дата на раѓање</value>
+  </data>
+  <data name="PolicyPrint_DateOfInssuance" xml:space="preserve">
+    <value>Датум на издавање</value>
+  </data>
+  <data name="PolicyPrint_Deductible" xml:space="preserve">
+    <value>Франшиза</value>
+  </data>
+  <data name="PolicyPrint_Insured" xml:space="preserve">
+    <value>ОСИГУРЕНИК</value>
+  </data>
+  <data name="PolicyPrint_InsuredDays" xml:space="preserve">
+    <value>Осигурани денови</value>
+  </data>
+  <data name="PolicyPrint_Insurer" xml:space="preserve">
+    <value>ОСИГУРУВАЧ</value>
+  </data>
+  <data name="PolicyPrint_Name" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="PolicyPrint_Number" xml:space="preserve">
+    <value>Број на полиса</value>
+  </data>
+  <data name="PolicyPrint_NumberOfInsured" xml:space="preserve">
+    <value>Број на осигуреници</value>
+  </data>
+  <data name="PolicyPrint_NumberOfTrips" xml:space="preserve">
+    <value>Број на патувања</value>
+  </data>
+  <data name="PolicyPrint_PassportNo" xml:space="preserve">
+    <value>Бр. на пасош</value>
+  </data>
+  <data name="PolicyPrint_PlaceOfInssuance" xml:space="preserve">
+    <value>Место на издавање</value>
+  </data>
+  <data name="PolicyPrint_PolicyHolder" xml:space="preserve">
+    <value>ДОГОВАРАЧ</value>
+  </data>
+  <data name="PolicyPrint_PolicyInfo" xml:space="preserve">
+    <value>ИНФОРМАЦИИ ЗА ПОЛИСАТА</value>
+  </data>
+  <data name="PolicyPrint_PremiumInfo" xml:space="preserve">
+    <value>ИНФОРМАЦИИ ЗА ПРЕМИЈАТА</value>
+  </data>
+  <data name="PolicyPrint_SSN" xml:space="preserve">
+    <value>ЕМБГ</value>
+  </data>
+  <data name="PolicyPrint_Title" xml:space="preserve">
+    <value>ПОЛИСА ЗА ПАТНИЧКО ОСИГУРУВАЊЕ</value>
+  </data>
+  <data name="PolicyPrint_TotalPremium" xml:space="preserve">
+    <value>Вкупна премија</value>
+  </data>
+  <data name="PolicyPrint_TypeOfPolicy" xml:space="preserve">
+    <value>Вид на полиса</value>
+  </data>
+  <data name="PolicyPrint_ValidFrom" xml:space="preserve">
+    <value>Започнува на</value>
+  </data>
+  <data name="PolicyPrint_ValidUntil" xml:space="preserve">
+    <value>Завршува на</value>
+  </data>
+  <data name="SignUp_Step1" xml:space="preserve">
+    <value>Чекор 1</value>
+  </data>
+  <data name="SignUp_Step2" xml:space="preserve">
+    <value>Чекор 2</value>
+  </data>
+  <data name="SignUp_Continue" xml:space="preserve">
+    <value>Продолжи</value>
+  </data>
+  <data name="SignUp_Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Search_FNOLNumber" xml:space="preserve">
+    <value>Број на оштетно побарување</value>
+  </data>
+  <data name="Search_SearchTableFNOLNumber" xml:space="preserve">
+    <value>Број на оштетно побарување</value>
+  </data>
 </root>

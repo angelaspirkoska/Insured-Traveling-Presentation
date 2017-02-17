@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using InsuredTraveling.Filters;
+using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
 {

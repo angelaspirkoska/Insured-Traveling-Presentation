@@ -7,14 +7,14 @@
         <div col-sm-12>
             <div class="col-sm-3 col-md-12 "></div>
             <div class="col-md-6">
-                <form id="newsForm">
+                <form id="newsForm" method="post" action="@Url.Action("AddNews")" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="newsTitle">@InsuredTraveling.Resource.News_Title</label>
                         <input type="text" class="form-control" name="newsTitle" id="newsTitle" placeholder="@InsuredTraveling.Resource.News_Title">
                     </div>
                     <div class="form-group">
                         <label for="newsImage">@InsuredTraveling.Resource.News_Image</label>
-                        <input type="file" id="newsImage" accept="image/*">
+                        <input type="file" id="newsImage" name="newsImage" @*accept="image/**@ ">
                     </div>
                     <div class="form-group">
                         <label for="newsContent">@InsuredTraveling.Resource.News_Content</label>
@@ -24,7 +24,7 @@
                         <input type="checkbox" id="newsIsNotification" name="newsIsNotification" />
                         <label for="newsIsNotification">@InsuredTraveling.Resource.News_Notification</label>
                     </div>
-                    <button style="width:100px; margin-left:20px;" type="button" id="addNewsBtn" class="btn btn-success">@InsuredTraveling.Resource.News_Add</button>
+                    <input type="submit" style="width:100px; margin-left:20px;" value="@InsuredTraveling.Resource.News_Add" class="btn btn-success">
                 </form>
             </div>
         </div>
@@ -43,18 +43,17 @@
             {
                 <div class="row" style="margin-left:20px;">
                     <div class="col-md-1 col-sm-2">
-                        <a href="#">
-                            <img style="width: 84px; height: 86px;" class="media-object" src="@news.ImageLocation" alt="broken link">
-                        </a>
+                       
+                            <img style="width: 84px; height: 86px;" class="media-object" src="@news.ImageLocation" alt="description_image">
+                        
                     </div>
                     <div class="col-md-11 col-sm-10">
                         <h4 class="media-heading">@news.Title</h4>
                         <p class="media-content">@news.Content</p>
                         @*<div id="buttons" class="col-sm-2">*@
                         <span hidden id="newsId">@news.ID</span>
-                        <button onclick="editNews(this)" style="width: 50px;" class="btn btn-xs btn-info btnEditNews">@InsuredTraveling.Resource.News_Edit</button>
-                        <button onclick="saveNews(this)" style="display:none; width: 50px;" class="btn btn-xs btn-success btnSaveNews">@InsuredTraveling.Resource.News_Save</button>
-                        <button onclick="deleteNews(this)" style="width: 50px;" class="btn btn-xs btn-danger btnDeleteNews">@InsuredTraveling.Resource.News_Delete</button>
+                        <button onclick="deleteNews(@news.ID)" id=@news.ID style="width: 50px;" class="btn btn-xs btn-danger btnDeleteNews">@InsuredTraveling.Resource.News_Delete</button>
+
                         @*</div>*@
                     </div>
                 </div>
@@ -64,31 +63,18 @@
     </div>
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script>
-
-    function saveNews(element) {
-        $(element).parent().find(".btnEditNews").show();
-        $(element).hide();
-    }
-
-    function editNews(element) {
-        $(element).parent().find(".btnSaveNews").show();
-        $(element).hide();
-    }
-
-    function deleteNews(element) {
-        var newsId = $(element).parents("#buttons").find("#newsId").html();
+    function deleteNews(newsId) {
         $.ajax({
             type: "POST",
-            url: "../SavaNews/DeleteNews",
+            url: "../News/DeleteNews",
             data: {
-                "newsId": newsId
+                newsId
             },
             dataType: "json",
             success: function (status) {
                 if (status["Success"] == "True") {
-                    alert("Sucessfully deleted");
                     location.reload();
                 }
                 else {
@@ -108,29 +94,35 @@
             var newsTitle = $("#newsTitle").val();
             var newsContent = $("#newsContent").val();
             var newsIsNotification = $("#newsIsNotification").is(":checked");
-
-            $.ajax({
-                type: "POST",
-                url: "../News/AddNews",
-                data: {
-                    "newsTitle": newsTitle,
-                    "newsContent": newsContent,
-                    "newsIsNotification": newsIsNotification,
-                },
-                dataType: "json",
-                success: function (status) {
-                    if (status["Success"] == "True") {
-                        alert("Sucessfully added");
-                        location.reload();
+            var newsImage = ("#newsImage").val();
+            console.log(newsTitle);
+            if(newsTittle == undefined)
+                alert("no tittle");
+            else{
+                $.ajax({
+                    type: "POST",
+                    url: "../News/AddNews",
+                    data: {
+                        "newsImage": newsImage,
+                        "newsTitle": newsTitle,
+                        "newsContent": newsContent,
+                        "newsIsNotification": newsIsNotification,
+                    },
+                    dataType: "json",
+                    success: function (status) {
+                        if (status["Success"] == "True") {
+                            location.reload();
+                        }
+                        else {
+                            alert(status["Message"]);
+                        }
+                    },
+                    error: function () {
+                        alert("Something went wrong!");
                     }
-                    else {
-                        alert(status["Message"]);
-                    }
-                },
-                error: function () {
-                    alert("Something went wrong!");
-                }
-            });
+                });
+            }
+        
         });
 
     })

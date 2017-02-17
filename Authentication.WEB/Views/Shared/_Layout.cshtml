@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using InsuredTraveling.Filters;
+@{
+    RoleAuthorize r = new RoleAuthorize();
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,11 +10,11 @@
     <title>@ViewBag.Title - Insured Travel</title>
 
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css" />
     <link rel="icon" href="/Content/img/profile.png">
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
-
 
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/jquery-3.1.1.js"></script>
@@ -49,108 +53,65 @@
                         }
                     }
                 </div>
-                <ul class="nav navbar-nav navbar-right"  style="float:right;text-align:right;" >
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                        <ul class="dropdown-menu message-dropdown">
-                            <li class="message-preview">
-                                <a href="#">
-                                    <div class="media">
-                                        <span class="pull-left">
-                                            <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                        </span>
-                                        <div class="media-body">
-                                            <h5 class="media-heading">
-                                                <strong>John Smith</strong>
-                                            </h5>
-                                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="message-preview">
-                                <a href="#">
-                                    <div class="media">
-                                        <span class="pull-left">
-                                            <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                        </span>
-                                        <div class="media-body">
-                                            <h5 class="media-heading">
-                                                <strong>John Smith</strong>
-                                            </h5>
-                                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="message-preview">
-                                <a href="#">
-                                    <div class="media">
-                                        <span class="pull-left">
-                                            <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                        </span>
-                                        <div class="media-body">
-                                            <h5 class="media-heading">
-                                                <strong>John Smith</strong>
-                                            </h5>
-                                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="message-footer">
-                                <a href="#">Read All New Messages</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown"><a href="#" id="messageRequests" class="dropdown-toggle" data-toggle="dropdown" >
-                                             <span class="glyphicon glyphicon-time"></span>
-                        </a>
-                    <ul class="dropdown-menu alert-dropdown" id="ul_alerts">
+               
+                    <ul class="nav navbar-nav navbar-right" style="float:right;text-align:right;">
 
-                        <li>
-                            <button class="btn btn-default btn-sm remove_alert" style="position: absolute; left: 80%;"><span class="glyphicon glyphicon-remove"></span></button>
-                            <a href="#">
-                                <p>
-                                    <label class="label label-default text-center">blabla</label>
-                                </p>
-                                <p>message bla bla</p>
-                            </a>
+                    @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                            <ul id="messages" class="dropdown-menu message-dropdown">
+                               
+                                @*<li class="message-footer">
+                                    <a href="#">Read All New Messages</a>
+                                </li>*@
+                            </ul>
                         </li>
+                       if (r.IsUser("admin")){
+                        <li class="dropdown">
+                        <a href="#" id="messageRequests" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </a>
+                        <ul class="dropdown-menu alert-dropdown" id="ul_alerts">
 
+
+                        </ul>
+                        </li>
+                       }
+
+                    }
+                       @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                         {
+                        <li><a href = "#" id="welcome"></a></li>
+                          }
+                        <li><a></a></li>
+                        <li><a href = "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken" id="logOut" onclick="func()">@InsuredTraveling.Resource.LogOut</a></li>
+                        <li><a href = "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login">@InsuredTraveling.Resource.Login</a></li>
+                        <li><a href = "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp" id="signup">@InsuredTraveling.Resource.SignUp</a></li>
                     </ul>
-                    </li>
-                    <li><a href="#" id="welcome"></a></li>
-                    @*<li></li>*@
-                    <li><a></a></li>
-                    <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken" id="logOut" onclick="func()">@InsuredTraveling.Resource.LogOut</a></li>
-                    <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login">@InsuredTraveling.Resource.Login</a></li>
-                    <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp" id="signup">@InsuredTraveling.Resource.SignUp</a></li>
-                </ul>
             </div>
         </div>
     </div>
-    @if (System.Web.HttpContext.Current.User != null)
-    {
-        <input type="hidden" value="@System.Web.HttpContext.Current.User.Identity.Name" id="userName" />
+    @if(System.Web.HttpContext.Current.User != null)
+                       {
+        <input type = "hidden" value = "@System.Web.HttpContext.Current.User.Identity.Name" id = "userName" />
     }
     <div class="container body-content">
         @RenderBody()
     </div>
     <br />
-    <div id="chats"></div>
+    <div id="chats" ></div >
     @*<footer class="text-center" style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: white; z-index: 10000">*@
         <footer class="container-fluid footer-material-design">
             <p class="container" style="color:#ffffff">&copy; @DateTime.Now.Year - Insured Traveling</p>
 
         </footer>
+                          
         <script src="~/Scripts/bootstrap.js"></script>
         <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
         <script src="~/signalr/hubs"></script>
         <script src="~/Scripts/Chat/Chat.js"></script>
+
         <script type="text/javascript">
 
             $(document).ready(function () {
@@ -181,14 +142,15 @@
 
 
                 });
+
                 function func() {
                     localStorage.clear();
                 }
 
-            });
+                });
         </script>
         <script id="chat_template" type="text/x-custom-template">
-            <div id="none" class="chat_position">
+            <div id="none" class="chat_position" requestId="none">
                 <div class="portlet portlet-default">
                     <div class="portlet-heading">
                         <div class="portlet-title">
@@ -196,6 +158,8 @@
                         </div>
                         <div class="portlet-widgets">
                             <span class="divider"></span>
+                            <a id="discardChat" class="hideable" href="#" style="display: -webkit-inline-box;"><i class="fa fa-minus-square"></i></a>
+                            <a id="createFnol" class="hideable" href="#"  style="display: -webkit-inline-box;"><i class="fa fa-plus-square"></i></a>
                             <a data-toggle="collapse" data-parent="#accordion" href="#chat"><i class="fa fa-chevron-down"></i></a>
                             <a id="close" href="#">
                                 <i class="fa fa-times" aria-hidden="true"></i>
@@ -210,13 +174,32 @@
                         </div>
                         <div class="portlet-footer">
                             <form role="form">
-                                <textarea class="form-control" placeholder="Enter message..."></textarea>
+                                <textarea class="form-control" id="none" requestid="none" placeholder="Enter message..."></textarea>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </script>
+        <script id="message_template" type="text/x-custom-template">
+            <li class="message-preview">
+                <a href="#" id="none">
+                    <div class="media">
+                        @*<span class="pull-left">
+                            <img class="media-object" src="http://placehold.it/50x50" alt="">
+                        </span>*@
+                        <div class="media-body">
+                            <h5 class="media-heading"  name="name">
+                                <strong>John Smith</strong>
+                            </h5>
+                            <p class="small text-muted"><i class="fa fa-clock-o"></i> <span class="timestamp"></span> </p>
+                            <p class="message" id="messageId"> </p>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </script>
+
 
 </body>
 </html>

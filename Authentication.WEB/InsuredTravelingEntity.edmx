@@ -134,6 +134,8 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Datetime_request" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Accepted_by" Type="varchar" MaxLength="256" />
           <Property Name="Accepted" Type="bool" Nullable="false" />
+          <Property Name="fnol_created" Type="bool" />
+          <Property Name="discarded" Type="bool" />
         </EntityType>
         <EntityType Name="clients">
           <Key>
@@ -153,14 +155,6 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="text" Nullable="false" />
-        </EntityType>
-        <EntityType Name="conversation">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="admin" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="user" Type="varchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="countries">
           <Key>
@@ -282,8 +276,8 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="PolicyId" Type="int" Nullable="false" />
           <Property Name="ClaimantId" Type="int" Nullable="false" />
           <Property Name="Relation_claimant_policy_holder" Type="text" />
-          <Property Name="Policy_holder_bank_accountID" Type="int" Nullable="false" />
-          <Property Name="Claimant_bank_accountID" Type="int" Nullable="false" />
+          <Property Name="Policy_holder_bank_accountID" Type="int" />
+          <Property Name="Claimant_bank_accountID" Type="int" />
           <Property Name="Destination" Type="text" Nullable="false" />
           <Property Name="Depart_Date_Time" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Arrival_Date_Time" Type="datetime" Precision="0" Nullable="false" />
@@ -291,10 +285,62 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Additional_infoID" Type="int" Nullable="false" />
           <Property Name="Total_cost" Type="float" Nullable="false" />
           <Property Name="Web/Mobile" Type="bool" />
-          <Property Name="Message" Type="text" />
+          <Property Name="ChatId" Type="int" />
           <Property Name="Short/Detailed" Type="bool" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="CreatedDateTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="128" />
+          <Property Name="Modified_Datetime" Type="datetime" Precision="0" />
+          <Property Name="FNOL_Number" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="first_notice_of_loss_archive">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fnol_ID" Type="int" Nullable="false" />
+          <Property Name="Created_Datetime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="ChatID" Type="int" />
+          <Property Name="Short/Detailed" Type="bool" />
+          <Property Name="Web/Mobile" Type="bool" />
+          <Property Name="Total_cost" Type="float" Nullable="false" />
+          <Property Name="Transport_means" Type="text" Nullable="false" />
+          <Property Name="Arrival_Date_Time" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Depart_Date_Time" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Destination" Type="text" Nullable="false" />
+          <Property Name="PolicyId" Type="int" Nullable="false" />
+          <Property Name="Relation" Type="text" />
+          <Property Name="Policy_Holder_Name" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Policy_Holder_Last_Name" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Policy_HolderId" Type="int" Nullable="false" />
+          <Property Name="Policy_Holder_Address" Type="text" Nullable="false" />
+          <Property Name="Policy_Holder_Phone" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Policy_Holder_Ssn" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Policy_Holder_BankAccountId" Type="int" Nullable="false" />
+          <Property Name="ClaimantId" Type="int" Nullable="false" />
+          <Property Name="Claimant_Name" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Claimant_Last_Name" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Claimant_Address" Type="text" Nullable="false" />
+          <Property Name="Claimant_Phone" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Claimant_Ssn" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Claimant_BankAccountId" Type="int" Nullable="false" />
+          <Property Name="Additional_infoId" Type="int" Nullable="false" />
+          <Property Name="Additional_info_datetime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Additional_info_accident_place" Type="text" Nullable="false" />
+          <Property Name="luggage_place_description" Type="text" />
+          <Property Name="luggage_detail_description" Type="text" />
+          <Property Name="luggage_report_place" Type="text" />
+          <Property Name="luggage_floaters" Type="text" />
+          <Property Name="luggage_floaters_value" Type="float" />
+          <Property Name="luggage_checking_time" Type="time" Precision="0" />
+          <Property Name="health_datetime_doctor_visit" Type="datetime" Precision="0" />
+          <Property Name="health_doctor_info" Type="text" />
+          <Property Name="health_medical_case_description" Type="text" />
+          <Property Name="health_responsible_institution" Type="text" />
+          <Property Name="health_previous_medical_history" Type="bool" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Modified_Datetime" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="groups">
           <Key>
@@ -401,6 +447,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="ConversationID" Type="int" Nullable="false" />
           <Property Name="Text" Type="text" Nullable="false" />
           <Property Name="Timestamp" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="from_username" Type="varchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="min_premium">
           <Key>
@@ -818,6 +865,30 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_1">
+          <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="1" />
+          <End Role="first_notice_of_loss_archive" Type="Self.first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="first_notice_of_loss">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="fnol_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_2">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1" />
+          <End Role="first_notice_of_loss_archive" Type="Self.first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="first_notice_of_loss_ibfk_1">
           <End Role="additional_info" Type="Self.additional_info" Multiplicity="1" />
           <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="*" />
@@ -843,7 +914,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="first_notice_of_loss_ibfk_3">
-          <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="1" />
+          <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="0..1" />
           <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="bank_account_info">
@@ -855,7 +926,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="first_notice_of_loss_ibfk_4">
-          <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="1" />
+          <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="0..1" />
           <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="bank_account_info">
@@ -887,6 +958,18 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Principal>
             <Dependent Role="first_notice_of_loss">
               <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_ibfk_8">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="0..1" />
+          <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss">
+              <PropertyRef Name="ModifiedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -963,10 +1046,10 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_conversation_message">
-          <End Role="conversation" Type="Self.conversation" Multiplicity="1" />
+          <End Role="chat_requests" Type="Self.chat_requests" Multiplicity="1" />
           <End Role="message" Type="Self.message" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="conversation">
+            <Principal Role="chat_requests">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="message">
@@ -1440,7 +1523,6 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="chat_requests" EntityType="Self.chat_requests" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="clients" EntityType="Self.clients" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="company" EntityType="Self.company" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="conversation" EntityType="Self.conversation" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="countries" EntityType="Self.countries" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="countries_name" EntityType="Self.countries_name" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="discount_age" EntityType="Self.discount_age" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1452,6 +1534,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="documents_first_notice_of_loss" EntityType="Self.documents_first_notice_of_loss" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="exchange_rate" EntityType="Self.exchange_rate" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="first_notice_of_loss" EntityType="Self.first_notice_of_loss" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="first_notice_of_loss_archive" EntityType="Self.first_notice_of_loss_archive" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="groups" EntityType="Self.groups" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="health_insurance" EntityType="Self.health_insurance" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="health_insurance_info" EntityType="Self.health_insurance_info" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1559,6 +1642,14 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
             <End Role="documents_first_notice_of_loss" EntitySet="documents_first_notice_of_loss" />
           </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_1" Association="Self.first_notice_of_loss_archive_ibfk_1">
+            <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_2" Association="Self.first_notice_of_loss_archive_ibfk_2">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
           <AssociationSet Name="first_notice_of_loss_ibfk_1" Association="Self.first_notice_of_loss_ibfk_1">
             <End Role="additional_info" EntitySet="additional_info" />
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
@@ -1580,6 +1671,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
           </AssociationSet>
           <AssociationSet Name="first_notice_of_loss_ibfk_7" Association="Self.first_notice_of_loss_ibfk_7">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_ibfk_8" Association="Self.first_notice_of_loss_ibfk_8">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
           </AssociationSet>
@@ -1608,7 +1703,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="bank_prefix" EntitySet="bank_prefix" />
           </AssociationSet>
           <AssociationSet Name="fk_conversation_message" Association="Self.fk_conversation_message">
-            <End Role="conversation" EntitySet="conversation" />
+            <End Role="chat_requests" EntitySet="chat_requests" />
             <End Role="message" EntitySet="message" />
           </AssociationSet>
           <AssociationSet Name="fk_country_id" Association="Self.fk_country_id">
@@ -1860,6 +1955,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="travel_duration1" Relationship="Self.fk_travel_duration_Modified_by" FromRole="aspnetusers" ToRole="travel_duration" />
           <NavigationProperty Name="users" Relationship="Self.fk_users_aspnetuser" FromRole="aspnetusers" ToRole="users" />
           <NavigationProperty Name="aspnetroles" Relationship="Self.aspnetuserroles" FromRole="aspnetusers" ToRole="aspnetroles" />
+          <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Entities.first_notice_of_loss_archive_ibfk_2" FromRole="aspnetuser" ToRole="first_notice_of_loss_archive" />
+          <NavigationProperty Name="first_notice_of_loss1" Relationship="Entities.first_notice_of_loss_ibfk_8" FromRole="aspnetuser" ToRole="first_notice_of_loss" />
         </EntityType>
         <EntityType Name="bank_account_info">
           <Key>
@@ -2054,7 +2151,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Additional_infoID" Type="Int32" Nullable="false" />
           <Property Name="Total_cost" Type="Single" Nullable="false" />
           <Property Name="Web_Mobile" Type="Boolean" />
-          <Property Name="Message" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Short_Detailed" Type="Boolean" />
           <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" />
@@ -2067,6 +2163,12 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="travel_policy" Relationship="Self.first_notice_of_loss_ibfk_6" FromRole="first_notice_of_loss" ToRole="travel_policy" />
           <NavigationProperty Name="health_insurance" Relationship="Self.fk_loss_id" FromRole="first_notice_of_loss" ToRole="health_insurance" />
           <NavigationProperty Name="luggage_insurance" Relationship="Self.fk_luggage_loss_id" FromRole="first_notice_of_loss" ToRole="luggage_insurance" />
+          <Property Name="ChatId" Type="Int32" />
+          <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Entities.first_notice_of_loss_archive_ibfk_1" FromRole="first_notice_of_loss" ToRole="first_notice_of_loss_archive" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Modified_Datetime" Type="DateTime" />
+          <NavigationProperty Name="aspnetuser1" Relationship="Entities.first_notice_of_loss_ibfk_8" FromRole="first_notice_of_loss" ToRole="aspnetuser" />
+          <Property Name="FNOL_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="group">
           <Key>
@@ -3401,11 +3503,23 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="retaining_risk_name" EntitySet="retaining_risk_name" />
           </AssociationSet>
           <EntitySet Name="chat_requests" EntityType="Entities.chat_requests" />
-          <EntitySet Name="conversations" EntityType="Entities.conversation" />
           <EntitySet Name="messages" EntityType="Entities.message" />
-          <AssociationSet Name="fk_conversation_message" Association="Entities.fk_conversation_message">
-            <End Role="conversation" EntitySet="conversations" />
+          <AssociationSet Name="fk_conversation_message1" Association="Entities.fk_conversation_message1">
+            <End Role="chat_requests" EntitySet="chat_requests" />
             <End Role="message" EntitySet="messages" />
+          </AssociationSet>
+          <EntitySet Name="first_notice_of_loss_archive" EntityType="Entities.first_notice_of_loss_archive" />
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_1" Association="Entities.first_notice_of_loss_archive_ibfk_1">
+            <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_2" Association="Entities.first_notice_of_loss_archive_ibfk_2">
+            <End Role="aspnetuser" EntitySet="aspnetusers" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_ibfk_8" Association="Entities.first_notice_of_loss_ibfk_8">
+            <End Role="aspnetuser" EntitySet="aspnetusers" />
+            <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
@@ -3550,15 +3664,9 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Datetime_request" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Accepted_by" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="Accepted" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="conversation">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="admin" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="user" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="messages" Relationship="Entities.fk_conversation_message" FromRole="conversation" ToRole="message" />
+          <Property Name="fnol_created" Type="Boolean" />
+          <NavigationProperty Name="messages" Relationship="Entities.fk_conversation_message1" FromRole="chat_requests" ToRole="message" />
+          <Property Name="discarded" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="message">
           <Key>
@@ -3568,17 +3676,105 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="ConversationID" Type="Int32" Nullable="false" />
           <Property Name="Text" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Timestamp" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="conversation" Relationship="Entities.fk_conversation_message" FromRole="message" ToRole="conversation" />
+          <Property Name="from_username" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="chat_requests" Relationship="Entities.fk_conversation_message1" FromRole="message" ToRole="chat_requests" />
         </EntityType>
-        <Association Name="fk_conversation_message">
-          <End Type="Entities.conversation" Role="conversation" Multiplicity="1" />
+        <Association Name="fk_conversation_message1">
+          <End Type="Entities.chat_requests" Role="chat_requests" Multiplicity="1" />
           <End Type="Entities.message" Role="message" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="conversation">
+            <Principal Role="chat_requests">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="message">
               <PropertyRef Name="ConversationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="first_notice_of_loss_archive">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fnol_ID" Type="Int32" Nullable="false" />
+          <Property Name="Created_Datetime" Type="DateTime" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ChatID" Type="Int32" />
+          <Property Name="Short_Detailed" Type="Boolean" />
+          <Property Name="Web_Mobile" Type="Boolean" />
+          <Property Name="Total_cost" Type="Single" Nullable="false" />
+          <Property Name="Transport_means" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Arrival_Date_Time" Type="DateTime" Nullable="false" />
+          <Property Name="Depart_Date_Time" Type="DateTime" Nullable="false" />
+          <Property Name="Destination" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="PolicyId" Type="Int32" Nullable="false" />
+          <Property Name="Relation" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Policy_Holder_Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Policy_Holder_Last_Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Policy_HolderId" Type="Int32" Nullable="false" />
+          <Property Name="Policy_Holder_Address" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Policy_Holder_Phone" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Policy_Holder_Ssn" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Policy_Holder_BankAccountId" Type="Int32" Nullable="false" />
+          <Property Name="ClaimantId" Type="Int32" Nullable="false" />
+          <Property Name="Claimant_Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Claimant_Last_Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Claimant_Address" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Claimant_Phone" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Claimant_BankAccountId" Type="Int32" Nullable="false" />
+          <Property Name="Additional_infoId" Type="Int32" Nullable="false" />
+          <Property Name="Additional_info_datetime" Type="DateTime" Nullable="false" />
+          <Property Name="Additional_info_accident_place" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="luggage_place_description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="luggage_detail_description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="luggage_report_place" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="luggage_floaters" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="luggage_floaters_value" Type="Single" />
+          <Property Name="health_datetime_doctor_visit" Type="DateTime" />
+          <Property Name="health_doctor_info" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="health_medical_case_description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="health_responsible_institution" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="health_previous_medical_history" Type="Boolean" />
+          <NavigationProperty Name="first_notice_of_loss" Relationship="Entities.first_notice_of_loss_archive_ibfk_1" FromRole="first_notice_of_loss_archive" ToRole="first_notice_of_loss" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Modified_Datetime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Entities.first_notice_of_loss_archive_ibfk_2" FromRole="first_notice_of_loss_archive" ToRole="aspnetuser" />
+          <Property Name="Claimant_Ssn" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="luggage_checking_time" Type="Time" />
+        </EntityType>
+        <Association Name="first_notice_of_loss_archive_ibfk_1">
+          <End Type="Entities.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="1" />
+          <End Type="Entities.first_notice_of_loss_archive" Role="first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="first_notice_of_loss">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="fnol_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_2">
+          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
+          <End Type="Entities.first_notice_of_loss_archive" Role="first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetuser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_ibfk_8">
+          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="0..1" />
+          <End Type="Entities.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetuser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss">
+              <PropertyRef Name="ModifiedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3823,6 +4019,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="first_notice_of_loss">
             <EntityTypeMapping TypeName="Entities.first_notice_of_loss">
               <MappingFragment StoreEntitySet="first_notice_of_loss">
+                <ScalarProperty Name="FNOL_Number" ColumnName="FNOL_Number" />
+                <ScalarProperty Name="Modified_Datetime" ColumnName="Modified_Datetime" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ChatId" ColumnName="ChatId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="PolicyId" ColumnName="PolicyId" />
                 <ScalarProperty Name="ClaimantId" ColumnName="ClaimantId" />
@@ -3836,7 +4036,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="Additional_infoID" ColumnName="Additional_infoID" />
                 <ScalarProperty Name="Total_cost" ColumnName="Total_cost" />
                 <ScalarProperty Name="Web_Mobile" ColumnName="Web/Mobile" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="Short_Detailed" ColumnName="Short/Detailed" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
@@ -4253,6 +4452,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="chat_requests">
             <EntityTypeMapping TypeName="Entities.chat_requests">
               <MappingFragment StoreEntitySet="chat_requests">
+                <ScalarProperty Name="discarded" ColumnName="discarded" />
+                <ScalarProperty Name="fnol_created" ColumnName="fnol_created" />
                 <ScalarProperty Name="Accepted" ColumnName="Accepted" />
                 <ScalarProperty Name="Accepted_by" ColumnName="Accepted_by" />
                 <ScalarProperty Name="Datetime_request" ColumnName="Datetime_request" />
@@ -4261,21 +4462,63 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="conversations">
-            <EntityTypeMapping TypeName="Entities.conversation">
-              <MappingFragment StoreEntitySet="conversation">
-                <ScalarProperty Name="user" ColumnName="user" />
-                <ScalarProperty Name="admin" ColumnName="admin" />
+          <EntitySetMapping Name="messages">
+            <EntityTypeMapping TypeName="Entities.message">
+              <MappingFragment StoreEntitySet="message">
+                <ScalarProperty Name="from_username" ColumnName="from_username" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ConversationID" ColumnName="ConversationID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="messages">
-            <EntityTypeMapping TypeName="Entities.message">
-              <MappingFragment StoreEntitySet="message">
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="ConversationID" ColumnName="ConversationID" />
+          <EntitySetMapping Name="first_notice_of_loss_archive">
+            <EntityTypeMapping TypeName="Entities.first_notice_of_loss_archive">
+              <MappingFragment StoreEntitySet="first_notice_of_loss_archive">
+                <ScalarProperty Name="luggage_checking_time" ColumnName="luggage_checking_time" />
+                <ScalarProperty Name="Claimant_Ssn" ColumnName="Claimant_Ssn" />
+                <ScalarProperty Name="Modified_Datetime" ColumnName="Modified_Datetime" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="health_previous_medical_history" ColumnName="health_previous_medical_history" />
+                <ScalarProperty Name="health_responsible_institution" ColumnName="health_responsible_institution" />
+                <ScalarProperty Name="health_medical_case_description" ColumnName="health_medical_case_description" />
+                <ScalarProperty Name="health_doctor_info" ColumnName="health_doctor_info" />
+                <ScalarProperty Name="health_datetime_doctor_visit" ColumnName="health_datetime_doctor_visit" />
+                <ScalarProperty Name="luggage_floaters_value" ColumnName="luggage_floaters_value" />
+                <ScalarProperty Name="luggage_floaters" ColumnName="luggage_floaters" />
+                <ScalarProperty Name="luggage_report_place" ColumnName="luggage_report_place" />
+                <ScalarProperty Name="luggage_detail_description" ColumnName="luggage_detail_description" />
+                <ScalarProperty Name="luggage_place_description" ColumnName="luggage_place_description" />
+                <ScalarProperty Name="Additional_info_accident_place" ColumnName="Additional_info_accident_place" />
+                <ScalarProperty Name="Additional_info_datetime" ColumnName="Additional_info_datetime" />
+                <ScalarProperty Name="Additional_infoId" ColumnName="Additional_infoId" />
+                <ScalarProperty Name="Claimant_BankAccountId" ColumnName="Claimant_BankAccountId" />
+                <ScalarProperty Name="Claimant_Phone" ColumnName="Claimant_Phone" />
+                <ScalarProperty Name="Claimant_Address" ColumnName="Claimant_Address" />
+                <ScalarProperty Name="Claimant_Last_Name" ColumnName="Claimant_Last_Name" />
+                <ScalarProperty Name="Claimant_Name" ColumnName="Claimant_Name" />
+                <ScalarProperty Name="ClaimantId" ColumnName="ClaimantId" />
+                <ScalarProperty Name="Policy_Holder_BankAccountId" ColumnName="Policy_Holder_BankAccountId" />
+                <ScalarProperty Name="Policy_Holder_Ssn" ColumnName="Policy_Holder_Ssn" />
+                <ScalarProperty Name="Policy_Holder_Phone" ColumnName="Policy_Holder_Phone" />
+                <ScalarProperty Name="Policy_Holder_Address" ColumnName="Policy_Holder_Address" />
+                <ScalarProperty Name="Policy_HolderId" ColumnName="Policy_HolderId" />
+                <ScalarProperty Name="Policy_Holder_Last_Name" ColumnName="Policy_Holder_Last_Name" />
+                <ScalarProperty Name="Policy_Holder_Name" ColumnName="Policy_Holder_Name" />
+                <ScalarProperty Name="Relation" ColumnName="Relation" />
+                <ScalarProperty Name="PolicyId" ColumnName="PolicyId" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="Depart_Date_Time" ColumnName="Depart_Date_Time" />
+                <ScalarProperty Name="Arrival_Date_Time" ColumnName="Arrival_Date_Time" />
+                <ScalarProperty Name="Transport_means" ColumnName="Transport_means" />
+                <ScalarProperty Name="Total_cost" ColumnName="Total_cost" />
+                <ScalarProperty Name="Web_Mobile" ColumnName="Web/Mobile" />
+                <ScalarProperty Name="Short_Detailed" ColumnName="Short/Detailed" />
+                <ScalarProperty Name="ChatID" ColumnName="ChatID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Created_Datetime" ColumnName="Created_Datetime" />
+                <ScalarProperty Name="fnol_ID" ColumnName="fnol_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

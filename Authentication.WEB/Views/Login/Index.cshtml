@@ -5,23 +5,22 @@
     ViewBag.Title = InsuredTraveling.Resource.Login;
 }
 
-<div class="container-fluid col-md-offset-4 col-md-1 col-sm-6" style="width:350px">
-    @using (Html.BeginForm())
-    {
-        <h2 class="panel-heading " style="margin-left:20px" >@InsuredTraveling.Resource.Login_Title</h2>
+<div class="container-fluid col-md-offset-4 col-md-4 col-sm-3">
+    @using (Html.BeginForm())    {
+        <h2 class="panel-heading " style="" >@InsuredTraveling.Resource.Login_Title</h2>
         @*<h4 style="color:red">@Html.ValidationSummary(false, "", new { @class = "alert alert-error" })</h4>*@
     if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
     {
         <div class="alert alert-danger" role="alert">
-            <a class="close" data-dismiss="alert">�</a>
+            <a class="close" data-dismiss="alert">x</a>
             @foreach (var modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
-                    {
+            {
                 <p>@modelError.ErrorMessage</p>
             }
         </div>
     }
    
-    <div class="col-md-12" style="width:350px">
+    <div>
         <div class="form-group">
             @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label" })
             <div class="input-group">
@@ -32,43 +31,30 @@
         </div>
     </div>
 
-    <div class="col-md-12" style="width:350px">
+    <div>
         <div class="form-group">
             @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label" })
             <div class="input-group">
-                <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
                 @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control col-md-10" } })
                 @*@Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })*@
             </div>
         </div>
     </div>
 
-    <div class="col-md-12" style="padding: 20px 35px;">
-
+    <div style="padding: 20px 0px;">
         @Html.ReCaptcha()
     </div>
-
-        <div class="col-md-12" style="margin-left:25px; width:400px">
-
-            <input class="btn btn-success" value="@InsuredTraveling.Resource.Login" type="submit" style="width:300px">
-
-
+        <div>
+            <input class="btn btn-success" value="@InsuredTraveling.Resource.Login" type="submit" style="width: 100%;" >
         </div>
-        <div class="col-md-12 form-inline" style="margin-left:20px;">
-        <div class="row">
-
-            <div class="col-md-6" style="margin-left:5px; width:120%">
+        <div class="form-inline custom-spacing">
+            <div>
                 <a href="/ForgetPassword/EnterUsernameOrMail">@InsuredTraveling.Resource.Login_ForgotPassword</a>
+                <a href="/SignUp" class="pull-right">@InsuredTraveling.Resource.SignUp</a>
             </div>
-
-
-            <div class="col-md-6" style="margin-top:-20px;margin-left:205px; width:120%">
-                <a href="/SignUp">@InsuredTraveling.Resource.SignUp</a>
-            </div>
-
         </div>
-    </div>
 
 
     }
-        </div>
+ </div>

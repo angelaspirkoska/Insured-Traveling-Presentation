@@ -1,4 +1,4 @@
-﻿using InsuredTraveling.Entities;
+﻿using InsuredTraveling.Models;
 using Microsoft.Owin.Security.Infrastructure;
 using System;
 using System.Threading.Tasks;

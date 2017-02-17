@@ -1,4 +1,5 @@
-﻿using InsuredTraveling.Models;
+﻿using InsuredTraveling.Filters;
+using InsuredTraveling.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,7 +15,7 @@ namespace InsuredTraveling.Controllers
     [AllowAnonymous]
     public class SignUpController : Controller
     {
-        
+       
         [HttpPost]
         public async Task<ActionResult> Index(User user, bool CaptchaValid)
         {

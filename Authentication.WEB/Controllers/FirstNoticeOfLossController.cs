@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace InsuredTraveling.Controllers
 {
-    
+
     [SessionExpire]
     public class FirstNoticeOfLossController : Controller
     {
@@ -173,11 +173,9 @@ namespace InsuredTraveling.Controllers
         {
             model.PolicyHolderBankAccountNumber = model.PolicyHolderBankAccountNumber.Trim();
             model.ClaimantBankAccountNumber = model.ClaimantBankAccountNumber.Trim();
-            
+            model.ModifiedBy = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
+
             UpdateFirstNoticeOfLossHelper.UpdateFirstNoticeOfLoss(model, _fis, _bas, _ais,  _his,  _lis, invoices, documentsHealth, documentsLuggage);
-
-
-
             return RedirectToAction("View", new { id = model.Id });
         }
 
@@ -314,7 +312,7 @@ namespace InsuredTraveling.Controllers
             firstNoticeOfLossEntity.CreatedDateTime = DateTime.Now;
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             firstNoticeOfLossEntity.CreatedBy = _us.GetUserIdByUsername(username);
-            firstNoticeOfLossEntity.Message = "";
+            //firstNoticeOfLossEntity.ChatId = "";
 
 
 

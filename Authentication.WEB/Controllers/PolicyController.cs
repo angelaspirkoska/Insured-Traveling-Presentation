@@ -19,6 +19,7 @@ using InsuredTraveling.Helpers;
 
 namespace Authentication.WEB.Controllers
 {
+
     [SessionExpire]
     public class PolicyController : Controller
     {
@@ -159,12 +160,13 @@ namespace Authentication.WEB.Controllers
             PaymentModel pat = new PaymentModel();
             pat.Pat = _ps.GetPolicyIdByPolicyNumber(policyNumber);
             pat.mainInsured = _pis.GetAllInsuredByPolicyId(pat.Pat.ID).FirstOrDefault();
-            //  model.additionalCharge1 = 
+
             var policy = _ps.GetPolicyById(pat.Pat.ID);
             var additionalCharges = _acs.GetAdditionalChargesByPolicyId(pat.Pat.ID);
 
             pat.additionalCharge1 = InsuredTraveling.Resource.WithNoAddOn;
             pat.additionalCharge2 = InsuredTraveling.Resource.WithNoAddOn;
+
             if (additionalCharges.Count >= 1 && additionalCharges[0] != null)
             {
                 pat.additionalCharge1 = _acs.GetAdditionalChargeName(additionalCharges[0].ID);

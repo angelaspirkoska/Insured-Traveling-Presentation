@@ -7,17 +7,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using InsuredTraveling.Entities;
+using InsuredTraveling.Models;
 using System.Security.Claims;
 using static InsuredTraveling.Models.AdminPanel;
 using System.Configuration;
+using System.Net.Http;
+using System.Web;
+using Newtonsoft.Json.Linq;
 
 namespace InsuredTraveling
 {
     public class AuthRepository : IDisposable
     {
         private AuthContext _ctx;
-
         private UserManager<ApplicationUser> _userManager;
         private RoleManager<IdentityRole> roleManager;
 
@@ -71,6 +73,65 @@ namespace InsuredTraveling
             return result;
         }
 
+        public int AddClient(Client c)
+        {
+            Client client = new Client
+            {
+                Id = c.Id,
+                Secret = Helper.GetHash(c.Secret),
+                Name = c.Name,
+                ApplicationType = Enums.ApplicationTypes.NativeConfidential,
+                Active = true,
+                RefreshTokenLifeTime = 1234,
+                AllowedOrigin = "*"
+            };
+            AuthContext db = new AuthContext();
+            db.Clients.Add(client);
+            var rez = db.SaveChanges();
+
+            return rez;
+
+        }
+
+        public async void RefreshToken(string refresh_token = "")
+        {
+            var uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/token");
+            var client = new HttpClient { BaseAddress = uri };
+            IDictionary<string, string> userData = new Dictionary<string, string>();
+            userData.Add("client_id", "InsuredTravel");
+            userData.Add("refresh_token", refresh_token);
+            userData.Add("grant_type", "refresh_token");
+            HttpContent content = new FormUrlEncodedContent(userData);
+            content.Headers.Remove("Content-Type");
+            content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+            var responseMessage = client.PostAsync(uri, content).Result;
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseBody = returnContent(responseMessage);
+                await Task.WhenAll(responseBody);
+                dynamic data =  JObject.Parse(responseBody.Result);
+                string token = data.access_token;
+                string refresh_token2 = data.refresh_token;
+                if (!String.IsNullOrEmpty(token))
+                {
+                    string encryptedToken = HttpUtility.UrlEncode(EncryptionHelper.Encrypt(token));
+                    HttpCookie cookieToken = new HttpCookie("token", encryptedToken);
+                    cookieToken.Expires = DateTime.Now.AddYears(1);
+                    HttpContext.Current.Response.Cookies.Add(cookieToken);
+
+                    //string encryptedRefreshToken = HttpUtility.UrlEncode(EncryptionHelper.Encrypt(refresh_token2));
+                    HttpCookie cookieRefreshToken = new HttpCookie("refresh_token", refresh_token2);
+                    cookieRefreshToken.Expires = DateTime.Now.AddYears(1);
+                    HttpContext.Current.Response.Cookies.Add(cookieRefreshToken);
+                }
+            }  
+        }
+
+        public async Task<string> returnContent(HttpResponseMessage responseMessage)
+        {
+            return await responseMessage.Content.ReadAsStringAsync();
+        }
+
         public async Task<IdentityResult> RegisterUserWeb(User userModel)
         {
             ApplicationUser user = new ApplicationUser
@@ -100,14 +161,21 @@ namespace InsuredTraveling
 
             if (result.Succeeded)
             {
-                string body = "Welcome to Optimal Insurance " + " " + ",";
-                body += "<br /><br />Please click the following link to activate your account";
-                body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
-                body += "<br /><br />Thanks";
-                MailService mailService = new MailService("slobodanka@optimalreinsurance.com"); //Change the email with the email user mail
-                mailService.setSubject("Account Activation Validation");
-                mailService.setBodyText(body, true);
-                mailService.sendMail();
+                try
+                {
+                    string body = "Welcome to Optimal Insurance " + " " + ",";
+                    body += "<br /><br />Please click the following link to activate your account";
+                    body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
+                    body += "<br /><br />Thanks";
+                    MailService mailService = new MailService(userModel.Email); //Change the email with the email user mail
+                    mailService.setSubject("Account Activation Validation");
+                    mailService.setBodyText(body, true);
+                    mailService.sendMail();
+                }
+                catch(Exception e)
+                {
+                    return null;
+                }
             }
 
             var result2 = _userManager.AddToRole(user.Id, "end user");

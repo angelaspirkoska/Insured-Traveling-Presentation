@@ -17,5 +17,7 @@ namespace InsuredTraveling.DI
         void DeleteNews(int id);
 
         bool IsNull(int id);
+
+        news_all GetNewsById(int id);
     }
 }

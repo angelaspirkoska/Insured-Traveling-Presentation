@@ -7,6 +7,9 @@ namespace InsuredTraveling
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/search").Include(
+               "~/Scripts/Search/search.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                 "~/Scripts/jquery-3.1.1.min.js",
                 "~/Scripts/bootstrap.min.js",
@@ -27,6 +30,9 @@ namespace InsuredTraveling
                      "~/Content/sorter/style.css",
                       "~/Content/font-awesome.min.css",
                      "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/loader").Include(
+                     "~/Content/loader.css"));
         }
     }
 }

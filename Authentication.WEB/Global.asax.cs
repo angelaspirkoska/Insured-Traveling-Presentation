@@ -11,6 +11,8 @@ using InsuredTraveling.Filters;
 using System;
 using System.Threading;
 using System.Globalization;
+using System.Web.Security;
+using System.Web.Http.Dispatcher;
 
 namespace InsuredTraveling
 {
@@ -18,8 +20,8 @@ namespace InsuredTraveling
     {
         protected void Application_Start()
         {
+            GlobalConfiguration.Configuration.Services.Replace(typeof(IAssembliesResolver), new CustomAssemblyResolver());
             SetupDependencyInjection();
-
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -28,6 +30,7 @@ namespace InsuredTraveling
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new CustomViewEngine());
             AutoMapperInitializer.Initialize();
+            
         }
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
@@ -42,11 +45,26 @@ namespace InsuredTraveling
             }
             else
             {
-               lang = SiteLanguages.GetDefaultLanguage();
-               new SiteLanguages().SetLanguage(lang);
-            }          
+                lang = SiteLanguages.GetDefaultLanguage();
+                new SiteLanguages().SetLanguage(lang);
+            }
         }
+        protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
+        {
+            if (HttpContext.Current.User == null) return;
+            if (!HttpContext.Current.User.Identity.IsAuthenticated) return;
+            if (!(HttpContext.Current.User.Identity is FormsIdentity)) return;
 
+            //var id = (FormsIdentity)HttpContext.Current.User.Identity;
+            //var ticket = (id.Ticket);
+
+            //if (string.IsNullOrEmpty(ticket.UserData)) return;
+            //string userData = ticket.UserData;
+
+            //string[] roles = userData.Split(',');
+
+            //HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(id, roles);
+        }
         private void SetupDependencyInjection()
         {
             var builder = new ContainerBuilder();

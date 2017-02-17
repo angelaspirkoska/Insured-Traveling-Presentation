@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
-using InsuredTraveling.Entities;
 using InsuredTraveling.Models;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
@@ -23,17 +22,15 @@ namespace InsuredTraveling.Providers
 
         public override Task MatchEndpoint(OAuthMatchEndpointContext context)
         {
-            // string t = context.Request.Query["token"];
-            Pom(context);
+            AddingAuthorizationHeader(context);
             return base.MatchEndpoint(context);
         }
-        public void Pom(OAuthMatchEndpointContext context)
+        public void AddingAuthorizationHeader(OAuthMatchEndpointContext context)
         {
-            //ne e ok 
-            var c = HttpContext.Current.Request.Cookies["token"];
-            if (c == null) return;
+            var cookieToken = HttpContext.Current.Request.Cookies["token"];
+            if (cookieToken == null) return;
 
-            var t = c["t"];
+            var t = EncryptionHelper.Decrypt(HttpUtility.UrlDecode(cookieToken.Value));
             var s = new string[1];
             s[0] = "Bearer " + t;
             if (!context.Request.Headers.ContainsKey("Authorization"))

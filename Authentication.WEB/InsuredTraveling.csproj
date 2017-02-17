@@ -46,8 +46,8 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Autofac, Version=4.1.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.1.1\lib\net45\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=4.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.3.0\lib\net45\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -58,12 +58,12 @@
       <HintPath>..\packages\Autofac.WebApi2.4.0.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ClosedXML, Version=0.76.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
-      <HintPath>..\packages\ClosedXML.0.76.0\lib\net40-client\ClosedXML.dll</HintPath>
+    <Reference Include="ClosedXML, Version=0.86.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.86.0\lib\net40\ClosedXML.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -270,6 +270,8 @@
     <Content Include="Content\img\portfolio\safe.png" />
     <Content Include="Content\img\portfolio\submarine.png" />
     <Content Include="Content\img\profile.png" />
+    <Content Include="Content\loader.css" />
+    <Content Include="Content\loader\page-loader.gif" />
     <Content Include="Content\Site.css" />
     <Content Include="Errors\401.aspx" />
     <Content Include="Errors\401.html" />
@@ -280,6 +282,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="HalkbankPaymentPlugin\HalkbankPayment.HalkbankSmartPayment.dll" />
     <Content Include="index.html" />
     <Content Include="InsuredTravelingEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -326,6 +329,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="HalkbankPaymentPlugin\license.lic" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -350,6 +354,7 @@
     <Content Include="Scripts\messages_is.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Search\Search.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -368,6 +373,7 @@
     <Compile Include="App_Start\AutoMapperInitializer.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RequireHttpsAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\ServicesRegistration.cs" />
@@ -407,11 +413,13 @@
     </Compile>
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\API\AccountController.cs" />
+    <Compile Include="Controllers\API\ChatController.cs" />
     <Compile Include="Controllers\API\MobileApiController.cs" />
+    <Compile Include="Controllers\API\RefreshTokenController.cs" />
     <Compile Include="Controllers\ChangeLanuageController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ForgetPasswordController.cs" />
-    <Compile Include="Controllers\API\HalkbankPaymentApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\API\MobilePolicyApiController.cs" />
@@ -425,15 +433,13 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Controllers\ValidateMailController.cs" />
-    <Compile Include="conversation.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="countries_name.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="country.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="CustomAssemblyResolver.cs" />
     <Compile Include="CustomViewEngine.cs" />
     <Compile Include="discount_age.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
@@ -453,12 +459,14 @@
     <Compile Include="DI\AdditionalChargesService.cs" />
     <Compile Include="DI\AdditionalInfoService.cs" />
     <Compile Include="DI\BankAccountService.cs" />
+    <Compile Include="DI\ChatService.cs" />
     <Compile Include="DI\CountryService.cs" />
     <Compile Include="DI\ExchangeRateService.cs" />
     <Compile Include="DI\FranchiseService.cs" />
     <Compile Include="DI\IAdditionalChargesService.cs" />
     <Compile Include="DI\IAdditionalInfoService.cs" />
     <Compile Include="DI\IBankAccountService.cs" />
+    <Compile Include="DI\IChatService.cs" />
     <Compile Include="DI\ICountryService.cs" />
     <Compile Include="DI\FirstNoticeOfLossService.cs" />
     <Compile Include="DI\HealthInsuranceService.cs" />
@@ -494,6 +502,14 @@
     <Compile Include="documents_first_notice_of_loss.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="DTOs\Chat\AcknowledgeDTO.cs" />
+    <Compile Include="DTOs\Chat\BaseRequestIdDTO.cs" />
+    <Compile Include="DTOs\Chat\StatusUpdateDTO.cs" />
+    <Compile Include="DTOs\Chat\LastMessagesDTO.cs" />
+    <Compile Include="DTOs\Chat\MessageDTO.cs" />
+    <Compile Include="DTOs\Chat\MessageRequestsDTO.cs" />
+    <Compile Include="DTOs\Chat\RequestDTO.cs" />
+    <Compile Include="EncryptionHelper.cs" />
     <Compile Include="Errors\401.aspx.cs">
       <DependentUpon>401.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -521,22 +537,14 @@
     <Compile Include="Filters\RoleAuthorize.cs" />
     <Compile Include="Filters\RecaptchaFilter.cs" />
     <Compile Include="Filters\SessionExpireAttribute.cs" />
+    <Compile Include="Filters\TwilioDownHandlingFilter.cs" />
+    <Compile Include="Filters\ZohoDownHandlingFilter.cs" />
     <Compile Include="first_notice_of_loss.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="FormBuilder\SelectTag.cs" />
-    <Compile Include="FormBuilder\RadioButtonTag.cs" />
-    <Compile Include="FormBuilder\CheckBoxTag.cs" />
-    <Compile Include="FormBuilder\FormBuilder.cs" />
-    <Compile Include="FormBuilder\HeaderTag.cs" />
-    <Compile Include="FormBuilder\LabelTag.cs" />
-    <Compile Include="FormBuilder\OptionTag.cs" />
-    <Compile Include="FormBuilder\TextAreaTag.cs" />
-    <Compile Include="FormBuilder\EmailTag.cs" />
-    <Compile Include="FormBuilder\FileTag.cs" />
-    <Compile Include="FormBuilder\DateTag.cs" />
-    <Compile Include="FormBuilder\TimeTag.cs" />
-    <Compile Include="FormBuilder\TextBoxTag.cs" />
+    <Compile Include="first_notice_of_loss_archive.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -550,6 +558,7 @@
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
+    <Compile Include="Helpers\ArchiveFirstNoticeOfLossHelper.cs" />
     <Compile Include="Helpers\UpdateAdditionalInfoHelper.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\SaveInsuredHelper.cs" />
@@ -558,7 +567,10 @@
     <Compile Include="Helpers\SavePolicyHelper.cs" />
     <Compile Include="Helpers\UpdateBankAccountInfoHelper.cs" />
     <Compile Include="Helpers\UpdateFirstNoticeOfLossHelper.cs" />
-    <Compile Include="Hubs\ChatHub.cs" />
+    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="SignalR\PipelineModules\LoggingPipelineModule.cs" />
+    <Compile Include="SignalR\Hubs\ChatHub.cs" />
+    <Compile Include="SignalR\PipelineModules\ExceptionPipelineModule.cs" />
     <Compile Include="insured.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -619,7 +631,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserModel_Detail.cs" />
-    <Compile Include="Models\Username.cs" />
+    <Compile Include="Models\UserDTO.cs" />
     <Compile Include="Models\ValidationModel.cs" />
     <Compile Include="Authentication\MySqlConfiguration.cs" />
     <Compile Include="Authentication\MySqlHistoryContext.cs" />
@@ -669,8 +681,8 @@
     <Compile Include="retaining_risk_name.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Scripts\Entities\Client.cs" />
-    <Compile Include="Scripts\Entities\RefreshToken.cs" />
+    <Compile Include="Models\Entities\Client.cs" />
+    <Compile Include="Models\Entities\RefreshToken.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Providers\SimpleRefreshTokenProvider.cs" />
     <Compile Include="Services\ConditionalValidationAttribute.cs" />
@@ -714,6 +726,7 @@
     <Compile Include="ViewModels\FirstNoticeOfLossEditViewModel.cs" />
     <Compile Include="ViewModels\JsonWrapperPolicyFirstNoticeOfLossViewModel.cs" />
     <Compile Include="ViewModels\PolicyAutoCompleteViewModel.cs" />
+    <Compile Include="ViewModels\Request.cs" />
     <Compile Include="ViewModels\SearchClientsViewModel.cs" />
     <Compile Include="ViewModels\SearchFNOLViewModel.cs" />
     <Compile Include="ViewModels\SearchPolicyViewModel.cs" />
@@ -747,6 +760,18 @@
     <Content Include="Views\FirstNoticeOfLoss\Edit.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Error\NotFoundPage.cshtml" />
+    <Content Include="Views\Error\Forbiden.cshtml" />
+    <Content Include="Views\Error\Conflict.cshtml" />
+    <Content Include="Views\Error\InternalServerError.cshtml" />
+    <Content Include="Views\Error\Anauthorized.cshtml" />
+    <Content Include="Views\Error\MethodNotAllowed.cshtml" />
+    <Content Include="Views\Error\NotAcceptable.cshtml" />
+    <Content Include="Views\Error\RequestTimeout.cshtml" />
+    <Content Include="Views\Error\UnsupportedMediaType.cshtml" />
+    <Content Include="Views\Error\ServiceUnavailable.cshtml" />
+    <Content Include="Views\Error\Mail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -759,8 +784,10 @@
     <Folder Include="DocumentsFirstNoticeOfLoss\HealthInsurance\" />
     <Folder Include="DocumentsFirstNoticeOfLoss\Invoices\" />
     <Folder Include="DocumentsFirstNoticeOfLoss\LuggageInsurance\" />
+    <Folder Include="News\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ChangeLanuage\" />
+    <Folder Include="Views\RefreshToken\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -770,6 +797,7 @@
     <EmbeddedResource Include="Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -810,4 +838,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll" />
+  <Target Name="AfterBuild" Condition="Exists('Web.$(Configuration).config')">
+    <!--Generate transformed config in the output directory-->
+    <TransformXml Source="Web.config" Destination="$(OutputPath)Web.config" Transform="Web.$(Configuration).config" />
+  </Target>
 </Project>

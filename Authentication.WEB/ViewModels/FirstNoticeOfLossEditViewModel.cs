@@ -20,6 +20,7 @@ namespace InsuredTraveling.ViewModels
 
         public string username { get; set; }
         public int Id { get; set; }
+        public string FNOLNumber { get; set; }
         public bool? ShortDetailed { get; set; }
         public JObject BankPrefixes { get; set; }
 

@@ -81,7 +81,7 @@ namespace InsuredTraveling.Controllers.API
         }
 
         [Route("RetrieveUserInfo")]
-        public JObject RetrieveUserInformation(Username username)
+        public JObject RetrieveUserInformation(UserDTO username)
         {
             JObject data = new JObject();
             aspnetuser user = _us.GetUserDataByUsername(username.username);
@@ -319,7 +319,7 @@ namespace InsuredTraveling.Controllers.API
                 var fnolObject = new JObject();
                 if (fnol.Short_Detailed == true)
                 {
-                    fnolObject.Add("Message", fnol.Message);
+                    fnolObject.Add("ChatId", fnol.ChatId);
                     fnolObject.Add("ID", fnol.ID);
                     fnolObject.Add("Policy_Number", fnol.travel_policy.Policy_Number);
                     fnolObject.Add("Short_Detailed", fnol.Short_Detailed);
@@ -470,7 +470,7 @@ namespace InsuredTraveling.Controllers.API
                 first_notice_of_loss f1 = _fnls.Create();
                 var user = _ps.GetPolicyHolderByPolicyID(f1.PolicyId);
                 f1.travel_policy.Policy_HolderID = user.ID;
-                f1.Message = f.Message;
+                f1.ChatId = f.ChatId;
                 f1.travel_policy.Policy_Number = f.PolicyNumber.ToString();
                 f1.Web_Mobile = f.isMobile;
                 try

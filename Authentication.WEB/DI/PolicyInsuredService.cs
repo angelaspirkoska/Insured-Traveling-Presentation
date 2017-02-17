@@ -25,9 +25,12 @@ namespace InsuredTraveling.DI
 
         public List<insured> GetAllInsuredByPolicyId(int id)
         {
-            var insuredsID = _db.policy_insured.Where(x => x.PolicyID == id).Select(x => x.insured).ToList();
-           
-            return insuredsID;
+            var insureds = _db.policy_insured.Where(x => x.PolicyID == id).ToList();
+            if(insureds != null)
+            {
+                return insureds.Select(x => x.insured).ToList();
+            }
+            return null;
         }
         public List<insured> GetAllInsuredByPolicyIdAndInsuredCreatedBy(int id, string createdById)
         {
