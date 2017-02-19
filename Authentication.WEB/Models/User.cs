@@ -50,7 +50,6 @@ namespace InsuredTraveling.Models
         [Display(Name = "User_InsuranceCompany", ResourceType = typeof(Resource))]
         public string InsuranceCompany = "Sava";
 
-        [Required]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Phone number must be numeric")]
         [Display(Name = "User_PhoneNumber", ResourceType = typeof(Resource))]
         public override string PhoneNumber { get; set; }

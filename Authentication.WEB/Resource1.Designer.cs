@@ -2590,6 +2590,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your registration is not valid. Please review the form and add valid information..
+        /// </summary>
+        public static string SignUP_FailMessage {
+            get {
+                return ResourceManager.GetString("SignUP_FailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This username already exist in the system.
+        /// </summary>
+        public static string SignUp_SameUserName {
+            get {
+                return ResourceManager.GetString("SignUp_SameUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Step 1.
         /// </summary>
         public static string SignUp_Step1 {
@@ -2604,6 +2622,15 @@ namespace InsuredTraveling {
         public static string SignUp_Step2 {
             get {
                 return ResourceManager.GetString("SignUp_Step2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have successfully registered.
+        /// </summary>
+        public static string SignUp_SuccessMessage {
+            get {
+                return ResourceManager.GetString("SignUp_SuccessMessage", resourceCulture);
             }
         }
         
