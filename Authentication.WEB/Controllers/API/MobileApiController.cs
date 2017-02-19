@@ -461,47 +461,6 @@ namespace InsuredTraveling.Controllers.API
         }
 
         [HttpPost]
-        [Route("ReportLoss")]
-        public IHttpActionResult ReportLoss(FirstNoticeOfLossReportViewModel f)
-        {
-            if (f.ShortDetailed == true)
-            {
-
-                first_notice_of_loss f1 = _fnls.Create();
-                var user = _ps.GetPolicyHolderByPolicyID(f1.PolicyId);
-                f1.travel_policy.Policy_HolderID = user.ID;
-                f1.ChatId = f.ChatId;
-                f1.travel_policy.Policy_Number = f.PolicyNumber.ToString();
-                f1.Web_Mobile = f.isMobile;
-                try
-                {
-                    _fnls.Add(f1);
-
-                }
-                catch (Exception ex)
-                {
-                    return InternalServerError(ex);
-                }
-                return Ok();
-            }
-            else
-            {
-                var user = _ps.GetPolicyHolderByPolicyID(_ps.GetPolicyIdByPolicyNumber(f.PolicyNumber.ToString()).ID);
-                if (user == null)
-                    throw new Exception("Policy not found");
-                f.PolicyHolderId = user.ID;
-
-                var result = SaveFirstNoticeOfLossHelper.SaveFirstNoticeOfLoss(_iss, _us, _fis,
-                                                    _bas, _pts, _ais, f, null, null, null);
-
-                if (result > 0)
-                    return Ok();
-
-                else throw new Exception("Internal error: Not saved");
-            }
-        }
-
-        [HttpPost]
         [Route("ReportDetailLoss")]
         public JObject ReportDetailLoss(DetailFirstNoticeOfLossViewModel addLoss)
         {
