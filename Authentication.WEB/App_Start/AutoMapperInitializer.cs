@@ -315,13 +315,13 @@ namespace InsuredTraveling.App_Start
                 dst.LastName = src.Policy_Holder != null ? src.Policy_Holder.Lastname : "";
                 dst.SSN = src.Policy_Holder != null ? src.Policy_Holder.SSN : "";
                 dst.insureds = src.Insureds;
-                dst.additional_charges = src.Additional_charges;
-                //foreach (var charge in src.additional_charges)
-                //{
-                //    var additionalCharge = db.additional_charge.Where(x => x.ID == charge).FirstOrDefault();
-                //    if(additionalCharge != null)
-                //        dst.additional_charges.Add(additionalCharge);
-                //}
+                //dst.additional_charges = src.Additional_charges;
+                foreach (var charge in src.additional_charges)
+                {
+                    var additionalCharge = db.additional_charge.Where(x => x.ID == charge).FirstOrDefault();
+                    if (additionalCharge != null)
+                        dst.additional_charges.Add(additionalCharge);
+                }
             });
         }
     }
