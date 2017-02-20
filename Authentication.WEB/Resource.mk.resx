@@ -1026,4 +1026,13 @@
   <data name="Search_FNOLtotalcost" xml:space="preserve">
     <value>Пребарувај по вкупен износ</value>
   </data>
+  <data name="SignUP_FailMessage" xml:space="preserve">
+    <value>Вашата регистрација не е успешна. Внесете точни податоци во полињата за регистрација.</value>
+  </data>
+  <data name="SignUp_SameUserName" xml:space="preserve">
+    <value>Корисничкото име е регистирано во системот</value>
+  </data>
+  <data name="SignUp_SuccessMessage" xml:space="preserve">
+    <value>Успешно се регистриравте</value>
+  </data>
 </root>

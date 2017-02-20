@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-6">
             <h2 class="form-login-heading heading-padding">@InsuredTraveling.Resource.SignUp</h2>
-        </div>
+        </div>s
         <div class="col-lg-offset-2 col-md-offset-2 col-lg-4 col-md-4 col-sm-4">
             <div class="alert alert-dismissible alert-info alert-position">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -17,273 +17,275 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-6">
+            @if (ViewBag.Message != null)
+            {
+                if (ViewBag.Message == "Registration failed")
+                {
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <span>@InsuredTraveling.Resource.SignUP_FailMessage</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-dismissible alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <span>@InsuredTraveling.Resource.SignUp_SuccessMessage</span>
+                    </div>
+
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                setTimeout(function () {
+                                    window.location.replace("@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp/MobilePhoneVerification?username=" + $("#username").val());
+                                }, 2000);
+
+                                SendSMSCode();
+                                ActivateAccount();
+                            });
+                        </script>
+                }
+            }
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-12">
             <ul class="tab">
                 <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Eden')" id="defaultOpen"> @InsuredTraveling.Resource.SignUp_Step1 </a></li>
                 <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Dva')"> @InsuredTraveling.Resource.SignUp_Step2 </a></li>
             </ul>
-        </div>   
+        </div>
         <div class="col-md-12">
-          <div id="Eden" class="tabcontent">
-            <div class="form-horizontal">
-            <div class="form-group">
-                <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>@InsuredTraveling.Resource.RequiredField
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label " })
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="glyphicon glyphicon-user"></i>
+            <div id="Eden" class="tabcontent">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>@InsuredTraveling.Resource.RequiredField
                         </div>
-                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control mandatoryField", onblur = "FindUsername()", id = "username", style = "" } })
-                        <span style="color: red" id="UsernameMsg"></span>
                     </div>
-                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-key"></i>
+                    <div class="form-group">
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label " })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control mandatoryField", onblur = "FindUsername()", id = "username", style = "" } })
+                                <span style="color: red" id="UsernameMsg"></span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                         </div>
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control mandatoryField", style = "" } })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-key"></i>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-key"></i>
+                                </div>
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control mandatoryField", style = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                         </div>
-                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", style = "" } })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="glyphicon glyphicon-user"></i>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-key"></i>
+                                </div>
+                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
                         </div>
-                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", style = "" } })
                     </div>
-                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                </div>
+                    <div class="form-group">
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
 
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="glyphicon glyphicon-user"></i>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                         </div>
-                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", style = "" } })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                </div>
 
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group date" id="datetimepicker">
-                        <div class="input-group-addon">
-                            <i class="glyphicon glyphicon-calendar"></i>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group date" id="datetimepicker">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </div>
+                                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control placeholder", type = "date", id = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
                         </div>
-                        @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control placeholder", type = "date", id = "" } })
                     </div>
-                    @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group">
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="glyphicon glyphicon-map-marker"></i>
+                    <div class="form-group">
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-map-marker"></i>
+                                </div>
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                         </div>
-                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", style = "" } })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.Municipality, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="glyphicon glyphicon-home"></i>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.Municipality, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-home"></i>
+                                </div>
+                                @Html.EditorFor(model => model.Municipality, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Municipality, "", new { @class = "text-danger" })
                         </div>
-                        @Html.EditorFor(model => model.Municipality, new { htmlAttributes = new { @class = "form-control", style = "" } })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.Municipality, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="glyphicon glyphicon-user"></i>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
                         </div>
-                        @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control", style = "" } })
                     </div>
-                    @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-2 col-sm-2 hidden-xs text-right pull-right">
-                    <a href="javascript:void(0)" class="btn btn-default tablinks" onclick="openTab(event, 'Dva')" style="font-size:15px;">
-                        <span>@InsuredTraveling.Resource.SignUp_Continue </span>
-                        <span class="glyphicon glyphicon-menu-right"></span>
-                    </a>
+                    <div class="form-group">
+                        <div class="col-md-2 col-sm-2 hidden-xs text-right pull-right">
+                            <a href="javascript:void(0)" class="btn btn-default tablinks" onclick="openTab(event, 'Dva')" style="font-size:15px;">
+                                <span>@InsuredTraveling.Resource.SignUp_Continue </span>
+                                <span class="glyphicon glyphicon-menu-right"></span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-  </div>     
-</div> 
     <!--Step 2-->
     <div class="row">
         <div class="col-md-12">
-        <div id="Dva" class="tabcontent">
-        <div class="form-horizontal">
-            <div class="form-group">
-                <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>@InsuredTraveling.Resource.RequiredField
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="glyphicon glyphicon-envelope"></i>
-                        </div>
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", style = "" } })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="glyphicon glyphicon-earphone"></i>
-                        </div>
-                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", style = "" } })
-                    </div>
-                    @*@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })*@
-                </div>
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.MobilePhoneNumber, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="glyphicon glyphicon-phone"></i>
-                        </div>
-                        @Html.EditorFor(model => model.MobilePhoneNumber, new { htmlAttributes = new { @class = "form-control", style = "", id = "mobilenumber" } })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.MobilePhoneNumber, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="glyphicon glyphicon-user"></i>
-                        </div>
-                        @Html.DropDownListFor(model => model.Gender, (List<SelectListItem>)ViewBag.Gender, "-- Select Gender --", new { @class = "form-control", style = "" })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.EMBG, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="glyphicon glyphicon-user"></i>
-                        </div>
-                        @Html.EditorFor(model => model.EMBG, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData", style = "" } })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.EMBG, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    @Html.LabelFor(model => model.PassportNumber, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="glyphicon glyphicon-user"></i>
-                        </div>
-                        @Html.EditorFor(model => model.PassportNumber, new { htmlAttributes = new { @class = "form-control", style = "" } })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.PassportNumber, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-4 col-md-4">
+            <div id="Dva" class="tabcontent">
+                <div class="form-horizontal">
                     <div class="form-group">
-                            @Html.ReCaptcha()
+                        <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>@InsuredTraveling.Resource.RequiredField
+                        </div>
                     </div>
                     <div class="form-group">
-                        <div class="" style="margin-left:-20px">
-                            <input type="submit" value="@InsuredTraveling.Resource.SignUp" onclick="myFunction()" class="btn btn-success signup-btn-style" />
-                            <div>
-                                @if (ViewBag.Message != null)
-                                {
-                                    if (ViewBag.Message == "Registration failed")
-                                    {
-                                            <div class="alert alert-dismissible alert-danger" style="margin: 25px 15px 0px 20px;">
-                                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                                <strong>Oh snap!</strong> <span>@ViewBag.Message</span>
-                                            </div>                                       
-                                    }
-                                    else
-                                    {
-                                            <div class="alert alert-dismissible alert-success" style="margin-top: 27%; width:90%">
-                                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                                <strong>Great!</strong> <span>@ViewBag.Message</span>
-                                            </div>
-                                       
-                                            <script type="text/javascript">
-                                                $(document).ready(function () {
-                                                    setTimeout(function () {
-                                                        window.location.replace("@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp/MobilePhoneVerification?username=" + $("#username").val());
-                                                    }, 3000);
-
-                                                    SendSMSCode();
-                                                    ActivateAccount();
-                                                });
-                                            </script>
-                                    }
-                                }
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-envelope"></i>
+                                </div>
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-earphone"></i>
+                                </div>
+                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.MobilePhoneNumber, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-phone"></i>
+                                </div>
+                                @Html.EditorFor(model => model.MobilePhoneNumber, new { htmlAttributes = new { @class = "form-control", style = "", id = "mobilenumber" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.MobilePhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                                @Html.DropDownListFor(model => model.Gender, (List<SelectListItem>)ViewBag.Gender, "-- Select Gender --", new { @class = "form-control", style = "" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.EMBG, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                                @Html.EditorFor(model => model.EMBG, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData", style = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.EMBG, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.PassportNumber, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                                @Html.EditorFor(model => model.PassportNumber, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.PassportNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-4">
+                            <div class="form-group">
+                                @Html.ReCaptcha()
+                            </div>
+                            <div class="form-group">
+                                <div class="" style="margin-left:-20px">
+                                    <input type="submit" value="@InsuredTraveling.Resource.SignUp" onclick="myFunction()" class="btn btn-success signup-btn-style" />
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-md-2 col-sm-2 hidden-xs pull-right text-right">
+                            <a href="javascript:void(0)" class="btn btn-default tablinks" onclick="openTab(event, 'Eden')" style="font-size:15px; text-align:right">
+                                <span> @InsuredTraveling.Resource.SignUp_Back </span>
+                                <span class="hidden-xs glyphicon glyphicon-menu-left"></span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-2 col-sm-2 hidden-xs pull-right text-right">
-                    <a href="javascript:void(0)" class="btn btn-default tablinks" onclick="openTab(event, 'Eden')" style="font-size:15px; text-align:right">
-                        <span> @InsuredTraveling.Resource.SignUp_Back </span>
-                        <span class="hidden-xs glyphicon glyphicon-menu-left"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
         </div>
     </div>
 </form>
@@ -291,24 +293,17 @@
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/additional-methods.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>                       
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
 
 <!-- macedonian language-->
 <script src="~/Scripts/messages_is.js"></script>
 @Scripts.Render("~/bundles/jqueryui")
 @Styles.Render("~/Content/jqueryuicss")
-@Scripts.Render("~/bundles/jqueryval") 
+@Scripts.Render("~/bundles/jqueryval")
 
-
-
- <script type="text/javascript">
-     $(document).ready(function () {
-
-
-    });
-
+<script type="text/javascript">
     function FindUsername() {
         $.ajax({
             type: "POST",
@@ -319,7 +314,7 @@
             $("#UsernameMsg").text(" ");
         })
         .fail(function () {
-            $("#UsernameMsg").text("Username is already taken!");
+            $("#UsernameMsg").text("@InsuredTraveling.Resource.SignUp_SameUserName");
         });
     };
 
@@ -327,8 +322,7 @@
         $.ajax({
             type: "POST",
             url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/ActivateAccount?username=" + $("#username").val()
-            //data: jQuery.param({ username: $("#username").val() }),
-            })
+        })
             .done(function (result) {
             })
             .error(function () {
@@ -346,7 +340,7 @@
         .error(function () {
 
         });
-     }
+    }
 
 
 
@@ -389,7 +383,7 @@
     }
     document.getElementById("defaultOpen").click();
 </script>
-    <style>
+<style>
     ul.tab {
         list-style-type: none;
         margin: 0;
@@ -398,10 +392,15 @@
         border: 1px solid #ccc;
         background-color: #f1f1f1;
     }
-    ul.tab li {float: left;}
-    ul.tab li a:hover {
-        background-color: #ddd;
-    }
+
+        ul.tab li {
+            float: left;
+        }
+
+            ul.tab li a:hover {
+                background-color: #ddd;
+            }
+
     .tabcontent {
         display: none;
         padding: 6px 12px;
@@ -418,9 +417,8 @@
         transition: 0.3s;
         font-size: 17px;
     }
-    /* Create an active/current tablink class */
-    ul.tab li a:focus, .active  {
-    background-color: #ccc;
-    }
-      
- </style>
+        /* Create an active/current tablink class */
+        ul.tab li a:focus, .active {
+            background-color: #ccc;
+        }
+</style>
