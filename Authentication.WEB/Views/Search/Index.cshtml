@@ -1,5 +1,4 @@
-﻿
-@{HtmlHelper.UnobtrusiveJavaScriptEnabled = true;}
+﻿@{HtmlHelper.UnobtrusiveJavaScriptEnabled = true;}
 @model InsuredTravelingEntity
 @using InsuredTraveling.Filters
 @using System.Web.Optimization;
@@ -11,7 +10,6 @@
 <br />
 <ul class="nav nav-pills">
     <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
-    <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes</a></li>
     @if (r.IsUser("admin") || r.IsUser("broker"))
     {
         <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
@@ -31,13 +29,13 @@
                 <div class="form-group">
                     <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyType:</label>
                     <br />
-                    @Html.DropDownListFor(model => model.policy_type, (List<SelectListItem>)ViewBag.TypeOfPolicy, "-- Type of policy --", new { @class = "form-control", name = "TypePolicy", id = "TypePolicy" })
+                    @Html.DropDownListFor(model => model.policy_type, (List<SelectListItem>)ViewBag.TypeOfPolicy, @InsuredTraveling.Resource.Policy_TypeDD, new { @class = "form-control", name = "TypePolicy", id = "TypePolicy" })
                 </div>
             </div>
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
                     <label for="country">@InsuredTraveling.Resource.Search_TravelCountry:</label>
-                    @Html.DropDownListFor(model => model.countries, (List<SelectListItem>)ViewBag.Countries, "-- Country --", new { @class = "form-control", name = "Country", id = "Country" })
+                    @Html.DropDownListFor(model => model.countries, (List<SelectListItem>)ViewBag.Countries, @InsuredTraveling.Resource.Policy_CountryDD, new { @class = "form-control", name = "Country", id = "Country" })
                 </div>
             </div>
             <div class="col-md-4 col-sm-4">
@@ -104,7 +102,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
                     <label for="endDate">@InsuredTraveling.Resource.Search_CancellationDate:</label>
@@ -182,147 +179,6 @@
         </table>
     </div>
 </div>
-
-<!--Table search result of quotes -->
-<div id="searchQuotes">
-    <br />
-    <br />
-    <form method="post">
-        <div class="row">
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyType:</label>
-                    <br />
-                    @Html.DropDownListFor(model => model.policy_type, (List<SelectListItem>)ViewBag.TypeOfPolicy, "-- Type of policy --", new { @class = "form-control", name = "TypePolicy", id = "TypePolicy" })
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label for="country">@InsuredTraveling.Resource.Search_TravelCountry:</label>
-                    @Html.DropDownListFor(model => model.countries, (List<SelectListItem>)ViewBag.Countries, "-- Country --", new { @class = "form-control", name = "Country", id = "Country" })
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label for="country">@InsuredTraveling.Resource.Search_PolicyNumber:</label>
-                    <input class="form-control" type="text" id="PolicyNumber" name="PolicyNumber" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label for="startDate">@InsuredTraveling.Resource.Search_PolicyEffectiveDate:</label>
-                    <div class="input-group">
-                        <input type="date" id="startDate" class="form-control placeholder" />
-                        <div class="input-group-btn">
-                            <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
-                                = <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li onclick="$('#operatorStartDate').html(' = '); $('#operatorStartDate').val('=');">=</li>
-                                <li onclick="$('#operatorStartDate').html(' < '); $('#operatorStartDate').val('<');">&lt</li>
-                                <li onclick="$('#operatorStartDate').html(' > '); $('#operatorStartDate').val('>');">&gt</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label for="endDate">@InsuredTraveling.Resource.Search_PolicyExpiryDate</label>
-                    <div class="input-group">
-                        <input type="date" name="endDate" class="form-control" id="endDate" />
-                        <div class="input-group-btn">
-                            <button type="button" id="operatorEndDate" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
-                                = <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li onclick="$('#operatorEndDate').html(' = '); $('#operatorEndDate').val('=');">=</li>
-                                <li onclick="$('#operatorEndDate').html(' < '); $('#operatorEndDate').val('<');">&lt</li>
-                                <li onclick="$('#operatorEndDate').html(' > '); $('#operatorEndDate').val('>');">&gt</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label for="startDate">@InsuredTraveling.Resource.Search_PolicyIssuanceDate:</label>
-                    <div class="input-group">
-                        <input type="date" class="form-control placeholder" id="dateI" />
-                        <div class="input-group-btn">
-                            <button type="button" id="operatorDateI" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
-                                = <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li onclick="$('#operatorDateI').html(' = '); $('#operatorDateI').val('=');">=</li>
-                                <li onclick="$('#operatorDateI').html(' < '); $('#operatorDateI').val('<');">&lt</li>
-                                <li onclick="$('#operatorDateI').html(' > '); $('#operatorDateI').val('>');">&gt</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label for="endDate">@InsuredTraveling.Resource.Search_CancellationDate:</label>
-                    <div class="input-group">
-                        <input type="date" id="dateS" class="form-control" />
-                        <div class="input-group-btn">
-                            <button type="button" id="operatorDateS" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
-                                = <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li onclick="$('#operatorDateS').html(' = '); $('#operatorDateS').val('=');">=</li>
-                                <li onclick="$('#operatorDateS').html(' < '); $('#operatorDateS').val('<');">&lt</li>
-                                <li onclick="$('#operatorDateS').html(' > '); $('#operatorDateS').val('>');">&gt</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-md-4">
-                <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchQuotes()" type="button" style="float:left;" />
-            </div>
-            <div class="col-md-offset-4 col-md-4">
-                <div class="hover-tooltip">
-                    <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddPolicyButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
-                </div>
-            </div>
-        </div>
-        <br />
-    </form>
-    <br />
-    <br />
-    <br />
-    <div class="row">
-        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableQuotes">
-            <thead>
-                <tr>
-                    <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableTravelCountry</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyIssuanceDate</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableCancellationDate</th>
-                </tr>
-            </thead>
-            <tbody id="searchResultQuotes"></tbody>
-        </table>
-    </div>
-    <br />
-    <br />
-</div>
-
 
 <!--Table search result of clients -->
 <div class="" id="searchClients">
@@ -503,13 +359,13 @@
                 <div class="col-md-4 col-sm-4">
                     <div class="form-group">
                         <label for="holderName">@InsuredTraveling.Resource.Search_HolderName:</label>
-                        <input type="search" name="holderName" class="form-control" placeholder="Search by name" id="holderName" />
+                        <input type="search" name="holderName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="holderName" />
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="form-group">
                         <label for="holderLastName">@InsuredTraveling.Resource.Search_HolderLastName:</label>
-                        <input type="search" name="holderLastName" class="form-control" placeholder="Search by last name" id="holderLastName" />
+                        <input type="search" name="holderLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="holderLastName" />
                     </div>
                 </div>
             </div>
@@ -517,13 +373,13 @@
                 <div class="col-md-4 col-sm-4">
                     <div class="form-group">
                         <label for="clientName">@InsuredTraveling.Resource.Search_InsuredName:</label>
-                        <input type="search" name="clientName" class="form-control" placeholder="Search by name" id="clientName" />
+                        <input type="search" name="clientName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="clientName" />
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="form-group">
                         <label for="clientLastName">@InsuredTraveling.Resource.Search_InsuredLastName:</label>
-                        <input type="search" name="clientLastName" class="form-control" placeholder="Search by last name" id="clientLastName" />
+                        <input type="search" name="clientLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="clientLastName" />
                     </div>
                 </div>
             </div>
@@ -531,13 +387,13 @@
                 <div class="col-md-4 col-sm-4">
                     <div class="form-group">
                         <label for="insuredName">@InsuredTraveling.Resource.Search_ClaimantName:</label>
-                        <input type="search" name="insuredName" class="form-control" placeholder="Search by name" id="insuredName" />
+                        <input type="search" name="insuredName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="insuredName" />
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="form-group">
                         <label for="insuredLastName">@InsuredTraveling.Resource.Search_ClaimantLastName: </label>
-                        <input type="search" name="insuredLastName" class="form-control" placeholder="Search by last name" id="insuredLastName" />
+                        <input type="search" name="insuredLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="insuredLastName" />
                     </div>
                 </div>
             </div>
@@ -546,7 +402,7 @@
                     <div class="form-group">
                         <label for="totalPrice">@InsuredTraveling.Resource.Search_TotalCost:</label>
                         <div class="input-group-btn">
-                            <input type="search" name="totalPrice" class="form-control" placeholder="Search by Total Cost" id="totalPrice" />
+                            <input type="search" name="totalPrice" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLtotalcost" id="totalPrice" />
                             <button type="button" id="totalCostOperator" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
                                 = <span class="caret"></span>
                             </button>
@@ -697,526 +553,481 @@
 @Scripts.Render("~/bundles/jqueryui")
 @Styles.Render("~/Content/jqueryuicss")
 <script type="text/javascript">
-    var isAdmin = false;
-    $(document).ready(function () {
-        $(".hover-tooltip button").tooltip('show');
-        $("#searchClients").hide();
-        $("#searchQuotes").hide();
-        $("#searchFNOL").hide();
-        $("#searchChats").hide();
-        $("#tableClients").DataTable().destroy();
-        $("#tableClients").DataTable();
-        $("#tablePolicies").DataTable().destroy();
-        $("#tablePolicies").DataTable();
-        $("#tableFNOL").DataTable().destroy();
-        $("#tableFNOL").DataTable();
-        $("#tableFNOLPolicies").css("display", "none");
-        $("#tablePoliciesClients").css("display", "none");
-        $("#tablePoliciesHolders").css("display", "none");
+            var isAdmin = false;
+            $(document).ready(function () {
+                $(".hover-tooltip button").tooltip('show');
+                $("#searchClients").hide();
+                $("#searchFNOL").hide();
+                $("#searchChats").hide();
+                $("#tableClients").DataTable().destroy();
+                $("#tableClients").DataTable();
+                $("#tablePolicies").DataTable().destroy();
+                $("#tablePolicies").DataTable();
+                $("#tableFNOL").DataTable().destroy();
+                $("#tableFNOL").DataTable();
+                $("#tableFNOLPolicies").css("display", "none");
+                $("#tablePoliciesClients").css("display", "none");
+                $("#tablePoliciesHolders").css("display", "none");
 
-        $.ajax({
-            type: "GET",
-            url: "/Search/IsAdmin",
-            success: function (result) {
-                var result = JSON.parse(result);
-                isAdmin = result.isAdmin;
-            }
-        });
-
-
-    });
-
-    $("#DateI").focusout(function () {
-        var Sdat = $("#DateI").val();
-        $("#startDate").attr('min', Sdat);
-        $("#endDate").attr('min', Sdat);
-        $("#DateS").attr('min', Sdat);
-
-    });
-
-    $("#endDate").focusout(function () {
-        var Edat = $("#endDate").val();
-        $("#DateS").attr('max', Edat);
-        $("#startDate").attr('max', Edat);
-    });
-
-    $("#PolicyNumber").autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                url: "/Search/ShowPolicies",
-                type: "POST",
-                dataType: "json",
-                data: { Prefix: request.term },
-                success: function (data) {
-                    response($.map(data, function (item) {
-                        return { label: item.Name, value: item.Name };
-                    }))
-                }
-            })
-        },
-        messages: {
-            noResults: "", results: ""
-        }
-    });
-
-    $("#PolicyNumberFNL").autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                url: "/Search/ShowPolicies",
-                type: "POST",
-                dataType: "json",
-                data: { Prefix: request.term },
-                success: function (data) {
-                    response($.map(data, function (item) {
-                        return { label: item.Name, value: item.Name };
-                    }))
-                }
-            })
-        },
-        messages: {
-            noResults: "", results: ""
-        }
-    });
-
-    function ShowClients() {
-        $("#searchChats").hide();
-        $("#searchPolycies").hide();
-        $("#searchFNOL").hide();
-        $("#searchClients").show();
-        $("#searchQuotes").hide();
-        $("#quotes").removeAttr("class");
-        $("#polycies").removeAttr("class");
-        $("#clients").attr("class", "active");
-        $("#first_notice_of_loss").removeAttr("class");
-        $("#clients").attr("class", "active");
-        $("#tablePoliciesClients").css("display", "none");
-        $("#tablePoliciesHolders").css("display", "none");
-        $("#searchChat").removeAttr("class");
-    };
-
-    function ShowQuotes() {
-        $("#searchChats").hide();
-        $("#searchPolycies").hide();
-        $("#searchFNOL").hide();
-        $("#searchClients").hide();
-        $("#searchQuotes").show();
-        $("#clients").removeAttr("class");
-        $("#polycies").removeAttr("class");
-        $("#quotes").attr("class", "active");
-        $("#first_notice_of_loss").removeAttr("class");
-        $("#searchChat").removeAttr("class");
-    };
-
-    function ShowPolycies() {
-        $("#searchQuotes").hide();
-        $("#searchChats").hide();
-        $("#searchFNOL").hide();
-        $("#searchClients").hide();
-        $("#searchPolycies").show();
-        $("#clients").removeAttr("class");
-        $("#first_notice_of_loss").removeAttr("class");
-        $("#polycies").attr("class", "active");
-        $("#tableFNOLPolicies").css("display", "none");
-        $("#searchChat").removeAttr("class");
-    };
-
-    function ShowFNOL() {
-        $("#searchQuotes").hide();
-        $("#searchChats").hide();
-        $("#searchPolycies").hide();
-        $("#searchClients").hide();
-        $("#searchFNOL").show();
-        $("#polycies").removeAttr("class");
-        $("#clients").removeAttr("class");
-        $("#first_notice_of_loss").attr("class", "active");
-        $("#searchChat").removeAttr("class");
-    };
-
-    function ShowChats() {
-        $("#searchQuotes").hide();
-        $("#searchClients").hide();
-        $("#searchPolycies").hide();
-        $("#searchFNOL").hide();
-        $("#searchChats").show();
-
-        $("#polycies").removeAttr("class");
-        $("#clients").removeAttr("class");
-        $("#first_notice_of_loss").removeAttr("class");
-
-        $("#tablePoliciesClients").css("display", "none");
-        $("#tablePoliciesHolders").css("display", "none");
-        $("#tableFNOLPolicies").css("display", "none");
-
-
-        $("#searchChat").attr("class", "active");
-    };
-
-    function SearchChat() {
-        console.log("username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&active=" + $("#active").is(':checked') + "&discarded=" + $("#discarded").is(':checked') + "&noticed" + $("#noticed").is(':checked'));
-        $("#tableChats").DataTable().destroy();
-        $("#tableChats").DataTable({
-            dom: "Bfrtip",
-            ajax: "/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&all=" + $("#all").is(':checked') + "&active=" + $("#active").is(':checked') + "&discarded=" + $("#discarded").is(':checked') + "&noticed=" + $("#noticed").is(':checked'),
-            columns: [
-                { data: "chatId" },
-                { data: "chatWith" },
-                { data: "noticed" },
-                { data: "discarded" },
-                {
-                    data: "chatId",
-                    "render": function (data, type, row, meta) {
-                        if (type === 'display') {
-                            return $('<a>')
-                                .attr('href', 'javascript:;')
-                                .attr('onclick', 'ShowChatDetails("' + row.chatWith + '",' + data + ');')
-                                .attr('class', 'chat')
-                                .attr('id', data)
-                                .text("@InsuredTraveling.Resource.Search_DetailsLink")
-                                .wrap('<div></div>')
-                                .parent()
-                                .html();
-                        } else {
-                            return data;
-                        }
+                $.ajax({
+                    type: "GET",
+                    url: "/Search/IsAdmin",
+                    success: function (result) {
+                        var result = JSON.parse(result);
+                        isAdmin = result.isAdmin;
                     }
+                });
+
+
+            });
+
+            $("#DateI").focusout(function () {
+                var Sdat = $("#DateI").val();
+                $("#startDate").attr('min', Sdat);
+                $("#endDate").attr('min', Sdat);
+                $("#DateS").attr('min', Sdat);
+
+            });
+
+            $("#endDate").focusout(function () {
+                var Edat = $("#endDate").val();
+                $("#DateS").attr('max', Edat);
+                $("#startDate").attr('max', Edat);
+            });
+
+            $("#PolicyNumber").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Search/ShowPolicies",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.Name, value: item.Name };
+                            }))
+                        }
+                    })
                 },
-            ],
-            select: true
-        });
+                messages: {
+                    noResults: "", results: ""
+                }
+            });
 
-
-    }
-    $('#tableChats tbody').on('click', 'tr', function () {
-        console.log($(this));
-        $(this).toggleClass('selected');
-    });
-
-    function ShowChatDetails(chatWith, requestId) {
-        if (isAdmin) {
-
-            openChat(chatWith, requestId);
-        }
-        else {
-            openChatEndUser(chatWith, requestId);
-        }
-        getLastTenMessages(requestId);
-    }
-
-    function SearchQuotes() {
-        $("#tableQuotes").DataTable().destroy();
-        $("#tableQuotes").DataTable({
-            dom: "Bfrtip",
-            ajax: "/Search/GetQuotes?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val(),
-            columns: [
-               { data: "Polisa_Broj" },
-               { data: "InsuredName" },
-               { data: "Country" },
-               { data: "Policy_type" },
-               { data: "Zapocnuva_Na" },
-               { data: "Zavrsuva_Na" },
-               { data: "Datum_Na_Izdavanje" },
-               { data: "Datum_Na_Storniranje" }
-            ],
-            select: true
-        });
-
-        $('#tableQuotes tbody').on('click', 'td .loss', function () {
-            var $row = $(this).closest('td');
-            var policy_num = $row.children().attr('id');
-        });
-    };
-
-    function SearchPolycies() {
-        $("#tablePolicies").DataTable().destroy();
-        $("#tablePolicies").DataTable({
-            dom: "Bfrtip",
-            ajax: "/Search/GetPolicies?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val(),
-            columns: [
-               { data: "Polisa_Broj" },
-               { data: "InsuredName" },
-               { data: "Country" },
-               { data: "Policy_type" },
-               { data: "Zapocnuva_Na" },
-               { data: "Zavrsuva_Na" },
-               { data: "Datum_Na_Izdavanje" },
-               { data: "Datum_Na_Storniranje" },
-               {
-                   data: "Polisa_Broj",
-                   "render": function (data, type, row, meta) {
-                       if (type === 'display') {
-                           var value = data;
-                           return $('<a>')
-                               .attr('href', '/Policy/PolicyDetails?policyNumber=' + data)
-                               .attr('target', '_blank')
-                               .attr('class', 'details')
-                               .text("@InsuredTraveling.Resource.Search_DetailsLink")
-                               .wrap('<div></div>')
-                               .parent()
-                               .html();
-                       } else {
-                           return data;
-                       }
-                   }
-               },
-               {
-                   data: "Polisa_Id",
-                   "render": function (data, type, row, meta) {
-                       if (type === 'display') {
-                           return $('<a>')
-                               .attr('href', 'javascript:;')
-                               .attr('class', 'loss')
-                               .attr('id', data)
-                               .text("@InsuredTraveling.Resource.Search_FNOLLink")
-                               .wrap('<div></div>')
-                               .parent()
-                               .html();
-                       } else {
-                           return data;
-                       }
-                   }
-               },
-               {
-                   data: "Polisa_Id",
-                   "render": function (data, type, row, meta) {
-                       if (type === 'display') {
-                           return $('<a>')
-                               .attr('href', '/FirstNoticeOfLoss/Index?policyId=' + data)
-                               .attr('class', 'newLoss')
-                               .attr('id', data)
-                               .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
-                               .wrap('<div></div>')
-                               .parent()
-                               .html();
-                       } else {
-                           return data;
-                       }
-                   }
-               }
-
-            ],
-            select: true
-        });
-
-        $('#tablePolicies tbody').on('click', 'td .loss', function () {
-            var $row = $(this).closest('td');
-            var policy_num = $row.children().attr('id');
-            CreateFNOLTablePoliciesByPolicyNumber(policy_num);
-
-        });
-    };
-
-    function CreateFNOLTablePoliciesByPolicyNumber(policy_number) {
-        $("#tableFNOLPolicies").DataTable().destroy();
-        $("#tableFNOLPolicies").DataTable({
-            dom: "Bfrtip",
-            ajax: "/Search/GetFNOLByPolicyNumber?number=" + policy_number,
-            columns: [
-                    { data: "FNOLNumber" },
-                    { data: "PolicyNumber" },
-                    { data: "InsuredName" },
-                    { data: "ClaimantPersonName" },
-                    { data: "Claimant_insured_relation" },
-                    { data: "AllCosts" },
-                    { data: "Date" },
-                    { data: "HealthInsurance" },
-                    { data: "LuggageInsurance" },
-                    {
-                        data: "ID",
-                        "render": function (data, type, row, meta) {
-                            if (type === 'display') {
-                                var value = data;
-                                return $('<a>')
-                                    .attr('href', '/FirstNoticeOfLoss/View?id=' + data)
-                                    .attr('target', '_blank')
-                                    .attr('class', 'lossDetails')
-                                    .text("@InsuredTraveling.Resource.Search_DetailsLink")
-                                    .wrap('<div></div>')
-                                    .parent()
-                                    .html();
-                            } else {
-                                return data;
-                            }
+            $("#PolicyNumberFNL").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Search/ShowPolicies",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.Name, value: item.Name };
+                            }))
                         }
-                    },
-            ],
-            select: true
-        });
-        $("#tableFNOLPolicies").css("display", "table");
-    };
+                    })
+                },
+                messages: {
+                    noResults: "", results: ""
+                }
+            });
 
-    function SearchFNOL() {
-        $("#tableFNOL").DataTable().destroy();
-        $("#tableFNOL").DataTable({
-            dom: "Bfrtip",
-            ajax: "/Search/GetFNOL?PolicyNumber=" + $("#PolicyNumberFNL").val() + "&FNOLNumber=" + $("#FNOLNumber").val() + "&holderName=" + $("#holderName").val() + "&holderLastName=" + $("#holderLastName").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked') + "&DateAdded=" + $("#DateAdded").val() + "&operatorDateAdded=" + $("#operatorDateAdded").val() + "&operatorTotalCost=" + $("#totalCostOperator").val(),
-            columns: [
-                    { data: "FNOLNumber" },
-                    { data: "PolicyNumber" },
-                    { data: "InsuredName" },
-                    { data: "ClaimantPersonName" },
-                    { data: "Claimant_insured_relation" },
-                    { data: "AllCosts" },
-                    { data: "Date" },
-                    { data: "HealthInsurance" },
-                    { data: "LuggageInsurance" },
-                    {
-                        data: "ID",
-                        "render": function (data, type, row, meta) {
-                            if (type === 'display') {
-                                var value = data;
-                                return $('<a>')
-                                    .attr('href', '/FirstNoticeOfLoss/View?id=' + data)
-                                    .attr('target', '_blank')
-                                    .attr('class', 'lossDetails')
-                                    .text("@InsuredTraveling.Resource.Search_DetailsLink")
-                                    .wrap('<div></div>')
-                                    .parent()
-                                    .html();
-                            } else {
-                                return data;
-                            }
-                        }
-                    },
-            ],
-            select: true
-        });
-    };
+            function ShowClients() {
+                $("#searchChats").hide();
+                $("#searchPolycies").hide();
+                $("#searchFNOL").hide();
+                $("#searchClients").show();
+                $("#polycies").removeAttr("class");
+                $("#clients").attr("class", "active");
+                $("#first_notice_of_loss").removeAttr("class");
+                $("#clients").attr("class", "active");
+                $("#tablePoliciesClients").css("display", "none");
+                $("#tablePoliciesHolders").css("display", "none");
+                $("#searchChat").removeAttr("class");
+            };
+
+            function ShowPolycies() {
+                $("#searchChats").hide();
+                $("#searchFNOL").hide();
+                $("#searchClients").hide();
+                $("#searchPolycies").show();
+                $("#clients").removeAttr("class");
+                $("#first_notice_of_loss").removeAttr("class");
+                $("#polycies").attr("class", "active");
+                $("#tableFNOLPolicies").css("display", "none");
+                $("#searchChat").removeAttr("class");
+            };
+
+            function ShowFNOL() {
+                $("#searchChats").hide();
+                $("#searchPolycies").hide();
+                $("#searchClients").hide();
+                $("#searchFNOL").show();
+                $("#polycies").removeAttr("class");
+                $("#clients").removeAttr("class");
+                $("#first_notice_of_loss").attr("class", "active");
+                $("#searchChat").removeAttr("class");
+            };
+
+            function ShowChats() {
+
+                $("#searchClients").hide();
+                $("#searchPolycies").hide();
+                $("#searchFNOL").hide();
+                $("#searchChats").show();
+
+                $("#polycies").removeAttr("class");
+                $("#clients").removeAttr("class");
+                $("#first_notice_of_loss").removeAttr("class");
+
+                $("#tablePoliciesClients").css("display", "none");
+                $("#tablePoliciesHolders").css("display", "none");
+                $("#tableFNOLPolicies").css("display", "none");
 
 
-    function SearchClients() {
-        $("#tableClients").DataTable().destroy();
-        var table = $("#tableClients").DataTable({
-            dom: "Bfrtip",
-            ajax: "/Search/GetUsers?name=" + $("#name").val() + "&lastname=" + $("#lastname").val() + "&embg=" + $("#embg").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() + "&phone=" + $("#phone").val() + "&postal_code=" + $("#postal_code").val() + "&passport=" + $("#passport").val() + "&city=" + $("#city").val(),
-            columns: [
-                        { data: "Name" },
-                        { data: "Lastname" },
-                        { data: "SSN" },
-                        { data: "Address" },
-                        { data: "City" },
-                        { data: "Postal_Code" },
-                        { data: "Phone_Number" },
-                        { data: "Email" },
-                        { data: "Passport_Number_IdNumber" },
-                        {
-                            data: "ID",
+                $("#searchChat").attr("class", "active");
+            };
+            function SearchChat() {
+                console.log("username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&active=" + $("#active").is(':checked') + "&discarded=" + $("#discarded").is(':checked') + "&noticed" + $("#noticed").is(':checked'));
+                $("#tableChats").DataTable().destroy();
+                $("#tableChats").DataTable({
+                    dom: "Bfrtip",
+                    ajax: "/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&all=" + $("#all").is(':checked') + "&active=" + $("#active").is(':checked') + "&discarded=" + $("#discarded").is(':checked') + "&noticed=" + $("#noticed").is(':checked'),
+                    columns: [
+                        { data: "chatId" },
+                        { data: "chatWith" },
+                        { data: "noticed" },
+                        { data: "discarded" },
+                        { data: "chatId",
                             "render": function (data, type, row, meta) {
-                                if (type === 'display') {
-                                    return $('<a>')
-                                        .attr('href', 'javascript:;')
-                                        .attr('class', 'clients')
-                                        .attr('id', data)
-                                        .text("@InsuredTraveling.Resource.Search_PolicyLink")
-                                        .wrap('<div></div>')
-                                        .parent()
-                                        .html();
-                                } else {
-                                    return data;
+                                 if (type === 'display') {
+                                     return $('<a>')
+                                         .attr('href', 'javascript:;')
+                                         .attr('onclick', 'ShowChatDetails("' + row.chatWith +'",'+ data + ');')
+                                         .attr('class', 'chat')
+                                         .attr('id', data)
+                                         .text("@InsuredTraveling.Resource.Search_DetailsLink")
+                                         .wrap('<div></div>')
+                                         .parent()
+                                         .html();
+                                 } else {
+                                     return data;
+                                 }
+                             }
+                         },
+                    ],
+                    select: true
+                });
+
+
+            }
+            $('#tableChats tbody').on('click', 'tr', function () {
+                console.log($(this));
+                $(this).toggleClass('selected');
+            });
+
+            function ShowChatDetails(chatWith, requestId) {
+                if (isAdmin) {
+
+                    openChat(chatWith, requestId);
+                }
+                else {
+                    openChatEndUser(chatWith, requestId);
+                }
+                getLastTenMessages(requestId);
+            }
+
+            function SearchPolycies() {
+                $("#tablePolicies").DataTable().destroy();
+                $("#tablePolicies").DataTable({
+                    dom: "Bfrtip",
+                    ajax: "/Search/GetPolicies?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val(),
+                    columns: [
+                       { data: "Polisa_Broj" },
+                       { data: "InsuredName" },
+                       { data: "Country" },
+                       { data: "Policy_type" },
+                       { data: "Zapocnuva_Na" },
+                       { data: "Zavrsuva_Na" },
+                       { data: "Datum_Na_Izdavanje" },
+                       { data: "Datum_Na_Storniranje" },
+                       {
+                           data: "Polisa_Broj",
+                           "render": function (data, type, row, meta) {
+                               if (type === 'display') {
+                                   var value = data;
+                                   return $('<a>')
+                                       .attr('href', '/Policy/PolicyDetails?policyNumber=' + data)
+                                       .attr('target', '_blank')
+                                       .attr('class', 'details')
+                                       .text("@InsuredTraveling.Resource.Search_DetailsLink")
+                                       .wrap('<div></div>')
+                                       .parent()
+                                       .html();
+                               } else {
+                                   return data;
+                               }
+                           }
+                       },
+                       {
+                           data: "Polisa_Id",
+                           "render": function (data, type, row, meta) {
+                               if (type === 'display') {
+                                   return $('<a>')
+                                       .attr('href', 'javascript:;')
+                                       .attr('class', 'loss')
+                                       .attr('id', data)
+                                       .text("@InsuredTraveling.Resource.Search_FNOLLink")
+                                       .wrap('<div></div>')
+                                       .parent()
+                                       .html();
+                               } else {
+                                   return data;
+                               }
+                           }
+                       },
+                       {
+                           data: "Polisa_Id",
+                           "render": function (data, type, row, meta) {
+                               if (type === 'display') {
+                                   return $('<a>')
+                                       .attr('href', '/FirstNoticeOfLoss/Index?policyId=' + data)
+                                       .attr('class', 'newLoss')
+                                       .attr('id', data)
+                                       .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
+                                       .wrap('<div></div>')
+                                       .parent()
+                                       .html();
+                               } else {
+                                   return data;
+                               }
+                           }
+                       }
+
+                    ],
+                    select: true
+                });
+
+                $('#tablePolicies tbody').on('click', 'td .loss', function () {
+                    var $row = $(this).closest('td');
+                    var policy_num = $row.children().attr('id');
+                    CreateFNOLTablePoliciesByPolicyNumber(policy_num);
+
+                });
+            };
+
+            function CreateFNOLTablePoliciesByPolicyNumber(policy_number) {
+                $("#tableFNOLPolicies").DataTable().destroy();
+                $("#tableFNOLPolicies").DataTable({
+                    dom: "Bfrtip",
+                    ajax: "/Search/GetFNOLByPolicyNumber?number=" + policy_number,
+                    columns: [
+                            { data: "FNOLNumber" },
+                            { data: "PolicyNumber" },
+                            { data: "InsuredName" },
+                            { data: "ClaimantPersonName" },
+                            { data: "Claimant_insured_relation" },
+                            { data: "AllCosts" },
+                            { data: "Date" },
+                            { data: "HealthInsurance" },
+                            { data: "LuggageInsurance" },
+                            {
+                                data: "ID",
+                                "render": function (data, type, row, meta) {
+                                    if (type === 'display') {
+                                        var value = data;
+                                        return $('<a>')
+                                            .attr('href', '/FirstNoticeOfLoss/View?id=' + data)
+                                            .attr('target', '_blank')
+                                            .attr('class', 'lossDetails')
+                                            .text("@InsuredTraveling.Resource.Search_DetailsLink")
+                                            .wrap('<div></div>')
+                                            .parent()
+                                            .html();
+                                    } else {
+                                        return data;
+                                    }
+                                }
+                            },
+                    ],
+                    select: true
+                });
+                $("#tableFNOLPolicies").css("display", "table");
+            };
+
+            function SearchFNOL() {
+                $("#tableFNOL").DataTable().destroy();
+                $("#tableFNOL").DataTable({
+                    dom: "Bfrtip",
+                    ajax: "/Search/GetFNOL?PolicyNumber=" + $("#PolicyNumberFNL").val() + "&FNOLNumber=" + $("#FNOLNumber").val() + "&holderName=" + $("#holderName").val() + "&holderLastName=" + $("#holderLastName").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked') + "&DateAdded=" + $("#DateAdded").val() + "&operatorDateAdded=" + $("#operatorDateAdded").val() + "&operatorTotalCost=" + $("#totalCostOperator").val(),
+                    columns: [
+                            { data: "FNOLNumber" },
+                            { data: "PolicyNumber" },
+                            { data: "InsuredName" },
+                            { data: "ClaimantPersonName" },
+                            { data: "Claimant_insured_relation" },
+                            { data: "AllCosts" },
+                            { data: "Date" },
+                            { data: "HealthInsurance" },
+                            { data: "LuggageInsurance" },
+                            {
+                                data: "ID",
+                                "render": function (data, type, row, meta) {
+                                    if (type === 'display') {
+                                        var value = data;
+                                        return $('<a>')
+                                            .attr('href', '/FirstNoticeOfLoss/View?id=' + data)
+                                            .attr('target', '_blank')
+                                            .attr('class', 'lossDetails')
+                                            .text("@InsuredTraveling.Resource.Search_DetailsLink")
+                                            .wrap('<div></div>')
+                                            .parent()
+                                            .html();
+                                    } else {
+                                        return data;
+                                    }
+                                }
+                            },
+                    ],
+                    select: true
+                });
+            };
+
+
+            function SearchClients() {
+                $("#tableClients").DataTable().destroy();
+                var table = $("#tableClients").DataTable({
+                    dom: "Bfrtip",
+                    ajax: "/Search/GetUsers?name=" + $("#name").val() + "&lastname=" + $("#lastname").val() + "&embg=" + $("#embg").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() + "&phone=" + $("#phone").val() + "&postal_code=" + $("#postal_code").val() + "&passport=" + $("#passport").val() + "&city=" + $("#city").val(),
+                    columns: [
+                                { data: "Name" },
+                                { data: "Lastname" },
+                                { data: "SSN" },
+                                { data: "Address" },
+                                { data: "City" },
+                                { data: "Postal_Code" },
+                                { data: "Phone_Number" },
+                                { data: "Email" },
+                                { data: "Passport_Number_IdNumber" },
+                                {
+                                    data: "ID",
+                                    "render": function (data, type, row, meta) {
+                                        if (type === 'display') {
+                                            return $('<a>')
+                                                .attr('href', 'javascript:;')
+                                                .attr('class', 'clients')
+                                                .attr('id', data)
+                                                .text("@InsuredTraveling.Resource.Search_PolicyLink")
+                                                .wrap('<div></div>')
+                                                .parent()
+                                                .html();
+                                        } else {
+                                            return data;
+                                        }
+                                    }
+                                }
+                    ],
+                    select: true
+                });
+                $('#tableClients tbody').on('click', 'td .clients', function () {
+                    var $row = $(this).closest('td');
+                    var insuredId = $row.children().attr('id');
+                    CreatePoliciesByInsuredId(insuredId);
+                    CreatePoliciesByHolderId(insuredId);
+
+                });
+            };
+
+            function CreatePoliciesByInsuredId(insuredId) {
+                $("#tablePoliciesClients").DataTable().destroy();
+                $("#tablePoliciesClients").DataTable({
+                    dom: "Bfrtip",
+                    ajax: "/Search/CreatePoliciesByInsuredId?insuredId=" + insuredId,
+                    columns: [
+                       { data: "Polisa_Broj" },
+                       { data: "Country" },
+                       { data: "Policy_type" },
+                       { data: "Zapocnuva_Na" },
+                       { data: "Zavrsuva_Na" },
+                       { data: "Datum_Na_Izdavanje" },
+                       { data: "Datum_Na_Storniranje" },
+                       {
+                           data: "Polisa_Broj",
+                           "render": function (data, type, row, meta) {
+                               if (type === 'display') {
+                                   var value = data;
+                                   return $('<a>')
+                                       .attr('href', '/Policy/PrintPolicy?id=' + data)
+                                       .attr('target', '_blank')
+                                       .attr('class', 'detailsInsured')
+                                       .text("@InsuredTraveling.Resource.Search_DetailsLink")
+                                       .wrap('<div></div>')
+                                       .parent()
+                                       .html();
+                               } else {
+                                   return data;
+                               }
+                           }
+                       },
+                            {
+                                data: "Polisa_Id",
+                                "render": function (data, type, row, meta) {
+                                    if (type === 'display') {
+                                        return $('<a>')
+                                            .attr('href', '/FirstNoticeOfLoss/Index?policyId=' + data)
+                                            .attr('class', 'newLoss')
+                                            .attr('id', data)
+                                            .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
+                                            .wrap('<div></div>')
+                                            .parent()
+                                            .html();
+                                    } else {
+                                        return data;
+                                    }
                                 }
                             }
-                        }
-            ],
-            select: true
-        });
-        $('#tableClients tbody').on('click', 'td .clients', function () {
-            var $row = $(this).closest('td');
-            var insuredId = $row.children().attr('id');
-            CreatePoliciesByInsuredId(insuredId);
-            CreatePoliciesByHolderId(insuredId);
+                    ],
+                    select: true
+                });
+                $("#tablePoliciesClients").css("display", "table");
+            };
 
-        });
-    };
-
-    function CreatePoliciesByInsuredId(insuredId) {
-        $("#tablePoliciesClients").DataTable().destroy();
-        $("#tablePoliciesClients").DataTable({
-            dom: "Bfrtip",
-            ajax: "/Search/CreatePoliciesByInsuredId?insuredId=" + insuredId,
-            columns: [
-               { data: "Polisa_Broj" },
-               { data: "Country" },
-               { data: "Policy_type" },
-               { data: "Zapocnuva_Na" },
-               { data: "Zavrsuva_Na" },
-               { data: "Datum_Na_Izdavanje" },
-               { data: "Datum_Na_Storniranje" },
-               {
-                   data: "Polisa_Broj",
-                   "render": function (data, type, row, meta) {
-                       if (type === 'display') {
-                           var value = data;
-                           return $('<a>')
-                               .attr('href', '/Policy/PrintPolicy?id=' + data)
-                               .attr('target', '_blank')
-                               .attr('class', 'detailsInsured')
-                               .text("@InsuredTraveling.Resource.Search_DetailsLink")
-                               .wrap('<div></div>')
-                               .parent()
-                               .html();
-                       } else {
-                           return data;
-                       }
-                   }
-               },
-                    {
-                        data: "Polisa_Id",
-                        "render": function (data, type, row, meta) {
-                            if (type === 'display') {
-                                return $('<a>')
-                                    .attr('href', '/FirstNoticeOfLoss/Index?policyId=' + data)
-                                    .attr('class', 'newLoss')
-                                    .attr('id', data)
-                                    .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
-                                    .wrap('<div></div>')
-                                    .parent()
-                                    .html();
-                            } else {
-                                return data;
-                            }
-                        }
-                    }
-            ],
-            select: true
-        });
-        $("#tablePoliciesClients").css("display", "table");
-    };
-
-    function CreatePoliciesByHolderId(holderId) {
-        $("#tablePoliciesHolders").DataTable().destroy();
-        $("#tablePoliciesHolders").DataTable({
-            dom: "Bfrtip",
-            ajax: "/Search/CreatePoliciesByHolderId?holderId=" + holderId,
-            columns: [
-               { data: "Polisa_Broj" },
-               { data: "Country" },
-               { data: "Policy_type" },
-               { data: "Zapocnuva_Na" },
-               { data: "Zavrsuva_Na" },
-               { data: "Datum_Na_Izdavanje" },
-               { data: "Datum_Na_Storniranje" },
-               {
-                   data: "Polisa_Broj",
-                   "render": function (data, type, row, meta) {
-                       if (type === 'display') {
-                           var value = data;
-                           return $('<a>')
-                               .attr('href', '/Policy/PrintPolicy?id=' + data)
-                               .attr('target', '_blank')
-                               .attr('class', 'detailsHolder')
-                               .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
-                               .wrap('<div></div>')
-                               .parent()
-                               .html();
-                       } else {
-                           return data;
-                       }
-                   }
-               },
-            ],
-            select: true
-        });
-        $("#tablePoliciesHolders").css("display", "table");
-    };
+            function CreatePoliciesByHolderId(holderId) {
+                $("#tablePoliciesHolders").DataTable().destroy();
+                $("#tablePoliciesHolders").DataTable({
+                    dom: "Bfrtip",
+                    ajax: "/Search/CreatePoliciesByHolderId?holderId=" + holderId,
+                    columns: [
+                       { data: "Polisa_Broj" },
+                       { data: "Country" },
+                       { data: "Policy_type" },
+                       { data: "Zapocnuva_Na" },
+                       { data: "Zavrsuva_Na" },
+                       { data: "Datum_Na_Izdavanje" },
+                       { data: "Datum_Na_Storniranje" },
+                       {
+                           data: "Polisa_Broj",
+                           "render": function (data, type, row, meta) {
+                               if (type === 'display') {
+                                   var value = data;
+                                   return $('<a>')
+                                       .attr('href', '/Policy/PrintPolicy?id=' + data)
+                                       .attr('target', '_blank')
+                                       .attr('class', 'detailsHolder')
+                                       .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
+                                       .wrap('<div></div>')
+                                       .parent()
+                                       .html();
+                               } else {
+                                   return data;
+                               }
+                           }
+                       },
+                    ],
+                    select: true
+                });
+                $("#tablePoliciesHolders").css("display", "table");
+            };
 </script>
-
 

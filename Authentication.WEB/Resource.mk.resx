@@ -864,12 +864,6 @@
   <data name="PolicyPrint_AdditionalPremium" xml:space="preserve">
     <value>Доплатоци</value>
   </data>
-  <data name="PolicyPrint_Address" xml:space="preserve">
-    <value>Адреса</value>
-  </data>
-  <data name="PolicyPrint_Agency" xml:space="preserve">
-    <value>Агенција</value>
-  </data>
   <data name="PolicyPrint_BasicPremium" xml:space="preserve">
     <value>Основна премија</value>
   </data>
@@ -959,5 +953,77 @@
   </data>
   <data name="Search_SearchTableFNOLNumber" xml:space="preserve">
     <value>Број на оштетно побарување</value>
+  </data>
+  <data name="AdminPanel_AddRecButton" xml:space="preserve">
+    <value>Додади</value>
+  </data>
+  <data name="AdminPanel_AddRecordBtn" xml:space="preserve">
+    <value>Додади ставка</value>
+  </data>
+  <data name="AdminPanel_AddRoleBtn" xml:space="preserve">
+    <value>Додади улога</value>
+  </data>
+  <data name="AdminPanel_ID" xml:space="preserve">
+    <value>ИД</value>
+  </data>
+  <data name="AdminPanel_InsuranceCompany" xml:space="preserve">
+    <value>Осигурителна компанија</value>
+  </data>
+  <data name="AdminPanel_InsuranceSetupTab" xml:space="preserve">
+    <value>Подесувања за осигурителна компанија</value>
+  </data>
+  <data name="AdminPanel_Notification" xml:space="preserve">
+    <value>Време на Нотификација</value>
+  </data>
+  <data name="AdminPanel_NumAttepmts" xml:space="preserve">
+    <value>Број на обиди</value>
+  </data>
+  <data name="AdminPanel_NumMessage" xml:space="preserve">
+    <value>Број на пораки:</value>
+  </data>
+  <data name="AdminPanel_NumViews" xml:space="preserve">
+    <value>Број на прегледи</value>
+  </data>
+  <data name="AdminPanel_RequiredFields" xml:space="preserve">
+    <value>Задолжителни полиња</value>
+  </data>
+  <data name="AdminPanel_RoleName" xml:space="preserve">
+    <value>Име на улога</value>
+  </data>
+  <data name="AdminPanel_Roles" xml:space="preserve">
+    <value>Улоги</value>
+  </data>
+  <data name="AdminPanel_SMSCode" xml:space="preserve">
+    <value>СМС код секунди</value>
+  </data>
+  <data name="AdminPanel_Title" xml:space="preserve">
+    <value>Админ панел</value>
+  </data>
+  <data name="AdminPanel_VersionNumber" xml:space="preserve">
+    <value>Верзија број</value>
+  </data>
+  <data name="ForgetPassword_Enter" xml:space="preserve">
+    <value>Корисничко име или емаил</value>
+  </data>
+  <data name="ForgetPassword_Submit" xml:space="preserve">
+    <value>Прати</value>
+  </data>
+  <data name="ForgetPassword_Title" xml:space="preserve">
+    <value>Внеси корисничко име или емаил:</value>
+  </data>
+  <data name="Policy_CountryDD" xml:space="preserve">
+    <value>-- Земја --</value>
+  </data>
+  <data name="Policy_TypeDD" xml:space="preserve">
+    <value>-- Тип на полиса --</value>
+  </data>
+  <data name="Search_FNOLname" xml:space="preserve">
+    <value>Пребарувај по име</value>
+  </data>
+  <data name="Search_FNOLsurname" xml:space="preserve">
+    <value>Пребарувај по презиме</value>
+  </data>
+  <data name="Search_FNOLtotalcost" xml:space="preserve">
+    <value>Пребарувај по вкупен износ</value>
   </data>
 </root>

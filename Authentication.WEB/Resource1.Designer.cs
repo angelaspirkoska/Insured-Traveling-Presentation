@@ -61,6 +61,150 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ADD.
+        /// </summary>
+        public static string AdminPanel_AddRecButton {
+            get {
+                return ResourceManager.GetString("AdminPanel_AddRecButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add record.
+        /// </summary>
+        public static string AdminPanel_AddRecordBtn {
+            get {
+                return ResourceManager.GetString("AdminPanel_AddRecordBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Role.
+        /// </summary>
+        public static string AdminPanel_AddRoleBtn {
+            get {
+                return ResourceManager.GetString("AdminPanel_AddRoleBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        public static string AdminPanel_ID {
+            get {
+                return ResourceManager.GetString("AdminPanel_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insurance Company.
+        /// </summary>
+        public static string AdminPanel_InsuranceCompany {
+            get {
+                return ResourceManager.GetString("AdminPanel_InsuranceCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insurance Company Setup.
+        /// </summary>
+        public static string AdminPanel_InsuranceSetupTab {
+            get {
+                return ResourceManager.GetString("AdminPanel_InsuranceSetupTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification time.
+        /// </summary>
+        public static string AdminPanel_Notification {
+            get {
+                return ResourceManager.GetString("AdminPanel_Notification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of attempts.
+        /// </summary>
+        public static string AdminPanel_NumAttepmts {
+            get {
+                return ResourceManager.GetString("AdminPanel_NumAttepmts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of last messages.
+        /// </summary>
+        public static string AdminPanel_NumMessage {
+            get {
+                return ResourceManager.GetString("AdminPanel_NumMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of news.
+        /// </summary>
+        public static string AdminPanel_NumViews {
+            get {
+                return ResourceManager.GetString("AdminPanel_NumViews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Required Fields.
+        /// </summary>
+        public static string AdminPanel_RequiredFields {
+            get {
+                return ResourceManager.GetString("AdminPanel_RequiredFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role name.
+        /// </summary>
+        public static string AdminPanel_RoleName {
+            get {
+                return ResourceManager.GetString("AdminPanel_RoleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roles.
+        /// </summary>
+        public static string AdminPanel_Roles {
+            get {
+                return ResourceManager.GetString("AdminPanel_Roles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SMS code seconds.
+        /// </summary>
+        public static string AdminPanel_SMSCode {
+            get {
+                return ResourceManager.GetString("AdminPanel_SMSCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin Panel.
+        /// </summary>
+        public static string AdminPanel_Title {
+            get {
+                return ResourceManager.GetString("AdminPanel_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version Number.
+        /// </summary>
+        public static string AdminPanel_VersionNumber {
+            get {
+                return ResourceManager.GetString("AdminPanel_VersionNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chats.
         /// </summary>
         public static string Chats {
@@ -709,6 +853,33 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username or email.
+        /// </summary>
+        public static string ForgetPassword_Enter {
+            get {
+                return ResourceManager.GetString("ForgetPassword_Enter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        public static string ForgetPassword_Submit {
+            get {
+                return ResourceManager.GetString("ForgetPassword_Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter your username or email:.
+        /// </summary>
+        public static string ForgetPassword_Title {
+            get {
+                return ResourceManager.GetString("ForgetPassword_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
@@ -975,6 +1146,15 @@ namespace InsuredTraveling {
         public static string Policy_CalculatePremium {
             get {
                 return ResourceManager.GetString("Policy_CalculatePremium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- Country --.
+        /// </summary>
+        public static string Policy_CountryDD {
+            get {
+                return ResourceManager.GetString("Policy_CountryDD", resourceCulture);
             }
         }
         
@@ -1420,6 +1600,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -- Type of policy --.
+        /// </summary>
+        public static string Policy_TypeDD {
+            get {
+                return ResourceManager.GetString("Policy_TypeDD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use only numbers or latin letters!.
         /// </summary>
         public static string Policy_UseNumberLatinLetters {
@@ -1443,24 +1632,6 @@ namespace InsuredTraveling {
         public static string PolicyPrint_AdditionalPremium {
             get {
                 return ResourceManager.GetString("PolicyPrint_AdditionalPremium", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Address.
-        /// </summary>
-        public static string PolicyPrint_Address {
-            get {
-                return ResourceManager.GetString("PolicyPrint_Address", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Agency.
-        /// </summary>
-        public static string PolicyPrint_Agency {
-            get {
-                return ResourceManager.GetString("PolicyPrint_Agency", resourceCulture);
             }
         }
         
@@ -2077,11 +2248,38 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search by name.
+        /// </summary>
+        public static string Search_FNOLname {
+            get {
+                return ResourceManager.GetString("Search_FNOLname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FNOL Number.
         /// </summary>
         public static string Search_FNOLNumber {
             get {
                 return ResourceManager.GetString("Search_FNOLNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search by last name.
+        /// </summary>
+        public static string Search_FNOLsurname {
+            get {
+                return ResourceManager.GetString("Search_FNOLsurname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search by total cost.
+        /// </summary>
+        public static string Search_FNOLtotalcost {
+            get {
+                return ResourceManager.GetString("Search_FNOLtotalcost", resourceCulture);
             }
         }
         
