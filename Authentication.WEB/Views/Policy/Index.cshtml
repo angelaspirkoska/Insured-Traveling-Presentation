@@ -3,8 +3,9 @@
 @using System.Web.Optimization;
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
+
 <h2>@InsuredTraveling.Resource.Policy_CreatePolicy</h2>
 <form id="policy_form" metod="post" >    
         <div class="row">
@@ -206,11 +207,29 @@
                             @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size" } })
                             @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
                         </div>
-                        @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
+                        @*<div class='input-group date' id='datetimepicker1'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar">
+                                </span>
+                            </span>
+                        </div>*@
+                        @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" }) <br/>
+                        <div class="inputs-spacing">
+                            <div class='input-group date field-size' id='datetimepicker1'>
+                                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField insuredData datepicker-size" } })
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar">
+                                    </span>
+                                </span>
+                                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>  
+                        @*@Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
                             @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField insuredData field-size" } })
                             @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
-                        </div>
+                        </div>*@
                         @Html.LabelFor(model => model.PassportNumber_ID, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
                             @Html.EditorFor(model => model.PassportNumber_ID, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size" } })
@@ -338,7 +357,7 @@
             <div class="form-inline">
                 <div class="form-group">
                     <div>
-                        <input type="button" id="calculateTotalPremium" value="@InsuredTraveling.Resource.Policy_CalculatePremium" class="btn btn-default btn-block" onclick="CalculateTotalPremium()" />
+                        <input type="button" target="" id="calculateTotalPremium" value="@InsuredTraveling.Resource.Policy_CalculatePremium" class="btn btn-default btn-block" onclick="CalculateTotalPremium()" />
                     </div>
                 </div>
             </div>
@@ -393,6 +412,11 @@
 <script>
     $(document).ready(function () {
         $("#policy_type option[value='2']").attr("selected", "selected");
+        $('#datetimepicker1').datetimepicker({
+            viewMode: 'years',
+            format: 'DD/MM/YYYY'
+        });
+
         $(".hideMe").hide();
         $("#Valid_Days").val(10);
         $("#totalPremium").hide();
@@ -421,9 +445,9 @@
         $("#additional_charges_1__ID").val(1);
 
         getLocation();
-
+        
     });
-
+    
     $(".mandatoryField, #Policy_TypeID, #Retaining_RiskID, #CountryID, .numberTrips, #additional_charges_1__ID, #additional_charges_0__ID, #single_type, #family_type, #group_type").on('change', function () {
         $(".hideMe").hide();
     })
@@ -509,6 +533,9 @@
             }
 
         }
+
+        
+
     };
 
     $('#dugme').on('submit', function (e) {
@@ -603,11 +630,11 @@
 
     
 
-    $("#BirthDate").datepicker({
-        dateFormat: "mm/dd/yy",
-        onSelect: function (selected) {
-        },
-    });
+    //$("#BirthDate").datepicker({
+    //    dateFormat: "mm/dd/yy",
+    //    onSelect: function (selected) {
+    //    },
+    //});
 
     $("#vaziDenovi").focusin(function () {
         var Sdat = new Date($("#startDate").val());

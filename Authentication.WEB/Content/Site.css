@@ -285,6 +285,11 @@ form.cmxform .gray * { color: gray; }
     visibility: hidden;
 }
 
+.datepicker-size {
+    width: 100% !important;
+    height: 39px;
+}
+
 .signup-btn-style {
     margin-left: 20px;
     width: 91%;

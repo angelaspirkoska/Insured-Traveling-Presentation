@@ -17,8 +17,7 @@
 
 
 @{ Html.RenderPartial("../Policy/_PolicyPrint", Model);  }    
-<form id="paymentForm" target="output_frame" method="post" action="https://entegrasyon.asseco-see.com.tr/fim/est3Dgate" style="padding-bottom: 100px;
-">
+<form id="paymentForm" target="output_frame" method="post" action="https://entegrasyon.asseco-see.com.tr/fim/est3Dgate" style="padding-bottom: 100px;">
     <center>
         <h3 id="hideMe">
             Плати ја полисата
@@ -57,6 +56,10 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#output_frame").hide();
+
+        $('html,body').animate({
+            scrollTop: $("#button").offset().top
+        }, 800);
 
     });
 
