@@ -35,7 +35,7 @@
                                 <div class="col-md-4">
                                     @Html.LabelFor(model => model.Policy_TypeID, htmlAttributes: new { @class = "control-label" })
                                     <div class="inputs-spacing">
-                                        @Html.DropDownListFor(model => model.Policy_TypeID, (List<SelectListItem>)ViewBag.TypeOfPolicy, @InsuredTraveling.Resource.Policy_TypeDD, new { @class = "form-control input-sm", id= "policy_type" })
+                                        @Html.DropDownListFor(model => model.Policy_TypeID, (List<SelectListItem>)ViewBag.TypeOfPolicy, new { @class = "form-control input-sm", id= "policy_type" })
                                         @Html.ValidationMessageFor(model => model.Policy_TypeID, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -392,6 +392,7 @@
 @Styles.Render("~/Content/loader")
 <script>
     $(document).ready(function () {
+        $("#policy_type option[value='2']").attr("selected", "selected");
         $(".hideMe").hide();
         $("#Valid_Days").val(10);
         $("#totalPremium").hide();
