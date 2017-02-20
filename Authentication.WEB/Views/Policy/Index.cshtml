@@ -21,7 +21,7 @@
                                 <div class="col-md-4">
                                     @Html.LabelFor(model => model.CountryID, htmlAttributes: new { @class = "control-label" })
                                     <div class="inputs-spacing">
-                                        @Html.DropDownListFor(model => model.CountryID, (List<SelectListItem>)ViewBag.Countries, new { @class = "form-control input-sm" })
+                                        @Html.DropDownListFor(model => model.CountryID, (List<SelectListItem>)ViewBag.Countries, new { @class = "form-control input-sm", id="CountryID", onchange= "ChangeType()" })
                                         @Html.ValidationMessageFor(model => model.CountryID, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -35,7 +35,7 @@
                                 <div class="col-md-4">
                                     @Html.LabelFor(model => model.Policy_TypeID, htmlAttributes: new { @class = "control-label" })
                                     <div class="inputs-spacing">
-                                        @Html.DropDownListFor(model => model.Policy_TypeID, (List<SelectListItem>)ViewBag.TypeOfPolicy, new { @class = "form-control input-sm" })
+                                        @Html.DropDownListFor(model => model.Policy_TypeID, (List<SelectListItem>)ViewBag.TypeOfPolicy, @InsuredTraveling.Resource.Policy_TypeDD, new { @class = "form-control input-sm", id= "policy_type" })
                                         @Html.ValidationMessageFor(model => model.Policy_TypeID, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                                 <div class="col-md-4">
                                     @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
                                     <div class="input-group">
-                                        @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", @style = "position: static;", @min = "1" } })
+                                        @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", @style = "position: static;", @min = "1", @max="", id="PolicyValidDays", type="number" } })
                                         <span class="input-group-addon">@InsuredTraveling.Resource.Policy_Days</span>
                                     </div>
                                     @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
@@ -562,15 +562,45 @@
         dateFormat: "mm/dd/yy",
         onSelect: function (selected) {
             $("#End_Date").datepicker("option", "minDate", selected);
-        },
+
+            var startDate = new Date($("#Start_Date").val()).getTime();;
+            var endDate = new Date($("#End_Date").val()).getTime();;
+            console.log(startDate);
+            console.log(endDate);
+            if (startDate != null && endDate != null) {
+                c = 24 * 60 * 60 * 1000;
+                var validDays = Math.abs((endDate - startDate) / c) + 1;
+                console.log(validDays);
+                $("#PolicyValidDays").attr({
+                    "max": validDays
+                });
+                $("#PolicyValidDays").val(validDays);
+            }
+        }
     });
 
     $("#End_Date").datepicker({
         dateFormat: "mm/dd/yy",
         onSelect: function (selected) {
             $("#Start_Date").datepicker("option", "maxDate", selected);
-        },
+
+            var startDate = new Date($("#Start_Date").val()).getTime();
+            var endDate = new Date($("#End_Date").val()).getTime();
+            console.log(startDate);
+            console.log(endDate);
+            if (startDate != null && endDate != null) {
+                c = 24 * 60 * 60 * 1000;
+                var validDays = Math.abs((endDate - startDate) / c) + 1;
+                console.log(validDays);
+                $("#PolicyValidDays").attr({
+                    "max": validDays
+                });
+                $("#PolicyValidDays").val(validDays);
+            }
+        }
     });
+
+    
 
     $("#BirthDate").datepicker({
         dateFormat: "mm/dd/yy",
@@ -658,6 +688,39 @@
         $("#PolicyDataContent").toggle();
 
     });
+
+    function ChangeType() {
+        var v = $("#CountryID option:selected").val();
+        console.log(v);
+        if (v == 3) {
+            $("#policy_type option[value='1']").show();
+            $("#policy_type option[value='2']").show();
+            $("#policy_type option[value='3']").hide();
+            $("#policy_type option[value='4']").show();
+            $("#policy_type option[value='5']").hide();
+        } else if (v == 2) {
+            $("#policy_type option[value='5']").hide();
+            $("#policy_type option[value='1']").show();
+            $("#policy_type option[value='2']").show();
+            $("#policy_type option[value='3']").show();
+            $("#policy_type option[value='4']").hide();
+        } else if (v == 1) {
+            $("#policy_type option[value='5']").hide();
+            $("#policy_type option[value='1']").show();
+            $("#policy_type option[value='2']").show();
+            $("#policy_type option[value='3']").show();
+            $("#policy_type option[value='4']").hide();
+        } else if (v == 4) {
+            $("#policy_type option[value='5']").show();
+            $("#policy_type option[value='1']").show();
+            $("#policy_type option[value='2']").show();
+            $("#policy_type option[value='3']").hide();
+            $("#policy_type option[value='4']").hide();
+        }
+
+
+
+    }
 
     // Check the user's location
     function getLocation() {

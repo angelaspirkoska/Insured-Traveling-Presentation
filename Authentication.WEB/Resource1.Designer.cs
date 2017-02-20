@@ -1852,6 +1852,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to --Type of quote--.
+        /// </summary>
+        public static string Quote_TypeDD {
+            get {
+                return ResourceManager.GetString("Quote_TypeDD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quotes.
         /// </summary>
         public static string Quotes {
@@ -2433,6 +2442,42 @@ namespace InsuredTraveling {
         public static string Search_PolicyType {
             get {
                 return ResourceManager.GetString("Search_PolicyType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quote Effective Date.
+        /// </summary>
+        public static string Search_QuoteEffectiveDate {
+            get {
+                return ResourceManager.GetString("Search_QuoteEffectiveDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quote Expiry Date.
+        /// </summary>
+        public static string Search_QuoteExpiryDate {
+            get {
+                return ResourceManager.GetString("Search_QuoteExpiryDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quote Number.
+        /// </summary>
+        public static string Search_QuoteNumber {
+            get {
+                return ResourceManager.GetString("Search_QuoteNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quote Type.
+        /// </summary>
+        public static string Search_QuoteType {
+            get {
+                return ResourceManager.GetString("Search_QuoteType", resourceCulture);
             }
         }
         
