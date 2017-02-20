@@ -11,7 +11,7 @@ namespace Authentication.WEB.Services
         private SmtpClient smtp;
         private MailMessage email;
 
-        public MailService(string receiver, string sender = "info@optimalreinsurance.com", string mailServer = "smtp.zoho.com", int port = 587, string passphrase = "")
+        public MailService(string receiver, string sender = "info@insuredtraveling.com", string mailServer = "smtp.zoho.com", int port = 587, string passphrase = "")
         {
             string sentFrom, pass, sentTo, mailServ;
             int portNo;
@@ -29,14 +29,14 @@ namespace Authentication.WEB.Services
             if (sender != null)
                 sentFrom = sender;
             else
-                sentFrom = "info@optimalreinsurance.com";
+                sentFrom = "info@insuredtraveling.com";
 
             sentTo = receiver;
 
             if (passphrase != "")
                 pass = passphrase;
             else
-                pass = "Enter4Sy";
+                pass = "Enter4Sy"; // is this the password for info@insuredtraveling.com ?
 
             smtp = new SmtpClient(mailServ, portNo);
             smtp.Credentials = new NetworkCredential(sentFrom, pass);
@@ -52,7 +52,7 @@ namespace Authentication.WEB.Services
         {
             smtp.Host = "smtp.zoho.com";
             smtp.Port = 587;
-            smtp.Credentials = new NetworkCredential("info@optimalreinsurance.com", "Enter4Sy");
+            smtp.Credentials = new NetworkCredential("info@insuredtraveling.com", "Enter4Sy");
             email.Subject = "Insurance Policy Notification";
             email.Body = "This is an automated message sent to you as an information about the policy you ordered.";
         }

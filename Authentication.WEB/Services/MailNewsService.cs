@@ -14,7 +14,7 @@ namespace Authentication.WEB.Services
             string n = "[notification]";
 
             using (ImapClient client = new ImapClient("imap.zoho.com", 993,
-                "info@optimalreinsurance.com", "Enter4Sy", AuthMethod.Login, true))
+                "info@insuredtraveling.com", "Enter4Sy", AuthMethod.Login, true))
             {
                 IEnumerable<uint> uids = client.Search(SearchCondition.Unseen());
 

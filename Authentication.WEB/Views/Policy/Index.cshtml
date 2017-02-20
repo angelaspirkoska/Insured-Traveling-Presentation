@@ -427,7 +427,6 @@
         $(".hideMe").hide();
     })
 
-
     $(".input-sm, .text-box").keypress(function (event) {
         var ew = event.which;
         console.log(ew);
@@ -455,9 +454,23 @@
         return flag;
     }
 
+    var objects = document.getElementsByClassName("mandatoryField");
+    var i = 0;
+
     function CalculateTotalPremium() {
         var flag = ValidateFields();
         console.log(flag);
+
+        // Front end validation
+        for (i = 0; i < objects.length; i++) {
+            if (objects[i].value.length == 0) {
+                objects[i].setAttribute("style", "border: 1px solid red;");
+            }
+            else {
+                objects[i].setAttribute("style", "border: 1px solid #2c3e50;");
+            }
+        }
+
         if (flag) {
             $("#errorMessage").text("");
             $(".loader").css("display", "inline");

@@ -163,7 +163,7 @@ namespace InsuredTraveling
             {
                 try
                 {
-                    string body = "Welcome to Optimal Insurance " + " " + ",";
+                    string body = "Welcome to Insured Traveling " + "- the standalone platform for online sales of insurance policies.";
                     body += "<br /><br />Please click the following link to activate your account";
                     body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
                     body += "<br /><br />Thanks";

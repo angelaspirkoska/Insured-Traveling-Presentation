@@ -442,7 +442,7 @@
     <value>Existing User</value>
   </data>
   <data name="Policy_FillData" xml:space="preserve">
-    <value>Enter data for all the fields!</value>
+    <value>Enter data for all red fields!</value>
   </data>
   <data name="Policy_HolderAddress" xml:space="preserve">
     <value>Address</value>
@@ -956,7 +956,7 @@
   </data>
   <data name="Quotes" xml:space="preserve">
     <value>Quotes</value>
-</data>
+  </data>
   <data name="AdminPanel_AddRecButton" xml:space="preserve">
     <value>ADD</value>
   </data>

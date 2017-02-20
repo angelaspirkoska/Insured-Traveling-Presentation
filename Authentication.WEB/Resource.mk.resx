@@ -199,7 +199,7 @@
     <value>Постоечки корисник</value>
   </data>
   <data name="Policy_FillData" xml:space="preserve">
-    <value>Внесете податоци во сите полиња!</value>
+    <value>Внесете податоци во сите црвени полиња!</value>
   </data>
   <data name="Policy_HolderAddress" xml:space="preserve">
     <value>Адреса</value>

@@ -1222,7 +1222,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter data for all the fields!.
+        ///   Looks up a localized string similar to Enter data for all red fields!.
         /// </summary>
         public static string Policy_FillData {
             get {
