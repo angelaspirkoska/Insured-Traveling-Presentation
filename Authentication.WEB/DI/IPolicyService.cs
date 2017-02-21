@@ -12,6 +12,8 @@ namespace InsuredTraveling.DI
    public interface IPolicyService
     {
         int AddPolicy(travel_policy TravelPolicy);
+        retaining_risk GetRetainingRisk(int id);
+        policy_type GetPolicyType(int id);
         travel_policy GetPolicyIdByPolicyNumber(string id);
         travel_policy GetPolicyById(int id);
         string GetPolicyNumberByPolicyId(int id);

@@ -385,14 +385,31 @@
     <div class="row">
             <div class="form-group col-md-2 col-sm-2 btns-position">
                 <div>
-                    <input type="button" value="@InsuredTraveling.Resource.Policy_AddOffer" class="btn btn-default btn-block hideMe" />
+                    <input type="button" id="AddOffer" value="@InsuredTraveling.Resource.Policy_AddOffer" class="btn btn-default btn-block hideMe" />
                 </div>
             </div>
+
             <div class="form-group col-md-2 col-sm-2 btns-position">
                 <div>
                     <input type="submit" id="printOffers" formmethod="post" formaction="/Policy/RedirectPrintOffer" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
                 </div>
             </div>
+
+            <div id="successMsg" class="col-md-4 col-sm-4">
+                <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span>Успешно ја додадовте полисата во понуди</span>
+                </div>
+            </div>
+
+            <div id="failMsg" class="col-md-4 col-sm-4">
+                <div class="alert alert-dismissible alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span>Полисата не беше додадена успешно!</span>
+                </div>
+            </div>
+
+
     </div>   
 </form>
 <script src="~/Scripts/jquery.validate.js"></script>
@@ -404,12 +421,26 @@
 @Styles.Render("~/Content/loader")
 <script>
     $(document).ready(function () {
-
+        $("#successMsg").hide();
+        $("#failMsg").hide();
         $('#Valid_Days').on('focusout', function () {
             console.log(($(this).val() > ($('#Valid_Days').attr('max'))));
             if ($(this).val() > ($('#Valid_Days').attr('max'))) {
                 $(this).val(($('#Valid_Days').attr('max')));
             }
+        });
+        $('#AddOffer').on('click', function () {
+            $.ajax({
+                type: 'POST',
+                url: '@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Policy/CreateQuote',
+                data: $('#policy_form').serialize(),
+                success: function (result) {
+                    $("#successMsg").show();
+                },
+                error: function () {
+                    $("#failMsg").show();
+                }
+            });
         });
 
         $("#policy_type option[value='2']").attr("selected", "selected");

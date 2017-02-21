@@ -20,6 +20,16 @@ namespace InsuredTraveling.DI
             return TravelPolicy.ID;
         }
 
+        public retaining_risk GetRetainingRisk(int id)
+        {
+            retaining_risk r = _db.retaining_risk.Where(x=> x.ID == id).FirstOrDefault();
+            return r;
+        }
+        public policy_type GetPolicyType(int id)
+        {
+            policy_type pt = _db.policy_type.Where(x => x.ID == id).FirstOrDefault();
+            return pt;
+        }
         public void UpdatePaymentStatus(string PolicyNumber)
         {
             var Policy = _db.travel_policy.Where(x => x.Policy_Number == PolicyNumber).SingleOrDefault();

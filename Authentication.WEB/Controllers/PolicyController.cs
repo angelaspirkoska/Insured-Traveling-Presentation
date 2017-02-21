@@ -16,6 +16,7 @@ using System.Data.Entity;
 using InsuredTraveling.DI;
 using InsuredTraveling.Filters;
 using InsuredTraveling.Helpers;
+using AutoMapper;
 
 namespace Authentication.WEB.Controllers
 {
@@ -86,7 +87,7 @@ namespace Authentication.WEB.Controllers
             string responseBody = await responseMessage.Content.ReadAsStringAsync();
             dynamic data = JObject.Parse(responseBody);
             int premium = data.PremiumAmount;
-
+   
             bool valid = validationService.masterValidate(polisaEntity);
             double? vkupnaPremija = ratingEngineService.totalPremium(policy);
             policy.Total_Premium = vkupnaPremija;
@@ -114,12 +115,22 @@ namespace Authentication.WEB.Controllers
                 polisaEntity.Valid_Days = policy.Valid_Days;
                 polisaEntity.Travel_Insurance_TypeID = policy.Travel_Insurance_TypeID;
                 polisaEntity.Travel_NumberID = policy.Travel_NumberID;
-                polisaEntity.Travel_Insurance_TypeID = policy.Travel_Insurance_TypeID;
                 polisaEntity.Exchange_RateID = (policy.Exchange_RateID.HasValue)? policy.Exchange_RateID.Value : 1;
                 var result = _ps.AddPolicy(polisaEntity);
             }
 
             return Json(new { success = true, responseText = "Success." }, JsonRequestBehavior.AllowGet);
+        }
+
+        public async System.Threading.Tasks.Task<ActionResult> CreateQuote(Policy policy)
+        {
+            SavePolicyHelper.SavePolicy(policy, _ps, _us, _iss, _pis, _acs);
+            var result = SavePolicyHelper.SavePolicy(policy, _ps, _us, _iss, _pis, _acs);
+            if (result != 0)
+            {
+                return Json(new { success = true, responseText = "Success." }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "Fail." }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

@@ -11,6 +11,7 @@ using System.Web;
 namespace InsuredTraveling.Hubs
 {
     [Authorize]
+    [SessionExpire]
     public class ChatHub : Hub
     {
         readonly InsuredTravelingEntity _db = new InsuredTravelingEntity();
@@ -25,8 +26,14 @@ namespace InsuredTraveling.Hubs
         public override Task OnReconnected()
         {
             RoleAuthorize roleAuthorize = new RoleAuthorize();
-            _currentUser = System.Web.HttpContext.Current.User.Identity.Name;
-            _isAdmin = roleAuthorize.IsUser("admin");
+            if (System.Web.HttpContext.Current !=null)
+            {
+                _currentUser = System.Web.HttpContext.Current.User.Identity.Name;
+                _isAdmin = roleAuthorize.IsUser("admin");
+            }else
+            {
+                _isAdmin = false;
+            }
 
             return base.OnReconnected();
         }
