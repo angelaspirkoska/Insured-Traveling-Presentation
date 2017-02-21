@@ -64,7 +64,7 @@
                                 <div class="col-md-4">
                                     @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
                                     <div class="input-group">
-                                        @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", @style = "position: static;", @min = "1", @max="", id="PolicyValidDays", type="number" } })
+                                        @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", @style = "position: static;", @min = "1", @max="10" } })
                                         <span class="input-group-addon">@InsuredTraveling.Resource.Policy_Days</span>
                                     </div>
                                     @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
@@ -411,6 +411,14 @@
 @Styles.Render("~/Content/loader")
 <script>
     $(document).ready(function () {
+
+        $('#Valid_Days').on('focusout', function () {
+            console.log(($(this).val() > ($('#Valid_Days').attr('max'))));
+            if ($(this).val() > ($('#Valid_Days').attr('max'))) {
+                $(this).val(($('#Valid_Days').attr('max')));
+            }
+        });
+
         $("#policy_type option[value='2']").attr("selected", "selected");
         $('#datetimepicker1').datetimepicker({
             viewMode: 'years',
@@ -418,7 +426,6 @@
         });
 
         $(".hideMe").hide();
-        $("#Valid_Days").val(10);
         $("#totalPremium").hide();
         $("#totalPremiumLabel").hide();
         $("#family").hide();
@@ -590,19 +597,15 @@
         dateFormat: "mm/dd/yy",
         onSelect: function (selected) {
             $("#End_Date").datepicker("option", "minDate", selected);
-
-            var startDate = new Date($("#Start_Date").val()).getTime();;
-            var endDate = new Date($("#End_Date").val()).getTime();;
-            console.log(startDate);
-            console.log(endDate);
+            var startDate = new Date($("#Start_Date").val()).getTime();
+            var endDate = new Date($("#End_Date").val()).getTime();
             if (startDate != null && endDate != null) {
                 c = 24 * 60 * 60 * 1000;
-                var validDays = Math.abs((endDate - startDate) / c) + 1;
-                console.log(validDays);
-                $("#PolicyValidDays").attr({
+                var validDays = Math.floor((endDate - startDate) / c) + 1;
+                $("#Valid_Days").attr({
                     "max": validDays
                 });
-                $("#PolicyValidDays").val(validDays);
+                $("#Valid_Days").val(validDays);
             }
         }
     });
@@ -614,16 +617,13 @@
 
             var startDate = new Date($("#Start_Date").val()).getTime();
             var endDate = new Date($("#End_Date").val()).getTime();
-            console.log(startDate);
-            console.log(endDate);
             if (startDate != null && endDate != null) {
                 c = 24 * 60 * 60 * 1000;
-                var validDays = Math.abs((endDate - startDate) / c) + 1;
-                console.log(validDays);
-                $("#PolicyValidDays").attr({
+                var validDays = Math.floor((endDate - startDate) / c) + 1;
+                $("#Valid_Days").attr({
                     "max": validDays
                 });
-                $("#PolicyValidDays").val(validDays);
+                $("#Valid_Days").val(validDays);
             }
         }
     });
@@ -636,17 +636,18 @@
     //    },
     //});
 
-    $("#vaziDenovi").focusin(function () {
-        var Sdat = new Date($("#startDate").val());
-        var Edat = new Date($("#endDate").val());
-        if ($('#povekePatuvanja').is(':checked')) {
-            $("#vaziDenovi").attr('min', 15);
-        }
-        else {
-            $("#vaziDenovi").attr('min', 2);
-        }
+    //Dali treba ovaa funkcija??
+    //$("#vaziDenovi").focusin(function () {
+    //    var Sdat = new Date($("#startDate").val());
+    //    var Edat = new Date($("#endDate").val());
+    //    if ($('#povekePatuvanja').is(':checked')) {
+    //        $("#vaziDenovi").attr('min', 15);
+    //    }
+    //    else {
+    //        $("#vaziDenovi").attr('min', 2);
+    //    }
 
-    });
+    //});
 
     $("#SSN").keydown(function (e) {
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
@@ -697,8 +698,8 @@
         }
     });
     var future = new Date();
-    $("#Start_Date").val($.datepicker.formatDate("mm/dd/yy", new Date()));
-    $("#End_Date").val($.datepicker.formatDate("mm/dd/yy", new Date(future.setDate(future.getDate() + 10))));
+    $("#Start_Date").val($.datepicker.formatDate("mm/dd/yy", new Date(future.setDate(future.getDate() + 1))));
+    $("#End_Date").val($.datepicker.formatDate("mm/dd/yy", new Date(future.setDate(future.getDate() + 9))));
 
     $('#PolicyPolicyInformation').click(function () {
         $("#PolicyPolicyInformationContent").toggle();
@@ -771,6 +772,7 @@
             console.log(result.countryName);
             /* Location not allowed na Chrome, treba da se podesi vo Advanced settings */
             result.countryName = "Macedonia";
+            console.log(result.countryName);
             if (result.countryName == "Macedonia") {
                 var submitBtn = document.getElementById("buyPolicyBtn");
 

@@ -45,7 +45,7 @@ namespace InsuredTraveling.Filters
             var aspnetuser = context.aspnetusers.Where(m => m.UserName == user.Identity.Name);
             if (aspnetuser.Count() == 0)
                 return authorize;
-            var selectedUser = aspnetuser.Single();            
+            var selectedUser = aspnetuser.FirstOrDefault();            
             if (selectedUser == null)
                 return false;
             if (selectedUser.aspnetroles.Count == 0)
