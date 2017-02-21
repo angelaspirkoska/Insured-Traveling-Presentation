@@ -2,14 +2,12 @@
 
 @{
     ViewBag.Title = InsuredTraveling.Resource.Client;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
 <form method="post" action="@Url.Action("Create")" style="margin-top:30px;">
     <div class="form-horizontal">
         <h3>@InsuredTraveling.Resource.Client_Add</h3>
-        <br />
-        <br />
         <div><h5>@InsuredTraveling.Resource.Required <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:red"></span></h5></div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -69,17 +67,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-top: -9px;">
                     <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
-                    @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "" })<br />
+                    @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "control-label" })
                     <div style="margin-bottom:10px; padding:0;">
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
-                            @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control placeholder", type = "date" } })
-                            @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "col-md-6 text-danger" })
+                        <div class='input-group date field-size-holder' id='datetimepicker4'>
+                            <div class="input-group-addon" style="width: 45px; border-radius: 2px;">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control splaceholder mandatoryField insuredData" } })
                         </div>
-                    </div>
-                </div>
+                    </div>                    
+                    @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "col-md-6 text-danger" })
+                </div> 
                 <div class="form-group">
                     <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
                     @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "" })<br />
@@ -175,6 +175,12 @@
 <!-- macedonian language-->
 <script src="~/Scripts/messages_is.js"></script>
 <script>
+
+    $('#datetimepicker4').datetimepicker({
+        viewMode: 'years',
+        format: 'DD/MM/YYYY'
+    });
+
     $("#CreateForm").validate({
         rules: {
             lang: 'is',

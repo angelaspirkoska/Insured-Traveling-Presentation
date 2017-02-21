@@ -124,11 +124,22 @@
                             @Html.ValidationMessageFor(model => model.PolicyHolderSSN, "", new { @class = "text-danger" })
                         </div>
                         <div class="hideWhenSelect">
-                            @Html.LabelFor(model => model.PolicyHolderBirthDate, htmlAttributes: new { @class = "control-label" })
+                            @Html.LabelFor(model => model.PolicyHolderBirthDate, htmlAttributes: new { @class = "control-label" }) <br />
+                            <div class="inputs-spacing">
+                                <div class='input-group date field-size-holder' id='datetimepicker1'>
+                                    @Html.EditorFor(model => model.PolicyHolderBirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField datepicker-size", @max = ViewBag.Date } })
+                                    <span class="input-group-addon" style="width: 55px; border-radius: 2px;">
+                                        <span class="glyphicon glyphicon-calendar">
+                                        </span>
+                                    </span>
+                                    @Html.ValidationMessageFor(model => model.PolicyHolderBirthDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>  
+                            @*@Html.LabelFor(model => model.PolicyHolderBirthDate, htmlAttributes: new { @class = "control-label" })
                             <div class="inputs-spacing">
                                 @Html.EditorFor(model => model.PolicyHolderBirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField", type = "date", @max = ViewBag.Date } })
                                 @Html.ValidationMessageFor(model => model.PolicyHolderBirthDate, "", new { @class = "text-danger" })
-                            </div>
+                            </div>*@
                             @Html.LabelFor(model => model.PolicyHolderPassportNumber_ID, htmlAttributes: new { @class = "control-label" })
                             <div class="inputs-spacing">
                                 @Html.EditorFor(model => model.PolicyHolderPassportNumber_ID, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField" } })
@@ -209,7 +220,7 @@
                         </div>
                         @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" }) <br/>
                         <div class="inputs-spacing">
-                            <div class='input-group date field-size' id='datetimepicker1'>
+                            <div class='input-group date field-size' id='datetimepicker2'>
                                 @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField insuredData datepicker-size" } })
                                 <span class="input-group-addon" style="width: 55px; border-radius: 2px;">
                                     <span class="glyphicon glyphicon-calendar">
@@ -311,17 +322,26 @@
                         </div>
                     </div>
                 </div>
-                    <div class="form-horizontal">
-                            @for (int i = 0; i < 2; i++)
-                            {
-                                <div class="col-md-4">
-                                    <div><label>@InsuredTraveling.Resource.Policy_AddOn @(i + 1)</label></div>
-                                    <div>
-                                        @Html.DropDownListFor(model => model.additional_charges[i].ID, (List<SelectListItem>)ViewBag.additional_charges, new { @class = "form-control input-sm" })
-                                    </div>
-                                </div>
-                            }
-                    </div>
+                 <div class="form-horizontal">
+                     @{ 
+                         int i1 = 0;
+                     }
+                     @foreach(var a in ViewBag.additional_charges)
+                     {
+                         <input type="checkbox" value="@a.Value" name="additional_charge[@i1]"/> @a.Text
+                         i1++;
+                     }
+
+                     @*@for (int i = 0; i < 2; i++)
+                     {
+                         <div class="col-md-4">
+                             <div><label>@InsuredTraveling.Resource.Policy_AddOn @(i + 1)</label></div>
+                             <div>
+                                 @Html.DropDownListFor(model => model.additional_charges[i].ID, (List<SelectListItem>)ViewBag.additional_charges, new { @class = "form-control input-sm SelectBox" })
+                             </div>
+                         </div>
+                     }*@                    
+                </div>
                 <div class="col-md-2">
                     <div class="form-inline">
                         <div class="form-group">
@@ -419,7 +439,7 @@
 @Scripts.Render("~/bundles/jqueryui")
 @Styles.Render("~/Content/jqueryuicss")
 @Styles.Render("~/Content/loader")
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         $("#successMsg").hide();
         $("#failMsg").hide();
@@ -445,7 +465,13 @@
 
         $("#policy_type option[value='2']").attr("selected", "selected");
 
+
         $('#datetimepicker1').datetimepicker({
+            viewMode: 'years',
+            format: 'DD/MM/YYYY'
+        });
+
+        $('#datetimepicker2').datetimepicker({
             viewMode: 'years',
             format: 'DD/MM/YYYY'
         });
@@ -568,6 +594,7 @@
             else {
                 $("#errorMessage").text("@InsuredTraveling.Resource.Policy_FillData");
             }
+        }        
 
         }
 

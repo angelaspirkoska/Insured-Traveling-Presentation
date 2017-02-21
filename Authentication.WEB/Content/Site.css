@@ -187,7 +187,11 @@ form.cmxform .gray * { color: gray; }
 }
 
 .field-size {
-    width: 75% !important;
+    width: 85% !important;
+}
+
+.field-size-holder {
+    width: 100% !important;
 }
 
 .label-position {
