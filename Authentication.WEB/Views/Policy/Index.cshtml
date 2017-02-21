@@ -207,18 +207,11 @@
                             @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size" } })
                             @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
                         </div>
-                        @*<div class='input-group date' id='datetimepicker1'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar">
-                                </span>
-                            </span>
-                        </div>*@
                         @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" }) <br/>
                         <div class="inputs-spacing">
                             <div class='input-group date field-size' id='datetimepicker1'>
                                 @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField insuredData datepicker-size" } })
-                                <span class="input-group-addon">
+                                <span class="input-group-addon" style="width: 55px; border-radius: 2px;">
                                     <span class="glyphicon glyphicon-calendar">
                                     </span>
                                 </span>
@@ -397,7 +390,7 @@
             </div>
             <div class="form-group col-md-2 col-sm-2 btns-position">
                 <div>
-                    <input type="submit" formmethod="post" formaction="/Policy/RedirectPrintOffer" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
+                    <input type="submit" id="printOffers" formmethod="post" formaction="/Policy/RedirectPrintOffer" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
                 </div>
             </div>
     </div>   
@@ -420,6 +413,7 @@
         });
 
         $("#policy_type option[value='2']").attr("selected", "selected");
+
         $('#datetimepicker1').datetimepicker({
             viewMode: 'years',
             format: 'DD/MM/YYYY'
@@ -518,6 +512,11 @@
                     $("#totalPremiumLabel").show();
                     $(".hideMe").show();
                     $("#errorMessage").text(" ");
+
+                    $('html,body').animate({
+                        scrollTop: $("#printOffers").offset().top
+                    }, 800);
+
                 },
                 error: function (result) {
                     $(".loader").css("display", "none");
@@ -746,8 +745,6 @@
             $("#policy_type option[value='3']").hide();
             $("#policy_type option[value='4']").hide();
         }
-
-
 
     }
 

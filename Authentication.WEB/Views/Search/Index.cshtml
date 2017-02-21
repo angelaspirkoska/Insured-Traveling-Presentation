@@ -183,7 +183,7 @@
 
 
 <!--Table search result of quotes -->
-<div class="" id="searchQuotes">
+<div id="searchQuotes">
     <br />
     <br />
     <form method="post">
@@ -683,10 +683,10 @@
                         isAdmin = result.isAdmin;
                     }
                 });
-
-
             });
 
+            
+              
             $("#DateI").focusout(function () {
                 var Sdat = $("#DateI").val();
                 $("#startDate").attr('min', Sdat);
@@ -780,6 +780,8 @@
                 $("#first_notice_of_loss").attr("class", "active");
                 $("#searchChat").removeAttr("class");
                 $("#quotes").removeAttr("class");
+
+                
             };
 
             function ShowQuotes() {
@@ -793,6 +795,8 @@
                 $("#clients").removeAttr("class");
                 $("#searchChat").removeAttr("class");
                 $("#quotes").attr("class", "active");
+
+               
             };
 
             function ShowChats() {
@@ -812,10 +816,16 @@
                 $("#tablePoliciesHolders").css("display", "none");
                 $("#tableFNOLPolicies").css("display", "none");
 
-
                 $("#searchChat").attr("class", "active");
+
+                
             };
             function SearchChat() {
+
+                $('html,body').animate({
+                    scrollTop: $("#tableChats").offset().top
+                }, 800);
+
                 console.log("username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&active=" + $("#active").is(':checked') + "&discarded=" + $("#discarded").is(':checked') + "&noticed" + $("#noticed").is(':checked'));
                 $("#tableChats").DataTable().destroy();
                 $("#tableChats").DataTable({
@@ -942,6 +952,10 @@
                     CreateFNOLTablePoliciesByPolicyNumber(policy_num);
 
                 });
+
+                $('html,body').animate({
+                    scrollTop: $("#tablePolicies").offset().top
+                }, 800);
             };
 
     function SearchQuotes() {
@@ -966,6 +980,10 @@
         $('#tableQuotes tbody').on('click', 'td .loss', function () {
             var $row = $(this).closest('td');
         });
+
+        $('html,body').animate({
+            scrollTop: $("#tableQuotes").offset().top
+        }, 800);
     };
 
             function CreateFNOLTablePoliciesByPolicyNumber(policy_number) {
@@ -1043,6 +1061,10 @@
                     ],
                     select: true
                 });
+
+                $('html,body').animate({
+                    scrollTop: $("#tableFNOL").offset().top
+                }, 800);
             };
 
 
@@ -1088,6 +1110,10 @@
                     CreatePoliciesByHolderId(insuredId);
 
                 });
+
+                $('html,body').animate({
+                    scrollTop: $("#tableClients").offset().top
+                }, 800);
             };
 
             function CreatePoliciesByInsuredId(insuredId) {
