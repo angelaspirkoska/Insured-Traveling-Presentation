@@ -638,7 +638,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
     });
 
     $("#DepartDateTime").datepicker({
-        dateFormat: "dd/mm/yy",
+        dateFormat: "mm/dd/yy",
         onSelect: function (selected) {
             $("#ArrivalDateTime").datepicker("option", "minDate", selected);
             $("#AccidentDateTimeLuggage").datepicker("option", "minDate", selected);
@@ -648,7 +648,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
     });
 
     $("#ArrivalDateTime").datepicker({
-        dateFormat: "dd/mm/yy",
+        dateFormat: "mm/dd/yy",
         onSelect: function (selected) {
             $("#DepartDateTime").datepicker("option", "maxDate", selected);
             $("#AccidentDateTimeLuggage").datepicker("option", "maxDate", selected);
@@ -667,12 +667,18 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
     $("#AccidentDateTimeLuggage").datepicker({
         dateFormat: "mm/dd/yy",
-        onSelect: function (selected) {},
+        onSelect: function (selected) {
+            $("#DepartDateTime").datepicker("option", "minDate", selected);
+            $("#ArrivalDateTime").datepicker("option", "maxDate", selected);
+        },
     });
 
     $("#DoctorVisitDateTime").datepicker({
         dateFormat: "mm/dd/yy",
-        onSelect: function (selected) {},
+        onSelect: function (selected) {
+            $("#DepartDateTime").datepicker("option", "minDate", selected);
+            $("#ArrivalDateTime").datepicker("option", "maxDate", selected);
+        },
     });
 
     $("#ForeignBankAccount").change(function () {
@@ -859,7 +865,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
         $("#PolicyHolderAddress").attr("value", "");
         $("#TransactionAccount").attr("value", "");
         $("#deponent").attr("value", "");
-
         $.each($('#DropDownBankAccountPolicyHolder option'), function (i, val) {
             if (val.value == 0) {
             }
