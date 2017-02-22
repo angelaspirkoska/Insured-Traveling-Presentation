@@ -57,7 +57,7 @@ namespace Authentication.WEB.Controllers
             model.inputbytes = sha.ComputeHash(model.hashbytes);
             model.hash = Convert.ToBase64String(model.inputbytes); //Hash value used for validation
 
-            var a = model.Pat.policy_additional_charge.ToArray().ElementAt(0);
+            //var a = model.Pat.policy_additional_charge.ToArray().ElementAt(0);
            
             return View(model);
         }
