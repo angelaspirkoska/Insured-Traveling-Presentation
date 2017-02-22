@@ -148,19 +148,22 @@ namespace Authentication.WEB.Services
                 minPremium *= policy.Group_Members * (1 - dGroup);
             }
 
-            additional_charge[] aditional_charges = policy.additional_charges.ToArray();
-
-            double? additional_charge1 = 1;
-            double? additional_charge2 = 1;
-            if (aditional_charges.Count() != 0)
+            if(policy.additional_charges != null)
             {
-                int id1 = aditional_charges[0].ID;
-                int id2 = aditional_charges[1].ID;                               
-                additional_charge1 = entities.additional_charge.Where(x => x.ID == id1).Single().Percentage;
-                additional_charge2 = entities.additional_charge.Where(x => x.ID == id2).Single().Percentage;
+                additional_charge[] aditional_charges = policy.additional_charges.ToArray();
+
+                double? additional_charge1 = 1;
+                double? additional_charge2 = 1;
+                if (aditional_charges.Count() != 0)
+                {
+                    int id1 = aditional_charges[0].ID;
+                    int id2 = aditional_charges.Count() == 2 ? aditional_charges[1].ID : 1;
+                    additional_charge1 = entities.additional_charge.Where(x => x.ID == id1).Single().Percentage;
+                    additional_charge2 = entities.additional_charge.Where(x => x.ID == id2).Single().Percentage;
+                }
+                double? pDoplata = procentDoplata(additional_charge1, additional_charge2);
+                minPremium *= pDoplata;
             }
-            double? pDoplata = procentDoplata(additional_charge1, additional_charge2 );
-            minPremium *= pDoplata;
 
             int roundedPremium = (int)minPremium;
             roundedPremium = ((int)Math.Round(roundedPremium / 10.0)) * 10;
