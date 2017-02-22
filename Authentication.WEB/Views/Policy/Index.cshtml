@@ -324,13 +324,16 @@
                 </div>
                 <div class="form-horizontal">
                     <div class="col-md-4">
-                        <div><label>@InsuredTraveling.Resource.Policy_AddOn</label></div>
-                        @for (int k=1; k < 3; k++)
+                        @for (int i = 0; i < 2; i++)
                         {
-                            var i = k-1;
-                            var val = k + 1;
-                            var addid = "additional_charges_" + i + "__ID";
-                            <input id="@addid" type="checkbox" value="@val" name="additional_charges[@i].ID" style="width:4%;" class=""/> <label>@ViewBag.additional_charges[k].Text</label> <br />
+
+                            <div class="col-md-6">
+                                <div><label>@InsuredTraveling.Resource.Policy_AddOn @(i + 1)</label></div>
+                                <div>
+                                    @Html.DropDownListFor(model => model.additional_charges[i].ID, (List<SelectListItem>)ViewBag.additional_charges, new { @class = "form-control" })
+                                </div>
+                            </div>
+
                         }
                     </div>
                 </div>
@@ -390,7 +393,7 @@
         <div class="col-md-4 col-sm-4 btns-position">
             <!-- So JS se dodavaat formaction="/Payment/Index"
             formmethod="post" -->
-            <input type="button" value="@InsuredTraveling.Resource.Policy_BuyPolicy" class="btn btn-success hideMe btn-padding btn-block customButton" id="buyPolicyBtn" @*onclick="@("window.location.href='" + @Url.Action("Index", "Payment", new { p = Model }) + "'");"*@ />
+            <input type="submit" value="@InsuredTraveling.Resource.Policy_BuyPolicy" class="btn btn-success hideMe btn-padding btn-block customButton" id="buyPolicyBtn"  formmethod="post" formaction="/Payment/Index" />
         </div>
     </div>
     <br />
