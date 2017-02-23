@@ -99,7 +99,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="PostalCode" Type="varchar" MaxLength="256" />
           <Property Name="PassportNumber" Type="varchar" MaxLength="256" />
           <Property Name="City" Type="varchar" MaxLength="128" />
-          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" />
           <Property Name="Gender" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="bank_account_info">
@@ -986,7 +986,9 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_additional_charge_id">
-          <End Role="additional_charge" Type="Self.additional_charge" Multiplicity="1" />
+          <End Role="additional_charge" Type="Self.additional_charge" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="policy_additional_charge" Type="Self.policy_additional_charge" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="additional_charge">
@@ -1278,7 +1280,9 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_policy_id">
-          <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="1" />
+          <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="policy_additional_charge" Type="Self.policy_additional_charge" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="travel_policy">

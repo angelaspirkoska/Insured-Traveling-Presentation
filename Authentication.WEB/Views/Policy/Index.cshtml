@@ -709,6 +709,17 @@
     $("#IsExistentPolicyHolder").change(function () {
         if (this.checked) {
             $(".hideWhenSelect").hide();
+            $("#PolicyHolderSSN").removeClass("mandatoryField");
+            $("#PolicyHolderName").removeClass("mandatoryField");
+            $("#PolicyHolderLastName").removeClass("mandatoryField");
+            $("#PolicyHolderAddress").removeClass("mandatoryField");
+            $("#PolicyHolderSSN").removeClass("mandatoryField");
+            $("#PolicyHolderPostalCode").removeClass("mandatoryField");
+            $("#PolicyHolderBirthDate").removeClass("mandatoryField");
+            $("#PolicyHolderPassportNumber_ID").removeClass("mandatoryField");
+            $("#PolicyHolderEmail").removeClass("mandatoryField");
+            $("#PolicyHolderPhoneNumber").removeClass("mandatoryField"); PolicyHolderCity
+            $("#PolicyHolderCity").removeClass("mandatoryField");
         }
         else {
             $(".hideWhenSelect").show();
