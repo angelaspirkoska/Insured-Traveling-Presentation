@@ -50,6 +50,9 @@ namespace Authentication.WEB.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
+            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
+
             var type_policies = GetTypeOfPolicy();
             var countries = GetTypeOfCountry();
             var franchises = GetTypeOfFranchise();
@@ -124,11 +127,11 @@ namespace Authentication.WEB.Controllers
 
         public async System.Threading.Tasks.Task<ActionResult> CreateQuote(Policy policy)
         {
-            SavePolicyHelper.SavePolicy(policy, _ps, _us, _iss, _pis, _acs);
             var result = SavePolicyHelper.SavePolicy(policy, _ps, _us, _iss, _pis, _acs);
+            var quoteNumber= _ps.GetPolicyById(result).Policy_Number;
             if (result != 0)
             {
-                return Json(new { success = true, responseText = "Success." }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, responseText = quoteNumber, numberQuote = quoteNumber }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { success = false, responseText = "Fail." }, JsonRequestBehavior.AllowGet);
         }

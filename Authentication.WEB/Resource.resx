@@ -1053,4 +1053,13 @@
   <data name="Quote_TypeDD" xml:space="preserve">
     <value>--Type of quote--</value>
   </data>
+  <data name="Seacrh_QuoteSearchTableFrom" xml:space="preserve">
+    <value>Quote Effective Date</value>
+  </data>
+  <data name="Seacrh_QuoteSearchTableTo" xml:space="preserve">
+    <value>Quote Expiry Date</value>
+  </data>
+  <data name="Search_SearchTableQuoteNumber" xml:space="preserve">
+    <value>Quote Number</value>
+  </data>
 </root>

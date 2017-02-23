@@ -64,7 +64,7 @@
                         <div class="col-md-4">
                             @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
-                                @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", @style = "position: static;", @min = "1", @max = "10" } })
+                                @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", @style = "position: static;", @min = "1", @max = "10" }})
                                 <span class="input-group-addon">@InsuredTraveling.Resource.Policy_Days</span>
                             </div>
                             @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
@@ -412,7 +412,7 @@
         <div id="successMsg" class="col-md-4 col-sm-4">
             <div class="alert alert-dismissible alert-success">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <span>Успешно ја додадовте полисата во понуди</span>
+                <span>Успешно ја додадовте полисата во понуди. Број на понуда <span style="font-weight:bold;" id="ReturnedQuoteNumber"></span> </span>
             </div>
         </div>
         <div id="failMsg" class="col-md-4 col-sm-4">
@@ -434,11 +434,13 @@
     $(document).ready(function () {
         $("#successMsg").hide();
         $("#failMsg").hide();
+        $("#Valid_Days").val(10);
 
         $('#Valid_Days').on('focusout', function () {
-            console.log(($(this).val() > ($('#Valid_Days').attr('max'))));
-            if ($(this).val() > ($('#Valid_Days').attr('max'))) {
-                $(this).val(($('#Valid_Days').attr('max')));
+            if ($(this).val() > 10) {
+                if ($(this).val() > ($('#Valid_Days').attr('max'))) {
+                    $(this).val(($('#Valid_Days').attr('max')));
+                }
             }
         });
 
@@ -448,6 +450,8 @@
                 url: '@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Policy/CreateQuote',
                 data: $('#policy_form').serialize(),
                 success: function (result) {
+                    console.log(result.numberQuote);
+                    $("#ReturnedQuoteNumber").text(result.numberQuote);
                     $("#successMsg").show();
                 },
                 error: function () {
@@ -490,9 +494,6 @@
         $("#CountryID").val(1);
         $("#Policy_TypeID").val(1);
         $("#Retaining_RiskID").val(2);
-
-        //$("#additional_charges_0__ID").val(1);
-        //$("#additional_charges_1__ID").val(1);
 
         getLocation();
 

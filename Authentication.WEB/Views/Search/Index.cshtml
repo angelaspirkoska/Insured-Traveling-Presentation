@@ -24,7 +24,7 @@
 <div class="" id="searchPolycies">
     <br />
     <br />
-    <form method="post">
+    <form>
         <div class="row">
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
@@ -186,7 +186,7 @@
 <div id="searchQuotes">
     <br />
     <br />
-    <form method="post">
+    <form>
         <div class="row">
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
@@ -204,7 +204,7 @@
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
                     <label for="country">@InsuredTraveling.Resource.Search_QuoteNumber:</label>
-                    <input class="form-control" type="text" id="PolicyNumber" name="PolicyNumber" />
+                    <input class="form-control" type="text" id="PolicyNumber1" name="PolicyNumber" />
                 </div>
             </div>
         </div>
@@ -213,15 +213,15 @@
                 <div class="form-group">
                     <label for="startDate">@InsuredTraveling.Resource.Search_QuoteEffectiveDate:</label>
                     <div class="input-group">
-                        <input type="date" id="startDate" class="form-control placeholder" />
+                        <input type="date" id="startDate1" class="form-control placeholder" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                            <button type="button" id="operatorStartDate1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li onclick="$('#operatorStartDate').html(' = '); $('#operatorStartDate').val('=');">=</li>
-                                <li onclick="$('#operatorStartDate').html(' < '); $('#operatorStartDate').val('<');">&lt</li>
-                                <li onclick="$('#operatorStartDate').html(' > '); $('#operatorStartDate').val('>');">&gt</li>
+                                <li onclick="$('#operatorStartDate1').html(' = '); $('#operatorStartDate1').val('=');">=</li>
+                                <li onclick="$('#operatorStartDate1').html(' < '); $('#operatorStartDate1').val('<');">&lt</li>
+                                <li onclick="$('#operatorStartDate1').html(' > '); $('#operatorStartDate1').val('>');">&gt</li>
                             </ul>
                         </div>
                     </div>
@@ -231,15 +231,15 @@
                 <div class="form-group">
                     <label for="endDate">@InsuredTraveling.Resource.Search_QuoteExpiryDate</label>
                     <div class="input-group">
-                        <input type="date" name="endDate" class="form-control" id="endDate" />
+                        <input type="date" name="endDate" class="form-control" id="endDate1" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorEndDate" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                            <button type="button" id="operatorEndDate1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li onclick="$('#operatorEndDate').html(' = '); $('#operatorEndDate').val('=');">=</li>
-                                <li onclick="$('#operatorEndDate').html(' < '); $('#operatorEndDate').val('<');">&lt</li>
-                                <li onclick="$('#operatorEndDate').html(' > '); $('#operatorEndDate').val('>');">&gt</li>
+                                <li onclick="$('#operatorEndDate1').html(' = '); $('#operatorEndDate1').val('=');">=</li>
+                                <li onclick="$('#operatorEndDate1').html(' < '); $('#operatorEndDate1').val('<');">&lt</li>
+                                <li onclick="$('#operatorEndDate1').html(' > '); $('#operatorEndDate1').val('>');">&gt</li>
                             </ul>
                         </div>
                     </div>
@@ -266,14 +266,12 @@
         <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableQuotes">
             <thead>
                 <tr>
-                    <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                    <th>@InsuredTraveling.Resource.Search_SearchTableQuoteNumber</th>
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTableTravelCountry</th>
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyIssuanceDate</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableCancellationDate</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_QuoteSearchTableFrom</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_QuoteSearchTableTo</th>
                 </tr>
             </thead>
             <tbody id="searchResultQuotes"></tbody>
@@ -289,7 +287,7 @@
     <br />
     <br />
     <div class="row">
-        <form method="post" style="margin-left:20px;">
+        <form style="margin-left:20px;">
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -423,7 +421,7 @@
     <br />
     <br />
     <div id="searchFNOLAttributes">
-        <form method="post">
+        <form>
             <div class="row">
                 <div class="col-md-4 col-sm-4">
                     <div class="form-group">
@@ -963,16 +961,14 @@
         $("#tableQuotes").DataTable().destroy();
         $("#tableQuotes").DataTable({
             dom: "Bfrtip",
-            ajax: "/Search/GetQuotes?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy1").val() + "&Country=" + $("#Country1").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val(),
+            ajax: "/Search/GetQuotes?TypePolicy=" + $("#TypePolicy1").val() + "&Country=" + $("#Country1").val() + "&startDate=" + $("#startDate1").val() + "&endDate=" + $("#endDate1").val() + "&operatorStartDate=" + $("#operatorStartDate1").val() + "&operatorEndDate=" + $("#operatorEndDate1").val() + "&PolicyNumber=" + $("#PolicyNumber1").val(),
             columns: [
                { data: "Polisa_Broj" },
                { data: "InsuredName" },
                { data: "Country" },
                { data: "Policy_type" },
                { data: "Zapocnuva_Na" },
-               { data: "Zavrsuva_Na" },
-               { data: "Datum_Na_Izdavanje" },
-               { data: "Datum_Na_Storniranje" }
+               { data: "Zavrsuva_Na" }
             ],
             select: true
         });

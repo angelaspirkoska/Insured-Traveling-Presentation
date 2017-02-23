@@ -260,28 +260,18 @@ namespace InsuredTraveling.Controllers
         }
         [HttpGet]
         [Route("GetQuotes")]
-        public JObject GetQuotes(string name,
-                                  string embg,
-                                  string land,
-                                  string address,
+        public JObject GetQuotes(
                                   int? TypePolicy,
                                   int? Country,
-                                  string agency,
                                   string startDate,
                                   string endDate,
-                                  string dateI,
-                                  string dateS,
                                   string operatorStartDate,
                                   string operatorEndDate,
-                                  string operatorDateI,
-                                  string operatorDateS,
                                   string PolicyNumber)
         {
 
             DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : Convert.ToDateTime(startDate);
             DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : Convert.ToDateTime(endDate);
-            DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : Convert.ToDateTime(dateI);
-            DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : Convert.ToDateTime(dateS);
 
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUser = _us.GetUserIdByUsername(username);
@@ -316,26 +306,6 @@ namespace InsuredTraveling.Controllers
                     case "<": data = data.Where(x => x.End_Date < endDate1).ToList(); break;
                     case "=": data = data.Where(x => x.End_Date == endDate1).ToList(); break;
                     case ">": data = data.Where(x => x.End_Date > endDate1).ToList(); break;
-                    default: break;
-                }
-            }
-            if (!String.IsNullOrEmpty(dateI))
-            {
-                switch (operatorDateI)
-                {
-                    case "<": data = data.Where(x => x.Date_Created < dateI1).ToList(); break;
-                    case "=": data = data.Where(x => x.Date_Created == dateI1).ToList(); break;
-                    case ">": data = data.Where(x => x.Date_Created > dateI1).ToList(); break;
-                    default: break;
-                }
-            }
-            if (!String.IsNullOrEmpty(dateS))
-            {
-                switch (operatorDateS)
-                {
-                    case "<": data = data.Where(x => x.Date_Cancellation < dateS2).ToList(); break;
-                    case "=": data = data.Where(x => x.Date_Cancellation == dateS2).ToList(); break;
-                    case ">": data = data.Where(x => x.Date_Cancellation > dateS2).ToList(); break;
                     default: break;
                 }
             }

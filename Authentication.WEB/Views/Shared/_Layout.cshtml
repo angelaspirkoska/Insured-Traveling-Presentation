@@ -88,14 +88,17 @@
 
                     }
                        @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-                         {
-                        <li><a href = "#" id="welcome"></a></li>
-                          }
-                        <li><a></a></li>
-                        <li><a href = "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken" id="logOut" onclick="func()">@InsuredTraveling.Resource.LogOut</a></li>
-                        <li><a href = "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login">@InsuredTraveling.Resource.Login</a></li>
-                        <li><a href = "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp" id="signup">@InsuredTraveling.Resource.SignUp</a></li>
-                    </ul>
+                       {
+                        <li><a href = "#" id="welcome">@System.Web.HttpContext.Current.User.Identity.Name</a></li>
+                        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken"> @InsuredTraveling.Resource.LogOut </a></li>
+                       }
+                       else
+                       {
+                        <li><a></a></li>                       
+                        <li><a href = "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login"> @InsuredTraveling.Resource.Login</a></li>
+                        <li><a href = "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp" id="signup"> @InsuredTraveling.Resource.SignUp</a></li>
+                       }
+                     </ul>
             </div>
         </div>
     </div>
@@ -152,19 +155,7 @@
         <script type="text/javascript">
 
             $(document).ready(function () {
-                localStorage.setItem("username", $("#userName").val());
-                console.log(localStorage.getItem("username"));
-                if (localStorage.getItem("username") != "") {
-                    $("#welcome").text("@InsuredTraveling.Resource.Welcome " + localStorage.getItem("username"));
-                    $("#signup").attr("class", "hidden");
-                    $("#login").attr("class", "hidden");
-                    $("#welcome").removeAttr("class");
-                    $("#logOut").removeAttr("class");
-                }
-                else {
-                    $("#welcome").hide();
-                    $("#logOut").attr("class", "hidden");
-                }
+
                 $("#alerts").click(function () {
                     //alert($("#alerts").attr('aria-expanded'));
                     if ($("#alerts").attr('aria-expanded') === "true") {
@@ -176,13 +167,7 @@
 
                         });
                     }
-
-
                 });
-
-                function func() {
-                    localStorage.clear();
-                }
 
                 });
         </script>

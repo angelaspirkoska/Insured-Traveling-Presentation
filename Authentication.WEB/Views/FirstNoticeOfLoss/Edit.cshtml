@@ -232,7 +232,7 @@
 
                     <div class="col-lg-7">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на заминување:</label>
-                        @Html.EditorFor(model => model.DepartDateTime, "{0:dd/mm/yy}", new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
+                        @Html.EditorFor(model => model.DepartDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
                         @Html.ValidationMessageFor(model => model.DepartDateTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -646,7 +646,7 @@
         });
 
         $("#DepartDateTime").datepicker({
-            dateFormat: "dd-mm-yy",
+            dateFormat: "dd/mm/yy",
             dateonly:true,
             onSelect: function (selected) {
                 $("#ArrivalDateTime").datepicker("option", "minDate", selected);

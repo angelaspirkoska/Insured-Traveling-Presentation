@@ -12,6 +12,7 @@ using System.Configuration;
 using AutoMapper;
 using System.Net.Http;
 using InsuredTraveling.Filters;
+using System.Web.Http.Routing;
 
 namespace InsuredTraveling.Controllers
 {
@@ -308,21 +309,26 @@ namespace InsuredTraveling.Controllers
         [AllowAnonymous]
         public IHttpActionResult DeleteToken()
         {
-            if (HttpContext.Current.Request.Cookies["token"] == null) return Redirect(ConfigurationManager.AppSettings["webpage_url"] +"/Login");
-            var token = HttpContext.Current.Request.Cookies["token"];
-            token.Expires = DateTime.Now.AddYears(-1);
-            HttpContext.Current.Response.Cookies.Remove("token");
-            HttpContext.Current.Response.Cookies.Clear();
-            HttpContext.Current.Response.Cookies.Set(token);
+            if (HttpContext.Current.Request.Cookies["token"] != null)
+            {
+                var token = HttpContext.Current.Request.Cookies["token"];
+                token.Expires = DateTime.Now.AddYears(-1);
+                HttpContext.Current.Response.Cookies.Remove("token");
+                HttpContext.Current.Response.Cookies.Clear();
+                HttpContext.Current.Response.Cookies.Set(token);
 
-            if (HttpContext.Current.Request.Cookies["refresh_token"] == null) return Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
-            var refresh_token = HttpContext.Current.Request.Cookies["refresh_token"];
-            refresh_token.Expires = DateTime.Now.AddYears(-1);
-            HttpContext.Current.Response.Cookies.Remove("refresh_token");
-            HttpContext.Current.Response.Cookies.Clear();
-            HttpContext.Current.Response.Cookies.Set(refresh_token);
+            }
 
-            return Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
+            if (HttpContext.Current.Request.Cookies["refresh_token"] == null)
+            {
+                var refresh_token = HttpContext.Current.Request.Cookies["refresh_token"];
+                refresh_token.Expires = DateTime.Now.AddYears(-1);
+                HttpContext.Current.Response.Cookies.Remove("refresh_token");
+                HttpContext.Current.Response.Cookies.Clear();
+                HttpContext.Current.Response.Cookies.Set(refresh_token);
+            }
+  
+             return Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

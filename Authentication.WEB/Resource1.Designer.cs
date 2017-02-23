@@ -1897,6 +1897,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quote Effective Date.
+        /// </summary>
+        public static string Seacrh_QuoteSearchTableFrom {
+            get {
+                return ResourceManager.GetString("Seacrh_QuoteSearchTableFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quote Expiry Date.
+        /// </summary>
+        public static string Seacrh_QuoteSearchTableTo {
+            get {
+                return ResourceManager.GetString("Seacrh_QuoteSearchTableTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancellation date.
         /// </summary>
         public static string Seacrh_SearchTableCancellationDate {
@@ -2595,6 +2613,15 @@ namespace InsuredTraveling {
         public static string Search_SearchTablePolicyNumber {
             get {
                 return ResourceManager.GetString("Search_SearchTablePolicyNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quote Number.
+        /// </summary>
+        public static string Search_SearchTableQuoteNumber {
+            get {
+                return ResourceManager.GetString("Search_SearchTableQuoteNumber", resourceCulture);
             }
         }
         
