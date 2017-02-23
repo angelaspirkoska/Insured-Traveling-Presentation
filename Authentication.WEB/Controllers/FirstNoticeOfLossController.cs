@@ -121,6 +121,10 @@ namespace InsuredTraveling.Controllers
                     return View();
                 }
             }
+            else
+            {
+                ViewBag.PolicyNumber = firstNoticeOfLossViewModel.PolicyNumber;
+            }
             return View(firstNoticeOfLossViewModel);
         }
 
@@ -535,6 +539,46 @@ namespace InsuredTraveling.Controllers
                         BankListData.Add(BanksData);
                     }
                     result.Add("banks", BankListData);
+                    return result;
+                }
+                else
+                {
+                    result.Add("response", "Not authenticated user");
+                }
+            }
+            else
+            {
+                result.Add("response", "No policy found");
+            }
+            return result;
+        }
+
+        [HttpGet]
+        public async Task<JObject> GetInsuredsForDropdownList(string policyNumber)
+        {
+            var result = new JObject();
+            var policy = _ps.GetPolicyIdByPolicyNumber(policyNumber);
+
+            if (policy != null)
+            {
+                if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    var Policy = _ps.GetPolicyClientsInfo(policy.ID);
+                    var Insureds = Policy.policy_insured;
+
+                    var InsuredsJsonArray = new JArray();
+
+                    foreach (var v in Insureds)
+                    {
+                        var NewJsonInsured = new JObject();
+                        NewJsonInsured.Add("Id", v.insured.ID);
+                        NewJsonInsured.Add("FirstName", v.insured.Name);
+                        NewJsonInsured.Add("LastName", v.insured.Lastname);
+
+                        InsuredsJsonArray.Add(NewJsonInsured);
+                    }
+
+                    result.Add("data", InsuredsJsonArray);
                     return result;
                 }
                 else

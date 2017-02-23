@@ -547,28 +547,30 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 e.preventDefault();
             }
         });
-        $("#DropDownPolicyNumber").autocomplete({  
-            source: function(request,response) {  
-                $.ajax({  
-                    url: "/FirstNoticeOfLoss/ShowPolicies",  
-                    type: "POST",  
-                    dataType: "json",  
-                    data: { Prefix: request.term },  
-                    success: function (data) {  
-                        response($.map(data, function (item) {  
-                            return { label: item.Name, value: item.Name };  
-                        }))  
-                    }  
-                })  
-            },  
-            messages: {  
-                noResults: "", results: ""  
-            }  
-        });  
+        $("#DropDownPolicyNumber").autocomplete({
+            source: function(request,response) {
+                $.ajax({
+                    url: "/FirstNoticeOfLoss/ShowPolicies",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Name, value: item.Name };
+                        }))
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+
+        SetInsuredDropdown();
 
         $('#clientInfo').click(function() {
             $("#clientInfoContent").toggle();
-           
+
         });
         $('#insuredInfo').click(function() {
             $("#insuredInfoContent").toggle();
@@ -729,7 +731,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
         }
     });
 
-    $('#TransactionAccount').focusout(function () { 
+    $('#TransactionAccount').focusout(function () {
         if ($("#ForeignBankAccount").checked &&  $("#ExistentBankAccount").checked){
             $('#deponent').prop('readonly', true);
         }
@@ -846,6 +848,27 @@ else if (ViewBag.insurance == "Luggage Insurance")
         });
     };
 
+    function SetInsuredDropdown()
+    {
+        var PolicyId =$('#DropDownPolicyNumber').val()
+        $.ajax({
+            type: "GET",
+            url: "/FirstNoticeOfLoss/GetInsuredsForDropdownList?policyNumber=" + PolicyId,
+            success: function (result) {
+                var rez = JSON.parse(result);
+                if (rez.response != "No policy found")
+                {
+                    $.each(rez.data, function (i, val) {
+                        $('#DropDownInsureds').append(
+                        $("<option></option>")
+                          .attr("value", val.Id)
+                          .text(val.FirstName + " " + val.LastName));
+                    });
+                }
+            }
+        });
+    };
+
     function InsuranceType(type) {
         if (type == "LuggageInsurance") {
             $("#luggageInsurance").toggle();
@@ -869,6 +892,12 @@ else if (ViewBag.insurance == "Luggage Insurance")
             if (val.value == 0) {
             }
             else {
+                $(val).remove();
+            }
+        });
+
+        $.each($('#DropDownInsureds option'), function (i, val) {
+            if (val.value != 0) {
                 $(val).remove();
             }
         });
@@ -914,7 +943,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 url: "/FirstNoticeOfLoss/GetInsuredData?SelectedInsuredId=" + InsuredId,
                 dataType: "json",
                 success: function (result) {
-                    console.log(result);
                     $("#InsuredName").attr("value", result.FirstName + " " + result.LastName);
                     $("#InsuredAdress").attr("value", result.Adress);
                     $("#InsuredPhone").attr("value", result.PhoneNumber);
