@@ -596,6 +596,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
     var errorWell = 0; // error in the well
 
     function validateFNOL() {
+        errorWell = 0
         // Front end validation
         for (i = 0; i < objects.length; i++) {
             if (objects[i].value.length == 0) {
@@ -616,15 +617,13 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     if (errorWell == 0)
                         errorWell = 3;
                 }
-                objects[i].setAttribute("style", "border: 1px solid red;");
-              
+                objects[i].setAttribute("style", "border: 1px solid red;");              
             }
             else {
                 objects[i].setAttribute("style", "border: 1px solid #2c3e50;");
-            }
-           
+            }           
         }
-
+        
         if (errorWell == 1) {
             $('html,body').animate({
                 scrollTop: $("#clientInfoContent").offset().top
