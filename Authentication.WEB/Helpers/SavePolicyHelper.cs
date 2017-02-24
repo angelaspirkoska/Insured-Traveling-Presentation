@@ -186,16 +186,18 @@ namespace InsuredTraveling.Helpers
             }
             else
             {
-                foreach (additional_charge additionalCharge in p.additional_charges)
+                if(p.additional_charges != null)
                 {
-                    if (additionalCharge.ID != 1)
+                    foreach (additional_charge additionalCharge in p.additional_charges)
                     {
-                        var addChargeNew = _acs.Create();
-                        addChargeNew.PolicyID = policyID;
-                        addChargeNew.Additional_ChargeID = additionalCharge.ID;
-                        _acs.AddAdditionalChargesPolicy(addChargeNew);
+                        if (additionalCharge.ID != 1)
+                        {
+                            var addChargeNew = _acs.Create();
+                            addChargeNew.PolicyID = policyID;
+                            addChargeNew.Additional_ChargeID = additionalCharge.ID;
+                            _acs.AddAdditionalChargesPolicy(addChargeNew);
+                        }
                     }
-
                 }
             }
             return policyID;
