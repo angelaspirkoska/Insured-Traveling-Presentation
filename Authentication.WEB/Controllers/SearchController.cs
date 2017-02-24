@@ -402,9 +402,14 @@ namespace InsuredTraveling.Controllers
             var JSONObject = new JObject();
             var dataJSON = new JArray();
 
-            var searchModel = policies.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
-            var array = JArray.FromObject(searchModel.ToArray());
-            JSONObject.Add("data", array);
+            if (policies != null)
+            {
+                var searchModel = policies.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
+                var array = JArray.FromObject(searchModel.ToArray());
+                JSONObject.Add("data", array);
+                return JSONObject;
+            }
+            JSONObject.Add("data", dataJSON);
             return JSONObject;
         }
 
@@ -415,10 +420,16 @@ namespace InsuredTraveling.Controllers
             var JSONObject = new JObject();
             var dataJSON = new JArray();
 
-            var searchModel = policies.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
-            var array = JArray.FromObject(searchModel.ToArray());
-            JSONObject.Add("data", array);
+            if(policies != null)
+            {
+                var searchModel = policies.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
+                var array = JArray.FromObject(searchModel.ToArray());
+                JSONObject.Add("data", array);
+                return JSONObject;
+            }
+            JSONObject.Add("data", dataJSON);
             return JSONObject;
+
         }
 
         [HttpPost]

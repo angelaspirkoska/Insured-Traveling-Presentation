@@ -1035,4 +1035,22 @@
   <data name="SignUp_SuccessMessage" xml:space="preserve">
     <value>Успешно се регистриравте</value>
   </data>
+  <data name="Quotes" xml:space="preserve">
+    <value>Понуди</value>
+  </data>
+  <data name="Search_Quote" xml:space="preserve">
+    <value>Понуди</value>
+  </data>
+  <data name="Search_QuoteEffectiveDate" xml:space="preserve">
+    <value>Датум на важење</value>
+  </data>
+  <data name="Search_QuoteExpiryDate" xml:space="preserve">
+    <value>Датум на заврашување</value>
+  </data>
+  <data name="Search_QuoteNumber" xml:space="preserve">
+    <value>Број на понуда</value>
+  </data>
+  <data name="Search_QuoteType" xml:space="preserve">
+    <value>Вид на понуда</value>
+  </data>
 </root>

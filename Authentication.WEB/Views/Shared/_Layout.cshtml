@@ -155,9 +155,13 @@
         <script type="text/javascript">
 
             $(document).ready(function () {
-
+                localStorage.setItem("username", $("#userName").val());
+                console.log(localStorage.getItem("username"));
+                if (localStorage.getItem("username") != "") {
+                }
+                else {
+                }
                 $("#alerts").click(function () {
-                    //alert($("#alerts").attr('aria-expanded'));
                     if ($("#alerts").attr('aria-expanded') === "true") {
                         $("#alerts_bell").removeClass('red');
                         $(".label-danger").each(function () {
