@@ -12,6 +12,7 @@ using InsuredTraveling.Filters;
 using AutoMapper;
 using System.IO;
 using System.Linq;
+using System.Configuration;
 
 namespace InsuredTraveling.Controllers
 {
@@ -56,6 +57,8 @@ namespace InsuredTraveling.Controllers
         [SessionExpire]
         public ActionResult Index(int? policyId)
         {
+            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
             if (policyId != null)
             {
                 var policy = _ps.GetPolicyById(Convert.ToInt32(policyId));

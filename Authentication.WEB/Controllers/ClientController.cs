@@ -8,10 +8,11 @@ using System.Linq;
 using InsuredTraveling.DI;
 using InsuredTraveling.Filters;
 using InsuredTraveling.Controllers;
+using System.Configuration;
 
 namespace Authentication.WEB.Controllers
 {
-
+    [SessionExpire]
     public class ClientController : Controller
     {
         private IInsuredsService _ins;
@@ -23,7 +24,9 @@ namespace Authentication.WEB.Controllers
 
         [HttpGet]
         public ActionResult Create()
-        {            
+        {
+            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
             return View();
         }
 

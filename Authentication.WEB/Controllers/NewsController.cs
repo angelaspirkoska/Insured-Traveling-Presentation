@@ -8,6 +8,7 @@ using InsuredTraveling.Controllers;
 using System.IO;
 using System.Web;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace Authentication.WEB.Controllers
 {
@@ -25,6 +26,8 @@ namespace Authentication.WEB.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
             IQueryable<news_all> news = _ns.GetAllNews();
             return View(news);
         }

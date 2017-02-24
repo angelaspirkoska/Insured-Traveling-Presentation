@@ -10,7 +10,7 @@ using System.Web;
 
 namespace InsuredTraveling.Hubs
 {
-    [Authorize]
+   
     [SessionExpire]
     public class ChatHub : Hub
     {

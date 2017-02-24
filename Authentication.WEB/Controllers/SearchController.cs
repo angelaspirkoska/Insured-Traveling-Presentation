@@ -9,11 +9,10 @@ using InsuredTraveling.DI;
 using AutoMapper;
 using InsuredTraveling.ViewModels;
 using InsuredTraveling.Filters;
-
+using System.Configuration;
 
 namespace InsuredTraveling.Controllers
 {
-    [Authorize]
     [SessionExpire]
     public class SearchController : Controller
     {
@@ -50,6 +49,8 @@ namespace InsuredTraveling.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
+            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
             var type_policies = GetTypeOfPolicy();
             ViewBag.TypeOfPolicy = type_policies.Result;
 
