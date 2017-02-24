@@ -10,7 +10,7 @@
 <br />
 <ul class="nav nav-pills">
     <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
-    <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes</a></li>
+    <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
     @if (r.IsUser("admin") || r.IsUser("broker"))
     {
         <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
@@ -229,7 +229,7 @@
             </div>
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
-                    <label for="endDate">@InsuredTraveling.Resource.Search_QuoteExpiryDate</label>
+                    <label for="endDate">@InsuredTraveling.Resource.Search_QuoteExpiryDate:</label>
                     <div class="input-group">
                         <input type="date" name="endDate" class="form-control" id="endDate1" />
                         <div class="input-group-btn">
@@ -354,6 +354,8 @@
         </div>
     </div>
     <br />
+    
+    @*Data table for clients*@
     <div class="row">
         <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableClients">
             <thead>
@@ -373,9 +375,13 @@
             <tbody id="searchResultClients"></tbody>
         </table>
     </div>
+    <br />    
+    <ul class="nav nav-pills">
+        <li id="insured" class="active"><a href="#" onclick="showInsured()">@InsuredTraveling.Resource.Search_InsuredPolicy</a></li>
+        <li id="holder"><a href="#" onclick="showHolders()" >@InsuredTraveling.Resource.Search_PolicyPolicyHolder </a></li>
+    </ul>
     <br />
-    <br />
-    <div class="row">
+    <div class="row" id="policiesClients">
         <div>@InsuredTraveling.Resource.Search_InsuredPolicy</div>
         <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePoliciesClients">
             <thead>
@@ -394,9 +400,7 @@
             <tbody></tbody>
         </table>
     </div>
-    <br />
-    <br />
-    <div class="row">
+    <div class="row" style="display:none;" id="policiesHolders">
         <div>@InsuredTraveling.Resource.Search_PolicyPolicyHolder</div>
         <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePoliciesHolders">
             <thead>
@@ -534,8 +538,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-            </div>
             <br />
         </form>
     </div>
@@ -572,18 +574,12 @@
             <div class="form-group">
                 <input type="search" name="name" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="nameChat" />
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 col-sm-4">
             <div class="form-group">
                 <input type="search" id="chatId" name="chatId" class="form-control" placeholder="@InsuredTraveling.Resource.Search_Id" />
                 <br />
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
+        </div>    
+        <div class="col-md-8 col-sm-8">
             <div class="form-group">
                 <label class="radio-inline" value="chat">
                     <input id="all" type="radio" name="chat" checked="checked" class="radiobtn-position" />
@@ -591,10 +587,6 @@
                 </label>
                 <br />
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
             <div class="form-group">
                 <label class="radio-inline" value="chat">
                     <input id="active" type="radio" name="chat" class="radiobtn-position" />
@@ -602,10 +594,6 @@
                 </label>
                 <br />
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
             <div class="form-group">
                 <label class="radio-inline" value="chat">
                     <input type="radio" id="discarded" name="chat" class="radiobtn-position" />
@@ -613,11 +601,6 @@
                 </label>
                 <br />
             </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-3">
             <div class="form-group">
                 <label class="radio-inline" value="chat">
                     <input id="noticed" type="radio" name="chat" class="radiobtn-position" />
@@ -683,7 +666,19 @@
                 });
             });
 
-            
+            function showInsured() {
+                $("#insured").attr("class", "active");
+                $("#holder").removeAttr("class");
+                $("#policiesClients").css("display", "block");
+                $("#policiesHolders").css("display", "none");
+            }
+
+            function showHolders() {
+                $("#holder").attr("class", "active");
+                $("#insured").removeAttr("class");
+                $("#policiesClients").css("display", "none");
+                $("#policiesHolders").css("display", "block");
+            }
               
             $("#DateI").focusout(function () {
                 var Sdat = $("#DateI").val();
@@ -777,9 +772,7 @@
                 $("#clients").removeAttr("class");
                 $("#first_notice_of_loss").attr("class", "active");
                 $("#searchChat").removeAttr("class");
-                $("#quotes").removeAttr("class");
-
-                
+                $("#quotes").removeAttr("class");                
             };
 
             function ShowQuotes() {
@@ -863,13 +856,15 @@
             });
 
             function ShowChatDetails(chatWith, requestId) {
-                if (isAdmin) {
+                var chatDTO = { Sender: chatWith, RequestId: requestId, Admin: isAdmin };
+                openChatU(chatDTO);
+                //if (isAdmin) {
 
-                    openChat(chatWith, requestId);
-                }
-                else {
-                    openChatEndUser(chatWith, requestId);
-                }
+                //    openChat(chatWith, requestId);
+                //}
+                //else {
+                //    openChatEndUser(chatWith, requestId);
+                //}
                 getLastTenMessages(requestId);
             }
 
@@ -1061,8 +1056,7 @@
                 $('html,body').animate({
                     scrollTop: $("#tableFNOL").offset().top
                 }, 800);
-            };
-
+            };            
 
             function SearchClients() {
                 $("#tableClients").DataTable().destroy();
@@ -1111,8 +1105,14 @@
                     scrollTop: $("#tableClients").offset().top
                 }, 800);
             };
-
-            function CreatePoliciesByInsuredId(insuredId) {
+    
+    //function focusOnPolicies() {
+    //    $('html,body').animate({
+    //        scrollTop: $("#tablePoliciesHolders").offset().top
+    //    }, 800);
+    //}
+            
+    function CreatePoliciesByInsuredId(insuredId) {
                 $("#tablePoliciesClients").DataTable().destroy();
                 $("#tablePoliciesClients").DataTable({
                     dom: "Bfrtip",
@@ -1164,6 +1164,10 @@
                     select: true
                 });
                 $("#tablePoliciesClients").css("display", "table");
+                $('html,body').animate({
+                    scrollTop: $("#tablePoliciesClients").offset().top
+                }, 800);
+
             };
 
             function CreatePoliciesByHolderId(holderId) {

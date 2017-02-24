@@ -30,5 +30,7 @@ namespace InsuredTraveling.DI
         void Update(first_notice_of_loss newFnol);
         int Archive(first_notice_of_loss_archive archiveFnol);
         string CreateFNOLNumber();
+
+        int LastDocumentId();
     }
 }

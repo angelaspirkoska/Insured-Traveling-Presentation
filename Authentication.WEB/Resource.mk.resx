@@ -1046,11 +1046,20 @@
   </data>
   <data name="Search_QuoteExpiryDate" xml:space="preserve">
     <value>Датум на заврашување</value>
+    </data>
+  <data name="Quote_TypeDD" xml:space="preserve">
+    <value>--Тип на понуда --</value>
+  </data>
+  <data name="Search_QuoteEffectiveDate" xml:space="preserve">
+    <value>Датум на издавање</value>
+  </data>
+  <data name="Search_QuoteExpiryDate" xml:space="preserve">
+    <value>Датум на истекување</value>
   </data>
   <data name="Search_QuoteNumber" xml:space="preserve">
     <value>Број на понуда</value>
   </data>
   <data name="Search_QuoteType" xml:space="preserve">
-    <value>Вид на понуда</value>
+    <value>Тип на понуда</value>
   </data>
 </root>

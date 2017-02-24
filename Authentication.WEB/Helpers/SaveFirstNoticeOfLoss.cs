@@ -137,18 +137,20 @@ namespace InsuredTraveling.Helpers
             }
 
             finally { }
-
+            var lastDocumentId = _fis.LastDocumentId();
             if (invoices != null)
             {
                 foreach (var file in invoices)
                 {
+                    lastDocumentId++;
                     if (file != null && file.ContentLength > 0)
                     {
-                        var path = @"~/DocumentsFirstNoticeOfLoss/Invoices/" + file.FileName;
+                        string fileName = file.FileName + "_" + FirstNoticeOfLossID + "_" + lastDocumentId;
+                        var path = @"~/DocumentsFirstNoticeOfLoss/Invoices/" + fileName;
                         file.SaveAs(System.Web.HttpContext.Current.Server.MapPath(path));
 
                         var document = new document();
-                        document.Name = file.FileName;
+                        document.Name = fileName;
                         var documentID = _fis.AddDocument(document);
                         _fis.AddInvoice(documentID);
                         _fis.AddDocumentToFirstNoticeOfLoss(documentID, FirstNoticeOfLossID);
@@ -160,12 +162,14 @@ namespace InsuredTraveling.Helpers
             {
                 foreach (var file in documentsHealth)
                 {
+                    lastDocumentId++;
                     if (file != null && file.ContentLength > 0)
                     {
-                        var path = @"~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + file.FileName;
+                        string fileName = file.FileName + "_" + FirstNoticeOfLossID + "_" + lastDocumentId;
+                        var path = @"~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + fileName;
                         file.SaveAs(System.Web.HttpContext.Current.Server.MapPath(path));
                         var document = new document();
-                        document.Name = file.FileName;
+                        document.Name = fileName;
                         var documentID = _fis.AddDocument(document);
                         _fis.AddDocumentToFirstNoticeOfLoss(documentID, FirstNoticeOfLossID);
                     }

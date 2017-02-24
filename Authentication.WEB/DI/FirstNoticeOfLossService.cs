@@ -266,5 +266,20 @@ namespace InsuredTraveling.DI
         {
             return (Int64.Parse(_db.first_notice_of_loss.OrderByDescending(f => f.FNOL_Number).Select(r => r.FNOL_Number).FirstOrDefault()) + 1).ToString();
         }
+
+        public int LastDocumentId()
+        {
+            var lastDocumentId = _db.documents.OrderByDescending(x => x.ID).FirstOrDefault();
+            if(lastDocumentId == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return lastDocumentId.ID;
+            }
+        }
+
+       
     }
 }
