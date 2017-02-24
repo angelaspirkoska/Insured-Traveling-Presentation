@@ -856,13 +856,15 @@
             });
 
             function ShowChatDetails(chatWith, requestId) {
-                if (isAdmin) {
+                var chatDTO = { Sender: chatWith, RequestId: requestId, Admin: isAdmin };
+                openChatU(chatDTO);
+                //if (isAdmin) {
 
-                    openChat(chatWith, requestId);
-                }
-                else {
-                    openChatEndUser(chatWith, requestId);
-                }
+                //    openChat(chatWith, requestId);
+                //}
+                //else {
+                //    openChatEndUser(chatWith, requestId);
+                //}
                 getLastTenMessages(requestId);
             }
 
