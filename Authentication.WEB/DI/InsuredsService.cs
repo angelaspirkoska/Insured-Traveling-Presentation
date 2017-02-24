@@ -64,7 +64,7 @@ namespace InsuredTraveling.DI
 
         public insured GetInsuredBySsn(string Ssn)
         {
-            var insured = _db.insureds.Where(x => x.SSN == Ssn).SingleOrDefault();
+            var insured = _db.insureds.Where(x => x.SSN == Ssn).FirstOrDefault();
             return insured;
         }
 

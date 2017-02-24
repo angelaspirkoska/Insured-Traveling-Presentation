@@ -265,7 +265,35 @@ namespace Authentication.WEB.Controllers
             }
 
             return Result;           
+        }
 
+        public JObject GetExistentInsuredUserData(string ssn)
+        {
+            var Result = new JObject();
+            var InsuredUser = _iss.GetInsuredBySsn(ssn);
+            JObject insuredData = new JObject();
+
+            if(InsuredUser != null)
+            {
+                insuredData.Add("FirstName", InsuredUser.Name);
+                insuredData.Add("Name", InsuredUser.Lastname);
+                insuredData.Add("Address", InsuredUser.Address);
+                insuredData.Add("City", InsuredUser.City);
+                insuredData.Add("PostalCode", InsuredUser.Postal_Code);
+                insuredData.Add("Ssn", InsuredUser.SSN);
+
+                insuredData.Add("DateBirth", InsuredUser.DateBirth.Year + String.Format("-{0:00}-{0:00}", +InsuredUser.DateBirth.Month, InsuredUser.DateBirth.Day));
+                insuredData.Add("PassportID", InsuredUser.Passport_Number_IdNumber);
+                insuredData.Add("Email", InsuredUser.Email);
+                insuredData.Add("PhoneNumber", InsuredUser.Phone_Number);
+
+                Result.Add("InsuredData", insuredData);
+                return Result;
+            }else
+            {
+                Result.Add("response", "User with that SSN not found");
+                return Result;
+            }
         }
     }
 }

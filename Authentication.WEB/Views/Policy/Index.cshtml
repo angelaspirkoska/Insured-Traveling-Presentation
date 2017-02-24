@@ -167,15 +167,16 @@
             <a href="javascript:void(0)" id="InsuredInformation">
                 @InsuredTraveling.Resource.Policy_InsuredInformation
             </a>
-            @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "checkbox-policyholder", @ariahidden = "false" })
             @if (r.IsUser("end user"))
             {
+                @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "checkbox-policyholder", @ariahidden = "false" })
                 <p class="checkbox-label">
                     @InsuredTraveling.Resource.Policy_IamInsured
                 </p>
             }
             @if (r.IsUser("admin"))
             {
+                @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "checkbox-policyholder", @ariahidden = "false", @id= "IsSamePolicyHolderInsuredAdmin" })
                 <p class="checkbox-label">
                     @InsuredTraveling.Resource.Policy_HolderSameInsured
                 </p>
@@ -324,16 +325,13 @@
                 </div>
                 <div class="form-horizontal">
                     <div class="col-md-4">
-                        @for (int i = 0; i < 2; i++)
+                        <div><label>@InsuredTraveling.Resource.Policy_AddOn</label></div>
+                        @for (int k = 1; k < 3; k++)
                         {
-
-                            <div class="col-md-6">
-                                <div><label>@InsuredTraveling.Resource.Policy_AddOn @(i + 1)</label></div>
-                                <div>
-                                    @Html.DropDownListFor(model => model.additional_charges[i].ID, (List<SelectListItem>)ViewBag.additional_charges, new { @class = "form-control" })
-                                </div>
-                            </div>
-
+                            var i = k - 1;
+                            var val = k + 1;
+                            var addid = "additional_charges_" + i + "__ID";
+                            <input id="@addid" type="checkbox" value="@val" name="additional_charges[@i].ID" style="width:4%;" class="" /> <label>@ViewBag.additional_charges[k].Text</label> <br />
                         }
                     </div>
                 </div>
@@ -726,6 +724,48 @@
         }
     });
 
+    $("#IsSamePolicyHolderInsuredAdmin").change(function () {
+        if (this.checked) {
+            if ($("#IsExistentPolicyHolder").is(':checked')) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Policy/GetExistentInsuredUserData?ssn=" + $("#PolicyHolderSSN").val(),
+                    success: function (result) {
+                        var rez = JSON.parse(result);
+                        console.log(rez);
+                        $("#Name").val(rez.InsuredData.FirstName);
+                        $("#LastName").val(rez.InsuredData.Name);
+                        $("#Address").val(rez.InsuredData.Address);
+                        $("#City").val(rez.InsuredData.City);
+                        $("#PostalCode").val(rez.InsuredData.PostalCode);
+                        $("#SSN").val(rez.InsuredData.Ssn);
+                        $("#BirthDate").val(rez.InsuredData.DateBirth);
+                        $("#PassportNumber_ID").val(rez.InsuredData.PassportID);
+                        $("#Email").val(rez.InsuredData.Email);
+                        $("#PhoneNumber").val(rez.InsuredData.PhoneNumber);
+                    }
+                });
+            } else {
+                $("#Name").val($("#PolicyHolderName").val());
+                $("#LastName").val($("#PolicyHolderLastName").val());
+                $("#Address").val($("#PolicyHolderAddress").val());
+                $("#City").val($("#PolicyHolderCity").val());
+                $("#PostalCode").val($("#PolicyHolderPostalCode").val());
+                $("#SSN").val($("#PolicyHolderSSN").val());
+                $("#BirthDate").val($("#PolicyHolderBirthDate").val());
+                $("#PassportNumber_ID").val($("#PolicyHolderPassportNumber_ID").val());
+                $("#Email").val($("#PolicyHolderEmail").val());
+                $("#PhoneNumber").val($("#PolicyHolderPhoneNumber").val());
+            }
+        }
+        else {
+            $("#hideWhenSamePerson").show();
+            $("#hideWhenSamePerson .form-control").prop('readonly', false);
+            $(".insuredData").val("");
+
+        }
+    });
+
     $("#IsSamePolicyHolderInsured").change(function () {
         if (this.checked) {
             $.ajax({
@@ -746,7 +786,7 @@
                     $("#PhoneNumber").val(rez.InsuredData.PhoneNumber);
                 }
             });
-        }
+            }
         else {
             $("#hideWhenSamePerson").show();
             $("#hideWhenSamePerson .form-control").prop('readonly', false);
