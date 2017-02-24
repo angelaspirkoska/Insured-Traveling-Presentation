@@ -10,7 +10,7 @@
 <br />
 <ul class="nav nav-pills">
     <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
-    <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes</a></li>
+    <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
     @if (r.IsUser("admin") || r.IsUser("broker"))
     {
         <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
@@ -229,7 +229,7 @@
             </div>
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
-                    <label for="endDate">@InsuredTraveling.Resource.Search_QuoteExpiryDate</label>
+                    <label for="endDate">@InsuredTraveling.Resource.Search_QuoteExpiryDate:</label>
                     <div class="input-group">
                         <input type="date" name="endDate" class="form-control" id="endDate1" />
                         <div class="input-group-btn">
@@ -1111,8 +1111,14 @@
                     scrollTop: $("#tableClients").offset().top
                 }, 800);
             };
-
-            function CreatePoliciesByInsuredId(insuredId) {
+    
+    //function focusOnPolicies() {
+    //    $('html,body').animate({
+    //        scrollTop: $("#tablePoliciesHolders").offset().top
+    //    }, 800);
+    //}
+            
+    function CreatePoliciesByInsuredId(insuredId) {
                 $("#tablePoliciesClients").DataTable().destroy();
                 $("#tablePoliciesClients").DataTable({
                     dom: "Bfrtip",
@@ -1164,6 +1170,10 @@
                     select: true
                 });
                 $("#tablePoliciesClients").css("display", "table");
+                $('html,body').animate({
+                    scrollTop: $("#tablePoliciesClients").offset().top
+                }, 800);
+
             };
 
             function CreatePoliciesByHolderId(holderId) {
