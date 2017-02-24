@@ -354,6 +354,8 @@
         </div>
     </div>
     <br />
+    
+    @*Data table for clients*@
     <div class="row">
         <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableClients">
             <thead>
@@ -373,9 +375,13 @@
             <tbody id="searchResultClients"></tbody>
         </table>
     </div>
+    <br />    
+    <ul class="nav nav-pills">
+        <li id="insured" class="active"><a href="#" onclick="showInsured()">@InsuredTraveling.Resource.Search_InsuredPolicy</a></li>
+        <li id="holder"><a href="#" onclick="showHolders()" >@InsuredTraveling.Resource.Search_PolicyPolicyHolder </a></li>
+    </ul>
     <br />
-    <br />
-    <div class="row">
+    <div class="row" id="policiesClients">
         <div>@InsuredTraveling.Resource.Search_InsuredPolicy</div>
         <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePoliciesClients">
             <thead>
@@ -394,9 +400,7 @@
             <tbody></tbody>
         </table>
     </div>
-    <br />
-    <br />
-    <div class="row">
+    <div class="row" style="display:none;" id="policiesHolders">
         <div>@InsuredTraveling.Resource.Search_PolicyPolicyHolder</div>
         <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePoliciesHolders">
             <thead>
@@ -534,8 +538,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-            </div>
             <br />
         </form>
     </div>
@@ -664,7 +666,19 @@
                 });
             });
 
-            
+            function showInsured() {
+                $("#insured").attr("class", "active");
+                $("#holder").removeAttr("class");
+                $("#policiesClients").css("display", "block");
+                $("#policiesHolders").css("display", "none");
+            }
+
+            function showHolders() {
+                $("#holder").attr("class", "active");
+                $("#insured").removeAttr("class");
+                $("#policiesClients").css("display", "none");
+                $("#policiesHolders").css("display", "block");
+            }
               
             $("#DateI").focusout(function () {
                 var Sdat = $("#DateI").val();
@@ -758,9 +772,7 @@
                 $("#clients").removeAttr("class");
                 $("#first_notice_of_loss").attr("class", "active");
                 $("#searchChat").removeAttr("class");
-                $("#quotes").removeAttr("class");
-
-                
+                $("#quotes").removeAttr("class");                
             };
 
             function ShowQuotes() {
@@ -1042,8 +1054,7 @@
                 $('html,body').animate({
                     scrollTop: $("#tableFNOL").offset().top
                 }, 800);
-            };
-
+            };            
 
             function SearchClients() {
                 $("#tableClients").DataTable().destroy();
