@@ -1062,4 +1062,7 @@
   <data name="Search_SearchTableQuoteNumber" xml:space="preserve">
     <value>Quote Number</value>
   </data>
+  <data name="Search_AddQuoteButton" xml:space="preserve">
+    <value>Add new Quote</value>
+  </data>
 </root>

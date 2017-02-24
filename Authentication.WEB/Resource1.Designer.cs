@@ -2167,6 +2167,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new Quote.
+        /// </summary>
+        public static string Search_AddQuoteButton {
+            get {
+                return ResourceManager.GetString("Search_AddQuoteButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
         public static string Search_All {
