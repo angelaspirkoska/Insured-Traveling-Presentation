@@ -49,7 +49,7 @@
                         <div class="col-md-4">
                             @Html.LabelFor(model => model.Start_Date, htmlAttributes: new { @class = "control-label" })
                             <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField" } })
+                                @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField policyInfo" } })
                                 @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -57,14 +57,14 @@
                             <input type="hidden" id="inTenDays" name="inTenDays" value="@ViewBag.DateAfterTenDays">
                             @Html.LabelFor(model => model.End_Date, htmlAttributes: new { @class = "control-label" })
                             <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField" } })
+                                @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField policyInfo" } })
                                 @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-md-4">
                             @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
-                                @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", @style = "position: static;", @min = "1", @max = "10" }})
+                                @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField policyInfo", @style = "position: static;", @min = "1", @max = "10" }})
                                 <span class="input-group-addon">@InsuredTraveling.Resource.Policy_Days</span>
                             </div>
                             @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
@@ -92,27 +92,27 @@
                     <div class="hideWhenSelect">
                         @Html.LabelFor(model => model.PolicyHolderName, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField" } })
+                            @Html.EditorFor(model => model.PolicyHolderName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderName, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PolicyHolderLastName, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderLastName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", } })
+                            @Html.EditorFor(model => model.PolicyHolderLastName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo", } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderLastName, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PolicyHolderAddress, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderAddress, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField" } })
+                            @Html.EditorFor(model => model.PolicyHolderAddress, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderAddress, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PolicyHolderCity, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderCity, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", } })
+                            @Html.EditorFor(model => model.PolicyHolderCity, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderCity, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PolicyHolderPostalCode, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderPostalCode, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField" } })
+                            @Html.EditorFor(model => model.PolicyHolderPostalCode, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderPostalCode, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -120,14 +120,14 @@
                 <div class="form-group col-md-5 top-padding">
                     @Html.LabelFor(model => model.PolicyHolderSSN, htmlAttributes: new { @class = "control-label" })
                     <div class="inputs-spacing">
-                        @Html.EditorFor(model => model.PolicyHolderSSN, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField" } })
+                        @Html.EditorFor(model => model.PolicyHolderSSN, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
                         @Html.ValidationMessageFor(model => model.PolicyHolderSSN, "", new { @class = "text-danger" })
                     </div>
                     <div class="hideWhenSelect">
                         @Html.LabelFor(model => model.PolicyHolderBirthDate, htmlAttributes: new { @class = "control-label" }) <br />
                         <div class="inputs-spacing">
                             <div class='input-group date field-size-holder' id='datetimepicker1'>
-                                @Html.EditorFor(model => model.PolicyHolderBirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField datepicker-size", @max = ViewBag.Date } })
+                                @Html.EditorFor(model => model.PolicyHolderBirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField datepicker-size holderInfo", @max = ViewBag.Date } })
                                 <span class="input-group-addon" style="width: 55px; border-radius: 2px;">
                                     <span class="glyphicon glyphicon-calendar">
                                     </span>
@@ -142,17 +142,17 @@
                             </div>*@
                         @Html.LabelFor(model => model.PolicyHolderPassportNumber_ID, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderPassportNumber_ID, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField" } })
+                            @Html.EditorFor(model => model.PolicyHolderPassportNumber_ID, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderPassportNumber_ID, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PolicyHolderEmail, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderEmail, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField" } })
+                            @Html.EditorFor(model => model.PolicyHolderEmail, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderEmail, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PolicyHolderPhoneNumber, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderPhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", } })
+                            @Html.EditorFor(model => model.PolicyHolderPhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo", } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderPhoneNumber, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -189,22 +189,22 @@
                     <div class="form-group col-sm-6">
                         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size" } })
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
                             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size", } })
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo", } })
                             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size", } })
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo", } })
                             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size", } })
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo", } })
                             @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label" })
@@ -216,13 +216,13 @@
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size" } })
+                            @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
                             @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" }) <br />
                         <div class="inputs-spacing">
                             <div class='input-group date field-size' id='datetimepicker2'>
-                                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField insuredData datepicker-size" } })
+                                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField insuredData datepicker-size insuredInfo" } })
                                 <span class="input-group-addon" style="width: 55px; border-radius: 2px;">
                                     <span class="glyphicon glyphicon-calendar">
                                     </span>
@@ -237,17 +237,17 @@
                             </div>*@
                         @Html.LabelFor(model => model.PassportNumber_ID, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PassportNumber_ID, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size" } })
+                            @Html.EditorFor(model => model.PassportNumber_ID, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
                             @Html.ValidationMessageFor(model => model.PassportNumber_ID, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size" } })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size" } })
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
                             @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -530,6 +530,7 @@
 
     var objects = document.getElementsByClassName("mandatoryField");
     var i = 0;
+    var errorWell = 0; // error in the well
 
     function CalculateTotalPremium() {
         var flag = ValidateFields();
@@ -538,11 +539,46 @@
         // Front end validation
         for (i = 0; i < objects.length; i++) {
             if (objects[i].value.length == 0) {
+                if ($(objects[i]).hasClass("policyInfo")) {
+                    document.getElementById("PolicyPolicyInformationContent").removeAttribute("style");
+                    document.getElementById("PolicyPolicyInformationContent").setAttribute("style", "display: block");
+                    errorWell = 1;
+                }                
+                if ($(objects[i]).hasClass("holderInfo")) {
+                    document.getElementById("HolderInformationContent").removeAttribute("style");
+                    document.getElementById("HolderInformationContent").setAttribute("style", "display: block");
+                    if(errorWell == 0)
+                        errorWell = 2;
+                }
+                if ($(objects[i]).hasClass("insuredInfo")) {
+                    document.getElementById("InsuredInformationContent").removeAttribute("style");
+                    document.getElementById("InsuredInformationContent").setAttribute("style", "display: block");                       
+                    if (errorWell == 0)
+                        errorWell = 3;
+                }
                 objects[i].setAttribute("style", "border: 1px solid red;");
+              
             }
             else {
                 objects[i].setAttribute("style", "border: 1px solid #2c3e50;");
             }
+           
+        }
+
+        if (errorWell == 1) {
+            $('html,body').animate({
+                scrollTop: $("#PolicyPolicyInformationContent").offset().top
+            }, 800);
+        }
+        else if (errorWell == 2) {
+            $('html,body').animate({
+                scrollTop: $("#HolderInformationContent").offset().top
+            }, 800);
+        }
+        else if (errorWell == 3) {
+            $('html,body').animate({
+                scrollTop: $("#InsuredInformationContent").offset().top
+            }, 800);
         }
 
         if (flag) {
@@ -561,9 +597,11 @@
                     $(".hideMe").show();
                     $("#errorMessage").text(" ");
 
-                    $('html,body').animate({
-                        scrollTop: $("#printOffers").offset().top
-                    }, 800);
+                    if (errorWell == 0) {
+                        $('html,body').animate({
+                            scrollTop: $("#printOffers").offset().top
+                        }, 800);
+                    }                    
 
                 },
                 error: function (result) {
@@ -586,7 +624,6 @@
                 $("#errorMessage").text("@InsuredTraveling.Resource.Policy_FillData");
             }
         }
-
     }
 
     $('#dugme').on('submit', function (e) {

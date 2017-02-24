@@ -134,7 +134,7 @@
                     <div class="form-group">
                         <div class="col-md-10 col-sm-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="taccountspan"></span> @InsuredTraveling.Resource.FNOL_BankAccount:</label>
-                            @Html.EditorFor(model => model.PolicyHolderBankAccountNumber, new { htmlAttributes = new { @class = "form-control input-sm", @maxLength = "15", @id = "TransactionAccount" } })
+                            @Html.EditorFor(model => model.PolicyHolderBankAccountNumber, new { htmlAttributes = new { @class = "form-control input-sm clientInfo mandatoryField", @maxLength = "15", @id = "TransactionAccount" } })
                             @Html.ValidationMessageFor(model => model.PolicyHolderBankAccountNumber, "", new { @class = "text-danger input-sm" })
                         </div>
 
@@ -223,7 +223,7 @@
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_BankAccount:</label>
-                            @Html.EditorFor(model => model.ClaimantBankAccountNumber, new { htmlAttributes = new { @class = "form-control input-sm", @maxLength = "15", @id = "insuredTransactionAccount" } })
+                            @Html.EditorFor(model => model.ClaimantBankAccountNumber, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredInfo", @maxLength = "15", @id = "insuredTransactionAccount" } })
                             @Html.ValidationMessageFor(model => model.ClaimantBankAccountNumber, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -249,21 +249,21 @@
                     <div class="form-group">
                         <div class="col-md-10 col-sm-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_TravelPlace:</label>
-                            @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control input-sm", @id = "travelDestination" } })
+                            @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control input-sm travelInfo mandatoryField", @id = "travelDestination" } })
                             @Html.ValidationMessageFor(model => model.Destination, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-10 col-sm-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_StartDate:</label>
-                            @Html.EditorFor(model => model.DepartDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
+                            @Html.EditorFor(model => model.DepartDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder travelInfo mandatoryField" } })
                             @Html.ValidationMessageFor(model => model.DepartDateTime, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-10 col-sm-10">
                             <label>@InsuredTraveling.Resource.FNOL_StartTime:</label>
-                            @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id = "travelTimeFrom" } })
+                            @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm travelInfo mandatoryField", type = "time", @id = "travelTimeFrom" } })
                             @Html.ValidationMessageFor(model => model.DepartTime, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -272,21 +272,21 @@
                     <div class="form-group">
                         <div class="col-md-10 col-sm-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>@InsuredTraveling.Resource.FNOL_Vehicle:</label>
-                            @Html.EditorFor(model => model.TransportMeans, new { htmlAttributes = new { @class = "form-control input-sm", @id = "transportationType" } })
+                            @Html.EditorFor(model => model.TransportMeans, new { htmlAttributes = new { @class = "form-control input-sm travelInfo mandatoryField", @id = "transportationType" } })
                             @Html.ValidationMessageFor(model => model.TransportMeans, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-10 col-sm-10">
                             <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_EndDate:</label>
-                            @Html.EditorFor(model => model.ArrivalDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
+                            @Html.EditorFor(model => model.ArrivalDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder travelInfo mandatoryField" } })
                             @Html.ValidationMessageFor(model => model.ArrivalDateTime, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-10 col-sm-10">
                             <label>@InsuredTraveling.Resource.FNOL_EndTime:</label>
-                            @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id = "travelTimeTo" } })
+                            @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm travelInfo mandatoryField", type = "time", @id = "travelTimeTo" } })
                             @Html.ValidationMessageFor(model => model.DepartTime, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -490,7 +490,7 @@
             <div class="col-md-12 col-sm-12">
                 <div class="form-group">
                     <div class="col-md-4 col-sm-4" style="padding-left: 0px;">
-                        <input type="submit" value="@InsuredTraveling.Resource.FNOL_Add" class="btn btn-default btn-block" />
+                        <input type="submit" onclick="validateFNOL()" value="@InsuredTraveling.Resource.FNOL_Add" class="btn btn-default btn-block" />
                     </div>
                     
                 </div>  
@@ -590,6 +590,57 @@ else if (ViewBag.insurance == "Luggage Insurance")
         });
 
     });
+
+    var objects = document.getElementsByClassName("mandatoryField");
+    var i = 0;
+    var errorWell = 0; // error in the well
+
+    function validateFNOL() {
+        // Front end validation
+        for (i = 0; i < objects.length; i++) {
+            if (objects[i].value.length == 0) {
+                if ($(objects[i]).hasClass("clientInfo")) {
+                    document.getElementById("clientInfoContent").removeAttribute("style");
+                    document.getElementById("clientInfoContent").setAttribute("style", "display: block");
+                    errorWell = 1;
+                }                
+                if ($(objects[i]).hasClass("insuredInfo")) {
+                    document.getElementById("insuredInfoContent").removeAttribute("style");
+                    document.getElementById("insuredInfoContent").setAttribute("style", "display: block");
+                    if(errorWell == 0)
+                        errorWell = 2;
+                }
+                if ($(objects[i]).hasClass("travelInfo")) {
+                    document.getElementById("travelInfoContent").removeAttribute("style");
+                    document.getElementById("travelInfoContent").setAttribute("style", "display: block");
+                    if (errorWell == 0)
+                        errorWell = 3;
+                }
+                objects[i].setAttribute("style", "border: 1px solid red;");
+              
+            }
+            else {
+                objects[i].setAttribute("style", "border: 1px solid #2c3e50;");
+            }
+           
+        }
+
+        if (errorWell == 1) {
+            $('html,body').animate({
+                scrollTop: $("#clientInfoContent").offset().top
+            }, 800);
+        }
+        else if (errorWell == 2) {
+            $('html,body').animate({
+                scrollTop: $("#insuredInfoContent").offset().top
+            }, 800);
+        }
+        else if (errorWell == 3) {
+            $('html,body').animate({
+                scrollTop: $("#travelInfoContent").offset().top
+            }, 800);
+        }
+    }
 
     $("#ExistentBankAccount").change(function () {
         if (this.checked) {
