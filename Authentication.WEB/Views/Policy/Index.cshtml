@@ -3,7 +3,7 @@
 @using System.Web.Optimization;
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout2.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@InsuredTraveling.Resource.Policy_CreatePolicy</h2>
@@ -462,12 +462,12 @@
 
         $('#datetimepicker1').datetimepicker({
             viewMode: 'years',
-            format: 'DD/MM/YYYY'
+            format: 'MM/DD/YYYY'
         });
 
         $('#datetimepicker2').datetimepicker({
             viewMode: 'years',
-            format: 'DD/MM/YYYY'
+            format: 'MM/DD/YYYY'
         });
 
         $(".hideMe").hide();

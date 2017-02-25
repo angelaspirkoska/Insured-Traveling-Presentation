@@ -82,7 +82,7 @@ namespace InsuredTraveling.Helpers
                     updateInsuredData.SSN = p.PolicyHolderSSN;
 
                     updateInsuredData.Email = p.PolicyHolderEmail;
-                    updateInsuredData.DateBirth = p.PolicyHolderBirthDate;
+                    updateInsuredData.DateBirth = p.PolicyHolderBirthDate ?? DateTime.UtcNow;
                     updateInsuredData.Phone_Number = p.PolicyHolderPhoneNumber;
 
                     updateInsuredData.Passport_Number_IdNumber = p.PolicyHolderPassportNumber_ID;
@@ -105,7 +105,7 @@ namespace InsuredTraveling.Helpers
                     newInsured.SSN = p.PolicyHolderSSN;
 
                     newInsured.Email = p.PolicyHolderEmail;
-                    newInsured.DateBirth = p.PolicyHolderBirthDate;
+                    newInsured.DateBirth = p.PolicyHolderBirthDate ?? DateTime.UtcNow;
                     newInsured.Phone_Number = p.PolicyHolderPhoneNumber;
 
                     newInsured.Passport_Number_IdNumber = p.PolicyHolderPassportNumber_ID;

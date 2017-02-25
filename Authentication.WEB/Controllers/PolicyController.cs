@@ -48,6 +48,7 @@ namespace Authentication.WEB.Controllers
 
         // GET: Policy
         [HttpGet]
+        [SessionExpire]
         public async Task<ActionResult> Index()
         {
             if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)

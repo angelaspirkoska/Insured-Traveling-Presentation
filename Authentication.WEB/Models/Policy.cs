@@ -95,8 +95,8 @@ namespace InsuredTraveling.Models
         public string PolicyHolderEmail { get; set; }
 
         [Display(Name = "Policy_HolderBirthDay", ResourceType = typeof(Resource))]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
-        public DateTime PolicyHolderBirthDate { get; set; }
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        public DateTime? PolicyHolderBirthDate { get; set; }
 
         [Display(Name = "Policy_HolderCity", ResourceType = typeof(Resource))]
         public string PolicyHolderCity { get; set; }
@@ -136,7 +136,7 @@ namespace InsuredTraveling.Models
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         [Display(Name = "Policy_InsuredBirthDate", ResourceType = typeof(Resource))]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
         public DateTime BirthDate { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
