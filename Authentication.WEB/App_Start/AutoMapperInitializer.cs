@@ -250,18 +250,15 @@ namespace InsuredTraveling.App_Start
 
             Mapper.CreateMap<travel_policy, SearchPolicyViewModel>().AfterMap((src, dst) =>
             {
-                var languageId = SiteLanguages.CurrentLanguageId();
-                countries_name countryName = db.countries_name.Where(x => x.language_id == languageId && x.countries_id == src.country.ID).FirstOrDefault();
+                dst.CountryId = src.CountryID;    
                 dst.InsuredName = src.policy_insured.Count() == 0 ? " " : src.policy_insured.FirstOrDefault().insured.Lastname + " " + src.policy_insured.FirstOrDefault().insured.Name;
                 dst.Polisa_Id = src.ID;
                 dst.Polisa_Broj = src.Policy_Number;
-                dst.Country = countryName.name;
                 dst.Policy_type = src.policy_type.type;
                 dst.Zapocnuva_Na = src.Start_Date.Date.ToShortDateString();
                 dst.Zavrsuva_Na = src.End_Date.Date.ToShortDateString();
                 dst.Datum_Na_Izdavanje = src.Date_Created.Date.ToShortDateString();
                 dst.Datum_Na_Storniranje = src.Date_Cancellation.HasValue ? src.Date_Cancellation.Value.Date.ToShortDateString().ToString() : "/";
-
             });
 
             Mapper.CreateMap<first_notice_of_loss, SearchFNOLViewModel>().AfterMap((src, dst) =>

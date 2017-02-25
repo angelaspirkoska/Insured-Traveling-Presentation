@@ -10,6 +10,7 @@ using AutoMapper;
 using InsuredTraveling.ViewModels;
 using InsuredTraveling.Filters;
 using System.Configuration;
+using InsuredTraveling.App_Start;
 
 namespace InsuredTraveling.Controllers
 {
@@ -25,6 +26,7 @@ namespace InsuredTraveling.Controllers
         private IBankAccountService _bas;
         private ICountryService _countryService;
         private IChatService _ics;
+        private IPolicySearchService _policySearchService;
 
         public SearchController(IPolicyService ps, 
                                 IFirstNoticeOfLossService fnls, 
@@ -33,7 +35,8 @@ namespace InsuredTraveling.Controllers
                                 IInsuredsService iss, 
                                 IBankAccountService bas,
                                 ICountryService countryService,
-                                IChatService ics)
+                                IChatService ics,
+                                IPolicySearchService policySearchService)
         {
             _ps = ps;
             _fnls = fnls;
@@ -43,7 +46,7 @@ namespace InsuredTraveling.Controllers
             _bas = bas;
             _countryService = countryService;
             _ics = ics;
-
+            _policySearchService = policySearchService;
         }
 
         [HttpGet]
@@ -362,8 +365,6 @@ namespace InsuredTraveling.Controllers
                 fnol = _fnls.GetFNOLBySearchValues(System.Web.HttpContext.Current.User.Identity.Name,PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
             }
 
-
-            // fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
             if (!String.IsNullOrEmpty(DateAdded))
             {
                 DateTime dateAdded = Convert.ToDateTime(DateAdded);
@@ -405,7 +406,9 @@ namespace InsuredTraveling.Controllers
 
             if (policies != null)
             {
+                var languageId = SiteLanguages.CurrentLanguageId();
                 var searchModel = policies.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
+                searchModel = _policySearchService.GetCountriesName(searchModel, languageId);
                 var array = JArray.FromObject(searchModel.ToArray());
                 JSONObject.Add("data", array);
                 return JSONObject;
@@ -423,7 +426,9 @@ namespace InsuredTraveling.Controllers
 
             if(policies != null)
             {
+                var languageId = SiteLanguages.CurrentLanguageId();
                 var searchModel = policies.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
+                searchModel = _policySearchService.GetCountriesName(searchModel, languageId);
                 var array = JArray.FromObject(searchModel.ToArray());
                 JSONObject.Add("data", array);
                 return JSONObject;
@@ -602,6 +607,12 @@ namespace InsuredTraveling.Controllers
 
             var policies = _ps.GetPoliciesByUserId(logUser);
             return await policies.ToListAsync();
+        }
+
+        public List<SearchPolicyViewModel> DefinePolicyCountries(List<SearchPolicyViewModel> policies)
+        {
+          
+            return policies;
         }
     }
 }
