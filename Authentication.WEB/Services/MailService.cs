@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Mail;
 using System.Web.Mvc;
 
@@ -86,8 +87,14 @@ namespace Authentication.WEB.Services
         [RequireHttps()]
         public void sendMail()
         {
-            smtp.EnableSsl = true;
-            smtp.Send(email);
+            try
+            {
+                smtp.UseDefaultCredentials = false;
+                smtp.EnableSsl = true;
+                smtp.Send(email);
+            }
+            catch (Exception e) { }
+     
         }
     }
 }

@@ -149,6 +149,7 @@ namespace Authentication.WEB.Controllers
 
                 mailService.setBodyText(bodyText);
                 mailService.attach(new System.Net.Mail.Attachment(fullPath));
+
                 mailService.sendMail();
             }
 
