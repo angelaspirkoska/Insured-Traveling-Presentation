@@ -1059,4 +1059,16 @@
   <data name="Search_AddQuoteButton" xml:space="preserve">
     <value>Додади понуда</value>
   </data>
+  <data name="FNOL_AccidentDateTimeHealthWrongRange" xml:space="preserve">
+    <value>Датумот на несреќата треба да биде помеѓу датумот на заминување и датумот на враќање.</value>
+  </data>
+  <data name="FNOL_DoctorVisitDateTimehWrongRange" xml:space="preserve">
+    <value>Датумот кога е посетен доктор треба да биде помеѓу датумот на заминување и датумот на пристигнување.</value>
+  </data>
+  <data name="FNOL_Edit" xml:space="preserve">
+    <value>Измени</value>
+  </data>
+  <data name="FNOL_FNOLNumber" xml:space="preserve">
+    <value>Оштетно побарување бр.</value>
+  </data>
 </root>

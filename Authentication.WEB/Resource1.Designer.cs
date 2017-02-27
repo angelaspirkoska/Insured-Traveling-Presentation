@@ -376,6 +376,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accident Date should be between Arrival Date and Departure Date..
+        /// </summary>
+        public static string FNOL_AccidentDateTimeHealthWrongRange {
+            get {
+                return ResourceManager.GetString("FNOL_AccidentDateTimeHealthWrongRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accident Description.
         /// </summary>
         public static string FNOL_AccidentDescription {
@@ -520,11 +529,29 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date when the doctor was visited should be between Arrival Date and Departure Date..
+        /// </summary>
+        public static string FNOL_DoctorVisitDateTimehWrongRange {
+            get {
+                return ResourceManager.GetString("FNOL_DoctorVisitDateTimehWrongRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Documents as proof.
         /// </summary>
         public static string FNOL_DocumentsAsProof {
             get {
                 return ResourceManager.GetString("FNOL_DocumentsAsProof", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string FNOL_Edit {
+            get {
+                return ResourceManager.GetString("FNOL_Edit", resourceCulture);
             }
         }
         
@@ -561,6 +588,15 @@ namespace InsuredTraveling {
         public static string FNOL_FloatersValue {
             get {
                 return ResourceManager.GetString("FNOL_FloatersValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FNOL Number.
+        /// </summary>
+        public static string FNOL_FNOLNumber {
+            get {
+                return ResourceManager.GetString("FNOL_FNOLNumber", resourceCulture);
             }
         }
         

@@ -1065,4 +1065,16 @@
   <data name="Search_AddQuoteButton" xml:space="preserve">
     <value>Add new Quote</value>
   </data>
+  <data name="FNOL_AccidentDateTimeHealthWrongRange" xml:space="preserve">
+    <value>Accident Date should be between Arrival Date and Departure Date.</value>
+  </data>
+  <data name="FNOL_DoctorVisitDateTimehWrongRange" xml:space="preserve">
+    <value>Date when the doctor was visited should be between Arrival Date and Departure Date.</value>
+  </data>
+  <data name="FNOL_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="FNOL_FNOLNumber" xml:space="preserve">
+    <value>FNOL Number</value>
+  </data>
 </root>

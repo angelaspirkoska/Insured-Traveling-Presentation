@@ -94,7 +94,7 @@ namespace InsuredTraveling.App_Start
                 dst.ModifiedBy = src.CreatedBy;
                 dst.ModifiedDateTime = DateTime.Now;
                 dst.TotalCost = src.Total_cost;
-
+                dst.AdditionalInfoId = src.Additional_infoID;
             });
 
             Mapper.CreateMap<Policy, travel_policy>().AfterMap((src, dst) =>

@@ -126,7 +126,6 @@ namespace InsuredTraveling.Helpers
             }
 
             var policyID = _ps.AddPolicy(policy);
-            //polisa da se kreira pa posle osigurenik!!!!
             var insuredId = _iss.GetInsuredIdBySsnAndCreatedBy(p.SSN, p.Created_By);
             if (insuredId != -1)
             {

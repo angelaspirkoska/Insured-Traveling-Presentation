@@ -149,26 +149,7 @@ namespace InsuredTraveling.Controllers
                 //documents and invoices
                 model.Invoices = new List<FileDescriptionViewModel>();
                 model.InsuranceInfoDoc = new List<FileDescriptionViewModel>();
-
-                var allInvoices = _fis.GetInvoiceDocumentName(model.Id);
-                foreach (var invoice in allInvoices)
-                {
-                    var file = new FileDescriptionViewModel();
-                    file.FileName = invoice;
-                    file.FilePath = "~/DocumentsFirstNoticeOfLoss/Invoices/" + file.FileName;
-                    model.Invoices.Add(file);
-                }
-
-                var isHealthInsurance = _fis.IsHealthInsuranceByAdditionalInfoId(data.Additional_infoID);
-                var allDoc = _fis.GetHealthLuggageDocumentName(model.Id);
-                foreach (var doc in allDoc)
-                {
-                    var file = new FileDescriptionViewModel();
-                    file.FileName = doc;
-                    file.FilePath = isHealthInsurance ? "~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + file.FileName : "~/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + file.FileName;
-                    model.InsuranceInfoDoc.Add(file);
-                }
-
+                model = GetAllDocuments(model);
             }          
             return View(model);
         }
@@ -178,6 +159,24 @@ namespace InsuredTraveling.Controllers
         [HttpPost]
         public ActionResult Edit(FirstNoticeOfLossEditViewModel model, IEnumerable<HttpPostedFileBase> invoices, IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
         {
+            if(model.AccidentDateTimeHealth < model.DepartDateTime || model.AccidentDateTimeHealth > model.ArrivalDateTime)
+            {
+                ViewBag.Message = InsuredTraveling.Resource.FNOL_AccidentDateTimeHealthWrongRange;
+                model = GetAllDocuments(model);
+                return View(model);
+            }
+            if (model.DoctorVisitDateTime < model.DepartDateTime || model.DoctorVisitDateTime > model.ArrivalDateTime)
+            {
+                ViewBag.Message = InsuredTraveling.Resource.FNOL_DoctorVisitDateTimehWrongRange;
+                model = GetAllDocuments(model);
+                return View(model);
+            }
+            if (model.AccidentDateTimeLuggage < model.DepartDateTime || model.AccidentDateTimeLuggage > model.ArrivalDateTime)
+            {
+                ViewBag.Message = InsuredTraveling.Resource.FNOL_AccidentDateTimeHealthWrongRange;
+                model = GetAllDocuments(model);
+                return View(model);
+            }
             model.PolicyHolderBankAccountNumber = model.PolicyHolderBankAccountNumber.Trim();
             model.ClaimantBankAccountNumber = model.ClaimantBankAccountNumber.Trim();
             model.ModifiedBy = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
@@ -218,6 +217,31 @@ namespace InsuredTraveling.Controllers
 
             }
             return View(model);
+        }
+
+        public FirstNoticeOfLossEditViewModel GetAllDocuments(FirstNoticeOfLossEditViewModel model)
+        {
+            var allInvoices = _fis.GetInvoiceDocumentName(model.Id);
+            model.Invoices = new List<FileDescriptionViewModel>();
+            foreach (var invoice in allInvoices)
+            {
+                var file = new FileDescriptionViewModel();
+                file.FileName = invoice;
+                file.FilePath = "~/DocumentsFirstNoticeOfLoss/Invoices/" + file.FileName;
+                model.Invoices.Add(file);
+            }
+
+            var isHealthInsurance = _fis.IsHealthInsuranceByAdditionalInfoId(model.AdditionalInfoId);
+            var allDoc = _fis.GetHealthLuggageDocumentName(model.Id);
+            model.InsuranceInfoDoc = new List<FileDescriptionViewModel>();
+            foreach (var doc in allDoc)
+            {
+                var file = new FileDescriptionViewModel();
+                file.FileName = doc;
+                file.FilePath = isHealthInsurance ? "~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + file.FileName : "~/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + file.FileName;
+                model.InsuranceInfoDoc.Add(file);
+            }
+            return model;
         }
 
         [SessionExpire]
