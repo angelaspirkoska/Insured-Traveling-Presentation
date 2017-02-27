@@ -1078,7 +1078,7 @@
                                     "render": function (data, type, row, meta) {
                                         if (type === 'display') {
                                             return $('<a>')
-                                                .attr('href', 'javascript:;')
+                                                 .attr('href', 'javascript:;')
                                                 .attr('class', 'clients')
                                                 .attr('id', data)
                                                 .text("@InsuredTraveling.Resource.Search_PolicyLink")
@@ -1098,19 +1098,12 @@
                     var insuredId = $row.children().attr('id');
                     CreatePoliciesByInsuredId(insuredId);
                     CreatePoliciesByHolderId(insuredId);
-
                 });
 
                 $('html,body').animate({
                     scrollTop: $("#tableClients").offset().top
                 }, 800);
             };
-    
-    //function focusOnPolicies() {
-    //    $('html,body').animate({
-    //        scrollTop: $("#tablePoliciesHolders").offset().top
-    //    }, 800);
-    //}
             
     function CreatePoliciesByInsuredId(insuredId) {
                 $("#tablePoliciesClients").DataTable().destroy();
@@ -1205,6 +1198,7 @@
                     select: true
                 });
                 $("#tablePoliciesHolders").css("display", "table");
+              
             };
 </script>
 
