@@ -17,6 +17,7 @@ namespace InsuredTraveling.DI
         bank_account_info BankAccountInfoById(int ID);
         bank_account_info BankAccountsInfoByIdandUser(int ID, int accountHolder);
         bank_account_info Create();
+        string GetBankNameBasedOnPrefixNumber(int prefix);
 
         //checks if the bank account is used in other fnol's
         bool checkBankAccountInfo(int id);

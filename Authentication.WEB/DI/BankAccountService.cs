@@ -90,6 +90,20 @@ namespace InsuredTraveling.DI
 
         }
 
+        public string GetBankNameBasedOnPrefixNumber(int prefix)
+        {
+            var bank_prefix = _db.bank_prefix.Where(x => x.Prefix_Number == prefix).FirstOrDefault();
+            if (bank_prefix == null)
+                return " ";
+            int bankID = bank_prefix.Bank_ID;
+
+            var bank = _db.banks.Where(x => x.ID == bankID).FirstOrDefault();
+            if (bank == null)
+                return " ";
+
+            return bank.Name;
+        }
+
         public bank_account_info GetBankAccountInfo(int clientId, string bankAccountNumber, string bankAccountName)
         {
             return _db.bank_account_info.Where(x => x.Account_HolderID == clientId && x.Account_Number.Equals(bankAccountNumber) && x.bank.Name.Equals(bankAccountName)).SingleOrDefault();

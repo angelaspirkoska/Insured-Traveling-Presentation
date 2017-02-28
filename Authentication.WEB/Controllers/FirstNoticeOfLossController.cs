@@ -68,6 +68,17 @@ namespace InsuredTraveling.Controllers
             return View();
         }
 
+        [HttpGet]
+        public JsonResult GetBankName(int prefix)
+        {
+            string result = _bas.GetBankNameBasedOnPrefixNumber(prefix);
+            if (result != null)
+            {
+                return Json(new { success = true, responseText = result, bankName = result }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "Fail." }, JsonRequestBehavior.AllowGet);
+        }
+
         [SessionExpire]
         [HttpPost]
         public async Task<ActionResult> Index(FirstNoticeOfLossReportViewModel firstNoticeOfLossViewModel, IEnumerable<HttpPostedFileBase> invoices, IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
