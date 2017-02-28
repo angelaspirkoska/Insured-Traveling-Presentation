@@ -55,8 +55,18 @@ namespace InsuredTraveling.Helpers
                 policy.Policy_HolderID = PolicyHolderId;
 
             }
-            else if (r.IsUser("admin") || r.IsUser("broker"))
-            {}
+            else if (p.IsSamePolicyHolderInsured && (r.IsUser("admin") || r.IsUser("broker")))
+            {
+                if (p.IsExistentPolicyHolder)
+                {
+                    policy.Policy_HolderID = _iss.GetInsuredBySsn(p.SSN).ID;
+
+                }else
+                {
+                    var PolicyHolderId = SaveInsuredHelper.SaveInsured(_iss, p.PolicyHolderName, p.PolicyHolderLastName, p.PolicyHolderSSN, p.PolicyHolderEmail, p.PolicyHolderBirthDate.Value, p.PolicyHolderPhoneNumber, p.PolicyHolderPassportNumber_ID, p.PolicyHolderAddress, p.PolicyHolderCity, p.PolicyHolderPostalCode, policy.Created_By);
+                    policy.Policy_HolderID = PolicyHolderId;
+                }
+            }
 
             if (!p.IsSamePolicyHolderInsured)
             {
@@ -126,7 +136,7 @@ namespace InsuredTraveling.Helpers
             }
 
             var policyID = _ps.AddPolicy(policy);
-            var insuredId = _iss.GetInsuredIdBySsnAndCreatedBy(p.SSN, p.Created_By);
+            var insuredId = _iss.GetInsuredIdBySsnAndCreatedBy(p.SSN, policy.Created_By);
             if (insuredId != -1)
             {
                 // da se update
