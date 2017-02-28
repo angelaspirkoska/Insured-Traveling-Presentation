@@ -77,7 +77,7 @@
     @{
         RoleAuthorize r = new RoleAuthorize();
     }
-    @if (r.IsUser("admin"))
+    @if (r.IsUser("admin") || r.IsUser("broker"))
     {
         <div class="row">
             <header class="well" id="HolderInformation">

@@ -17,7 +17,7 @@ namespace InsuredTraveling.DI
         int GetInsuredIdBySsnAndCreatedBy(string Ssn, string userId);
         insured GetInsuredBySsn(string Ssn);
         insured GetInsuredBySsnAndCreatedBy(string Ssn, string userId);
-        List<insured> GetInsuredBySearchValues(string name, string lastname, string embg, string address, string email, string postal_code, string phone, string city, string passport);
+        List<insured> GetInsuredBySearchValues(string name, string lastname, string embg, string address, string email, string postal_code, string phone, string city, string passport, string createdBy);
 
         void UpdateInsuredData(insured insured);
 

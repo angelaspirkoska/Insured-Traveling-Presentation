@@ -27,6 +27,7 @@ namespace InsuredTraveling.Controllers
         private ICountryService _countryService;
         private IChatService _ics;
         private IPolicySearchService _policySearchService;
+        private RoleAuthorize _roleAuthorize;
 
         public SearchController(IPolicyService ps, 
                                 IFirstNoticeOfLossService fnls, 
@@ -47,6 +48,7 @@ namespace InsuredTraveling.Controllers
             _countryService = countryService;
             _ics = ics;
             _policySearchService = policySearchService;
+            _roleAuthorize = new RoleAuthorize();
         }
 
         [HttpGet]
@@ -69,8 +71,17 @@ namespace InsuredTraveling.Controllers
         [Route("GetUsers")]
         public JObject GetUsers(string name, string lastname, string embg, string address, string email, string postal_code, string phone, string city, string passport)
         {
-            var data = _iss.GetInsuredBySearchValues(name, lastname, embg, address, email, postal_code, phone, city, passport);
-            var searchModel = data.Select(Mapper.Map<insured, SearchClientsViewModel>).ToList();
+            List<SearchClientsViewModel> searchModel = new List<SearchClientsViewModel>();
+            if (_roleAuthorize.IsUser("broker"))
+            {
+                var data = _iss.GetInsuredBySearchValues(name, lastname, embg, address, email, postal_code, phone, city, passport, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name));
+                searchModel = data.Select(Mapper.Map<insured, SearchClientsViewModel>).ToList();
+            }
+            else
+            {
+                var data = _iss.GetInsuredBySearchValues(name, lastname, embg, address, email, postal_code, phone, city, passport, "");
+                searchModel = data.Select(Mapper.Map<insured, SearchClientsViewModel>).ToList();
+            }
 
             var JSONObject = new JObject();
             var array = JArray.FromObject(searchModel.ToArray());
@@ -200,16 +211,14 @@ namespace InsuredTraveling.Controllers
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUser = _us.GetUserIdByUsername(username);
 
-            RoleAuthorize r = new RoleAuthorize();
-
             List<travel_policy> data = new List<travel_policy>();
 
-            if (r.IsUser("admin"))
+            if (_roleAuthorize.IsUser("admin"))
             {
                 data = _ps.GetPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, PolicyNumber);
             }
 
-            else if(r.IsUser("end user"))
+            else if(_roleAuthorize.IsUser("end user") || _roleAuthorize.IsUser("broker"))
             {
                 data = _ps.GetPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, logUser, PolicyNumber);
             }
@@ -280,16 +289,14 @@ namespace InsuredTraveling.Controllers
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUser = _us.GetUserIdByUsername(username);
 
-            RoleAuthorize r = new RoleAuthorize();
-
             List<travel_policy> data = new List<travel_policy>();
 
-            if (r.IsUser("admin"))
+            if (_roleAuthorize.IsUser("admin"))
             {
                 data = _ps.GetQuotesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, PolicyNumber);
             }
 
-            else if (r.IsUser("end user"))
+            else if (_roleAuthorize.IsUser("end user") || _roleAuthorize.IsUser("broker"))
             {
                 data = _ps.GetQuotesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, logUser, PolicyNumber);
             }
@@ -350,16 +357,15 @@ namespace InsuredTraveling.Controllers
                                string operatorDateAdded, 
                                string operatorTotalCost)
         {
-            RoleAuthorize r = new RoleAuthorize();
 
             List<first_notice_of_loss> fnol = new List<first_notice_of_loss>();
 
-            if (r.IsUser("admin"))
+            if (_roleAuthorize.IsUser("admin"))
             {
                 fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
             }
 
-            else if (r.IsUser("end user"))
+            else if (_roleAuthorize.IsUser("end user"))
             {
 
                 fnol = _fnls.GetFNOLBySearchValues(System.Web.HttpContext.Current.User.Identity.Name,PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
@@ -441,15 +447,14 @@ namespace InsuredTraveling.Controllers
         [HttpPost]
         public JsonResult ShowPolicies(string Prefix)
         {
-            RoleAuthorize r = new RoleAuthorize();
-            if (r.IsUser("end user"))
+            if (_roleAuthorize.IsUser("end user"))
             {
                 var policies = _us.GetPoliciesByUsernameToList(System.Web.HttpContext.Current.User.Identity.Name, Prefix);
                 var policiesAutoComplete = policies.Select(Mapper.Map<travel_policy, PolicyAutoCompleteViewModel>).ToList();
                 return Json(policiesAutoComplete, JsonRequestBehavior.AllowGet);
 
             }
-            else if (r.IsUser("admin"))
+            else if (_roleAuthorize.IsUser("admin"))
             {
                 var policies = _ps.GetAllPoliciesByPolicyNumber(Prefix);
                 var policiesAutoComplete = policies.Select(Mapper.Map<travel_policy, PolicyAutoCompleteViewModel>).ToList();

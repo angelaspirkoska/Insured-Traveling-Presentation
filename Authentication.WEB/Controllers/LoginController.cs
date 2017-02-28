@@ -16,7 +16,6 @@ namespace InsuredTraveling.Controllers
 {
     public class LoginController : Controller
     {
-
         [HttpPost]
         public async Task<ActionResult> Index(LoginUser user, bool CaptchaValid)
         {

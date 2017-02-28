@@ -15,11 +15,11 @@
     <link rel="icon" href="/Content/img/profile.png">
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">  
+    <link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
 
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/jquery-3.1.1.js"></script>
-    
+
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
 
@@ -30,7 +30,7 @@
 </head>
 <body onload="prepareSocket() ">
     <div class="navbar navbar-inverse navbar-fixed-top nav-material-design" role="navigation">
-        <div class="container" >
+        <div class="container">
             <div class="navbar-header">
                 <button type="button" class="btn btn-success navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                     <span class="glyphicon glyphicon-menu-hamburger"></span>
@@ -40,7 +40,7 @@
                         <img src="~/Content/img/profile.png" class="logo" alt="logo" />Insured Traveling
                     </div>
                 </a>
-                
+
             </div>
             <div class="collapse navbar-collapse" id="myNavbar" data-collapse="!navbarExpanded">
                 <div class="nav navbar-nav navbar-right" style="float:right;">
@@ -60,51 +60,49 @@
                         }
                     }
                 </div>
-               
-                    <ul class="nav navbar-nav navbar-right" style="float:right;text-align:right;">
+
+                <ul class="nav navbar-nav navbar-right" style="float:right;text-align:right;">
 
                     @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                     {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
                             <ul id="messages" class="dropdown-menu message-dropdown">
-                               
+
                                 @*<li class="message-footer">
-                                    <a href="#">Read All New Messages</a>
-                                </li>*@
+                                        <a href="#">Read All New Messages</a>
+                                    </li>*@
                             </ul>
                         </li>
-                       if (r.IsUser("admin")){
-                        <li class="dropdown">
-                        <a href="#" id="messageRequests" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-time"></span>
-                        </a>
-                        <ul class="dropdown-menu alert-dropdown" id="ul_alerts">
-
-
-                        </ul>
-                        </li>
-                       }
+                        if (r.IsUser("admin"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" id="messageRequests" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                </a>
+                                <ul class="dropdown-menu alert-dropdown" id="ul_alerts"></ul>
+                            </li>
+                        }
 
                     }
-                       @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-                       {
-                        <li><a href = "#" id="welcome">@System.Web.HttpContext.Current.User.Identity.Name</a></li>
+                    @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <li><a href="#" id="welcome">@System.Web.HttpContext.Current.User.Identity.Name</a></li>
                         <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken"> @InsuredTraveling.Resource.LogOut </a></li>
-                       }
-                       else
-                       {
-                        <li><a></a></li>                       
-                        <li><a href = "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login"> @InsuredTraveling.Resource.Login</a></li>
-                        <li><a href = "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp" id="signup"> @InsuredTraveling.Resource.SignUp</a></li>
-                       }
-                     </ul>
+                    }
+                    else
+                    {
+                        <li><a></a></li>
+                        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login"> @InsuredTraveling.Resource.Login</a></li>
+                        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp" id="signup"> @InsuredTraveling.Resource.SignUp</a></li>
+                    }
+                </ul>
             </div>
         </div>
     </div>
-    @if(System.Web.HttpContext.Current.User != null)
-                       {
-        <input type = "hidden" value = "@System.Web.HttpContext.Current.User.Identity.Name" id = "userName" />
+    @if (System.Web.HttpContext.Current.User != null)
+    {
+        <input type="hidden" value="@System.Web.HttpContext.Current.User.Identity.Name" id="userName" />
     }
 
     @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -115,14 +113,14 @@
                     <br />
                     <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</button>
                     @if (r.IsUser("admin") || r.IsUser("broker"))
-                {
+                   {
                         <button onclick="@("window.location.href='/News/Index'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_News</button>
                     }
 
                     <button onclick="@("window.location.href='" + @Url.Action("Index","Search") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_Search</button>
                     <button onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_FirstNoticeOfLoss</button>
                     @if (r.IsUser("admin"))
-                {
+                    {
                         <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_AdminPanel</button>
                         <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</button>
                     }
@@ -131,7 +129,7 @@
                         <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</button>
                     }
                 </div>
-            </div>            
+            </div>
         </div>
     }
 
@@ -140,91 +138,91 @@
         @RenderBody()
     </div>
     <br />
-    <div id="chats" ></div >
+    <div id="chats"></div>
     @*<footer class="text-center" style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: white; z-index: 10000">*@
-        <footer class="container-fluid footer-material-design">
-            <p class="container" style="color:#ffffff">&copy; @DateTime.Now.Year - Insured Traveling</p>
+    <footer class="container-fluid footer-material-design">
+        <p class="container" style="color:#ffffff">&copy; @DateTime.Now.Year - Insured Traveling</p>
 
-        </footer>
-                          
-        <script src="~/Scripts/bootstrap.js"></script>
-        <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
-        <script src="~/signalr/hubs"></script>
-        <script src="~/Scripts/Chat/Chat.js"></script>
+    </footer>
 
-        <script type="text/javascript">
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/Chat/Chat.js"></script>
 
-            $(document).ready(function () {
-                localStorage.setItem("username", $("#userName").val());
-                console.log(localStorage.getItem("username"));
-                if (localStorage.getItem("username") != "") {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            localStorage.setItem("username", $("#userName").val());
+            console.log(localStorage.getItem("username"));
+            if (localStorage.getItem("username") != "") {
+            }
+            else {
+            }
+            $("#alerts").click(function () {
+                if ($("#alerts").attr('aria-expanded') === "true") {
+                    $("#alerts_bell").removeClass('red');
+                    $(".label-danger").each(function () {
+                        $(this).removeClass("label label-danger");
+                        $(this).addClass("label label-default");
+                        $(".my_audio").trigger('stop');
+
+                    });
                 }
-                else {
-                }
-                $("#alerts").click(function () {
-                    if ($("#alerts").attr('aria-expanded') === "true") {
-                        $("#alerts_bell").removeClass('red');
-                        $(".label-danger").each(function () {
-                            $(this).removeClass("label label-danger");
-                            $(this).addClass("label label-default");
-                            $(".my_audio").trigger('stop');
+            });
 
-                        });
-                    }
-                });
-
-                });
-        </script>
-        <script id="chat_template" type="text/x-custom-template">
-            <div id="none" class="chat_position" requestId="none">
-                <div class="portlet portlet-default">
-                    <div class="portlet-heading">
-                        <div class="portlet-title">
-                            <h4></h4>
-                        </div>
-                        <div class="portlet-widgets">
-                            <span class="divider"></span>
-                            <a id="discardChat" class="hideable" href="#" style="display: -webkit-inline-box;"><i class="fa fa-minus-square"></i></a>
-                            <a id="createFnol" class="hideable" href="#"  style="display: -webkit-inline-box;"><i class="fa fa-plus-square"></i></a>
-                            <a data-toggle="collapse" data-parent="#accordion" href="#chat"><i class="fa fa-chevron-down"></i></a>
-                            <a id="close" href="#">
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                        <div class="clearfix"></div>
+        });
+    </script>
+    <script id="chat_template" type="text/x-custom-template">
+        <div id="none" class="chat_position" requestId="none">
+            <div class="portlet portlet-default">
+                <div class="portlet-heading">
+                    <div class="portlet-title">
+                        <h4></h4>
                     </div>
-                    <div id="chat" class="panel-collapse collapse in">
-                        <div>
-                            <div class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 195px;">
-                            </div>
+                    <div class="portlet-widgets">
+                        <span class="divider"></span>
+                        <a id="discardChat" class="hideable" href="#" style="display: -webkit-inline-box;"><i class="fa fa-minus-square"></i></a>
+                        <a id="createFnol" class="hideable" href="#" style="display: -webkit-inline-box;"><i class="fa fa-plus-square"></i></a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#chat"><i class="fa fa-chevron-down"></i></a>
+                        <a id="close" href="#">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div id="chat" class="panel-collapse collapse in">
+                    <div>
+                        <div class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 195px;">
                         </div>
-                        <div class="portlet-footer">
-                            <form role="form">
-                                <textarea class="form-control" id="none" requestid="none" placeholder="Enter message..."></textarea>
-                            </form>
-                        </div>
+                    </div>
+                    <div class="portlet-footer">
+                        <form role="form">
+                            <textarea class="form-control" id="none" requestid="none" placeholder="Enter message..."></textarea>
+                        </form>
                     </div>
                 </div>
             </div>
-        </script>
-        <script id="message_template" type="text/x-custom-template">
-            <li class="message-preview">
-                <a href="#" id="none">
-                    <div class="media">
-                        @*<span class="pull-left">
+        </div>
+    </script>
+    <script id="message_template" type="text/x-custom-template">
+        <li class="message-preview">
+            <a href="#" id="none">
+                <div class="media">
+                    @*<span class="pull-left">
                             <img class="media-object" src="http://placehold.it/50x50" alt="">
                         </span>*@
-                        <div class="media-body">
-                            <h5 class="media-heading"  name="name">
-                                <strong>John Smith</strong>
-                            </h5>
-                            <p class="small text-muted"><i class="fa fa-clock-o"></i> <span class="timestamp"></span> </p>
-                            <p class="message" id="messageId"> </p>
-                        </div>
+                    <div class="media-body">
+                        <h5 class="media-heading" name="name">
+                            <strong>John Smith</strong>
+                        </h5>
+                        <p class="small text-muted"><i class="fa fa-clock-o"></i> <span class="timestamp"></span> </p>
+                        <p class="message" id="messageId"> </p>
                     </div>
-                </a>
-            </li>
-        </script>
+                </div>
+            </a>
+        </li>
+    </script>
 
 
 </body>
