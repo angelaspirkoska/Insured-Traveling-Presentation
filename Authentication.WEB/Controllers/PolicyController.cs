@@ -32,6 +32,7 @@ namespace Authentication.WEB.Controllers
         private IUserService _us;
         private IPolicyInsuredService _pis;
         private IInsuredsService _iss;
+        private RoleAuthorize _roleAuthorize;
 
         public PolicyController(IPolicyService ps, IPolicyTypeService pts, ICountryService cs, IFranchiseService fs,
             IAdditionalChargesService acs, IUserService us, IInsuredsService iss, IPolicyInsuredService pis)
@@ -44,6 +45,7 @@ namespace Authentication.WEB.Controllers
             _us = us;
             _iss = iss;
             _pis = pis;
+            _roleAuthorize = new RoleAuthorize();
         }
 
         // GET: Policy
@@ -271,7 +273,14 @@ namespace Authentication.WEB.Controllers
         public JObject GetExistentInsuredUserData(string ssn)
         {
             var Result = new JObject();
-            var InsuredUser = _iss.GetInsuredBySsn(ssn);
+            insured InsuredUser = null;
+            if (_roleAuthorize.IsUser("admin"))
+            {
+                InsuredUser = _iss.GetInsuredBySsn(ssn);
+            }else if(_roleAuthorize.IsUser("broker"))
+            {
+                InsuredUser = _iss.GetInsuredBySsnAndCreatedBy(ssn, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name));
+            }
             JObject insuredData = new JObject();
 
             if(InsuredUser != null)

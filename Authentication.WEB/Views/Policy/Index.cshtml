@@ -174,7 +174,7 @@
                     @InsuredTraveling.Resource.Policy_IamInsured
                 </p>
             }
-            @if (r.IsUser("admin"))
+            @if (r.IsUser("admin") || r.IsUser("broker"))
             {
                 @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "checkbox-policyholder", @ariahidden = "false", @id= "IsSamePolicyHolderInsuredAdmin" })
                 <p class="checkbox-label">
