@@ -266,7 +266,10 @@ namespace InsuredTraveling.Controllers
             var JSONObject = new JObject();
             var dataJSON = new JArray();
 
+            var languageId = SiteLanguages.CurrentLanguageId();
             var searchModel = data.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
+            searchModel = _policySearchService.GetCountriesName(searchModel, languageId);
+
             var array = JArray.FromObject(searchModel.ToArray());
             JSONObject.Add("data", array);
             return JSONObject;
@@ -324,7 +327,10 @@ namespace InsuredTraveling.Controllers
             var JSONObject = new JObject();
             var dataJSON = new JArray();
 
+            var languageId = SiteLanguages.CurrentLanguageId();
             var searchModel = data.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
+            searchModel = _policySearchService.GetCountriesName(searchModel, languageId);
+          
             var array = JArray.FromObject(searchModel.ToArray());
             JSONObject.Add("data", array);
             return JSONObject;
@@ -417,6 +423,7 @@ namespace InsuredTraveling.Controllers
                 var languageId = SiteLanguages.CurrentLanguageId();
                 var searchModel = policies.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
                 searchModel = _policySearchService.GetCountriesName(searchModel, languageId);
+
                 var array = JArray.FromObject(searchModel.ToArray());
                 JSONObject.Add("data", array);
                 return JSONObject;
@@ -437,6 +444,7 @@ namespace InsuredTraveling.Controllers
                 var languageId = SiteLanguages.CurrentLanguageId();
                 var searchModel = policies.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
                 searchModel = _policySearchService.GetCountriesName(searchModel, languageId);
+
                 var array = JArray.FromObject(searchModel.ToArray());
                 JSONObject.Add("data", array);
                 return JSONObject;
