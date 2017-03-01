@@ -1071,4 +1071,7 @@
   <data name="FNOL_FNOLNumber" xml:space="preserve">
     <value>Оштетно побарување бр.</value>
   </data>
+  <data name="Search_FNOLArchived" xml:space="preserve">
+    <value>Архивирани</value>
+  </data>
 </root>

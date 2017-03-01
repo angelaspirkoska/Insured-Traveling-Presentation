@@ -30,6 +30,7 @@ namespace InsuredTraveling.Controllers
         private IBankAccountService _bas;
         private IHealthInsuranceService _his;
         private ILuggageInsuranceService _lis;
+        private IFirstNoticeOfLossArchiveService _firstNoticeLossArchiveService;
         
         public FirstNoticeOfLossController(IUserService us, 
                                            IPolicyService ps, 
@@ -40,7 +41,8 @@ namespace InsuredTraveling.Controllers
                                            IPolicyTypeService pts, 
                                            IAdditionalInfoService ais, 
                                            IHealthInsuranceService his,
-                                           ILuggageInsuranceService lis)
+                                           ILuggageInsuranceService lis,
+                                           IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService)
         {
             _us = us;
             _ps = ps;
@@ -52,6 +54,7 @@ namespace InsuredTraveling.Controllers
             _fis = fis;
             _his = his;
             _lis = lis;
+            _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
         }
 
         [SessionExpire]
@@ -192,7 +195,7 @@ namespace InsuredTraveling.Controllers
             model.ClaimantBankAccountNumber = model.ClaimantBankAccountNumber.Trim();
             model.ModifiedBy = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
 
-            UpdateFirstNoticeOfLossHelper.UpdateFirstNoticeOfLoss(model, _fis, _bas, _ais,  _his,  _lis, invoices, documentsHealth, documentsLuggage);
+            UpdateFirstNoticeOfLossHelper.UpdateFirstNoticeOfLoss(model, _fis, _bas, _ais,  _his,  _lis, _firstNoticeLossArchiveService, invoices, documentsHealth, documentsLuggage);
             return RedirectToAction("View", new { id = model.Id });
         }
 
@@ -228,6 +231,41 @@ namespace InsuredTraveling.Controllers
 
             }
             return View(model);
+        }
+
+        [SessionExpire]
+        public ActionResult ViewArchived(int? id)
+        {
+            var model = new FirstNoticeOfLossReportViewModel();
+            if (id != null)
+            {
+                var data = _firstNoticeLossArchiveService.GetFNOLArchivedById(Convert.ToInt32(id));
+                model = Mapper.Map<first_notice_of_loss_archive, FirstNoticeOfLossReportViewModel>(data);
+                model.IsArchived = true;
+                model.Invoices = new List<FileDescriptionViewModel>();
+                model.InsuranceInfoDoc = new List<FileDescriptionViewModel>();
+
+                var allInvoices = _fis.GetInvoiceDocumentName(model.Id);
+                foreach (var invoice in allInvoices)
+                {
+                    var file = new FileDescriptionViewModel();
+                    file.FileName = invoice;
+                    file.FilePath = "~/DocumentsFirstNoticeOfLoss/Invoices/" + file.FileName;
+                    model.Invoices.Add(file);
+                }
+
+                var isHealthInsurance = _fis.IsHealthInsuranceByAdditionalInfoId(data.Additional_infoId);
+                var allDoc = _fis.GetHealthLuggageDocumentName(model.Id);
+                foreach (var doc in allDoc)
+                {
+                    var file = new FileDescriptionViewModel();
+                    file.FileName = doc;
+                    file.FilePath = isHealthInsurance ? "~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + file.FileName : "~/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + file.FileName;
+                    model.InsuranceInfoDoc.Add(file);
+                }
+
+            }
+            return View("View", model);
         }
 
         public FirstNoticeOfLossEditViewModel GetAllDocuments(FirstNoticeOfLossEditViewModel model)

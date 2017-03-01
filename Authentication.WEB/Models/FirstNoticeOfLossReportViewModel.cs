@@ -28,7 +28,7 @@ namespace InsuredTraveling.Models
         public int ChatId { get; set; }
         public DateTime CreatedDateTime { get; set; }
         public string CreatedBy { get; set; }
-
+        public bool IsArchived { get; set; }
 
         //PolicyHolderData
         public int PolicyHolderId { get; set; }

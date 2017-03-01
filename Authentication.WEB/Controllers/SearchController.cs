@@ -28,6 +28,7 @@ namespace InsuredTraveling.Controllers
         private IChatService _ics;
         private IPolicySearchService _policySearchService;
         private RoleAuthorize _roleAuthorize;
+        private IFirstNoticeOfLossArchiveService _firstNoticeLossArchiveService;
 
         public SearchController(IPolicyService ps, 
                                 IFirstNoticeOfLossService fnls, 
@@ -37,7 +38,8 @@ namespace InsuredTraveling.Controllers
                                 IBankAccountService bas,
                                 ICountryService countryService,
                                 IChatService ics,
-                                IPolicySearchService policySearchService)
+                                IPolicySearchService policySearchService,
+                                IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService)
         {
             _ps = ps;
             _fnls = fnls;
@@ -49,6 +51,7 @@ namespace InsuredTraveling.Controllers
             _ics = ics;
             _policySearchService = policySearchService;
             _roleAuthorize = new RoleAuthorize();
+            _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
         }
 
         [HttpGet]
@@ -180,8 +183,6 @@ namespace InsuredTraveling.Controllers
             }
             return response;
         }
-
-
 
         [HttpGet]
         [Route("GetPolicies")]
@@ -406,6 +407,18 @@ namespace InsuredTraveling.Controllers
             var dataJSON = new JArray();
 
             var searchModel = fnol.Select(Mapper.Map<first_notice_of_loss, SearchFNOLViewModel>).Distinct().ToList();
+            var array = JArray.FromObject(searchModel.ToArray());
+            JSONObject.Add("data", array);
+            return JSONObject;
+        }
+
+        public JObject GetArchivedFNOL(string fnolID)
+        {
+            int id = !String.IsNullOrEmpty(fnolID) ? Convert.ToInt32(fnolID) : 0;
+            var fnolArchive = _firstNoticeLossArchiveService.GetFNOLArchiveByFNOLId(id);
+            var JSONObject = new JObject();
+
+            var searchModel = fnolArchive.Select(Mapper.Map<first_notice_of_loss_archive, SearchFNOLViewModel>).ToList();
             var array = JArray.FromObject(searchModel.ToArray());
             JSONObject.Add("data", array);
             return JSONObject;

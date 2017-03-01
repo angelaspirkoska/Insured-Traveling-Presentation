@@ -2302,6 +2302,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Archived.
+        /// </summary>
+        public static string Search_FNOLArchived {
+            get {
+                return ResourceManager.GetString("Search_FNOLArchived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Noticed.
         /// </summary>
         public static string Search_FNOLChat {

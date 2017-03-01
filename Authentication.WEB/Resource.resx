@@ -1077,4 +1077,7 @@
   <data name="FNOL_FNOLNumber" xml:space="preserve">
     <value>FNOL Number</value>
   </data>
+  <data name="Search_FNOLArchived" xml:space="preserve">
+    <value>Archived</value>
+  </data>
 </root>

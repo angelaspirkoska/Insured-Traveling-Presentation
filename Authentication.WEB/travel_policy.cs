@@ -20,6 +20,7 @@ namespace InsuredTraveling
             this.first_notice_of_loss = new HashSet<first_notice_of_loss>();
             this.policy_additional_charge = new HashSet<policy_additional_charge>();
             this.policy_insured = new HashSet<policy_insured>();
+            this.first_notice_of_loss_archive = new HashSet<first_notice_of_loss_archive>();
         }
     
         public int ID { get; set; }
@@ -60,5 +61,7 @@ namespace InsuredTraveling
         public virtual retaining_risk retaining_risk { get; set; }
         public virtual travel_insurance_type travel_insurance_type { get; set; }
         public virtual travel_number travel_number { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
     }
 }

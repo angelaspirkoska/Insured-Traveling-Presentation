@@ -27,13 +27,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <div class="col-lg-7">
-                        <button type="button" style="float:right;" class="btn btn-success btn-material-design"   onclick="@("window.location.href='" + @Url.Action("Edit", "FirstNoticeOfLoss", new { id = Model.Id}) + "'");"> <i class="glyphicon glyphicon-edit"></i></button>
+            @if (!Model.IsArchived)
+            {
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <button type="button" style="float:right;" class="btn btn-success btn-material-design" onclick="@("window.location.href='" + @Url.Action("Edit", "FirstNoticeOfLoss", new { id = Model.Id}) + "'");"> <i class="glyphicon glyphicon-edit"></i></button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }           
         </div>
         <div class="row container">
             <header class="well">@InsuredTraveling.Resource.FNOL_PolicyHolderInfo</header>

@@ -307,12 +307,7 @@ namespace InsuredTraveling.DI
             _db.SaveChanges();
         }
 
-        public int Archive(first_notice_of_loss_archive archiveFnol)
-        {
-            _db.first_notice_of_loss_archive.Add(archiveFnol);
-            _db.SaveChanges();
-            return archiveFnol.ID;
-        }
+
 
         public string CreateFNOLNumber()
         {

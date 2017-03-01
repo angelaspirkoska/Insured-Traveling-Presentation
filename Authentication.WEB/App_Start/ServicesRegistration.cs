@@ -27,6 +27,7 @@ namespace InsuredTraveling
             builder.RegisterType<PolicySearchService>().As<IPolicySearchService>().InstancePerRequest();
             builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
             builder.RegisterType<FirstNoticeOfLossService>().As<IFirstNoticeOfLossService>().InstancePerRequest();
+            builder.RegisterType<FirstNoticeOfLossArchiveService>().As<IFirstNoticeOfLossArchiveService>().InstancePerRequest();
             builder.RegisterType<PolicyTypeService>().As<IPolicyTypeService>().InstancePerRequest();
             builder.RegisterType<LuggageInsuranceService>().As<ILuggageInsuranceService>().InstancePerRequest();
             builder.RegisterType<TransactionsService>().As<ITransactionsService>().InstancePerRequest();

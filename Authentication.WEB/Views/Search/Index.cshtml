@@ -560,6 +560,28 @@
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTableHealthInsurance</th>
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTableLuggageInsurance</th>
                     <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableArchivedFNOL">
+            <thead>
+                <tr>
+                    <th>@InsuredTraveling.Resource.Search_SearchTableFNOLNumber</th>
+                    <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableClaimantNameLastName</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredHolderRelationship</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableTotalCost</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableRegistrationDate</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableHealthInsurance</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableLuggageInsurance</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -654,7 +676,8 @@
         $("#tableQuotes").DataTable();
         $("#tableFNOL").DataTable().destroy();
         $("#tableFNOL").DataTable();
-        $("#tableFNOLPolicies").css("display", "none");
+        $("#tableFNOLPolicies").css("display", "none"); 
+        $("#tableArchivedFNOL").css("display", "none");
         $("#tablePoliciesClients").css("display", "none");
         $("#tablePoliciesHolders").css("display", "none");
 
@@ -788,38 +811,29 @@
         $("#clients").removeAttr("class");
         $("#searchChat").removeAttr("class");
         $("#quotes").attr("class", "active");
-
-
     };
 
     function ShowChats() {
-
         $("#searchClients").hide();
         $("#searchPolycies").hide();
         $("#searchFNOL").hide();
         $("#searchChats").show();
         $("#searchQuotes").hide();
-
         $("#polycies").removeAttr("class");
         $("#clients").removeAttr("class");
         $("#first_notice_of_loss").removeAttr("class");
         $("#quotes").removeAttr("class");
-
         $("#tablePoliciesClients").css("display", "none");
         $("#tablePoliciesHolders").css("display", "none");
         $("#tableFNOLPolicies").css("display", "none");
-
+        $("#tableArchivedFNOL").css("display", "none");
         $("#searchChat").attr("class", "active");
-
-
     };
-    function SearchChat() {
 
+    function SearchChat() {
         $('html,body').animate({
             scrollTop: $("#tableChats").offset().top
-        }, 800);
-
-        console.log("username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&active=" + $("#active").is(':checked') + "&discarded=" + $("#discarded").is(':checked') + "&noticed" + $("#noticed").is(':checked'));
+        }, 800);     
         $("#tableChats").DataTable().destroy();
         $("#tableChats").DataTable({
             dom: "Bfrtip",
@@ -1021,6 +1035,8 @@
 
     function SearchFNOL() {
         $("#tableFNOL").DataTable().destroy();
+        $("#tableArchivedFNOL").DataTable().destroy();
+        $("#tableArchivedFNOL").css("display", "none");
         $("#tableFNOL").DataTable({
             dom: "Bfrtip",
             ajax: "/Search/GetFNOL?PolicyNumber=" + $("#PolicyNumberFNL").val() + "&FNOLNumber=" + $("#FNOLNumber").val() + "&holderName=" + $("#holderName").val() + "&holderLastName=" + $("#holderLastName").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked') + "&DateAdded=" + $("#DateAdded").val() + "&operatorDateAdded=" + $("#operatorDateAdded").val() + "&operatorTotalCost=" + $("#totalCostOperator").val(),
@@ -1052,13 +1068,76 @@
                             }
                         }
                     },
+                    {
+                        data: "ID",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                return $('<a>')
+                                    .attr('href', 'javascript:;')
+                                    .attr('class', 'archived')
+                                    .attr('id', data)
+                                    .text("@InsuredTraveling.Resource.Search_FNOLArchived")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    },
             ],
             select: true
+        });
+
+        $('#tableFNOL tbody').on('click', 'td .archived', function () {
+            var $row = $(this).closest('td');
+            var fnolID = $row.children().attr('id');
+            CreateFNOLArchivedTableByFNOLID(fnolID);
+
         });
 
         $('html,body').animate({
             scrollTop: $("#tableFNOL").offset().top
         }, 800);
+    };
+
+    function CreateFNOLArchivedTableByFNOLID(fnolID) {
+        $("#tableArchivedFNOL").DataTable().destroy();
+        $("#tableArchivedFNOL").DataTable({
+            dom: "Bfrtip",
+            ajax: "/Search/GetArchivedFNOL?fnolID=" + fnolID,
+            columns: [
+                    { data: "FNOLNumber" },
+                    { data: "PolicyNumber" },
+                    { data: "InsuredName" },
+                    { data: "ClaimantPersonName" },
+                    { data: "Claimant_insured_relation" },
+                    { data: "AllCosts" },
+                    { data: "Date" },
+                    { data: "HealthInsurance" },
+                    { data: "LuggageInsurance" },
+                    {
+                        data: "ID",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                var value = data;
+                                return $('<a>')
+                                    .attr('href', '/FirstNoticeOfLoss/ViewArchived?id=' + data)
+                                    .attr('target', '_blank')
+                                    .attr('class', 'lossDetails')
+                                    .text("@InsuredTraveling.Resource.Search_DetailsLink")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    },
+            ],
+            select: true
+        });
+        $("#tableArchivedFNOL").css("display", "table");
     };
 
     function SearchClients() {

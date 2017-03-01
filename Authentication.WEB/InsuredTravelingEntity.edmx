@@ -341,6 +341,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="health_previous_medical_history" Type="bool" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="Modified_Datetime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="FNOL_Number" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="groups">
           <Key>
@@ -889,6 +890,66 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_3">
+          <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="1" />
+          <End Role="first_notice_of_loss_archive" Type="Self.first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="travel_policy">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="PolicyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_4">
+          <End Role="additional_info" Type="Self.additional_info" Multiplicity="1" />
+          <End Role="first_notice_of_loss_archive" Type="Self.first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="additional_info">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="Additional_infoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_5">
+          <End Role="insured" Type="Self.insured" Multiplicity="1" />
+          <End Role="first_notice_of_loss_archive" Type="Self.first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insured">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="ClaimantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_6">
+          <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="1" />
+          <End Role="first_notice_of_loss_archive" Type="Self.first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bank_account_info">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="Policy_Holder_BankAccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_7">
+          <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="1" />
+          <End Role="first_notice_of_loss_archive" Type="Self.first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bank_account_info">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="Claimant_BankAccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="first_notice_of_loss_ibfk_1">
           <End Role="additional_info" Type="Self.additional_info" Multiplicity="1" />
           <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="*" />
@@ -1024,7 +1085,9 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_aspnetuser_id">
-          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1" />
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="aspnetuserroles" Type="Self.aspnetuserroles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="aspnetusers">
@@ -1654,6 +1717,26 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
           </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_3" Association="Self.first_notice_of_loss_archive_ibfk_3">
+            <End Role="travel_policy" EntitySet="travel_policy" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_4" Association="Self.first_notice_of_loss_archive_ibfk_4">
+            <End Role="additional_info" EntitySet="additional_info" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_5" Association="Self.first_notice_of_loss_archive_ibfk_5">
+            <End Role="insured" EntitySet="insured" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_6" Association="Self.first_notice_of_loss_archive_ibfk_6">
+            <End Role="bank_account_info" EntitySet="bank_account_info" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_7" Association="Self.first_notice_of_loss_archive_ibfk_7">
+            <End Role="bank_account_info" EntitySet="bank_account_info" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
           <AssociationSet Name="first_notice_of_loss_ibfk_1" Association="Self.first_notice_of_loss_ibfk_1">
             <End Role="additional_info" EntitySet="additional_info" />
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
@@ -1889,6 +1972,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="first_notice_of_loss" Relationship="Self.first_notice_of_loss_ibfk_1" FromRole="additional_info" ToRole="first_notice_of_loss" />
           <NavigationProperty Name="health_insurance_info" Relationship="Self.health_insurance_info_ibfk_1" FromRole="additional_info" ToRole="health_insurance_info" />
           <NavigationProperty Name="luggage_insurance_info" Relationship="Self.luggage_insurance_info_ibfk_1" FromRole="additional_info" ToRole="luggage_insurance_info" />
+          <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Entities.first_notice_of_loss_archive_ibfk_4" FromRole="additional_info" ToRole="first_notice_of_loss_archive" />
         </EntityType>
         <EntityType Name="aspnetrole">
           <Key>
@@ -1974,6 +2058,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="bank" Relationship="Self.bank_account_info_ibfk_2" FromRole="bank_account_info" ToRole="banks" />
           <NavigationProperty Name="first_notice_of_loss" Relationship="Self.first_notice_of_loss_ibfk_3" FromRole="bank_account_info" ToRole="first_notice_of_loss" />
           <NavigationProperty Name="first_notice_of_loss1" Relationship="Self.first_notice_of_loss_ibfk_4" FromRole="bank_account_info" ToRole="first_notice_of_loss" />
+          <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Entities.first_notice_of_loss_archive_ibfk_6" FromRole="bank_account_info" ToRole="first_notice_of_loss_archive" />
+          <NavigationProperty Name="first_notice_of_loss_archive1" Relationship="Entities.first_notice_of_loss_archive_ibfk_7" FromRole="bank_account_info" ToRole="first_notice_of_loss_archive" />
         </EntityType>
         <EntityType Name="bank_prefix">
           <Key>
@@ -2238,6 +2324,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="type_insured" Relationship="Self.fk_insured_type" FromRole="insured" ToRole="type_insured" />
           <NavigationProperty Name="policy_insured" Relationship="Self.policy_insured_ibfk_1" FromRole="insured" ToRole="policy_insured" />
           <NavigationProperty Name="travel_policy" Relationship="Self.travel_policy_ibfk_1" FromRole="insured" ToRole="travel_policy" />
+          <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Entities.first_notice_of_loss_archive_ibfk_5" FromRole="insured" ToRole="first_notice_of_loss_archive" />
         </EntityType>
         <EntityType Name="invoice">
           <Key>
@@ -2477,6 +2564,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="travel_insurance_type" Relationship="Self.fk_policy_insurance_type" FromRole="travel_policy" ToRole="travel_insurance_type" />
           <NavigationProperty Name="travel_number" Relationship="Self.fk_policy_travel_number" FromRole="travel_policy" ToRole="travel_number" />
           <Property Name="Payment_Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Entities.first_notice_of_loss_archive_ibfk_3" FromRole="travel_policy" ToRole="first_notice_of_loss_archive" />
         </EntityType>
         <EntityType Name="type_insured">
           <Key>
@@ -3525,6 +3613,26 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="aspnetuser" EntitySet="aspnetusers" />
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
           </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_4" Association="Entities.first_notice_of_loss_archive_ibfk_4">
+            <End Role="additional_info" EntitySet="additional_info" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_3" Association="Entities.first_notice_of_loss_archive_ibfk_3">
+            <End Role="travel_policy" EntitySet="travel_policy" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_5" Association="Entities.first_notice_of_loss_archive_ibfk_5">
+            <End Role="insured" EntitySet="insureds" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_6" Association="Entities.first_notice_of_loss_archive_ibfk_6">
+            <End Role="bank_account_info" EntitySet="bank_account_info" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_7" Association="Entities.first_notice_of_loss_archive_ibfk_7">
+            <End Role="bank_account_info" EntitySet="bank_account_info" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -3745,6 +3853,12 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="aspnetuser" Relationship="Entities.first_notice_of_loss_archive_ibfk_2" FromRole="first_notice_of_loss_archive" ToRole="aspnetuser" />
           <Property Name="Claimant_Ssn" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="luggage_checking_time" Type="Time" />
+          <Property Name="FNOL_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="additional_info" Relationship="Entities.first_notice_of_loss_archive_ibfk_4" FromRole="first_notice_of_loss_archive" ToRole="additional_info" />
+          <NavigationProperty Name="travel_policy" Relationship="Entities.first_notice_of_loss_archive_ibfk_3" FromRole="first_notice_of_loss_archive" ToRole="travel_policy" />
+          <NavigationProperty Name="insured" Relationship="Entities.first_notice_of_loss_archive_ibfk_5" FromRole="first_notice_of_loss_archive" ToRole="insured" />
+          <NavigationProperty Name="Policy_holder_bank_account_info" Relationship="Entities.first_notice_of_loss_archive_ibfk_6" FromRole="first_notice_of_loss_archive" ToRole="bank_account_info" />
+          <NavigationProperty Name="Claimant_bank_account_info" Relationship="Entities.first_notice_of_loss_archive_ibfk_7" FromRole="first_notice_of_loss_archive" ToRole="bank_account_info" />
         </EntityType>
         <Association Name="first_notice_of_loss_archive_ibfk_1">
           <End Type="Entities.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="1" />
@@ -3779,6 +3893,66 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="first_notice_of_loss">
               <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_4">
+          <End Type="Entities.additional_info" Role="additional_info" Multiplicity="1" />
+          <End Type="Entities.first_notice_of_loss_archive" Role="first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="additional_info">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="Additional_infoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_3">
+          <End Type="Entities.travel_policy" Role="travel_policy" Multiplicity="1" />
+          <End Type="Entities.first_notice_of_loss_archive" Role="first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="travel_policy">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="PolicyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_5">
+          <End Type="Entities.insured" Role="insured" Multiplicity="1" />
+          <End Type="Entities.first_notice_of_loss_archive" Role="first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insured">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="ClaimantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_6">
+          <End Type="Entities.bank_account_info" Role="bank_account_info" Multiplicity="1" />
+          <End Type="Entities.first_notice_of_loss_archive" Role="first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bank_account_info">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="Policy_Holder_BankAccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_7">
+          <End Type="Entities.bank_account_info" Role="bank_account_info" Multiplicity="1" />
+          <End Type="Entities.first_notice_of_loss_archive" Role="first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bank_account_info">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="Claimant_BankAccountId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4480,6 +4654,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="first_notice_of_loss_archive">
             <EntityTypeMapping TypeName="Entities.first_notice_of_loss_archive">
               <MappingFragment StoreEntitySet="first_notice_of_loss_archive">
+                <ScalarProperty Name="FNOL_Number" ColumnName="FNOL_Number" />
                 <ScalarProperty Name="luggage_checking_time" ColumnName="luggage_checking_time" />
                 <ScalarProperty Name="Claimant_Ssn" ColumnName="Claimant_Ssn" />
                 <ScalarProperty Name="Modified_Datetime" ColumnName="Modified_Datetime" />

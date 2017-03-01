@@ -240,6 +240,67 @@ namespace InsuredTraveling.App_Start
 
             });
 
+            Mapper.CreateMap<first_notice_of_loss_archive, FirstNoticeOfLossReportViewModel>().AfterMap((src, dst) =>
+            {
+                var policy = src.travel_policy;
+                var user = policy != null ? policy.insured : null;
+                var policy_holder_bank_account = src.Policy_holder_bank_account_info;
+                var policy_holder_bank = src.Policy_holder_bank_account_info.bank;
+                var claimant = src.insured;
+                var claimant_bank_account = src.Claimant_bank_account_info;
+                var claimant_bank = src.Claimant_bank_account_info.bank;
+                var additional_info = src.additional_info;
+                var healthAdditionalInfo = src.additional_info.health_insurance_info;
+                var luggageInsuranceInfo = src.additional_info.luggage_insurance_info;
+                dst.PolicyId = src.PolicyId;
+                dst.FNOLNumber = src.FNOL_Number;
+                dst.PolicyNumber = policy != null ? Convert.ToInt32(policy.Policy_Number) : 0;
+                dst.PolicyHolderId = src.travel_policy.insured.ID;
+                dst.PolicyHolderName = user != null ? user.Name + " " + user.Lastname : null;
+                dst.PolicyHolderAdress = user != null ? user.Address : null;
+                dst.PolicyHolderPhoneNumber = user != null ? user.Phone_Number : null;
+                dst.PolicyHolderSsn = user != null ? user.SSN : null;
+                dst.PolicyHolderBankAccountNumber = user != null ? policy_holder_bank_account.Account_Number : null;
+                dst.PolicyHolderBankName = policy_holder_bank != null ? policy_holder_bank.Name : null;
+                dst.ClaimantId = src.ClaimantId;
+                dst.ClaimantName = claimant != null ? claimant.Name + " " + claimant.Lastname : null;
+                dst.ClaimantAdress = claimant != null ? claimant.Address : null;
+                dst.ClaimantPhoneNumber = claimant != null ? claimant.Phone_Number : null;
+                dst.ClaimantSsn = claimant != null ? claimant.SSN : null;
+                dst.RelationClaimantPolicyHolder = src.Relation;
+                dst.ClaimantBankAccountNumber = user != null ? claimant_bank_account.Account_Number : null;
+                dst.ClaimantBankName = policy_holder_bank != null ? claimant_bank.Name : null;
+                dst.Destination = src.Destination;
+                dst.DepartDateTime = src.Depart_Date_Time;
+                dst.DepartTime = src.Depart_Date_Time.TimeOfDay;
+                dst.TransportMeans = src.Transport_means;
+                dst.ArrivalDateTime = src.Arrival_Date_Time;
+                dst.ArriveTime = src.Arrival_Date_Time.TimeOfDay;
+                dst.IsHealthInsurance = healthAdditionalInfo != null ? true : false;
+                dst.AccidentDateTimeHealth = additional_info != null ? (DateTime?)additional_info.Datetime_accident : null;
+                dst.AccidentTimeHealth = additional_info != null ? (TimeSpan?)additional_info.Datetime_accident.TimeOfDay : null;
+                dst.AccidentPlaceHealth = additional_info != null ? additional_info.Accident_place : null;
+                dst.DoctorVisitDateTime = healthAdditionalInfo != null ? healthAdditionalInfo.Datetime_doctor_visit : null;
+                dst.DoctorInfo = healthAdditionalInfo != null ? healthAdditionalInfo.Doctor_info : null;
+                dst.MedicalCaseDescription = healthAdditionalInfo != null ? healthAdditionalInfo.Medical_case_description : null;
+                var periousMedicalHistory = healthAdditionalInfo != null ? healthAdditionalInfo.Previous_medical_history : null;
+                dst.PreviousMedicalHistory = periousMedicalHistory != null ? Convert.ToBoolean(periousMedicalHistory) : false;
+                dst.ResponsibleInstitution = healthAdditionalInfo != null ? healthAdditionalInfo.Responsible_institution : null;
+                dst.AccidentDateTimeLuggage = additional_info != null ? (DateTime?)additional_info.Datetime_accident : null;
+                dst.AccidentPlaceLuggage = additional_info != null ? additional_info.Accident_place : null;
+                dst.PlaceDescription = luggageInsuranceInfo != null ? luggageInsuranceInfo.Place_description : null;
+                dst.DetailDescription = luggageInsuranceInfo != null ? luggageInsuranceInfo.Detail_description : null;
+                dst.ReportPlace = luggageInsuranceInfo != null ? luggageInsuranceInfo.Report_place : null;
+                dst.Floaters = luggageInsuranceInfo != null ? luggageInsuranceInfo.Floaters : null;
+                dst.FloatersValue = luggageInsuranceInfo != null ? luggageInsuranceInfo.Floaters_value.ToString() : null;
+                dst.AccidentTimeLuggage = additional_info != null ? (TimeSpan?)additional_info.Datetime_accident.TimeOfDay : null;
+                dst.LugaggeCheckingTime = luggageInsuranceInfo != null ? (TimeSpan?)luggageInsuranceInfo.Luggage_checking_Time : null;
+                dst.CreatedBy = src.CreatedBy;
+                dst.CreatedDateTime = DateTime.Now;
+                dst.TotalCost = src.Total_cost;
+
+            });
+
             Mapper.CreateMap<InsuredTravelingEntity, PolicyInfoList>().AfterMap((src, dst) =>
             {
                 dst.countries =(IQueryable <country>) src.countries;
@@ -274,6 +335,25 @@ namespace InsuredTraveling.App_Start
                 dst.InsuredName = user != null ? user.Name + " " + user.Lastname : null;
                 dst.ClaimantPersonName = src.insured != null ? src.insured.Name + " " + src.insured.Lastname : null;
                 dst.Claimant_insured_relation = src.Relation_claimant_policy_holder;
+                dst.AllCosts = src.Total_cost.ToString();
+                dst.Date = src.additional_info != null ? src.additional_info.Datetime_accident.Date.ToShortDateString().ToString() : null;
+                dst.HealthInsurance = healthInsurance != null ? InsuredTraveling.Resource.Yes : InsuredTraveling.Resource.No;
+                dst.LuggageInsurance = luggageInsurance != null ? InsuredTraveling.Resource.Yes : InsuredTraveling.Resource.No;
+            });
+
+            Mapper.CreateMap<first_notice_of_loss_archive, SearchFNOLViewModel>().AfterMap((src, dst) =>
+            {
+                dst.ID = src.ID;
+                var policyId = src.PolicyId;
+                var policy = src.travel_policy;
+                var healthInsurance = src.additional_info.health_insurance_info;
+                var luggageInsurance = src.additional_info.luggage_insurance_info;
+                var user = policy != null ? policy.insured : null;
+                dst.PolicyNumber = policy != null ? policy.Policy_Number : null;
+                dst.FNOLNumber = src.FNOL_Number;
+                dst.InsuredName = user != null ? user.Name + " " + user.Lastname : null;
+                dst.ClaimantPersonName = src.insured != null ? src.insured.Name + " " + src.insured.Lastname : null;
+                dst.Claimant_insured_relation = src.Relation;
                 dst.AllCosts = src.Total_cost.ToString();
                 dst.Date = src.additional_info != null ? src.additional_info.Datetime_accident.Date.ToShortDateString().ToString() : null;
                 dst.HealthInsurance = healthInsurance != null ? InsuredTraveling.Resource.Yes : InsuredTraveling.Resource.No;
