@@ -364,9 +364,13 @@ namespace InsuredTraveling.Controllers
             {
                 fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
             }
-            else if (_roleAuthorize.IsUser("end user") || _roleAuthorize.IsUser("broker"))
+            else if (_roleAuthorize.IsUser("end user"))
             {
                 fnol = _fnls.GetFNOLBySearchValues(System.Web.HttpContext.Current.User.Identity.Name,PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
+            }
+            else if (_roleAuthorize.IsUser("broker"))
+            {
+                fnol = _fnls.GetFNOLForBrokerBySearchValues(System.Web.HttpContext.Current.User.Identity.Name, PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
             }
 
             if (!String.IsNullOrEmpty(DateAdded))

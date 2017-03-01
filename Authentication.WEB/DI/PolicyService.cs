@@ -140,14 +140,23 @@ namespace InsuredTraveling.DI
 
         public List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber)
         {
-            string ssn = " ";
-            var user = _db.aspnetusers.Where(x => x.Id == UserId).FirstOrDefault();   
-            if(user != null)
+            if(UserId != "")
             {
+                string ssn = " ";
+                insured insured;
+                var user = _db.aspnetusers.Where(x => x.Id == UserId).FirstOrDefault();
+
+                if (user == null)
+                    return null;
                 ssn = user.EMBG;
-            }     
-            return _db.travel_policy.Where(x => (x.Created_By == UserId || x.insured.SSN == ssn) && (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) &&(TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
-                                    (Country == null || x.CountryID == Country.Value) && x.Payment_Status == true).ToList();
+                insured = _db.insureds.Where(x => x.SSN == ssn).FirstOrDefault();
+                if (insured == null)
+                    return null;
+                return _db.travel_policy.Where(x => (x.Created_By == UserId || x.insured.SSN == ssn || x.policy_insured.Where(k => k.InsuredID == insured.ID).FirstOrDefault() != null) && (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
+                                        (Country == null || x.CountryID == Country.Value) && x.Payment_Status == true).ToList();
+            }
+            return _db.travel_policy.Where(x => (x.Created_By == UserId) && (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
+                                       (Country == null || x.CountryID == Country.Value) && x.Payment_Status == true).ToList();
         }
         public List<travel_policy> GetQuotesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber)
         {
