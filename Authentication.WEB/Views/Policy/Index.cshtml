@@ -455,6 +455,17 @@
         $("#Valid_Days").val(10);
         $("input:checkbox[id='IsExistentPolicyHolder']").attr('checked', true);
         $(".hideWhenSelect").hide();
+        $("#PolicyHolderSSN").removeClass("mandatoryField");
+        $("#PolicyHolderName").removeClass("mandatoryField");
+        $("#PolicyHolderLastName").removeClass("mandatoryField");
+        $("#PolicyHolderAddress").removeClass("mandatoryField");
+        $("#PolicyHolderSSN").removeClass("mandatoryField");
+        $("#PolicyHolderPostalCode").removeClass("mandatoryField");
+        $("#PolicyHolderBirthDate").removeClass("mandatoryField");
+        $("#PolicyHolderPassportNumber_ID").removeClass("mandatoryField");
+        $("#PolicyHolderEmail").removeClass("mandatoryField");
+        $("#PolicyHolderPhoneNumber").removeClass("mandatoryField"); PolicyHolderCity
+        $("#PolicyHolderCity").removeClass("mandatoryField");
 
         $('#Valid_Days').on('focusout', function () {
             //if ($(this).val() > 10) {
