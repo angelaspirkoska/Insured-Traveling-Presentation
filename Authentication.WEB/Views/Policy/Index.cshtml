@@ -761,7 +761,7 @@
             $(".hideWhenSelect").show();
         }
     });
-    $("#UseExistingDataForUser").on('click', function() {
+    $("#UseExistingDataForUser").on('click', function () {
         console.log("Here");
         $("input:checkbox[id='IsExistentPolicyHolder']").prop('checked', true);
         $(".hideWhenSelect").hide();
@@ -771,56 +771,36 @@
         if ($("#IsExistentPolicyHolder").is(':checked')) {
             $.ajax({
                 type: "GET",
-                url: "/Search/IsBroker",
+                url: "/Policy/GetExistentInsuredUserData?ssn=" + $("#PolicyHolderSSN").val(),
                 success: function (result) {
-                    var result = JSON.parse(result);
-                    isBroker = result.isBroker;
-                    if (isBroker) {
-                        $.ajax({
-                            type: "GET",
-                            url: "/Policy/GetExistentInsuredUserData?ssn=" + $("#PolicyHolderSSN").val(),
-                            success: function (result) {
-                                var rez = JSON.parse(result);
-                                if (rez.response == "User with that SSN not found") {
-                                    $("#ErrorPolicyHolderSSN").text("@InsuredTraveling.Resource.SSNNotFoundMsg");
-                                    $("input:checkbox[id='IsExistentPolicyHolder']").attr('checked', false);
-                                    $(".hideWhenSelect").show();
-                                } else {
-                                    $("#ErrorPolicyHolderSSN").text("");
-                                }
-                            },
-                            error: function () {
-
-                            }
-                        });
+                    var rez = JSON.parse(result);
+                    if (rez.response == "User with that SSN not found") {
+                        $("#ErrorPolicyHolderSSN").text("@InsuredTraveling.Resource.SSNNotFoundMsg");
+                        $("input:checkbox[id='IsExistentPolicyHolder']").attr('checked', false);
+                        $(".hideWhenSelect").show();
+                    } else {
+                        $("#ErrorPolicyHolderSSN").text("");
                     }
+                },
+                error: function () {
+
                 }
             });
         } else {
             $.ajax({
                 type: "GET",
-                url: "/Search/IsBroker",
+                url: "/Policy/GetExistentInsuredUserData?ssn=" + $("#PolicyHolderSSN").val(),
                 success: function (result) {
-                    var result = JSON.parse(result);
-                    isBroker = result.isBroker;
-                    if (isBroker) {
-                        $.ajax({
-                            type: "GET",
-                            url: "/Policy/GetExistentInsuredUserData?ssn=" + $("#PolicyHolderSSN").val(),
-                            success: function (result) {
-                                var rez = JSON.parse(result);
-                                if (rez.response == "User with that SSN not found") {
-                                    $("#ErrorPolicyHolderSSN").text("");
-                                } else {
-                                    $("#modal").modal("show");                                    
-                                    $("#ErrorPolicyHolderSSN").text("");
-                                }
-                            },
-                            error: function () {
-
-                            }
-                        });
+                    var rez = JSON.parse(result);
+                    if (rez.response == "User with that SSN not found") {
+                        $("#ErrorPolicyHolderSSN").text("");
+                    } else {
+                        $("#modal").modal("show");
+                        $("#ErrorPolicyHolderSSN").text("");
                     }
+                },
+                error: function () {
+
                 }
             });
         }
