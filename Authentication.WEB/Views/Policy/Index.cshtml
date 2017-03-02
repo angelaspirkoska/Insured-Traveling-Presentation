@@ -457,11 +457,13 @@
         $(".hideWhenSelect").hide();
 
         $('#Valid_Days').on('focusout', function () {
-            if ($(this).val() > 10) {
-                if ($(this).val() > ($('#Valid_Days').attr('max'))) {
-                    $(this).val(($('#Valid_Days').attr('max')));
-                }
-            }
+            //if ($(this).val() > 10) {
+            //    if ($(this).val() > ($('#Valid_Days').attr('max'))) {
+            //        $(this).val(($('#Valid_Days').attr('max')));
+            //    }
+            //}
+            //if ($(this).val() < ($('#Valid_Days').attr('max')))
+            $(this).val(($('#Valid_Days').attr('max')));
         });
 
         $('#AddOffer').on('click', function () {
@@ -704,7 +706,7 @@
             var endDate = new Date($("#End_Date").val()).getTime();
             if (startDate != null && endDate != null) {
                 c = 24 * 60 * 60 * 1000;
-                var validDays = Math.floor((endDate - startDate) / c) + 1;
+                var validDays = Math.round(((endDate - startDate) / c) + 1);
                 $("#Valid_Days").attr({
                     "max": validDays
                 });
@@ -722,7 +724,7 @@
             var endDate = new Date($("#End_Date").val()).getTime();
             if (startDate != null && endDate != null) {
                 c = 24 * 60 * 60 * 1000;
-                var validDays = Math.floor((endDate - startDate) / c) + 1;
+                var validDays = Math.round(((endDate - startDate) / c) + 1);
                 $("#Valid_Days").attr({
                     "max": validDays
                 });
