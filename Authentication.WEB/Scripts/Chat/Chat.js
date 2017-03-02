@@ -263,7 +263,8 @@ function fillMessages(LastMessagesDTOs) {
     for (i = 0; i < LastMessagesDTOs.length; i++) {
         var from = LastMessagesDTOs[i].From;
         var text = LastMessagesDTOs[i].Message;
-        var isAdmin = LastMessagesDTOs[i].Admin;
+        var 
+ = LastMessagesDTOs[i].Admin;
         var timestamp = LastMessagesDTOs[i].Timestamp;
         var ChatWith = LastMessagesDTOs[i].ChatWith;
         var MessageId = LastMessagesDTOs[i].MessageId;

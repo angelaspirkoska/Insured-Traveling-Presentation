@@ -2770,6 +2770,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User with that SSN not found in your portfolio. Please add data for the policy holder..
+        /// </summary>
+        public static string SSNNotFoundMsg {
+            get {
+                return ResourceManager.GetString("SSNNotFoundMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address.
         /// </summary>
         public static string User_Address {

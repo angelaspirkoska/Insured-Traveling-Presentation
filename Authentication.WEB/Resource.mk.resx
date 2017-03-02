@@ -1074,4 +1074,7 @@
   <data name="Search_FNOLArchived" xml:space="preserve">
     <value>Архивирани</value>
   </data>
+  <data name="SSNNotFoundMsg" xml:space="preserve">
+    <value>Не е пронајден корисник со таков матичен број во вашето портфолио. Ве молиме внесете податоци за договорувачот.</value>
+  </data>
 </root>

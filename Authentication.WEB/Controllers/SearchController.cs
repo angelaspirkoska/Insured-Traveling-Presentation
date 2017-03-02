@@ -185,6 +185,23 @@ namespace InsuredTraveling.Controllers
         }
 
         [HttpGet]
+        [Route("IsBroker")]
+        public JObject isBroker()
+        {
+            RoleAuthorize r = new RoleAuthorize();
+            JObject response = new JObject();
+            if (r.IsUser("broker"))
+            {
+                response.Add("isBroker", true);
+            }
+            else
+            {
+                response.Add("isBroker", false);
+            }
+            return response;
+        }
+
+        [HttpGet]
         [Route("GetPolicies")]
         public JObject GetPolicies(string name, 
                                    string embg, 

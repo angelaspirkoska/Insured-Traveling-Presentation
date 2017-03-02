@@ -1080,4 +1080,7 @@
   <data name="Search_FNOLArchived" xml:space="preserve">
     <value>Archived</value>
   </data>
+  <data name="SSNNotFoundMsg" xml:space="preserve">
+    <value>User with that SSN not found in your portfolio. Please add data for the policy holder.</value>
+  </data>
 </root>

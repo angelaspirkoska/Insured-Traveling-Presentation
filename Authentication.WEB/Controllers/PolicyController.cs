@@ -277,6 +277,7 @@ namespace Authentication.WEB.Controllers
             if (_roleAuthorize.IsUser("admin"))
             {
                 InsuredUser = _iss.GetInsuredBySsn(ssn);
+
             }else if(_roleAuthorize.IsUser("broker"))
             {
                 InsuredUser = _iss.GetInsuredBySsnAndCreatedBy(ssn, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name));
