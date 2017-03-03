@@ -17,7 +17,7 @@ namespace InsuredTraveling.Controllers
             }
             else
             {
-                ViewBag.Message = "The verification of your account failed, are you sure you are the one that created the account on the OptimalInsured.com";
+                ViewBag.Message = "The verification of your account failed, are you sure you are the one that created the account on the InsuredTraveling.com ?";
             }
             return View();
         }
