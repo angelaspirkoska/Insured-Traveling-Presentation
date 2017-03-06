@@ -506,6 +506,26 @@
     </div>
 </form>
 
+<div class="modal fade" id="modal" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Not valid Macedonian bank account</h4>
+            </div>
+            <div class="modal-body">
+                <p>The bank account you have entered is not a valid Macedonian bank account. Do you want to correct it or switch to Foreign bank account</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="CorrectEntry">Correct entry</button><button type="button" class="btn btn-danger" data-dismiss="modal" id="SelectForeignBankAccount">Select Foreign bank account</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 @if (ViewBag.insurance == "Health Insurance")
 {
     <script type="text/javascript">
@@ -538,22 +558,10 @@ else if (ViewBag.insurance == "Luggage Insurance")
         $('#DropDownBankAccountPolicyHolder').hide();
         $('#DropDownBankAccountInsured').hide();
 
-        @*$('#TransactionAccount').on('change', function () {
-            var p = ($(this).val()).substring(0, 3);
-            console.log(p);
-            $.ajax({
-                type: 'GET',
-                url: '@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/FirstNoticeOfLoss/GetBankName?prefix=' + p,
-                data: $('#policy_form').serialize(),
-                success: function (result) {
-                    console.log(result.bankName);
-                    $("#deponent").val(result.bankName);
-                },
-                error: function () {
-                    $("#deponent").val(" ");
-                }
-            });
-        });*@
+        $("#SelectForeignBankAccount").on('click', function () {
+            $("#ForeignBankAccount").prop("checked", true);
+            $("#TransactionAccount").prop("value", " ");
+        });
 
         $("#TransactionAccount, #insuredTransactionAccount, #TotalCost, #FloatersValue").keydown(function (e) {
             if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
@@ -807,11 +815,22 @@ else if (ViewBag.insurance == "Luggage Insurance")
         else {
             var bankAccount = $('#TransactionAccount').val();
             var prefixTillNow = bankAccount.substring(0, 3);
-        $.each(Banks, function (key, value) {
-            if(value.Prefix == prefixTillNow){
-                $('#deponent').attr('value',value.BankName);
+            var validBank = false;
+            $.each(Banks, function (key, value) {
+                if(value.Prefix == prefixTillNow){
+                    $('#deponent').attr('value', value.BankName);
+                    validBank = true;
+                }
+            });
+            if (!validBank) {
+                if (($('#ForeignBankAccount').is(':checked'))) {
+
+                }else {
+                    $('#deponent').attr('value', " ");
+                    $("#modal").modal("show");
+                }
+
             }
-        });
       }
     });
 
@@ -822,11 +841,22 @@ else if (ViewBag.insurance == "Luggage Insurance")
         else {
             var bankAccount = $('#insuredTransactionAccount').val();
             var prefixTillNow = bankAccount.substring(0, 3);
+            var validBank = false;
             $.each(Banks, function (key, value) {
                 if (value.Prefix == prefixTillNow) {
                     $('#deponentInsured').attr('value', value.BankName);
+                    validBank = true;
                 }
             });
+            if (!validBank) {
+                if (($('#ForeignBankAccountInsured').is(':checked'))) {
+
+                } else {
+                    $('#deponentInsured').attr('value', " ");
+                    $("#modal").modal("show");
+                }
+
+            }
         }
     });
 
