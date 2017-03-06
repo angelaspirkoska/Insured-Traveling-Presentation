@@ -891,8 +891,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $('#TransactionAccount').attr('value', "");
         }
         else {
-            $('#deponent').attr('value', $('#DropDownBankAccountPolicyHolder option:selected').attr("bank"));
-            $('#TransactionAccount').attr('value', $('#DropDownBankAccountPolicyHolder option:selected').text());
+            $('#deponent').prop('value', $('#DropDownBankAccountPolicyHolder option:selected').attr("bank"));
+            $('#TransactionAccount').prop('value', $('#DropDownBankAccountPolicyHolder option:selected').text());
             var InsuredId = $('#DropDownBankAccountPolicyHolder option:selected').val();
             $('#hiddenDropDownBankAccountPolicyHolder').val(InsuredId);
          }
@@ -906,8 +906,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
         else {
             var InsuredId = $('#DropDownBankAccountInsured option:selected').val();
             $('#hiddenDropDownBankAccountInsured').val(InsuredId);
-            $('#deponentInsured').attr('value', $('#DropDownBankAccountInsured option:selected').attr("bank"));
-            $('#insuredTransactionAccount').attr('value', $('#DropDownBankAccountInsured option:selected').text());
+            $('#deponentInsured').prop('value', $('#DropDownBankAccountInsured option:selected').attr("bank"));
+            $('#insuredTransactionAccount').prop('value', $('#DropDownBankAccountInsured option:selected').text());
         }
     });
 

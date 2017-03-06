@@ -810,12 +810,12 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
     $('#DropDownBankAccountPolicyHolder').on('change', function () {
         if ($('#DropDownBankAccountPolicyHolder option:selected').val() == 0) {
-            $('#deponent').attr('value', "");
-            $('#TransactionAccount').attr('value', "");
+            $('#deponent').prop('value', "");
+            $('#TransactionAccount').prop('value', "");
         }
         else {
-            $('#deponent').attr('value', $('#DropDownBankAccountPolicyHolder option:selected').attr("bank"));
-            $('#TransactionAccount').attr('value', $('#DropDownBankAccountPolicyHolder option:selected').text());
+            $('#deponent').prop('value', $('#DropDownBankAccountPolicyHolder option:selected').attr("bank"));
+            $('#TransactionAccount').prop('value', $('#DropDownBankAccountPolicyHolder option:selected').text());
             var InsuredId = $('#DropDownBankAccountPolicyHolder option:selected').val();
             $('#hiddenDropDownBankAccountPolicyHolder').val(InsuredId);
         }
@@ -823,14 +823,14 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
     $('#DropDownBankAccountInsured').on('change', function () {
         if ($('#DropDownBankAccountInsured option:selected').val() == 0) {
-            $('#deponentInsured').attr('value', "");
-            $('#insuredTransactionAccount').attr('value', "");
+            $('#deponentInsured').prop('value', "");
+            $('#insuredTransactionAccount').prop('value', "");
         }
         else {
             var InsuredId = $('#DropDownBankAccountInsured option:selected').val();
             $('#hiddenDropDownBankAccountInsured').val(InsuredId);
-            $('#deponentInsured').attr('value', $('#DropDownBankAccountInsured option:selected').attr("bank"));
-            $('#insuredTransactionAccount').attr('value', $('#DropDownBankAccountInsured option:selected').text());
+            $('#deponentInsured').prop('value', $('#DropDownBankAccountInsured option:selected').attr("bank"));
+            $('#insuredTransactionAccount').prop('value', $('#DropDownBankAccountInsured option:selected').text());
         }
     });
     //Disable other than English letters
