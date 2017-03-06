@@ -86,6 +86,10 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="HtmlTags, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlTags.4.2.0\lib\net45\HtmlTags.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -537,7 +541,7 @@
     <Compile Include="Errors\500.aspx.designer.cs">
       <DependentUpon>500.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ExcelReader\ExcelReader.cs" />
+    <Compile Include="FormBuilder\ExcelReader.cs" />
     <Compile Include="exchange_rate.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -552,19 +556,8 @@
     <Compile Include="first_notice_of_loss_archive.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="FormBuilder\CheckBoxTag.cs" />
-    <Compile Include="FormBuilder\DateTag.cs" />
-    <Compile Include="FormBuilder\EmailTag.cs" />
-    <Compile Include="FormBuilder\FileTag.cs" />
+    <Compile Include="FormBuilder\Form.cs" />
     <Compile Include="FormBuilder\FormBuilder.cs" />
-    <Compile Include="FormBuilder\HeaderTag.cs" />
-    <Compile Include="FormBuilder\LabelTag.cs" />
-    <Compile Include="FormBuilder\OptionTag.cs" />
-    <Compile Include="FormBuilder\RadioButtonTag.cs" />
-    <Compile Include="FormBuilder\SelectTag.cs" />
-    <Compile Include="FormBuilder\TextAreaTag.cs" />
-    <Compile Include="FormBuilder\TextBoxTag.cs" />
-    <Compile Include="FormBuilder\TimeTag.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -808,6 +801,7 @@
     <Folder Include="DocumentsFirstNoticeOfLoss\HealthInsurance\" />
     <Folder Include="DocumentsFirstNoticeOfLoss\Invoices\" />
     <Folder Include="DocumentsFirstNoticeOfLoss\LuggageInsurance\" />
+    <Folder Include="ExcelReader\" />
     <Folder Include="News\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ChangeLanuage\" />

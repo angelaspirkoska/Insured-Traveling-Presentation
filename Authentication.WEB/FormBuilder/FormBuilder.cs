@@ -1,36 +1,47 @@
-﻿using System;
+﻿using HtmlTags;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace InsuredTraveling.FormBuilder
 {
-    public static class FormBuilder
+    public class FormBuilder
     {
-        public static IHtmlString CreateForm()
+        private Form Form { get; set; }
+        public FormBuilder()
         {
-            var builder = HeaderTag.Header("bla", null);
-            builder += LabelTag.Label("2", "Labela za tekst area", "nekojaRandomKlasa");
-            builder += TextAreaTag.TextArea("2","bla", null);
-            builder += TextBoxTag.TextBox("2", "bla", null);
-            builder += EmailTag.Email("2", "bla", null);
-            builder += CheckBoxTag.CheckBox("2", "bla", false, null);
-            builder += RadioButtonTag.RadioButton("2", "sex", "male", true, "imeNaKlasa");
-            builder += RadioButtonTag.RadioButton("3", "sex", "female", false, null);
-            builder += FileTag.File("4", "documents", true, null);
-            builder += DateTag.Date("3", "datenekoj", null);
-            builder += TimeTag.Time("3", "timnekoj", null);
-            List<string> lista = new List<string>();
-            var option = OptionTag.Option("3", "valuee", true, "text", null);
-            lista.Add(option);
-            var option2 = OptionTag.Option("4", "value43e", true, "text4", null);
-            lista.Add(option2);
-            builder += SelectTag.Select("34", "lista", true, false, null, lista);
-            var result = new HtmlString(builder);
-            return result;
+            Form = new Form();
+        }
 
+        public FormBuilder SetName(string name)
+        {
+            Form.WithAttribute("name", name);
+            return this;
+        }
+
+        public FormBuilder SetMethod(string methodType)
+        {
+            Form.WithAttribute("method", methodType);
+            return this;
+        }
+
+        public FormBuilder SetAction(string action)
+        {
+            Form.WithAttribute("action", action);
+            return this;
+        }
+
+        public FormBuilder AddElement(HtmlTag tag)
+        {
+            Form.AddElement(tag);
+            return this;
+        }
+
+        public string ToHtmlString()
+        {
+            return Form.ToString();
         }
     }
 }

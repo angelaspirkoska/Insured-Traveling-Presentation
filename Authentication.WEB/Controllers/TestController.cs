@@ -9,7 +9,6 @@ using InsuredTraveling.Filters;
 using AutoMapper;
 using System.IO;
 using System.Linq;
-using InsuredTraveling.ExcelReader;
 using OfficeOpenXml;
 
 namespace InsuredTraveling.Controllers
@@ -39,6 +38,11 @@ namespace InsuredTraveling.Controllers
                 return View("PolicyForm",e);
             }
 
+            return View();
+        }
+
+        public ActionResult PolicyForm()
+        {
             return View();
         }
     }
