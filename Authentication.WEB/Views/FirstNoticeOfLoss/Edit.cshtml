@@ -490,6 +490,47 @@
 
     </div>
 </form>
+
+<div class="modal fade" id="modalHolder" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Not valid Macedonian bank account</h4>
+            </div>
+            <div class="modal-body">
+                <p>The bank account you have entered is not a valid Macedonian bank account. Do you want to correct it or switch to Foreign bank account</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="CorrectEntry">Correct entry</button><button type="button" class="btn btn-danger" data-dismiss="modal" id="SelectForeignBankAccountHolder">Select Foreign bank account</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modalInsured" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Not valid Macedonian bank account</h4>
+            </div>
+            <div class="modal-body">
+                <p>The bank account you have entered is not a valid Macedonian bank account. Do you want to correct it or switch to Foreign bank account</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="CorrectEntry">Correct entry</button><button type="button" class="btn btn-danger" data-dismiss="modal" id="SelectForeignBankAccountInsured">Select Foreign bank account</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 @if (ViewBag.insurance == "Health Insurance")
 {
     <script type="text/javascript">
@@ -527,6 +568,16 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 console.log(rez);
                 Banks = rez.banks;
             }
+        });
+
+        $("#SelectForeignBankAccountHolder").on('click', function () {
+            $("#ForeignBankAccount").prop("checked", true);
+            $("#TransactionAccount").prop("value", " ");
+        });
+
+        $("#SelectForeignBankAccountInsured").on('click', function () {
+            $("#ForeignBankAccountInsured").prop("checked", true);
+            $("#insuredTransactionAccount").prop("value", " ");
         });
 
         @*$("#ArrivalDateTime").datepicker("setDate", new Date(@Model.ArrivalDateTime.Date));
@@ -714,11 +765,22 @@ else if (ViewBag.insurance == "Luggage Insurance")
         else {
             var bankAccount = $('#TransactionAccount').val();
             var prefixTillNow = bankAccount.substring(0, 3);
+            var validBank = false;
             $.each(Banks, function (key, value) {
                 if (value.Prefix == prefixTillNow) {
                     $('#deponent').attr('value', value.BankName);
+                    validBank = true;
                 }
             });
+            if (!validBank) {
+                if (($('#ForeignBankAccount').is(':checked'))) {
+
+                } else {
+                    $('#deponent').attr('value', " ");
+                    $("#modalHolder").modal("show");
+                }
+
+            }
         }
     });
     $('#insuredTransactionAccount').focusout(function () {
@@ -728,11 +790,22 @@ else if (ViewBag.insurance == "Luggage Insurance")
         else {
             var bankAccount = $('#insuredTransactionAccount').val();
             var prefixTillNow = bankAccount.substring(0, 3);
+            var validBank = false;
             $.each(Banks, function (key, value) {
                 if (value.Prefix == prefixTillNow) {
                     $('#deponentInsured').attr('value', value.BankName);
+                    validBank = true;
                 }
             });
+            if (!validBank) {
+                if (($('#ForeignBankAccountInsured').is(':checked'))) {
+
+                } else {
+                    $('#deponentInsured').attr('value', " ");
+                    $("#modalInsured").modal("show");
+                }
+
+            }
         }
     });
 

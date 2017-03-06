@@ -506,7 +506,7 @@
     </div>
 </form>
 
-<div class="modal fade" id="modal" role="dialog">
+<div class="modal fade" id="modalHolder" role="dialog">
     <div class="modal-dialog" style="margin-top:13%;">
 
         <!-- Modal content-->
@@ -519,7 +519,27 @@
                 <p>The bank account you have entered is not a valid Macedonian bank account. Do you want to correct it or switch to Foreign bank account</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal" id="CorrectEntry">Correct entry</button><button type="button" class="btn btn-danger" data-dismiss="modal" id="SelectForeignBankAccount">Select Foreign bank account</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="CorrectEntry">Correct entry</button><button type="button" class="btn btn-danger" data-dismiss="modal" id="SelectForeignBankAccountHolder">Select Foreign bank account</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modalInsured" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Not valid Macedonian bank account</h4>
+            </div>
+            <div class="modal-body">
+                <p>The bank account you have entered is not a valid Macedonian bank account. Do you want to correct it or switch to Foreign bank account</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="CorrectEntry">Correct entry</button><button type="button" class="btn btn-danger" data-dismiss="modal" id="SelectForeignBankAccountInsured">Select Foreign bank account</button>
             </div>
         </div>
 
@@ -558,9 +578,14 @@ else if (ViewBag.insurance == "Luggage Insurance")
         $('#DropDownBankAccountPolicyHolder').hide();
         $('#DropDownBankAccountInsured').hide();
 
-        $("#SelectForeignBankAccount").on('click', function () {
+        $("#SelectForeignBankAccountHolder").on('click', function () {
             $("#ForeignBankAccount").prop("checked", true);
             $("#TransactionAccount").prop("value", " ");
+        });
+
+        $("#SelectForeignBankAccountInsured").on('click', function () {
+            $("#ForeignBankAccountInsured").prop("checked", true);
+            $("#insuredTransactionAccount").prop("value", " ");
         });
 
         $("#TransactionAccount, #insuredTransactionAccount, #TotalCost, #FloatersValue").keydown(function (e) {
@@ -827,7 +852,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
                 }else {
                     $('#deponent').attr('value', " ");
-                    $("#modal").modal("show");
+                    $("#modalHolder").modal("show");
                 }
 
             }
@@ -853,7 +878,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
                 } else {
                     $('#deponentInsured').attr('value', " ");
-                    $("#modal").modal("show");
+                    $("#modalInsured").modal("show");
                 }
 
             }
