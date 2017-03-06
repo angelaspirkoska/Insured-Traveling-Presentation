@@ -218,6 +218,7 @@ namespace Authentication.WEB.Controllers
 
 
         [HttpGet]
+        [SessionExpire]
         public async Task<JObject> GetExistentLoggedInUserData()
         {
             var Result = new JObject();

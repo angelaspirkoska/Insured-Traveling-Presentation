@@ -824,8 +824,6 @@
                 }
             });
         }
-
-
     });
 
     $("#IsSamePolicyHolderInsuredAdmin").change(function () {
@@ -877,7 +875,7 @@
     });
 
     $("#IsSamePolicyHolderInsured").change(function () {
-        if (this.checked) {
+        if ($("#IsSamePolicyHolderInsured").is(":checked")) {
             $.ajax({
                 type: "GET",
                 url: "/Policy/GetExistentLoggedInUserData",
@@ -894,8 +892,9 @@
                     $("#Email").val(rez.InsuredData.Email);
                     $("#PhoneNumber").val(rez.InsuredData.PhoneNumber);
                 }
-
             });
+
+            $("#SSN").prop('readonly', true);
         }
         else {
             $("#hideWhenSamePerson").show();

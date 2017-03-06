@@ -78,7 +78,7 @@ namespace Authentication.WEB.Services
             return ac1*ac2;
         }
 
-        public int countAge(DateTime policyStart, string embg = null)
+        public int countAgeUsingSSN(DateTime policyStart, string embg = null)
         {
             if (policyStart == null)
                 return -1;
@@ -103,7 +103,17 @@ namespace Authentication.WEB.Services
 
             return age;
         }
+        public int countAgeUsingBirthDate(DateTime policyStart, DateTime birthDate)
+        {
+            if (birthDate == null)
+                return -1;
 
+            int age = policyStart.Year - birthDate.Year;
+            if (policyStart.Month < birthDate.Month || (policyStart.Month == birthDate.Month && policyStart.Day < birthDate.Day))
+                age--;
+
+            return age;
+        }
         public double? totalPremium(Policy policy)
         {           
             double? dCountry = discountCountry(policy.CountryID, policy.Policy_TypeID, policy.Retaining_RiskID);
@@ -125,7 +135,7 @@ namespace Authentication.WEB.Services
 
             if (policy.Travel_Insurance_TypeID == 1)
             {
-                double? pVozrast = DiscountAge(countAge(policy.Start_Date, policy.SSN));
+                double? pVozrast = DiscountAge(countAgeUsingBirthDate(policy.Start_Date, policy.BirthDate));
                 minPremium *= (1 - pVozrast);
             }
             if (policy.Travel_Insurance_TypeID==2)
@@ -135,7 +145,7 @@ namespace Authentication.WEB.Services
 
                 foreach (insured i in p_i)
                 {
-                    dAge = DiscountAge(countAge(policy.Start_Date, i.SSN));
+                    dAge = DiscountAge(countAgeUsingBirthDate(policy.Start_Date, i.DateBirth));
                     double? osnovnaPremija1 = exchange_rate * dCountry * (1 - dFranchise) * policy.Valid_Days * (1 - dDays) * (1 - dAge);
                     minPremium += osnovnaPremija1;
                 }
