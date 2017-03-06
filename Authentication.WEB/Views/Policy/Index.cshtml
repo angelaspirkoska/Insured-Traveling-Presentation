@@ -36,7 +36,7 @@
                         <div class="col-md-4">
                             @Html.LabelFor(model => model.Policy_TypeID, htmlAttributes: new { @class = "control-label" })
                             <div class="inputs-spacing">
-                                @Html.DropDownListFor(model => model.Policy_TypeID, (List<SelectListItem>)ViewBag.TypeOfPolicy, new { @class = "form-control input-sm", id = "policy_type" })
+                                @Html.DropDownListFor(model => model.Policy_TypeID, (List<SelectListItem>)ViewBag.TypeOfPolicy, new { @class = "form-control input-sm", id = "policy_type"})
                                 @Html.ValidationMessageFor(model => model.Policy_TypeID, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -466,6 +466,12 @@
         $("#PolicyHolderEmail").removeClass("mandatoryField");
         $("#PolicyHolderPhoneNumber").removeClass("mandatoryField"); PolicyHolderCity
         $("#PolicyHolderCity").removeClass("mandatoryField");
+
+        $("#policy_type option[value='5']").hide();
+        $("#policy_type option[value='1']").show();
+        $("#policy_type option[value='2']").show();
+        $("#policy_type option[value='3']").show();
+        $("#policy_type option[value='4']").hide();
 
         $('#Valid_Days').on('focusout', function () {
             //if ($(this).val() > 10) {
@@ -922,27 +928,23 @@
         var v = $("#CountryID option:selected").val();
         console.log(v);
         if (v == 3) {
-            $("#policy_type option[value='1']").show();
-            $("#policy_type option[value='2']").show();
+            $("#policy_type option[value='2']").prop("selected", true);
             $("#policy_type option[value='3']").hide();
             $("#policy_type option[value='4']").show();
             $("#policy_type option[value='5']").hide();
         } else if (v == 2) {
             $("#policy_type option[value='5']").hide();
-            $("#policy_type option[value='1']").show();
-            $("#policy_type option[value='2']").show();
+            $("#policy_type option[value='2']").prop("selected", true);
             $("#policy_type option[value='3']").show();
             $("#policy_type option[value='4']").hide();
         } else if (v == 1) {
             $("#policy_type option[value='5']").hide();
-            $("#policy_type option[value='1']").show();
-            $("#policy_type option[value='2']").show();
+            $("#policy_type option[value='2']").prop("selected", true);
             $("#policy_type option[value='3']").show();
             $("#policy_type option[value='4']").hide();
         } else if (v == 4) {
             $("#policy_type option[value='5']").show();
-            $("#policy_type option[value='1']").show();
-            $("#policy_type option[value='2']").show();
+            $("#policy_type option[value='2']").prop("selected", true);
             $("#policy_type option[value='3']").hide();
             $("#policy_type option[value='4']").hide();
         }
