@@ -538,13 +538,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
         $('#DropDownBankAccountPolicyHolder').hide();
         $('#DropDownBankAccountInsured').hide();
 
-        //$("#TransactionAccount").keyup(function () {
-        //    delay(function () {
-        //        alert('Hi, func called');
-        //    }, 1000);
-        //});
-
-        $('#TransactionAccount').on('change', function () {
+        @*$('#TransactionAccount').on('change', function () {
             var p = ($(this).val()).substring(0, 3);
             console.log(p);
             $.ajax({
@@ -556,10 +550,10 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     $("#deponent").val(result.bankName);
                 },
                 error: function () {
-                    
+                    $("#deponent").val(" ");
                 }
             });
-        });
+        });*@
 
         $("#TransactionAccount, #insuredTransactionAccount, #TotalCost, #FloatersValue").keydown(function (e) {
             if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||

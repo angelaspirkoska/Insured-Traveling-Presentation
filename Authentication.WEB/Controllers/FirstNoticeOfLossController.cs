@@ -630,6 +630,23 @@ namespace InsuredTraveling.Controllers
         }
 
         [HttpGet]
+        public JObject GetBankPrefixes()
+        {
+            var result = new JObject();
+            var Banks = _bas.GetAllPrefix();
+            var BankListData = new JArray();
+            foreach (var Bank in Banks)
+            {
+                var BanksData = new JObject();
+                BanksData.Add("Prefix", Bank.Prefix_Number);
+                BanksData.Add("BankName", Bank.bank.Name);
+                BankListData.Add(BanksData);
+            }
+            result.Add("banks", BankListData);
+            return result;
+        }
+
+        [HttpGet]
         public async Task<JObject> GetInsuredsForDropdownList(string policyNumber)
         {
             var result = new JObject();

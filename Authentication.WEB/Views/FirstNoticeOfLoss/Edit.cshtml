@@ -106,7 +106,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-lg-6">
-                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="deponentspan"></span> @InsuredTraveling.Resource.FNOL_Bank:</label>
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="deponentspan"></span> @InsuredTraveling.Resource.FNOL_Bank :</label>
                         @Html.EditorFor(model => model.PolicyHolderBankName, new { htmlAttributes = new { @class = "form-control input-sm", @id = "deponent" } })
                         @Html.ValidationMessageFor(model => model.PolicyHolderBankName, "", new { @class = "text-danger input-sm" })
                     </div>
@@ -523,7 +523,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
             type: "GET",
             url: "/FirstNoticeOfLoss/GetBankPrefixes",
             success: function (result) {
-
                 var rez = JSON.parse(result);
                 console.log(rez);
                 Banks = rez.banks;
