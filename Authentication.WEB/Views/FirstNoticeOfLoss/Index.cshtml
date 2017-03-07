@@ -582,6 +582,50 @@ else if (ViewBag.insurance == "Luggage Insurance")
         $('#DropDownBankAccountPolicyHolder').hide();
         $('#DropDownBankAccountInsured').hide();
 
+        $('#TransactionAccount').prop('readonly', true);
+        $('#insuredTransactionAccount').prop('readonly', true);
+        $('#travelDestination').prop('readonly', true);
+        $('#DepartDateTime').prop('readonly', true);
+        $('#transportationType').prop('readonly', true);
+        $('#travelTimeFrom').prop('readonly', true);
+        $('#ArrivalDateTime').prop('readonly', true);
+        $('#travelTimeTo').prop('readonly', true);
+        $('#TotalCost').prop('readonly', true);
+        $('#invoices').prop('readonly', true);
+        $('#health').prop('disabled', true);
+        $('#luggage').prop('disabled', true);
+
+        $("#DropDownPolicyNumber").change(function () {
+            if ($("#DropDownPolicyNumber").val() == "") {
+                console.log("Empty");
+                $('#TransactionAccount').prop('readonly', true);
+                $('#insuredTransactionAccount').prop('readonly', true);
+                $('#travelDestination').prop('readonly', true);
+                $('#DepartDateTime').prop('readonly', true);
+                $('#transportationType').prop('readonly', true);
+                $('#travelTimeFrom').prop('readonly', true);
+                $('#ArrivalDateTime').prop('readonly', true);
+                $('#travelTimeTo').prop('readonly', true);
+                $('#TotalCost').prop('readonly', true);
+                $('#invoices').prop('readonly', true);
+                $('#health').prop('disabled', true);
+                $('#luggage').prop('disabled', true);               
+            } else {
+                //$('#TransactionAccount').prop('readonly', false);
+                //$('#insuredTransactionAccount').prop('readonly', false);
+                //$('#travelDestination').prop('readonly', false);
+                //$('#DepartDateTime').prop('readonly', false);
+                //$('#transportationType').prop('readonly', false);
+                //$('#travelTimeFrom').prop('readonly', false);
+                //$('#ArrivalDateTime').prop('readonly', false);
+                //$('#travelTimeTo').prop('readonly', false);
+                //$('#TotalCost').prop('readonly', false);
+                //$('#invoices').prop('readonly', false);
+                //$('#health').prop('disabled', false);
+                //$('#luggage').prop('disabled', false);
+            }
+        });
+
         $("#SelectForeignBankAccountHolder").on('click', function () {
             $("#ForeignBankAccount").prop("checked", true);
             $("#TransactionAccount").prop("value", " ");
@@ -937,6 +981,19 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     $("#travelInfoContent").css("display", "block");
                     $("#insureTypeContent").css("display", "block");
                     $("#costContent").css("display", "block");
+
+                    $('#TransactionAccount').prop('readonly', false);
+                    $('#insuredTransactionAccount').prop('readonly', false);
+                    $('#travelDestination').prop('readonly', false);
+                    $('#DepartDateTime').prop('readonly', false);
+                    $('#transportationType').prop('readonly', false);
+                    $('#travelTimeFrom').prop('readonly', false);
+                    $('#ArrivalDateTime').prop('readonly', false);
+                    $('#travelTimeTo').prop('readonly', false);
+                    $('#TotalCost').prop('readonly', false);
+                    $('#invoices').prop('readonly', false);
+                    $('#health').prop('disabled', false);
+                    $('#luggage').prop('disabled', false);
 
                    // fill data
                     Banks = rez.banks;
