@@ -603,34 +603,14 @@
                 <br />
             </div>
         </div>
-        <div class="col-md-8 col-sm-8">
+        <div class="col-md-4 col-sm-4">
             <div class="form-group">
-                <label class="radio-inline" value="chat">
-                    <input id="all" type="radio" name="chat" checked="checked" class="radiobtn-position" />
-                    <label>@InsuredTraveling.Resource.Search_All</label>
-                </label>
-                <br />
-            </div>
-            <div class="form-group">
-                <label class="radio-inline" value="chat">
-                    <input id="active" type="radio" name="chat" class="radiobtn-position" />
-                    <label>@InsuredTraveling.Resource.Search_Active</label>
-                </label>
-                <br />
-            </div>
-            <div class="form-group">
-                <label class="radio-inline" value="chat">
-                    <input type="radio" id="discarded" name="chat" class="radiobtn-position" />
-                    <label>@InsuredTraveling.Resource.Search_Discarded</label>
-                </label>
-                <br />
-            </div>
-            <div class="form-group">
-                <label class="radio-inline" value="chat">
-                    <input id="noticed" type="radio" name="chat" class="radiobtn-position" />
-                    <label>@InsuredTraveling.Resource.Search_Noticed</label>
-                </label>
-                <br />
+                <select class="form-control" id="all">
+                    <option value="all">@InsuredTraveling.Resource.Search_All</option>
+                    <option value="active">@InsuredTraveling.Resource.Search_Active</option>
+                    <option value="discarded">@InsuredTraveling.Resource.Search_Discarded</option>
+                    <option value="noticed">@InsuredTraveling.Resource.Search_Noticed</option>                    
+                </select>
             </div>
         </div>
     </div>
@@ -641,7 +621,7 @@
         </div>
     </div>
     <br />
-    <div class="row" style="width: 70%;">
+    <div class="row" style="width: 100%;">
         <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableChats">
             <thead>
                 <tr>
@@ -837,7 +817,7 @@
         $("#tableChats").DataTable().destroy();
         $("#tableChats").DataTable({
             dom: "Bfrtip",
-            ajax: "/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&all=" + $("#all").is(':checked') + "&active=" + $("#active").is(':checked') + "&discarded=" + $("#discarded").is(':checked') + "&noticed=" + $("#noticed").is(':checked'),
+            ajax: "/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&all=" + $("#all option:selected").val(),
             columns: [
                 { data: "chatId" },
                 { data: "chatWith" },
