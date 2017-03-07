@@ -69,7 +69,7 @@ namespace InsuredTraveling.Models
         public string PassportNumber { get; set; }
 
         [Display(Name = "User_DateOfBirth", ResourceType = typeof(Resource))]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
         [Required]

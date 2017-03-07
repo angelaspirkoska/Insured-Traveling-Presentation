@@ -12,7 +12,7 @@ namespace Authentication.WEB.Services
         private SmtpClient smtp;
         private MailMessage email;
 
-        public MailService(string receiver, string sender = "policies@insuredtraveling.com", string mailServer = "smtp.zoho.com", int port = 465, string passphrase = "Enter4Sy")
+        public MailService(string receiver, string sender = "policies@insuredtraveling.com", string mailServer = "smtp.zoho.com", int port = 587, string passphrase = "Enter4Sy")
         {
             string sentFrom, pass, sentTo, mailServ;
             int portNo;
@@ -25,7 +25,7 @@ namespace Authentication.WEB.Services
             if (port > 0)
                 portNo = port;
             else
-                portNo = 465;
+                portNo = 587;
 
             if (sender != null)
                 sentFrom = sender;
@@ -47,15 +47,6 @@ namespace Authentication.WEB.Services
                 "This is an automated message sent to you as an information about the policy you ordered.");
             email.BodyEncoding = System.Text.Encoding.UTF8;
             email.SubjectEncoding = System.Text.Encoding.UTF8;
-        }
-
-        public void setDefaults()
-        {
-            smtp.Host = "smtp.zoho.com";
-            smtp.Port = 465;
-            smtp.Credentials = new NetworkCredential("policies@insuredtraveling.com", "Enter4Sy");
-            email.Subject = "Insurance Policy Notification";
-            email.Body = "This is an automated message sent to you as an information about the policy you ordered.";
         }
 
         public void attach(Attachment item)
@@ -83,13 +74,12 @@ namespace Authentication.WEB.Services
         {
             email.Subject = subject;
         }
-
+        
         [RequireHttps()]
         public void sendMail()
         {
             try
             {
-                smtp.UseDefaultCredentials = false;
                 smtp.EnableSsl = true;
                 smtp.Send(email);
             }

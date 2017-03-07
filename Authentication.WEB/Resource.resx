@@ -1083,4 +1083,16 @@
   <data name="SSNNotFoundMsg" xml:space="preserve">
     <value>User with that SSN not found in your portfolio. Please add data for the policy holder.</value>
   </data>
+  <data name="SMScode" xml:space="preserve">
+    <value>SMS code</value>
+  </data>
+  <data name="SMSCodeButton" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="VerifyMobilePhone" xml:space="preserve">
+    <value>Verify your mobile phone</value>
+  </data>
+  <data name="VerifyMobilePhoneMessage" xml:space="preserve">
+    <value>We have sent you a message. Enter the code you received to verify your mobile phone number:</value>
+  </data>
 </root>

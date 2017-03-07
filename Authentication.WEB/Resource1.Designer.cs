@@ -2770,6 +2770,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SMS code.
+        /// </summary>
+        public static string SMScode {
+            get {
+                return ResourceManager.GetString("SMScode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        public static string SMSCodeButton {
+            get {
+                return ResourceManager.GetString("SMSCodeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User with that SSN not found in your portfolio. Please add data for the policy holder..
         /// </summary>
         public static string SSNNotFoundMsg {
@@ -2928,6 +2946,24 @@ namespace InsuredTraveling {
         public static string User_UserName {
             get {
                 return ResourceManager.GetString("User_UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify your mobile phone.
+        /// </summary>
+        public static string VerifyMobilePhone {
+            get {
+                return ResourceManager.GetString("VerifyMobilePhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We have sent you a message. Enter the code you received to verify your mobile phone number:.
+        /// </summary>
+        public static string VerifyMobilePhoneMessage {
+            get {
+                return ResourceManager.GetString("VerifyMobilePhoneMessage", resourceCulture);
             }
         }
         

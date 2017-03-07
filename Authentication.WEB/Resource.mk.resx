@@ -1077,4 +1077,16 @@
   <data name="SSNNotFoundMsg" xml:space="preserve">
     <value>Не е пронајден корисник со таков матичен број во вашето портфолио. Ве молиме внесете податоци за договорувачот.</value>
   </data>
+  <data name="SMScode" xml:space="preserve">
+    <value>SMS код</value>
+  </data>
+  <data name="SMSCodeButton" xml:space="preserve">
+    <value>Потврди</value>
+  </data>
+  <data name="VerifyMobilePhone" xml:space="preserve">
+    <value>Потврдете го вашиот мобилен телефон</value>
+  </data>
+  <data name="VerifyMobilePhoneMessage" xml:space="preserve">
+    <value>Беше испратена порака на вашиот број. Внесете го кодот кој го примивте за да го потврдите вашиот мобилен број:</value>
+  </data>
 </root>

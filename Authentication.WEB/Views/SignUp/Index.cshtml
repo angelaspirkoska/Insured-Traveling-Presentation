@@ -42,7 +42,7 @@
                                 }, 2000);
 
                                 SendSMSCode();
-                                ActivateAccount();
+                                //ActivateAccount();
                             });
                         </script>
                 }
@@ -339,7 +339,8 @@
     function ActivateAccount() {
         $.ajax({
             type: "POST",
-            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/ActivateAccount?username=" + $("#username").val()
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/ActivateAccount",
+            data: { username: $("#username").val() }
         })
             .done(function (result) {
             })
