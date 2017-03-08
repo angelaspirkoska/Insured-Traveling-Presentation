@@ -497,6 +497,43 @@ namespace InsuredTraveling.Controllers.API
         }
 
         [HttpPost]
+        [AllowAnonymous]
+        [Route("ExistsPolicy")]
+        public IHttpActionResult ExistsPolicy(Policy policy)
+        {
+            if (policy.Policy_Number == null || policy.Policy_Number == "")
+            {
+                throw new Exception("Internal error: Empty Input");
+            }
+            try
+            {
+                var result = _ps.GetPolicyIdByPolicyNumber(policy.Policy_Number);
+                if (result == null)
+                {
+                    var myCustomMessage = "Policy/Quote doesn't exists";
+                    return ResponseMessage(
+                        Request.CreateResponse(
+                            HttpStatusCode.NotFound,
+                            myCustomMessage
+                        ));
+
+
+                }
+                else return ResponseMessage(
+                       Request.CreateResponse(
+                           HttpStatusCode.Found,
+                           "Found "+ policy.Policy_Number
+                       ));
+
+            }
+            catch
+            {
+                throw new Exception("Internal error");
+            }
+
+        }
+
+        [HttpPost]
         [Route("CreatePolicy")]
         public IHttpActionResult CreatePolicy(Policy policy)
         {
