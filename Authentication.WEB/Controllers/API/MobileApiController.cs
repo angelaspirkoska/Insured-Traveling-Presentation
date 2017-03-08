@@ -483,8 +483,8 @@ namespace InsuredTraveling.Controllers.API
         }
 
         [HttpPost]
-        [Route("CreatePolicy")]
-        public IHttpActionResult CreatePolicy(AddPolicyMobileViewModel addPolicy)
+        [Route("CreateQuote")]
+        public IHttpActionResult CreateQuote(AddPolicyMobileViewModel addPolicy)
         {
             if(addPolicy == null)
             {
@@ -495,6 +495,28 @@ namespace InsuredTraveling.Controllers.API
                 return Ok();
             else throw new Exception("Internal error: Not saved");
         }
+
+        [HttpPost]
+        [Route("CreatePolicy")]
+        public IHttpActionResult CreatePolicy(Policy policy)
+        {
+            if (policy.Policy_Number == null || policy.Policy_Number == "")
+            {
+                throw new Exception("Internal error: Empty Policy");
+            }
+            try
+            {
+                _ps.UpdatePaymentStatus(policy.Policy_Number);
+                    return Ok();
+            }
+            catch 
+            {
+                  throw new Exception("Internal error: Payment status not changed");
+            }      
+           
+        }
+
+
 
         [HttpPost]
         [Route("GetDefaultData")]
