@@ -43,7 +43,6 @@ namespace InsuredTraveling.Models
         [Display(Name = "User_Address", ResourceType = typeof(Resource))]
         public string Address { get; set; }
 
-        [Required]
         [Display(Name = "User_Municipality",ResourceType =typeof(Resource))]
         public string Municipality { get; set; }
 
@@ -69,13 +68,15 @@ namespace InsuredTraveling.Models
         public string PassportNumber { get; set; }
 
         [Display(Name = "User_DateOfBirth", ResourceType = typeof(Resource))]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
         [Required]
         [Display(Name = "User_Gender", ResourceType = typeof(Resource))]
         public string Gender { get; set; }
 
+        [Required]
+        [Display(Name = "User_City", ResourceType = typeof(Resource))]
+        public string City { get; set; }
     }
 
     public class SmsCodeVerify

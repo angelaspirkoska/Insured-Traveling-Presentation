@@ -1089,4 +1089,7 @@
   <data name="VerifyMobilePhoneMessage" xml:space="preserve">
     <value>Беше испратена порака на вашиот број. Внесете го кодот кој го примивте за да го потврдите вашиот мобилен број:</value>
   </data>
+  <data name="User_City" xml:space="preserve">
+    <value>Град</value>
+  </data>
 </root>
