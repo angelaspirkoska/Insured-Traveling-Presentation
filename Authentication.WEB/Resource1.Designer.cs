@@ -367,6 +367,78 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Email Address..
+        /// </summary>
+        public static string Error_Email {
+            get {
+                return ResourceManager.GetString("Error_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EMBG must be numeric..
+        /// </summary>
+        public static string Error_EMBG_Numeric {
+            get {
+                return ResourceManager.GetString("Error_EMBG_Numeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This field is required..
+        /// </summary>
+        public static string Error_EmptyBirthDate {
+            get {
+                return ResourceManager.GetString("Error_EmptyBirthDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone number must be numeric..
+        /// </summary>
+        public static string Error_Mobile_Numeric {
+            get {
+                return ResourceManager.GetString("Error_Mobile_Numeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password must be at least 6 characters long..
+        /// </summary>
+        public static string Error_PasswordLen {
+            get {
+                return ResourceManager.GetString("Error_PasswordLen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password and confirmation password do not match..
+        /// </summary>
+        public static string Error_PasswordNotMatch {
+            get {
+                return ResourceManager.GetString("Error_PasswordNotMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone number must be numeric..
+        /// </summary>
+        public static string Error_Phone_Numeric {
+            get {
+                return ResourceManager.GetString("Error_Phone_Numeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal code must be numeric..
+        /// </summary>
+        public static string Error_PostalCode_Numeric {
+            get {
+                return ResourceManager.GetString("Error_PostalCode_Numeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accident Date.
         /// </summary>
         public static string FNOL_AccidentDate {

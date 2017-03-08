@@ -57,13 +57,13 @@
                     </div>
                 </div>
             </div>
-        </div>            
+        </div>
         <h3>@InsuredTraveling.Resource.FNOL_Title</h3>
         <div>
             <h5>
-                @InsuredTraveling.Resource.Required: 
+                @InsuredTraveling.Resource.Required:
                 <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-           </h5>
+            </h5>
         </div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -85,7 +85,7 @@
                     <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
                     <a href="javascript:void(0)" id="clientInfo">@InsuredTraveling.Resource.FNOL_PolicyHolderInfo</a>
                 </header>
-            </div>            
+            </div>
             <div id="clientInfoContent" style="display:none;">
                 <div class="col-md-6 col-sm-6">
                     <div class="form-group">
@@ -105,7 +105,7 @@
                         <div class="col-md-10 col-sm-10">
                             <label>@InsuredTraveling.Resource.FNOL_Phone:</label>
                             @Html.TextBoxFor(model => model.PolicyHolderPhoneNumber, new { @class = "form-control input-sm", @id = "PolicyHolderPhone", @readonly = true })
-                    </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-10 col-sm-10">
@@ -150,13 +150,13 @@
                 </div>
             </div>
         </div>
-        <div class="row" >
+        <div class="row">
             <div class="col-md-12 col-sm-12">
                 <header class="well" id="insuredInfo">
                     <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
                     <a href="javascript:void(0)" id="insuredInfo">@InsuredTraveling.Resource.FNOL_InsuredInfo</a>
                 </header>
-            </div>            
+            </div>
             <div id="insuredInfoContent" style="display:none;">
                 <div class="col-md-6 col-sm-6">
                     <div class="form-group">
@@ -235,15 +235,15 @@
                         </div>
                     </div>
                 </div>
-            </div>          
+            </div>
         </div>
-        <div class="row" >
+        <div class="row">
             <div class="col-md-12 col-sm-12">
                 <header class="well" id="travelInfo">
                     <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
                     <a href="javascript:void(0)" id="travelInfo">@InsuredTraveling.Resource.FNOL_TravelInformation</a>
-                </header>        
-            </div>            
+                </header>
+            </div>
             <div id="travelInfoContent" style="display:none;">
                 <div class="col-md-6 col-sm-6">
                     <div class="form-group">
@@ -291,7 +291,7 @@
                         </div>
                     </div>
                 </div>
-            </div>          
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12 col-sm-12">
@@ -299,7 +299,7 @@
                     <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;">  </span>
                     <a href="javascript:void(0)" id="insureType"> @InsuredTraveling.Resource.FNOL_InsuranceType</a>
                 </header>
-            </div>  
+            </div>
             <div class="col-md-12 col-sm-12">
                 <div id="insureTypeContent" style="display:none;">
                     <div class="">
@@ -311,13 +311,13 @@
                             <label>@InsuredTraveling.Resource.FNOL_LuggageInsurance</label>
                         </div>
                     </div>
-                </div>         
-            </div>                         
+                </div>
+            </div>
         </div>
         <div class="row" hidden id="healthInsurance">
             <div class="col-md-12 col-sm-12">
                 <header class="well">@InsuredTraveling.Resource.FNOL_HealthInsuranceInfo</header>
-            </div>            
+            </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-md-10 col-sm-10">
@@ -333,7 +333,7 @@
                         @Html.ValidationMessageFor(model => model.AccidentTimeHealth, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group"> 
+                <div class="form-group">
                     <div class="col-md-10 col-sm-10">
                         <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_AccidentPlace:</label>
                         @Html.EditorFor(model => model.AccidentPlaceHealth, new { htmlAttributes = new { @class = "form-control input-sm", @id = "placeLoss" } })
@@ -352,7 +352,8 @@
 
                         <label>
                             <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                        @InsuredTraveling.Resource.FNOL_DoctorInfo:</label>
+                            @InsuredTraveling.Resource.FNOL_DoctorInfo:
+                        </label>
                         @Html.TextAreaFor(model => model.DoctorInfo, new { @class = "form-control input-sm" })
                         @Html.ValidationMessageFor(model => model.DoctorInfo, "", new { @class = "text-danger" })
                     </div>
@@ -388,7 +389,7 @@
         <div class="row" hidden id="luggageInsurance">
             <div class="col-md-12 col-sm-12">
                 <header class="well">@InsuredTraveling.Resource.FNOL_LuggageInsurance</header>
-            </div>            
+            </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-md-10 col-sm-10">
@@ -461,14 +462,14 @@
                     </div>
                 </div>
             </div>
-        </div>      
+        </div>
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <header class="well" id="cost">
                     <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
                     <a href="javascript:void(0)" id="cost">@InsuredTraveling.Resource.FNOL_CostInformation</a>
                 </header>
-            </div>            
+            </div>
             <div id="costContent" style="display:none;">
                 <div class="col-md-6 col-sm-6">
                     <div class="form-group">
@@ -487,8 +488,8 @@
                             @Html.ValidationMessageFor(model => model.TotalCost, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>               
-            </div>      
+                </div>
+            </div>
         </div>
         <div class="row row-position">
             <div class="col-md-12 col-sm-12">
@@ -496,17 +497,17 @@
                     <div class="col-md-4 col-sm-4" style="padding-left: 0px;">
                         <input type="submit" onclick="validateFNOL()" value="@InsuredTraveling.Resource.FNOL_Add" class="btn btn-default btn-block" />
                     </div>
-                    
-                </div>  
-            </div>  
-                              
-        </div>   
-             @if (r.IsUser("end user"))
-            {
-                <div class="chat-btn">
-                    <input type="submit" id="requestChatBtn" value="@InsuredTraveling.Resource.RequestChat" class="btn btn-primary chat-btn--rotate" />
+
                 </div>
-             }        
+            </div>
+
+        </div>
+        @if (r.IsUser("end user"))
+            {
+            <div class="chat-btn">
+                <input type="submit" id="requestChatBtn" value="@InsuredTraveling.Resource.RequestChat" class="btn btn-primary chat-btn--rotate" />
+            </div>
+        }
     </div>
 </form>
 
@@ -532,7 +533,6 @@
 
 <div class="modal fade" id="modalInsured" role="dialog">
     <div class="modal-dialog" style="margin-top:13%;">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -712,7 +712,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     document.getElementById("clientInfoContent").removeAttribute("style");
                     document.getElementById("clientInfoContent").setAttribute("style", "display: block");
                     errorWell = 1;
-                }                
+                }
                 if ($(objects[i]).hasClass("insuredInfo")) {
                     document.getElementById("insuredInfoContent").removeAttribute("style");
                     document.getElementById("insuredInfoContent").setAttribute("style", "display: block");
@@ -725,13 +725,13 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     if (errorWell == 0)
                         errorWell = 3;
                 }
-                objects[i].setAttribute("style", "border: 1px solid red;");              
+                objects[i].setAttribute("style", "border: 1px solid red;");
             }
             else {
                 objects[i].setAttribute("style", "border: 1px solid #2c3e50;");
-            }           
+            }
         }
-        
+
         if (errorWell == 1) {
             $('html,body').animate({
                 scrollTop: $("#clientInfoContent").offset().top
@@ -943,7 +943,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
                 }
             }
-          
+
         }
     });
 
