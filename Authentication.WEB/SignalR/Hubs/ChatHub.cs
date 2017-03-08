@@ -57,8 +57,11 @@ namespace InsuredTraveling.Hubs
                 Groups.Add(Context.ConnectionId, _currentUser);
                 lastMessages = GetLastMessages(_currentUser, false);
             }
-
-            Clients.Group(_currentUser).ActiveMessages(lastMessages);
+            if(!_currentUser.Equals(String.Empty))
+            {
+                Clients.Group(_currentUser).ActiveMessages(lastMessages);
+            }
+           
 
             return base.OnConnected();
         }
