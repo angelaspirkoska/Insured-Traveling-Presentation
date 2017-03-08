@@ -577,6 +577,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
 <script type="text/javascript">
     var Banks;
     $(document).ready(function () {
+        console.log(Banks);
         $('#deponent').prop('readonly', true);
         $('#deponentInsured').prop('readonly', true);
         $('#DropDownBankAccountPolicyHolder').hide();
@@ -591,13 +592,17 @@ else if (ViewBag.insurance == "Luggage Insurance")
         $('#ArrivalDateTime').prop('readonly', true);
         $('#travelTimeTo').prop('readonly', true);
         $('#TotalCost').prop('readonly', true);
-        $('#invoices').prop('readonly', true);
+        $('#invoices').prop('disabled', true);
         $('#health').prop('disabled', true);
         $('#luggage').prop('disabled', true);
+        $('#ExistentBankAccount').prop('disabled', true);
+        $('#ForeignBankAccount').prop('disabled', true);
+        $('#ExistentBankAccountInsured').prop('disabled', true);
+        $('#ForeignBankAccountInsured').prop('disabled', true);
+        $('#relationship').prop('readonly', true);
 
         $("#DropDownPolicyNumber").change(function () {
             if ($("#DropDownPolicyNumber").val() == "") {
-                console.log("Empty");
                 $('#TransactionAccount').prop('readonly', true);
                 $('#insuredTransactionAccount').prop('readonly', true);
                 $('#travelDestination').prop('readonly', true);
@@ -607,9 +612,12 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 $('#ArrivalDateTime').prop('readonly', true);
                 $('#travelTimeTo').prop('readonly', true);
                 $('#TotalCost').prop('readonly', true);
-                $('#invoices').prop('readonly', true);
+                $('#invoices').prop('disabled', true);
                 $('#health').prop('disabled', true);
-                $('#luggage').prop('disabled', true);               
+                $('#luggage').prop('disabled', true);
+                $('#ExistentBankAccount').prop('disabled', true);
+                $('#ForeignBankAccount').prop('disabled', true);
+                $('#relationship').prop('readonly', true);
             } else {
                 //$('#TransactionAccount').prop('readonly', false);
                 //$('#insuredTransactionAccount').prop('readonly', false);
@@ -886,23 +894,26 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $('#deponent').prop('readonly', true);
         }
         else {
-            var bankAccount = $('#TransactionAccount').val();
-            var prefixTillNow = bankAccount.substring(0, 3);
-            var validBank = false;
-            $.each(Banks, function (key, value) {
-                if(value.Prefix == prefixTillNow){
-                    $('#deponent').attr('value', value.BankName);
-                    validBank = true;
-                }
-            });
-            if (!validBank) {
-                if (($('#ForeignBankAccount').is(':checked')) || ($("#ExistentBankAccount").is(':checked'))) {
+            console.log(Banks);
+            if (Banks != null || Banks != undefined) {
+                var bankAccount = $('#TransactionAccount').val();
+                var prefixTillNow = bankAccount.substring(0, 3);
+                var validBank = false;
+                $.each(Banks, function (key, value) {
+                    if (value.Prefix == prefixTillNow) {
+                        $('#deponent').attr('value', value.BankName);
+                        validBank = true;
+                    }
+                });
+                if (!validBank) {
+                    if (($('#ForeignBankAccount').is(':checked')) || ($("#ExistentBankAccount").is(':checked'))) {
 
-                }else {
-                    $('#deponent').attr('value', " ");
-                    $("#modalHolder").modal("show");
-                }
+                    } else {
+                        $('#deponent').attr('value', " ");
+                        $("#modalHolder").modal("show");
+                    }
 
+                }
             }
       }
     });
@@ -912,24 +923,27 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $('#deponentInsured').prop('readonly', true);
         }
         else {
-            var bankAccount = $('#insuredTransactionAccount').val();
-            var prefixTillNow = bankAccount.substring(0, 3);
-            var validBank = false;
-            $.each(Banks, function (key, value) {
-                if (value.Prefix == prefixTillNow) {
-                    $('#deponentInsured').attr('value', value.BankName);
-                    validBank = true;
-                }
-            });
-            if (!validBank) {
-                if (($('#ForeignBankAccountInsured').is(':checked')) || ($("#ExistentBankAccountInsured").is(':checked'))) {
+            if (Banks != undefined || Banks != null) {
+                var bankAccount = $('#insuredTransactionAccount').val();
+                var prefixTillNow = bankAccount.substring(0, 3);
+                var validBank = false;
+                $.each(Banks, function (key, value) {
+                    if (value.Prefix == prefixTillNow) {
+                        $('#deponentInsured').attr('value', value.BankName);
+                        validBank = true;
+                    }
+                });
+                if (!validBank) {
+                    if (($('#ForeignBankAccountInsured').is(':checked')) || ($("#ExistentBankAccountInsured").is(':checked'))) {
 
-                } else {
-                    $('#deponentInsured').attr('value', " ");
-                    $("#modalInsured").modal("show");
-                }
+                    } else {
+                        $('#deponentInsured').attr('value', " ");
+                        $("#modalInsured").modal("show");
+                    }
 
+                }
             }
+          
         }
     });
 
@@ -947,15 +961,17 @@ else if (ViewBag.insurance == "Luggage Insurance")
     });
 
     $('#DropDownBankAccountInsured').on('change', function () {
-        if ($('#DropDownBankAccountInsured option:selected').val() == 0) {
-            $('#deponentInsured').attr('value', "");
-            $('#insuredTransactionAccount').attr('value', "");
-        }
-        else {
-            var InsuredId = $('#DropDownBankAccountInsured option:selected').val();
-            $('#hiddenDropDownBankAccountInsured').val(InsuredId);
-            $('#deponentInsured').prop('value', $('#DropDownBankAccountInsured option:selected').attr("bank"));
-            $('#insuredTransactionAccount').prop('value', $('#DropDownBankAccountInsured option:selected').text());
+        if (Banks.count != 0) {
+            if ($('#DropDownBankAccountInsured option:selected').val() == 0) {
+                $('#deponentInsured').attr('value', "");
+                $('#insuredTransactionAccount').attr('value', "");
+            }
+            else {
+                var InsuredId = $('#DropDownBankAccountInsured option:selected').val();
+                $('#hiddenDropDownBankAccountInsured').val(InsuredId);
+                $('#deponentInsured').prop('value', $('#DropDownBankAccountInsured option:selected').attr("bank"));
+                $('#insuredTransactionAccount').prop('value', $('#DropDownBankAccountInsured option:selected').text());
+            }
         }
     });
 
@@ -991,9 +1007,14 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     $('#ArrivalDateTime').prop('readonly', false);
                     $('#travelTimeTo').prop('readonly', false);
                     $('#TotalCost').prop('readonly', false);
-                    $('#invoices').prop('readonly', false);
+                    $('#invoices').prop('disabled', false);
                     $('#health').prop('disabled', false);
                     $('#luggage').prop('disabled', false);
+                    $('#ExistentBankAccount').prop('disabled', false);
+                    $('#ForeignBankAccount').prop('disabled', false);
+                    $('#ExistentBankAccountInsured').prop('disabled', false);
+                    $('#ForeignBankAccountInsured').prop('disabled', false);
+                    $('#relationship').prop('readonly', false);
 
                    // fill data
                     Banks = rez.banks;

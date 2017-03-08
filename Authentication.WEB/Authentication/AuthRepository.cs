@@ -154,7 +154,8 @@ namespace InsuredTraveling
                 Municipality = userModel.Municipality,
                 PostalCode = userModel.PostalCode,
                 Address = userModel.Address,
-                EMBG = userModel.EMBG
+                EMBG = userModel.EMBG,
+                City = userModel.City
             };
             
             var result = await _userManager.CreateAsync(user, userModel.Password);

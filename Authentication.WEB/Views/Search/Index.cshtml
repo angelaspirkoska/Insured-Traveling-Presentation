@@ -1186,7 +1186,7 @@
                        if (type === 'display') {
                            var value = data;
                            return $('<a>')
-                               .attr('href', '/Policy/PrintPolicy?id=' + data)
+                               .attr('href', '/Policy/PolicyDetails?policyNumber=' + data)
                                .attr('target', '_blank')
                                .attr('class', 'detailsInsured')
                                .text("@InsuredTraveling.Resource.Search_DetailsLink")
@@ -1244,7 +1244,7 @@
                        if (type === 'display') {
                            var value = data;
                            return $('<a>')
-                               .attr('href', '/Policy/PrintPolicy?id=' + data)
+                               .attr('href', '/Policy/PolicyDetails?policyNumber=' + data)
                                .attr('target', '_blank')
                                .attr('class', 'detailsHolder')
                                .text("@InsuredTraveling.Resource.Search_AddFNOLLink")

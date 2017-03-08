@@ -43,5 +43,7 @@ namespace InsuredTraveling.Models
         [Required]
         [Display(Name ="Gender")]
         public string Gender { get; set; }
+
+
     }
 }
