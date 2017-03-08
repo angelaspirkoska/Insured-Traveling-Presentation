@@ -214,6 +214,18 @@ namespace InsuredTraveling.FormBuilder
         {
             _tag.Attr("type", "checkbox");
         }
+        public override HtmlTag AddValidationAttributes(Dictionary<string, string> attributes)
+        {
+            base.AddValidationAttributes(attributes);
+            string defaultValue;
+            var tryGetValue = attributes.TryGetValue("default", out defaultValue);
+
+            if (tryGetValue)
+            {
+                _tag.Attr("value", defaultValue);
+            }
+            return _tag;
+        }
     }
     public class DateTag : InputTag
     {
@@ -243,6 +255,20 @@ namespace InsuredTraveling.FormBuilder
             _tag.Attr("type", "text");
         }
     }
+    public class AlphanumericSpaceTextBox : TextboxTag
+    {
+        public AlphanumericSpaceTextBox(TagInfo tagInfo) : base(tagInfo)
+        {
+            _tag.Attr("pattern", "[a-zA-Z0-9\\s]+");
+        }
+    }
+    public class AlphanumericTextBox : TextboxTag
+    {
+        public AlphanumericTextBox(TagInfo tagInfo) : base(tagInfo)
+        {
+            _tag.Attr("pattern", "[a-zA-Z0-9]+");
+        }
+    }
     public class NumberTag : InputTag
     {
         public NumberTag(TagInfo tagInfo) : base(tagInfo)
@@ -268,6 +294,18 @@ namespace InsuredTraveling.FormBuilder
         {
             _tag.Attr("type", "radio");
         }
+        public override HtmlTag AddValidationAttributes(Dictionary<string, string> attributes)
+        {
+            base.AddValidationAttributes(attributes);
+            string defaultValue;
+            var tryGetValue = attributes.TryGetValue("default", out defaultValue);
+
+            if (tryGetValue)
+            {
+                _tag.Attr("value", defaultValue);
+            }
+            return _tag;
+        }
     }
     public class TimeTag : InputTag
     {
@@ -288,7 +326,7 @@ namespace InsuredTraveling.FormBuilder
     {
         public SubmitButton(TagInfo tagInfo) : base(tagInfo)
         {
-            _tag.Attr("type", "submit").Value("Save");
+            _tag.Attr("type", "submit").Value("Calculate");
         }
 
     }
@@ -315,8 +353,7 @@ namespace InsuredTraveling.FormBuilder
         {
             ITagGenerator tag = null;
             switch (tagInfo.Type)
-            {
-                case "input": tag = new InputTag(tagInfo); break;
+            {     
                 case "password": tag = new PasswordTag(tagInfo); break;
                 case "submit": tag = new SubmitButton(tagInfo); break;
                 case "label": tag = new LabelTag(tagInfo); break;
@@ -330,6 +367,9 @@ namespace InsuredTraveling.FormBuilder
                 case "textbox": tag = new TextboxTag(tagInfo); break;
                 case "radio": tag = new RadioButtonTag(tagInfo); break;
                 case "time": tag = new TimeTag(tagInfo); break;
+                case "alphanumericspacetextbox": tag = new AlphanumericSpaceTextBox(tagInfo); break;
+                case "alphanumerictextbox": tag = new AlphanumericTextBox(tagInfo); break;
+                case "number": tag = new NumberTag(tagInfo); break;
 
                 default: return null;
             }
