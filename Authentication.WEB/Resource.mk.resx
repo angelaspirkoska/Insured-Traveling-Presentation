@@ -1089,4 +1089,28 @@
   <data name="VerifyMobilePhoneMessage" xml:space="preserve">
     <value>Беше испратена порака на вашиот број. Внесете го кодот кој го примивте за да го потврдите вашиот мобилен број:</value>
   </data>
+  <data name="Error_Email" xml:space="preserve">
+    <value>Невалидна е-маил адреса.</value>
+  </data>
+  <data name="Error_EMBG_Numeric" xml:space="preserve">
+    <value>Матичниот број треба да содржи само бројки.</value>
+  </data>
+  <data name="Error_EmptyBirthDate" xml:space="preserve">
+    <value>Полето е задолжително.</value>
+  </data>
+  <data name="Error_Mobile_Numeric" xml:space="preserve">
+    <value>Телефонскиот број треба да содржи само бројки.</value>
+  </data>
+  <data name="Error_PasswordLen" xml:space="preserve">
+    <value>Лозинката треба да биде подолга од 6 карактери.</value>
+  </data>
+  <data name="Error_PasswordNotMatch" xml:space="preserve">
+    <value>Внесените лозинки не се совпаѓаат</value>
+  </data>
+  <data name="Error_Phone_Numeric" xml:space="preserve">
+    <value>Телефонскиот број треба да содржи само бројки.</value>
+  </data>
+  <data name="Error_PostalCode_Numeric" xml:space="preserve">
+    <value>Поштенскиот број треба да содржи само бројки.</value>
+  </data>
 </root>

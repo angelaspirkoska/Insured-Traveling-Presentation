@@ -1095,4 +1095,28 @@
   <data name="VerifyMobilePhoneMessage" xml:space="preserve">
     <value>We have sent you a message. Enter the code you received to verify your mobile phone number:</value>
   </data>
+  <data name="Error_Email" xml:space="preserve">
+    <value>Invalid Email Address.</value>
+  </data>
+  <data name="Error_EMBG_Numeric" xml:space="preserve">
+    <value>EMBG must be numeric.</value>
+  </data>
+  <data name="Error_EmptyBirthDate" xml:space="preserve">
+    <value>This field is required.</value>
+  </data>
+  <data name="Error_Mobile_Numeric" xml:space="preserve">
+    <value>Phone number must be numeric.</value>
+  </data>
+  <data name="Error_PasswordLen" xml:space="preserve">
+    <value>The password must be at least 6 characters long.</value>
+  </data>
+  <data name="Error_PasswordNotMatch" xml:space="preserve">
+    <value>The password and confirmation password do not match.</value>
+  </data>
+  <data name="Error_Phone_Numeric" xml:space="preserve">
+    <value>Phone number must be numeric.</value>
+  </data>
+  <data name="Error_PostalCode_Numeric" xml:space="preserve">
+    <value>Postal code must be numeric.</value>
+  </data>
 </root>
