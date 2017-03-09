@@ -474,16 +474,6 @@
         $("#policy_type option[value='3']").show();
         $("#policy_type option[value='4']").hide();
 
-        $('#Valid_Days').on('focusout', function () {
-            //if ($(this).val() > 10) {
-            //    if ($(this).val() > ($('#Valid_Days').attr('max'))) {
-            //        $(this).val(($('#Valid_Days').attr('max')));
-            //    }
-            //}
-            //if ($(this).val() < ($('#Valid_Days').attr('max')))
-            $(this).val(($('#Valid_Days').attr('max')));
-        });
-
         $('#AddOffer').on('click', function () {
             $.ajax({
                 type: 'POST',
