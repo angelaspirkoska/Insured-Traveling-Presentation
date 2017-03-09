@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Authentication.WEB.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -104,6 +105,7 @@ namespace InsuredTraveling.Models
         [Display(Name = "Policy_HolderPostalCode", ResourceType = typeof(Resource))]
         public string PolicyHolderPostalCode { get; set; }
 
+       
         [Display(Name = "Policy_HolderSSN", ResourceType = typeof(Resource))]
         public string PolicyHolderSSN { get; set; }
 
@@ -167,4 +169,6 @@ namespace InsuredTraveling.Models
         }
 
     }
+   
+
 }

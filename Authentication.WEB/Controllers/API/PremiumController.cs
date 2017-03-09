@@ -38,6 +38,13 @@ namespace Authentication.WEB.Controllers
         [Route("Calculate")]
         public IHttpActionResult Code(Policy policy)
         {
+            ValidationService validatePremium = new ValidationService();
+
+            if (!validatePremium.validateEMBG_Advanced(policy.SSN))
+            {
+               
+                return Json(new {isValid=false, status = "error", message = Resource.Policy_FillData });
+            }
 
             if (!policy.isMobile && policy.IsSamePolicyHolderInsured)
             {

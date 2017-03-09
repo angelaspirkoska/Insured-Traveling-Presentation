@@ -631,28 +631,46 @@
                 url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/Premium/Calculate",
                 data: $("#policy_form").serialize(),
                 success: function (result) {
-                    $(".loader").css("display", "none");
-                    console.log(result.PremiumAmount);
-                    $("#totalPremium").val(result.PremiumAmount);
-                    $("#totalPremium").show();
-                    $("#totalPremiumLabel").show();
-                    $(".hideMe").show();
-                    $("#errorMessage").text(" ");
+                    console.log(result.status);
 
-                    if (errorWell == 0) {
-                        $('html,body').animate({
-                            scrollTop: $("#printOffers").offset().top
-                        }, 800);
+                    //This code is for AdvancedSSN validation in premium controler
+                    if(result.status != null && result.isValid==false){
+
+                        $("#errorMessage").text(result.message);
+                        $(".loader").css("display", "none");
+                        $("#SSN").attr("style", "border: 1px solid red;");
+                        $("#totalPremiumLabel").hide();
+                        $("#totalPremium").val("");
+                        
                     }
+                    else{
+                        $("#SSN").attr("style", "border: 1px solid #2c3e50;");
+                      
+                            $(".loader").css("display", "none");
+                        console.log(result.PremiumAmount);
+                        $("#totalPremium").val(result.PremiumAmount);
+                        $("#totalPremium").show();
+                        $("#totalPremiumLabel").show();
+                        $(".hideMe").show();
+                        $("#errorMessage").text(" ");
 
-                },
+                        if (errorWell == 0) {
+                            $('html,body').animate({
+                                scrollTop: $("#printOffers").offset().top
+                            }, 800);
+                        }
+
+                    }},
                 error: function (result) {
                     $(".loader").css("display", "none");
                     $(".hideMe").hide();
                     $("#totalPremiumLabel").hide();
                     $("#totalPremium").val("");
                     $("#errorMessage").text((JSON.parse(result.responseText)).Message);
+                    
+                    
                 }
+                
             });
         }
         else {

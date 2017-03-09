@@ -14,6 +14,7 @@ namespace InsuredTraveling.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [EMBGValidateAdvanced(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Error_EMBG_Val_Advanced")]
         [RegularExpression("^[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "OnlyNumbers")]
         [Display(Name = "Client_SSN", ResourceType = typeof(Resource))]
         public string SSN { get; set; }

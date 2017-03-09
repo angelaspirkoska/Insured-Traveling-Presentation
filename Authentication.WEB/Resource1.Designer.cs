@@ -385,6 +385,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SSN is not valid..
+        /// </summary>
+        public static string Error_EMBG_Val_Advanced {
+            get {
+                return ResourceManager.GetString("Error_EMBG_Val_Advanced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This field is required..
         /// </summary>
         public static string Error_EmptyBirthDate {

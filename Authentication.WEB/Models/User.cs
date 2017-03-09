@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Authentication.WEB.Services;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -34,10 +35,13 @@ namespace InsuredTraveling.Models
         [Compare("Password", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Error_PasswordNotMatch")]
         public string ConfirmPassword { get; set; }
 
+       
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        [EMBGValidateAdvanced(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Error_EMBG_Val_Advanced")]
         [RegularExpression("^[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Error_EMBG_Numeric")]
         [Display(Name = "User_EMBG", ResourceType = typeof(Resource))]
         public string EMBG { get; set; }
+
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         [Display(Name = "User_Address", ResourceType = typeof(Resource))]
@@ -89,5 +93,35 @@ namespace InsuredTraveling.Models
         [Required]
         [Display(Name = "We have sent you a message. Enter the code you received to verify your mobile phone number:")]
         public string SMSCode { get; set; }
+    }
+
+
+    //CUSTOM EMBG VALIDATION CLASS USED FOR validateEMBG_Advanced
+    public class EMBGValidateAdvanced : ValidationAttribute
+    {
+    
+        public EMBGValidateAdvanced()
+        {
+           // this._embg = _embg;
+            
+        }
+
+        string _embg { get;  set; }
+        
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            ValidationService validationService = new ValidationService();
+            if (value != null)
+            {
+                bool valid = validationService.validateEMBG_Advanced(value.ToString());
+
+
+                if (!valid)
+                {
+                    return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
+                }
+            }
+            return null;
+        }
     }
 }

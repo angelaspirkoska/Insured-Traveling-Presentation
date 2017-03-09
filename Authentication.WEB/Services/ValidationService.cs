@@ -58,6 +58,54 @@ namespace Authentication.WEB.Services
 
             return true;
         }
+        public bool validateEMBG_Advanced(string embg = null)
+        {
+           
+            if (embg == null)
+                return false;
+
+            //checks if embg has 13 characters
+            if (embg.Count() != 13)
+                return false;
+
+            //checks if the embg is all numbers
+            long isNumeric = 0;
+            long.TryParse(embg, out isNumeric);
+
+            if (isNumeric == 0)
+                return false;
+
+            int a, b, c, d,e, f, g, h, i, j, k, l;
+            int ch; int Result=0;
+
+            int.TryParse(embg.Substring(0, 1), out a);
+            int.TryParse(embg.Substring(1, 1), out  b);
+            int.TryParse(embg.Substring(2, 1), out c);
+            int.TryParse(embg.Substring(3, 1), out d);
+            int.TryParse(embg.Substring(4, 1), out e);
+            int.TryParse(embg.Substring(5, 1), out f);
+            int.TryParse(embg.Substring(6, 1), out g);
+            int.TryParse(embg.Substring(7, 1), out h);
+            int.TryParse(embg.Substring(8, 1), out i);
+            int.TryParse(embg.Substring(9, 1), out j);
+            int.TryParse(embg.Substring(10, 1), out k);
+            int.TryParse(embg.Substring(11, 1), out l);
+            int.TryParse(embg.Substring(12, 1), out ch);
+            Result = 11 - ((a + g) * 7 + (b + h) * 6 + (c + i) * 5 + (d + j) * 4 + (e + k) * 3 + (f + l) * 2) % 11;
+            if (Result == 11)
+            {
+                Result = 0;
+            }
+            if (Result == ch)
+            {
+                return true;
+            }
+              else 
+            {
+                return false;
+            }
+           
+        }
 
         public bool validateDates(DateTime starDate, DateTime endDate)
         {

@@ -1116,4 +1116,7 @@
   <data name="User_City" xml:space="preserve">
     <value>Град</value>
   </data>
+  <data name="Error_EMBG_Val_Advanced" xml:space="preserve">
+    <value>Внесовте невалиден матичен број.</value>
+  </data>
 </root>
