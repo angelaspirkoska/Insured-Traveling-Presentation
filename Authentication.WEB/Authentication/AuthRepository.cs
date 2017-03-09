@@ -148,7 +148,7 @@ namespace InsuredTraveling
                 AccessFailedCount = 0,
                 MobilePhoneNumber = userModel.MobilePhoneNumber,
                 Gender = userModel.Gender,
-                DateOfBirth = userModel.DateOfBirth,
+                DateOfBirth = userModel.DateOfBirth.Value,
                 PhoneNumber = userModel.PhoneNumber,
                 PassportNumber = userModel.PassportNumber,
                 Municipality = userModel.Municipality,

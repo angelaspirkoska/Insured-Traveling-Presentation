@@ -70,7 +70,7 @@ namespace InsuredTraveling.Models
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         [Display(Name = "User_DateOfBirth", ResourceType = typeof(Resource))]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         [Display(Name = "User_Gender", ResourceType = typeof(Resource))]

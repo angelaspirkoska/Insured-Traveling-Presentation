@@ -135,7 +135,7 @@
                                 </div>
                                 @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control splaceholder mandatoryField insuredData" } })
                             </div>
-                            @Html.ValidationMessageFor(model => model.DateOfBirth, " ", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.DateOfBirth,"", new { @class = "text-danger" })
                         </div>
 
                         @*<div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
@@ -332,7 +332,7 @@
 <script type="text/javascript">
     $('#datetimepicker3').datetimepicker({
         viewMode: 'years',
-        format: 'L'
+        format: 'DD/MM/YYYY'    
     });
 
     function FindUsername() {

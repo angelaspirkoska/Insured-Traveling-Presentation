@@ -30,6 +30,20 @@ namespace InsuredTraveling.Filters
                 {
                     AuthRepository _repo = new AuthRepository();
                      _repo.RefreshToken(refresh_tokenCookie.Value);
+
+                    var cookieToken = HttpContext.Current.Request.Cookies["token"];
+                    HttpContext.Current.Request.GetOwinContext().Request.Headers.Remove("Authorization");             
+                    var t = EncryptionHelper.Decrypt(HttpUtility.UrlDecode(cookieToken.Value));
+                    var s = new string[1];
+                    s[0] = "Bearer " + t;
+                    HttpContext.Current.Request.GetOwinContext().Request.Headers.Add("Authorization", s);
+
+                    if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        var url = new UrlHelper(filterContext.RequestContext);
+                        var loginUrl = url.Content("~/Login/Index");
+                        filterContext.HttpContext.Response.Redirect(loginUrl, true);
+                    }
                     
                 }
 
