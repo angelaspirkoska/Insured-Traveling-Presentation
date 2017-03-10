@@ -625,8 +625,8 @@
 
                     //This code is for AdvancedSSN validation in premium controler
                     if(result.status != null && result.isValid==false){
-
-                        $("#errorMessage").text(result.message);
+                        console.log(result.message);
+                        $("#errorMessage").text("@Resource.Error_EMBG_Val_Advanced");
                         $(".loader").css("display", "none");
                         $("#SSN").attr("style", "border: 1px solid red;");
                         $("#totalPremiumLabel").hide();

@@ -60,7 +60,8 @@ namespace Authentication.WEB.Services
         }
         public bool validateEMBG_Advanced(string embg = null)
         {
-           
+            //return true;
+
             if (embg == null)
                 return false;
 

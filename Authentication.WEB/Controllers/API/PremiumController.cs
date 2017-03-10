@@ -43,7 +43,7 @@ namespace Authentication.WEB.Controllers
             if (!validatePremium.validateEMBG_Advanced(policy.SSN))
             {
                
-                return Json(new {isValid=false, status = "error", message = Resource.Policy_FillData });
+                return Json(new {isValid=false, status = "error", message = Resource.Error_EMBG_Val_Advanced });
             }
 
             if (!policy.isMobile && policy.IsSamePolicyHolderInsured)
@@ -57,8 +57,6 @@ namespace Authentication.WEB.Controllers
                 policy.PolicyHolderCity = policy.City;
                 policy.PolicyHolderPostalCode = policy.PostalCode;
                 policy.PolicyHolderPhoneNumber = policy.PhoneNumber;
-
-
             }
             if (!policy.isMobile)
             {
