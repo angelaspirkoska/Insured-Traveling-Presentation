@@ -12,6 +12,7 @@ using InsuredTraveling.Helpers;
 using InsuredTraveling.DI;
 using InsuredTraveling.Filters;
 using InsuredTraveling.Controllers;
+using System.Net.Mail;
 
 namespace Authentication.WEB.Controllers
 {
@@ -143,12 +144,28 @@ namespace Authentication.WEB.Controllers
                 fileStream.Close();
 
                 // ADD MAIL ADRESS
+                var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/EmailHeaderSuccess.png"));
+                inlineLogo.ContentId = Guid.NewGuid().ToString();
+
+                string body1 = string.Format(@"   
+                     <div style='margin-left:20px'>
+                     <img style='width:700px' src=""cid:{0}"" />
+                     <p> <b>Welcome to Insured Traveling </b> - the standalone platform for online sales of insurance policies.</p>                  
+                     <br /> <br /> 
+                     <br />" + "Успешно извршена трансакција \n Уплатена сума: " + model.amount + " ден. \n Трансакциски код: " + model.TransId + "\n Автентикациски код: " + model.AuthCode +
+                     "<br /> <br />Thank you for using our Insurence Service</div>"
+                , inlineLogo.ContentId);
+
+                var view = AlternateView.CreateAlternateViewFromString(body1, null, "text/html");
+                view.LinkedResources.Add(inlineLogo);
+
                 var PolicyHolderEmail = _ps.GetPolicyHolderEmailByPolicyId(pat.Pat.ID);
                 MailService mailService = new MailService(PolicyHolderEmail);
                 mailService.setSubject("Издадена полиса број: " + model.oid);
-                string bodyText = "Успешно извршена трансакција \n Уплатена сума: " + model.amount + " ден. \n Трансакциски код: " + model.TransId + "\n Автентикациски код: " + model.AuthCode;
+           
 
-                mailService.setBodyText(bodyText);
+                mailService.setBodyText(body1,true);
+                mailService.AlternativeViews(view);
                 mailService.attach(new System.Net.Mail.Attachment(fullPath));
 
                 mailService.sendMail();

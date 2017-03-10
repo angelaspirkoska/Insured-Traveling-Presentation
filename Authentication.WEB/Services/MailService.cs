@@ -62,7 +62,14 @@ namespace Authentication.WEB.Services
         public void removeAttachment(Attachment target)
         {
             email.Attachments.Remove(target);
+            
         }
+        public void AlternativeViews (AlternateView  filepath)
+        {
+            email.AlternateViews.Add(filepath);
+
+        }
+    
 
         public void setBodyText(string text = "This is an automated message sent to you as an information about the policy you ordered.", bool IsHTML = false)
         {

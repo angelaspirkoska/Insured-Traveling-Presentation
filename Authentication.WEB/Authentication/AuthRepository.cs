@@ -14,6 +14,8 @@ using System.Configuration;
 using System.Net.Http;
 using System.Web;
 using Newtonsoft.Json.Linq;
+using System.Net.Mail;
+using System.Net.Mime;
 
 namespace InsuredTraveling
 {
@@ -164,13 +166,29 @@ namespace InsuredTraveling
             {
                 try
                 {
-                    string body = "Welcome to Insured Traveling " + "- the standalone platform for online sales of insurance policies.";
-                    body += "<br /><br />Please click the following link to activate your account";
-                    body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
-                    body += "<br /><br />Thanks";
+                   
+                    var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/EmailHeaderWelcome1.png"));
+                    inlineLogo.ContentId = Guid.NewGuid().ToString();
+
+                    string body1 = string.Format(@"   
+                        <div style='margin-left:20px'>
+                     <img style='width:700px' src=""cid:{0}"" />
+                     <p> <b>Welcome to Insured Traveling </b> - the standalone platform for online sales of insurance policies.</p>
+                  
+                     <br /> <br /> Please click the following link to activate your account
+                     <br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>"+
+                     "<br /> <br />Thanks </div>"
+                     
+                    , inlineLogo.ContentId);
+                    var view = AlternateView.CreateAlternateViewFromString(body1, null, "text/html");
+                    view.LinkedResources.Add(inlineLogo);             
+
                     MailService mailService = new MailService(userModel.Email, "signup@insuredtraveling.com"); //Change the email with the email user mail
-                    mailService.setSubject("Account Activation Validation");
-                    mailService.setBodyText(body, true);
+                    mailService.setSubject("Insured Traveling - Account Activation Validation");
+                    mailService.setBodyText(body1, true);
+                    //ALTERNATIVE VIEW
+                    mailService.AlternativeViews(view);
+
                     mailService.sendMail();
                 }
                 catch(Exception e)
