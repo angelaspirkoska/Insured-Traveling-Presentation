@@ -1125,4 +1125,7 @@
   <data name="Error_EMBG_Val_Advanced" xml:space="preserve">
     <value>SSN is not valid.</value>
   </data>
+  <data name="NewPolicy_Title" xml:space="preserve">
+    <value>New Policy</value>
+  </data>
 </root>

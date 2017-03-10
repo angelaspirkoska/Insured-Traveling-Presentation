@@ -1114,6 +1114,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Policy.
+        /// </summary>
+        public static string NewPolicy_Title {
+            get {
+                return ResourceManager.GetString("NewPolicy_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to News.
         /// </summary>
         public static string News {
