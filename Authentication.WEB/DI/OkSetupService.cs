@@ -35,5 +35,10 @@ namespace InsuredTraveling.DI
         {
            return _db.ok_setup.Where(x => x.InsuranceCompany == InsuranceCompany).ToArray().Last();
         }
+
+        public ok_setup GetLast()
+        {
+            return _db.ok_setup.ToArray().Last();
+        }
     }
 }

@@ -2,6 +2,10 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Threading.Tasks;
 
 namespace InsuredTraveling.Models
 {
@@ -110,6 +114,7 @@ namespace InsuredTraveling.Models
             
         }
 
+
         string _embg { get;  set; }
         
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -117,8 +122,16 @@ namespace InsuredTraveling.Models
             ValidationService validationService = new ValidationService();
             if (value != null)
             {
+                Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/OkSetup/CheckSSN");
+                HttpClient client = new HttpClient();
+                client.BaseAddress = uri;
+                HttpResponseMessage responseMessage = client.GetAsync(uri).Result;
+                string responseBody = responseMessage.Content.ToString();
+                if (!responseMessage.IsSuccessStatusCode)
+                {
+                    return null;
+                }
                 bool valid = validationService.validateSSN_Advanced(value.ToString());
-
 
                 if (!valid)
                 {
@@ -127,5 +140,6 @@ namespace InsuredTraveling.Models
             }
             return null;
         }
+      
     }
 }

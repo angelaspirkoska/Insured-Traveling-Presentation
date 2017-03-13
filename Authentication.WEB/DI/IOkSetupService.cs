@@ -12,6 +12,8 @@ namespace InsuredTraveling.DI
 
         List<ok_setup> GetAllOkSetups();
 
+        ok_setup GetLast();
+
         void AddOkSetup(ok_setup ok); //????? dali ili samo se menja status
 
         void DeleteOkSetup(int id);
