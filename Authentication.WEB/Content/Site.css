@@ -374,6 +374,16 @@ form.cmxform .gray * { color: gray; }
     z-index:100;
 }
 
+.carousel-inner {
+     max-height:400px;
+     widows:auto;
+}
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+      width: 100%;
+      margin: auto;
+  }
+
 /*Home page background video css*/
 /*video {
     margin:0;
