@@ -41,7 +41,7 @@ namespace InsuredTraveling
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(3),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
                 Provider = new SimpleAuthorizationServerProvider(),
                 RefreshTokenProvider = new SimpleRefreshTokenProvider()
             };
