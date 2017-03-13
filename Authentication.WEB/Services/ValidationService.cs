@@ -20,7 +20,7 @@ namespace Authentication.WEB.Services
             return true;
         }
 
-        public bool validateSSN(string embg = null)
+        public bool validateEMBG(string embg = null)
         {
             if (embg == null)
                 return false;
@@ -58,7 +58,7 @@ namespace Authentication.WEB.Services
 
             return true;
         }
-        public bool validateEMBG_Advanced(string embg = null)
+        public bool validateSSN_Advanced(string embg = null)
         {
             //return true;
 
