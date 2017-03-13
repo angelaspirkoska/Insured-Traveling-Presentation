@@ -3,6 +3,7 @@ using Authentication.WEB.Services;
 using AutoMapper;
 using InsuredTraveling;
 using InsuredTraveling.App_Start;
+using InsuredTraveling.DI;
 using InsuredTraveling.Models;
 using InsuredTraveling.ViewModels;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace Authentication.WEB.Controllers
     [RoutePrefix("api/Premium")]
     public class PremiumController : ApiController
     {
+      
+
         [HttpGet]
         public IHttpActionResult Excel(int value1, int value2)
         {
@@ -40,7 +43,7 @@ namespace Authentication.WEB.Controllers
         {
             ValidationService validatePremium = new ValidationService();
 
-            if (!validatePremium.validateEMBG_Advanced(policy.SSN))
+            if (!validatePremium.validateSSN_Advanced(policy.SSN))
             {
                
                 return Json(new {isValid=false, status = "error", message = Resource.Error_EMBG_Val_Advanced });

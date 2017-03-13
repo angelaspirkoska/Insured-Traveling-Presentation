@@ -419,6 +419,7 @@
     <Compile Include="Controllers\API\AccountController.cs" />
     <Compile Include="Controllers\API\ChatController.cs" />
     <Compile Include="Controllers\API\MobileApiController.cs" />
+    <Compile Include="Controllers\API\OK_Setup_Api.cs" />
     <Compile Include="Controllers\API\RefreshTokenController.cs" />
     <Compile Include="Controllers\ChangeLanuageController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
@@ -446,6 +447,9 @@
     <Compile Include="CustomAssemblyResolver.cs" />
     <Compile Include="CustomViewEngine.cs" />
     <Compile Include="discount_age.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="discount_codes.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="discount_country.cs">

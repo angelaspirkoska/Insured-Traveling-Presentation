@@ -130,6 +130,7 @@
         <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_5" />
         <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_6" />
         <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_7" />
+        <EntityTypeShape EntityType="Entities.discount_codes" Width="1.5" PointX="12.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

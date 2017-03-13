@@ -184,6 +184,16 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Modified_By" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="Version" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="discount_codes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Discount_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Discount_Coef" Type="double" Nullable="false" />
+          <Property Name="Start_Date" Type="date" Nullable="false" />
+          <Property Name="End_Date" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="discount_country">
           <Key>
             <PropertyRef Name="ID" />
@@ -493,6 +503,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Created_By" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="Modified_Date" Type="text" Nullable="false" />
           <Property Name="Modified_By" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="SSNValidationActive" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="p_referent">
           <Key>
@@ -1593,6 +1604,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="countries" EntityType="Self.countries" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="countries_name" EntityType="Self.countries_name" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="discount_age" EntityType="Self.discount_age" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="discount_codes" EntityType="Self.discount_codes" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="discount_country" EntityType="Self.discount_country" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="discount_days" EntityType="Self.discount_days" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="discount_family" EntityType="Self.discount_family" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -2406,6 +2418,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Modified_Date" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SSNValidationActive" Type="SByte" Nullable="false" />
         </EntityType>
         <EntityType Name="p_referent">
           <Key>
@@ -3633,6 +3646,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="bank_account_info" EntitySet="bank_account_info" />
             <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
           </AssociationSet>
+          <EntitySet Name="discount_codes" EntityType="Entities.discount_codes" />
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -3956,6 +3970,16 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="discount_codes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Discount_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Discount_Coef" Type="Double" Nullable="false" />
+          <Property Name="Start_Date" Type="DateTime" Nullable="false" />
+          <Property Name="End_Date" Type="DateTime" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4347,6 +4371,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="ok_setup">
             <EntityTypeMapping TypeName="Entities.ok_setup">
               <MappingFragment StoreEntitySet="ok_setup">
+                <ScalarProperty Name="SSNValidationActive" ColumnName="SSNValidationActive" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Sms_Code_Seconds" ColumnName="Sms_Code_Seconds" />
                 <ScalarProperty Name="NumberOfAttempts" ColumnName="NumberOfAttempts" />
@@ -4698,6 +4723,17 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created_Datetime" ColumnName="Created_Datetime" />
                 <ScalarProperty Name="fnol_ID" ColumnName="fnol_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="discount_codes">
+            <EntityTypeMapping TypeName="Entities.discount_codes">
+              <MappingFragment StoreEntitySet="discount_codes">
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="Discount_Coef" ColumnName="Discount_Coef" />
+                <ScalarProperty Name="Discount_Name" ColumnName="Discount_Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

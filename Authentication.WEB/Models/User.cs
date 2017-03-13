@@ -113,7 +113,7 @@ namespace InsuredTraveling.Models
             ValidationService validationService = new ValidationService();
             if (value != null)
             {
-                bool valid = validationService.validateEMBG_Advanced(value.ToString());
+                bool valid = validationService.validateSSN_Advanced(value.ToString());
 
 
                 if (!valid)

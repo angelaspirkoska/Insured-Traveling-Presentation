@@ -80,5 +80,6 @@ namespace InsuredTraveling
         public virtual DbSet<chat_requests> chat_requests { get; set; }
         public virtual DbSet<message> messages { get; set; }
         public virtual DbSet<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
+        public virtual DbSet<discount_codes> discount_codes { get; set; }
     }
 }

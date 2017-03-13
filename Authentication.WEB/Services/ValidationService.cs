@@ -20,7 +20,7 @@ namespace Authentication.WEB.Services
             return true;
         }
 
-        public bool validateEMBG(string embg = null)
+        public bool validateSSN(string embg = null)
         {
             if (embg == null)
                 return false;
