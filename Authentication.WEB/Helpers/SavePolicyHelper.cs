@@ -47,7 +47,7 @@ namespace InsuredTraveling.Helpers
 
             RoleAuthorize r = new RoleAuthorize();
 
-            if (p.IsSamePolicyHolderInsured && (p.isMobile || r.IsUser("end user")))
+            if (p.IsSamePolicyHolderInsured && (p.isMobile || r.IsUser("End user")))
             {
                 _us.UpdateSsnById(policy.Created_By, p.SSN);
 
@@ -55,7 +55,7 @@ namespace InsuredTraveling.Helpers
                 policy.Policy_HolderID = PolicyHolderId;
 
             }
-            else if (p.IsSamePolicyHolderInsured && (r.IsUser("admin") || r.IsUser("broker")))
+            else if (p.IsSamePolicyHolderInsured && (r.IsUser("Admin") || r.IsUser("Broker")))
             {
                 if (p.IsExistentPolicyHolder)
                 {
@@ -71,7 +71,7 @@ namespace InsuredTraveling.Helpers
             if (!p.IsSamePolicyHolderInsured)
             {
                 var ssn = "";
-                if (r.IsUser("admin") || r.IsUser("broker"))
+                if (r.IsUser("Admin") || r.IsUser("Broker"))
                 {
                     ssn = p.PolicyHolderSSN;
                     var policyHolderId = _iss.GetInsuredIdBySsnAndCreatedBy(ssn, policy.Created_By);
@@ -128,7 +128,7 @@ namespace InsuredTraveling.Helpers
                         finally { }
                     }
                 }
-                else if (r.IsUser("end user"))
+                else if (r.IsUser("End user"))
                 {
                     ssn = _us.GetUserSsnByUsername(username);
                     var policyHolderId = _iss.GetInsuredIdBySsnAndCreatedBy(ssn, policy.Created_By);

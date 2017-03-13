@@ -784,6 +784,7 @@
     <Content Include="Views\Error\ServiceUnavailable.cshtml" />
     <Content Include="Views\Error\Mail.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\SignUp\CreateUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

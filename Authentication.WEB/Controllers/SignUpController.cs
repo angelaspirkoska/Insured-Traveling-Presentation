@@ -7,7 +7,8 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-
+using InsuredTraveling.DI;
+using System.Linq;
 
 namespace InsuredTraveling.Controllers
 {
@@ -15,11 +16,57 @@ namespace InsuredTraveling.Controllers
     [AllowAnonymous]
     public class SignUpController : Controller
     {
-       
+        private IRolesService _rs;
+        public SignUpController(IRolesService rs)
+        {
+            _rs = rs;
+        }
+
+        [HttpGet]
+        public ActionResult Index()
+        {
+            ViewBag.Gender = Gender();
+            return View();
+        }
+
         [HttpPost]
         public async Task<ActionResult> Index(User user, bool CaptchaValid)
         {
             ViewBag.Gender = Gender();
+
+            if (ModelState.IsValid && CaptchaValid)
+            {
+                Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/account/RegisterWeb");
+                HttpClient client = new HttpClient();
+                client.BaseAddress = uri;
+                var jsonFormatter = new JsonMediaTypeFormatter();
+                HttpContent content = new ObjectContent<User>(user, jsonFormatter);
+                HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
+                string responseBody = await responseMessage.Content.ReadAsStringAsync();
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    ViewBag.Message = "Successfully registered!";
+                    return View();
+                }
+
+            }
+            ViewBag.Message = "Registration failed";
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult CreateUser()
+        {
+            ViewBag.Gender = Gender();
+            ViewBag.Roles = Roles();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateUser(User user, bool CaptchaValid)
+        {
+            ViewBag.Gender = Gender();
+            ViewBag.Roles = Roles();
 
             if (ModelState.IsValid && CaptchaValid)
             {
@@ -68,14 +115,6 @@ namespace InsuredTraveling.Controllers
             return View(code);
         }
 
-
-        [HttpGet]
-        public ActionResult Index()
-        {
-            ViewBag.Gender = Gender();
-            return View();
-        }
-
         private List<SelectListItem> Gender()
         {
             List<SelectListItem> data = new List<SelectListItem>();
@@ -95,6 +134,11 @@ namespace InsuredTraveling.Controllers
                 Value = "Other"
             });
             return data;
+        }
+
+        private List<SelectListItem> Roles()
+        {
+            return _rs.GetAll().ToList();
         }
 
     }

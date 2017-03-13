@@ -70,7 +70,7 @@ namespace InsuredTraveling
                 DateOfBirth = userModel.DateOfBirth
             };
             var result = await _userManager.CreateAsync(user, userModel.Password);
-            var result2 = _userManager.AddToRole(user.Id, "end user");
+            var result2 = _userManager.AddToRole(user.Id, "End user");
 
             return result;
         }
@@ -197,7 +197,7 @@ namespace InsuredTraveling
                 }
             }
 
-            var result2 = _userManager.AddToRole(user.Id, "end user");
+            var result2 = _userManager.AddToRole(user.Id, userModel.Role);
 
             return result;
         }

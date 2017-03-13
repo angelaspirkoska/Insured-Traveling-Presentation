@@ -1122,4 +1122,22 @@
   <data name="NewPolicy_Title" xml:space="preserve">
     <value>Нова полиса</value>
   </data>
+  <data name="Admin_SignUp" xml:space="preserve">
+    <value>Регистрирај корисник</value>
+  </data>
+  <data name="Home_CreateUser" xml:space="preserve">
+    <value>Креирај корисник</value>
+  </data>
+  <data name="User_Role" xml:space="preserve">
+    <value>Улога</value>
+  </data>
+  <data name="RegisterDate" xml:space="preserve">
+    <value>Датум на регистрација</value>
+  </data>
+  <data name="Search_AddUserButton" xml:space="preserve">
+    <value>Додади корисник</value>
+  </data>
+  <data name="Search_Users" xml:space="preserve">
+    <value>Регистрирани корисници</value>
+  </data>
 </root>

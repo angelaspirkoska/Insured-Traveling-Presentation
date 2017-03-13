@@ -61,6 +61,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register User.
+        /// </summary>
+        public static string Admin_SignUp {
+            get {
+                return ResourceManager.GetString("Admin_SignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ADD.
         /// </summary>
         public static string AdminPanel_AddRecButton {
@@ -1011,6 +1020,15 @@ namespace InsuredTraveling {
         public static string Home_AdminPanel {
             get {
                 return ResourceManager.GetString("Home_AdminPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create User.
+        /// </summary>
+        public static string Home_CreateUser {
+            get {
+                return ResourceManager.GetString("Home_CreateUser", resourceCulture);
             }
         }
         
@@ -1996,6 +2014,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register date.
+        /// </summary>
+        public static string RegisterDate {
+            get {
+                return ResourceManager.GetString("RegisterDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Need assistance? Request a chat!.
         /// </summary>
         public static string RequestChat {
@@ -2298,6 +2325,15 @@ namespace InsuredTraveling {
         public static string Search_AddQuoteButton {
             get {
                 return ResourceManager.GetString("Search_AddQuoteButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add user.
+        /// </summary>
+        public static string Search_AddUserButton {
+            get {
+                return ResourceManager.GetString("Search_AddUserButton", resourceCulture);
             }
         }
         
@@ -2788,6 +2824,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Registered users.
+        /// </summary>
+        public static string Search_Users {
+            get {
+                return ResourceManager.GetString("Search_Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign up.
         /// </summary>
         public static string SignUp {
@@ -3027,6 +3072,15 @@ namespace InsuredTraveling {
         public static string User_PostalCode {
             get {
                 return ResourceManager.GetString("User_PostalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        public static string User_Role {
+            get {
+                return ResourceManager.GetString("User_Role", resourceCulture);
             }
         }
         

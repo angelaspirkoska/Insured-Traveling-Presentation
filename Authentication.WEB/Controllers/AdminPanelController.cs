@@ -6,7 +6,7 @@ using static InsuredTraveling.Models.AdminPanel;
 
 namespace InsuredTraveling.Controllers
 {
-    [RoleAuthorize(roles: "admin")]
+    [RoleAuthorize(roles: "Admin")]
     public class AdminPanelController : Controller
     {
         private IRolesService _rs;

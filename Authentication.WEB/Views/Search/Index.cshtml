@@ -11,16 +11,63 @@
 <ul class="nav nav-pills">
     <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
     <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
-    @if (r.IsUser("admin") || r.IsUser("broker"))
+    @if (r.IsUser("Admin") || r.IsUser("Broker"))
     {
         <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
     }
+    @if (r.IsUser("Admin"))
+    {
+        <li id="registeredUsers"><a href="#" onclick="ShowUsers()">@InsuredTraveling.Resource.Search_Users</a></li>
+    }
     <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
-    @if (r.IsUser("admin") || r.IsUser("end user"))
+    @if (r.IsUser("Admin") || r.IsUser("End user"))
     {
         <li id="searchChat"><a href="#" onclick="ShowChats()">@InsuredTraveling.Resource.Chats</a></li>
     }
 </ul>
+
+
+<!--Table search result of registered users -->
+<div class="" id="searchUsers">
+    <br />
+    <br />
+    <form>
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label for="country">@InsuredTraveling.Resource.User_Role:</label>
+                    <input class="form-control" type="text" id="SearchRole" name="SearchRole" />
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label for="country">@InsuredTraveling.Resource.RegisterDate:</label>
+                    <div class="input-group">
+                        <input type="date" id="RegisterDate" class="form-control placeholder" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchUsers()" type="button" style="float:left;" />
+            </div>
+            <div class="col-md-offset-4 col-md-4">
+                <div class="hover-tooltip">
+                    <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddUserButton" onclick="@("window.location.href='" + @Url.Action("CreateUser", "SignUp") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+    </form>
+
+</div>
+
+
 
 <!--Table search result of policies -->
 <div class="" id="searchPolycies">
@@ -644,18 +691,25 @@
     var isAdmin = false;
     $(document).ready(function () {
         $(".hover-tooltip button").tooltip('show');
+
         $("#searchClients").hide();
         $("#searchFNOL").hide();
         $("#searchChats").hide();
         $("#searchQuotes").hide();
+        $("#searchUsers").hide();
+
         $("#tableClients").DataTable().destroy();
         $("#tableClients").DataTable();
+
         $("#tablePolicies").DataTable().destroy();
         $("#tablePolicies").DataTable();
+
         $("#tableQuotes").DataTable().destroy();
         $("#tableQuotes").DataTable();
+
         $("#tableFNOL").DataTable().destroy();
         $("#tableFNOL").DataTable();
+
         $("#tableFNOLPolicies").css("display", "none"); 
         $("#tableArchivedFNOL").css("display", "none");
         $("#tablePoliciesClients").css("display", "none");
@@ -741,43 +795,54 @@
         $("#searchChats").hide();
         $("#searchPolycies").hide();
         $("#searchFNOL").hide();
+        $("#searchQuotes").hide();
+        $("#searchUsers").hide();
         $("#searchClients").show();
+
         $("#polycies").removeAttr("class");
-        $("#clients").attr("class", "active");
         $("#first_notice_of_loss").removeAttr("class");
-        $("#clients").attr("class", "active");
-        $("#tablePoliciesClients").css("display", "none");
-        $("#tablePoliciesHolders").css("display", "none");
         $("#searchChat").removeAttr("class");
         $("#quotes").removeAttr("class");
-        $("#searchQuotes").hide();
+        $("#registeredUsers").removeAttr("class");
+        $("#clients").attr("class", "active");
+
+        $("#tablePoliciesClients").css("display", "none");
+        $("#tablePoliciesHolders").css("display", "none");
+
     };
 
     function ShowPolycies() {
         $("#searchChats").hide();
         $("#searchFNOL").hide();
         $("#searchClients").hide();
-        $("#searchPolycies").show();
         $("#searchQuotes").hide();
+        $("#searchUsers").hide();
+        $("#searchPolycies").show();
+
+        $("#registeredUsers").removeAttr("class");
         $("#clients").removeAttr("class");
         $("#first_notice_of_loss").removeAttr("class");
-        $("#polycies").attr("class", "active");
-        $("#tableFNOLPolicies").css("display", "none");
         $("#searchChat").removeAttr("class");
         $("#quotes").removeAttr("class");
+        $("#polycies").attr("class", "active");
+
+        $("#tableFNOLPolicies").css("display", "none");
     };
 
     function ShowFNOL() {
         $("#searchChats").hide();
         $("#searchPolycies").hide();
         $("#searchClients").hide();
-        $("#searchFNOL").show();
         $("#searchQuotes").hide();
+        $("#searchUsers").hide();
+        $("#searchFNOL").show();
+
+        $("#registeredUsers").removeAttr("class");
         $("#polycies").removeAttr("class");
         $("#clients").removeAttr("class");
-        $("#first_notice_of_loss").attr("class", "active");
         $("#searchChat").removeAttr("class");
         $("#quotes").removeAttr("class");
+        $("#first_notice_of_loss").attr("class", "active");
     };
 
     function ShowQuotes() {
@@ -785,11 +850,15 @@
         $("#searchPolycies").hide();
         $("#searchClients").hide();
         $("#searchFNOL").hide();
+        $("#searchUsers").hide();
         $("#searchQuotes").show();
+
+
         $("#first_notice_of_loss").removeAttr("class");
         $("#polycies").removeAttr("class");
         $("#clients").removeAttr("class");
         $("#searchChat").removeAttr("class");
+        $("#registeredUsers").removeAttr("class");
         $("#quotes").attr("class", "active");
     };
 
@@ -797,17 +866,42 @@
         $("#searchClients").hide();
         $("#searchPolycies").hide();
         $("#searchFNOL").hide();
-        $("#searchChats").show();
+        $("#searchUsers").hide();
         $("#searchQuotes").hide();
+        $("#searchChats").show();
+
         $("#polycies").removeAttr("class");
         $("#clients").removeAttr("class");
         $("#first_notice_of_loss").removeAttr("class");
         $("#quotes").removeAttr("class");
+        $("#registeredUsers").removeAttr("class");
+        $("#searchChat").attr("class", "active");
+
         $("#tablePoliciesClients").css("display", "none");
         $("#tablePoliciesHolders").css("display", "none");
         $("#tableFNOLPolicies").css("display", "none");
         $("#tableArchivedFNOL").css("display", "none");
         $("#searchChat").attr("class", "active");
+    };
+
+    function ShowUsers() {
+        $("#searchClients").hide();
+        $("#searchPolycies").hide();
+        $("#searchFNOL").hide();
+        $("searchChats").hide();
+        $("#searchQuotes").hide();
+        $("#searchUsers").show();
+        
+        $("#polycies").removeAttr("class");
+        $("#clients").removeAttr("class");
+        $("#first_notice_of_loss").removeAttr("class");
+        $("#quotes").removeAttr("class");
+        $("#searchChat").removeAttr("class");
+        $("#registeredUsers").attr("class", "active");
+    }; 
+
+    function SearchUsers() {
+
     };
 
     function SearchChat() {

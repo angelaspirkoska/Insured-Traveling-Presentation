@@ -84,6 +84,10 @@ namespace InsuredTraveling.Models
         [Display(Name = "User_City", ResourceType = typeof(Resource))]
         public string City { get; set; }
 
+
+        [Display(Name = "User_Role", ResourceType = typeof(Resource))]
+        public string Role { get; set; }
+
     }
 
     public class SmsCodeVerify

@@ -29,7 +29,7 @@ namespace InsuredTraveling.Hubs
             if (System.Web.HttpContext.Current !=null)
             {
                 _currentUser = System.Web.HttpContext.Current.User.Identity.Name;
-                _isAdmin = roleAuthorize.IsUser("admin");
+                _isAdmin = roleAuthorize.IsUser("Admin");
             }else
             {
                 _isAdmin = false;
@@ -42,7 +42,7 @@ namespace InsuredTraveling.Hubs
             RoleAuthorize roleAuthorize = new RoleAuthorize();
             _currentUser = System.Web.HttpContext.Current.User.Identity.Name;
             List<LastMessagesDTO> lastMessages = new List<LastMessagesDTO>();
-            _isAdmin = roleAuthorize.IsUser("admin");
+            _isAdmin = roleAuthorize.IsUser("Admin");
 
             if (_isAdmin)
             {

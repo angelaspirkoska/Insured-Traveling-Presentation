@@ -2,14 +2,15 @@
 @using System.Web.Optimization;
 @model InsuredTraveling.Models.User
 @{
-    ViewBag.Title = "Sign up";
+    ViewBag.Title = "Create User";
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
-<form id="signup_form" method="post" action="@Url.Action("Index")" data-otf-ajax="true">
+
+<form id="signup_form" method="post" action="@Url.Action("CreateUser")" data-otf-ajax="true">
     <div class="row">
         <div class="col-md-6">
-            <h2 class="form-login-heading heading-padding">@InsuredTraveling.Resource.SignUp</h2>
-        </div>s
+            <h2 class="form-login-heading heading-padding">@InsuredTraveling.Resource.Admin_SignUp</h2>
+        </div>
         <div class="col-lg-offset-2 col-md-offset-2 col-lg-4 col-md-4 col-sm-4">
             <div class="alert alert-dismissible alert-info alert-position">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -35,16 +36,16 @@
                         <span>@InsuredTraveling.Resource.SignUp_SuccessMessage</span>
                     </div>
 
-                    <script type="text/javascript">
-                            $(document).ready(function () {
-                                setTimeout(function () {
-                                    window.location.replace("@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp/MobilePhoneVerification?username=" + $("#username").val());
-                                }, 5000);
+                    @*<script type="text/javascript">
+                        $(document).ready(function () {
+                            setTimeout(function () {
+                                window.location.replace("@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp/MobilePhoneVerification?username=" + $("#username").val());
+                            }, 5000);
 
-                                SendSMSCode();
-                                //ActivateAccount();
-                            });
-                    </script>
+                            SendSMSCode();
+                            //ActivateAccount();
+                        });
+                    </script>*@
                 }
             }
         </div>
@@ -135,20 +136,8 @@
                                 </div>
                                 @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control splaceholder mandatoryField insuredData" } })
                             </div>
-                            @Html.ValidationMessageFor(model => model.DateOfBirth,"", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
                         </div>
-
-                        @*<div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                                <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                                @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label" })
-                                <div class="input-group date" id="datetimepicker">
-                                    <div class="input-group-addon">
-                                        <i class="glyphicon glyphicon-calendar"></i>
-                                    </div>
-                                    @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control placeholder", type = "date", id = "" } })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
-                            </div>*@
                     </div>
 
                     <div class="form-group">
@@ -290,6 +279,20 @@
                             @Html.ValidationMessageFor(model => model.PassportNumber, "", new { @class = "text-danger" })
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                                @Html.DropDownListFor(model => model.Role, (List<SelectListItem>)ViewBag.Roles, new { @class = "form-control", style = "" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class="col-md-offset-4 col-md-4">
                             <div class="form-group">
@@ -332,7 +335,7 @@
 <script type="text/javascript">
     $('#datetimepicker3').datetimepicker({
         viewMode: 'years',
-        format: 'DD/MM/YYYY'    
+        format: 'DD/MM/YYYY'
     });
 
     function FindUsername() {

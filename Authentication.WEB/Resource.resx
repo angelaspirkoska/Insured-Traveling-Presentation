@@ -1128,4 +1128,22 @@
   <data name="NewPolicy_Title" xml:space="preserve">
     <value>New Policy</value>
   </data>
+  <data name="Admin_SignUp" xml:space="preserve">
+    <value>Register User</value>
+  </data>
+  <data name="Home_CreateUser" xml:space="preserve">
+    <value>Create User</value>
+  </data>
+  <data name="User_Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="RegisterDate" xml:space="preserve">
+    <value>Register date</value>
+  </data>
+  <data name="Search_AddUserButton" xml:space="preserve">
+    <value>Add user</value>
+  </data>
+  <data name="Search_Users" xml:space="preserve">
+    <value>Registered users</value>
+  </data>
 </root>

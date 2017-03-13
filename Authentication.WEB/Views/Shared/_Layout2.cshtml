@@ -1,4 +1,4 @@
-﻿   
+﻿
 @using InsuredTraveling.Filters;
 @{
     RoleAuthorize r = new RoleAuthorize();
@@ -75,7 +75,7 @@
                                     </li>*@
                             </ul>
                         </li>
-                        if (r.IsUser("admin"))
+                        if (r.IsUser("Admin"))
                         {
                             <li class="dropdown">
                                 <a href="#" id="messageRequests" class="dropdown-toggle" data-toggle="dropdown">
@@ -113,20 +113,17 @@
                 <div class="jumbotron menu-btn-align toolbar-padding">
                     <br />
                     <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</button>
-                    @if (r.IsUser("admin") || r.IsUser("broker"))
-                {
+                    @if (r.IsUser("Admin") || r.IsUser("Broker")){
                         <button onclick="@("window.location.href='/News/Index'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_News</button>
                     }
-
                     <button onclick="@("window.location.href='" + @Url.Action("Index","Search") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_Search</button>
                     <button onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_FirstNoticeOfLoss</button>
-                    @if (r.IsUser("admin"))
-                {
+                    @if (r.IsUser("Admin"))   {
                         <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_AdminPanel</button>
                         <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</button>
+                        <button onclick="@("window.location.href='" + @Url.Action("CreateUser", "SignUp") + "'");" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_CreateUser</button>
                     }
-                    @if (r.IsUser("broker"))
-                {
+                    @if (r.IsUser("Broker")){
                         <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</button>
                     }
                 </div>
@@ -153,26 +150,26 @@
 
     <script type="text/javascript">
 
-            $(document).ready(function () {
-                localStorage.setItem("username", $("#userName").val());
-                console.log(localStorage.getItem("username"));
-                if (localStorage.getItem("username") != "") {
-                }
-                else {
-                }
-                $("#alerts").click(function () {
-                    if ($("#alerts").attr('aria-expanded') === "true") {
-                        $("#alerts_bell").removeClass('red');
-                        $(".label-danger").each(function () {
-                            $(this).removeClass("label label-danger");
-                            $(this).addClass("label label-default");
-                            $(".my_audio").trigger('stop');
+        $(document).ready(function () {
+            localStorage.setItem("username", $("#userName").val());
+            console.log(localStorage.getItem("username"));
+            if (localStorage.getItem("username") != "") {
+            }
+            else {
+            }
+            $("#alerts").click(function () {
+                if ($("#alerts").attr('aria-expanded') === "true") {
+                    $("#alerts_bell").removeClass('red');
+                    $(".label-danger").each(function () {
+                        $(this).removeClass("label label-danger");
+                        $(this).addClass("label label-default");
+                        $(".my_audio").trigger('stop');
 
-                        });
-                    }
-                });
+                    });
+                }
+            });
 
-                });
+        });
     </script>
     <script id="chat_template" type="text/x-custom-template">
         <div id="none" class="chat_position" requestId="none">

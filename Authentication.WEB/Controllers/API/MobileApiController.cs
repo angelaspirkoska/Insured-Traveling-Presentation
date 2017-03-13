@@ -496,6 +496,7 @@ namespace InsuredTraveling.Controllers.API
             else throw new Exception("Internal error: Not saved");
         }
 
+        //If not used from mobile app, delete it
         [HttpPost]
         [AllowAnonymous]
         [Route("ExistsPolicy")]
