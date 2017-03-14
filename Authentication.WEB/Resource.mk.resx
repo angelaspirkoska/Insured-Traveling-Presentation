@@ -1140,4 +1140,19 @@
   <data name="Search_Users" xml:space="preserve">
     <value>Регистрирани корисници</value>
   </data>
+  <data name="SearchTable_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="SearchTable_FirstName" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="SearchTable_LastName" xml:space="preserve">
+    <value>Презиме</value>
+  </data>
+  <data name="SearchTable_RoleName" xml:space="preserve">
+    <value>Улога</value>
+  </data>
+  <data name="SearchTable_UserName" xml:space="preserve">
+    <value>Корисничко име</value>
+  </data>
 </root>

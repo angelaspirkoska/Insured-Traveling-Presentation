@@ -2833,6 +2833,51 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string SearchTable_Email {
+            get {
+                return ResourceManager.GetString("SearchTable_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Name.
+        /// </summary>
+        public static string SearchTable_FirstName {
+            get {
+                return ResourceManager.GetString("SearchTable_FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        public static string SearchTable_LastName {
+            get {
+                return ResourceManager.GetString("SearchTable_LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        public static string SearchTable_RoleName {
+            get {
+                return ResourceManager.GetString("SearchTable_RoleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string SearchTable_UserName {
+            get {
+                return ResourceManager.GetString("SearchTable_UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign up.
         /// </summary>
         public static string SignUp {

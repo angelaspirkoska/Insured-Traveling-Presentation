@@ -34,6 +34,16 @@ namespace InsuredTraveling.App_Start
                 dst.Type_InsuredID = null;
                                
             });
+
+            Mapper.CreateMap<aspnetuser, SearchRegisteredUser>().AfterMap((src, dst) =>
+            {
+                dst.Username = src.UserName;
+                dst.FirstName = src.FirstName;
+                dst.LastName = src.LastName;
+                dst.Email = src.Email;
+                dst.RoleName = src.aspnetroles.FirstOrDefault().Name;
+            });
+
             Mapper.CreateMap<first_notice_of_loss, FirstNoticeOfLossEditViewModel>().AfterMap((src, dst) =>
             {
                 var policy = src.travel_policy;

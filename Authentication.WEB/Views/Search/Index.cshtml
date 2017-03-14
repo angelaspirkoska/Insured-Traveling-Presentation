@@ -44,6 +44,16 @@
                     <label for="country">@InsuredTraveling.Resource.RegisterDate:</label>
                     <div class="input-group">
                         <input type="date" id="RegisterDate" class="form-control placeholder" />
+                        <div class="input-group-btn">
+                            <button type="button" id="operatorRegisterDate" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                = <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li onclick="$('#operatorRegisterDate').html(' = '); $('#operatorRegisterDate').val('=');">=</li>
+                                <li onclick="$('#operatorRegisterDate').html(' < '); $('#operatorRegisterDate').val('<');">&lt</li>
+                                <li onclick="$('#operatorRegisterDate').html(' > '); $('#operatorRegisterDate').val('>');">&gt</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,8 +74,28 @@
         <br />
         <br />
     </form>
-
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableRegisteredUsers">
+            <thead>
+                <tr>
+                    <th>@InsuredTraveling.Resource.SearchTable_UserName</th>
+                    <th>@InsuredTraveling.Resource.SearchTable_FirstName</th>
+                    <th>@InsuredTraveling.Resource.SearchTable_LastName</th>
+                    <th>@InsuredTraveling.Resource.SearchTable_Email</th>
+                    <th>@InsuredTraveling.Resource.SearchTable_RoleName</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="searchResultRegisteredUsers"></tbody>
+        </table>
+    </div>
 </div>
+
 
 
 
@@ -701,6 +731,9 @@
         $("#tableClients").DataTable().destroy();
         $("#tableClients").DataTable();
 
+        $("#tableRegisteredUsers").DataTable().destroy();
+        $("#tableRegisteredUsers").DataTable();
+
         $("#tablePolicies").DataTable().destroy();
         $("#tablePolicies").DataTable();
 
@@ -1066,6 +1099,24 @@
         $('html,body').animate({
             scrollTop: $("#tableQuotes").offset().top
         }, 800);
+    };
+
+    function SearchUsers() {
+        $("#tableRegisteredUsers").DataTable().destroy();
+        $("#tableRegisteredUsers").DataTable({
+            dom: "Bfrtip",
+            ajax: "/Search/GetRegisteredUsers?RoleName=" + $("#SearchRole").val(),
+            columns: [
+                    { data: "Username" },
+                    { data: "FirstName" },
+                    { data: "LastName" },
+                    { data: "Email" },
+                    { data: "RoleName" }                 
+            ],
+            select: true
+        });
+
+        $("#tableRegisteredUsers").css("display", "table");
     };
 
     function CreateFNOLTablePoliciesByPolicyNumber(policy_number) {

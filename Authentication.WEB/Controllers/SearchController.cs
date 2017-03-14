@@ -11,6 +11,7 @@ using InsuredTraveling.ViewModels;
 using InsuredTraveling.Filters;
 using System.Configuration;
 using InsuredTraveling.App_Start;
+using InsuredTraveling.Models;
 
 namespace InsuredTraveling.Controllers
 {
@@ -353,6 +354,35 @@ namespace InsuredTraveling.Controllers
             JSONObject.Add("data", array);
             return JSONObject;
         }
+
+        [HttpGet]
+        [Route("GetRegisteredUsers")]
+        public JObject GetRegisteredUsers(string RegisterDate, string operatorRegisterDate, string RoleName)
+        {
+            List<aspnetuser> data = new List<aspnetuser>();
+            DateTime RegisterDateValue = String.IsNullOrEmpty(RegisterDate) ? new DateTime() : Convert.ToDateTime(RegisterDate);
+
+            data = _us.GetUsersByRoleName(RoleName);
+
+            if (!String.IsNullOrEmpty(RegisterDate))
+            {
+                switch (operatorRegisterDate)
+                {
+                    //case "<": data = data.Where(x => x.Start_Date < startDate1).ToList(); break;
+                    //case "=": data = data.Where(x => x.Start_Date == startDate1).ToList(); break;
+                    //case ">": data = data.Where(x => x.Start_Date > startDate1).ToList(); break;
+                    //default: break;
+                }
+            }
+
+            var JSONObject = new JObject();
+            var searchModel = data.Select(Mapper.Map<aspnetuser, SearchRegisteredUser>).ToList();
+            var array = JArray.FromObject(searchModel.ToArray());
+            JSONObject.Add("data", array);
+            return JSONObject;
+        }
+
+
         public JObject GetFNOLByPolicyNumber(string number)
         {
             int id = !String.IsNullOrEmpty(number) ? Convert.ToInt32(number) : 0;
