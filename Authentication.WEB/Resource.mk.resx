@@ -1155,4 +1155,22 @@
   <data name="SearchTable_UserName" xml:space="preserve">
     <value>Корисничко име</value>
   </data>
+  <data name="Search_UserResetPass" xml:space="preserve">
+    <value>Промени лозинка</value>
+  </data>
+  <data name="PasswordResetMessageFail" xml:space="preserve">
+    <value>Лозинката не беше променета успешно</value>
+  </data>
+  <data name="PasswordResetMessageSuccess" xml:space="preserve">
+    <value>Лозинката беше променета успешно</value>
+  </data>
+  <data name="Search_Cancel" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="Search_Reset" xml:space="preserve">
+    <value>Промени</value>
+  </data>
+  <data name="Search_ResetUserPass" xml:space="preserve">
+    <value>Промени ја лозинката на корисникот</value>
+  </data>
 </root>

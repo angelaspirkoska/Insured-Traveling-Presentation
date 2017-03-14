@@ -1258,6 +1258,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password not changed successfully!.
+        /// </summary>
+        public static string PasswordResetMessageFail {
+            get {
+                return ResourceManager.GetString("PasswordResetMessageFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password changed successfully!.
+        /// </summary>
+        public static string PasswordResetMessageSuccess {
+            get {
+                return ResourceManager.GetString("PasswordResetMessageSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add to Offers.
         /// </summary>
         public static string Policy_AddOffer {
@@ -2347,6 +2365,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Search_Cancel {
+            get {
+                return ResourceManager.GetString("Search_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancellation Date.
         /// </summary>
         public static string Search_CancellationDate {
@@ -2689,6 +2716,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string Search_Reset {
+            get {
+                return ResourceManager.GetString("Search_Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset user&apos;s password.
+        /// </summary>
+        public static string Search_ResetUserPass {
+            get {
+                return ResourceManager.GetString("Search_ResetUserPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search by Address.
         /// </summary>
         public static string Search_SearchAddress {
@@ -2820,6 +2865,15 @@ namespace InsuredTraveling {
         public static string Search_TravelCountry {
             get {
                 return ResourceManager.GetString("Search_TravelCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset password.
+        /// </summary>
+        public static string Search_UserResetPass {
+            get {
+                return ResourceManager.GetString("Search_UserResetPass", resourceCulture);
             }
         }
         

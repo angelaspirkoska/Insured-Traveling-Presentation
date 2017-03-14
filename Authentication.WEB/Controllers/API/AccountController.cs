@@ -26,43 +26,26 @@ namespace InsuredTraveling.Controllers
         {
             _repo = new AuthRepository();
         }
-        
-        //Za testiranje samo
+
         [HttpPost]
-        public IHttpActionResult Check()
+        [Route("ChangePassword")]
+        public IHttpActionResult ChangePassword(ForgetPasswordModel model)
         {
-            FirstNoticeOfLossReportViewModel f = new FirstNoticeOfLossReportViewModel();
-            //f.PolicyType = "Comfort";
-            //f.policyNumber = 123456;
-            //f.username = "Daki123";
-            //f.TransactionAccount = "jsJADKJASD";
-            //f.deponent = "akhKSDds";
-            //f.insuredAddress = "jsaksf";
-            //f.insuredEMBG = "jsaksf";
-            //f.insuredName = "jsaksf";
-            //f.insuredPhone = "jsaksf";
-            //f.insuredTransactionAccount = "jsaksf";
-            //f.deponentInsured = "msalfdf";
-            //f.relationship = "friend";
-            //f.travelDestination = "gldfd";
-            //f.message = "fnlgfsldfgk;dfxlgd;f";
-            //f.additionalDocumentsHanded = "dajda";
-            //f.travelTimeFrom = DateTime.Now.TimeOfDay;
-            //f.travelTimeTo = DateTime.Now.TimeOfDay;
-            //f.travelDateFrom = DateTime.Now;
-            //f.travelDateTo = DateTime.Now;
-            //f.message = "sjaDKa";
-            //f.valueExpenses = 100;
-            ////f.ShortDetailed = true;
-            ////f.LuggageInsurance = true;
-            ////f.HealthInsurance = false;
-            ////f.WebMobile = false;
-            //f.transportationType = "Car";
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            
+            IdentityResult result = _repo.PasswordChangeByUsername(model);
 
-            var fnol = Mapper.Map<FirstNoticeOfLossReportViewModel, first_notice_of_loss>(f);
-            return Ok(new { fnol = fnol});
+            IHttpActionResult errorResult = GetErrorResult(result);
+
+            if (errorResult != null)
+            {
+                return errorResult;
+            }
+
+            return Ok();
         }
 
         [HttpPost]

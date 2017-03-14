@@ -30,6 +30,7 @@ namespace InsuredTraveling.Controllers
         private IPolicySearchService _policySearchService;
         private RoleAuthorize _roleAuthorize;
         private IFirstNoticeOfLossArchiveService _firstNoticeLossArchiveService;
+        private IRolesService _rs;
 
         public SearchController(IPolicyService ps, 
                                 IFirstNoticeOfLossService fnls, 
@@ -40,7 +41,8 @@ namespace InsuredTraveling.Controllers
                                 ICountryService countryService,
                                 IChatService ics,
                                 IPolicySearchService policySearchService,
-                                IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService)
+                                IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService,
+                                IRolesService rs)
         {
             _ps = ps;
             _fnls = fnls;
@@ -50,6 +52,7 @@ namespace InsuredTraveling.Controllers
             _bas = bas;
             _countryService = countryService;
             _ics = ics;
+            _rs = rs;
             _policySearchService = policySearchService;
             _roleAuthorize = new RoleAuthorize();
             _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
@@ -68,6 +71,15 @@ namespace InsuredTraveling.Controllers
 
             var policies = GetAllPolicies();
             ViewBag.Policies = policies.Result;
+            var roles = _rs.GetAll().ToList();
+            foreach(var role in roles)
+            {
+                if (role.Selected)
+                {
+                    role.Selected = false;
+                }
+            }
+            ViewBag.Roles = roles;
             return View();
         }
 
