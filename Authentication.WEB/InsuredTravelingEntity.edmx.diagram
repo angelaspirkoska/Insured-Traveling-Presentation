@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="Entities.additional_info" Width="1.5" PointX="9" PointY="40" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.aspnetrole" Width="1.5" PointX="0.75" PointY="31.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.aspnetuserclaim" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.aspnetuser" Width="1.5" PointX="3" PointY="27" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.bank_account_info" Width="1.5" PointX="12.5" PointY="23.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.bank_prefix" Width="1.5" PointX="12.5" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.bank" Width="1.5" PointX="10.25" PointY="19.25" IsExpanded="true" />
@@ -34,7 +33,6 @@
         <EntityTypeShape EntityType="Entities.luggage_insurance_info" Width="1.5" PointX="11.25" PointY="47.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.min_premium" Width="1.5" PointX="15.5" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.news_all" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.ok_setup" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.p_referent" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.p_stapki" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.policy_additional_charge" Width="1.5" PointX="7.5" PointY="25.25" IsExpanded="true" />
@@ -51,30 +49,10 @@
         <EntityTypeShape EntityType="Entities.user" Width="1.5" PointX="5.25" PointY="67" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.aspnetuserlogin" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.transaction" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
-        <AssociationConnector Association="Entities.fk_additional_charge_created_by" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.fk_additional_charge_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_additional_charge_modified_by" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.health_insurance_info_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.luggage_insurance_info_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_7" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_discount_age_Created_By" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_discount_age_Modified_By" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_discount_country_Created_By" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_discount_country_Modified_by" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_discount_days_Created_By" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_discount_days_Modified_by" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_discount_family_Created_By" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_discount_family_Modified_by" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_discount_group_Created_By" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_discount_group_Modified_by" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_insured_createdby" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_insured_modifiedby" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_policy_created_by" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_policy_modified_by" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_travel_duration_Created_by" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_travel_duration_Modified_by" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_users_aspnetuser" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.bank_account_info_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.bank_account_info_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_3" ManuallyRouted="false" />
@@ -105,7 +83,6 @@
         <AssociationConnector Association="Entities.fk_travel_policy_retaining_risk" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.fk_policy_insurance_type" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.fk_policy_travel_number" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.aspnetuserroles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Entities.payment_status" Width="1.5" PointX="5.375" PointY="8.75" />
         <EntityTypeShape EntityType="Entities.language" Width="1.5" PointX="7.375" PointY="8.75" />
         <EntityTypeShape EntityType="Entities.additional_charge_name" Width="1.5" PointX="9.75" PointY="8.75" />
@@ -123,14 +100,37 @@
         <AssociationConnector Association="Entities.fk_conversation_message1" />
         <EntityTypeShape EntityType="Entities.first_notice_of_loss_archive" Width="4.625" PointX="13.5" PointY="50.625" IsExpanded="true" />
         <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_1" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_2" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_8" />
         <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_4" />
         <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_3" />
         <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_5" />
         <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_6" />
         <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_7" />
         <EntityTypeShape EntityType="Entities.discount_codes" Width="1.5" PointX="12.375" PointY="7.75" />
+        <EntityTypeShape EntityType="Entities.ok_setup" Width="1.5" PointX="10.375" PointY="13.75" />
+        <EntityTypeShape EntityType="Entities.aspnetuser" Width="1.5" PointX="3" PointY="26.625" />
+        <AssociationConnector Association="Entities.fk_additional_charge_created_by" />
+        <AssociationConnector Association="Entities.fk_additional_charge_modified_by" />
+        <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_2" />
+        <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_7" />
+        <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_8" />
+        <AssociationConnector Association="Entities.fk_discount_age_Created_By" />
+        <AssociationConnector Association="Entities.fk_discount_age_Modified_By" />
+        <AssociationConnector Association="Entities.fk_discount_country_Created_By" />
+        <AssociationConnector Association="Entities.fk_discount_country_Modified_by" />
+        <AssociationConnector Association="Entities.fk_discount_days_Created_By" />
+        <AssociationConnector Association="Entities.fk_discount_days_Modified_by" />
+        <AssociationConnector Association="Entities.fk_discount_family_Created_By" />
+        <AssociationConnector Association="Entities.fk_discount_family_Modified_by" />
+        <AssociationConnector Association="Entities.fk_discount_group_Created_By" />
+        <AssociationConnector Association="Entities.fk_discount_group_Modified_by" />
+        <AssociationConnector Association="Entities.fk_insured_createdby" />
+        <AssociationConnector Association="Entities.fk_insured_modifiedby" />
+        <AssociationConnector Association="Entities.fk_policy_created_by" />
+        <AssociationConnector Association="Entities.fk_policy_modified_by" />
+        <AssociationConnector Association="Entities.fk_travel_duration_Created_by" />
+        <AssociationConnector Association="Entities.fk_travel_duration_Modified_by" />
+        <AssociationConnector Association="Entities.fk_users_aspnetuser" />
+        <AssociationConnector Association="Entities.aspnetuserroles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

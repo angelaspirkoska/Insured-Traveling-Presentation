@@ -1146,4 +1146,7 @@
   <data name="Search_Users" xml:space="preserve">
     <value>Registered users</value>
   </data>
+  <data name="AdminPanel_SSNValidation" xml:space="preserve">
+    <value>SSN Validation</value>
+  </data>
 </root>

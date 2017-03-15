@@ -1140,4 +1140,7 @@
   <data name="Search_Users" xml:space="preserve">
     <value>Регистрирани корисници</value>
   </data>
+  <data name="AdminPanel_SSNValidation" xml:space="preserve">
+    <value>ЕМБГ проверка</value>
+  </data>
 </root>

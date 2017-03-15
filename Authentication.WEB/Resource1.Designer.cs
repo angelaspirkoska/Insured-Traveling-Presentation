@@ -196,6 +196,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SSN Validation.
+        /// </summary>
+        public static string AdminPanel_SSNValidation {
+            get {
+                return ResourceManager.GetString("AdminPanel_SSNValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin Panel.
         /// </summary>
         public static string AdminPanel_Title {

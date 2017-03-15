@@ -579,6 +579,7 @@
     <Compile Include="Helpers\SavePolicyHelper.cs" />
     <Compile Include="Helpers\UpdateBankAccountInfoHelper.cs" />
     <Compile Include="Helpers\UpdateFirstNoticeOfLossHelper.cs" />
+    <Compile Include="Models\Ok_SetupModel.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -844,6 +845,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\ILAsm.4.5.1.1\build\net\ILAsm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILAsm.4.5.1.1\build\net\ILAsm.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -857,4 +859,5 @@
     <!--Generate transformed config in the output directory-->
     <TransformXml Source="Web.config" Destination="$(OutputPath)Web.config" Transform="Web.$(Configuration).config" />
   </Target>
+  <Import Project="..\packages\ILAsm.4.5.1.1\build\net\ILAsm.targets" Condition="Exists('..\packages\ILAsm.4.5.1.1\build\net\ILAsm.targets')" />
 </Project>
