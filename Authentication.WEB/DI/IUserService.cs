@@ -16,7 +16,7 @@ namespace InsuredTraveling.DI
         List<travel_policy> GetPoliciesByUsernameToList(string Username, string Prefix);
         bool IsSameLoggedUserAndInsured(string UsernameLoggedUser, int SelectedInsured);
         string GetUserSsnByUsername(string username);
-
+        List<aspnetuser> GetUsersByRoleName(string Role);
         void UpdateSsnById(string id, string ssn);
     }
 }

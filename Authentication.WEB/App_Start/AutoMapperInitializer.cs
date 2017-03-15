@@ -13,7 +13,16 @@ namespace InsuredTraveling.App_Start
         public static void Initialize()
         {
             InsuredTravelingEntity db = new InsuredTravelingEntity();
-          
+
+            Mapper.CreateMap<aspnetuser, SearchRegisteredUser>().AfterMap((src, dst) =>
+            {
+                dst.Username = src.UserName;
+                dst.FirstName = src.FirstName;
+                dst.LastName = src.LastName;
+                dst.Email = src.Email;
+                dst.RoleName = src.aspnetroles.FirstOrDefault().Name;
+            });
+
             Mapper.CreateMap<CreateClientModel , insured>().AfterMap((src, dst) =>
             {
                 dst.Name = src.Name;

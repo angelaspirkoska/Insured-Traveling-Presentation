@@ -23,6 +23,12 @@ namespace InsuredTraveling.DI
             return PolicyNumbers;
         }
 
+        public List<aspnetuser> GetUsersByRoleName(string Role)
+        {
+            aspnetrole r = _db.aspnetroles.Where(x => x.Name == Role).FirstOrDefault();
+            return _db.aspnetusers.Where(x => x.aspnetroles.FirstOrDefault().Name.Contains(Role)).ToList();
+        }
+
         public List<travel_policy> GetPoliciesByUsernameToList(string Username, string Prefix)
         {
             string ID = _db.aspnetusers.Where(a => a.UserName == Username).Single().Id;

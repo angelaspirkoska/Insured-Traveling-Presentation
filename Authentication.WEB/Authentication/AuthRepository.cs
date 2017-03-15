@@ -52,7 +52,7 @@ namespace InsuredTraveling
 
             //Random r = new Random();
             //string id = "1234" + r.Next(1000, 9999).ToString() + r.Next(100,999).ToString();
-                    
+
             ApplicationUser user = new ApplicationUser
             {
                 UserName = userModel.UserName,
@@ -67,7 +67,9 @@ namespace InsuredTraveling
                 AccessFailedCount = 0,
                 MobilePhoneNumber = userModel.MobilePhoneNumber,
                 Gender = userModel.Gender,
-                DateOfBirth = userModel.DateOfBirth
+                DateOfBirth = userModel.DateOfBirth,
+                CreatedOn = DateTime.UtcNow
+                
             };
             var result = await _userManager.CreateAsync(user, userModel.Password);
             var result2 = _userManager.AddToRole(user.Id, "End user");
@@ -157,7 +159,8 @@ namespace InsuredTraveling
                 PostalCode = userModel.PostalCode,
                 Address = userModel.Address,
                 EMBG = userModel.EMBG,
-                City = userModel.City
+                City = userModel.City,
+                CreatedOn = DateTime.UtcNow
             };
             
             var result = await _userManager.CreateAsync(user, userModel.Password);
@@ -377,6 +380,26 @@ namespace InsuredTraveling
                 if (r1.Succeeded)
                 {
                     var r2 =  _userManager.AddPassword(user1.Id, model.Password);
+                    _userManager.Update(user1);
+                    var r3 = _userManager.CheckPassword(user1, model.Password);
+
+                    return r2;
+                }
+            }
+
+            return new IdentityResult();
+        }
+
+        public  IdentityResult PasswordChangeByUsername(ForgetPasswordModel model)
+        {
+            var user1 =  _userManager.FindByName(model.username);
+            if (user1 != null)
+            {
+                var r1 = _userManager.RemovePassword(user1.Id);
+                _userManager.Update(user1);
+                if (r1.Succeeded)
+                {
+                    var r2 = _userManager.AddPassword(user1.Id, model.Password);
                     _userManager.Update(user1);
                     var r3 = _userManager.CheckPassword(user1, model.Password);
 

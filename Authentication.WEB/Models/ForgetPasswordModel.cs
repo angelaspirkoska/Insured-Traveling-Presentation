@@ -6,6 +6,8 @@ namespace InsuredTraveling.Models
     {
         public string ID { get; set; }
 
+        public string username { get; set; }
+
         [Required]
         [Display(Name ="New Password")]
         public string Password { get; set; }

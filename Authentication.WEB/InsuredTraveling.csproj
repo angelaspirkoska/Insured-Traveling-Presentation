@@ -580,6 +580,7 @@
     <Compile Include="Helpers\UpdateBankAccountInfoHelper.cs" />
     <Compile Include="Helpers\UpdateFirstNoticeOfLossHelper.cs" />
     <Compile Include="Models\Ok_SetupModel.cs" />
+    <Compile Include="Models\SearchRegisteredUser.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -11,6 +11,7 @@ using InsuredTraveling.ViewModels;
 using InsuredTraveling.Filters;
 using System.Configuration;
 using InsuredTraveling.App_Start;
+using InsuredTraveling.Models;
 
 namespace InsuredTraveling.Controllers
 {
@@ -29,6 +30,7 @@ namespace InsuredTraveling.Controllers
         private IPolicySearchService _policySearchService;
         private RoleAuthorize _roleAuthorize;
         private IFirstNoticeOfLossArchiveService _firstNoticeLossArchiveService;
+        private IRolesService _rs;
 
         public SearchController(IPolicyService ps, 
                                 IFirstNoticeOfLossService fnls, 
@@ -39,7 +41,8 @@ namespace InsuredTraveling.Controllers
                                 ICountryService countryService,
                                 IChatService ics,
                                 IPolicySearchService policySearchService,
-                                IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService)
+                                IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService,
+                                IRolesService rs)
         {
             _ps = ps;
             _fnls = fnls;
@@ -49,6 +52,7 @@ namespace InsuredTraveling.Controllers
             _bas = bas;
             _countryService = countryService;
             _ics = ics;
+            _rs = rs;
             _policySearchService = policySearchService;
             _roleAuthorize = new RoleAuthorize();
             _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
@@ -67,6 +71,15 @@ namespace InsuredTraveling.Controllers
 
             var policies = GetAllPolicies();
             ViewBag.Policies = policies.Result;
+            var roles = _rs.GetAll().ToList();
+            foreach(var role in roles)
+            {
+                if (role.Selected)
+                {
+                    role.Selected = false;
+                }
+            }
+            ViewBag.Roles = roles;
             return View();
         }
 
@@ -353,6 +366,35 @@ namespace InsuredTraveling.Controllers
             JSONObject.Add("data", array);
             return JSONObject;
         }
+
+        [HttpGet]
+        [Route("GetRegisteredUsers")]
+        public JObject GetRegisteredUsers(string RegisterDate, string operatorRegisterDate, string RoleName)
+        {
+            List<aspnetuser> data = new List<aspnetuser>();
+            DateTime RegisterDateValue = String.IsNullOrEmpty(RegisterDate) ? new DateTime() : Convert.ToDateTime(RegisterDate);
+
+            data = _us.GetUsersByRoleName(RoleName);
+
+            if (!String.IsNullOrEmpty(RegisterDate))
+            {
+                switch (operatorRegisterDate)
+                {
+                    //case "<": data = data.Where(x => x.Start_Date < startDate1).ToList(); break;
+                    //case "=": data = data.Where(x => x.Start_Date == startDate1).ToList(); break;
+                    //case ">": data = data.Where(x => x.Start_Date > startDate1).ToList(); break;
+                    //default: break;
+                }
+            }
+
+            var JSONObject = new JObject();
+            var searchModel = data.Select(Mapper.Map<aspnetuser, SearchRegisteredUser>).ToList();
+            var array = JArray.FromObject(searchModel.ToArray());
+            JSONObject.Add("data", array);
+            return JSONObject;
+        }
+
+
         public JObject GetFNOLByPolicyNumber(string number)
         {
             int id = !String.IsNullOrEmpty(number) ? Convert.ToInt32(number) : 0;
