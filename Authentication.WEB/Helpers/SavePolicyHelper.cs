@@ -146,7 +146,7 @@ namespace InsuredTraveling.Helpers
                         newInsured.SSN = currentEndUser.EMBG;
 
                         newInsured.Email = currentEndUser.Email;
-                        newInsured.DateBirth = currentEndUser.DateOfBirth;
+                        newInsured.DateBirth = currentEndUser.DateOfBirth.Value;
                         newInsured.Phone_Number = currentEndUser.PhoneNumber;
 
                         newInsured.Passport_Number_IdNumber = currentEndUser.PassportNumber;
