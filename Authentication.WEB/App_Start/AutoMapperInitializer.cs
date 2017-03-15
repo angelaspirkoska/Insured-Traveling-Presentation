@@ -21,6 +21,7 @@ namespace InsuredTraveling.App_Start
                 dst.LastName = src.LastName;
                 dst.Email = src.Email;
                 dst.RoleName = src.aspnetroles.FirstOrDefault().Name;
+                dst.ActiveInactive = src.Active == 1 ? "Active" : "Inactive";
             });
 
             Mapper.CreateMap<CreateClientModel , insured>().AfterMap((src, dst) =>

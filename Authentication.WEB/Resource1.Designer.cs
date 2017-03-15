@@ -214,6 +214,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have not successfully changed user&apos;s status!.
+        /// </summary>
+        public static string ChangeStatusMessageFail {
+            get {
+                return ResourceManager.GetString("ChangeStatusMessageFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have successfully changed user&apos;s status!.
+        /// </summary>
+        public static string ChangeStatusMessageSuccess {
+            get {
+                return ResourceManager.GetString("ChangeStatusMessageSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chats.
         /// </summary>
         public static string Chats {
@@ -2383,6 +2401,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change.
+        /// </summary>
+        public static string Search_ChangeUserStatus {
+            get {
+                return ResourceManager.GetString("Search_ChangeUserStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chat with.
         /// </summary>
         public static string Search_ChatWith {
@@ -2869,6 +2896,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change status.
+        /// </summary>
+        public static string Search_UserChangeStatus {
+            get {
+                return ResourceManager.GetString("Search_UserChangeStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to change user&apos;s status? Are you sure?.
+        /// </summary>
+        public static string Search_UserChangeStatusQuestion {
+            get {
+                return ResourceManager.GetString("Search_UserChangeStatusQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset password.
         /// </summary>
         public static string Search_UserResetPass {
@@ -2883,6 +2928,15 @@ namespace InsuredTraveling {
         public static string Search_Users {
             get {
                 return ResourceManager.GetString("Search_Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active/Inactive.
+        /// </summary>
+        public static string SearchTable_ActiveInactiveUser {
+            get {
+                return ResourceManager.GetString("SearchTable_ActiveInactiveUser", resourceCulture);
             }
         }
         

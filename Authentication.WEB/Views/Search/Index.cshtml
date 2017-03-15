@@ -83,6 +83,7 @@
                     <th>@InsuredTraveling.Resource.SearchTable_LastName</th>
                     <th>@InsuredTraveling.Resource.SearchTable_Email</th>
                     <th>@InsuredTraveling.Resource.SearchTable_RoleName</th>
+                    <th>@InsuredTraveling.Resource.SearchTable_ActiveInactiveUser</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -122,6 +123,30 @@
     </div>
 </div>
 
+
+<!-- Change user status modal dialog-->
+<div class="modal fade" id="modalChangeStatus" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%; width:35%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@Resource.Search_UserChangeStatus</h4>
+            </div>
+            <div class="modal-body" style="width:70%;">
+                <div class="form-group">
+                    <h4>@Resource.Search_UserChangeStatusQuestion</h4>
+                </div>
+                <div class="form-group">
+                    <label id="ChangeStatusMsg"></label>
+                </div>
+                <input type="hidden" id="hiddenUsernameChangeStatus" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="ChangeStatus">@Resource.Search_ChangeUserStatus</button> <button type="button" onclick="$('#ChangeStatusMsg').text(' ')" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -771,6 +796,7 @@
 
         $("#tableFNOLPolicies").css("display", "none");
         $("#tableArchivedFNOL").css("display", "none");
+
         $("#tablePoliciesClients").css("display", "none");
         $("#tablePoliciesHolders").css("display", "none");
 
@@ -798,7 +824,27 @@
 
             },
             error: function () {
-                $("#PassResetMsg").text("Unsuccessfully reseted password!")
+                $("#PassResetMsg").text("@Resource.PasswordResetMessageFail")
+            }
+        });
+    });
+
+    $("#ChangeStatus").click(function () {
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ChangeUserStatus?username=" + $("#hiddenUsernameChangeStatus").val(),
+            type: "GET",
+            success: function (data) {
+                if ((JSON.parse(data)).message == "OK") {
+                    $("#ChangeStatusMsg").text("@Resource.ChangeStatusMessageSuccess");
+                    $("#ChangeStatus").hide();
+                    SearchUsers();
+                } else {
+                    $("#ChangeStatusMsg").text("@Resource.ChangeStatusMessageFail");
+                }
+
+            },
+            error: function () {
+                $("#PassResetMsg").text("@Resource.ChangeStatusMessageFail")
             }
         });
     });
@@ -809,6 +855,12 @@
         console.log(username);
     }
 
+    function ShowModalChangeStatus(username) {
+        $("#ChangeStatus").show();
+        $("#modalChangeStatus").modal("show");
+        $("#hiddenUsernameChangeStatus").val(username);
+        console.log(username);
+    }
     function showInsured() {
         $("#insured").attr("class", "active");
         $("#holder").removeAttr("class");
@@ -1160,6 +1212,7 @@
                     { data: "LastName" },
                     { data: "Email" },
                     { data: "RoleName" },
+                    { data: "ActiveInactive" },
                     {
                         data: "Username",
                         "render": function (data, type, row, meta) {
@@ -1178,11 +1231,31 @@
                                 return data;
                             }
                         }
+                    },
+                    {
+                        data: "Username",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                var value = data;
+                                return $('<a>')
+                                    .attr('href', '#')
+                                    .attr('onclick', "ShowModalChangeStatus('" + data + "')")
+                                    .attr('class', data)
+                                    .text("@InsuredTraveling.Resource.Search_UserChangeStatus")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
                     }
             ],
             select: true
         });
-
+        $(".@System.Web.HttpContext.Current.User.Identity.Name").removeAttr('href');
+        $(".@System.Web.HttpContext.Current.User.Identity.Name").prop('onclick', '');
+        $(".@System.Web.HttpContext.Current.User.Identity.Name").prop('cursor', 'default');
         $("#tableRegisteredUsers").css("display", "table");
     };
 

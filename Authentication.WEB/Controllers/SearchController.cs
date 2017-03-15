@@ -394,6 +394,24 @@ namespace InsuredTraveling.Controllers
             return JSONObject;
         }
 
+        [HttpGet]
+        [Route("ChangeUserStatus")]
+        public JObject ChangeUserStatus(string username)
+        {
+            bool result = _us.ChangeStatus(username);
+            JObject resultJSON = new JObject();
+            if (result)
+            {
+                resultJSON.Add("message", "OK");
+            }
+            else
+            {
+                resultJSON.Add("message", "NOK");
+            }
+
+            return resultJSON;
+        }
+
 
         public JObject GetFNOLByPolicyNumber(string number)
         {

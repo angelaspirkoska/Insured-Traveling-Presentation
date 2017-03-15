@@ -1179,4 +1179,22 @@
   <data name="Search_ResetUserPass" xml:space="preserve">
     <value>Reset user's password</value>
   </data>
+  <data name="ChangeStatusMessageFail" xml:space="preserve">
+    <value>You have not successfully changed user's status!</value>
+  </data>
+  <data name="ChangeStatusMessageSuccess" xml:space="preserve">
+    <value>You have successfully changed user's status!</value>
+  </data>
+  <data name="SearchTable_ActiveInactiveUser" xml:space="preserve">
+    <value>Active/Inactive</value>
+  </data>
+  <data name="Search_ChangeUserStatus" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="Search_UserChangeStatus" xml:space="preserve">
+    <value>Change status</value>
+  </data>
+  <data name="Search_UserChangeStatusQuestion" xml:space="preserve">
+    <value>Do you want to change user's status? Are you sure?</value>
+  </data>
 </root>

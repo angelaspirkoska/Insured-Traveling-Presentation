@@ -36,6 +36,19 @@ namespace InsuredTraveling.DI
             return policies;
         }
 
+        public bool ChangeStatus(string username)
+        {
+            aspnetuser user = _db.aspnetusers.Where(x => x.UserName == username).FirstOrDefault();
+            int status = user.Active.Value;
+            switch (status)
+            {
+                case 1: user.Active = 0; break;
+                case 0: user.Active = 1; break;
+            }
+
+            var result = _db.SaveChanges();
+            return result == 1;
+        }
         public aspnetuser GetUserById(string id)
         {
           return  _db.aspnetusers.Where(x => x.Id == id).ToArray().Last();

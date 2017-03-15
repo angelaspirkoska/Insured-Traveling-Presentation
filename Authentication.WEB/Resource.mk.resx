@@ -1173,4 +1173,22 @@
   <data name="Search_ResetUserPass" xml:space="preserve">
     <value>Промени ја лозинката на корисникот</value>
   </data>
+  <data name="ChangeStatusMessageFail" xml:space="preserve">
+    <value>Статусот на корисникот не беше променет</value>
+  </data>
+  <data name="ChangeStatusMessageSuccess" xml:space="preserve">
+    <value>Успешно го променивте статусот на корисникот</value>
+  </data>
+  <data name="SearchTable_ActiveInactiveUser" xml:space="preserve">
+    <value>Активен/Неактивен</value>
+  </data>
+  <data name="Search_ChangeUserStatus" xml:space="preserve">
+    <value>Промени</value>
+  </data>
+  <data name="Search_UserChangeStatus" xml:space="preserve">
+    <value>Промени статус</value>
+  </data>
+  <data name="Search_UserChangeStatusQuestion" xml:space="preserve">
+    <value>Дали сакаш да го промениш статусот на корисникот? Дали си сигурен?</value>
+  </data>
 </root>
