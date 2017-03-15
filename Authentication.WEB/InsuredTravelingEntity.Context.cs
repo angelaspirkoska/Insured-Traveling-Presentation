@@ -53,7 +53,6 @@ namespace InsuredTraveling
         public virtual DbSet<luggage_insurance_info> luggage_insurance_info { get; set; }
         public virtual DbSet<min_premium> min_premium { get; set; }
         public virtual DbSet<news_all> news_all { get; set; }
-        public virtual DbSet<ok_setup> ok_setup { get; set; }
         public virtual DbSet<p_referent> p_referent { get; set; }
         public virtual DbSet<p_stapki> p_stapki { get; set; }
         public virtual DbSet<policy_additional_charge> policy_additional_charge { get; set; }
@@ -81,5 +80,6 @@ namespace InsuredTraveling
         public virtual DbSet<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
         public virtual DbSet<discount_codes> discount_codes { get; set; }
         public virtual DbSet<aspnetuser> aspnetusers { get; set; }
+        public virtual DbSet<ok_setup> ok_setup { get; set; }
     }
 }

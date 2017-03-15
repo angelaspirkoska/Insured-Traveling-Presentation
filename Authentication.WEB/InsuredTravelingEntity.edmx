@@ -2349,24 +2349,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="GroupID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="UserID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="ok_setup">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Sms_Code_Seconds" Type="Int32" Nullable="false" />
-          <Property Name="NumberOfAttempts" Type="Int32" Nullable="false" />
-          <Property Name="NumberOfNews" Type="Int32" Nullable="false" />
-          <Property Name="NotificationTime" Type="Time" Nullable="false" />
-          <Property Name="NumberOfLastMsg" Type="Int32" Nullable="false" />
-          <Property Name="InsuranceCompany" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="VersionNumber" Type="Int32" Nullable="false" />
-          <Property Name="Created_Date" Type="DateTime" Nullable="false" />
-          <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Modified_Date" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SSNValidationActive" Type="SByte" Nullable="false" />
-        </EntityType>
         <EntityType Name="p_referent">
           <Key>
             <PropertyRef Name="Sifra" />
@@ -3042,7 +3024,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="luggage_insurance_info" EntityType="Self.luggage_insurance_info" />
           <EntitySet Name="min_premium" EntityType="Self.min_premium" />
           <EntitySet Name="news_all" EntityType="Self.news_all" />
-          <EntitySet Name="ok_setup" EntityType="Self.ok_setup" />
           <EntitySet Name="p_referent" EntityType="Self.p_referent" />
           <EntitySet Name="p_stapki" EntityType="Self.p_stapki" />
           <EntitySet Name="policy_additional_charge" EntityType="Self.policy_additional_charge" />
@@ -3350,6 +3331,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="aspnetrole" EntitySet="aspnetroles" />
             <End Role="aspnetuser" EntitySet="aspnetusers" />
           </AssociationSet>
+          <EntitySet Name="ok_setup" EntityType="Entities.ok_setup" />
           </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -3984,6 +3966,24 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <End Type="Entities.aspnetrole" Role="aspnetrole" Multiplicity="*" />
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="*" />
         </Association>
+        <EntityType Name="ok_setup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sms_Code_Seconds" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfAttempts" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfNews" Type="Int32" Nullable="false" />
+          <Property Name="NotificationTime" Type="Time" Nullable="false" />
+          <Property Name="NumberOfLastMsg" Type="Int32" Nullable="false" />
+          <Property Name="InsuranceCompany" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="VersionNumber" Type="Int32" Nullable="false" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" />
+          <Property Name="Created_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Modified_Date" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="SSNValidationActive" Type="SByte" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4336,25 +4336,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="InsuranceCompany" ColumnName="InsuranceCompany" />
                 <ScalarProperty Name="GroupID" ColumnName="GroupID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ok_setup">
-            <EntityTypeMapping TypeName="Entities.ok_setup">
-              <MappingFragment StoreEntitySet="ok_setup">
-                <ScalarProperty Name="SSNValidationActive" ColumnName="SSNValidationActive" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Sms_Code_Seconds" ColumnName="Sms_Code_Seconds" />
-                <ScalarProperty Name="NumberOfAttempts" ColumnName="NumberOfAttempts" />
-                <ScalarProperty Name="NumberOfNews" ColumnName="NumberOfNews" />
-                <ScalarProperty Name="NotificationTime" ColumnName="NotificationTime" />
-                <ScalarProperty Name="NumberOfLastMsg" ColumnName="NumberOfLastMsg" />
-                <ScalarProperty Name="InsuranceCompany" ColumnName="InsuranceCompany" />
-                <ScalarProperty Name="VersionNumber" ColumnName="VersionNumber" />
-                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Modified_Date" ColumnName="Modified_Date" />
-                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4744,6 +4725,25 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="ok_setup">
+            <EntityTypeMapping TypeName="Entities.ok_setup">
+              <MappingFragment StoreEntitySet="ok_setup">
+                <ScalarProperty Name="SSNValidationActive" ColumnName="SSNValidationActive" />
+                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
+                <ScalarProperty Name="Modified_Date" ColumnName="Modified_Date" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="VersionNumber" ColumnName="VersionNumber" />
+                <ScalarProperty Name="InsuranceCompany" ColumnName="InsuranceCompany" />
+                <ScalarProperty Name="NumberOfLastMsg" ColumnName="NumberOfLastMsg" />
+                <ScalarProperty Name="NotificationTime" ColumnName="NotificationTime" />
+                <ScalarProperty Name="NumberOfNews" ColumnName="NumberOfNews" />
+                <ScalarProperty Name="NumberOfAttempts" ColumnName="NumberOfAttempts" />
+                <ScalarProperty Name="Sms_Code_Seconds" ColumnName="Sms_Code_Seconds" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

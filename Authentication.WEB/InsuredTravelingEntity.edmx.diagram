@@ -33,7 +33,6 @@
         <EntityTypeShape EntityType="Entities.luggage_insurance_info" Width="1.5" PointX="11.25" PointY="47.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.min_premium" Width="1.5" PointX="15.5" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.news_all" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.ok_setup" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.p_referent" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.p_stapki" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.policy_additional_charge" Width="1.5" PointX="7.5" PointY="25.25" IsExpanded="true" />
@@ -131,6 +130,7 @@
         <AssociationConnector Association="Entities.fk_travel_duration_Modified_by" />
         <AssociationConnector Association="Entities.fk_users_aspnetuser" />
         <AssociationConnector Association="Entities.aspnetuserroles" />
+        <EntityTypeShape EntityType="Entities.ok_setup" Width="1.5" PointX="10.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
