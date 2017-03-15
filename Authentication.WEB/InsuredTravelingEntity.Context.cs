@@ -29,7 +29,6 @@ namespace InsuredTraveling
         public virtual DbSet<additional_info> additional_info { get; set; }
         public virtual DbSet<aspnetrole> aspnetroles { get; set; }
         public virtual DbSet<aspnetuserclaim> aspnetuserclaims { get; set; }
-        public virtual DbSet<aspnetuser> aspnetusers { get; set; }
         public virtual DbSet<bank_account_info> bank_account_info { get; set; }
         public virtual DbSet<bank_prefix> bank_prefix { get; set; }
         public virtual DbSet<bank> banks { get; set; }
@@ -81,5 +80,6 @@ namespace InsuredTraveling
         public virtual DbSet<message> messages { get; set; }
         public virtual DbSet<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
         public virtual DbSet<discount_codes> discount_codes { get; set; }
+        public virtual DbSet<aspnetuser> aspnetusers { get; set; }
     }
 }

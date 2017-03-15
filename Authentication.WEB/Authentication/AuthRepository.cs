@@ -52,7 +52,7 @@ namespace InsuredTraveling
 
             //Random r = new Random();
             //string id = "1234" + r.Next(1000, 9999).ToString() + r.Next(100,999).ToString();
-                    
+
             ApplicationUser user = new ApplicationUser
             {
                 UserName = userModel.UserName,
@@ -67,7 +67,9 @@ namespace InsuredTraveling
                 AccessFailedCount = 0,
                 MobilePhoneNumber = userModel.MobilePhoneNumber,
                 Gender = userModel.Gender,
-                DateOfBirth = userModel.DateOfBirth
+                DateOfBirth = userModel.DateOfBirth,
+                CreatedOn = DateTime.UtcNow
+                
             };
             var result = await _userManager.CreateAsync(user, userModel.Password);
             var result2 = _userManager.AddToRole(user.Id, "End user");
@@ -157,7 +159,8 @@ namespace InsuredTraveling
                 PostalCode = userModel.PostalCode,
                 Address = userModel.Address,
                 EMBG = userModel.EMBG,
-                City = userModel.City
+                City = userModel.City,
+                CreatedOn = DateTime.UtcNow
             };
             
             var result = await _userManager.CreateAsync(user, userModel.Password);
