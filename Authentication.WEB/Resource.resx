@@ -1146,37 +1146,7 @@
   <data name="Search_Users" xml:space="preserve">
     <value>Registered users</value>
   </data>
-  <data name="SearchTable_Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="SearchTable_FirstName" xml:space="preserve">
-    <value>First Name</value>
-  </data>
-  <data name="SearchTable_LastName" xml:space="preserve">
-    <value>Last Name</value>
-  </data>
-  <data name="SearchTable_RoleName" xml:space="preserve">
-    <value>Role</value>
-  </data>
-  <data name="SearchTable_UserName" xml:space="preserve">
-    <value>Username</value>
-  </data>
-  <data name="Search_UserResetPass" xml:space="preserve">
-    <value>Reset password</value>
-  </data>
-  <data name="PasswordResetMessageFail" xml:space="preserve">
-    <value>Password not changed successfully!</value>
-  </data>
-  <data name="PasswordResetMessageSuccess" xml:space="preserve">
-    <value>Password changed successfully!</value>
-  </data>
-  <data name="Search_Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Search_Reset" xml:space="preserve">
-    <value>Reset</value>
-  </data>
-  <data name="Search_ResetUserPass" xml:space="preserve">
-    <value>Reset user's password</value>
+  <data name="AdminPanel_SSNValidation" xml:space="preserve">
+    <value>SSN Validation</value>
   </data>
 </root>

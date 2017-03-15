@@ -196,6 +196,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SSN Validation.
+        /// </summary>
+        public static string AdminPanel_SSNValidation {
+            get {
+                return ResourceManager.GetString("AdminPanel_SSNValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin Panel.
         /// </summary>
         public static string AdminPanel_Title {
@@ -1254,24 +1263,6 @@ namespace InsuredTraveling {
         public static string OnlyNumbers {
             get {
                 return ResourceManager.GetString("OnlyNumbers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password not changed successfully!.
-        /// </summary>
-        public static string PasswordResetMessageFail {
-            get {
-                return ResourceManager.GetString("PasswordResetMessageFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password changed successfully!.
-        /// </summary>
-        public static string PasswordResetMessageSuccess {
-            get {
-                return ResourceManager.GetString("PasswordResetMessageSuccess", resourceCulture);
             }
         }
         
@@ -2365,15 +2356,6 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string Search_Cancel {
-            get {
-                return ResourceManager.GetString("Search_Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cancellation Date.
         /// </summary>
         public static string Search_CancellationDate {
@@ -2716,24 +2698,6 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset.
-        /// </summary>
-        public static string Search_Reset {
-            get {
-                return ResourceManager.GetString("Search_Reset", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reset user&apos;s password.
-        /// </summary>
-        public static string Search_ResetUserPass {
-            get {
-                return ResourceManager.GetString("Search_ResetUserPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Search by Address.
         /// </summary>
         public static string Search_SearchAddress {
@@ -2869,65 +2833,11 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset password.
-        /// </summary>
-        public static string Search_UserResetPass {
-            get {
-                return ResourceManager.GetString("Search_UserResetPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Registered users.
         /// </summary>
         public static string Search_Users {
             get {
                 return ResourceManager.GetString("Search_Users", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Email.
-        /// </summary>
-        public static string SearchTable_Email {
-            get {
-                return ResourceManager.GetString("SearchTable_Email", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to First Name.
-        /// </summary>
-        public static string SearchTable_FirstName {
-            get {
-                return ResourceManager.GetString("SearchTable_FirstName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Last Name.
-        /// </summary>
-        public static string SearchTable_LastName {
-            get {
-                return ResourceManager.GetString("SearchTable_LastName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Role.
-        /// </summary>
-        public static string SearchTable_RoleName {
-            get {
-                return ResourceManager.GetString("SearchTable_RoleName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Username.
-        /// </summary>
-        public static string SearchTable_UserName {
-            get {
-                return ResourceManager.GetString("SearchTable_UserName", resourceCulture);
             }
         }
         

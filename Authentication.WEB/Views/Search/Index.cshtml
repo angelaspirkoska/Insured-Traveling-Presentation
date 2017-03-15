@@ -36,7 +36,7 @@
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
                     <label for="country">@InsuredTraveling.Resource.User_Role:</label>
-                    @Html.DropDownList("RoleName",(List<SelectListItem>)ViewBag.Roles, Resource.SearchTable_RoleName, new { @class = "form-control", style = "" })
+                    <input class="form-control" type="text" id="SearchRole" name="SearchRole" />
                 </div>
             </div>
             <div class="col-md-4 col-sm-4">
@@ -44,16 +44,6 @@
                     <label for="country">@InsuredTraveling.Resource.RegisterDate:</label>
                     <div class="input-group">
                         <input type="date" id="RegisterDate" class="form-control placeholder" />
-                        <div class="input-group-btn">
-                            <button type="button" id="operatorRegisterDate" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
-                                = <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li onclick="$('#operatorRegisterDate').html(' = '); $('#operatorRegisterDate').val('=');">=</li>
-                                <li onclick="$('#operatorRegisterDate').html(' < '); $('#operatorRegisterDate').val('<');">&lt</li>
-                                <li onclick="$('#operatorRegisterDate').html(' > '); $('#operatorRegisterDate').val('>');">&gt</li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -71,57 +61,11 @@
         </div>
         <br />
         <br />
+        <br />
+        <br />
     </form>
-    <br />
-    <br />
-    <div class="row">
-        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableRegisteredUsers">
-            <thead>
-                <tr>
-                    <th>@InsuredTraveling.Resource.SearchTable_UserName</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_FirstName</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_LastName</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_Email</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_RoleName</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="searchResultRegisteredUsers"></tbody>
-        </table>
-    </div>
-</div>
 
-<!-- Reset password modal dialog-->
-<div class="modal fade" id="modal" role="dialog">
-    <div class="modal-dialog" style="margin-top:13%; width:35%;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">@Resource.Search_ResetUserPass</h4>
-            </div>
-            <div class="modal-body" style="width:70%;">
-                <div class="form-group">
-                    <label class = "control-label">@Resource.User_Password</label>
-                    <input type="password" id="UserPassword" class = "form-control"/>
-                </div>
-                <div class="form-group">
-                    <label class = "control-label">@Resource.User_ConfirmPassword</label>
-                    <input type="password" id="UserRepeatPassword" class = "form-control" />
-                </div>
-                <div class="form-group">
-                    <label id="PassResetMsg"></label>
-                </div>
-                <input type="hidden" id="hiddenUsername" />
-                </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="ResetPass">@Resource.Search_Reset</button> <button type="button" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
-            </div>
-        </div>
-    </div>
 </div>
-
 
 
 
@@ -757,9 +701,6 @@
         $("#tableClients").DataTable().destroy();
         $("#tableClients").DataTable();
 
-        $("#tableRegisteredUsers").DataTable().destroy();
-        $("#tableRegisteredUsers").DataTable();
-
         $("#tablePolicies").DataTable().destroy();
         $("#tablePolicies").DataTable();
 
@@ -769,7 +710,7 @@
         $("#tableFNOL").DataTable().destroy();
         $("#tableFNOL").DataTable();
 
-        $("#tableFNOLPolicies").css("display", "none");
+        $("#tableFNOLPolicies").css("display", "none"); 
         $("#tableArchivedFNOL").css("display", "none");
         $("#tablePoliciesClients").css("display", "none");
         $("#tablePoliciesHolders").css("display", "none");
@@ -783,26 +724,6 @@
             }
         });
     });
-
-    $("#ResetPass").click(function () {
-        $.ajax({
-            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/ForgetPassword/Change",
-            type: "POST",
-            data: { Username: $("#hiddenUsername").val(), Password: $("#UserPassword").val(), NewPassword: $("#UserRepeatPassword").val() },
-            success: function (data) {
-                $("#PassResetMsg").text((JSON.parse(data)).message);
-            },
-            error: function () {
-                $("#PassResetMsg").text("Unsuccessfully reseted password!")
-            }
-        });
-    });
-
-    function ShowModal(username) {
-        $("#modal").modal("show");
-        $("#hiddenUsername").val(username);
-        console.log(username);
-    }
 
     function showInsured() {
         $("#insured").attr("class", "active");
@@ -970,20 +891,23 @@
         $("searchChats").hide();
         $("#searchQuotes").hide();
         $("#searchUsers").show();
-
+        
         $("#polycies").removeAttr("class");
         $("#clients").removeAttr("class");
         $("#first_notice_of_loss").removeAttr("class");
         $("#quotes").removeAttr("class");
         $("#searchChat").removeAttr("class");
         $("#registeredUsers").attr("class", "active");
-    };
+    }; 
 
+    function SearchUsers() {
+
+    };
 
     function SearchChat() {
         $('html,body').animate({
             scrollTop: $("#tableChats").offset().top
-        }, 800);
+        }, 800);     
         $("#tableChats").DataTable().destroy();
         $("#tableChats").DataTable({
             dom: "Bfrtip",
@@ -1142,43 +1066,6 @@
         $('html,body').animate({
             scrollTop: $("#tableQuotes").offset().top
         }, 800);
-    };
-
-    function SearchUsers() {
-        $("#tableRegisteredUsers").DataTable().destroy();
-        $("#tableRegisteredUsers").DataTable({
-            dom: "Bfrtip",
-            ajax: "/Search/GetRegisteredUsers?RoleName=" + $("#RoleName").val(),
-            columns: [
-                    { data: "Username" },
-                    { data: "FirstName" },
-                    { data: "LastName" },
-                    { data: "Email" },
-                    { data: "RoleName" },
-                    {
-                        data: "Username",
-                        "render": function (data, type, row, meta) {
-                            if (type === 'display') {
-                                var value = data;
-                                return $('<a>')
-                                    .attr('href', '#')
-                                    .attr('id', 'UserResetPass')
-                                    .attr('onclick', "ShowModal('" + data + "')")
-                                    .attr('username', data)
-                                    .text("@InsuredTraveling.Resource.Search_UserResetPass")
-                                    .wrap('<div></div>')
-                                    .parent()
-                                    .html();
-                            } else {
-                                return data;
-                            }
-                        }
-                    }
-            ],
-            select: true
-        });
-
-        $("#tableRegisteredUsers").css("display", "table");
     };
 
     function CreateFNOLTablePoliciesByPolicyNumber(policy_number) {

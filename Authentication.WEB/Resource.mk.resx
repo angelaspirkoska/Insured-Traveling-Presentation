@@ -1140,37 +1140,7 @@
   <data name="Search_Users" xml:space="preserve">
     <value>Регистрирани корисници</value>
   </data>
-  <data name="SearchTable_Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="SearchTable_FirstName" xml:space="preserve">
-    <value>Име</value>
-  </data>
-  <data name="SearchTable_LastName" xml:space="preserve">
-    <value>Презиме</value>
-  </data>
-  <data name="SearchTable_RoleName" xml:space="preserve">
-    <value>Улога</value>
-  </data>
-  <data name="SearchTable_UserName" xml:space="preserve">
-    <value>Корисничко име</value>
-  </data>
-  <data name="Search_UserResetPass" xml:space="preserve">
-    <value>Промени лозинка</value>
-  </data>
-  <data name="PasswordResetMessageFail" xml:space="preserve">
-    <value>Лозинката не беше променета успешно</value>
-  </data>
-  <data name="PasswordResetMessageSuccess" xml:space="preserve">
-    <value>Лозинката беше променета успешно</value>
-  </data>
-  <data name="Search_Cancel" xml:space="preserve">
-    <value>Затвори</value>
-  </data>
-  <data name="Search_Reset" xml:space="preserve">
-    <value>Промени</value>
-  </data>
-  <data name="Search_ResetUserPass" xml:space="preserve">
-    <value>Промени ја лозинката на корисникот</value>
+  <data name="AdminPanel_SSNValidation" xml:space="preserve">
+    <value>ЕМБГ проверка</value>
   </data>
 </root>

@@ -41,11 +41,7 @@ namespace InsuredTraveling.DI
             return a;
         }
 
-        public List<aspnetuser> GetUsersByRoleName(string Role)
-        {
-            aspnetrole r = _db.aspnetroles.Where(x => x.Name == Role).FirstOrDefault();
-            return _db.aspnetusers.Where(x => x.aspnetroles.FirstOrDefault().Name.Contains(Role)).ToList();
-        }
+
 
 
         public string GetUserIdByUsername(string Username)

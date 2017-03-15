@@ -387,26 +387,6 @@ namespace InsuredTraveling
             return new IdentityResult();
         }
 
-        public  IdentityResult PasswordChangeByUsername(ForgetPasswordModel model)
-        {
-            var user1 =  _userManager.FindByName(model.username);
-            if (user1 != null)
-            {
-                var r1 = _userManager.RemovePassword(user1.Id);
-                _userManager.Update(user1);
-                if (r1.Succeeded)
-                {
-                    var r2 = _userManager.AddPassword(user1.Id, model.Password);
-                    _userManager.Update(user1);
-                    var r3 = _userManager.CheckPassword(user1, model.Password);
-
-                    return r2;
-                }
-            }
-
-            return new IdentityResult();
-        }
-
         public async Task<IdentityResult> SendSmsCode(string username)
         {
             if (!String.IsNullOrEmpty(username))
