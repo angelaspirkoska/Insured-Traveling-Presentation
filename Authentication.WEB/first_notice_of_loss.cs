@@ -43,6 +43,7 @@ namespace InsuredTraveling
         public string FNOL_Number { get; set; }
     
         public virtual additional_info additional_info { get; set; }
+        public virtual aspnetuser aspnetuser { get; set; }
         public virtual bank_account_info Policy_holder_bank_account_info { get; set; }
         public virtual bank_account_info Claimant_bank_account_info { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -53,7 +54,6 @@ namespace InsuredTraveling
         public virtual luggage_insurance luggage_insurance { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
-        public virtual aspnetuser aspnetuser { get; set; }
         public virtual aspnetuser aspnetuser1 { get; set; }
     }
 }

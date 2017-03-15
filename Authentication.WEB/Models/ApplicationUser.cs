@@ -44,17 +44,12 @@ namespace InsuredTraveling.Models
         public DateTime DateOfBirth { get; set; }
 
         [Display(Name = "City")]
-        public string City { get; set; }
+        public string City { get; set; }         
 
         public string Gender { get; set; }
-
         public string ActivationCodeMail { get; set; }
-
         public string ActivationCodeSMS { get; set; }
-
         public string GroupID { get; set; }
-
-        public DateTime ?CreatedOn {get;set;}
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
