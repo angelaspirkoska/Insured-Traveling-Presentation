@@ -1194,6 +1194,18 @@
   <data name="SearchTable_CreatedOn" xml:space="preserve">
     <value>Креиран на</value>
   </data>
+  <data name="SearchTable_UserStatus" xml:space="preserve">
+    <value>Пребрај по статус</value>
+  </data>
+  <data name="SearchTable_UserStatusActive" xml:space="preserve">
+    <value>Активен</value>
+  </data>
+  <data name="SearchTable_UserStatusBoth" xml:space="preserve">
+    <value>Двете</value>
+  </data>
+  <data name="SearchTable_UserStatusInactive" xml:space="preserve">
+    <value>Неактивен</value>
+  </data>
   <data name="Search_UserItselfChangeStatus" xml:space="preserve">
     <value>Не можете да го смените статусот на вашиот регистриран профил</value>
   </data>

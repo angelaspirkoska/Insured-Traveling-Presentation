@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
-                    <label for="country">@InsuredTraveling.Resource.User_Role:</label>
+                    <label>@InsuredTraveling.Resource.User_Role:</label>
                     @Html.DropDownList("RoleName",(List<SelectListItem>)ViewBag.Roles, Resource.SearchTable_RoleName, new { @class = "form-control", style = "" })
                 </div>
             </div>
@@ -54,6 +54,16 @@
                                 <li onclick="$('#operatorRegisterDate').html(' > '); $('#operatorRegisterDate').val('>');">&gt</li>
                             </ul>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="">
+                    <label>@InsuredTraveling.Resource.SearchTable_UserStatus:</label>
+                    <div class="form-group">
+                        <input type="radio" name="status" value="0" style="width:15px;"> @Resource.SearchTable_UserStatusActive
+                        <input type="radio" name="status" value="1" style="width:15px;"> @Resource.SearchTable_UserStatusInactive
+                        <input type="radio" name="status" value="2" style="width:15px;"> @Resource.SearchTable_UserStatusBoth
                     </div>
                 </div>
             </div>
@@ -1232,7 +1242,7 @@
         $("#tableRegisteredUsers").DataTable().destroy();
         $("#tableRegisteredUsers").DataTable({
             dom: "Bfrtip",
-            ajax: "/Search/GetRegisteredUsers?roleName=" + $("#RoleName").val() + "&registerDate=" + $("#RegisterDate").val() + "&operatorRegisterDate=" + $("#operatorRegisterDate").val(),
+            ajax: "/Search/GetRegisteredUsers?roleName=" + $("#RoleName").val() + "&registerDate=" + $("#RegisterDate").val() + "&operatorRegisterDate=" + $("#operatorRegisterDate").val() + "&status=" + $("input[name=status]:checked").val(),
             columns: [
                     { data: "Username" },
                     { data: "FirstName" },

@@ -3004,6 +3004,42 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search by status.
+        /// </summary>
+        public static string SearchTable_UserStatus {
+            get {
+                return ResourceManager.GetString("SearchTable_UserStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string SearchTable_UserStatusActive {
+            get {
+                return ResourceManager.GetString("SearchTable_UserStatusActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Both.
+        /// </summary>
+        public static string SearchTable_UserStatusBoth {
+            get {
+                return ResourceManager.GetString("SearchTable_UserStatusBoth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inactive.
+        /// </summary>
+        public static string SearchTable_UserStatusInactive {
+            get {
+                return ResourceManager.GetString("SearchTable_UserStatusInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign up.
         /// </summary>
         public static string SignUp {

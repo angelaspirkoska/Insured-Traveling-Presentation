@@ -369,7 +369,7 @@ namespace InsuredTraveling.Controllers
 
         [HttpGet]
         [Route("GetRegisteredUsers")]
-        public JObject GetRegisteredUsers(string registerDate, string operatorRegisterDate, string roleName)
+        public JObject GetRegisteredUsers(string registerDate, string operatorRegisterDate, string roleName, string status)
         {
             List<aspnetuser> data = new List<aspnetuser>();
             DateTime registerDateValue = String.IsNullOrEmpty(registerDate) ? new DateTime() : Convert.ToDateTime(registerDate);
@@ -383,6 +383,18 @@ namespace InsuredTraveling.Controllers
                     case "<": data = data.Where(x => x.CreatedOn < registerDateValue).ToList(); break;
                     case "=": data = data.Where(x => x.CreatedOn == registerDateValue).ToList(); break;
                     case ">": data = data.Where(x => x.CreatedOn > registerDateValue).ToList(); break;
+                    default: break;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                switch (status)
+                {
+                    case "0": data = data.Where(x => x.Active == 1).ToList(); break;
+                    case "1": data = data.Where(x => x.Active == 0).ToList(); break;
+                    case "2":
+                        break;
                     default: break;
                 }
             }

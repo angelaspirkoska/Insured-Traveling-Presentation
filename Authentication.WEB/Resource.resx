@@ -1200,6 +1200,18 @@
   <data name="SearchTable_CreatedOn" xml:space="preserve">
     <value>Created on</value>
   </data>
+  <data name="SearchTable_UserStatus" xml:space="preserve">
+    <value>Search by status</value>
+  </data>
+  <data name="SearchTable_UserStatusActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="SearchTable_UserStatusBoth" xml:space="preserve">
+    <value>Both</value>
+  </data>
+  <data name="SearchTable_UserStatusInactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
   <data name="Search_UserItselfChangeStatus" xml:space="preserve">
     <value>You can not change the status of you own registred account.</value>
   </data>
