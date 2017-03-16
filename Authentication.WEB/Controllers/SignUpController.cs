@@ -17,9 +17,11 @@ namespace InsuredTraveling.Controllers
     public class SignUpController : Controller
     {
         private IRolesService _rs;
-        public SignUpController(IRolesService rs)
+        private IUserService _us;
+        public SignUpController(IRolesService rs, IUserService us)
         {
             _rs = rs;
+            _us = us;
         }
 
         [HttpGet]

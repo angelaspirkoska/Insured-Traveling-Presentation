@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using InsuredTraveling.Models;
 
 namespace InsuredTraveling.DI
 {
     public interface IUserService
     {
+        int UpdateUser(User editedUser);
         aspnetuser GetUserDataByUsername(string Username);
         aspnetuser GetUserById(string id);
         string GetUserIdByUsername(string Username);

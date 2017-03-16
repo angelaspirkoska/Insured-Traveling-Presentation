@@ -24,6 +24,27 @@ namespace InsuredTraveling.App_Start
                 if (role != null) dst.RoleName = role.Name;
                 if (src.CreatedOn != null) dst.CreatedOn = src.CreatedOn.Value.ToShortDateString();
                 dst.ActiveInactive = src.Active == 1 ? "Active" : "Inactive";
+                dst.ID = src.Id;
+            });
+
+            Mapper.CreateMap<aspnetuser, User>().AfterMap((src, dst) =>
+            {
+                dst.UserName = src.UserName;
+                dst.FirstName = src.FirstName;
+                dst.LastName = src.LastName;
+                dst.City = src.City;
+                dst.Address = src.Address;
+                dst.Municipality = src.Municipality;
+                dst.MobilePhoneNumber = src.MobilePhoneNumber;
+                dst.Email = src.Email;
+                dst.DateOfBirth = src.DateOfBirth;
+                dst.EMBG = src.EMBG;
+                dst.Gender = src.Gender;
+                dst.PassportNumber = src.PassportNumber;
+                dst.PostalCode = src.PostalCode;
+                var firstOrDefault = src.aspnetroles.FirstOrDefault();
+                if (firstOrDefault != null) dst.Role = firstOrDefault.Name;
+                dst.PhoneNumber = src.PhoneNumber;
             });
 
             Mapper.CreateMap<CreateClientModel , insured>().AfterMap((src, dst) =>

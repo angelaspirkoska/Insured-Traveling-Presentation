@@ -12,6 +12,7 @@ using InsuredTraveling.Filters;
 using System.Configuration;
 using InsuredTraveling.App_Start;
 using InsuredTraveling.Models;
+using Microsoft.Office.Interop.Word;
 
 namespace InsuredTraveling.Controllers
 {
@@ -705,6 +706,76 @@ namespace InsuredTraveling.Controllers
             return data;
         }
 
+        [HttpGet]
+        [Route("EditUser")]
+        public ActionResult EditUser(string id)
+        {
+            var genderList = Gender();
+            var roles = _rs.GetAll().ToList();
+            aspnetuser userEdit = _us.GetUserById(id);
+
+            User userEditModel = Mapper.Map<aspnetuser, User>(userEdit);
+
+            foreach (var role in  roles)
+            {
+                if (role.Selected)
+                    role.Selected = false;
+                if (role.Text == userEditModel.Role)
+                    role.Selected = true;
+            }
+
+            foreach (var gender in genderList)
+            {
+                if (gender.Text == userEditModel.Gender)
+                    gender.Selected = true;
+            }
+
+            ViewBag.Roles = roles;
+            ViewBag.Gender = genderList;
+
+            
+            return View(userEditModel);
+        }
+
+        [HttpPost]
+        [Route("EditUser")]
+        public ActionResult EditUser(User editedUser)
+        {
+            var genderList = Gender();
+            var roles = _rs.GetAll().ToList();
+
+            foreach (var role in roles)
+            {
+                if (role.Selected)
+                    role.Selected = false;
+                if (role.Text == editedUser.Role)
+                    role.Selected = true;
+            }
+
+            foreach (var gender in genderList)
+            {
+                if (gender.Text == editedUser.Gender)
+                    gender.Selected = true;
+            }
+
+            ViewBag.Roles = roles;
+            ViewBag.Gender = genderList;
+
+            int result = _us.UpdateUser(editedUser);
+
+            if (result == -1)
+            {
+                ViewBag.Message = "NOK";
+                return View(editedUser);
+            }
+            else
+            {
+                ViewBag.Message = "OK";
+                return View(editedUser);
+            }
+        }
+
+
         private async Task<List<SelectListItem>> GetTypeOfPolicy()
         {
             var policy = _pts.GetAll();
@@ -730,6 +801,27 @@ namespace InsuredTraveling.Controllers
         {
           
             return policies;
+        }
+
+        private List<SelectListItem> Gender()
+        {
+            List<SelectListItem> data = new List<SelectListItem>();
+            data.Add(new SelectListItem
+            {
+                Text = "Female",
+                Value = "Female"
+            });
+            data.Add(new SelectListItem
+            {
+                Text = "Male",
+                Value = "Male"
+            });
+            data.Add(new SelectListItem
+            {
+                Text = "Other",
+                Value = "Other"
+            });
+            return data;
         }
     }
 }

@@ -1215,4 +1215,13 @@
   <data name="Search_UserItselfChangeStatus" xml:space="preserve">
     <value>You can not change the status of you own registred account.</value>
   </data>
+  <data name="Edit_FailMessage" xml:space="preserve">
+    <value>You have not successfully edited user</value>
+  </data>
+  <data name="Edit_SuccessMessage" xml:space="preserve">
+    <value>You have successfully edited user</value>
+  </data>
+  <data name="SearchTable_EditUser" xml:space="preserve">
+    <value>Edit User</value>
+  </data>
 </root>

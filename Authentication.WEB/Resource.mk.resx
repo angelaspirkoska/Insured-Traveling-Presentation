@@ -1209,4 +1209,13 @@
   <data name="Search_UserItselfChangeStatus" xml:space="preserve">
     <value>Не можете да го смените статусот на вашиот регистриран профил</value>
   </data>
+  <data name="Edit_FailMessage" xml:space="preserve">
+    <value>Промената на корисникот не беше успешна</value>
+  </data>
+  <data name="Edit_SuccessMessage" xml:space="preserve">
+    <value>Успешно ги променивте податоците на корисникот</value>
+  </data>
+  <data name="SearchTable_EditUser" xml:space="preserve">
+    <value>Промени корисник</value>
+  </data>
 </root>
