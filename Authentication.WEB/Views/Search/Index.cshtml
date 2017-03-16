@@ -83,6 +83,7 @@
                     <th>@InsuredTraveling.Resource.SearchTable_LastName</th>
                     <th>@InsuredTraveling.Resource.SearchTable_Email</th>
                     <th>@InsuredTraveling.Resource.SearchTable_RoleName</th>
+                    <th>@InsuredTraveling.Resource.SearchTable_CreatedOn</th>
                     <th>@InsuredTraveling.Resource.SearchTable_ActiveInactiveUser</th>
                     <th></th>
                     <th></th>
@@ -773,6 +774,9 @@
     $(document).ready(function () {
         $(".hover-tooltip button").tooltip('show');
 
+        $('#operatorRegisterDate').html(' = ');
+        $('#operatorRegisterDate').val('=');
+
         $("#searchClients").hide();
         $("#searchFNOL").hide();
         $("#searchChats").hide();
@@ -1205,13 +1209,14 @@
         $("#tableRegisteredUsers").DataTable().destroy();
         $("#tableRegisteredUsers").DataTable({
             dom: "Bfrtip",
-            ajax: "/Search/GetRegisteredUsers?RoleName=" + $("#RoleName").val(),
+            ajax: "/Search/GetRegisteredUsers?roleName=" + $("#RoleName").val() + "&registerDate=" + $("#RegisterDate").val() + "&operatorRegisterDate=" + $("#operatorRegisterDate").val(),
             columns: [
                     { data: "Username" },
                     { data: "FirstName" },
                     { data: "LastName" },
                     { data: "Email" },
                     { data: "RoleName" },
+                    { data: "CreatedOn" },
                     { data: "ActiveInactive" },
                     {
                         data: "Username",

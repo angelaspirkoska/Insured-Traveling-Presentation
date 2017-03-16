@@ -1197,4 +1197,7 @@
   <data name="Search_UserChangeStatusQuestion" xml:space="preserve">
     <value>Do you want to change user's status? Are you sure?</value>
   </data>
+  <data name="SearchTable_CreatedOn" xml:space="preserve">
+    <value>Created on</value>
+  </data>
 </root>

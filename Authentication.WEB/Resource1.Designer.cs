@@ -2941,6 +2941,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created on.
+        /// </summary>
+        public static string SearchTable_CreatedOn {
+            get {
+                return ResourceManager.GetString("SearchTable_CreatedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string SearchTable_Email {

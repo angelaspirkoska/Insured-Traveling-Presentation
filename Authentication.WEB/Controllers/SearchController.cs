@@ -369,29 +369,29 @@ namespace InsuredTraveling.Controllers
 
         [HttpGet]
         [Route("GetRegisteredUsers")]
-        public JObject GetRegisteredUsers(string RegisterDate, string operatorRegisterDate, string RoleName)
+        public JObject GetRegisteredUsers(string registerDate, string operatorRegisterDate, string roleName)
         {
             List<aspnetuser> data = new List<aspnetuser>();
-            DateTime RegisterDateValue = String.IsNullOrEmpty(RegisterDate) ? new DateTime() : Convert.ToDateTime(RegisterDate);
+            DateTime registerDateValue = String.IsNullOrEmpty(registerDate) ? new DateTime() : Convert.ToDateTime(registerDate);
 
-            data = _us.GetUsersByRoleName(RoleName);
+            data = _us.GetUsersByRoleName(roleName);
 
-            if (!String.IsNullOrEmpty(RegisterDate))
+            if (!string.IsNullOrEmpty(registerDate))
             {
                 switch (operatorRegisterDate)
                 {
-                    //case "<": data = data.Where(x => x.Start_Date < startDate1).ToList(); break;
-                    //case "=": data = data.Where(x => x.Start_Date == startDate1).ToList(); break;
-                    //case ">": data = data.Where(x => x.Start_Date > startDate1).ToList(); break;
-                    //default: break;
+                    case "<": data = data.Where(x => x.CreatedOn < registerDateValue).ToList(); break;
+                    case "=": data = data.Where(x => x.CreatedOn == registerDateValue).ToList(); break;
+                    case ">": data = data.Where(x => x.CreatedOn > registerDateValue).ToList(); break;
+                    default: break;
                 }
             }
 
-            var JSONObject = new JObject();
+            var jsonObject = new JObject();
             var searchModel = data.Select(Mapper.Map<aspnetuser, SearchRegisteredUser>).ToList();
             var array = JArray.FromObject(searchModel.ToArray());
-            JSONObject.Add("data", array);
-            return JSONObject;
+            jsonObject.Add("data", array);
+            return jsonObject;
         }
 
         [HttpGet]
@@ -399,17 +399,17 @@ namespace InsuredTraveling.Controllers
         public JObject ChangeUserStatus(string username)
         {
             bool result = _us.ChangeStatus(username);
-            JObject resultJSON = new JObject();
+            JObject resultJson = new JObject();
             if (result)
             {
-                resultJSON.Add("message", "OK");
+                resultJson.Add("message", "OK");
             }
             else
             {
-                resultJSON.Add("message", "NOK");
+                resultJson.Add("message", "NOK");
             }
 
-            return resultJSON;
+            return resultJson;
         }
 
 

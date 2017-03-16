@@ -1191,4 +1191,7 @@
   <data name="Search_UserChangeStatusQuestion" xml:space="preserve">
     <value>Дали сакаш да го промениш статусот на корисникот? Дали си сигурен?</value>
   </data>
+  <data name="SearchTable_CreatedOn" xml:space="preserve">
+    <value>Креиран на</value>
+  </data>
 </root>

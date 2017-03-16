@@ -20,7 +20,9 @@ namespace InsuredTraveling.App_Start
                 dst.FirstName = src.FirstName;
                 dst.LastName = src.LastName;
                 dst.Email = src.Email;
-                dst.RoleName = src.aspnetroles.FirstOrDefault().Name;
+                var role = src.aspnetroles.FirstOrDefault();
+                if (role != null) dst.RoleName = role.Name;
+                if (src.CreatedOn != null) dst.CreatedOn = src.CreatedOn.Value.ToShortDateString();
                 dst.ActiveInactive = src.Active == 1 ? "Active" : "Inactive";
             });
 
