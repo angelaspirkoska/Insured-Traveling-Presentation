@@ -80,6 +80,19 @@ namespace InsuredTraveling.Controllers.API
             _tn = tn;
         }
 
+        [Route("IsUserVerified")]
+        public JObject IsUserVerified(UserDTO model)
+        {
+            JObject data = new JObject();
+
+            aspnetuser user = _us.GetUserDataByUsername(model.username);
+            
+            data.Add("email", user.EmailConfirmed == true? true : false);
+            data.Add("phone", user.PhoneNumberConfirmed == true ? true : false);
+
+            return data;
+        }
+
         [Route("RetrieveUserInfo")]
         public JObject RetrieveUserInformation(UserDTO username)
         {
