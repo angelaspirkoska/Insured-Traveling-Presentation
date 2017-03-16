@@ -1200,4 +1200,7 @@
   <data name="SearchTable_CreatedOn" xml:space="preserve">
     <value>Created on</value>
   </data>
+  <data name="Search_UserItselfChangeStatus" xml:space="preserve">
+    <value>You can not change the status of you own registred account.</value>
+  </data>
 </root>

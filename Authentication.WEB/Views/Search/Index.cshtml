@@ -149,7 +149,25 @@
     </div>
 </div>
 
-
+<!--Do not allow user to set itself as inactive modal-->
+<div class="modal fade" id="modalUserNotallowedToChangeItselfStatus" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%; width:35%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@Resource.Search_UserChangeStatus</h4>
+            </div>
+            <div class="modal-body" style="width:70%;">
+                <div class="form-group">
+                    <h4>@Resource.Search_UserItselfChangeStatus</h4>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--Table search result of policies -->
 <div class="" id="searchPolycies">
@@ -860,10 +878,15 @@
     }
 
     function ShowModalChangeStatus(username) {
-        $("#ChangeStatus").show();
-        $("#modalChangeStatus").modal("show");
-        $("#hiddenUsernameChangeStatus").val(username);
-        console.log(username);
+        if(username == "@System.Web.HttpContext.Current.User.Identity.Name") {
+            $("#modalUserNotallowedToChangeItselfStatus").modal("show");
+        } else {
+            $("#ChangeStatus").show();
+            $("#modalChangeStatus").modal("show");
+            $("#hiddenUsernameChangeStatus").val(username);
+            console.log(username);
+        }
+
     }
     function showInsured() {
         $("#insured").attr("class", "active");

@@ -2914,6 +2914,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can not change the status of you own registred account..
+        /// </summary>
+        public static string Search_UserItselfChangeStatus {
+            get {
+                return ResourceManager.GetString("Search_UserItselfChangeStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset password.
         /// </summary>
         public static string Search_UserResetPass {

@@ -1194,4 +1194,7 @@
   <data name="SearchTable_CreatedOn" xml:space="preserve">
     <value>Креиран на</value>
   </data>
+  <data name="Search_UserItselfChangeStatus" xml:space="preserve">
+    <value>Не можете да го смените статусот на вашиот регистриран профил</value>
+  </data>
 </root>
