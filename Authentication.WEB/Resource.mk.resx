@@ -1227,4 +1227,10 @@
   <data name="Search_QuotePreview" xml:space="preserve">
     <value>Прегледај</value>
   </data>
+  <data name="Policy_AddOfferMsg" xml:space="preserve">
+    <value>Успешно ја додадовте полисата во понуди. Број на понуда</value>
+  </data>
+  <data name="Policy_AddOfferMsgFail" xml:space="preserve">
+    <value>Полисата не беше додадена во понуди</value>
+  </data>
 </root>

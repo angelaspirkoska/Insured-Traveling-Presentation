@@ -1339,6 +1339,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have successfully added the offer. Number of offer .
+        /// </summary>
+        public static string Policy_AddOfferMsg {
+            get {
+                return ResourceManager.GetString("Policy_AddOfferMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have not successfully added the offer.
+        /// </summary>
+        public static string Policy_AddOfferMsgFail {
+            get {
+                return ResourceManager.GetString("Policy_AddOfferMsgFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add-on.
         /// </summary>
         public static string Policy_AddOn {
