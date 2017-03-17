@@ -2518,7 +2518,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archived.
+        ///   Looks up a localized string similar to Historical version.
         /// </summary>
         public static string Search_FNOLArchived {
             get {

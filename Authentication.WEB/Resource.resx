@@ -1078,7 +1078,7 @@
     <value>FNOL Number</value>
   </data>
   <data name="Search_FNOLArchived" xml:space="preserve">
-    <value>Archived</value>
+    <value>Historical version</value>
   </data>
   <data name="SSNNotFoundMsg" xml:space="preserve">
     <value>User with that SSN not found in your portfolio. Please add data for the policy holder.</value>
@@ -1215,13 +1215,12 @@
   <data name="Search_UserItselfChangeStatus" xml:space="preserve">
     <value>You can not change the status of you own registred account.</value>
   </data>
-
   <data name="AdminPanel_SSNValidation" xml:space="preserve">
     <value>SSN Advanced Validation</value>
   </data>
   <data name="AdminPanel_TestPayment" xml:space="preserve">
     <value>Test Payment</value>
- </data>
+  </data>
   <data name="Edit_FailMessage" xml:space="preserve">
     <value>You have not successfully edited user</value>
   </data>
@@ -1231,5 +1230,4 @@
   <data name="SearchTable_EditUser" xml:space="preserve">
     <value>Edit User</value>
   </data>
- 
 </root>

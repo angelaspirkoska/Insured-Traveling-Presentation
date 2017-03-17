@@ -112,12 +112,11 @@ namespace InsuredTraveling.Controllers
         public JObject GetChats(string username, string chatId, bool all, bool active, bool discarded, bool noticed)
         {
             JObject result = new JObject();
-            RoleAuthorize r = new RoleAuthorize();
             List<chat_requests> chats = new List<chat_requests>();
             JArray chatJArray = new JArray();
             bool isAdmin = false;
 
-            if (r.IsUser("Admin"))
+            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
             {
                 isAdmin = true;
                 chats = _ics.GetChatsAdmin(System.Web.HttpContext.Current.User.Identity.Name);
@@ -126,7 +125,7 @@ namespace InsuredTraveling.Controllers
                     chats = chats.Where(x => x.Requested_by.Equals(username)).ToList();
                 }
             }
-            else if (r.IsUser("End user"))
+            else if (_roleAuthorize.IsUser("End user"))
             {
                 chats = _ics.GetChatsEndUser(System.Web.HttpContext.Current.User.Identity.Name);
                 if (!String.IsNullOrEmpty(username))
@@ -245,7 +244,7 @@ namespace InsuredTraveling.Controllers
 
             List<travel_policy> data = new List<travel_policy>();
 
-            if (_roleAuthorize.IsUser("Admin"))
+            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
             {
                 data = _ps.GetPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, PolicyNumber);
             }
@@ -326,7 +325,7 @@ namespace InsuredTraveling.Controllers
 
             List<travel_policy> data = new List<travel_policy>();
 
-            if (_roleAuthorize.IsUser("Admin"))
+            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
             {
                 data = _ps.GetQuotesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, PolicyNumber);
             }
@@ -457,7 +456,7 @@ namespace InsuredTraveling.Controllers
 
             List<first_notice_of_loss> fnol = new List<first_notice_of_loss>();
 
-            if (_roleAuthorize.IsUser("Admin"))
+            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
             {
                 fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
             }

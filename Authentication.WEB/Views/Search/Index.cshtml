@@ -5,13 +5,14 @@
 @{
     ViewBag.Title = InsuredTraveling.Resource.Search;
     RoleAuthorize r = new RoleAuthorize();
+    var isClaimsAdjuster = r.IsUser("Claims adjuster");
 }
 <br />
 <br />
 <ul class="nav nav-pills">
     <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
     <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
-    @if (r.IsUser("Admin") || r.IsUser("Broker"))
+    @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Claims adjuster"))
     {
         <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
     }
@@ -20,7 +21,7 @@
         <li id="registeredUsers"><a href="#" onclick="ShowUsers()">@InsuredTraveling.Resource.Search_Users</a></li>
     }
     <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
-    @if (r.IsUser("Admin") || r.IsUser("End user"))
+    @if (r.IsUser("Admin") || r.IsUser("End user") || r.IsUser("Claims adjuster"))
     {
         <li id="searchChat"><a href="#" onclick="ShowChats()">@InsuredTraveling.Resource.Chats</a></li>
     }
@@ -286,11 +287,15 @@
             <div class="col-md-4">
                 <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchPolycies()" type="button" style="float:left;" />
             </div>
-            <div class="col-md-offset-4 col-md-4">
-                <div class="hover-tooltip">
-                    <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddPolicyButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+            @if (!isClaimsAdjuster)
+            {
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="hover-tooltip">
+                        <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddPolicyButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                    </div>
                 </div>
-            </div>
+            }
+
         </div>
         <br />
     </form>
@@ -410,11 +415,15 @@
             <div class="col-md-4">
                 <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchQuotes()" type="button" style="float:left;" />
             </div>
-            <div class="col-md-offset-4 col-md-4">
-                <div class="hover-tooltip">
-                    <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddQuoteButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+            @if (!isClaimsAdjuster)
+            {
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="hover-tooltip">
+                        <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddQuoteButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                    </div>
                 </div>
-            </div>
+            }
+
         </div>
         <br />
     </form>
@@ -506,11 +515,14 @@
         <div class="col-md-4">
             <input id="btnSubmit" class="btn btn-primary btn-material-design-success btn-block" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchClients()" type="button" style="float:left;" />
         </div>
-        <div class="col-md-offset-4 col-md-4">
-            <div class="hover-tooltip">
-                <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" style="float:right;" title="@InsuredTraveling.Resource.Search_AddNewClient" onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+        @if (!isClaimsAdjuster)
+        {
+            <div class="col-md-offset-4 col-md-4">
+                <div class="hover-tooltip">
+                    <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" style="float: right;" title="@InsuredTraveling.Resource.Search_AddNewClient" onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                </div>
             </div>
-        </div>
+        }
     </div>
     <br />
 
@@ -718,6 +730,10 @@
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTableLuggageInsurance</th>
                     <th></th>
                     <th></th>
+                    @if (r.IsUser("Claims adjuster"))
+                    {
+                        <th></th>
+                    }
                 </tr>
             </thead>
             <tbody></tbody>
@@ -1400,7 +1416,25 @@
                                 return data;
                             }
                         }
-                    },
+                    }@*,
+                    {
+                        data: "ID",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                return $('<a>')
+                                    .attr('href', 'javascript:;')
+                                    .attr('class', 'archived')
+                                    .attr('id', data)
+                                    .text("@InsuredTraveling.Resource.Search_FNOLArchived")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    
+                    }*@
             ],
             select: true
         });
