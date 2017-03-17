@@ -52,20 +52,19 @@ namespace InsuredTraveling.App_Start
                 dst.Name = src.Name;
                 dst.Lastname = src.LastName;
                 dst.Email = src.Email;
-                dst.DateBirth = src.DateBirth.Date;
+                dst.DateBirth = src.DateBirth;
                 dst.Address = src.Address;
                 dst.City = src.City;
                 dst.SSN = src.SSN;
                 dst.Postal_Code = src.Postal_Code;
                 dst.Phone_Number = src.PhoneNumber;
                 dst.Passport_Number_IdNumber = src.Passport_Number_IdNumber;
-                dst.Created_By = src.Created_By;
-                dst.Date_Created = DateTime.Now.Date;
+                dst.Created_By = System.Web.HttpContext.Current.User.Identity.Name;
+                dst.Date_Created = DateTime.UtcNow;
+                dst.Age = src.Age;
                 dst.type_insured = null;
                 dst.aspnetuser = null;
-                dst.aspnetuser1 = null;
-                dst.Type_InsuredID = null;
-                               
+                dst.aspnetuser1 = null;            
             });
             Mapper.CreateMap<Ok_SetupModel, ok_setup>().AfterMap((src, dst) =>
             {

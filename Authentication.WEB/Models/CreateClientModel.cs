@@ -23,7 +23,6 @@ namespace InsuredTraveling.Models
         [Display(Name = "Client_DateBirth", ResourceType = typeof(Resource))]
         public DateTime DateBirth { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         [Display(Name = "Client_Age", ResourceType = typeof(Resource))]
         public int Age { get; set; }
 
