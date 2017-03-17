@@ -15,6 +15,9 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Configuration;
 using Authentication.WEB.Models;
+using System.Net.Http.Headers;
+using System.Net.Http.Formatting;
+
 
 namespace InsuredTraveling.Controllers.API
 {
@@ -803,7 +806,7 @@ namespace InsuredTraveling.Controllers.API
 
         [HttpPost]
         [Route("Payment")]
-        public async Task<IHttpActionResult> MobilePayment(CreditCardInfoModel paymentModel)
+        public async Task<HttpResponseMessage> MobilePayment(CreditCardInfoModel paymentModel)
         {
 
             ok_setup LastEntry = _os.GetLast();
@@ -815,7 +818,9 @@ namespace InsuredTraveling.Controllers.API
                     try
                     {
                         _ps.UpdatePaymentStatus(paymentModel.OrderId);
-                        return Ok();
+                        HttpError myCustomError = new HttpError("File successfuly.") { { "Is3DSecure", false }, { "Response", "{'TRANID':'','PAResSyntaxOK':'false','islemtipi':'Auth','refreshtime':'10','lang':'mk','merchantID':'180000069','amount':'500','sID':'1','ACQBIN':'435742','Ecom_Payment_Card_ExpDate_Year':'20','MaskedPan':'429724***4937','clientIp':'88.85.116.22','iReqDetail':'','okUrl':'https://localhost:44375/api/HalkbankPayment/Handle','md':'429724:B1BFD1386EE5C99F997854210EFE15930334DF46EC90BC7994AB81564537D7CE:4274:##180000069','ProcReturnCode':'99','taksit':'','vendorCode':'','paresTxStatus':'-','Ecom_Payment_Card_ExpDate_Month':'02','storetype':'3D_PAY_HOSTING','iReqCode':'','veresEnrolledStatus':'N','Response':'Declined','mdErrorMsg':'N-status/Not enrolled from Directory Server: http://katmai:8080/mdpayacs/vereq','ErrMsg':'Нарачката е веќе платена','PAResVerified':'false','cavv':'','digest':'digest','failUrl':'https://localhost:44375/api/HalkbankPayment/Handle','cavvAlgorithm':'','xid':'C5BphugnaeXHj26RXrVOyR91QFA=','encoding':'UTF-8','currency':'807','oid':'23011','mdStatus':'2','dsId':'1','eci':'','version':'2.0','clientid':'180000069','txstatus':'N','HASH':'UAMehE7tsfURlS4d8udtWa3m+C4=','rnd':'SIUIAvmeELilibPLVdFW','HASHPARAMS':'clientid:oid:AuthCode:ProcReturnCode:Response:mdStatus:cavv:eci:md:rnd:','HASHPARAMSVAL':'1800000692301199Declined2429724:B1BFD1386EE5C99F997854210EFE15930334DF46EC90BC7994AB81564537D7CE:4274:##180000069SIUIAvmeELilibPLVdFW'}" } } ;
+                        return Request.CreateErrorResponse(HttpStatusCode.OK, myCustomError);
+                       
                     }
                     catch
                     {
@@ -825,20 +830,45 @@ namespace InsuredTraveling.Controllers.API
                 }
                 else
                 {
+
+
                     throw new Exception("Internal error: Empty Policy");
                 }
             }
-
-
-
-
+            else if (LastEntry.TestPayment == 0)
+            {
+                try
+                {
+                    return HalkBankPayment(paymentModel);
+                }
+                catch
+                {
+                    throw new Exception("Internal error: Can`t access HalkBank Payment api");
+                }
+            }
+            
 
             else
             {
-                throw new Exception("Stil no valid API from HalkBank");
+                throw new Exception("No valid method for payment.");
             }
 
         }
+        public HttpResponseMessage HalkBankPayment(CreditCardInfoModel paymenyModel)
+        {
+
+         
+            Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/halkbankpayment/pay");
+            HttpClient client = new HttpClient();
+            client.BaseAddress = uri;
+            var mediaType = new MediaTypeHeaderValue("application/json");
+            var jsonFormatter = new JsonMediaTypeFormatter();
+            HttpContent content = new ObjectContent<CreditCardInfoModel>(paymenyModel, jsonFormatter);
+            HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
+            return responseMessage;
+        }
+
+
     }
 }
 
