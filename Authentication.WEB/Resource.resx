@@ -1233,7 +1233,15 @@
   <data name="Search_QuotePreview" xml:space="preserve">
     <value>Preview</value>
   </data>
+
   <data name="AdminPanel_Discount" xml:space="preserve">
     <value>Discount</value>
+</data>
+  <data name="Policy_AddOfferMsg" xml:space="preserve">
+    <value>You have successfully added the offer. Number of offer </value>
+  </data>
+  <data name="Policy_AddOfferMsgFail" xml:space="preserve">
+    <value>You have not successfully added the offer</value>
+
   </data>
 </root>
