@@ -97,7 +97,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Discount.
+        ///   Looks up a localized string similar to Only latin letters.
         /// </summary>
         public static string AdminPanel_Discount {
             get {
@@ -1083,6 +1083,15 @@ namespace InsuredTraveling {
         public static string Home_AdminPanel {
             get {
                 return ResourceManager.GetString("Home_AdminPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy Insurance.
+        /// </summary>
+        public static string Home_BuyInsurance {
+            get {
+                return ResourceManager.GetString("Home_BuyInsurance", resourceCulture);
             }
         }
         
@@ -3153,15 +3162,6 @@ namespace InsuredTraveling {
         public static string SignUP_FailMessage {
             get {
                 return ResourceManager.GetString("SignUP_FailMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Only latin letters.
-        /// </summary>
-        public static string SignUP_LatinLettersOnly {
-            get {
-                return ResourceManager.GetString("SignUP_LatinLettersOnly", resourceCulture);
             }
         }
         
