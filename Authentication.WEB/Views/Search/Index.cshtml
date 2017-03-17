@@ -832,6 +832,15 @@
         $("#tablePoliciesClients").css("display", "none");
         $("#tablePoliciesHolders").css("display", "none");
 
+        $("#btnNovaPolisa").removeClass("active-tab");
+        $("#btnNews").removeClass("active-tab");
+        $("#btnSearch").addClass("active-tab");
+        $("#btnFNOL").removeClass("active-tab");
+        $("#btnAdmin").removeClass("active-tab");
+        $("#dodadiKlient").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+
         $.ajax({
             type: "GET",
             url: "/Search/IsAdmin",

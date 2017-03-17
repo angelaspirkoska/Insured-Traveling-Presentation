@@ -176,6 +176,17 @@
 <script src="~/Scripts/messages_is.js"></script>
 <script>
 
+    $(document).ready(function () {
+        $("#btnNovaPolisa").removeClass("active-tab");
+        $("#btnNews").removeClass("active-tab");
+        $("#btnSearch").removeClass("active-tab");
+        $("#btnFNOL").removeClass("active-tab");
+        $("#btnAdmin").removeClass("active-tab");
+        $("#dodadiKlient").addClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+    });
+
     $('#datetimepicker4').datetimepicker({
         viewMode: 'years',
         format: 'DD/MM/YYYY'

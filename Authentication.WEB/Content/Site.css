@@ -236,6 +236,11 @@ form.cmxform .gray * { color: gray; }
     padding: 40px 0px;
 }
 
+.active-tab {
+    background-color: #128f76;
+    border-color: #11866f;
+}
+
 /* Style for the headings in the print version of the policy */
 .policy-print-title {
     color: #746187 !important;
