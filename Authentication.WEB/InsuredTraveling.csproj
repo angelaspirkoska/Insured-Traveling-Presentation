@@ -284,6 +284,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="HalkbankPaymentPlugin\HalkbankPayment.HalkbankSmartPayment.dll" />
+    <Content Include="HalkbankPaymentPlugin\HalkbankPayment.HalkbankSmartPaymentTrue.dll" />
     <Content Include="index.html" />
     <Content Include="InsuredTravelingEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
