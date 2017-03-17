@@ -97,6 +97,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discount.
+        /// </summary>
+        public static string AdminPanel_Discount {
+            get {
+                return ResourceManager.GetString("AdminPanel_Discount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string AdminPanel_ID {

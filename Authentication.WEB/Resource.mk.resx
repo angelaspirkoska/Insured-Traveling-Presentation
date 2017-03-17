@@ -1227,4 +1227,7 @@
   <data name="Search_QuotePreview" xml:space="preserve">
     <value>Прегледај</value>
   </data>
+  <data name="AdminPanel_Discount" xml:space="preserve">
+    <value>Попуст</value>
+  </data>
 </root>

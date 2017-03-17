@@ -10,6 +10,7 @@
     <ul class="nav nav-pills">
         <li class="active"><a data-toggle="pill" href="#home"> @InsuredTraveling.Resource.AdminPanel_Roles </a></li>
         <li><a data-toggle="pill" href="#menu1"> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </a></li>
+        <li><a data-toggle="pill" href="#DiscountMenu"> @InsuredTraveling.Resource.AdminPanel_Discount </a></li>
     </ul>
 
     <div class="tab-content">
@@ -172,6 +173,55 @@
                 </div>
             </form>
         </div>
+
+
+        <div id="DiscountMenu" class="tab-pane fade in active">
+            <h3 class="text-capitalize"> @InsuredTraveling.Resource.AdminPanel_Discount  </h3>
+            <table class="table table-striped table-hover ">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th> @InsuredTraveling.Resource.AdminPanel_RoleName </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Roles != null)
+                    {
+                        int i = 0;
+                        foreach (var r in ViewBag.Roles)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@r.Name</td>
+                                <td><a href=""><span class="glyphicon glyphicon-trash"></span></a></td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                </tbody>
+            </table>
+
+            <button class="btn btn-primary" onclick="AddRole()"> @InsuredTraveling.Resource.AdminPanel_AddRoleBtn </button>
+
+            <form id="addRoleForm" class="form-padding" hidden method="post" action="@Url.Action("AddRole")">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Role Name:</label>
+                        <div class="col-md-6" style="margin-bottom:10px">
+                            <input type="text" class="form-control" name="Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-3" style="margin-bottom:10px">
+                            <input type="submit" class="form-control btn btn-success" value="Add" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
 

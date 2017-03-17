@@ -1233,4 +1233,7 @@
   <data name="Search_QuotePreview" xml:space="preserve">
     <value>Preview</value>
   </data>
+  <data name="AdminPanel_Discount" xml:space="preserve">
+    <value>Discount</value>
+  </data>
 </root>
