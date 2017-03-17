@@ -196,6 +196,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SSN Advanced Validation.
+        /// </summary>
+        public static string AdminPanel_SSNValidation {
+            get {
+                return ResourceManager.GetString("AdminPanel_SSNValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test Payment.
+        /// </summary>
+        public static string AdminPanel_TestPayment {
+            get {
+                return ResourceManager.GetString("AdminPanel_TestPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin Panel.
         /// </summary>
         public static string AdminPanel_Title {

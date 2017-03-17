@@ -506,6 +506,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Modified_Date" Type="text" />
           <Property Name="Modified_By" Type="varchar" MaxLength="128" />
           <Property Name="SSNValidationActive" Type="tinyint" Nullable="false" />
+          <Property Name="TestPayment" Type="tinyint" />
         </EntityType>
         <EntityType Name="p_referent">
           <Key>
@@ -3983,6 +3984,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Modified_Date" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="SSNValidationActive" Type="SByte" Nullable="false" />
+          <Property Name="TestPayment" Type="SByte" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -4728,6 +4730,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="ok_setup">
             <EntityTypeMapping TypeName="Entities.ok_setup">
               <MappingFragment StoreEntitySet="ok_setup">
+                <ScalarProperty Name="TestPayment" ColumnName="TestPayment" />
                 <ScalarProperty Name="SSNValidationActive" ColumnName="SSNValidationActive" />
                 <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
                 <ScalarProperty Name="Modified_Date" ColumnName="Modified_Date" />

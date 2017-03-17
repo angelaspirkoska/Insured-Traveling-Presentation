@@ -75,6 +75,7 @@
                         <th>@InsuredTraveling.Resource.AdminPanel_InsuranceCompany</th>
                         <th>@InsuredTraveling.Resource.AdminPanel_VersionNumber</th>
                           <th>@InsuredTraveling.Resource.AdminPanel_SSNValidation</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_TestPayment</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,6 +95,7 @@
                                 <td>@r.InsuranceCompany</td>
                                 <td>@r.VersionNumber</td>
                                 <td>@r.SSNValidationActive </td>
+                                <td>@r.TestPayment </td>
                                 <td><a href="/AdminPanel/Delete_OK_setup_Record?id=@r.id"><span class="glyphicon glyphicon-trash"></span></a></td>
                             </tr>
                             i++;
@@ -153,6 +155,13 @@
                             <input type="checkbox" class="form-control" name="SSNValidationActive" value="1"  />
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_TestPayment * :</label>
+                        <div class="col-md-6" style="margin-bottom:10px">
+                            <input type="checkbox" class="form-control" name="TestPayment" value="1" />
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-4" style="margin-bottom:10px">
                             <button type="submit" class="form-control btn btn-success">
