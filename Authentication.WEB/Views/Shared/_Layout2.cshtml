@@ -112,7 +112,10 @@
             <div class="row toolbar-margin">
                 <div class="jumbotron menu-btn-align toolbar-padding">
                     <br />
-                    <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</button>
+                    @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("End user"))
+                    {
+                        <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</button>
+                    }
                     @if (r.IsUser("Admin") || r.IsUser("Broker")){
                         <button onclick="@("window.location.href='/News/Index'");" class="btn btn-success btn-material-design-default" id="btnNews">@InsuredTraveling.Resource.Home_News</button>
                     }

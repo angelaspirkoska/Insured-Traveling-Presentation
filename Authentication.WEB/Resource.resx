@@ -1230,4 +1230,7 @@
   <data name="SearchTable_EditUser" xml:space="preserve">
     <value>Edit User</value>
   </data>
+  <data name="Search_QuotePreview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
 </root>

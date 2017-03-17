@@ -2761,6 +2761,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preview.
+        /// </summary>
+        public static string Search_QuotePreview {
+            get {
+                return ResourceManager.GetString("Search_QuotePreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quote Type.
         /// </summary>
         public static string Search_QuoteType {
