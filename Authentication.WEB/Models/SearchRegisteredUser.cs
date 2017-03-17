@@ -14,5 +14,6 @@ namespace InsuredTraveling.Models
         public string RoleName { get; set; }
         public string CreatedOn { get; set; }
         public string ActiveInactive { get; set; }
+        public string ID { get; set; }
     }
 }

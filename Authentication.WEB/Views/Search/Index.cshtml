@@ -128,7 +128,7 @@
                 <input type="hidden" id="hiddenUsername" />
                 </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="ResetPass">@Resource.Search_Reset</button> <button type="button" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
+                <button type="button" class="btn btn-success" id="ResetPass">@Resource.Search_Reset</button> <button type="button" onclick="$('#PassResetMsg').text(' ')" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
             </div>
         </div>
     </div>
@@ -848,8 +848,9 @@
             type: "POST",
             data: { Username: $("#hiddenUsername").val(), Password: $("#UserPassword").val(), NewPassword: $("#UserRepeatPassword").val() },
             success: function (data) {
-                if ((JSON.parse(data)).message == "OK") {
+                if ((JSON.parse(data)).message === "OK") {
                     $("#PassResetMsg").text("@Resource.PasswordResetMessageSuccess");
+                    $("#ResetPass").hide();
                 } else {
                     $("#PassResetMsg").text("@Resource.PasswordResetMessageFail");
                 }
@@ -866,7 +867,7 @@
             url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ChangeUserStatus?username=" + $("#hiddenUsernameChangeStatus").val(),
             type: "GET",
             success: function (data) {
-                if ((JSON.parse(data)).message == "OK") {
+                if ((JSON.parse(data)).message === "OK") {
                     $("#ChangeStatusMsg").text("@Resource.ChangeStatusMessageSuccess");
                     $("#ChangeStatus").hide();
                     SearchUsers();
@@ -884,11 +885,11 @@
     function ShowModal(username) {
         $("#modal").modal("show");
         $("#hiddenUsername").val(username);
-        console.log(username);
+        $("#ResetPass").show();
     }
 
     function ShowModalChangeStatus(username) {
-        if(username == "@System.Web.HttpContext.Current.User.Identity.Name") {
+        if (username == "@System.Web.HttpContext.Current.User.Identity.Name") {
             $("#modalUserNotallowedToChangeItselfStatus").modal("show");
         } else {
             $("#ChangeStatus").show();
@@ -1260,7 +1261,6 @@
                                     .attr('href', '#')
                                     .attr('id', 'UserResetPass')
                                     .attr('onclick', "ShowModal('" + data + "')")
-                                    .attr('username', data)
                                     .text("@InsuredTraveling.Resource.Search_UserResetPass")
                                     .wrap('<div></div>')
                                     .parent()
@@ -1278,8 +1278,24 @@
                                 return $('<a>')
                                     .attr('href', '#')
                                     .attr('onclick', "ShowModalChangeStatus('" + data + "')")
-                                    .attr('class', data)
                                     .text("@InsuredTraveling.Resource.Search_UserChangeStatus")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    },
+                    {
+                        data: "ID",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                var value = data;
+                                return $('<a>')
+                                    .attr('href', '/Search/EditUser?id=' + data)
+                                    .attr('target', '_blank')
+                                    .text("@InsuredTraveling.Resource.SearchTable_EditUser")
                                     .wrap('<div></div>')
                                     .parent()
                                     .html();
@@ -1291,9 +1307,6 @@
             ],
             select: true
         });
-        $(".@System.Web.HttpContext.Current.User.Identity.Name").removeAttr('href');
-        $(".@System.Web.HttpContext.Current.User.Identity.Name").prop('onclick', '');
-        $(".@System.Web.HttpContext.Current.User.Identity.Name").prop('cursor', 'default');
         $("#tableRegisteredUsers").css("display", "table");
     };
 

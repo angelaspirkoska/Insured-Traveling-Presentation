@@ -403,6 +403,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have not successfully edited user.
+        /// </summary>
+        public static string Edit_FailMessage {
+            get {
+                return ResourceManager.GetString("Edit_FailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have successfully edited user.
+        /// </summary>
+        public static string Edit_SuccessMessage {
+            get {
+                return ResourceManager.GetString("Edit_SuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email is not valid.
         /// </summary>
         public static string EmailNotValid {
@@ -2973,6 +2991,15 @@ namespace InsuredTraveling {
         public static string SearchTable_CreatedOn {
             get {
                 return ResourceManager.GetString("SearchTable_CreatedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit User.
+        /// </summary>
+        public static string SearchTable_EditUser {
+            get {
+                return ResourceManager.GetString("SearchTable_EditUser", resourceCulture);
             }
         }
         
