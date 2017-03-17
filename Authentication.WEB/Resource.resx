@@ -1221,7 +1221,7 @@
   </data>
   <data name="AdminPanel_TestPayment" xml:space="preserve">
     <value>Test Payment</value>
-
+ </data>
   <data name="Edit_FailMessage" xml:space="preserve">
     <value>You have not successfully edited user</value>
   </data>
@@ -1230,6 +1230,6 @@
   </data>
   <data name="SearchTable_EditUser" xml:space="preserve">
     <value>Edit User</value>
-
   </data>
+ 
 </root>
