@@ -3157,6 +3157,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only latin letters.
+        /// </summary>
+        public static string SignUP_LatinLettersOnly {
+            get {
+                return ResourceManager.GetString("SignUP_LatinLettersOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This username already exist in the system.
         /// </summary>
         public static string SignUp_SameUserName {

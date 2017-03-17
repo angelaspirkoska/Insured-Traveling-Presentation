@@ -832,7 +832,7 @@
     <value>Задолжителни полиња</value>
   </data>
   <data name="Policy_UseNumberLatinLetters" xml:space="preserve">
-    <value>Користете само бројки и латински букви</value>
+    <value>Користете само бројки и латинични букви</value>
   </data>
   <data name="Chats" xml:space="preserve">
     <value>Разговори</value>
@@ -1226,6 +1226,9 @@
   </data>
   <data name="Search_QuotePreview" xml:space="preserve">
     <value>Прегледај</value>
+  </data>
+  <data name="SignUP_LatinLettersOnly" xml:space="preserve">
+    <value>Користи само латинични букви</value>
   </data>
 
   <data name="AdminPanel_Discount" xml:space="preserve">
