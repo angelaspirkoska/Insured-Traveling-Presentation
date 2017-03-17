@@ -474,6 +474,16 @@
         $("#policy_type option[value='3']").show();
         $("#policy_type option[value='4']").hide();
 
+        $("#btnNovaPolisa").addClass("active-tab");
+        $("#btnNews").removeClass("active-tab");
+        $("#btnSearch").removeClass("active-tab");
+        $("#btnFNOL").removeClass("active-tab");
+        $("#btnAdmin").removeClass("active-tab");
+        $("#dodadiKlient").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+        
+
         $('#AddOffer').on('click', function () {
             $.ajax({
                 type: 'POST',

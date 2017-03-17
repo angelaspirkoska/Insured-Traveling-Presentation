@@ -65,6 +65,18 @@
 
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script>
+
+    $(document).ready(function () {
+        $("#btnNovaPolisa").removeClass("active-tab");
+        $("#btnNews").addClass("active-tab");
+        $("#btnSearch").removeClass("active-tab");
+        $("#btnFNOL").removeClass("active-tab");
+        $("#btnAdmin").removeClass("active-tab");
+        $("#dodadiKlient").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+    });
+
     function deleteNews(newsId) {
         $.ajax({
             type: "POST",
