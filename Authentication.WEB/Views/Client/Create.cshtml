@@ -191,7 +191,9 @@
         $.ajax({
             type: "GET",
             url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/countriesCodes.json",
-            dataType: "json"
+            crossDomain: true,
+            dataType: 'json',
+            headers: { 'Access-Control-Allow-Origin': '*' }
         }).done(function (result) {
 
             $.each(result.countriesCodes, function (index, value) {

@@ -63,7 +63,7 @@ namespace InsuredTraveling.Models
         public override string PhoneNumber { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
-        [RegularExpression("^[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Error_Mobile_Numeric")]
+        [RegularExpression("^\\+[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Error_Mobile_Numeric")]
         [Display(Name = "User_MobilePhoneNumber", ResourceType = typeof(Resource))]
         public string MobilePhoneNumber { get; set; }
 
