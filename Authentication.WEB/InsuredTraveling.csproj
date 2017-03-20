@@ -332,6 +332,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="HalkbankPaymentPlugin\license.lic" />
+    <Content Include="countriesCodes.json" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\Slobodanka.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
