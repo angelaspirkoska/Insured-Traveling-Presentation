@@ -72,7 +72,7 @@
                                 @*<li class="message-footer">
                                         <a href="#">Read All New Messages</a>
                                     </li>*@
-                                <p id="no-messages" style="display: none;">@InsuredTraveling.Resource.Home_NoMsg</p>
+                                <li id="no-messages" style="display: none;">@InsuredTraveling.Resource.Home_NoMsg</li>
                             </ul>
                             
                         </li>
@@ -119,19 +119,19 @@
                     }
                     @if (r.IsUser("Admin") || r.IsUser("Broker"))
                     {
-                        <button onclick="@("window.location.href='/News/Index'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_News</button>
+                        <button onclick="@("window.location.href='/News/Index'");" class="btn btn-success btn-material-design-default" id="btnNews">@InsuredTraveling.Resource.Home_News</button>
                     }
-                    <button onclick="@("window.location.href='" + @Url.Action("Index","Search") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_Search</button>
-                    <button onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_FirstNoticeOfLoss</button>
+                    <button onclick="@("window.location.href='" + @Url.Action("Index","Search") + "'")" class="btn btn-success btn-material-design-default" id="btnSearch">@InsuredTraveling.Resource.Home_Search</button>
+                    <button onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'")" class="btn btn-success btn-material-design-default" id="btnFNOL">@InsuredTraveling.Resource.Home_FirstNoticeOfLoss</button>
                     @if (r.IsUser("Admin"))
                     {
-                        <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_AdminPanel</button>
+                        <button onclick="@("window.location.href='" + @Url.Action("Index","AdminPanel") + "'")" class="btn btn-success btn-material-design-default" id="btnAdmin">@InsuredTraveling.Resource.Home_AdminPanel</button>
                         <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</button>
-                        <button onclick="@("window.location.href='" + @Url.Action("CreateUser", "SignUp") + "'");" class="btn btn-success btn-material-design-default">@InsuredTraveling.Resource.Home_CreateUser</button>
+                        <button onclick="@("window.location.href='" + @Url.Action("CreateUser", "SignUp") + "'");" class="btn btn-success btn-material-design-default" id="btnCreateUser">@InsuredTraveling.Resource.Home_CreateUser</button>
                     }
                     @if (r.IsUser("Broker"))
                     {
-                        <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</button>
+                        <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="btnCreateUser">@InsuredTraveling.Resource.Home_NewClient</button>
                     }
                 </div>
             </div>
