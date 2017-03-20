@@ -213,7 +213,8 @@
                     <div class="input-group">
                         <input type="date" id="startDate" class="form-control placeholder" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                            <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle explain-functionality" 
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -231,9 +232,10 @@
                     <div class="input-group">
                         <input type="date" name="endDate" class="form-control" id="endDate" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorEndDate" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
-                                = <span class="caret"></span>
-                            </button>
+                                <button type="button" id="operatorEndDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
+                                        aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                    = <span class="caret"></span>
+                                </button>
                             <ul class="dropdown-menu">
                                 <li onclick="$('#operatorEndDate').html(' = '); $('#operatorEndDate').val('=');">=</li>
                                 <li onclick="$('#operatorEndDate').html(' < '); $('#operatorEndDate').val('<');">&lt</li>
@@ -251,7 +253,8 @@
                     <div class="input-group">
                         <input type="date" class="form-control placeholder" id="dateI" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorDateI" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                            <button type="button" id="operatorDateI" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -269,7 +272,8 @@
                     <div class="input-group">
                         <input type="date" id="dateS" class="form-control" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorDateS" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                            <button type="button" id="operatorDateS" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -379,7 +383,8 @@
                     <div class="input-group">
                         <input type="date" id="startDate1" class="form-control placeholder" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorStartDate1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                            <button type="button" id="operatorStartDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
+                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -397,7 +402,8 @@
                     <div class="input-group">
                         <input type="date" name="endDate" class="form-control" id="endDate1" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorEndDate1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                            <button type="button" id="operatorEndDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -618,7 +624,8 @@
                         <div class="input-group">
                             <input type="date" class="form-control placeholder" id="DateAdded" />
                             <div class="input-group-btn">
-                                <button type="button" id="operatorDateAdded" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                <button type="button" id="operatorDateAdded" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
+                                        aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                     = <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
@@ -679,7 +686,8 @@
                         <label for="totalPrice">@InsuredTraveling.Resource.Search_TotalCost:</label>
                         <div class="input-group-btn">
                             <input type="search" name="totalPrice" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLtotalcost" id="totalPrice" />
-                            <button type="button" id="totalCostOperator" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                            <button type="button" id="totalCostOperator" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
+                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -816,6 +824,11 @@
 <script type="text/javascript">
     var isAdmin = false;
     $(document).ready(function () {
+
+        $('.explain-functionality').tooltip({
+            placement: "right"
+        });
+
         $(".hover-tooltip button").tooltip('show');
 
         $('#operatorRegisterDate').html(' = ');
@@ -1628,7 +1641,7 @@
                                .attr('class', 'detailsHolder')
                                .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
                                .wrap('<div></div>')
-                               .parent()
+                               .parent()    
                                .html();
                        } else {
                            return data;

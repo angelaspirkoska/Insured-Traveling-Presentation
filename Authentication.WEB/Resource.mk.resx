@@ -1245,4 +1245,7 @@
   <data name="Home_NoMsg" xml:space="preserve">
     <value>Немате нови пораки</value>
   </data>
+  <data name="Search_HelpMessage" xml:space="preserve">
+    <value>Избери ги датумите пред или после овој датум</value>
+  </data>
 </root>

@@ -2635,6 +2635,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select dates before or after this date.
+        /// </summary>
+        public static string Search_HelpMessage {
+            get {
+                return ResourceManager.GetString("Search_HelpMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Policy Holder Last Name.
         /// </summary>
         public static string Search_HolderLastName {
