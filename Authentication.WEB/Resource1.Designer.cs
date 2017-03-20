@@ -1141,6 +1141,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No new messages.
+        /// </summary>
+        public static string Home_NoMsg {
+            get {
+                return ResourceManager.GetString("Home_NoMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Home_Search {

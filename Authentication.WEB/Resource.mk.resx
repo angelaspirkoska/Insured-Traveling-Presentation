@@ -1242,4 +1242,7 @@
   <data name="Home_BuyInsurance" xml:space="preserve">
     <value>Купи осигурување</value>
   </data>
+  <data name="Home_NoMsg" xml:space="preserve">
+    <value>Немате нови пораки</value>
+  </data>
 </root>
