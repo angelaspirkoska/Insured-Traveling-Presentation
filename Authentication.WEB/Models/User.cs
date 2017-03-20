@@ -58,7 +58,7 @@ namespace InsuredTraveling.Models
         [Display(Name = "User_InsuranceCompany", ResourceType = typeof(Resource))]
         public string InsuranceCompany = "Sava";
 
-        //[RegularExpression("^/+[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Error_Phone_Numeric")]
+        [RegularExpression("^\\+[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Error_Phone_Numeric")]
         [Display(Name = "User_PhoneNumber", ResourceType = typeof(Resource))]
         public override string PhoneNumber { get; set; }
 

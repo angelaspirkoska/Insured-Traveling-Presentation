@@ -74,8 +74,6 @@
                                 <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-user"></i>
                                 </div>
-                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control mandatoryField", onblur = "FindUsername()", id = "username", style = ""} })
-
                                 @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control mandatoryField", onblur = "FindUsername()", id = "username", title= "Latin letters only" } })
 
                                 <span style="color: red" id="UsernameMsg"></span>
@@ -229,7 +227,9 @@
                             @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-earphone"></i>
+                                    <select id="countriesCodes" style="width: 46px;">
+                                        
+                                    </select>
                                 </div>
                                 @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", title = "Numbers only" } })
                                 @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
@@ -240,7 +240,9 @@
                             @Html.LabelFor(model => model.MobilePhoneNumber, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-phone"></i>
+                                        <select id="countriesCodesMobile" style="width: 46px;">
+                                            
+                                        </select>
                                 </div>
                                 @Html.EditorFor(model => model.MobilePhoneNumber, new { htmlAttributes = new { @class = "form-control", title = "Numbers only", id = "mobilenumber" } })
                             </div>
@@ -322,9 +324,49 @@
 @Scripts.Render("~/bundles/jqueryval")
 
 <script type="text/javascript">
+
+    $(document).ready(function () {
+        var countriesCodes;
+
+        $('.form-control').tooltip({
+            placement: "bottom"
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/countriesCodes.json",
+            dataType: "json"
+        }).done(function (result) {
+            countriesCodes = result.countriesCodes;
+
+            $.each(result.countriesCodes, function (index, value) {
+                $('#countriesCodes').append($('<option>', {
+                    value: value.dial_code,
+                    text: value.code + "  " + value.name
+                }));
+            });
+
+            $.each(result.countriesCodes, function (index, value) {
+                $('#countriesCodesMobile').append($('<option>', {
+                    value: value.dial_code,
+                    text: value.code + "  " + value.name
+                }));
+            });
+        });
+
+        $('#countriesCodes').change(function () {
+            $("#PhoneNumber").val($('#countriesCodes').val());
+        });
+
+        $('#countriesCodesMobile').change(function () {
+            $("#mobilenumber").val($('#countriesCodesMobile').val());
+        });
+
+    });
+
     $('#datetimepicker3').datetimepicker({
         viewMode: 'years',
-        format: 'DD/MM/YYYY'    
+        format: 'DD/MM/YYYY'
     });
 
     $("#Email").removeClass("text-box");
@@ -371,23 +413,19 @@
     $(".input-sm, .text-box").keypress(function (event) {
         var ew = event.which;
         console.log(ew);
-        
+
         if (ew == 32) {
             return true;
-        }            
+        }
         if (46 <= ew && ew <= 57) {
             return true;
-        }           
+        }
         if (64 <= ew && ew <= 90) {
             return true;
         }
         if (97 <= ew && ew <= 122) {
             return true;
         }
-
-        $('.form-control').tooltip({ 
-            placement: "bottom"
-        });
 
         return false;
     });

@@ -109,7 +109,9 @@
                     @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "" })<br />
                     <div style="margin-bottom:10px; padding:0;">
                         <div class="input-group">
-                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            <div class="input-group-addon">
+                                <select id="countriesCodes" style="width: 46px;"></select>
+                            </div>
                             @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "col-md-6 text-danger" })
                         </div>
@@ -185,7 +187,28 @@
         $("#dodadiKlient").addClass("active-tab");
         $("#btnCreateUser").removeClass("active-tab");
         $("#btnCreateUser").removeClass("active-tab");
+
+        $.ajax({
+            type: "GET",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/countriesCodes.json",
+            dataType: "json"
+        }).done(function (result) {
+
+            $.each(result.countriesCodes, function (index, value) {
+                $('#countriesCodes').append($('<option>', {
+                    value: value.dial_code,
+                    text: value.code + "  " + value.name
+                }));
+            });
+        });
+        $('#countriesCodes').change(function () {
+            $("#PhoneNumber").val($('#countriesCodes').val());
+        });
+
+
     });
+
+
 
     $('#datetimepicker4').datetimepicker({
         viewMode: 'years',
