@@ -97,6 +97,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discount.
+        /// </summary>
+        public static string AdminPanel_Discount {
+            get {
+                return ResourceManager.GetString("AdminPanel_Discount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string AdminPanel_ID {
@@ -3144,6 +3153,15 @@ namespace InsuredTraveling {
         public static string SignUP_FailMessage {
             get {
                 return ResourceManager.GetString("SignUP_FailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only latin letters.
+        /// </summary>
+        public static string SignUP_LatinLettersOnly {
+            get {
+                return ResourceManager.GetString("SignUP_LatinLettersOnly", resourceCulture);
             }
         }
         

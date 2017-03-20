@@ -832,7 +832,7 @@
     <value>Задолжителни полиња</value>
   </data>
   <data name="Policy_UseNumberLatinLetters" xml:space="preserve">
-    <value>Користете само бројки и латински букви</value>
+    <value>Користете само бројки и латинични букви</value>
   </data>
   <data name="Chats" xml:space="preserve">
     <value>Разговори</value>
@@ -1227,10 +1227,18 @@
   <data name="Search_QuotePreview" xml:space="preserve">
     <value>Прегледај</value>
   </data>
+  <data name="SignUP_LatinLettersOnly" xml:space="preserve">
+    <value>Користи само латинични букви</value>
+  </data>
+
+  <data name="AdminPanel_Discount" xml:space="preserve">
+    <value>Попуст</value>
+</data>
   <data name="Policy_AddOfferMsg" xml:space="preserve">
     <value>Успешно ја додадовте полисата во понуди. Број на понуда</value>
   </data>
   <data name="Policy_AddOfferMsgFail" xml:space="preserve">
     <value>Полисата не беше додадена во понуди</value>
+
   </data>
 </root>
