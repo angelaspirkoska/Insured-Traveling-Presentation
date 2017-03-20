@@ -14,7 +14,7 @@ namespace InsuredTraveling.Models
 
         public CreditCard CreditCardInfo { get; set;} 
         public string Amount { get; set; }
-        public string OrderId { get; set; }
+        public int ?OrderId { get; set; }
 
     }
 

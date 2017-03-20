@@ -248,7 +248,7 @@ namespace InsuredTraveling.Helpers
 
         }
 
-        public static bool SavePolicyFromMobile(AddPolicyMobileViewModel addPolicyMobile,
+        public static int SavePolicyFromMobile(AddPolicyMobileViewModel addPolicyMobile,
                                                 IPolicyService _ps,
                                                 IUserService _us,
                                                 IInsuredsService _iss,
@@ -338,12 +338,12 @@ namespace InsuredTraveling.Helpers
                         }
                     }
                 }
-                return true;
-                
+                return policyID;
+
             }
             catch (Exception e)
             {
-                return false;
+                return -1;
             }
            
         }
