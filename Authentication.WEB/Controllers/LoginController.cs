@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-
 namespace InsuredTraveling.Controllers
 {
     public class LoginController : Controller
@@ -22,7 +21,7 @@ namespace InsuredTraveling.Controllers
 
             if (!CaptchaValid)
             {
-                ModelState.AddModelError("reCaptcha", "Invalid reCaptcha");
+                ModelState.AddModelError("reCaptcha", "recaptchaError");
                 return View(user);
             }
             if (ModelState.IsValid)
@@ -62,11 +61,11 @@ namespace InsuredTraveling.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("loginErr", "The user name or password is incorrect.");
+                        ModelState.AddModelError("loginErr", "usernameOrPasswordError");
                     }
                 }else
                 {
-                    ModelState.AddModelError("loginErr", "The user name or password is incorrect!");
+                    ModelState.AddModelError("loginErr", "usernameOrPasswordError");
                 }
             }
             return View();

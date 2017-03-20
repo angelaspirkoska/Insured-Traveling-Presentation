@@ -1213,6 +1213,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The username or password is incorrect. Please try again..
+        /// </summary>
+        public static string Msg_IncorrectUserPass {
+            get {
+                return ResourceManager.GetString("Msg_IncorrectUserPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid reCaptcha. Try again with clicking the checkbox next to &quot;I&apos;m not a robot.&quot;.
+        /// </summary>
+        public static string Msg_InvalidRecaptcha {
+            get {
+                return ResourceManager.GetString("Msg_InvalidRecaptcha", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Policy.
         /// </summary>
         public static string NewPolicy_Title {
@@ -1326,6 +1344,15 @@ namespace InsuredTraveling {
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A SMS code is sent to you. Check you mobile phone..
+        /// </summary>
+        public static string OK_SMSCode {
+            get {
+                return ResourceManager.GetString("OK_SMSCode", resourceCulture);
             }
         }
         

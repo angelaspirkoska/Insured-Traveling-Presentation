@@ -22,6 +22,19 @@
         <div class="col-md-6">
             @if (ViewBag.Message != null)
             {
+                if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <a class="close" data-dismiss="alert">x</a>
+                        @foreach (var modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+                        {
+                            if (modelError.ErrorMessage ==  "recaptchaError")
+                            {
+                                <p>@InsuredTraveling.Resource.Msg_InvalidRecaptcha</p>
+                            }
+                        }
+                    </div>
+                }
                 if (ViewBag.Message == "Registration failed")
                 {
                     <div class="alert alert-dismissible alert-danger">
@@ -403,7 +416,7 @@
             data: jQuery.param({ username: $("#username").val() }),
         })
         .done(function (result) {
-            alert("OK");
+            alert("@InsuredTraveling.Resource.OK_SMSCode");
         })
         .error(function () {
 
