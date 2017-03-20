@@ -349,25 +349,27 @@
         $.ajax({
             type: "GET",
             url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/countriesCodes.json",
-            crossDomain: true,
-            dataType: 'json',
-            headers: { 'Access-Control-Allow-Origin': '*' }
-        }).done(function (result) {
+            contentType: "application/json; text/plain; charset=utf-8",
+            dataType: 'json'
+        }).done(function(result) {
 
-            $.each(result.countriesCodes, function (index, value) {
-                $('#countriesCodes').append($('<option>', {
-                    value: value.dial_code,
-                    text: value.code + "  " + value.name
-                }));
-            });
+            $.each(result.countriesCodes,
+                function(index, value) {
+                    $('#countriesCodes').append($('<option>',
+                    {
+                        value: value.dial_code,
+                        text: value.code + "  " + value.name
+                    }));
+                });
 
-            $.each(result.countriesCodes, function (index, value) {
-                $('#countriesCodesMobile').append($('<option>', {
-                    value: value.dial_code,
-                    text: value.code + "  " + value.name
-                }));
-            });
-
+            $.each(result.countriesCodes,
+                function(index, value) {
+                    $('#countriesCodesMobile').append($('<option>',
+                    {
+                        value: value.dial_code,
+                        text: value.code + "  " + value.name
+                    }));
+                });
         });
 
         $('#countriesCodes').change(function () {
