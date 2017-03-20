@@ -38,10 +38,10 @@ namespace Authentication.WEB.Controllers
         }
 
         // GET: Payment
+        [HttpGet]
         public ActionResult Index()
         {
             PaymentModel model = new PaymentModel();
-            //model.PolicyNumber = policy.Policy_Number;
             model.clientId = "180000069";                   //Merchant Id defined by bank to user
             model.amount = "9.95";                         //Transaction amount
             model.oid = "";                                //Order Id. Must be unique. If left blank, system will generate a unique one.
@@ -58,9 +58,6 @@ namespace Authentication.WEB.Controllers
             model.hashbytes = System.Text.Encoding.GetEncoding("ISO-8859-9").GetBytes(model.hashstr);
             model.inputbytes = sha.ComputeHash(model.hashbytes);
             model.hash = Convert.ToBase64String(model.inputbytes); //Hash value used for validation
-
-            //var a = model.Pat.policy_additional_charge.ToArray().ElementAt(0);
-           
             return View(model);
         }
 
@@ -69,16 +66,15 @@ namespace Authentication.WEB.Controllers
         {
             ViewBag.IsPaid = false;
             PaymentModel model = new PaymentModel();
-            
+
             p.isMobile = false;
             var PolicyId = SavePolicyHelper.SavePolicy(p, _ps, _us, _iss, _pis, _acs);
-            
-            model.mainInsured = _pis.GetAllInsuredByPolicyId(PolicyId).First();
-          //  model.additionalCharge1 = 
-           var policy = _ps.GetPolicyById(PolicyId);
+
+            var policy = _ps.GetPolicyById(PolicyId);
+            model.mainInsured = _pis.GetAllInsuredByPolicyId(policy.ID).First();
             model.PolicyNumber = policy.Policy_Number;
             var additionalCharges = _acs.GetAdditionalChargesByPolicyId(PolicyId);
-            
+
             model.additionalCharge1 = "Без доплаток";
             model.additionalCharge2 = "Без доплаток";
             if (additionalCharges.Count >= 1 && additionalCharges[0] != null)
@@ -92,7 +88,7 @@ namespace Authentication.WEB.Controllers
 
             model.clientId = "180000069";                   //Merchant Id defined by bank to user
             model.amount = p.Total_Premium.ToString();
-             //   "9.95";                         //Transaction amount
+            //   "9.95";                         //Transaction amount
             model.oid = "";                                //Order Id. Must be unique. If left blank, system will generate a unique one.
             model.okUrl = ConfigurationManager.AppSettings["webpage_url"] + "/Payment/PaymentSuccess";                      //URL which client be redirected if authentication is successful
             model.failUrl = ConfigurationManager.AppSettings["webpage_url"] + "/Payment/PaymentFail";                    //URL which client be redirected if authentication is not successful
@@ -108,11 +104,8 @@ namespace Authentication.WEB.Controllers
             model.inputbytes = sha.ComputeHash(model.hashbytes);
 
             model.hash = Convert.ToBase64String(model.inputbytes); //Hash value used for validation
-            //var retainingRisks = model.Pat.retaining_risk.retaining_risk_name.ToArray();
             model.retaining_risk = "No Deductible";
             model.retaining_risk_mk = "Без франшиза";
-            //model.retaining_risk = retainingRisks[0].name;
-            //model.retaining_risk_mk = retainingRisks[1].name;
             model.Pat = policy;
             return View(model);
         }
@@ -120,7 +113,7 @@ namespace Authentication.WEB.Controllers
         [Route("PaymentSuccess")]
         public ActionResult PaymentSuccess()
         {
-        
+
             PaymentSuccessModel model = new PaymentSuccessModel();
             model.amount = Request.Form.Get("amount");
             model.oid = Request.Form.Get("ReturnOid");
@@ -162,9 +155,9 @@ namespace Authentication.WEB.Controllers
                 var PolicyHolderEmail = _ps.GetPolicyHolderEmailByPolicyId(pat.Pat.ID);
                 MailService mailService = new MailService(PolicyHolderEmail);
                 mailService.setSubject("Издадена полиса број: " + model.oid);
-           
 
-                mailService.setBodyText(body1,true);
+
+                mailService.setBodyText(body1, true);
                 mailService.AlternativeViews(view);
                 mailService.attach(new System.Net.Mail.Attachment(fullPath));
 

@@ -113,7 +113,7 @@
                     <br />
                     @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("End user"))
                     {
-                        <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</button>
+                        <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa">@InsuredTraveling.Resource.Home_BuyInsurance</button>
                     }
                     @if (r.IsUser("Admin") || r.IsUser("Broker"))
                     {

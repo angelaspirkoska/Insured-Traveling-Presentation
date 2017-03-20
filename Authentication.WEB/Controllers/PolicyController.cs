@@ -155,7 +155,6 @@ namespace Authentication.WEB.Controllers
             pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
             
             pat.mainInsured = _pis.GetAllInsuredByPolicyIdAndInsuredCreatedBy(pat.Pat.ID, pat.Pat.Created_By).First();
-            var policy = _ps.GetPolicyById(pat.Pat.ID);
             var additionalCharges = _acs.GetAdditionalChargesByPolicyId(pat.Pat.ID);
 
             pat.additionalCharge1 = InsuredTraveling.Resource.WithNoAddOn;
