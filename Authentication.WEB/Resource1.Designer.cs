@@ -1915,6 +1915,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preview Policy.
+        /// </summary>
+        public static string PolicyPreview {
+            get {
+                return ResourceManager.GetString("PolicyPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Additional Premium.
         /// </summary>
         public static string PolicyPrint_AdditionalPremium {

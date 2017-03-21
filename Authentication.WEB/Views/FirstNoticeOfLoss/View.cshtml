@@ -17,7 +17,7 @@
         <h3>@InsuredTraveling.Resource.FNOL_Number @Model.FNOLNumber</h3>
         <hr />
         <div class="row container">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <div class="col-lg-7">
                         <label>@InsuredTraveling.Resource.FNOL_PolicyNumber: </label>
@@ -27,9 +27,16 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-lg-7" style="font-size: 18px;">
+                            <a href="/Policy/PolicyDetails?policyNumber=@Model.PolicyNumber" target="_blank">@Resource.PolicyPreview</a>
+                    </div>
+                </div>
+            </div>
             @if (!Model.IsArchived)
             {
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-lg-7">
                             <button type="button" style="float:right;" class="btn btn-success btn-material-design" onclick="@("window.location.href='" + @Url.Action("Edit", "FirstNoticeOfLoss", new { id = Model.Id}) + "'");"> <i class="glyphicon glyphicon-edit"></i></button>

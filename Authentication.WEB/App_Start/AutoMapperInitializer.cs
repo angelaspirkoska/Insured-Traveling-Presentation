@@ -172,6 +172,24 @@ namespace InsuredTraveling.App_Start
                 
             });
 
+            Mapper.CreateMap<travel_policy, Policy>().AfterMap((src, dst) =>
+            {
+                dst.Policy_Number = src.Policy_Number;
+                dst.PaymentStatys = src.Payment_Status == true ? 1 : 0;
+                dst.Exchange_RateID = src.Exchange_RateID;
+                dst.CountryID = src.CountryID;
+                dst.Policy_TypeID = src.Policy_TypeID;
+                dst.IsSamePolicyHolderInsured = src.Policy_HolderID == src.insured.ID;
+                dst.Date_Created = src.Date_Created;
+                dst.Created_By = src.Created_By;
+                dst.Start_Date = src.Start_Date;
+                dst.End_Date = src.End_Date;
+                dst.Valid_Days = src.Valid_Days;
+                dst.Travel_NumberID = src.Travel_NumberID;
+                dst.Total_Premium = src.Total_Premium;
+                dst.PolicyHolderId = src.Policy_HolderID;                
+            });
+
             Mapper.CreateMap<FirstNoticeOfLossReportViewModel, first_notice_of_loss>().AfterMap((src, dst) =>
             {
                 

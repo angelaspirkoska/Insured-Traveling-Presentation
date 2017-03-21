@@ -24,7 +24,7 @@
       
         <hr />
         <div class="row container">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <div class="col-lg-7">
                         <label>@InsuredTraveling.Resource.FNOL_PolicyNumber: </label>
@@ -32,6 +32,13 @@
                             @Html.TextBoxFor(model => model.PolicyNumber, new { @class = "form-control input-sm", @style = "display: none;", @readonly = true })
                             @Model.PolicyNumber
                         </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-lg-7" style="font-size: 18px;">
+                        <a href="/Policy/PolicyDetails?policyNumber=@Model.PolicyNumber" target="_blank">@Resource.PolicyPreview</a>
                     </div>
                 </div>
             </div>

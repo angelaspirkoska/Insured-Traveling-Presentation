@@ -1257,4 +1257,7 @@
   <data name="Msg_InvalidRecaptcha" xml:space="preserve">
     <value>Невалидна reCaptcha. Обиди се повторно со клкнување на копчето до "I'm not a robot".</value>
   </data>
+  <data name="PolicyPreview" xml:space="preserve">
+    <value>Прегледај полиса</value>
+  </data>
 </root>

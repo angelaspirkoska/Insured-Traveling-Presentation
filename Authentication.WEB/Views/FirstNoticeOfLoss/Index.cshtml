@@ -78,6 +78,14 @@
                     <input type="button" value="@InsuredTraveling.Resource.FNOL_Search" id="search" class="btn btn-default btn-block row-position" />
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-lg-7" style="margin-top: 25px; font-size: 18px;">
+                        <label></label>
+                        <a href="#" target="_blank" id="previewPolicy" >@Resource.PolicyPreview</a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12 col-sm-12">
@@ -577,7 +585,9 @@ else if (ViewBag.insurance == "Luggage Insurance")
 <script type="text/javascript">
     var Banks;
     $(document).ready(function () {
-        console.log(Banks);
+        //console.log(Banks);
+        $("#previewPolicy").hide();
+
         $('#deponent').prop('readonly', true);
         $('#deponentInsured').prop('readonly', true);
         $('#DropDownBankAccountPolicyHolder').hide();
@@ -671,12 +681,13 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     type: "POST",
                     dataType: "json",
                     data: { Prefix: request.term },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.Name, value: item.Name };
-                        }))
+                    success: function(data) {
+                        response($.map(data,
+                            function(item) {
+                                return { label: item.Name, value: item.Name };
+                            }));
                     }
-                })
+                });
             },
             messages: {
                 noResults: "", results: ""
@@ -996,10 +1007,12 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 var rez = JSON.parse(result);
                 if (rez.response == "No policy found")
                 {
+                    $("#previewPolicy").hide();
                     $("#errorNoPolicyFound").css("display", "block");
                 }
-                else
-                {
+                else {
+                    $("#previewPolicy").show();
+                    $("#previewPolicy").prop("href", "/Policy/PolicyDetails?policyNumber=" + $('#DropDownPolicyNumber').val());
                     //open all content
                     $("#clientInfoContent").css("display", "block");
                     $("#insuredInfoContent").css("display", "block");

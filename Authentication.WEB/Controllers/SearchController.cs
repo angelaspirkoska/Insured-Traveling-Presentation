@@ -356,7 +356,6 @@ namespace InsuredTraveling.Controllers
             }
 
             var JSONObject = new JObject();
-            var dataJSON = new JArray();
 
             var languageId = SiteLanguages.CurrentLanguageId();
             var searchModel = data.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();

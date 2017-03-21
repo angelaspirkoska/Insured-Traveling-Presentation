@@ -2,9 +2,10 @@
 @using InsuredTraveling.Filters;
 @using System.Web.Optimization;
 @{
-    ViewBag.Title = InsuredTraveling.Resource.NewPolicy_Title;
+    ViewBag.Title = "Preview";
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
+
 
 <h2>@InsuredTraveling.Resource.Policy_CreatePolicy</h2>
 <form id="policy_form" metod="post">
@@ -36,7 +37,7 @@
                         <div class="col-md-4">
                             @Html.LabelFor(model => model.Policy_TypeID, htmlAttributes: new { @class = "control-label" })
                             <div class="inputs-spacing">
-                                @Html.DropDownListFor(model => model.Policy_TypeID, (List<SelectListItem>)ViewBag.TypeOfPolicy, new { @class = "form-control input-sm", id = "policy_type"})
+                                @Html.DropDownListFor(model => model.Policy_TypeID, (List<SelectListItem>)ViewBag.TypeOfPolicy, new { @class = "form-control input-sm", id = "policy_type" })
                                 @Html.ValidationMessageFor(model => model.Policy_TypeID, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -290,7 +291,7 @@
                     </div>
                 </div>
                 <div class="form-horizontal" id="family" hidden>
-                    @for (int i = 0; i < 6; i++)
+                    @for (int i = 0; i < Model.insureds.Count(); i++)
                     {
                         <div class="form-inline col-md-offset-3" style="margin-top:20px;">
                             <div class="form-group col-md-4 col-sm-4">
@@ -482,7 +483,7 @@
         $("#dodadiKlient").removeClass("active-tab");
         $("#btnCreateUser").removeClass("active-tab");
         $("#btnCreateUser").removeClass("active-tab");
-        
+
 
         $('#AddOffer').on('click', function () {
             $.ajax({
@@ -641,11 +642,11 @@
                         $("#SSN").attr("style", "border: 1px solid red;");
                         $("#totalPremiumLabel").hide();
                         $("#totalPremium").val("");
-                        
+
                     }
                     else{
                         $("#SSN").attr("style", "border: 1px solid #2c3e50;");
-                      
+
                             $(".loader").css("display", "none");
                         console.log(result.PremiumAmount);
                         $("#totalPremium").val(result.PremiumAmount);
@@ -667,10 +668,10 @@
                     $("#totalPremiumLabel").hide();
                     $("#totalPremium").val("");
                     $("#errorMessage").text((JSON.parse(result.responseText)).Message);
-                    
-                    
+
+
                 }
-                
+
             });
         }
         else {

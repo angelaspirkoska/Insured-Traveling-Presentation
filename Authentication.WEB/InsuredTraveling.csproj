@@ -792,6 +792,7 @@
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\SignUp\CreateUser.cshtml" />
     <Content Include="Views\Search\EditUser.cshtml" />
+    <Content Include="Views\Policy\Preview.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

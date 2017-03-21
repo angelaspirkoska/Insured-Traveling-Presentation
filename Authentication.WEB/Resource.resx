@@ -1260,4 +1260,7 @@
   <data name="Msg_InvalidRecaptcha" xml:space="preserve">
     <value>Invalid reCaptcha. Try again with clicking the checkbox next to "I'm not a robot."</value>
   </data>
+  <data name="PolicyPreview" xml:space="preserve">
+    <value>Preview Policy</value>
+  </data>
 </root>
