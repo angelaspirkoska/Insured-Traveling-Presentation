@@ -3076,6 +3076,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Days before expiring.
+        /// </summary>
+        public static string SearchPolicyByExpiringDays {
+            get {
+                return ResourceManager.GetString("SearchPolicyByExpiringDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active/Inactive.
         /// </summary>
         public static string SearchTable_ActiveInactiveUser {

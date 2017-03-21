@@ -305,6 +305,30 @@ namespace InsuredTraveling.Controllers
             JSONObject.Add("data", array);
             return JSONObject;
         }
+
+        [HttpGet]
+        [Route("GetExpiringPolicies")]
+        public JObject GetExpiringPolicies(int days)
+       {
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            var logUser = _us.GetUserIdByUsername(username);
+
+            List<travel_policy> data = new List<travel_policy>();
+
+            data = _ps.GetBrokersPolicies(logUser, days);
+
+            var jsonObject = new JObject();
+
+            var languageId = SiteLanguages.CurrentLanguageId();
+            var searchModel = data.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
+            searchModel = _policySearchService.GetCountriesName(searchModel, languageId);
+
+            var array = JArray.FromObject(searchModel.ToArray());
+            jsonObject.Add("data", array);
+            return jsonObject;
+        }
+
+
         [HttpGet]
         [Route("GetQuotes")]
         public JObject GetQuotes(

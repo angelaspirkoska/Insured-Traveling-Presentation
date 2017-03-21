@@ -1263,4 +1263,7 @@
   <data name="PolicyPreview" xml:space="preserve">
     <value>Preview Policy</value>
   </data>
+  <data name="SearchPolicyByExpiringDays" xml:space="preserve">
+    <value>Days before expiring</value>
+  </data>
 </root>

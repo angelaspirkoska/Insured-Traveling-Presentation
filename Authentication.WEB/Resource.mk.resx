@@ -1260,4 +1260,7 @@
   <data name="PolicyPreview" xml:space="preserve">
     <value>Прегледај полиса</value>
   </data>
+  <data name="SearchPolicyByExpiringDays" xml:space="preserve">
+    <value>Денови пред истекување</value>
+  </data>
 </root>
