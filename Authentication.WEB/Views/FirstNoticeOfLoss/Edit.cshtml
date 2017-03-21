@@ -566,6 +566,74 @@ else if (ViewBag.insurance == "Luggage Insurance")
 <script type="text/javascript">
     var Banks;
     $(document).ready(function () {
+        var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
+
+        $("#DepartDateTime").datepicker({
+            dateFormat: dateFormatString,
+            dateonly: true,
+            onSelect: function (selected) {
+                var arrivalDate = $("#ArrivalDateTime").datepicker().val()
+                $("#ArrivalDateTime").datepicker("option", "minDate", selected);
+                $("#ArrivalDateTime").val(arrivalDate);
+
+                var accidentDateLuggage = $("#AccidentDateTimeLuggage").val();
+                $("#AccidentDateTimeLuggage").datepicker("option", "minDate", selected);
+                $("#AccidentDateTimeLuggage").val(accidentDateLuggage);
+
+                var accidentDateHealth = $("#AccidentDateTimeHealth").val();
+                $("#AccidentDateTimeHealth").datepicker("option", "minDate", selected);
+                $("#AccidentDateTimeHealth").val(accidentDateHealth);
+
+                var doctorVisitDate = $("#DoctorVisitDateTime").val();
+                $("#DoctorVisitDateTime").datepicker("option", "minDate", selected);
+                $("#DoctorVisitDateTime").val(doctorVisitDate);
+            },
+        });
+
+        $("#ArrivalDateTime").datepicker({
+            dateFormat: dateFormatString,
+            dateonly: true,
+            onSelect: function (selected) {
+                var departDate = $("#DepartDateTime").datepicker().val();
+                $("#DepartDateTime").datepicker("option", "maxDate", selected);
+                $("#DepartDateTime").val(departDate);
+
+                var accidentDateLuggage = $("#AccidentDateTimeLuggage").val();
+                $("#AccidentDateTimeLuggage").datepicker("option", "maxDate", selected);
+                $("#AccidentDateTimeLuggage").val(accidentDateLuggage);
+
+                var accidentDateHealth = $("#AccidentDateTimeHealth").val();
+                $("#AccidentDateTimeHealth").datepicker("option", "maxDate", selected);
+                $("#AccidentDateTimeHealth").val(accidentDateHealth);
+
+                var doctorVisitDate = $("#DoctorVisitDateTime").val();
+                $("#DoctorVisitDateTime").datepicker("option", "maxDate", selected);
+                $("#DoctorVisitDateTime").val(doctorVisitDate);
+            },
+        });
+
+        $("#AccidentDateTimeHealth").datepicker({
+            dateFormat: dateFormatString,
+            dateonly: true,
+            onSelect: function (selected) {
+                $("#DoctorVisitDateTime").datepicker("option", "minDate", selected);
+            },
+        });
+
+        $("#AccidentDateTimeLuggage").datepicker({
+            dateFormat: dateFormatString,
+            dateonly: true,
+            onSelect: function (selected) {
+                $("#DoctorVisitDateTime").datepicker("option", "minDate", selected);
+            },
+        });
+
+        $("#DoctorVisitDateTime").datepicker({
+            dateFormat: dateFormatString,
+            dateonly: true,
+            onSelect: function (selected) {
+            },
+        });
 
         $.ajax({
             type: "GET",
@@ -653,72 +721,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
             }
         }
     });
-    $("#DepartDateTime").datepicker({
-        dateFormat: "mm/dd/yy",
-        dateonly: true,
-        onSelect: function (selected) {
-            var arrivalDate = $("#ArrivalDateTime").datepicker().val()
-            $("#ArrivalDateTime").datepicker("option", "minDate", selected);
-            $("#ArrivalDateTime").val(arrivalDate);
-
-            var accidentDateLuggage = $("#AccidentDateTimeLuggage").val();
-            $("#AccidentDateTimeLuggage").datepicker("option", "minDate", selected);
-            $("#AccidentDateTimeLuggage").val(accidentDateLuggage);
-
-            var accidentDateHealth = $("#AccidentDateTimeHealth").val();
-            $("#AccidentDateTimeHealth").datepicker("option", "minDate", selected);
-            $("#AccidentDateTimeHealth").val(accidentDateHealth);
-
-            var doctorVisitDate = $("#DoctorVisitDateTime").val();
-            $("#DoctorVisitDateTime").datepicker("option", "minDate", selected);
-            $("#DoctorVisitDateTime").val(doctorVisitDate);
-        },
-    });
-
-    $("#ArrivalDateTime").datepicker({
-        dateFormat: "mm/dd/yy",
-        dateonly: true,
-        onSelect: function (selected) {
-            var departDate = $("#DepartDateTime").datepicker().val();
-            $("#DepartDateTime").datepicker("option", "maxDate", selected);
-            $("#DepartDateTime").val(departDate);
-
-            var accidentDateLuggage = $("#AccidentDateTimeLuggage").val();
-            $("#AccidentDateTimeLuggage").datepicker("option", "maxDate", selected);
-            $("#AccidentDateTimeLuggage").val(accidentDateLuggage);
-
-            var accidentDateHealth = $("#AccidentDateTimeHealth").val();
-            $("#AccidentDateTimeHealth").datepicker("option", "maxDate", selected);
-            $("#AccidentDateTimeHealth").val(accidentDateHealth);
-
-            var doctorVisitDate = $("#DoctorVisitDateTime").val();
-            $("#DoctorVisitDateTime").datepicker("option", "maxDate", selected);
-            $("#DoctorVisitDateTime").val(doctorVisitDate);
-        },
-    });
-
-    $("#AccidentDateTimeHealth").datepicker({
-        dateFormat: "mm/dd/yy",
-        dateonly: true,
-        onSelect: function (selected) {
-
-        },
-    });
-
-    $("#AccidentDateTimeLuggage").datepicker({
-        dateFormat: "mm/dd/yy",
-        dateonly: true,
-        onSelect: function (selected) {
-
-        },
-    });
-
-    $("#DoctorVisitDateTime").datepicker({
-        dateFormat: "mm/dd/yy",
-        dateonly: true,
-        onSelect: function (selected) {
-        },
-    });
+  
     $("#ForeignBankAccount").change(function () {
         if (this.checked) {
             $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false);
