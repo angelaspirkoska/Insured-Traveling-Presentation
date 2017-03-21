@@ -3283,7 +3283,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to City.
+        ///   Looks up a localized string similar to Place of residence.
         /// </summary>
         public static string User_City {
             get {

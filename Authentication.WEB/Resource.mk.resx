@@ -1114,7 +1114,7 @@
     <value>Поштенскиот број треба да содржи само бројки.</value>
   </data>
   <data name="User_City" xml:space="preserve">
-    <value>Град</value>
+    <value>Населено место</value>
   </data>
   <data name="Error_EMBG_Val_Advanced" xml:space="preserve">
     <value>Внесовте невалиден матичен број.</value>

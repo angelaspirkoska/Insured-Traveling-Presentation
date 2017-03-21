@@ -1120,7 +1120,7 @@
     <value>Postal code must be numeric.</value>
   </data>
   <data name="User_City" xml:space="preserve">
-    <value>City</value>
+    <value>Place of residence</value>
   </data>
   <data name="Error_EMBG_Val_Advanced" xml:space="preserve">
     <value>SSN is not valid.</value>
