@@ -1227,15 +1227,31 @@
   <data name="Search_QuotePreview" xml:space="preserve">
     <value>Прегледај</value>
   </data>
-
   <data name="AdminPanel_Discount" xml:space="preserve">
     <value>Попуст</value>
-</data>
+  </data>
   <data name="Policy_AddOfferMsg" xml:space="preserve">
     <value>Успешно ја додадовте полисата во понуди. Број на понуда</value>
   </data>
   <data name="Policy_AddOfferMsgFail" xml:space="preserve">
     <value>Полисата не беше додадена во понуди</value>
-
+  </data>
+  <data name="AdminPanel_DiscountAddButton" xml:space="preserve">
+    <value>Додади попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountCoefi" xml:space="preserve">
+    <value>Попуст во проценти</value>
+  </data>
+  <data name="AdminPanel_DiscountEndDate" xml:space="preserve">
+    <value>Крај на попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountName" xml:space="preserve">
+    <value>Име на попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountStartDate" xml:space="preserve">
+    <value>Почеток на попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountCancelButton" xml:space="preserve">
+    <value>Откажи</value>
   </data>
 </root>

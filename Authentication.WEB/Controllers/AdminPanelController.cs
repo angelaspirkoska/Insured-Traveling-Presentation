@@ -14,12 +14,15 @@ namespace InsuredTraveling.Controllers
         private IRolesService _rs;
         private IOkSetupService _okss;
         private IUserService _us;
+        private IDiscountService _ds;
 
-        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us)
+
+        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us, IDiscountService ds)
         {
             _rs = rs;
             _okss = okss;
             _us = us;
+            _ds = ds;         
         }
 
         [HttpGet]
@@ -30,6 +33,10 @@ namespace InsuredTraveling.Controllers
 
             ViewBag.Ok_setup = ok_setup;
             ViewBag.Roles = roles;
+
+            //View Bag Discount
+            var discount = _ds.GetAllDiscounts();
+            ViewBag.Discount = discount;
 
             return View();
         }
@@ -95,5 +102,49 @@ namespace InsuredTraveling.Controllers
             ViewBag.Roles = roles;
             return View("Index");
         }
+
+        [HttpPost]
+        [Route("AddDiscount")]
+        public ActionResult AddDiscount(DiscountModel dis)
+        {
+
+            try
+            {
+                _ds.AddDiscount(dis);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.AddOk_SetupMsg = ex.ToString();
+            }
+            var ok_setup = _okss.GetAllOkSetups();
+
+            var roles = _rs.GetAllRoles();
+
+            ViewBag.Roles = roles;
+            ViewBag.Ok_setup = ok_setup;
+            var discount = _ds.GetAllDiscounts();
+            ViewBag.Discount = discount;
+
+
+            return View("Index");
+        }
+
+        //[HttpPost]
+        //[Route("DeleteDiscount")]
+        //public ActionResult DeleteDiscount(int id)
+        //{
+
+        //    try
+        //    {
+        //        _ds.DeleteDiscount(id);
+              
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ViewBag.AddOk_SetupMsg = ex.ToString();
+        //    }
+
+        //    return View("Index");
+        //}
     }
 }

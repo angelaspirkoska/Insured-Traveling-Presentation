@@ -175,25 +175,28 @@
         </div>
 
 
-        <div id="DiscountMenu" class="tab-pane fade in active">
+        <div id="DiscountMenu" class="tab-pane fade">
             <h3 class="text-capitalize"> @InsuredTraveling.Resource.AdminPanel_Discount  </h3>
-            <table class="table table-striped table-hover ">
+           <table class="table table-striped table-hover ">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th> @InsuredTraveling.Resource.AdminPanel_RoleName </th>
+                        <th> @InsuredTraveling.Resource.AdminPanel_Discount </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (ViewBag.Roles != null)
+                    @if (ViewBag.Discount != null)
                     {
                         int i = 0;
-                        foreach (var r in ViewBag.Roles)
+                        foreach (var r in ViewBag.Discount)
                         {
                             <tr>
                                 <td>@i</td>
-                                <td>@r.Name</td>
-                                <td><a href=""><span class="glyphicon glyphicon-trash"></span></a></td>
+                                <td>@r.Discount_Name</td>
+                                <td>@r.Discount_Coef</td>
+                                <td>@r.Start_Date</td>
+                                <td>@r.End_Date</td>
+                                <td><a href="" ><span class="glyphicon glyphicon-trash"></span></a></td>
                             </tr>
                             i++;
                         }
@@ -201,21 +204,75 @@
                 </tbody>
             </table>
 
-            <button class="btn btn-primary" onclick="AddRole()"> @InsuredTraveling.Resource.AdminPanel_AddRoleBtn </button>
+            <button class="btn btn-primary" onclick="AddDiscount()"> @InsuredTraveling.Resource.AdminPanel_DiscountAddButton</button>
 
-            <form id="addRoleForm" class="form-padding" hidden method="post" action="@Url.Action("AddRole")">
+            <form id="addDiscount" class="form-padding" hidden method="post" action="@Url.Action("AddDiscount")">
                 <div class="row">
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Role Name:</label>
-                        <div class="col-md-6" style="margin-bottom:10px">
-                            <input type="text" class="form-control" name="Name" />
+                    
+                    
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-4">@InsuredTraveling.Resource.AdminPanel_DiscountName :</label>
+                            <div class="col-md-8" style="margin-bottom:10px">
+                                <input type="text" class="form-control" name="Discount_Name" />
+                            </div>
                         </div>
+                   
+                    
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-4">@InsuredTraveling.Resource.AdminPanel_DiscountCoefi :</label>
+                            <div class="col-md-8" style="margin-bottom:10px">
+                                <input type="text" class="form-control" name="Discount_Coef" />
+                            </div>
+                        </div>
+                  
                     </div>
+                <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-4">@InsuredTraveling.Resource.AdminPanel_DiscountStartDate :</label>
+                            <div class="col-md-8" style="margin-bottom:10px">                            
+                                <div class='input-group date' id='DiscountStartDate'>
+                                    <input type='text' class="form-control" name="Start_Date"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                
+                    
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-4">@InsuredTraveling.Resource.AdminPanel_DiscountEndDate :</label>
+                            <div class="col-md-8" style="margin-bottom:10px">
+                                <div class='input-group date' id='DiscountEndDate'>
+                                    <input type='text' class="form-control" name="End_Date"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                  
+
                 </div>
                 <div class="row">
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-3" style="margin-bottom:10px">
-                            <input type="submit" class="form-control btn btn-success" value="Add" />
+                    <div class="col-md-offset-6 col-md-3">
+                        <div class="form-group">
+                            <div class="col-md-12" style="margin-bottom:10px">
+                                <button type="reset" class="form-control btn btn-success">
+                                    @InsuredTraveling.Resource.AdminPanel_DiscountCancelButton
+                                  
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-md-12" style="margin-bottom:10px">
+                                <button type="submit" class="form-control btn btn-success">
+                                    @InsuredTraveling.Resource.AdminPanel_DiscountAddButton
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -223,11 +280,14 @@
         </div>
 
     </div>
-</div>
 
+</div>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
+
         $("#btnNovaPolisa").removeClass("active-tab");
         $("#btnNews").removeClass("active-tab");
         $("#btnSearch").removeClass("active-tab");
@@ -236,14 +296,49 @@
         $("#dodadiKlient").removeClass("active-tab");
         $("#btnCreateUser").removeClass("active-tab");
         $("#btnCreateUser").removeClass("active-tab");
+        $("#DiscountMenu").removeClass("active-tab");       
+    
+      
     });
+
+
+   
 
     function AddRole() {
         $("#addRoleForm").toggle();
+    }
+
+    function AddDiscount() {
+
+        $("#addDiscount").toggle();
     }
     function AddOK_SetupRecord() {
         $("#menu1").removeAttr('class');
         $("#menu1").attr("class", "tab-pane fade in active");
         $("#addOK_setupForm").toggle();      
+
     }
+
+    $("#DiscountStartDate").datepicker({
+        dateFormat: "mm/dd/yy",
+        onSelect: function (selected) {
+            $("#DiscountEndDate").datepicker("option", "minDate", selected);
+            var startDate = new Date($("#DiscountStartDate").val()).getTime();
+            var endDate = new Date($("#DiscountEndDate").val()).getTime();
+       
+        }
+    });
+
+    $("#DiscountEndDate").datepicker({
+        dateFormat: "mm/dd/yy",
+        onSelect: function (selected) {
+            $("#DiscountStartDate").datepicker("option", "maxDate", selected);
+
+            var startDate = new Date($("#DiscountStartDate").val()).getTime();
+            var endDate = new Date($("#DiscountEndDate").val()).getTime();
+         
+        }
+    });
+
+   
 </script>
