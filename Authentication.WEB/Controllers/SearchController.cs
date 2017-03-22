@@ -314,10 +314,11 @@ namespace InsuredTraveling.Controllers
             var logUser = _us.GetUserIdByUsername(username);
 
             List<travel_policy> data = new List<travel_policy>();
+            DateTime dateFromGettingPolicies = DateTime.Now.AddDays(days);
 
-            data = _ps.GetBrokersPolicies(logUser, days);
+            data = _ps.GetBrokersExpiringPolicies(logUser, dateFromGettingPolicies);
 
-            var jsonObject = new JObject();
+            var jsonObject = new JObject();           
 
             var languageId = SiteLanguages.CurrentLanguageId();
             var searchModel = data.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
@@ -325,6 +326,104 @@ namespace InsuredTraveling.Controllers
 
             var array = JArray.FromObject(searchModel.ToArray());
             jsonObject.Add("data", array);
+            return jsonObject;
+        }
+
+        //0 - get last years policies per months, 1 - get last month policies per days, 2 - get last week policies per days
+        [HttpGet]
+        [Route("GetBrokerSales")]
+        public JObject GetBrokerSales(int period)
+        {
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            var logUserId = _us.GetUserIdByUsername(username);
+            DateTime dateFrom = DateTime.Now;
+
+            var jsonObject = new JObject();
+            JArray jsonArray = new JArray();
+            double gwp = 0;
+
+            switch (period)
+            {
+                case 0 :
+                {
+                    dateFrom = new DateTime(DateTime.Now.Year,1,1);
+                    List<travel_policy> policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
+                    for (int i = 1; i <= DateTime.Now.Month; i++)
+                    {
+                        DateTime greaterThenDate = new DateTime(DateTime.Now.Year, i, 1);
+                        DateTime lessThenDate = new DateTime(DateTime.Now.Year, i, DateTime.DaysInMonth(DateTime.Now.Year, i));
+                        var policiesByMonth =
+                            policies.Where(x => 
+                                                x.Date_Created >= greaterThenDate && 
+                                                x.Date_Created < lessThenDate).
+                                                GroupBy(l => 1).
+                                                Select(cl => new BrokerSales
+                                                            {
+                                                                Counter = cl.Count(),
+                                                                GWP = cl.Sum(c => c.Total_Premium)
+
+                                                }).ToList();
+                            JObject jb = new JObject();
+                            jb.Add("date", greaterThenDate.ToShortDateString());
+                            jb.Add("counter", policiesByMonth.Count() != 0? policiesByMonth.First().Counter : 0);
+                            jb.Add("GWP", policiesByMonth.Count() != 0 ? policiesByMonth.First().GWP : 0);
+                            jsonArray.Add(jb);
+                        } 
+                    break;
+                }
+                case 1:
+                {
+                    dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                    List<travel_policy> policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
+                    for (int i = 1; i <= DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month); i++)
+                    {
+                        DateTime dateDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, i);
+                        var policiesByMonth =
+                        policies.Where(x =>
+                                            x.Date_Created  == dateDay).
+                                            GroupBy(l => 1).
+                                            Select(cl => new BrokerSales
+                                            {
+                                                Counter = cl.Count(),
+                                                GWP = cl.Sum(c => c.Total_Premium)
+
+                                            }).ToList();
+                        JObject jb = new JObject();
+                        jb.Add("date", dateDay.ToShortDateString());
+                        jb.Add("counter", policiesByMonth.Count() != 0 ? policiesByMonth.First().Counter : 0);
+                        jb.Add("GWP", policiesByMonth.Count() != 0 ? policiesByMonth.First().GWP : 0);
+                        jsonArray.Add(jb);
+                    }
+                        break;
+                }
+                case 2:
+                {
+                    dateFrom = dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-7); ;
+                        List<travel_policy> policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
+                        for (int i = 1; i<= 7; i++)
+                        {
+                            DateTime dateDay = dateFrom.AddDays(i);
+                            var policiesByMonth =
+                            policies.Where(x =>
+                                                x.Date_Created == dateDay).
+                                                GroupBy(l => 1).
+                                                Select(cl => new BrokerSales
+                                                {
+                                                    Counter = cl.Count(),
+                                                    GWP = cl.Sum(c => c.Total_Premium)
+
+                                                }).ToList();
+                            JObject jb = new JObject();
+                            jb.Add("date", dateDay.ToShortDateString());
+                            jb.Add("counter", policiesByMonth.Count() != 0 ? policiesByMonth.First().Counter : 0);
+                            jb.Add("GWP", policiesByMonth.Count() != 0 ? policiesByMonth.First().GWP : 0);
+                            jsonArray.Add(jb);
+                        }
+                        break;
+                }
+            }
+
+            jsonObject.Add("data", jsonArray);
             return jsonObject;
         }
 

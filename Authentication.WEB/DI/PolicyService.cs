@@ -138,12 +138,18 @@ namespace InsuredTraveling.DI
             return _db.travel_policy.Where(x => x.ID == id).SingleOrDefault();
         }
 
-        public List<travel_policy> GetBrokersPolicies(string userId, int days)
+        public List<travel_policy> GetBrokersExpiringPolicies(string userId, DateTime dateFrom)
         {
             if (userId == "")
                 return null;
-            DateTime dateFromGettingPolicies = DateTime.Now.AddDays(days);
-            return _db.travel_policy.Where(x => x.Created_By == userId && x.End_Date < dateFromGettingPolicies && x.End_Date > DateTime.Now).ToList();
+            return _db.travel_policy.Where(x => x.Created_By == userId && x.End_Date < dateFrom && x.End_Date > DateTime.Now).ToList();
+        }
+
+        public List<travel_policy> GetBrokersPolicies(string userId, DateTime dateFrom)
+        {
+            if (userId == "")
+                return null;
+            return _db.travel_policy.Where(x => x.Created_By == userId && x.Date_Created > dateFrom && x.Payment_Status == true).ToList();
         }
 
         public List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber)
