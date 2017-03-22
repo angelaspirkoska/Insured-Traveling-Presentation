@@ -8,6 +8,7 @@ namespace InsuredTraveling.DI
 {
     public interface IFirstNoticeOfLossService
     {
+        List<first_notice_of_loss> GetBrokersFnols(string userId, DateTime dateFrom);
         List<first_notice_of_loss> GetAll();
         List<first_notice_of_loss> GetFNOLBySearchValues(string PolicyNumber, string FNOLNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance);
         List<first_notice_of_loss> GetFNOLForBrokerBySearchValues(string username, string PolicyNumber, string FNOLNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance);

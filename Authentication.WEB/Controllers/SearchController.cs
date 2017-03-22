@@ -427,6 +427,102 @@ namespace InsuredTraveling.Controllers
             return jsonObject;
         }
 
+        [HttpGet]
+        [Route("GetBrokerFnols")]
+        public JObject GetBrokerFnols(int period)
+        {
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            var logUserId = _us.GetUserIdByUsername(username);
+            DateTime dateFrom = DateTime.Now;
+
+            var jsonObject = new JObject();
+            JArray jsonArray = new JArray();
+
+            switch (period)
+            {
+                case 0:
+                    {
+                        dateFrom = new DateTime(DateTime.Now.Year, 1, 1);
+                        List<first_notice_of_loss> policies = _fnls.GetBrokersFnols(logUserId, dateFrom);
+                        for (int i = 1; i <= DateTime.Now.Month; i++)
+                        {
+                            DateTime greaterThenDate = new DateTime(DateTime.Now.Year, i, 1);
+                            DateTime lessThenDate = new DateTime(DateTime.Now.Year, i, DateTime.DaysInMonth(DateTime.Now.Year, i));
+                            var policiesByMonth =
+                                policies.Where(x =>
+                                                    x.CreatedDateTime.Date >= greaterThenDate &&
+                                                    x.CreatedDateTime.Date < lessThenDate).
+                                                    GroupBy(l => 1).
+                                                    Select(cl => new BrokerSales
+                                                    {
+                                                        Counter = cl.Count(),
+                                                        GWP = cl.Sum(c => c.Total_cost)
+
+                                                    }).ToList();
+                            JObject jb = new JObject();
+                            jb.Add("date", greaterThenDate.ToShortDateString());
+                            jb.Add("counter", policiesByMonth.Count() != 0 ? policiesByMonth.First().Counter : 0);
+                            jb.Add("TotalSumClaimed", policiesByMonth.Count() != 0 ? policiesByMonth.First().GWP : 0);
+                            jsonArray.Add(jb);
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                        List<first_notice_of_loss> policies = _fnls.GetBrokersFnols(logUserId, dateFrom);
+                        for (int i = 1; i <= DateTime.Now.Day; i++)
+                        {
+                            DateTime dateDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, i);
+                            var policiesByMonth =
+                            policies.Where(x =>
+                                                x.CreatedDateTime <= dateDay.AddHours(24) && x.CreatedDateTime >= dateDay).
+                                                GroupBy(l => 1).
+                                                Select(cl => new BrokerSales
+                                                {
+                                                    Counter = cl.Count(),
+                                                    GWP = cl.Sum(c => c.Total_cost)
+
+                                                }).ToList();
+                            JObject jb = new JObject();
+                            jb.Add("date", dateDay.ToShortDateString());
+                            jb.Add("counter", policiesByMonth.Count() != 0 ? policiesByMonth.First().Counter : 0);
+                            jb.Add("TotalCostClaimed", policiesByMonth.Count() != 0 ? policiesByMonth.First().GWP : 0);
+                            jsonArray.Add(jb);
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        dateFrom = dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-7); ;
+                        List<first_notice_of_loss> policies = _fnls.GetBrokersFnols(logUserId, dateFrom);
+                        for (int i = 1; i <= 7; i++)
+                        {
+                            DateTime dateDay = dateFrom.AddDays(i);
+                            var policiesByMonth =
+                            policies.Where(x =>
+                                               x.CreatedDateTime <= dateDay.AddHours(24) && x.CreatedDateTime >= dateDay).
+                                                GroupBy(l => 1).
+                                                Select(cl => new BrokerSales
+                                                {
+                                                    Counter = cl.Count(),
+                                                    GWP = cl.Sum(c => c.Total_cost)
+
+                                                }).ToList();
+                            JObject jb = new JObject();
+                            jb.Add("date", dateDay.ToShortDateString());
+                            jb.Add("counter", policiesByMonth.Count() != 0 ? policiesByMonth.First().Counter : 0);
+                            jb.Add("TotalCostClaimed", policiesByMonth.Count() != 0 ? policiesByMonth.First().GWP : 0);
+                            jsonArray.Add(jb);
+                        }
+                        break;
+                    }
+            }
+
+            jsonObject.Add("data", jsonArray);
+            return jsonObject;
+        }
+
 
         [HttpGet]
         [Route("GetQuotes")]
