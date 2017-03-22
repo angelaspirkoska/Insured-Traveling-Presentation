@@ -97,7 +97,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Discount.
+        ///   Looks up a localized string similar to Only latin letters.
         /// </summary>
         public static string AdminPanel_Discount {
             get {
@@ -1141,6 +1141,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Buy Insurance.
+        /// </summary>
+        public static string Home_BuyInsurance {
+            get {
+                return ResourceManager.GetString("Home_BuyInsurance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create User.
         /// </summary>
         public static string Home_CreateUser {
@@ -1182,6 +1191,15 @@ namespace InsuredTraveling {
         public static string Home_News {
             get {
                 return ResourceManager.GetString("Home_News", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No new messages.
+        /// </summary>
+        public static string Home_NoMsg {
+            get {
+                return ResourceManager.GetString("Home_NoMsg", resourceCulture);
             }
         }
         
@@ -1245,6 +1263,24 @@ namespace InsuredTraveling {
         public static string LogOut {
             get {
                 return ResourceManager.GetString("LogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The username or password is incorrect. Please try again..
+        /// </summary>
+        public static string Msg_IncorrectUserPass {
+            get {
+                return ResourceManager.GetString("Msg_IncorrectUserPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid reCaptcha. Try again with clicking the checkbox next to &quot;I&apos;m not a robot.&quot;.
+        /// </summary>
+        public static string Msg_InvalidRecaptcha {
+            get {
+                return ResourceManager.GetString("Msg_InvalidRecaptcha", resourceCulture);
             }
         }
         
@@ -1362,6 +1398,15 @@ namespace InsuredTraveling {
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A SMS code is sent to you. Check you mobile phone..
+        /// </summary>
+        public static string OK_SMSCode {
+            get {
+                return ResourceManager.GetString("OK_SMSCode", resourceCulture);
             }
         }
         
@@ -1920,6 +1965,15 @@ namespace InsuredTraveling {
         public static string Policy_ValidDate {
             get {
                 return ResourceManager.GetString("Policy_ValidDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview Policy.
+        /// </summary>
+        public static string PolicyPreview {
+            get {
+                return ResourceManager.GetString("PolicyPreview", resourceCulture);
             }
         }
         
@@ -2671,6 +2725,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select dates before or after this date.
+        /// </summary>
+        public static string Search_HelpMessage {
+            get {
+                return ResourceManager.GetString("Search_HelpMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Policy Holder Last Name.
         /// </summary>
         public static string Search_HolderLastName {
@@ -3067,6 +3130,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Days before expiring.
+        /// </summary>
+        public static string SearchPolicyByExpiringDays {
+            get {
+                return ResourceManager.GetString("SearchPolicyByExpiringDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active/Inactive.
         /// </summary>
         public static string SearchTable_ActiveInactiveUser {
@@ -3292,7 +3364,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to City.
+        ///   Looks up a localized string similar to Place of residence.
         /// </summary>
         public static string User_City {
             get {

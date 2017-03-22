@@ -25,10 +25,16 @@ namespace InsuredTraveling.DI
 
         public List<insured> GetAllInsuredByPolicyId(int id)
         {
-            var insureds = _db.policy_insured.Where(x => x.PolicyID == id).ToList();
-            if(insureds != null)
+            var insureds = new List<insured>();
+            var policyInsureds = _db.policy_insured.Where(x => x.PolicyID == id).ToList();
+            if(policyInsureds != null)
             {
-                return insureds.Select(x => x.insured).ToList();
+                foreach(var policyInsured in policyInsureds)
+                {
+                    var insured = _db.insureds.Where(x => x.ID == policyInsured.InsuredID).FirstOrDefault();
+                    insureds.Add(insured);
+                }
+                return insureds;
             }
             return null;
         }

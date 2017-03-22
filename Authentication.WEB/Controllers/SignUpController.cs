@@ -36,6 +36,12 @@ namespace InsuredTraveling.Controllers
         {
             ViewBag.Gender = Gender();
 
+            if(!CaptchaValid)
+            {
+                ModelState.AddModelError("reCaptcha", "recaptchaError");
+                return View(user);
+            }
+
             if (ModelState.IsValid && CaptchaValid)
             {
                 user.Role = "End user";
@@ -48,7 +54,7 @@ namespace InsuredTraveling.Controllers
                 string responseBody = await responseMessage.Content.ReadAsStringAsync();
                 if (responseMessage.IsSuccessStatusCode)
                 {
-                    ViewBag.Message = "Successfully registered!";
+                    ViewBag.Message = "You are successfully registered!";
                     return View();
                 }
 

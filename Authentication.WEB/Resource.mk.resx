@@ -832,7 +832,7 @@
     <value>Задолжителни полиња</value>
   </data>
   <data name="Policy_UseNumberLatinLetters" xml:space="preserve">
-    <value>Користете само бројки и латински букви</value>
+    <value>Користете само бројки и латинични букви</value>
   </data>
   <data name="Chats" xml:space="preserve">
     <value>Разговори</value>
@@ -1114,7 +1114,7 @@
     <value>Поштенскиот број треба да содржи само бројки.</value>
   </data>
   <data name="User_City" xml:space="preserve">
-    <value>Град</value>
+    <value>Населено место</value>
   </data>
   <data name="Error_EMBG_Val_Advanced" xml:space="preserve">
     <value>Внесовте невалиден матичен број.</value>
@@ -1227,6 +1227,11 @@
   <data name="Search_QuotePreview" xml:space="preserve">
     <value>Прегледај</value>
   </data>
+
+  <data name="SignUP_LatinLettersOnly" xml:space="preserve">
+    <value>Користи само латинични букви</value>
+  </data>
+>>>>>>> origin/master
   <data name="AdminPanel_Discount" xml:space="preserve">
     <value>Попуст</value>
   </data>
@@ -1236,6 +1241,7 @@
   <data name="Policy_AddOfferMsgFail" xml:space="preserve">
     <value>Полисата не беше додадена во понуди</value>
   </data>
+
   <data name="AdminPanel_DiscountAddButton" xml:space="preserve">
     <value>Додади попуст</value>
   </data>
@@ -1253,5 +1259,30 @@
   </data>
   <data name="AdminPanel_DiscountCancelButton" xml:space="preserve">
     <value>Откажи</value>
+</data>
+  <data name="Home_BuyInsurance" xml:space="preserve">
+    <value>Купи осигурување</value>
+  </data>
+  <data name="Home_NoMsg" xml:space="preserve">
+    <value>Немате нови пораки</value>
+  </data>
+  <data name="OK_SMSCode" xml:space="preserve">
+    <value>Испратен Ви е СМС код. Проверете го вашиот мобилен телефон.</value>
+  </data>
+  <data name="Search_HelpMessage" xml:space="preserve">
+    <value>Избери ги датумите пред или после овој датум</value>
+  </data>
+  <data name="Msg_IncorrectUserPass" xml:space="preserve">
+    <value>Погрешно корисничко име или лозинка. Обиди се повторно.</value>
+  </data>
+  <data name="Msg_InvalidRecaptcha" xml:space="preserve">
+    <value>Невалидна reCaptcha. Обиди се повторно со клкнување на копчето до "I'm not a robot".</value>
+  </data>
+  <data name="PolicyPreview" xml:space="preserve">
+    <value>Прегледај полиса</value>
+  </data>
+  <data name="SearchPolicyByExpiringDays" xml:space="preserve">
+    <value>Денови пред истекување</value>
+
   </data>
 </root>

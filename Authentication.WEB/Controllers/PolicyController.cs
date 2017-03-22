@@ -17,6 +17,7 @@ using InsuredTraveling.DI;
 using InsuredTraveling.Filters;
 using InsuredTraveling.Helpers;
 using AutoMapper;
+using InsuredTraveling.ViewModels;
 
 namespace Authentication.WEB.Controllers
 {
@@ -48,6 +49,12 @@ namespace Authentication.WEB.Controllers
             _roleAuthorize = new RoleAuthorize();
         }
 
+        [HttpPost]
+        public ActionResult Index(Policy p)
+        {
+            return View();
+        }
+
         // GET: Policy
         [HttpGet]
         [SessionExpire]
@@ -70,11 +77,69 @@ namespace Authentication.WEB.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Index(Policy p)
+        public async Task<ActionResult> Preview(int policyId)
         {
-            return View();
+            travel_policy policy = _ps.GetPolicyById(policyId);
+            insured policyHolder = _ps.GetPolicyHolderByPolicyID(policyId);
+            List<insured> insureds = _pis.GetAllInsuredByPolicyId(policyId);
+            List<additional_charge> additionalCharges = _acs.GetAdditionalChargesByPolicyId(policyId);
+
+
+            Policy policyPreview = new Policy
+            {
+                Policy_Number = policy.Policy_Number,
+                PaymentStatys = policy.Payment_Status == true ? 1 : 0,
+                Exchange_RateID = policy.Exchange_RateID,
+                CountryID = policy.CountryID,
+                Policy_TypeID = policy.Policy_TypeID,
+                IsSamePolicyHolderInsured = policy.Policy_HolderID == policy.insured.ID,
+                Date_Created = policy.Date_Created,
+                Created_By = policy.Created_By,
+                Start_Date = policy.Start_Date,
+                End_Date = policy.End_Date,
+                Valid_Days = policy.Valid_Days,
+                Travel_NumberID = policy.Travel_NumberID,
+                Total_Premium = policy.Total_Premium,
+                PolicyHolderId = policy.Policy_HolderID,
+                PolicyHolderName = policyHolder.Name,
+                PolicyHolderAddress = policyHolder.Address,
+                PolicyHolderBirthDate = policyHolder.DateBirth,
+                PolicyHolderCity = policyHolder.City,
+                PolicyHolderEmail = policyHolder.Email,
+                PolicyHolderLastName = policyHolder.Lastname,
+                PolicyHolderPassportNumber_ID = policyHolder.Passport_Number_IdNumber,
+                PolicyHolderPhoneNumber = policyHolder.Phone_Number,
+                PolicyHolderPostalCode = policyHolder.Postal_Code,
+                PolicyHolderSSN = policyHolder.SSN,
+                insureds = insureds,
+                additional_charges = additionalCharges,
+                Address = insureds[0].Address,
+                Name = insureds[0].Name,
+                LastName = insureds[0].Lastname,
+                City = insureds[0].City,
+                PostalCode = insureds[0].Postal_Code,
+                BirthDate = insureds[0].DateBirth,
+                SSN = insureds[0].SSN,
+                Email = insureds[0].Email,
+                PhoneNumber = insureds[0].Phone_Number,
+                PassportNumber_ID = insureds[0].Passport_Number_IdNumber
+
+            };
+            var type_policies = GetTypeOfPolicy();
+            var countries = GetTypeOfCountry();
+            var franchises = GetTypeOfFranchise();
+            var additional_charges = GetTypeOfAdditionalCharges();
+
+            await Task.WhenAll(type_policies, countries, franchises, additional_charges);
+
+            ViewBag.TypeOfPolicy = type_policies.Result;
+            ViewBag.Countries = countries.Result;
+            ViewBag.Franchise = franchises.Result;
+            ViewBag.additional_charges = additional_charges.Result;
+
+            return View(policyPreview);
         }
+
 
         public async System.Threading.Tasks.Task<ActionResult> CreatePolicy(Policy policy)
         {
@@ -155,7 +220,6 @@ namespace Authentication.WEB.Controllers
             pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
             
             pat.mainInsured = _pis.GetAllInsuredByPolicyIdAndInsuredCreatedBy(pat.Pat.ID, pat.Pat.Created_By).First();
-            var policy = _ps.GetPolicyById(pat.Pat.ID);
             var additionalCharges = _acs.GetAdditionalChargesByPolicyId(pat.Pat.ID);
 
             pat.additionalCharge1 = InsuredTraveling.Resource.WithNoAddOn;

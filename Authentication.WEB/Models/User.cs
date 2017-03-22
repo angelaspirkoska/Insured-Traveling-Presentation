@@ -58,12 +58,12 @@ namespace InsuredTraveling.Models
         [Display(Name = "User_InsuranceCompany", ResourceType = typeof(Resource))]
         public string InsuranceCompany = "Sava";
 
-        [RegularExpression("^[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Error_Phone_Numeric")]
+        [RegularExpression("^\\+[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Error_Phone_Numeric")]
         [Display(Name = "User_PhoneNumber", ResourceType = typeof(Resource))]
         public override string PhoneNumber { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
-        [RegularExpression("^[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Error_Mobile_Numeric")]
+        [RegularExpression("^\\+[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Error_Mobile_Numeric")]
         [Display(Name = "User_MobilePhoneNumber", ResourceType = typeof(Resource))]
         public string MobilePhoneNumber { get; set; }
 
@@ -76,6 +76,8 @@ namespace InsuredTraveling.Models
         [Display(Name = "User_PassportNumber", ResourceType = typeof(Resource))]
         public string PassportNumber { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         [Display(Name = "User_DateOfBirth", ResourceType = typeof(Resource))]
         public DateTime? DateOfBirth { get; set; }

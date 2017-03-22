@@ -146,7 +146,7 @@ namespace InsuredTraveling.Helpers
                         newInsured.SSN = currentEndUser.EMBG;
 
                         newInsured.Email = currentEndUser.Email;
-                        newInsured.DateBirth = currentEndUser.DateOfBirth.Value;
+                        newInsured.DateBirth = currentEndUser.DateOfBirth.HasValue == true ? currentEndUser.DateOfBirth.Value: DateTime.Now;
                         newInsured.Phone_Number = currentEndUser.PhoneNumber;
 
                         newInsured.Passport_Number_IdNumber = currentEndUser.PassportNumber;
@@ -248,7 +248,7 @@ namespace InsuredTraveling.Helpers
 
         }
 
-        public static bool SavePolicyFromMobile(AddPolicyMobileViewModel addPolicyMobile,
+        public static int SavePolicyFromMobile(AddPolicyMobileViewModel addPolicyMobile,
                                                 IPolicyService _ps,
                                                 IUserService _us,
                                                 IInsuredsService _iss,
@@ -338,12 +338,12 @@ namespace InsuredTraveling.Helpers
                         }
                     }
                 }
-                return true;
-                
+                return policyID;
+
             }
             catch (Exception e)
             {
-                return false;
+                return -1;
             }
            
         }

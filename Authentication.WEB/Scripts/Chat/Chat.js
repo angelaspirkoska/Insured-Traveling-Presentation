@@ -7,6 +7,7 @@ function prepareSocket() {
         console.log("Terminate socket init");
         return;
     }
+    
     connection = $.hubConnection();
 
     //continuously reconnect if disconnected
@@ -37,6 +38,7 @@ function prepareSocket() {
         else {
             $("#messageRequests span").css("color", "#FFFFFF"); 
         }
+
         if ($("#ul_alerts").children().length === 0)
             $("#ul_alerts").prepend("<p> There are no requests </p>")
         $("#chatRequests").show();
@@ -259,6 +261,8 @@ function generateMessage(PushMessageDTO)
 
 function fillMessages(LastMessagesDTOs) {
     var message;
+    //if (LastMessagesDTOs.length == 0)
+    //    $("#messages").empty();
 
     for (i = 0; i < LastMessagesDTOs.length; i++) {
         var from = LastMessagesDTOs[i].From;
@@ -269,6 +273,7 @@ function fillMessages(LastMessagesDTOs) {
         var MessageId = LastMessagesDTOs[i].MessageId;
         var RequestId = LastMessagesDTOs[i].RequestId;
         message = $("#message_template").html();
+        $("#no-messages").css("display", "none");
         $("#messages").append(message);
         $("#none .media").attr("onclick", "openMessageInChat(" + RequestId + ",'" + ChatWith + "'," + isAdmin + ");");
         $("#none .media .media-body .timestamp").text(timestamp);

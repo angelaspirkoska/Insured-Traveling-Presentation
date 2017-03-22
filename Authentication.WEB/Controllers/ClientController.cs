@@ -33,12 +33,14 @@ namespace Authentication.WEB.Controllers
         [HttpPost]
         public ActionResult Create(CreateClientModel model) 
         {
-            
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
             var client = entities.insureds.Create();
+
             ValidationService validationService = new ValidationService();
+
             if (ModelState.IsValid && validationService.validateEMBG(model.SSN))
             {
+                model.Age = validationService.CountAgeByBirthDate(model.DateBirth);          
                 client = Mapper.Map<CreateClientModel, insured>(model);
                 try
                 {

@@ -73,6 +73,7 @@
                                 @*<li class="message-footer">
                                         <a href="#">Read All New Messages</a>
                                     </li>*@
+                                <li id="no-messages" style="display: none;">@InsuredTraveling.Resource.Home_NoMsg</li>
                             </ul>
                         </li>
                         if (r.IsUser("Admin"))
@@ -114,7 +115,7 @@
                     <br />
                     @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("End user"))
                     {
-                        <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</button>
+                        <button onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");" class="btn btn-success btn-material-design-default" id="btnNovaPolisa">@InsuredTraveling.Resource.Home_BuyInsurance</button>
                     }
                     @if (r.IsUser("Admin") || r.IsUser("Broker")){
                         <button onclick="@("window.location.href='/News/Index'");" class="btn btn-success btn-material-design-default" id="btnNews">@InsuredTraveling.Resource.Home_News</button>
@@ -127,7 +128,7 @@
                         <button onclick="@("window.location.href='" + @Url.Action("CreateUser", "SignUp") + "'");" class="btn btn-success btn-material-design-default" id="btnCreateUser">@InsuredTraveling.Resource.Home_CreateUser</button>
                     }
                     @if (r.IsUser("Broker")){
-                        <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</button>
+                        <button onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");" class="btn btn-success btn-material-design-default" id="btnCreateUser">@InsuredTraveling.Resource.Home_NewClient</button>
                     }
                 </div>
             </div>
@@ -156,6 +157,13 @@
         $(document).ready(function () {
             localStorage.setItem("username", $("#userName").val());
             console.log(localStorage.getItem("username"));
+
+            // If there are no messages in the chat
+            if ($("#messages").children().length === 1)
+                $("#no-messages").css("display", "block");
+            else
+                $("#no-messages").css("display", "none");
+
             if (localStorage.getItem("username") != "") {
             }
             else {

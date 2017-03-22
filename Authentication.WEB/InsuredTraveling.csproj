@@ -332,6 +332,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="HalkbankPaymentPlugin\license.lic" />
+    <Content Include="countriesCodes.json" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\Slobodanka.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
@@ -377,6 +378,7 @@
     </Compile>
     <Compile Include="App_Start\AutoMapperInitializer.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\DateTimeModelBinder.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RequireHttpsAttribute.cs" />
@@ -794,6 +796,7 @@
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\SignUp\CreateUser.cshtml" />
     <Content Include="Views\Search\EditUser.cshtml" />
+    <Content Include="Views\Policy\Preview.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

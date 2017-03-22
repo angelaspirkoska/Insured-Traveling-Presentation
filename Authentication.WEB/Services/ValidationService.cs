@@ -13,7 +13,9 @@ namespace Authentication.WEB.Services
                 return false;
             if (!validateDates(policy.Start_Date, policy.End_Date))
                 return false;
-            if (!validateInsuredDays(policy.Start_Date, policy.End_Date, policy.Valid_Days, policy.travel_insurance_type.Name))
+            if (
+                !validateInsuredDays(policy.Start_Date, policy.End_Date, policy.Valid_Days,
+                    policy.travel_insurance_type.Name))
                 return false;
             if (!validateAge(policy.Start_Date, policy.aspnetuser.EMBG, policy.policy_type.type))
                 return false;
@@ -58,6 +60,7 @@ namespace Authentication.WEB.Services
 
             return true;
         }
+
         public bool validateSSN_Advanced(string embg = null)
         {
             //return true;
@@ -76,11 +79,12 @@ namespace Authentication.WEB.Services
             if (isNumeric == 0)
                 return false;
 
-            int a, b, c, d,e, f, g, h, i, j, k, l;
-            int ch; int Result=0;
+            int a, b, c, d, e, f, g, h, i, j, k, l;
+            int ch;
+            int Result = 0;
 
             int.TryParse(embg.Substring(0, 1), out a);
-            int.TryParse(embg.Substring(1, 1), out  b);
+            int.TryParse(embg.Substring(1, 1), out b);
             int.TryParse(embg.Substring(2, 1), out c);
             int.TryParse(embg.Substring(3, 1), out d);
             int.TryParse(embg.Substring(4, 1), out e);
@@ -101,11 +105,11 @@ namespace Authentication.WEB.Services
             {
                 return true;
             }
-              else 
+            else
             {
                 return false;
             }
-           
+
         }
 
         public bool validateDates(DateTime starDate, DateTime endDate)
@@ -147,11 +151,23 @@ namespace Authentication.WEB.Services
             DateTime birthDate = new DateTime(year, month, day);
 
             int age = policyStart.Year - birthDate.Year;
-            if (policyStart.Month < birthDate.Month || (policyStart.Month == birthDate.Month && policyStart.Day < birthDate.Day))
+            if (policyStart.Month < birthDate.Month ||
+                (policyStart.Month == birthDate.Month && policyStart.Day < birthDate.Day))
                 age--;
 
             return age;
         }
+
+        public int CountAgeByBirthDate(DateTime birthDate)
+        {
+            int age = DateTime.Now.Year - birthDate.Year;
+            if (DateTime.Now.Month < birthDate.Month ||
+                (DateTime.Now.Month == birthDate.Month && DateTime.Now.Day < birthDate.Day))
+                age--;
+
+            return age;
+        }
+
 
         public bool validateAge(DateTime startDate, string EMBG, string policyType)
         {

@@ -23,7 +23,6 @@ namespace InsuredTraveling.Models
         [Display(Name = "Client_DateBirth", ResourceType = typeof(Resource))]
         public DateTime DateBirth { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         [Display(Name = "Client_Age", ResourceType = typeof(Resource))]
         public int Age { get; set; }
 
@@ -32,7 +31,7 @@ namespace InsuredTraveling.Models
         [Display(Name = "Client_Email", ResourceType = typeof(Resource))]
         public string Email { get; set; }
 
-        [RegularExpression("^[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "OnlyNumbers")]
+        [RegularExpression("^\\+[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "OnlyNumbers")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         [Display(Name = "Client_Phone", ResourceType = typeof(Resource))]
         public string PhoneNumber { get; set; }

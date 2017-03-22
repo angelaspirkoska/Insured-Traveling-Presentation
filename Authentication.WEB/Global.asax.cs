@@ -13,6 +13,7 @@ using System.Threading;
 using System.Globalization;
 using System.Web.Security;
 using System.Web.Http.Dispatcher;
+using System.Configuration;
 
 namespace InsuredTraveling
 {
@@ -30,7 +31,9 @@ namespace InsuredTraveling
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new CustomViewEngine());
             AutoMapperInitializer.Initialize();
-            
+            ModelBinders.Binders[typeof(DateTime)] = new DateTimeModelBinder(ConfigurationManager.AppSettings["DateFormat"]);
+            ModelBinders.Binders[typeof(DateTime?)] = new DateTimeModelBinder(ConfigurationManager.AppSettings["DateFormat"]);
+
         }
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
