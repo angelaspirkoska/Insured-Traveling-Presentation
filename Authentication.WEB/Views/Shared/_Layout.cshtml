@@ -1,4 +1,5 @@
 ﻿@using InsuredTraveling.Filters;
+@using InsuredTraveling.Filters;
 @{
     RoleAuthorize r = new RoleAuthorize();
 }
@@ -60,9 +61,7 @@
                         }
                     }
                 </div>
-
                 <ul class="nav navbar-nav navbar-right" style="float:right;text-align:right;">
-
                     @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                     {
                         <li class="dropdown">
@@ -85,7 +84,6 @@
                                 <ul class="dropdown-menu alert-dropdown" id="ul_alerts"></ul>
                             </li>
                         }
-
                     }
                     @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                     {
@@ -157,8 +155,6 @@
             </div>
         </div>
     }
-
-
     <div class="container body-content">
         @RenderBody()
     </div>
