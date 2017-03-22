@@ -44,61 +44,6 @@ namespace Authentication.WEB.Controllers
         }
 
         [HttpPost]
-        [Route("Calculate")]
-        public IHttpActionResult Code(Policy policy)
-        {
-            ok_setup Last_Entry = _os.GetLast();
-            if (Last_Entry.SSNValidationActive == 1)
-            {
-                ValidationService validatePremium = new ValidationService();
-
-                if (!validatePremium.validateSSN_Advanced(policy.SSN))
-                {
-
-                    return Json(new { isValid = false, status = "error", message = Resource.Error_EMBG_Val_Advanced });
-                }
-            }
-
-            if (!policy.isMobile && policy.IsSamePolicyHolderInsured)
-            {
-                policy.PolicyHolderName = policy.Name;
-                policy.PolicyHolderLastName = policy.LastName;
-                policy.PolicyHolderSSN = policy.SSN;
-                policy.PolicyHolderEmail = policy.Email;
-                policy.PolicyHolderAddress = policy.Address;
-                policy.PolicyHolderBirthDate = policy.BirthDate;
-                policy.PolicyHolderCity = policy.City;
-                policy.PolicyHolderPostalCode = policy.PostalCode;
-                policy.PolicyHolderPhoneNumber = policy.PhoneNumber;
-            }
-            if (!policy.isMobile)
-            {
-                ModelState.Remove("PolicyHolderName");
-                ModelState.Remove("PolicyHolderLastName");
-                ModelState.Remove("PolicyHolderEmail");
-                ModelState.Remove("PolicyHolderAddress");
-                ModelState.Remove("PolicyHolderBirthDate");
-                ModelState.Remove("PolicyHolderCity");
-                ModelState.Remove("PolicyHolderPostalCode");
-                ModelState.Remove("PolicyHolderPhoneNumber");
-                ModelState.Remove("PolicyHolderSSN");
-            }
-
-            if (ModelState.IsValid && policy != null)
-            {
-                RatingEngineService ratingEngineService = new RatingEngineService();
-
-                Premium Premium = new Premium();
-                Premium.PremiumAmount = (int)ratingEngineService.totalPremium(policy);
-                return Ok(new { PremiumAmount = Premium.PremiumAmount });
-            }
-            else
-            {
-                return BadRequest("Внесете ги сите полиња!");
-            }
-        }
-
-        [HttpPost]
         [Route("CalculatePremium")]
         public IHttpActionResult CalculatePremium(CalculatePremiumViewModel data)
         {
