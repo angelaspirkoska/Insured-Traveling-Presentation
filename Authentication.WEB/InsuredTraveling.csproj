@@ -409,6 +409,9 @@
     <Compile Include="bank_prefix.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="broker_employees.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="chat_requests.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>

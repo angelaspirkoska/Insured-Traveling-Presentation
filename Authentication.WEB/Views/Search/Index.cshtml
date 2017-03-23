@@ -6,22 +6,26 @@
     ViewBag.Title = InsuredTraveling.Resource.Search;
     RoleAuthorize r = new RoleAuthorize();
     var isClaimsAdjuster = r.IsUser("Claims adjuster");
+    var isBrokerManager = r.IsUser("Broker manager");
+    var isAdmin = r.IsUser("Admin");
+    var isEndUser = r.IsUser("End user");
 }
 <br />
 <br />
 <ul class="nav nav-pills">
     <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
     <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
-    @if (r.IsUser("Admin") || r.IsUser("Broker") || isClaimsAdjuster)
+    @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBrokerManager)
     {
         <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
     }
-    @if (r.IsUser("Admin"))
+    @if (isAdmin || isBrokerManager)
     {
         <li id="registeredUsers"><a href="#" onclick="ShowUsers()">@InsuredTraveling.Resource.Search_Users</a></li>
     }
     <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
-    @if (r.IsUser("Admin") || r.IsUser("End user") || isClaimsAdjuster)
+
+    @if (isAdmin || isEndUser || isClaimsAdjuster || isBrokerManager)
     {
         <li id="searchChat"><a href="#" onclick="ShowChats()">@InsuredTraveling.Resource.Chats</a></li>
     }

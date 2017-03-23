@@ -46,6 +46,7 @@ namespace InsuredTraveling
         public string Modified_By { get; set; }
         public Nullable<System.DateTime> Date_Cancellation { get; set; }
         public bool Payment_Status { get; set; }
+        public Nullable<int> Discount { get; set; }
     
         public virtual country country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

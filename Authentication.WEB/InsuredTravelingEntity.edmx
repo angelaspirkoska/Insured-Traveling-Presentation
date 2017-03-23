@@ -103,6 +103,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Gender" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Active" Type="tinyint" />
           <Property Name="CreatedOn" Type="date" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="bank_account_info">
           <Key>
@@ -126,6 +127,14 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="broker_employees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BrokerID" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="EmployeID" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="chat_requests">
           <Key>
@@ -691,6 +700,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <Property Name="Travel_Insurance_TypeID" Type="int" Nullable="false" />
           <Property Name="Group_Members" Type="int" />
           <Property Name="Group_Total_Premium" Type="double" />
+          <Property Name="Discount" Type="int" />
           <Property Name="Total_Premium" Type="double" />
           <Property Name="Created_By" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="Date_Created" Type="date" Nullable="false" />
@@ -1504,6 +1514,34 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FKBrrokerID">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="broker_employees" Type="Self.broker_employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="broker_employees">
+              <PropertyRef Name="BrokerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKEmployeID">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="broker_employees" Type="Self.broker_employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="broker_employees">
+              <PropertyRef Name="EmployeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="health_insurance_info_ibfk_1">
           <End Role="additional_info" Type="Self.additional_info" Multiplicity="1" />
           <End Role="health_insurance_info" Type="Self.health_insurance_info" Multiplicity="0..1" />
@@ -1601,6 +1639,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="bank_account_info" EntityType="Self.bank_account_info" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="bank_prefix" EntityType="Self.bank_prefix" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="banks" EntityType="Self.banks" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="broker_employees" EntityType="Self.broker_employees" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="chat_requests" EntityType="Self.chat_requests" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="clients" EntityType="Self.clients" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="company" EntityType="Self.company" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1927,6 +1966,14 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="fk_users_aspnetuser" Association="Self.fk_users_aspnetuser">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FKBrrokerID" Association="Self.FKBrrokerID">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="broker_employees" EntitySet="broker_employees" />
+          </AssociationSet>
+          <AssociationSet Name="FKEmployeID" Association="Self.FKEmployeID">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="broker_employees" EntitySet="broker_employees" />
           </AssociationSet>
           <AssociationSet Name="health_insurance_info_ibfk_1" Association="Self.health_insurance_info_ibfk_1">
             <End Role="additional_info" EntitySet="additional_info" />
@@ -2508,6 +2555,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Entities.first_notice_of_loss_archive_ibfk_3" FromRole="travel_policy" ToRole="first_notice_of_loss_archive" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_policy_created_by" FromRole="travel_policy" ToRole="aspnetuser" />
           <NavigationProperty Name="aspnetuser1" Relationship="Entities.fk_policy_modified_by" FromRole="travel_policy" ToRole="aspnetuser" />
+          <Property Name="Discount" Type="Int32" />
         </EntityType>
         <EntityType Name="type_insured">
           <Key>
@@ -3333,6 +3381,15 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="aspnetuser" EntitySet="aspnetusers" />
           </AssociationSet>
           <EntitySet Name="ok_setup" EntityType="Entities.ok_setup" />
+          <EntitySet Name="broker_employees" EntityType="Entities.broker_employees" />
+          <AssociationSet Name="FKBrrokerID" Association="Entities.FKBrrokerID">
+            <End Role="aspnetuser" EntitySet="aspnetusers" />
+            <End Role="broker_employees" EntitySet="broker_employees" />
+          </AssociationSet>
+          <AssociationSet Name="FKEmployeID" Association="Entities.FKEmployeID">
+            <End Role="aspnetuser" EntitySet="aspnetusers" />
+            <End Role="broker_employees" EntitySet="broker_employees" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -3698,6 +3755,9 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="travel_duration1" Relationship="Entities.fk_travel_duration_Modified_by" FromRole="aspnetuser" ToRole="travel_duration" />
           <NavigationProperty Name="users" Relationship="Entities.fk_users_aspnetuser" FromRole="aspnetuser" ToRole="user" />
           <NavigationProperty Name="aspnetroles" Relationship="Entities.aspnetuserroles" FromRole="aspnetuser" ToRole="aspnetrole" />
+          <NavigationProperty Name="broker_employees" Relationship="Entities.FKBrrokerID" FromRole="aspnetuser" ToRole="broker_employees" />
+          <NavigationProperty Name="broker_employees1" Relationship="Entities.FKEmployeID" FromRole="aspnetuser" ToRole="broker_employees" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_additional_charge_created_by">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
@@ -3986,6 +4046,44 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="SSNValidationActive" Type="SByte" Nullable="false" />
           <Property Name="TestPayment" Type="SByte" />
         </EntityType>
+        <EntityType Name="broker_employees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrokerID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Entities.FKBrrokerID" FromRole="broker_employees" ToRole="aspnetuser" />
+          <NavigationProperty Name="aspnetuser1" Relationship="Entities.FKEmployeID" FromRole="broker_employees" ToRole="aspnetuser" />
+        </EntityType>
+        <Association Name="FKBrrokerID">
+          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.broker_employees" Role="broker_employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetuser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="broker_employees">
+              <PropertyRef Name="BrokerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKEmployeID">
+          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.broker_employees" Role="broker_employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetuser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="broker_employees">
+              <PropertyRef Name="EmployeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4457,6 +4555,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="travel_policy">
             <EntityTypeMapping TypeName="Entities.travel_policy">
               <MappingFragment StoreEntitySet="travel_policy">
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="Payment_Status" ColumnName="Payment_Status" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Policy_Number" ColumnName="Policy_Number" />
@@ -4687,6 +4786,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="aspnetusers">
             <EntityTypeMapping TypeName="Entities.aspnetuser">
               <MappingFragment StoreEntitySet="aspnetusers">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
@@ -4744,6 +4844,15 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="NumberOfAttempts" ColumnName="NumberOfAttempts" />
                 <ScalarProperty Name="Sms_Code_Seconds" ColumnName="Sms_Code_Seconds" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="broker_employees">
+            <EntityTypeMapping TypeName="Entities.broker_employees">
+              <MappingFragment StoreEntitySet="broker_employees">
+                <ScalarProperty Name="EmployeID" ColumnName="EmployeID" />
+                <ScalarProperty Name="BrokerID" ColumnName="BrokerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

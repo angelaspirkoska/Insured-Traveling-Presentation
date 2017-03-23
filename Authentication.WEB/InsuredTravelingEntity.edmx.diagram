@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="98e5219c4ee54651afe193f34e768c8b" Name="Diagram1" ZoomLevel="94">
+      <Diagram DiagramId="98e5219c4ee54651afe193f34e768c8b" Name="Diagram1" ZoomLevel="60">
         <EntityTypeShape EntityType="Entities.additional_charge" Width="1.5" PointX="5.25" PointY="24.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.additional_info" Width="1.5" PointX="9" PointY="40" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.aspnetrole" Width="1.5" PointX="0.75" PointY="31.375" IsExpanded="true" />
@@ -131,6 +131,9 @@
         <AssociationConnector Association="Entities.fk_users_aspnetuser" />
         <AssociationConnector Association="Entities.aspnetuserroles" />
         <EntityTypeShape EntityType="Entities.ok_setup" Width="1.5" PointX="10.375" PointY="13.75" />
+        <EntityTypeShape EntityType="Entities.broker_employees" Width="1.5" PointX="5.25" PointY="41.375" />
+        <AssociationConnector Association="Entities.FKBrrokerID" />
+        <AssociationConnector Association="Entities.FKEmployeID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

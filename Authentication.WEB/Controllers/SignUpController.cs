@@ -18,10 +18,12 @@ namespace InsuredTraveling.Controllers
     {
         private IRolesService _rs;
         private IUserService _us;
+        private RoleAuthorize _roleAuthorize;
         public SignUpController(IRolesService rs, IUserService us)
         {
             _rs = rs;
             _us = us;
+            _roleAuthorize = new RoleAuthorize();
         }
 
         [HttpGet]
@@ -67,7 +69,12 @@ namespace InsuredTraveling.Controllers
         public ActionResult CreateUser()
         {
             ViewBag.Gender = Gender();
-            ViewBag.Roles = Roles();
+            var roles = Roles();
+            if (_roleAuthorize.IsUser("Broker manager"))
+            {
+                roles = GetBrokerManagerRoles();
+            }
+            ViewBag.Roles = roles;
             return View();
         }
 
@@ -75,7 +82,12 @@ namespace InsuredTraveling.Controllers
         public async Task<ActionResult> CreateUser(User user, bool CaptchaValid)
         {
             ViewBag.Gender = Gender();
-            ViewBag.Roles = Roles();
+            var roles = Roles();
+            if (_roleAuthorize.IsUser("Broker manager"))
+            {
+                roles = GetBrokerManagerRoles();
+            }
+            ViewBag.Roles = roles;
 
             if (ModelState.IsValid && CaptchaValid)
             {
@@ -149,6 +161,25 @@ namespace InsuredTraveling.Controllers
         {
             return _rs.GetAll().ToList();
         }
+
+        private List<SelectListItem> GetBrokerManagerRoles()
+        {
+
+            List<SelectListItem> roles = new List<SelectListItem>();
+            roles.Add(new SelectListItem
+            {
+                Text = "End user",
+                Value = "End user"
+            });
+
+            roles.Add(new SelectListItem
+            {
+                Text = "Broker",
+                Value = "Broker"
+            });
+          
+            return roles;
+         }
 
     }
 }

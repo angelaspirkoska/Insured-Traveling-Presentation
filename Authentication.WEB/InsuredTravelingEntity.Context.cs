@@ -81,5 +81,6 @@ namespace InsuredTraveling
         public virtual DbSet<discount_codes> discount_codes { get; set; }
         public virtual DbSet<aspnetuser> aspnetusers { get; set; }
         public virtual DbSet<ok_setup> ok_setup { get; set; }
+        public virtual DbSet<broker_employees> broker_employees { get; set; }
     }
 }
