@@ -97,7 +97,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only latin letters.
+        ///   Looks up a localized string similar to Discount.
         /// </summary>
         public static string AdminPanel_Discount {
             get {
@@ -147,6 +147,15 @@ namespace InsuredTraveling {
         public static string AdminPanel_DiscountName {
             get {
                 return ResourceManager.GetString("AdminPanel_DiscountName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discount code already exist..
+        /// </summary>
+        public static string AdminPanel_DiscountNameErrorMessage {
+            get {
+                return ResourceManager.GetString("AdminPanel_DiscountNameErrorMessage", resourceCulture);
             }
         }
         
@@ -1546,6 +1555,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wrong discount code..
+        /// </summary>
+        public static string Policy_DiscountErrorMessage {
+            get {
+                return ResourceManager.GetString("Policy_DiscountErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duration.
         /// </summary>
         public static string Policy_Duration {
@@ -1965,6 +1983,15 @@ namespace InsuredTraveling {
         public static string Policy_ValidDate {
             get {
                 return ResourceManager.GetString("Policy_ValidDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discount Code.
+        /// </summary>
+        public static string PolicyDiscountCode {
+            get {
+                return ResourceManager.GetString("PolicyDiscountCode", resourceCulture);
             }
         }
         

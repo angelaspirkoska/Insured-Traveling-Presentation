@@ -38,5 +38,32 @@ namespace InsuredTraveling.DI
         {
             return _db.discount_codes.ToArray().Last();
         }
+        public bool CheckCode(string code)
+        {
+            List<discount_codes> DiscountCodes = GetAllDiscounts();
+            foreach (discount_codes discount in DiscountCodes)
+            {
+                if (discount.Discount_Name == code && discount.End_Date >= DateTime.Now)
+                {
+                    return true;
+                }
+
+            }
+
+            return false;
+        }
+        public bool DiscountCodeExist(string name)
+        {
+            List<discount_codes> DiscountCodes = GetAllDiscounts();
+            foreach (discount_codes discount in DiscountCodes)
+            {
+                if (discount.Discount_Name == name)
+                {
+                    return true;
+                }
+               
+            }
+            return false;
+        }
     }
 }

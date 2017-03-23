@@ -1,7 +1,13 @@
 ﻿using Authentication.WEB.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Text;
+using System.Web.Script.Serialization;
 
 namespace InsuredTraveling.Models
 {
@@ -42,7 +48,7 @@ namespace InsuredTraveling.Models
 
         [Required]
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
-        [Display(Name = "Policy_PolicyExpiryDate", ResourceType = typeof(Resource))]       
+        [Display(Name = "Policy_PolicyExpiryDate", ResourceType = typeof(Resource))]
         public DateTime End_Date { get; set; }
 
         [Required]
@@ -105,7 +111,7 @@ namespace InsuredTraveling.Models
         [Display(Name = "Policy_HolderPostalCode", ResourceType = typeof(Resource))]
         public string PolicyHolderPostalCode { get; set; }
 
-       
+
         [Display(Name = "Policy_HolderSSN", ResourceType = typeof(Resource))]
         public string PolicyHolderSSN { get; set; }
 
@@ -160,6 +166,10 @@ namespace InsuredTraveling.Models
         public int AdditionalChargeId1 { get; set; }
         public int AdditionalChargeId2 { get; set; }
 
+       
+        [DiscountCodeValidation(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Policy_DiscountErrorMessage")]
+      
+        public string DiscountCode { get; set; }
         public List<insured> insureds { get; set; }
         public List<additional_charge> additional_charges {get;set;}
 
@@ -169,6 +179,50 @@ namespace InsuredTraveling.Models
         }
 
     }
-   
+    public class DiscountCodeValidation : ValidationAttribute
+    {
+
+        public DiscountCodeValidation()
+        {
+            // this._embg = _embg;
+        }
+     
+
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            ValidationService validationService = new ValidationService();
+            if (value != null)
+            {
+                Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/Premium/DiscountCode");
+                HttpClient client = new HttpClient();
+                client.BaseAddress = uri;
+
+                DiscountCodeValidateModel discModel = new DiscountCodeValidateModel();
+                discModel.DiscCode = value.ToString();
+
+              
+              
+
+                var jsonFormatter = new JsonMediaTypeFormatter();
+                HttpContent content = new ObjectContent<DiscountCodeValidateModel>(discModel, jsonFormatter);
+                HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
+               
+
+                string responseBody = responseMessage.Content.ToString();
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+                else
+                {
+                    return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
+                }
+             
+            }
+            return null;
+        }
+
+    }
+
 
 }

@@ -34,12 +34,12 @@ namespace InsuredTraveling
             this.discount_group1 = new HashSet<discount_group>();
             this.insureds = new HashSet<insured>();
             this.insureds1 = new HashSet<insured>();
-            this.travel_policy = new HashSet<travel_policy>();
-            this.travel_policy1 = new HashSet<travel_policy>();
             this.travel_duration = new HashSet<travel_duration>();
             this.travel_duration1 = new HashSet<travel_duration>();
             this.users = new HashSet<user>();
             this.aspnetroles = new HashSet<aspnetrole>();
+            this.travel_policy = new HashSet<travel_policy>();
+            this.travel_policy1 = new HashSet<travel_policy>();
         }
     
         public string Id { get; set; }
@@ -107,10 +107,6 @@ namespace InsuredTraveling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<insured> insureds1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<travel_policy> travel_policy { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<travel_policy> travel_policy1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<travel_duration> travel_duration { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<travel_duration> travel_duration1 { get; set; }
@@ -118,5 +114,9 @@ namespace InsuredTraveling
         public virtual ICollection<user> users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aspnetrole> aspnetroles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<travel_policy> travel_policy { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<travel_policy> travel_policy1 { get; set; }
     }
 }

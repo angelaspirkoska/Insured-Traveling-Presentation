@@ -64,7 +64,6 @@ namespace InsuredTraveling
         public virtual DbSet<travel_duration> travel_duration { get; set; }
         public virtual DbSet<travel_insurance_type> travel_insurance_type { get; set; }
         public virtual DbSet<travel_number> travel_number { get; set; }
-        public virtual DbSet<travel_policy> travel_policy { get; set; }
         public virtual DbSet<type_insured> type_insured { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<aspnetuserlogin> aspnetuserlogins { get; set; }
@@ -81,5 +80,6 @@ namespace InsuredTraveling
         public virtual DbSet<discount_codes> discount_codes { get; set; }
         public virtual DbSet<aspnetuser> aspnetusers { get; set; }
         public virtual DbSet<ok_setup> ok_setup { get; set; }
+        public virtual DbSet<travel_policy> travel_policy { get; set; }
     }
 }

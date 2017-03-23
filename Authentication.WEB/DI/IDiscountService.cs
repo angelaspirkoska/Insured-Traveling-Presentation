@@ -17,6 +17,9 @@ namespace InsuredTraveling.DI
 
         discount_codes GetLast();
 
+       bool CheckCode(string code);
+        bool DiscountCodeExist(string name);
+
     }
 
    

@@ -1227,11 +1227,9 @@
   <data name="Search_QuotePreview" xml:space="preserve">
     <value>Прегледај</value>
   </data>
-
   <data name="SignUP_LatinLettersOnly" xml:space="preserve">
     <value>Користи само латинични букви</value>
   </data>
->>>>>>> origin/master
   <data name="AdminPanel_Discount" xml:space="preserve">
     <value>Попуст</value>
   </data>
@@ -1241,7 +1239,6 @@
   <data name="Policy_AddOfferMsgFail" xml:space="preserve">
     <value>Полисата не беше додадена во понуди</value>
   </data>
-
   <data name="AdminPanel_DiscountAddButton" xml:space="preserve">
     <value>Додади попуст</value>
   </data>
@@ -1259,7 +1256,7 @@
   </data>
   <data name="AdminPanel_DiscountCancelButton" xml:space="preserve">
     <value>Откажи</value>
-</data>
+  </data>
   <data name="Home_BuyInsurance" xml:space="preserve">
     <value>Купи осигурување</value>
   </data>
@@ -1283,6 +1280,14 @@
   </data>
   <data name="SearchPolicyByExpiringDays" xml:space="preserve">
     <value>Денови пред истекување</value>
-
+  </data>
+  <data name="PolicyDiscountCode" xml:space="preserve">
+    <value>Код за попуст</value>
+  </data>
+  <data name="Policy_DiscountErrorMessage" xml:space="preserve">
+    <value>Грешен код за попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountNameErrorMessage" xml:space="preserve">
+    <value>Кодот за попуст веќе постои</value>
   </data>
 </root>
