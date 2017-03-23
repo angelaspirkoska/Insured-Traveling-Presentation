@@ -1234,9 +1234,7 @@
     <value>Preview</value>
   </data>
   <data name="AdminPanel_Discount" xml:space="preserve">
-
     <value>Discount</value>
-
   </data>
   <data name="Policy_AddOfferMsg" xml:space="preserve">
     <value>You have successfully added the offer. Number of offer </value>
@@ -1244,7 +1242,6 @@
   <data name="Policy_AddOfferMsgFail" xml:space="preserve">
     <value>You have not successfully added the offer</value>
   </data>
-
   <data name="AdminPanel_DiscountAddButton" xml:space="preserve">
     <value>Add Discount</value>
   </data>
@@ -1265,7 +1262,7 @@
   </data>
   <data name="String1" xml:space="preserve">
     <value />
-</data>
+  </data>
   <data name="Home_BuyInsurance" xml:space="preserve">
     <value>Buy Insurance</value>
   </data>
@@ -1289,6 +1286,14 @@
   </data>
   <data name="SearchPolicyByExpiringDays" xml:space="preserve">
     <value>Days before expiring</value>
-
+  </data>
+  <data name="PolicyDiscountCode" xml:space="preserve">
+    <value>Discount Code</value>
+  </data>
+  <data name="Policy_DiscountErrorMessage" xml:space="preserve">
+    <value>Wrong discount code.</value>
+  </data>
+  <data name="AdminPanel_DiscountNameErrorMessage" xml:space="preserve">
+    <value>Discount code already exist.</value>
   </data>
 </root>

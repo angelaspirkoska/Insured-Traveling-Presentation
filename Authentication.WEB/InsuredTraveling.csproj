@@ -590,6 +590,7 @@
     <Compile Include="Models\BrokerSales.cs" />
     <Compile Include="Models\CreditCardInfoModel.cs" />
     <Compile Include="Models\DiscountModel.cs" />
+    <Compile Include="Models\DiscountCodeValidateModel.cs" />
     <Compile Include="Models\Ok_SetupModel.cs" />
     <Compile Include="Models\SearchRegisteredUser.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -822,7 +823,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resource.mk.resx" />
+    <EmbeddedResource Include="Resource.mk.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>

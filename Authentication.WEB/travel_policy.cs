@@ -18,9 +18,9 @@ namespace InsuredTraveling
         public travel_policy()
         {
             this.first_notice_of_loss = new HashSet<first_notice_of_loss>();
+            this.first_notice_of_loss_archive = new HashSet<first_notice_of_loss_archive>();
             this.policy_additional_charge = new HashSet<policy_additional_charge>();
             this.policy_insured = new HashSet<policy_insured>();
-            this.first_notice_of_loss_archive = new HashSet<first_notice_of_loss_archive>();
         }
     
         public int ID { get; set; }
@@ -39,18 +39,25 @@ namespace InsuredTraveling
         public int Travel_Insurance_TypeID { get; set; }
         public Nullable<int> Group_Members { get; set; }
         public Nullable<double> Group_Total_Premium { get; set; }
+        public Nullable<int> Discount { get; set; }
         public Nullable<double> Total_Premium { get; set; }
         public string Created_By { get; set; }
         public System.DateTime Date_Created { get; set; }
         public Nullable<System.DateTime> Date_Modified { get; set; }
         public string Modified_By { get; set; }
-        public Nullable<System.DateTime> Date_Cancellation { get; set; }
         public bool Payment_Status { get; set; }
+
         public Nullable<int> Discount { get; set; }
+
+        public Nullable<System.DateTime> Date_Cancellation { get; set; }
     
+        public virtual aspnetuser aspnetuser { get; set; }
+        public virtual aspnetuser aspnetuser1 { get; set; }
         public virtual country country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<first_notice_of_loss> first_notice_of_loss { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
         public virtual insured insured { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<policy_additional_charge> policy_additional_charge { get; set; }
@@ -60,9 +67,5 @@ namespace InsuredTraveling
         public virtual retaining_risk retaining_risk { get; set; }
         public virtual travel_insurance_type travel_insurance_type { get; set; }
         public virtual travel_number travel_number { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
-        public virtual aspnetuser aspnetuser { get; set; }
-        public virtual aspnetuser aspnetuser1 { get; set; }
     }
 }

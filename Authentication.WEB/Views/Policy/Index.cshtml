@@ -358,6 +358,7 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-4 btns-position">
             <div class="form-inline">
@@ -365,6 +366,17 @@
                     <div>
                         <input type="button" target="" id="calculateTotalPremium" value="@InsuredTraveling.Resource.Policy_CalculatePremium" class="btn btn-default btn-block" onclick="CalculateTotalPremium()" />
                     </div>
+                </div>
+            </div>
+        </div>
+       
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-5" for="DiscountCode">@InsuredTraveling.Resource.PolicyDiscountCode</label>
+                <input class="col-md-1" onclick="DiscountChange()" type="checkbox" id="DiscountCheck">
+                <div id="Discount_div" class="inputs-spacing col-md-6">
+                    <input class="form-control input-sm insuredData field-size insuredInfo text-box" id="DiscountCode" name="DiscountCode" type="text" value="">
+                    <span class="field-validation-valid text-danger" data-valmsg-for="DiscountCode" data-valmsg-replace="true"></span>
                 </div>
             </div>
         </div>
@@ -482,6 +494,8 @@
         $("#dodadiKlient").removeClass("active-tab");
         $("#btnCreateUser").removeClass("active-tab");
         $("#btnCreateUser").removeClass("active-tab");
+
+        $("#Discount_div").hide();
         
 
         $('#AddOffer').on('click', function () {
@@ -512,6 +526,7 @@
             format: 'MM/DD/YYYY'
         });
 
+        $
         $(".hideMe").hide();
         $("#totalPremium").hide();
         $("#totalPremiumLabel").hide();
@@ -691,6 +706,17 @@
             e.preventDefault();
         }
     });
+
+    function DiscountChange(){
+        if($("#DiscountCheck").is(":checked") ){
+            $("#Discount_div").show();
+          
+        }
+        else{
+            $("#Discount_div").hide();
+
+        }
+    };
 
     $("#policyForm").validate({
         rules: {
