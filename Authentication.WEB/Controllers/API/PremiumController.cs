@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Services.Description;
+using InsuredTraveling.Filters;
 
 namespace Authentication.WEB.Controllers
 {
@@ -20,11 +21,13 @@ namespace Authentication.WEB.Controllers
 
         private IOkSetupService _os;
         private IDiscountService _ds;
+        private RoleAuthorize _roleAuthorize;
 
         public PremiumController(IOkSetupService os, IDiscountService ds)
         {
             _os = os;
             _ds = ds;
+            _roleAuthorize = new RoleAuthorize();
         }
         [HttpGet]
         public IHttpActionResult Excel(int value1, int value2)
@@ -51,6 +54,7 @@ namespace Authentication.WEB.Controllers
         public IHttpActionResult Code(Policy policy)
         {
             ok_setup Last_Entry = _os.GetLast();
+
             if (Last_Entry.SSNValidationActive == 1)
             {
                 ValidationService validatePremium = new ValidationService();
@@ -93,6 +97,20 @@ namespace Authentication.WEB.Controllers
 
                 Premium Premium = new Premium();
                 Premium.PremiumAmount = (int)ratingEngineService.totalPremium(policy);
+
+                if (_roleAuthorize.IsUser("Broker manager"))
+                {
+                    if(Premium.PremiumAmount > 10000)
+                    {
+                        return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded" });
+                    }
+                }else if (_roleAuthorize.IsUser("Broker"))
+                {
+                    if (Premium.PremiumAmount > 10000)
+                    {
+                        return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded" });
+                    }
+                }
                 return Ok(new { PremiumAmount = Premium.PremiumAmount });
             }
             else

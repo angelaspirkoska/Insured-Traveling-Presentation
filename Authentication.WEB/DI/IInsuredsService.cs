@@ -8,7 +8,8 @@ using InsuredTraveling.Models;
 namespace InsuredTraveling.DI
 {
    public interface IInsuredsService
-    {
+   {
+       insured GetBrokerManagerInsuredBySsnAndCreatedBy(string Ssn, string userId);
         int AddInsured(insured Insured);
         insured Create();
         insured GetInsuredData(int InsuredId);

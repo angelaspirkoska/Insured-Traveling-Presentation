@@ -47,8 +47,6 @@ namespace InsuredTraveling
         public string Modified_By { get; set; }
         public bool Payment_Status { get; set; }
 
-        public Nullable<int> Discount { get; set; }
-
         public Nullable<System.DateTime> Date_Cancellation { get; set; }
     
         public virtual aspnetuser aspnetuser { get; set; }

@@ -2230,6 +2230,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The premium value is exceeded.
+        /// </summary>
+        public static string PolicyThePremiumIsExceededMsg {
+            get {
+                return ResourceManager.GetString("PolicyThePremiumIsExceededMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to --Type of quote--.
         /// </summary>
         public static string Quote_TypeDD {

@@ -346,6 +346,10 @@ namespace Authentication.WEB.Controllers
             }else if(_roleAuthorize.IsUser("Broker"))
             {
                 InsuredUser = _iss.GetInsuredBySsnAndCreatedBy(ssn, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name));
+
+            }else if (_roleAuthorize.IsUser("Broker manager"))
+            {
+                InsuredUser = _iss.GetBrokerManagerInsuredBySsnAndCreatedBy(ssn, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name));
             }
             JObject insuredData = new JObject();
 

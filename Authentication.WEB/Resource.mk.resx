@@ -1290,4 +1290,7 @@
   <data name="AdminPanel_DiscountNameErrorMessage" xml:space="preserve">
     <value>Кодот за попуст веќе постои</value>
   </data>
+  <data name="PolicyThePremiumIsExceededMsg" xml:space="preserve">
+    <value>Вредноста на премијата е надмината</value>
+  </data>
 </root>

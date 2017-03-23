@@ -496,7 +496,7 @@
         $("#btnCreateUser").removeClass("active-tab");
 
         $("#Discount_div").hide();
-        
+
 
         $('#AddOffer').on('click', function () {
             $.ajax({
@@ -651,16 +651,21 @@
                     //This code is for AdvancedSSN validation in premium controler
                     if(result.status != null && result.isValid==false){
                         console.log(result.message);
-                        $("#errorMessage").text("@Resource.Error_EMBG_Val_Advanced");
-                        $(".loader").css("display", "none");
-                        $("#SSN").attr("style", "border: 1px solid red;");
-                        $("#totalPremiumLabel").hide();
-                        $("#totalPremium").val("");
-                        
+                        if (result.message == "ThePremiumIsExceeded") {
+                            $("#errorMessage").text("@Resource.Error_EMBG_Val_Advanced");
+                            $(".loader").css("display", "none");
+                        } else {
+                            $("#errorMessage").text("@Resource.Error_EMBG_Val_Advanced");
+                            $(".loader").css("display", "none");
+                            $("#SSN").attr("style", "border: 1px solid red;");
+                            $("#totalPremiumLabel").hide();
+                            $("#totalPremium").val("");
+                        }
+
                     }
                     else{
                         $("#SSN").attr("style", "border: 1px solid #2c3e50;");
-                      
+
                             $(".loader").css("display", "none");
                         console.log(result.PremiumAmount);
                         $("#totalPremium").val(result.PremiumAmount);
@@ -682,10 +687,10 @@
                     $("#totalPremiumLabel").hide();
                     $("#totalPremium").val("");
                     $("#errorMessage").text((JSON.parse(result.responseText)).Message);
-                    
-                    
+
+
                 }
-                
+
             });
         }
         else {
@@ -710,7 +715,7 @@
     function DiscountChange(){
         if($("#DiscountCheck").is(":checked") ){
             $("#Discount_div").show();
-          
+
         }
         else{
             $("#Discount_div").hide();

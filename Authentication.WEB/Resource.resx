@@ -1296,4 +1296,7 @@
   <data name="AdminPanel_DiscountNameErrorMessage" xml:space="preserve">
     <value>Discount code already exist.</value>
   </data>
+  <data name="PolicyThePremiumIsExceededMsg" xml:space="preserve">
+    <value>The premium value is exceeded</value>
+  </data>
 </root>
