@@ -35,13 +35,23 @@ namespace InsuredTraveling.FormBuilder
                     {
                         var result = Dget(formula, pck, worksheet);
                     }
+                    else if(formula.ToUpper().StartsWith("IF")){
+
+                    }
+                    else if (formula.ToUpper().StartsWith("EXACT"))
+                    {
+
+                    }
+                    else
+                    {
+                        //default operations
+                    }
                  }
                 row = 1;
             }
                
           }
       
-
         public static Dget Dget(string formula, ExcelPackage pck, ExcelWorksheet current)
         {
             Regex regex = new Regex(@".+\((.+)\)");
@@ -92,8 +102,8 @@ namespace InsuredTraveling.FormBuilder
                
                     var indexes = index.Split(':');
                 
-                    valueStart = GetLocation(indexes[0]);
-                    valueEnd = GetLocation(indexes[1]);
+                    valueStart = GetLocation(indexes[0], current);
+                    valueEnd = GetLocation(indexes[1], current);
                 result.Database = new string [valueEnd.Column, valueEnd.Row];
                
                 for (int column = valueStart.Column; column <= valueEnd.Column; column++)
@@ -112,14 +122,14 @@ namespace InsuredTraveling.FormBuilder
                     sheetAndValueLocation = parameters[2].Split('!');
                     dgetWorksheet = pck.Workbook.Worksheets[sheetAndValueLocation[0].TrimEnd().TrimStart()];
                     indexes = dgetWorksheet.Cells[sheetAndValueLocation[1].TrimStart().TrimEnd()].Value.ToString().Split(':');
-                    parameterStart = GetLocation(indexes[0]);
-                    parameterEnd =  GetLocation(indexes[1]);
+                    parameterStart = GetLocation(indexes[0], current);
+                    parameterEnd =  GetLocation(indexes[1], current);
                 }
                 else
                 {
                     indexes = parameters[2].TrimStart().TrimEnd().Split(':');
-                    parameterStart = GetLocation(indexes[0]);
-                    parameterEnd = GetLocation(indexes[1]);
+                    parameterStart = GetLocation(indexes[0], current);
+                    parameterEnd = GetLocation(indexes[1], current);
                 }
 
                 result.ParametersNameAndInputValue = new string[parameterEnd.Column, parameterEnd.Row];
@@ -133,14 +143,45 @@ namespace InsuredTraveling.FormBuilder
                     }
                 }
 
-                // nested for
-
             }
             return result;
         }
         
-        private static Location GetLocation(string location)
+        //sobiranje, odzemanje, delenje, mnozenje
+        public static float Calculate(string formula, ExcelPackage pck, ExcelWorksheet current)
         {
+            string[] operands;
+            if (formula.Contains("+"))
+            {
+                operands = formula.Split('+');
+                //da proveru dali e broj samo ili ima i bukve
+                //da ga zacuvam operant
+                Regex regex = new Regex(@"\D");
+                Match match = regex.Match(operands[0]);
+                if (match.Success)
+                {
+
+                }
+
+                //ako ne e samo nekoja vrednost, ako e lokacija sto da pravu ja sas toj?
+
+            }
+            return 0;
+        }
+        private static Location GetLocation(string location, ExcelWorksheet current)
+        {
+            Location result = new Location();
+            string located = location;
+            if (location.Contains("!"))
+            {
+                var sheetAndLocation = location.TrimStart().TrimEnd().Split('!');
+                result.WorksheetName = sheetAndLocation[0];
+                located = sheetAndLocation[1];
+            }
+            else
+            {
+                result.WorksheetName = current.Name;
+            }
             //works only with two letters
             Regex regex = new Regex(@"(\D+)(\d+)");
             Match match = regex.Match(location);
@@ -164,7 +205,7 @@ namespace InsuredTraveling.FormBuilder
 
         public static HtmlString CreateForm(ExcelPackage pck)
         {
-            ExcelWorksheet worksheet = pck.Workbook.Worksheets["Item_Details"];
+            ExcelWorksheet worksheet = pck.Workbook.Worksheets["ConfigurationSetup"];
             ExcelWorksheet worksheetListDetails = pck.Workbook.Worksheets["Lists"];
             var formBuilder = new FormBuilder()
                .SetName("my-form")
@@ -199,74 +240,78 @@ namespace InsuredTraveling.FormBuilder
                     case "Default": defaultValueIndex = i; break;
                     case "Required": requiredIndex = i; break;
                     case "Rating_indicator": ratingIndicatorIndex = i; break;
-                    case "Field_size": fieldSizeIndex = i; break;
-                    case "Classes": classesIndex = i; break;
-                    case "Css": cssIndex = i; break;
-                    default: return null;
+                    case "FieldSize": fieldSizeIndex = i; break;
+                    case "CSS_class": classesIndex = i; break;
+                    case "CSS_style": cssIndex = i; break;
+                    default: continue;
                 }
             }
-
+            //da dodebug
             for (int col = 2; worksheet.Cells[col, 1].Value != null; col++)
             {
-                attributes = new Dictionary<string, string>();
-                listValues = new List<string>();
-
-                if (worksheet.Cells[col, nameCaptionIndex].Value != null)
+                if (!worksheet.Cells.Value.ToString().Equals("empty"))
                 {
-                    attributes.Add("name", worksheet.Cells[col, nameCaptionIndex].Value.ToString());
-                }
+                    attributes = new Dictionary<string, string>();
+                    listValues = new List<string>();
 
-                if (worksheet.Cells[col, requiredIndex].Value.ToString() == "1")
-                {
-                    attributes.Add("required", "true");
-                }
-
-                if (worksheet.Cells[col, fieldSizeIndex].Value != null)
-                {
-                    attributes.Add("field_size", worksheet.Cells[col, fieldSizeIndex].Value.ToString());
-                }
-
-                if (worksheet.Cells[col, classesIndex].Value != null)
-                {
-                    attributes.Add("class", worksheet.Cells[col, classesIndex].Value.ToString());
-                }
-                if (worksheet.Cells[col, cssIndex].Value != null)
-                {
-                    attributes.Add("css", worksheet.Cells[col, cssIndex].Value.ToString());
-                }
-
-                if (worksheet.Cells[col, defaultValueIndex].Value.ToString() != "n/a")
-                {
-                    attributes.Add("default", worksheet.Cells[col, defaultValueIndex].Value.ToString());
-                }
-
-                var listId = worksheet.Cells[col, listIdIndex].Value;
-                var type = worksheet.Cells[col, fieldTypeIndex].Value.ToString();
-
-                if (listId != null && !listId.ToString().Equals("0") && type.Equals("dropdown"))
-                {
-                    for (int column = 2; worksheetListDetails.Cells[column, 1].Value != null; column++)
+                    if (worksheet.Cells[col, nameCaptionIndex].Value != null)
                     {
-                        var listIdDetails = worksheetListDetails.Cells[column, 1].Value;
-                        if (listIdDetails != null && listIdDetails.Equals(listId))
+                        attributes.Add("name", worksheet.Cells[col, nameCaptionIndex].Value.ToString());
+                    }
+
+                    if (worksheet.Cells[col, requiredIndex].Value.ToString() == "1")
+                    {
+                        attributes.Add("required", "true");
+                    }
+
+                    if (worksheet.Cells[col, fieldSizeIndex].Value != null)
+                    {
+                        attributes.Add("field_size", worksheet.Cells[col, fieldSizeIndex].Value.ToString());
+                    }
+
+                    if (worksheet.Cells[col, classesIndex].Value != null)
+                    {
+                        attributes.Add("class", worksheet.Cells[col, classesIndex].Value.ToString());
+                    }
+                    if (worksheet.Cells[col, cssIndex].Value != null)
+                    {
+                        attributes.Add("css", worksheet.Cells[col, cssIndex].Value.ToString());
+                    }
+
+                    if (worksheet.Cells[col, defaultValueIndex].Value.ToString() != "n/a")
+                    {
+                        attributes.Add("default", worksheet.Cells[col, defaultValueIndex].Value.ToString());
+                    }
+
+                    var listId = worksheet.Cells[col, listIdIndex].Value;
+                    var type = worksheet.Cells[col, fieldTypeIndex].Value.ToString();
+
+                    if (listId != null && !listId.ToString().Equals("0") && type.Equals("dropdown"))
+                    {
+                        for (int column = 2; worksheetListDetails.Cells[column, 1].Value != null; column++)
                         {
-                            var listValue = worksheetListDetails.Cells[column, 3].Value.ToString();
-                            listValues.Add(listValue);
+                            var listIdDetails = worksheetListDetails.Cells[column, 1].Value;
+                            if (listIdDetails != null && listIdDetails.Equals(listId))
+                            {
+                                var listValue = worksheetListDetails.Cells[column, 3].Value.ToString();
+                                listValues.Add(listValue);
+                            }
                         }
                     }
+
+                    TagInfo tagInfo =
+                        new TagInfo
+                        {
+                            Id = worksheet.Cells[col, itemIdIndex].Value.ToString(),
+                            Name = worksheet.Cells[col, nameCaptionIndex].Value.ToString(),
+                            Type = worksheet.Cells[col, fieldTypeIndex].Value.ToString(),
+                            Attributes = attributes,
+                            ListItems = listValues,
+                        };
+
+                    tagInfoExcel.Add(tagInfo);
                 }
-
-                TagInfo tagInfo =
-                    new TagInfo
-                    {
-                        Id = worksheet.Cells[col, itemIdIndex].Value.ToString(),
-                        Name = worksheet.Cells[col, nameCaptionIndex].Value.ToString(),
-                        Type = worksheet.Cells[col, fieldTypeIndex].Value.ToString(),
-                        Attributes = attributes,
-                        ListItems = listValues,
-                    };
-
-                tagInfoExcel.Add(tagInfo);
+              
             }
 
             foreach (var excelRow in tagInfoExcel)
@@ -279,7 +324,7 @@ namespace InsuredTraveling.FormBuilder
             return new HtmlString(result);
         }
     }
-
+  
     public class Dget
     {
         public string PropertyValueName { get; set; }
@@ -296,11 +341,16 @@ namespace InsuredTraveling.FormBuilder
     {
         public int Column { get; set; }
         public int Row { get; set; }
+        public string WorksheetName { get; set; }
 
         public Location(int column, int row)
         {
             Column = column;
             Row = row;
+        }
+
+        public Location()
+        {
         }
     }
 }
