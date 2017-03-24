@@ -21,13 +21,11 @@ namespace Authentication.WEB.Controllers
 
         private IOkSetupService _os;
         private IDiscountService _ds;
-        private RoleAuthorize _roleAuthorize;
 
         public PremiumController(IOkSetupService os, IDiscountService ds)
         {
             _os = os;
             _ds = ds;
-            _roleAuthorize = new RoleAuthorize();
         }
         [HttpGet]
         public IHttpActionResult Excel(int value1, int value2)
@@ -51,8 +49,9 @@ namespace Authentication.WEB.Controllers
 
         [HttpPost]
         [Route("Calculate")]
-        public IHttpActionResult Code(Policy policy)
+        public IHttpActionResult Code(string username, Policy policy)
         {
+            RoleAuthorize _roleAuthorize = new RoleAuthorize();
             ok_setup Last_Entry = _os.GetLast();
 
             if (Last_Entry.SSNValidationActive == 1)
@@ -98,17 +97,17 @@ namespace Authentication.WEB.Controllers
                 Premium Premium = new Premium();
                 Premium.PremiumAmount = (int)ratingEngineService.totalPremium(policy);
 
-                if (_roleAuthorize.IsUser("Broker manager"))
+                if (_roleAuthorize.IsUser("Broker manager", username))
                 {
                     if(Premium.PremiumAmount > 10000)
                     {
-                        return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded" });
+                        return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded", PremiumAmount = Premium.PremiumAmount });
                     }
-                }else if (_roleAuthorize.IsUser("Broker"))
+                }else if (_roleAuthorize.IsUser("Broker", username))
                 {
                     if (Premium.PremiumAmount > 10000)
                     {
-                        return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded" });
+                        return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded", PremiumAmount = Premium.PremiumAmount });
                     }
                 }
                 return Ok(new { PremiumAmount = Premium.PremiumAmount });

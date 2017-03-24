@@ -643,16 +643,15 @@
             $(".loader").css("display", "inline");
             $.ajax({
                 type: "POST",
-                url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/Premium/Calculate",
+                url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/Premium/Calculate?username=@System.Web.HttpContext.Current.User.Identity.Name",
                 data: $("#policy_form").serialize(),
                 success: function (result) {
-                    console.log(result.status);
-
-                    //This code is for AdvancedSSN validation in premium controler
+                    //This code is for AdvancedSSN validation in premium controler & if Premium Amount exceeded 
                     if(result.status != null && result.isValid==false){
-                        console.log(result.message);
                         if (result.message == "ThePremiumIsExceeded") {
-                            $("#errorMessage").text("@Resource.Error_EMBG_Val_Advanced");
+                            $("#totalPremium").val(result.PremiumAmount);
+                            $("#totalPremium").show();
+                            $("#errorMessage").text("@Resource.PolicyThePremiumIsExceededMsg");
                             $(".loader").css("display", "none");
                         } else {
                             $("#errorMessage").text("@Resource.Error_EMBG_Val_Advanced");
@@ -661,13 +660,10 @@
                             $("#totalPremiumLabel").hide();
                             $("#totalPremium").val("");
                         }
-
                     }
                     else{
                         $("#SSN").attr("style", "border: 1px solid #2c3e50;");
-
-                            $(".loader").css("display", "none");
-                        console.log(result.PremiumAmount);
+                        $(".loader").css("display", "none");
                         $("#totalPremium").val(result.PremiumAmount);
                         $("#totalPremium").show();
                         $("#totalPremiumLabel").show();
