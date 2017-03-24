@@ -300,7 +300,7 @@
             </div>
             @if (!isClaimsAdjuster)
             {
-                <div class="col-md-offset-4 col-md-4">
+                <div class="col-md-4">
                     <div class="hover-tooltip">
                         <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddPolicyButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
                     </div>
@@ -1175,19 +1175,13 @@
         //}
         getLastTenMessages(requestId);
     }
+
     function ShowSearchResultsInExcel()
     {
         var urlString = "http://localhost:19655/Search/ShowPoliciesSearchResultInExcel?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val();
         window.location.href = urlString;
-
-        //$.ajax({
-        //    url: "/Search/ShowPoliciesSearchResultInExcel?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val(),
-        //    type: "GET",
-        //    success: function (data) {
-
-        //    }
-        //});
     }
+
     function SearchPolycies() {
         $("#tablePolicies").DataTable().destroy();
         $("#tablePolicies").DataTable({
