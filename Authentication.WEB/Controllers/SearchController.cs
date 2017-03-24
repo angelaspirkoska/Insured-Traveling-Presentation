@@ -530,8 +530,8 @@ namespace InsuredTraveling.Controllers
 
         //0 - get last years quotes/policies per months, 1 - get last month quotes/policies per days, 2 - get last week quotes/policies per days
         [HttpGet]
-        [Route("GetBrokersQuotesConversion")]
-        public JObject GetBrokersQuotesConversion(int period)
+        [Route("GetBrokersQuotesPoliciesConversion")]
+        public JObject GetBrokersQuotesPoliciesConversion(int period)
         {
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUserId = _us.GetUserIdByUsername(username);
@@ -561,7 +561,7 @@ namespace InsuredTraveling.Controllers
                                                     x.Date_Created <= lessThenDate).ToList();
                             JObject jb = new JObject();
                             jb.Add("Date", greaterThenDate.ToShortDateString());
-                            jb.Add("QuotesToPoliciesRatio", policiesPerMonth.Count() != 0 ? ((double)quotesPerMonth.Count()/(double)policiesPerMonth.Count()).ToString() : "0");
+                            jb.Add("QuotesToPoliciesRatio", policiesPerMonth.Count() != 0 ? (((double)quotesPerMonth.Count() + policiesPerMonth.Count()) /(double)policiesPerMonth.Count()).ToString() : "0");
                             jsonArray.Add(jb);
                         }
                         break;
@@ -585,7 +585,7 @@ namespace InsuredTraveling.Controllers
 
                             JObject jb = new JObject();
                             jb.Add("Date", dateDay.ToShortDateString());
-                            jb.Add("QuotesToPoliciesRatio", policiesPerDay.Count() != 0 ? ((double)quotesPerDay.Count() / (double)policiesPerDay.Count()).ToString() : "0");
+                            jb.Add("QuotesToPoliciesRatio", policiesPerDay.Count() != 0 ? ((double)(quotesPerDay.Count() + policiesPerDay.Count() )/ (double)policiesPerDay.Count()).ToString() : "0");
                             jsonArray.Add(jb);
                         }
                         break;
@@ -609,7 +609,7 @@ namespace InsuredTraveling.Controllers
 
                             JObject jb = new JObject();
                             jb.Add("Date", dateDay.ToShortDateString());
-                            jb.Add("QuotesToPoliciesRatio", policiesPerDay.Count() != 0 ? ((double)quotesPerDay.Count() / (double)policiesPerDay.Count()).ToString() : "0");
+                            jb.Add("QuotesToPoliciesRatio", policiesPerDay.Count() != 0 ? ((double)(quotesPerDay.Count() + policiesPerDay.Count()) / (double)policiesPerDay.Count()).ToString() : "0");
                             jsonArray.Add(jb);
                         }
                         break;
