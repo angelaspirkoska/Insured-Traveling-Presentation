@@ -818,6 +818,7 @@
     <Folder Include="DocumentsFirstNoticeOfLoss\HealthInsurance\" />
     <Folder Include="DocumentsFirstNoticeOfLoss\Invoices\" />
     <Folder Include="DocumentsFirstNoticeOfLoss\LuggageInsurance\" />
+    <Folder Include="ExcelSearchResults\Policies\" />
     <Folder Include="News\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ChangeLanuage\" />

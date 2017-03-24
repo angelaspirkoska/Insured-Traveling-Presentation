@@ -295,6 +295,9 @@
             <div class="col-md-4">
                 <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchPolycies()" type="button" style="float:left;" />
             </div>
+            <div class="col-md-4">
+                <input id="SearchResultsExcel"  class="btn btn-primary btn-block btn-material-design-success" value="Show search results in excel" onclick="ShowSearchResultsInExcel()" type="button" style="float:left;" />
+            </div>
             @if (!isClaimsAdjuster)
             {
                 <div class="col-md-offset-4 col-md-4">
@@ -303,7 +306,6 @@
                     </div>
                 </div>
             }
-
         </div>
         <br />
     </form>
@@ -996,12 +998,13 @@
                 type: "POST",
                 dataType: "json",
                 data: { Prefix: request.term },
-                success: function (data) {
-                    response($.map(data, function (item) {
-                        return { label: item.Name, value: item.Name };
-                    }))
+                success: function(data) {
+                    response($.map(data,
+                        function(item) {
+                            return { label: item.Name, value: item.Name };
+                        }))
                 }
-            })
+            });
         },
         messages: {
             noResults: "", results: ""
@@ -1172,7 +1175,19 @@
         //}
         getLastTenMessages(requestId);
     }
+    function ShowSearchResultsInExcel()
+    {
+        var urlString = "http://localhost:19655/Search/ShowPoliciesSearchResultInExcel?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val();
+        window.location.href = urlString;
 
+        //$.ajax({
+        //    url: "/Search/ShowPoliciesSearchResultInExcel?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val(),
+        //    type: "GET",
+        //    success: function (data) {
+
+        //    }
+        //});
+    }
     function SearchPolycies() {
         $("#tablePolicies").DataTable().destroy();
         $("#tablePolicies").DataTable({
