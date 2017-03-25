@@ -145,6 +145,16 @@ namespace InsuredTraveling.DI
             return _db.travel_policy.Where(x => x.Created_By == userId && x.End_Date < dateFrom && x.End_Date > DateTime.Now).ToList();
         }
 
+        public List<travel_policy> GetBrokerManagerExpiringPolicies(string userId, DateTime dateFrom)
+        {
+            if (userId == "")
+                return null;
+            var user = _db.aspnetusers.FirstOrDefault(x => x.Id == userId);
+            List<string> brokersUsers =
+                _db.aspnetusers.Where(x => x.CreatedBy == user.Id).Select(x => x.Id).ToList();
+            return _db.travel_policy.Where(x => (x.Created_By == userId || brokersUsers.Contains(x.Created_By)) && x.End_Date < dateFrom && x.End_Date > DateTime.Now).ToList();
+        }
+
         public List<travel_policy> GetBrokersPolicies(string userId, DateTime dateFrom)
         {
             if (userId == "")

@@ -56,6 +56,8 @@ namespace InsuredTraveling.Models
 
         public DateTime ?CreatedOn { get; set; }
 
+        public string CreatedBy { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

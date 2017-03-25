@@ -4,7 +4,7 @@
     RoleAuthorize r = new RoleAuthorize();
 }
 
-@if (!r.IsUser("Broker"))
+@if (!(r.IsUser("Broker") || r.IsUser("Broker manager")))
 {
     <div class="row">
         <div class="container">
@@ -95,7 +95,7 @@ else
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#DaysBeforeExpiring").val(5);
+        $("#DaysBeforeExpiring").val(7);
         $("#tablePolicies").DataTable().destroy();
         $("#tablePolicies").DataTable();
         SearchPoliciesExpiring();

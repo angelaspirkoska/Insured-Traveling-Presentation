@@ -11,7 +11,8 @@ namespace InsuredTraveling.DI
 {
    public interface IPolicyService
    {
-       List<travel_policy> GetBrokerManagerBrokersQuotesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country,
+        List<travel_policy> GetBrokerManagerExpiringPolicies(string userId, DateTime dateFrom);
+        List<travel_policy> GetBrokerManagerBrokersQuotesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country,
            string UserId, string PolicyNumber);
         List<travel_policy> GetBrokerManagerBrokersPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy,
            int? Country, string UserId, string PolicyNumber);

@@ -48,12 +48,12 @@ namespace InsuredTraveling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<documents_first_notice_of_loss> documents_first_notice_of_loss { get; set; }
         public virtual insured insured { get; set; }
+        public virtual travel_policy travel_policy { get; set; }
         public virtual health_insurance health_insurance { get; set; }
         public virtual luggage_insurance luggage_insurance { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
         public virtual aspnetuser aspnetuser { get; set; }
         public virtual aspnetuser aspnetuser1 { get; set; }
-        public virtual travel_policy travel_policy { get; set; }
     }
 }
