@@ -449,7 +449,7 @@
         var future = new Date();
         $("#Start_Date").val($.datepicker.formatDate(dateFormatString, new Date(future.setDate(future.getDate() + 1))));
         $("#End_Date").val($.datepicker.formatDate(dateFormatString, new Date(future.setDate(future.getDate() + 9))));
-        
+
         $("#Start_Date").datepicker({
             dateFormat: dateFormatString,
             onSelect: function (selected) {
@@ -673,13 +673,20 @@
                 url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Policy/Index",
                 data: $("#policy_form").serialize(),
                 success: function (result) {
+                    //This code is for AdvancedSSN validation in premium controler & if Premium Amount exceeded
                     if(result.status != null && result.isValid==false){
-                        console.log(result.message);
-                        $("#errorMessage").text("@Resource.Error_EMBG_Val_Advanced");
-                        $(".loader").css("display", "none");
-                        $("#SSN").attr("style", "border: 1px solid red;");
-                        $("#totalPremiumLabel").hide();
-                        $("#totalPremium").val("");
+                        if (result.message == "ThePremiumIsExceeded") {
+                            $("#totalPremium").val(result.PremiumAmount);
+                            $("#totalPremium").show();
+                            $("#errorMessage").text("@Resource.PolicyThePremiumIsExceededMsg");
+                            $(".loader").css("display", "none");
+                        } else {
+                            $("#errorMessage").text("@Resource.Error_EMBG_Val_Advanced");
+                            $(".loader").css("display", "none");
+                            $("#SSN").attr("style", "border: 1px solid red;");
+                            $("#totalPremiumLabel").hide();
+                            $("#totalPremium").val("");
+                        }
                     }
                     else{
                         $("#SSN").attr("style", "border: 1px solid #2c3e50;");
