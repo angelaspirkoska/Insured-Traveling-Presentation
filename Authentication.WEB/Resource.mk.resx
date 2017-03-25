@@ -1299,6 +1299,15 @@
   <data name="Client_DataNotValid" xml:space="preserve">
     <value>Податоците не се во соодветен формат. Внесете точни податоци</value>
   </data>
+  <data name="Female" xml:space="preserve">
+    <value>Женски</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Машки</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Друго</value>
+  </data>
   <data name="SSNNotValid" xml:space="preserve">
     <value>Матичниот број не е валиден</value>
   </data>

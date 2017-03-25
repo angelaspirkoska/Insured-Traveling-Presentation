@@ -601,6 +601,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Female.
+        /// </summary>
+        public static string Female {
+            get {
+                return ResourceManager.GetString("Female", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accident Date.
         /// </summary>
         public static string FNOL_AccidentDate {
@@ -1294,6 +1303,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Male.
+        /// </summary>
+        public static string Male {
+            get {
+                return ResourceManager.GetString("Male", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The username or password is incorrect. Please try again..
         /// </summary>
         public static string Msg_IncorrectUserPass {
@@ -1443,6 +1461,15 @@ namespace InsuredTraveling {
         public static string OnlyNumbers {
             get {
                 return ResourceManager.GetString("OnlyNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        public static string Other {
+            get {
+                return ResourceManager.GetString("Other", resourceCulture);
             }
         }
         

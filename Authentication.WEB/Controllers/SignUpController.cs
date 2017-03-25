@@ -141,17 +141,17 @@ namespace InsuredTraveling.Controllers
             List<SelectListItem> data = new List<SelectListItem>();
             data.Add(new SelectListItem
             {
-                Text = "Female",
+                Text = InsuredTraveling.Resource.Female,
                 Value = "Female"
             });
             data.Add(new SelectListItem
             {
-                Text = "Male",
+                Text = InsuredTraveling.Resource.Male,
                 Value = "Male"
             });
             data.Add(new SelectListItem
             {
-                Text = "Other",
+                Text = InsuredTraveling.Resource.Other,
                 Value = "Other"
             });
             return data;
