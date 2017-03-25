@@ -52,6 +52,26 @@ namespace Authentication.WEB.Controllers
             _roleAuthorize = new RoleAuthorize();
             _os = os;
         }
+        [HttpGet]
+        [SessionExpire]
+        public async Task<ActionResult> Index()
+        {
+            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
+
+            var type_policies = GetTypeOfPolicy();
+            var countries = GetTypeOfCountry();
+            var franchises = GetTypeOfFranchise();
+            var additional_charges = GetTypeOfAdditionalCharges();
+
+            await Task.WhenAll(type_policies, countries, franchises, additional_charges);
+
+            ViewBag.TypeOfPolicy = type_policies.Result;
+            ViewBag.Countries = countries.Result;
+            ViewBag.Franchise = franchises.Result;
+            ViewBag.additional_charges = additional_charges.Result;
+            return View();
+        }
 
         [HttpPost]
         public async Task<JsonResult> Index(Policy policy)
@@ -120,28 +140,6 @@ namespace Authentication.WEB.Controllers
             {
                 return Json(new { isValid = false, status = "error", message = "Внесете ги сите полиња!" });
             }
-        }
-
-        // GET: Policy
-        [HttpGet]
-        [SessionExpire]
-        public async Task<ActionResult> Index()
-        {
-            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
-
-            var type_policies = GetTypeOfPolicy();
-            var countries = GetTypeOfCountry();
-            var franchises = GetTypeOfFranchise();
-            var additional_charges = GetTypeOfAdditionalCharges();
-
-            await Task.WhenAll(type_policies, countries, franchises, additional_charges);
-
-            ViewBag.TypeOfPolicy = type_policies.Result;
-            ViewBag.Countries = countries.Result;
-            ViewBag.Franchise = franchises.Result;
-            ViewBag.additional_charges = additional_charges.Result;       
-            return View();
         }
 
         public async Task<ActionResult> Preview(int policyId)

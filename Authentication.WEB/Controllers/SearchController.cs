@@ -16,6 +16,7 @@ using Microsoft.Office.Interop.Word;
 using System.IO;
 using System.Security.Policy;
 using OfficeOpenXml;
+using System.Globalization;
 
 namespace InsuredTraveling.Controllers
 {
@@ -236,11 +237,13 @@ namespace InsuredTraveling.Controllers
                                    string operatorDateS, 
                                    string PolicyNumber)
         {
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
 
-            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : Convert.ToDateTime(startDate);
-            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : Convert.ToDateTime(endDate);
-            DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : Convert.ToDateTime(dateI);
-            DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : Convert.ToDateTime(dateS);
+            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : DateTime.ParseExact(startDate, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : DateTime.ParseExact(endDate, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : DateTime.ParseExact(dateI, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : DateTime.ParseExact(dateS, dateTimeFormat, CultureInfo.InvariantCulture);
 
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUser = _us.GetUserIdByUsername(username);
@@ -634,9 +637,11 @@ namespace InsuredTraveling.Controllers
                                   string operatorEndDate,
                                   string PolicyNumber)
         {
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
 
-            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : Convert.ToDateTime(startDate);
-            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : Convert.ToDateTime(endDate);
+            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : DateTime.ParseExact(startDate, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : DateTime.ParseExact(endDate, dateTimeFormat, CultureInfo.InvariantCulture);
 
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUser = _us.GetUserIdByUsername(username);
@@ -783,6 +788,11 @@ namespace InsuredTraveling.Controllers
 
             List<first_notice_of_loss> fnol = new List<first_notice_of_loss>();
 
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+
+            DateTime dateAdded = String.IsNullOrEmpty(DateAdded) ? new DateTime() : DateTime.ParseExact(DateAdded, dateTimeFormat, CultureInfo.InvariantCulture);
+
             if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
             {
                 fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
@@ -806,7 +816,6 @@ namespace InsuredTraveling.Controllers
 
             if (!String.IsNullOrEmpty(DateAdded))
             {
-                DateTime dateAdded = Convert.ToDateTime(DateAdded);
                 switch (operatorDateAdded)
                 {
                     case "<": fnol = fnol.Where(x => x.additional_info.Datetime_accident < dateAdded).ToList(); break;
@@ -1126,10 +1135,13 @@ namespace InsuredTraveling.Controllers
             string operatorDateS,
             string PolicyNumber)
         {
-            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : Convert.ToDateTime(startDate);
-            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : Convert.ToDateTime(endDate);
-            DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : Convert.ToDateTime(dateI);
-            DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : Convert.ToDateTime(dateS);
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+
+            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : DateTime.ParseExact(startDate, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : DateTime.ParseExact(endDate, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : DateTime.ParseExact(dateI, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : DateTime.ParseExact(dateS, dateTimeFormat, CultureInfo.InvariantCulture);
 
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUser = _us.GetUserIdByUsername(username);
@@ -1222,10 +1234,10 @@ namespace InsuredTraveling.Controllers
                     worksheet.Cells[counter, 1].Value = policy.Policy_Number;
                     worksheet.Cells[counter, 2].Value = policy.insured.Name + " " + policy.insured.Lastname;
                     worksheet.Cells[counter, 3].Value = policy.country.countries_name.FirstOrDefault(x => x.countries_id == policy.CountryID).name;
-                    worksheet.Cells[counter, 4].Value = policy.Start_Date.ToShortDateString();
-                    worksheet.Cells[counter, 5].Value = policy.End_Date.ToShortDateString();
-                    worksheet.Cells[counter, 6].Value = policy.Date_Created.ToShortDateString();
-                    worksheet.Cells[counter, 7].Value = policy.Date_Cancellation.HasValue == true ? policy.Date_Cancellation.Value.ToShortDateString() : "";
+                    worksheet.Cells[counter, 4].Value = policy.Start_Date.ToString(dateTimeFormat, new CultureInfo("en-US"));
+                    worksheet.Cells[counter, 5].Value = policy.End_Date.ToString(dateTimeFormat, new CultureInfo("en-US"));
+                    worksheet.Cells[counter, 6].Value = policy.Date_Created.ToString(dateTimeFormat, new CultureInfo("en-US"));
+                    worksheet.Cells[counter, 7].Value = policy.Date_Cancellation.HasValue == true ? policy.Date_Cancellation.Value.ToString(dateTimeFormat, new CultureInfo("en-US")) : "";
 
                     counter++;
                 }
