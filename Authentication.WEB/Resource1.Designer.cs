@@ -502,6 +502,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter all data.
+        /// </summary>
+        public static string EnterAllData {
+            get {
+                return ResourceManager.GetString("EnterAllData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Email Address..
         /// </summary>
         public static string Error_Email {

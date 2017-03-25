@@ -1293,4 +1293,7 @@
   <data name="PolicyThePremiumIsExceededMsg" xml:space="preserve">
     <value>Вредноста на премијата е надмината</value>
   </data>
+  <data name="EnterAllData" xml:space="preserve">
+    <value>Внесете ги сите податоци</value>
+  </data>
 </root>

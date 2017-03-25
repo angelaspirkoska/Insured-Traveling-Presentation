@@ -138,7 +138,7 @@ namespace Authentication.WEB.Controllers
             }
             else
             {
-                return Json(new { isValid = false, status = "error", message = "Внесете ги сите полиња!" });
+                return Json(new { isValid = false, status = "error", message = InsuredTraveling.Resource.EnterAllData });
             }
         }
 
