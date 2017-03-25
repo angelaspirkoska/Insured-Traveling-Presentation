@@ -385,6 +385,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The data is not valid. Enter valid data.
+        /// </summary>
+        public static string Client_DataNotValid {
+            get {
+                return ResourceManager.GetString("Client_DataNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Birth Date.
         /// </summary>
         public static string Client_DateBirth {
@@ -3387,6 +3396,15 @@ namespace InsuredTraveling {
         public static string SSNNotFoundMsg {
             get {
                 return ResourceManager.GetString("SSNNotFoundMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSN number is not valid.
+        /// </summary>
+        public static string SSNNotValid {
+            get {
+                return ResourceManager.GetString("SSNNotValid", resourceCulture);
             }
         }
         

@@ -1296,4 +1296,10 @@
   <data name="EnterAllData" xml:space="preserve">
     <value>Внесете ги сите податоци</value>
   </data>
+  <data name="Client_DataNotValid" xml:space="preserve">
+    <value>Податоците не се во соодветен формат. Внесете точни податоци</value>
+  </data>
+  <data name="SSNNotValid" xml:space="preserve">
+    <value>Матичниот број не е валиден</value>
+  </data>
 </root>

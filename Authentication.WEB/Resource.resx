@@ -1302,4 +1302,10 @@
   <data name="EnterAllData" xml:space="preserve">
     <value>Please enter all data</value>
   </data>
+  <data name="Client_DataNotValid" xml:space="preserve">
+    <value>The data is not valid. Enter valid data</value>
+  </data>
+  <data name="SSNNotValid" xml:space="preserve">
+    <value>SSN number is not valid</value>
+  </data>
 </root>

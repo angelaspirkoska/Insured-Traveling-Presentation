@@ -14,27 +14,26 @@
         <div><h5>@InsuredTraveling.Resource.Required <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:red"></span></h5></div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @if (ViewBag.Message != null){
-                if (ViewBag.Message == "Успешно го креиравте клиентот!")
-                {
-                  
-                    <div class="row" style="width:35%;">
-                        <div class="alert alert-dismissible alert-success" style="margin-top: 27%;margin-left:12px; width:211%">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <span>@InsuredTraveling.Resource.Client_SuccessfullyAdded</span>
-                        </div>
-                    </div>
-            }
-            else
-            {
-                <div class="row" style="width:35%;">
-                    <div class="alert alert-dismissible alert-danger" style="margin-top: 27%; margin-left:12px; width:211%">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <span>@InsuredTraveling.Resource.Client_NotSuccessfullyAdded</span>
-                    </div>
+
+        @if (ViewBag.SuccessMessage != null)
+        {
+            <div class="row" style="width:35%;">
+                <div class="alert alert-dismissible alert-success" style="margin-top: 27%;margin-left:12px; width:211%">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span>@ViewBag.SuccessMessage</span>
                 </div>
-                }
+            </div>
         }
+        @if(ViewBag.ErrorMessage != null)
+        {
+        <div class="row" style="width:35%;">
+            <div class="alert alert-dismissible alert-danger" style="margin-top: 27%; margin-left:12px; width:211%">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span>@ViewBag.ErrorMessage</span>
+            </div>
+        </div>
+        }
+
         <div class="row">
             <div class="col-md-5">
                 <div class="form-group">
@@ -80,20 +79,20 @@
                             </div>
                             @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control", @placeholder = dateTimeFormat } })
                         </div>
-                    </div>                    
-                    @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "col-md-6 text-danger" })
-                </div> 
-                @*<div class="form-group">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
-                    @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "" })<br />
-                    <div style="margin-bottom:10px; padding:0;">
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
-                            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "col-md-6 text-danger" })
-                        </div>
                     </div>
-                </div>*@
+                    @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "col-md-6 text-danger" })
+                </div>
+                @*<div class="form-group">
+                        <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                        @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "" })<br />
+                        <div style="margin-bottom:10px; padding:0;">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "col-md-6 text-danger" })
+                            </div>
+                        </div>
+                    </div>*@
                 <div class="form-group">
                     <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
                     @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "" })<br />
