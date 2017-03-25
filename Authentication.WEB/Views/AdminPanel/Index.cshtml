@@ -213,8 +213,9 @@
                         <div class="form-group col-md-6">
                             <label class="control-label col-md-4">@InsuredTraveling.Resource.AdminPanel_DiscountName :</label>
                             <div class="col-md-8" style="margin-bottom:10px">
-                                <input type="text" class="form-control" name="Discount_Name" />
+                                <input type="text" class="form-control" id="Discount_Name" name="Discount_Name" onblur = "FindName()" />
                             </div>
+                            <span style="color: red" id="UsernameMsg"></span>
                         </div>
                    
                     
@@ -237,6 +238,7 @@
                                     </span>
                                 </div>
                             </div>
+                           
 
                         </div>
                 
@@ -284,6 +286,7 @@
 </div>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -296,13 +299,13 @@
         $("#dodadiKlient").removeClass("active-tab");
         $("#btnCreateUser").removeClass("active-tab");
         $("#btnCreateUser").removeClass("active-tab");
-        $("#DiscountMenu").removeClass("active-tab");       
-    
-      
+        $("#DiscountMenu").removeClass("active-tab");
+
+
     });
 
 
-   
+
 
     function AddRole() {
         $("#addRoleForm").toggle();
@@ -315,9 +318,25 @@
     function AddOK_SetupRecord() {
         $("#menu1").removeAttr('class');
         $("#menu1").attr("class", "tab-pane fade in active");
-        $("#addOK_setupForm").toggle();      
+        $("#addOK_setupForm").toggle();
 
     }
+
+    function FindName() {
+        $.ajax({
+            type: "POST",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/OkSetup/FindDiscountName",
+            data: jQuery.param({ Discount_Name: $("#Discount_Name").val() })
+        })
+
+    .done(function (result) {
+        $("#UsernameMsg").text(" ");
+    })
+    .fail(function () {
+        $("#UsernameMsg").text("@InsuredTraveling.Resource.AdminPanel_DiscountNameErrorMessage");
+
+    });
+    };
 
     $("#DiscountStartDate").datepicker({
         dateFormat: "mm/dd/yy",
@@ -325,9 +344,11 @@
             $("#DiscountEndDate").datepicker("option", "minDate", selected);
             var startDate = new Date($("#DiscountStartDate").val()).getTime();
             var endDate = new Date($("#DiscountEndDate").val()).getTime();
-       
+
         }
     });
+
+
 
     $("#DiscountEndDate").datepicker({
         dateFormat: "mm/dd/yy",
@@ -336,9 +357,9 @@
 
             var startDate = new Date($("#DiscountStartDate").val()).getTime();
             var endDate = new Date($("#DiscountEndDate").val()).getTime();
-         
+
         }
     });
 
-   
+
 </script>

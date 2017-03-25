@@ -97,7 +97,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only latin letters.
+        ///   Looks up a localized string similar to Discount.
         /// </summary>
         public static string AdminPanel_Discount {
             get {
@@ -147,6 +147,15 @@ namespace InsuredTraveling {
         public static string AdminPanel_DiscountName {
             get {
                 return ResourceManager.GetString("AdminPanel_DiscountName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discount code already exist..
+        /// </summary>
+        public static string AdminPanel_DiscountNameErrorMessage {
+            get {
+                return ResourceManager.GetString("AdminPanel_DiscountNameErrorMessage", resourceCulture);
             }
         }
         
@@ -1546,6 +1555,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wrong discount code..
+        /// </summary>
+        public static string Policy_DiscountErrorMessage {
+            get {
+                return ResourceManager.GetString("Policy_DiscountErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duration.
         /// </summary>
         public static string Policy_Duration {
@@ -1969,6 +1987,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discount Code.
+        /// </summary>
+        public static string PolicyDiscountCode {
+            get {
+                return ResourceManager.GetString("PolicyDiscountCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preview Policy.
         /// </summary>
         public static string PolicyPreview {
@@ -2199,6 +2226,15 @@ namespace InsuredTraveling {
         public static string PolicyPrint_ValidUntil {
             get {
                 return ResourceManager.GetString("PolicyPrint_ValidUntil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The premium value is exceeded.
+        /// </summary>
+        public static string PolicyThePremiumIsExceededMsg {
+            get {
+                return ResourceManager.GetString("PolicyThePremiumIsExceededMsg", resourceCulture);
             }
         }
         

@@ -25,9 +25,6 @@ namespace InsuredTraveling.DI
                 Selected = (p.Name == "End user") ? true : false
             });
 
-
-            
-
             return roles;
         }
     }

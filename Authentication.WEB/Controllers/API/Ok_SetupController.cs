@@ -6,6 +6,9 @@ using System.Net.Http;
 using System.Web.Http;
 using InsuredTraveling.DI;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
+using InsuredTraveling.Models;
+using Microsoft.AspNet.Identity;
 
 namespace InsuredTraveling.Controllers.API
 {
@@ -13,11 +16,12 @@ namespace InsuredTraveling.Controllers.API
     public class Ok_SetupController : ApiController
     {
         private IOkSetupService _os;
-        
+        private IDiscountService _ds;
 
-        public Ok_SetupController(IOkSetupService os)
+        public Ok_SetupController(IOkSetupService os,IDiscountService ds)
         {
             _os = os;
+            _ds = ds;
         }
         [HttpGet]
         [Route("CheckSSN")]
@@ -38,6 +42,28 @@ namespace InsuredTraveling.Controllers.API
 
             
 
+        }
+
+        [System.Web.Http.Route("FindDiscountName")]
+        public async Task<IHttpActionResult> FindUsername(DiscountModel username)
+        {
+            if (!String.IsNullOrEmpty(username.Discount_Name))
+            {
+
+
+                if (!_ds.DiscountCodeExist(username.Discount_Name))
+                {
+                    return Ok();
+
+                }else
+                {
+                    return BadRequest();
+                }
+                
+           
+
+            }
+            return BadRequest();
         }
 
 

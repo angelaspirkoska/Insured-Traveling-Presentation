@@ -56,6 +56,8 @@ namespace Authentication.WEB.Controllers
         [HttpPost]
         public async Task<JsonResult> Index(Policy policy)
         {
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+
             ok_setup Last_Entry = _os.GetLast();
             if (Last_Entry.SSNValidationActive == 1)
             {
@@ -97,6 +99,21 @@ namespace Authentication.WEB.Controllers
                 RatingEngineService ratingEngineService = new RatingEngineService();
                 Premium Premium = new Premium();
                 Premium.PremiumAmount = (int)ratingEngineService.totalPremium(policy);
+                if (_roleAuthorize.IsUser("Broker manager", username))
+                {
+                    if (Premium.PremiumAmount > 10000)
+                    {
+                        return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded", PremiumAmount = Premium.PremiumAmount });
+                    }
+                }
+                else if (_roleAuthorize.IsUser("Broker", username))
+                {
+                    if (Premium.PremiumAmount > 10000)
+                    {
+                        return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded", PremiumAmount = Premium.PremiumAmount });
+                    }
+                }
+
                 return Json(new { PremiumAmount = Premium.PremiumAmount });
             }
             else
@@ -189,7 +206,6 @@ namespace Authentication.WEB.Controllers
 
             return View(policyPreview);
         }
-
 
         public async System.Threading.Tasks.Task<ActionResult> CreatePolicy(Policy policy)
         {
@@ -400,6 +416,10 @@ namespace Authentication.WEB.Controllers
             }else if(_roleAuthorize.IsUser("Broker"))
             {
                 InsuredUser = _iss.GetInsuredBySsnAndCreatedBy(ssn, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name));
+
+            }else if (_roleAuthorize.IsUser("Broker manager"))
+            {
+                InsuredUser = _iss.GetBrokerManagerInsuredBySsnAndCreatedBy(ssn, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name));
             }
             JObject insuredData = new JObject();
 

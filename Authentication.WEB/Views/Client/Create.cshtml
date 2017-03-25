@@ -201,6 +201,10 @@
                     text: value.code + "  " + value.name
                 }));
             });
+
+            $("#countriesCodes option[value='+389']").prop("selected", true);
+            $("#PhoneNumber").val("+389");
+
         });
         $('#countriesCodes').change(function () {
             $("#PhoneNumber").val($('#countriesCodes').val());

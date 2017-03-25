@@ -78,7 +78,7 @@
     @{
         RoleAuthorize r = new RoleAuthorize();
     }
-    @if (r.IsUser("Admin") || r.IsUser("Broker"))
+    @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Broker manager"))
     {
         <div class="row">
             <header class="well" id="HolderInformation">
@@ -164,7 +164,7 @@
                     @InsuredTraveling.Resource.Policy_IamInsured
                 </p>
             }
-            @if (r.IsUser("Admin") || r.IsUser("Broker"))
+            @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Broker manager"))
             {
                 @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "checkbox-policyholder", @ariahidden = "false", @id = "IsSamePolicyHolderInsuredAdmin" })
                 <p class="checkbox-label">
@@ -337,6 +337,7 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-4 btns-position">
             <div class="form-inline">
@@ -344,6 +345,17 @@
                     <div>
                         <input type="button" target="" id="calculateTotalPremium" value="@InsuredTraveling.Resource.Policy_CalculatePremium" class="btn btn-default btn-block" onclick="CalculateTotalPremium()" />
                     </div>
+                </div>
+            </div>
+        </div>
+       
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-5" for="DiscountCode">@InsuredTraveling.Resource.PolicyDiscountCode</label>
+                <input class="col-md-1" onclick="DiscountChange()" type="checkbox" id="DiscountCheck">
+                <div id="Discount_div" class="inputs-spacing col-md-6">
+                    <input class="form-control input-sm insuredData field-size insuredInfo text-box" id="DiscountCode" name="DiscountCode" type="text" value="">
+                    <span class="field-validation-valid text-danger" data-valmsg-for="DiscountCode" data-valmsg-replace="true"></span>
                 </div>
             </div>
         </div>
@@ -520,7 +532,9 @@
         $("#dodadiKlient").removeClass("active-tab");
         $("#btnCreateUser").removeClass("active-tab");
         $("#btnCreateUser").removeClass("active-tab");
-        
+
+        $("#Discount_div").hide();
+
 
         $('#AddOffer').on('click', function () {
             $.ajax({
@@ -689,10 +703,10 @@
                     $("#totalPremiumLabel").hide();
                     $("#totalPremium").val("");
                     $("#errorMessage").text((JSON.parse(result.responseText)).Message);
-                    
-                    
+
+
                 }
-                
+
             });
         }
         else {
@@ -707,6 +721,18 @@
             }
         }
     }
+
+
+    function DiscountChange(){
+        if($("#DiscountCheck").is(":checked") ){
+            $("#Discount_div").show();
+
+        }
+        else{
+            $("#Discount_div").hide();
+
+        }
+    };
 
     $("#policyForm").validate({
         rules: {

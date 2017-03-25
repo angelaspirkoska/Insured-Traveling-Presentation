@@ -55,7 +55,7 @@ namespace InsuredTraveling.Helpers
                 policy.Policy_HolderID = PolicyHolderId;
 
             }
-            else if (p.IsSamePolicyHolderInsured && (r.IsUser("Admin") || r.IsUser("Broker")))
+            else if (p.IsSamePolicyHolderInsured && (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Broker manager")))
             {
                 if (p.IsExistentPolicyHolder)
                 {
@@ -71,7 +71,7 @@ namespace InsuredTraveling.Helpers
             if (!p.IsSamePolicyHolderInsured)
             {
                 var ssn = "";
-                if (r.IsUser("Admin") || r.IsUser("Broker"))
+                if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Broker manager"))
                 {
                     ssn = p.PolicyHolderSSN;
                     var policyHolderId = _iss.GetInsuredIdBySsnAndCreatedBy(ssn, policy.Created_By);

@@ -370,6 +370,11 @@
                         text: value.code + "  " + value.name
                     }));
                 });
+
+            $("#countriesCodes option[value='+389']").prop("selected", true);
+            $("#countriesCodesMobile option[value='+389']").prop("selected", true);
+            $("#PhoneNumber").val("+389");
+            $("#mobilenumber").val("+389");
         });
 
         $('#countriesCodes').change(function () {
