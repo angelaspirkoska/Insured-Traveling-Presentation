@@ -39,9 +39,7 @@ namespace InsuredTraveling.Controllers.API
                 data.Add("message", true);
                 return Json(data);
             }
-
             
-
         }
 
         [System.Web.Http.Route("FindDiscountName")]
@@ -63,7 +61,7 @@ namespace InsuredTraveling.Controllers.API
            
 
             }
-            return BadRequest();
+            return Ok();
         }
 
 

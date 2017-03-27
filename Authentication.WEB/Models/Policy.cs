@@ -166,7 +166,7 @@ namespace InsuredTraveling.Models
         public int AdditionalChargeId1 { get; set; }
         public int AdditionalChargeId2 { get; set; }
 
-       
+      
         [DiscountCodeValidation(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Policy_DiscountErrorMessage")]
       
         public string DiscountCode { get; set; }
@@ -193,7 +193,7 @@ namespace InsuredTraveling.Models
             ValidationService validationService = new ValidationService();
             if (value != null)
             {
-                Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/Premium/DiscountCode");
+                Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/OkSetup/FindDiscountName");
                 HttpClient client = new HttpClient();
                 client.BaseAddress = uri;
 

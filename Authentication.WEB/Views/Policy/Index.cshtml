@@ -375,8 +375,9 @@
                 <label class="control-label col-md-5" for="DiscountCode">@InsuredTraveling.Resource.PolicyDiscountCode</label>
                 <input class="col-md-1" onclick="DiscountChange()" type="checkbox" id="DiscountCheck">
                 <div id="Discount_div" class="inputs-spacing col-md-6">
-                    <input class="form-control input-sm insuredData field-size insuredInfo text-box" id="DiscountCode" name="DiscountCode" type="text" value="">
-                    <span class="field-validation-valid text-danger" data-valmsg-for="DiscountCode" data-valmsg-replace="true"></span>
+                    <input class="form-control input-sm insuredData field-size insuredInfo text-box" id="DiscountCode" name="DiscountCode" onblur="DiscountCodeVal()" type="text" value="">
+                    <span id="discErrorMessage" class="field-validation-valid text-danger" data-valmsg-for="DiscountCode" data-valmsg-replace="true"></span>
+                   
                 </div>
             </div>
         </div>
@@ -496,7 +497,7 @@
         $("#btnCreateUser").removeClass("active-tab");
 
         $("#Discount_div").hide();
-        
+
 
         $('#AddOffer').on('click', function () {
             $.ajax({
@@ -589,6 +590,8 @@
     var i = 0;
     var errorWell = 0; // error in the well
 
+
+
     function CalculateTotalPremium() {
         var flag = ValidateFields();
         console.log(flag);
@@ -649,19 +652,19 @@
                     console.log(result.status);
 
                     //This code is for AdvancedSSN validation in premium controler
-                    if(result.status != null && result.isValid==false){
+                    if (result.status != null && result.isValid == false) {
                         console.log(result.message);
                         $("#errorMessage").text("@Resource.Error_EMBG_Val_Advanced");
                         $(".loader").css("display", "none");
                         $("#SSN").attr("style", "border: 1px solid red;");
                         $("#totalPremiumLabel").hide();
                         $("#totalPremium").val("");
-                        
+
                     }
-                    else{
+                    else {
                         $("#SSN").attr("style", "border: 1px solid #2c3e50;");
-                      
-                            $(".loader").css("display", "none");
+
+                        $(".loader").css("display", "none");
                         console.log(result.PremiumAmount);
                         $("#totalPremium").val(result.PremiumAmount);
                         $("#totalPremium").show();
@@ -675,17 +678,18 @@
                             }, 800);
                         }
 
-                    }},
+                    }
+                },
                 error: function (result) {
                     $(".loader").css("display", "none");
                     $(".hideMe").hide();
                     $("#totalPremiumLabel").hide();
                     $("#totalPremium").val("");
                     $("#errorMessage").text((JSON.parse(result.responseText)).Message);
-                    
-                    
+
+
                 }
-                
+
             });
         }
         else {
@@ -707,16 +711,37 @@
         }
     });
 
-    function DiscountChange(){
-        if($("#DiscountCheck").is(":checked") ){
+    function DiscountChange() {
+        if ($("#DiscountCheck").is(":checked")) {
             $("#Discount_div").show();
-          
+            $("#DiscountCode").addClass("mandatoryField");
         }
-        else{
+        else {
             $("#Discount_div").hide();
+            $("#DiscountCode").removeClass("mandatoryField");
 
         }
     };
+    function DiscountCodeVal() {
+        $.ajax({
+            type: "POST",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/Premium/DiscountCode",
+            data: jQuery.param({ Discount_Name: $("#DiscountCode").val() })
+        })
+
+    .done(function (result) {
+
+        $("#DiscountCode").removeClass("mandatoryField");
+        $("#discErrorMessage").text("@InsuredTraveling.Resource.Policy_DiscoundCodeValid ");
+    })
+    .fail(function () {
+       $("#discErrorMessage").text("@InsuredTraveling.Resource.Policy_DiscoundCodeError ");
+        $("#DiscountCode").addClass("mandatoryField");
+
+    });
+    }
+
+
 
     $("#policyForm").validate({
         rules: {

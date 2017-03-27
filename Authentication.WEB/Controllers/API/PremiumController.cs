@@ -7,6 +7,7 @@ using InsuredTraveling.DI;
 using InsuredTraveling.Models;
 using InsuredTraveling.ViewModels;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -118,23 +119,26 @@ namespace Authentication.WEB.Controllers
 
         [HttpPost]
         [Route("DiscountCode")]
-        public async Task<IHttpActionResult> DiscountCode(DiscountCodeValidateModel DiscountModel)
+        public async Task<IHttpActionResult> DiscountCode(DiscountModel username)
         {
          
             var data = new JObject();
-            if (!_ds.CheckCode(DiscountModel.DiscCode))
+            if (!String.IsNullOrEmpty(username.Discount_Name))
             {
+                if (!_ds.CheckCode(username.Discount_Name))
+                {
 
-                data.Add("message", false);
-                return BadRequest();
+                    data.Add("message", false);
+                    return BadRequest();
+                }
+                {
+                    data.Add("message", true);
+                    return Json(data);
+                }
+
             }
-            {
-                data.Add("message", true);
-                return Json(data);
-            }
-            
-        
-          
+            return Ok();
+
 
 
         }

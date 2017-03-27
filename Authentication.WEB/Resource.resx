@@ -1296,4 +1296,10 @@
   <data name="AdminPanel_DiscountNameErrorMessage" xml:space="preserve">
     <value>Discount code already exist.</value>
   </data>
+  <data name="Policy_DiscoundCodeError" xml:space="preserve">
+    <value>Invalid discount code</value>
+  </data>
+  <data name="Policy_DiscoundCodeValid" xml:space="preserve">
+    <value>Valid discount code</value>
+  </data>
 </root>

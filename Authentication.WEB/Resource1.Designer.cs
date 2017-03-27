@@ -1555,6 +1555,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid discount code.
+        /// </summary>
+        public static string Policy_DiscoundCodeError {
+            get {
+                return ResourceManager.GetString("Policy_DiscoundCodeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid discount code.
+        /// </summary>
+        public static string Policy_DiscoundCodeValid {
+            get {
+                return ResourceManager.GetString("Policy_DiscoundCodeValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wrong discount code..
         /// </summary>
         public static string Policy_DiscountErrorMessage {
