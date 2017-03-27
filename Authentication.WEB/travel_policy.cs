@@ -50,7 +50,7 @@ namespace InsuredTraveling
 
       
 
-        public Nullable<System.DateTime> Date_Cancellation { get; set; }
+       
 
         public Nullable<int> Discount { get; set; }
 

@@ -1290,7 +1290,7 @@
   <data name="AdminPanel_DiscountNameErrorMessage" xml:space="preserve">
     <value>Кодот за попуст веќе постои</value>
   </data>
-<<<<<<< HEAD
+
   <data name="Policy_DiscoundCodeError" xml:space="preserve">
     <value>Невалиден код за попуст</value>
   </data>
