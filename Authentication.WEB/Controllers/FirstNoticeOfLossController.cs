@@ -13,6 +13,7 @@ using AutoMapper;
 using System.IO;
 using System.Linq;
 using System.Configuration;
+using System.Globalization;
 
 namespace InsuredTraveling.Controllers
 {
@@ -512,6 +513,8 @@ namespace InsuredTraveling.Controllers
                 var SelectedInsured = _iss.GetInsuredData(SelectedInsuredId);
                 bool ISSameUserAndSelectedInsured = _us.IsSameLoggedUserAndInsured(System.Web.HttpContext.Current.User.Identity.Name, SelectedInsuredId);
                 var InsuredBankAccounts = _bas.BankAccountsByInsuredId(SelectedInsuredId);
+               
+
 
                 NewJsonInsured.Add("Id", SelectedInsured.ID);
                 NewJsonInsured.Add("FirstName", SelectedInsured.Name);
@@ -564,11 +567,16 @@ namespace InsuredTraveling.Controllers
                     var PolicyHolder = Policy.insured;
                     var PolicyHolderBankAccounts = Policy.insured.bank_account_info;
 
-                    var StartDate = Policy.Start_Date;
-                    var EndDate = Policy.End_Date;
+                    //var StartDate = Policy.Start_Date;
+                    //var EndDate = Policy.End_Date;
+                    var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                    var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+                    result.Add("StartDate", Policy.Start_Date.ToString(dateTimeFormat, new CultureInfo("en-US")));
+                    result.Add("EndDate", Policy.End_Date.ToString(dateTimeFormat, new CultureInfo("en-US")));
 
-                    result.Add("StartDate", StartDate.Year + String.Format("-{0:00}-{0:00}", StartDate.Month, StartDate.Day));
-                    result.Add("EndDate", EndDate.Year + String.Format("-{0:00}-{0:00}", EndDate.Month, EndDate.Day));
+                    //result.Add("StartDate", StartDate.Year + String.Format("-{0:00}-{0:00}", StartDate.Month, StartDate.Day));
+                    //result.Add("EndDate", EndDate.Year + String.Format("-{0:00}-{0:00}", EndDate.Month, EndDate.Day));
+
                     var PolicyHolderData = new JObject();
                     PolicyHolderData.Add("Id", PolicyHolder.ID);
                     PolicyHolderData.Add("FirstName", PolicyHolder.Name);
