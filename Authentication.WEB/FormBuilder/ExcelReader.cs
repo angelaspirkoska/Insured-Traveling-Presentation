@@ -12,34 +12,38 @@ namespace InsuredTraveling.FormBuilder
 {
     public static class ExcelReader
     {
+        public static int helperFunctions { get; set; }
         public static IHtmlString ReadExcel(string path)
         {
 
             ExcelPackage pck = new ExcelPackage(new FileInfo(path));
-
-            DetermineFunction(pck);
             var result = CreateForm(pck);
+            DetermineFunction(pck);
+            
             return result;
         }
         public static void DetermineFunction(ExcelPackage pck)
         {
-            ExcelWorksheet worksheet = pck.Workbook.Worksheets["Dget"];
+            ExcelWorksheet worksheet = pck.Workbook.Worksheets["ConfigurationSetup"];
 
             int row = 1;
-            Function result = null;
-            for (int col = 1; worksheet.Cells[col, row].Value != null; col++)
-            {
-                for (row = 1; worksheet.Cells[col, row].Value != null; row++)
-                {
-                    var formula = worksheet.Cells[col, row].Formula;
+            Function result;
+            string functionName = worksheet.Cells[row, helperFunctions - 1].Value.ToString();
+            for (row = 2; worksheet.Cells[row, helperFunctions].Value != null; row++)
+                {   
+                if (!worksheet.Cells[row, helperFunctions].Value.ToString().Equals("empty")){
+                    var formula = worksheet.Cells[row, helperFunctions].Formula;
+                    
                     if (formula.ToUpper().StartsWith("DGET"))
                     {
                         result = new Dget();
+                        
                         //da smenu da se dodava samo
-                        result.Resolver(formula, pck, worksheet);
+                        result.Resolver(formula, functionName, pck, worksheet);
                         //result = Dget.DgetResolver(formula, pck, worksheet);
                     }
-                    else if(formula.ToUpper().StartsWith("IF")){
+                    else if (formula.ToUpper().StartsWith("IF"))
+                    {
 
                     }
                     else if (formula.ToUpper().StartsWith("EXACT"))
@@ -49,13 +53,13 @@ namespace InsuredTraveling.FormBuilder
                     else
                     {
                         result = new MathOperation();
-                        result.Resolver(formula, pck, worksheet);                      
+                        result.Resolver(formula, functionName, pck, worksheet);
                     }
-                 }
-                row = 1;
+                }
+
             }
-               
-          }
+
+        }
       
         public static HtmlString CreateForm(ExcelPackage pck)
         {
@@ -103,7 +107,7 @@ namespace InsuredTraveling.FormBuilder
                     case "CSSStyle": cssIndex = i; break;
                     case "VariableName": variableName = i; break;
                     case "HelpingFunc": helpingFunc = i; break;
-                    case "FuncOutput": funcOutput = i; break;
+                    case "FuncOutput": helperFunctions = i; break;
                     case "MidResult": midResult = i; break;
                     default: continue;
                 }
@@ -189,7 +193,7 @@ namespace InsuredTraveling.FormBuilder
        public abstract class Function
         {
             public string Name { get; set; }
-          public abstract void Resolver(string formula, ExcelPackage pck, ExcelWorksheet current);
+          public abstract void Resolver(string formula, string formulaName, ExcelPackage pck, ExcelWorksheet current);
 
         }
     public class Dget : Function
@@ -203,12 +207,12 @@ namespace InsuredTraveling.FormBuilder
             //TODO 
         }
 
-        public override void Resolver(string formula, ExcelPackage pck, ExcelWorksheet current)
+        public override void Resolver(string formula, string formulaName, ExcelPackage pck, ExcelWorksheet current)
         {
             Regex regex = new Regex(@".+\((.+)\)");
             Match match = regex.Match(formula);
-            ExcelWorksheet dgetWorksheet = current;
-            Dget result = new Dget();
+            ExcelWorksheet dgetWorksheet = current;          
+            Name = formulaName;
 
             if (match.Success)
             {
@@ -306,20 +310,39 @@ namespace InsuredTraveling.FormBuilder
         public string OperandLeft { get; set; }
         public string OperandRight { get; set; }
 
-        public override void Resolver(string formula, ExcelPackage pck, ExcelWorksheet current)
+        public override void Resolver(string formula, string formulaName, ExcelPackage pck, ExcelWorksheet current)
         {
+            Name = formulaName;
             string[] operands;
-            if (formula.Contains("+"))
+            var minus = '-';
+            var plus = '+';
+            var multiplication = '*';
+            var division = '/';
+            if (formula.Contains(minus))
             {
-                Operation = '+';
-                operands = formula.Split(Operation);
-                //da proveru dali e broj samo ili ima i bukve
-                //da ga zacuvam operant
+                Operation = minus;
+            }
+            else if (formula.Contains(plus))
+            {
+                Operation = plus;
+            }
+            else if (formula.Contains(multiplication))
+            {
+                Operation = multiplication;
+            }
+            else if (formula.Contains(division))
+            {
+                Operation = division;
+            }
+
+            operands = formula.Split(Operation);
                 Regex regex = new Regex(@"\D");
                 Match match = regex.Match(operands[0]);
                 if (match.Success)
                 {                   
                     var location = Location.GetLocation(operands[0], current);
+                    var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
+                    OperandLeft = worksheet.Cells[location.Column, location.Row-1].Value.ToString();
                 }
                 else
                 {
@@ -328,17 +351,15 @@ namespace InsuredTraveling.FormBuilder
                 match = regex.Match(operands[1]);
                 if (match.Success)
                 {
-
+                    var location = Location.GetLocation(operands[1], current);
+                    var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
+                    OperandRight = worksheet.Cells[location.Column - 1, location.Row].Value.ToString();
                 }
                 else
                 {
                     OperandRight = operands[1];
                 }
-
-                //ako ne e samo nekoja vrednost, ako e lokacija sto da pravu ja sas toj?
-
-            }
-            return;
+            
         }
         }
     public class Location
@@ -386,7 +407,9 @@ namespace InsuredTraveling.FormBuilder
                 rowInt += System.Convert.ToInt32(row[row.Length - 1]) - System.Convert.ToInt32('A') + 1;
 
                 int columnInt = Convert.ToInt32(match.Groups[2].Value);
-                return new Location(columnInt, rowInt);
+                result.Column = columnInt;
+                result.Row = rowInt;
+                return result;
             }
             return null;
         }
