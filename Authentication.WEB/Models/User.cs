@@ -76,7 +76,6 @@ namespace InsuredTraveling.Models
         [Display(Name = "User_PassportNumber", ResourceType = typeof(Resource))]
         public string PassportNumber { get; set; }
 
-        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         [Display(Name = "User_DateOfBirth", ResourceType = typeof(Resource))]
@@ -93,7 +92,7 @@ namespace InsuredTraveling.Models
 
         [Display(Name = "User_Role", ResourceType = typeof(Resource))]
         public string Role { get; set; }
-
+        public string CreatedBy { get; set; }
     }
 
     public class SmsCodeVerify

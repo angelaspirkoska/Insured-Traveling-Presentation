@@ -21,6 +21,16 @@ namespace InsuredTraveling.DI
             return Insured.ID;
         }
 
+        public type_insured GetInsuredType()
+        {
+            return _db.type_insured.Where(x => x.Name == "insured").FirstOrDefault();
+        }
+
+        public List<type_insured> GetAllInsuredTypes()
+        {
+            return _db.type_insured.ToList();
+        }
+
         public insured Create()
         {
             return _db.insureds.Create();
@@ -75,8 +85,17 @@ namespace InsuredTraveling.DI
             return insured;
         }
 
+        public insured GetBrokerManagerInsuredBySsnAndCreatedBy(string Ssn, string userId)
+        {
+            var user = _db.aspnetusers.FirstOrDefault(x => x.Id == userId);
 
-        
+            List<string> brokersUsers =
+                _db.aspnetusers.Where(x => x.CreatedBy == user.Id).Select(x => x.Id).ToList();
+
+            var insured = _db.insureds.FirstOrDefault(x => x.SSN == Ssn && brokersUsers.Contains(x.Created_By));
+            return insured;
+        }
+
 
         public void UpdateInsuredData(insured insured)
         {

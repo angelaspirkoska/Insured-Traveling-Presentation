@@ -385,6 +385,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The data is not valid. Enter valid data.
+        /// </summary>
+        public static string Client_DataNotValid {
+            get {
+                return ResourceManager.GetString("Client_DataNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Birth Date.
         /// </summary>
         public static string Client_DateBirth {
@@ -502,6 +511,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter all data.
+        /// </summary>
+        public static string EnterAllData {
+            get {
+                return ResourceManager.GetString("EnterAllData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Email Address..
         /// </summary>
         public static string Error_Email {
@@ -579,6 +597,15 @@ namespace InsuredTraveling {
         public static string Error_PostalCode_Numeric {
             get {
                 return ResourceManager.GetString("Error_PostalCode_Numeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Female.
+        /// </summary>
+        public static string Female {
+            get {
+                return ResourceManager.GetString("Female", resourceCulture);
             }
         }
         
@@ -1276,6 +1303,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Male.
+        /// </summary>
+        public static string Male {
+            get {
+                return ResourceManager.GetString("Male", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The username or password is incorrect. Please try again..
         /// </summary>
         public static string Msg_IncorrectUserPass {
@@ -1425,6 +1461,15 @@ namespace InsuredTraveling {
         public static string OnlyNumbers {
             get {
                 return ResourceManager.GetString("OnlyNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        public static string Other {
+            get {
+                return ResourceManager.GetString("Other", resourceCulture);
             }
         }
         
@@ -2244,6 +2289,15 @@ namespace InsuredTraveling {
         public static string PolicyPrint_ValidUntil {
             get {
                 return ResourceManager.GetString("PolicyPrint_ValidUntil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The premium value is exceeded.
+        /// </summary>
+        public static string PolicyThePremiumIsExceededMsg {
+            get {
+                return ResourceManager.GetString("PolicyThePremiumIsExceededMsg", resourceCulture);
             }
         }
         
@@ -3387,6 +3441,15 @@ namespace InsuredTraveling {
         public static string SSNNotFoundMsg {
             get {
                 return ResourceManager.GetString("SSNNotFoundMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSN number is not valid.
+        /// </summary>
+        public static string SSNNotValid {
+            get {
+                return ResourceManager.GetString("SSNNotValid", resourceCulture);
             }
         }
         

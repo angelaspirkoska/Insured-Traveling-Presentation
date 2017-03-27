@@ -160,7 +160,8 @@ namespace InsuredTraveling
                 Address = userModel.Address,
                 EMBG = userModel.EMBG,
                 City = userModel.City,
-                CreatedOn = DateTime.UtcNow
+                CreatedOn = DateTime.UtcNow,
+                CreatedBy = userModel.CreatedBy
             };
             
             var result = await _userManager.CreateAsync(user, userModel.Password);

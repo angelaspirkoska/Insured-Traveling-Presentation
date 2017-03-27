@@ -1,9 +1,12 @@
 ﻿@using InsuredTraveling.Helpers
 @using System.Web.Optimization;
+@using System.Configuration;
 @model InsuredTraveling.Models.User
 @{
     ViewBag.Title = "Create User";
     Layout = "~/Views/Shared/_Layout2.cshtml";
+    var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+    var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy").ToLower() : dateTime.ToLower();
 }
 
 <form id="signup_form" method="post" action="@Url.Action("CreateUser")" data-otf-ajax="true">
@@ -126,15 +129,14 @@
                             </div>
                             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                         </div>
-
                         <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
                             <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
                             @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label" })
-                            <div class='input-group date field-size-holder' id='datetimepicker3'>
-                                <div class="input-group-addon" style="width: 45px; border-radius: 2px;">
+                            <div class="input-group">
+                                <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-calendar"></i>
                                 </div>
-                                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control splaceholder mandatoryField insuredData" } })
+                                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control mandatoryField", @placeholder = dateTimeFormat } })
                             </div>
                             @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
                         </div>
@@ -323,20 +325,15 @@
 
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/additional-methods.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
-
 <!-- macedonian language-->
 <script src="~/Scripts/messages_is.js"></script>
 @Scripts.Render("~/bundles/jqueryui")
 @Styles.Render("~/Content/jqueryuicss")
-@Scripts.Render("~/bundles/jqueryval")
-
 <script type="text/javascript">
 
     $(document).ready(function () {
+        var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
+
         $("#btnNovaPolisa").removeClass("active-tab");
         $("#btnNews").removeClass("active-tab");
         $("#btnSearch").removeClass("active-tab");
@@ -385,12 +382,16 @@
             $("#mobilenumber").val($('#countriesCodesMobile').val());
         });
 
+        $("#DateOfBirth").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
+
     });
 
-    $('#datetimepicker3').datetimepicker({
-        viewMode: 'years',
-        format: 'DD/MM/YYYY'
-    });
 
     $("#Email").removeClass("text-box");
 

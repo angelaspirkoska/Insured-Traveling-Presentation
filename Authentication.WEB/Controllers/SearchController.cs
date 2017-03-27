@@ -13,6 +13,10 @@ using System.Configuration;
 using InsuredTraveling.App_Start;
 using InsuredTraveling.Models;
 using Microsoft.Office.Interop.Word;
+using System.IO;
+using System.Security.Policy;
+using OfficeOpenXml;
+using System.Globalization;
 
 namespace InsuredTraveling.Controllers
 {
@@ -233,11 +237,13 @@ namespace InsuredTraveling.Controllers
                                    string operatorDateS, 
                                    string PolicyNumber)
         {
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
 
-            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : Convert.ToDateTime(startDate);
-            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : Convert.ToDateTime(endDate);
-            DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : Convert.ToDateTime(dateI);
-            DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : Convert.ToDateTime(dateS);
+            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : DateTime.ParseExact(startDate, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : DateTime.ParseExact(endDate, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : DateTime.ParseExact(dateI, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : DateTime.ParseExact(dateS, dateTimeFormat, CultureInfo.InvariantCulture);
 
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUser = _us.GetUserIdByUsername(username);
@@ -530,8 +536,8 @@ namespace InsuredTraveling.Controllers
 
         //0 - get last years quotes/policies per months, 1 - get last month quotes/policies per days, 2 - get last week quotes/policies per days
         [HttpGet]
-        [Route("GetBrokersQuotesConversion")]
-        public JObject GetBrokersQuotesConversion(int period)
+        [Route("GetBrokersQuotesPoliciesConversion")]
+        public JObject GetBrokersQuotesPoliciesConversion(int period)
         {
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUserId = _us.GetUserIdByUsername(username);
@@ -561,7 +567,7 @@ namespace InsuredTraveling.Controllers
                                                     x.Date_Created <= lessThenDate).ToList();
                             JObject jb = new JObject();
                             jb.Add("Date", greaterThenDate.ToShortDateString());
-                            jb.Add("QuotesToPoliciesRatio", policiesPerMonth.Count() != 0 ? ((double)quotesPerMonth.Count()/(double)policiesPerMonth.Count()).ToString() : "0");
+                            jb.Add("QuotesToPoliciesRatio", policiesPerMonth.Count() != 0 ? (((double)quotesPerMonth.Count() + policiesPerMonth.Count()) /(double)policiesPerMonth.Count()).ToString() : "0");
                             jsonArray.Add(jb);
                         }
                         break;
@@ -585,7 +591,7 @@ namespace InsuredTraveling.Controllers
 
                             JObject jb = new JObject();
                             jb.Add("Date", dateDay.ToShortDateString());
-                            jb.Add("QuotesToPoliciesRatio", policiesPerDay.Count() != 0 ? ((double)quotesPerDay.Count() / (double)policiesPerDay.Count()).ToString() : "0");
+                            jb.Add("QuotesToPoliciesRatio", policiesPerDay.Count() != 0 ? ((double)(quotesPerDay.Count() + policiesPerDay.Count() )/ (double)policiesPerDay.Count()).ToString() : "0");
                             jsonArray.Add(jb);
                         }
                         break;
@@ -609,7 +615,7 @@ namespace InsuredTraveling.Controllers
 
                             JObject jb = new JObject();
                             jb.Add("Date", dateDay.ToShortDateString());
-                            jb.Add("QuotesToPoliciesRatio", policiesPerDay.Count() != 0 ? ((double)quotesPerDay.Count() / (double)policiesPerDay.Count()).ToString() : "0");
+                            jb.Add("QuotesToPoliciesRatio", policiesPerDay.Count() != 0 ? ((double)(quotesPerDay.Count() + policiesPerDay.Count()) / (double)policiesPerDay.Count()).ToString() : "0");
                             jsonArray.Add(jb);
                         }
                         break;
@@ -631,9 +637,11 @@ namespace InsuredTraveling.Controllers
                                   string operatorEndDate,
                                   string PolicyNumber)
         {
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
 
-            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : Convert.ToDateTime(startDate);
-            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : Convert.ToDateTime(endDate);
+            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : DateTime.ParseExact(startDate, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : DateTime.ParseExact(endDate, dateTimeFormat, CultureInfo.InvariantCulture);
 
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUser = _us.GetUserIdByUsername(username);
@@ -780,6 +788,11 @@ namespace InsuredTraveling.Controllers
 
             List<first_notice_of_loss> fnol = new List<first_notice_of_loss>();
 
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+
+            DateTime dateAdded = String.IsNullOrEmpty(DateAdded) ? new DateTime() : DateTime.ParseExact(DateAdded, dateTimeFormat, CultureInfo.InvariantCulture);
+
             if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
             {
                 fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
@@ -803,7 +816,6 @@ namespace InsuredTraveling.Controllers
 
             if (!String.IsNullOrEmpty(DateAdded))
             {
-                DateTime dateAdded = Convert.ToDateTime(DateAdded);
                 switch (operatorDateAdded)
                 {
                     case "<": fnol = fnol.Where(x => x.additional_info.Datetime_accident < dateAdded).ToList(); break;
@@ -1106,6 +1118,150 @@ namespace InsuredTraveling.Controllers
             }
         }
 
+        public FileResult ShowPoliciesSearchResultInExcel(string name,
+            string embg,
+            string land,
+            string address,
+            int? TypePolicy,
+            int? Country,
+            string agency,
+            string startDate,
+            string endDate,
+            string dateI,
+            string dateS,
+            string operatorStartDate,
+            string operatorEndDate,
+            string operatorDateI,
+            string operatorDateS,
+            string PolicyNumber)
+        {
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+
+            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : DateTime.ParseExact(startDate, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : DateTime.ParseExact(endDate, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : DateTime.ParseExact(dateI, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : DateTime.ParseExact(dateS, dateTimeFormat, CultureInfo.InvariantCulture);
+
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            var logUser = _us.GetUserIdByUsername(username);
+
+            List<travel_policy> data = new List<travel_policy>();
+
+            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
+            {
+                data = _ps.GetPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, PolicyNumber);
+            }
+            else if (_roleAuthorize.IsUser("End user") || _roleAuthorize.IsUser("Broker"))
+            {
+                data = _ps.GetPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, logUser, PolicyNumber);
+            }
+            else if (_roleAuthorize.IsUser("Broker manager"))
+            {
+                data = _ps.GetBrokerManagerBrokersPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, logUser, PolicyNumber);
+            }
+            if (!String.IsNullOrEmpty(startDate))
+            {
+                switch (operatorStartDate)
+                {
+                    case "<": data = data.Where(x => x.Start_Date < startDate1).ToList(); break;
+                    case "=": data = data.Where(x => x.Start_Date == startDate1).ToList(); break;
+                    case ">": data = data.Where(x => x.Start_Date > startDate1).ToList(); break;
+                    default: break;
+                }
+            }
+            if (!String.IsNullOrEmpty(endDate))
+            {
+                switch (operatorEndDate)
+                {
+                    case "<": data = data.Where(x => x.End_Date < endDate1).ToList(); break;
+                    case "=": data = data.Where(x => x.End_Date == endDate1).ToList(); break;
+                    case ">": data = data.Where(x => x.End_Date > endDate1).ToList(); break;
+                    default: break;
+                }
+            }
+            if (!String.IsNullOrEmpty(dateI))
+            {
+                switch (operatorDateI)
+                {
+                    case "<": data = data.Where(x => x.Date_Created < dateI1).ToList(); break;
+                    case "=": data = data.Where(x => x.Date_Created == dateI1).ToList(); break;
+                    case ">": data = data.Where(x => x.Date_Created > dateI1).ToList(); break;
+                    default: break;
+                }
+            }
+            if (!String.IsNullOrEmpty(dateS))
+            {
+                switch (operatorDateS)
+                {
+                    case "<": data = data.Where(x => x.Date_Cancellation < dateS2).ToList(); break;
+                    case "=": data = data.Where(x => x.Date_Cancellation == dateS2).ToList(); break;
+                    case ">": data = data.Where(x => x.Date_Cancellation > dateS2).ToList(); break;
+                    default: break;
+                }
+            }
+
+            string fileName = logUser+Guid.NewGuid().ToString()+ ".xlsx";
+            var path = @"~/ExcelSearchResults/Policies/" + fileName;
+            path = System.Web.HttpContext.Current.Server.MapPath(path);
+            FileInfo newFile = new FileInfo(path);
+            if (newFile.Exists)
+            {
+                newFile.Delete();  // ensures we create a new workbook
+                fileName = logUser + DateTime.Now.ToShortDateString() + Guid.NewGuid().ToString();
+                path = @"~/ExcelSearchResults/Policies/" + fileName;
+                newFile = new FileInfo(path);
+            }
+
+            using (ExcelPackage package = new ExcelPackage(newFile))
+            {
+                // add a new worksheet to the empty workbook
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Policies");
+                //Add the headers
+                worksheet.Cells[1, 1].Value = "Policy Number";
+                worksheet.Cells[1, 2].Value = "Insured Name and Last Name";
+                worksheet.Cells[1, 3].Value = "Country";
+                worksheet.Cells[1, 4].Value = "Policy type";
+                worksheet.Cells[1, 5].Value = "Expiry Date";
+                worksheet.Cells[1, 6].Value = "Effective Date";
+                worksheet.Cells[1, 7].Value = "Issuance Date";
+                worksheet.Cells[1, 6].Value = "Cancellation Date";
+
+                int counter = 2;
+
+                foreach (travel_policy policy in  data)
+                {
+                    worksheet.Cells[counter, 1].Value = policy.Policy_Number;
+                    worksheet.Cells[counter, 2].Value = policy.insured.Name + " " + policy.insured.Lastname;
+                    worksheet.Cells[counter, 3].Value = policy.country.countries_name.FirstOrDefault(x => x.countries_id == policy.CountryID).name;
+                    worksheet.Cells[counter, 4].Value = policy.Start_Date.ToString(dateTimeFormat, new CultureInfo("en-US"));
+                    worksheet.Cells[counter, 5].Value = policy.End_Date.ToString(dateTimeFormat, new CultureInfo("en-US"));
+                    worksheet.Cells[counter, 6].Value = policy.Date_Created.ToString(dateTimeFormat, new CultureInfo("en-US"));
+                    worksheet.Cells[counter, 7].Value = policy.Date_Cancellation.HasValue == true ? policy.Date_Cancellation.Value.ToString(dateTimeFormat, new CultureInfo("en-US")) : "";
+
+                    counter++;
+                }
+
+                worksheet.View.PageLayoutView = true;
+
+                // set some document properties
+                package.Workbook.Properties.Title = "Policies";
+                package.Workbook.Properties.Author = username;
+                package.Workbook.Properties.Comments = "";
+
+                // set some extended property values
+                package.Workbook.Properties.Company = " ";
+
+                // set some custom property values
+                package.Workbook.Properties.SetCustomPropertyValue("Checked by", username);
+                package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "EPPlus");
+                // save our new workbook and we are done!
+                package.Save();
+            }
+
+            return File(path, "application/vnd.ms-excel", "PoliciesSearchResults.xlsx");
+            // return new FilePathResult(path, "\"application/vnd.ms-excel\"");
+        }
 
         private async Task<List<SelectListItem>> GetTypeOfPolicy()
         {
