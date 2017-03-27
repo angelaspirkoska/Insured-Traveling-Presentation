@@ -4,8 +4,6 @@ using System.Linq;
 using System.Web;
 using OfficeOpenXml;
 using System.IO;
-using System.Reflection;
-using InsuredTraveling.FormBuilder;
 using System.Text.RegularExpressions;
 
 namespace InsuredTraveling.FormBuilder
@@ -18,33 +16,30 @@ namespace InsuredTraveling.FormBuilder
 
             ExcelPackage pck = new ExcelPackage(new FileInfo(path));
             var result = CreateForm(pck);
-            DetermineFunction(pck);
-            
+            DetermineFunction(pck);    
             return result;
         }
         public static void DetermineFunction(ExcelPackage pck)
         {
             ExcelWorksheet worksheet = pck.Workbook.Worksheets["ConfigurationSetup"];
-
             int row = 1;
-            Function result;
+            List<Function> functions = new List<Function>();
             string functionName = worksheet.Cells[row, helperFunctions - 1].Value.ToString();
             for (row = 2; worksheet.Cells[row, helperFunctions].Value != null; row++)
-                {   
+                {
+                Function result = null;
                 if (!worksheet.Cells[row, helperFunctions].Value.ToString().Equals("empty")){
                     var formula = worksheet.Cells[row, helperFunctions].Formula;
                     
                     if (formula.ToUpper().StartsWith("DGET"))
                     {
                         result = new Dget();
-                        
-                        //da smenu da se dodava samo
-                        result.Resolver(formula, functionName, pck, worksheet);
-                        //result = Dget.DgetResolver(formula, pck, worksheet);
+                        result.Resolver(formula, functionName, pck, worksheet);               
                     }
                     else if (formula.ToUpper().StartsWith("IF"))
                     {
-
+                        result = new IfCondition();
+                        result.Resolver(formula, functionName, pck, worksheet);
                     }
                     else if (formula.ToUpper().StartsWith("EXACT"))
                     {
@@ -55,8 +50,9 @@ namespace InsuredTraveling.FormBuilder
                         result = new MathOperation();
                         result.Resolver(formula, functionName, pck, worksheet);
                     }
+                    functions.Add(result);
                 }
-
+               
             }
 
         }
@@ -190,9 +186,9 @@ namespace InsuredTraveling.FormBuilder
             return new HtmlString(result);
         }
     }
-       public abstract class Function
+    public abstract class Function
         {
-            public string Name { get; set; }
+          public string Name { get; set; }
           public abstract void Resolver(string formula, string formulaName, ExcelPackage pck, ExcelWorksheet current);
 
         }
@@ -257,8 +253,8 @@ namespace InsuredTraveling.FormBuilder
 
                 var indexes = index.Split(':');
 
-                valueStart = Location.GetLocation(indexes[0], current);
-                valueEnd = Location.GetLocation(indexes[1], current);
+                valueStart = Location.GetLocation(indexes[0], dgetWorksheet);
+                valueEnd = Location.GetLocation(indexes[1], dgetWorksheet);
                 Database = new string[valueEnd.Column, valueEnd.Row];
 
                 for (int column = valueStart.Column; column <= valueEnd.Column; column++)
@@ -276,16 +272,14 @@ namespace InsuredTraveling.FormBuilder
                 {
                     sheetAndValueLocation = parameters[2].Split('!');
                     dgetWorksheet = pck.Workbook.Worksheets[sheetAndValueLocation[0].TrimEnd().TrimStart()];
-                    indexes = dgetWorksheet.Cells[sheetAndValueLocation[1].TrimStart().TrimEnd()].Value.ToString().Split(':');
-                    parameterStart = Location.GetLocation(indexes[0], current);
-                    parameterEnd = Location.GetLocation(indexes[1], current);
+                    indexes = sheetAndValueLocation[1].TrimEnd().TrimStart().Split(':');
+                    
                 }
-                else
-                {
+                
                     indexes = parameters[2].TrimStart().TrimEnd().Split(':');
-                    parameterStart = Location.GetLocation(indexes[0], current);
-                    parameterEnd = Location.GetLocation(indexes[1], current);
-                }
+                    parameterStart = Location.GetLocation(indexes[0], dgetWorksheet);
+                    parameterEnd = Location.GetLocation(indexes[1], dgetWorksheet);
+
 
                 ParametersNameAndInputValue = new string[parameterEnd.Column, parameterEnd.Row];
 
@@ -303,21 +297,20 @@ namespace InsuredTraveling.FormBuilder
             
         }
     }
-
     public class MathOperation : Function
     {
-        public char Operation { get; set; }
+        public string Operation { get; set; }
         public string OperandLeft { get; set; }
         public string OperandRight { get; set; }
-
         public override void Resolver(string formula, string formulaName, ExcelPackage pck, ExcelWorksheet current)
         {
             Name = formulaName;
             string[] operands;
-            var minus = '-';
-            var plus = '+';
-            var multiplication = '*';
-            var division = '/';
+            var minus = "-";
+            var plus = "+";
+            var multiplication = "*";
+            var division = "/";
+            var equal = "=";
             if (formula.Contains(minus))
             {
                 Operation = minus;
@@ -325,6 +318,10 @@ namespace InsuredTraveling.FormBuilder
             else if (formula.Contains(plus))
             {
                 Operation = plus;
+            }
+            else if (formula.Contains(equal))
+            {
+                Operation = equal;
             }
             else if (formula.Contains(multiplication))
             {
@@ -334,9 +331,8 @@ namespace InsuredTraveling.FormBuilder
             {
                 Operation = division;
             }
-
-            operands = formula.Split(Operation);
-                Regex regex = new Regex(@"\D");
+            operands = formula.Split(new string[] { Operation }, StringSplitOptions.None);
+                Regex regex = new Regex(@"\D\d");
                 Match match = regex.Match(operands[0]);
                 if (match.Success)
                 {                   
@@ -362,6 +358,44 @@ namespace InsuredTraveling.FormBuilder
             
         }
         }
+    public class IfCondition : Function
+    {
+        public MathOperation Condition { get; set; }
+        public string IfTrue { get; set; }
+        public string IfFalse { get; set; }
+        public override void Resolver(string formula, string formulaName, ExcelPackage pck, ExcelWorksheet current)
+        {
+            formula = formula.Replace("IF", "").Replace("(", "").Replace(")","");
+            var formulaSplitted = formula.Split(',');
+            Condition = new MathOperation();
+            Condition.Resolver(formulaSplitted[0].TrimEnd().TrimStart(), formulaName, pck, current);
+            Regex regex = new Regex(@"\D\d");
+            //ne treba tacku da gu zeme u predvid treba da vidu regex sto znaci bukva a ne nebroj
+            Match match = regex.Match(formulaSplitted[1].TrimEnd().TrimStart());
+            if (match.Success)
+            {
+                var location = Location.GetLocation(formulaSplitted[1].TrimEnd().TrimStart(), current);
+                var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
+                IfTrue = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+            }
+            else
+            {
+                IfTrue = formulaSplitted[1].TrimEnd().TrimStart();
+            }
+
+            match = regex.Match(formulaSplitted[2].TrimEnd().TrimStart());
+            if (match.Success)
+            {
+                var location = Location.GetLocation(formulaSplitted[2].TrimEnd().TrimStart(), current);
+                var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
+                IfTrue = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+            }
+            else
+            {
+                IfTrue = formulaSplitted[2].TrimEnd().TrimStart();
+            }
+        }
+    }
     public class Location
     {
         public int Column { get; set; }
