@@ -238,6 +238,17 @@ namespace InsuredTraveling.DI
             return _db.first_notice_of_loss.Where(x => x.travel_policy.Created_By == userId && x.CreatedDateTime >= dateFrom).ToList();
         }
 
+        public List<first_notice_of_loss> GetBrokeManagerFnols(string userId, DateTime dateFrom)
+        {
+            if (userId == "")
+                return null;
+            List<string> brokersUsers =
+                _db.aspnetusers.Where(x => x.CreatedBy == userId).Select(x => x.Id).ToList();
+            return _db.first_notice_of_loss.Where(x => (x.travel_policy.Created_By == userId || brokersUsers.Contains(x.travel_policy.Created_By)) && 
+                                                        x.CreatedDateTime >= dateFrom).ToList();
+
+        }
+
         public List<first_notice_of_loss> GetFNOLForBrokerBySearchValues(string username, string PolicyNumber, string FNOLNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance)
         {
             string userID = _db.aspnetusers.Where(x => x.UserName == username).Select(x => x.Id).FirstOrDefault();

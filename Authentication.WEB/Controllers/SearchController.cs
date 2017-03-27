@@ -355,7 +355,20 @@ namespace InsuredTraveling.Controllers
                 case 0 :
                 {
                     dateFrom = new DateTime(DateTime.Now.Year,1,1);
-                    List<travel_policy> policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
+                    List<travel_policy> policies = null;
+
+                    if (_roleAuthorize.IsUser("Broker"))
+                    {
+                        policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
+                    }
+                    else if (_roleAuthorize.IsUser("Broker manager"))
+                    {
+                         policies = _ps.GetBrokerManagerPolicies(logUserId, dateFrom);
+                    }
+
+                    if (policies == null) break;
+                    if (policies.Count() == 0) break;
+
                     for (int i = 1; i <= DateTime.Now.Month; i++)
                     {
                         DateTime greaterThenDate = new DateTime(DateTime.Now.Year, i, 1);
@@ -381,14 +394,27 @@ namespace InsuredTraveling.Controllers
                 }
                 case 1:
                 {
+                    List<travel_policy> policies = null;
                     dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                    List<travel_policy> policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
-                    for (int i = 1; i <= DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month); i++)
+
+                    if (_roleAuthorize.IsUser("Broker"))
+                    {
+                        policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
+                    }
+                    else if (_roleAuthorize.IsUser("Broker manager"))
+                    {
+                        policies = _ps.GetBrokerManagerPolicies(logUserId, dateFrom);
+                    }
+
+                    if (policies == null) break;
+                    if (policies.Count() == 0) break;
+
+                    for (int i = 1; i <= DateTime.Now.Day; i++)
                     {
                         DateTime dateDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, i);
                         var policiesPerDay =
                         policies.Where(x =>
-                                            x.Date_Created  == dateDay).
+                                            x.Date_Created < dateDay.AddHours(24) && x.Date_Created >= dateDay).
                                             GroupBy(l => 1).
                                             Select(cl => new BrokerSales
                                             {
@@ -407,26 +433,39 @@ namespace InsuredTraveling.Controllers
                 case 2:
                 {
                     dateFrom = dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-7); ;
-                        List<travel_policy> policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
-                        for (int i = 1; i<= 7; i++)
-                        {
-                            DateTime dateDay = dateFrom.AddDays(i);
-                            var policiesPerDay =
-                            policies.Where(x =>
-                                                x.Date_Created == dateDay).
-                                                GroupBy(l => 1).
-                                                Select(cl => new BrokerSales
-                                                {
-                                                    Counter = cl.Count(),
-                                                    GWP = cl.Sum(c => c.Total_Premium)
+                    List<travel_policy> policies = null;
 
-                                                }).ToList();
-                            JObject jb = new JObject();
-                            jb.Add("Date", dateDay.ToShortDateString());
-                            jb.Add("Counter", policiesPerDay.Count() != 0 ? policiesPerDay.First().Counter : 0);
-                            jb.Add("GWP", policiesPerDay.Count() != 0 ? policiesPerDay.First().GWP : 0);
-                            jsonArray.Add(jb);
-                        }
+                    if (_roleAuthorize.IsUser("Broker"))
+                    {
+                        policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
+                    }
+                    else if (_roleAuthorize.IsUser("Broker manager"))
+                    {
+                        policies = _ps.GetBrokerManagerPolicies(logUserId, dateFrom);
+                    }
+
+                    if (policies == null) break;
+                    if (policies.Count() == 0) break;
+
+                    for (int i = 1; i<= 7; i++)
+                    {
+                        DateTime dateDay = dateFrom.AddDays(i);
+                        var policiesPerDay =
+                        policies.Where(x =>
+                                            x.Date_Created < dateDay.AddHours(24) && x.Date_Created >= dateDay).
+                                            GroupBy(l => 1).
+                                            Select(cl => new BrokerSales
+                                            {
+                                                Counter = cl.Count(),
+                                                GWP = cl.Sum(c => c.Total_Premium)
+
+                                            }).ToList();
+                        JObject jb = new JObject();
+                        jb.Add("Date", dateDay.ToShortDateString());
+                        jb.Add("Counter", policiesPerDay.Count() != 0 ? policiesPerDay.First().Counter : 0);
+                        jb.Add("GWP", policiesPerDay.Count() != 0 ? policiesPerDay.First().GWP : 0);
+                        jsonArray.Add(jb);
+                    }
                         break;
                 }
             }
@@ -453,13 +492,26 @@ namespace InsuredTraveling.Controllers
                 case 0:
                     {
                         dateFrom = new DateTime(DateTime.Now.Year, 1, 1);
-                        List<first_notice_of_loss> policies = _fnls.GetBrokersFnols(logUserId, dateFrom);
+                        List<first_notice_of_loss> fnols = null;
+
+                        if (_roleAuthorize.IsUser("Broker"))
+                        {
+                            fnols = _fnls.GetBrokersFnols(logUserId, dateFrom);
+
+                        }else if(_roleAuthorize.IsUser("Broker manager"))
+                        {
+                            fnols = _fnls.GetBrokeManagerFnols(logUserId, dateFrom);
+                        }
+
+                        if (fnols == null) break;
+                        if (fnols.Count() == 0) break;
+
                         for (int i = 1; i <= DateTime.Now.Month; i++)
                         {
                             DateTime greaterThenDate = new DateTime(DateTime.Now.Year, i, 1);
                             DateTime lessThenDate = new DateTime(DateTime.Now.Year, i, DateTime.DaysInMonth(DateTime.Now.Year, i));
-                            var policiesPerMonth =
-                                policies.Where(x =>
+                            var fnolsPerMonth =
+                                fnols.Where(x =>
                                                     x.CreatedDateTime.Date >= greaterThenDate &&
                                                     x.CreatedDateTime.Date < lessThenDate).
                                                     GroupBy(l => 1).
@@ -471,8 +523,8 @@ namespace InsuredTraveling.Controllers
                                                     }).ToList();
                             JObject jb = new JObject();
                             jb.Add("date", greaterThenDate.ToShortDateString());
-                            jb.Add("counter", policiesPerMonth.Count() != 0 ? policiesPerMonth.First().Counter : 0);
-                            jb.Add("TotalSumClaimed", policiesPerMonth.Count() != 0 ? policiesPerMonth.First().GWP : 0);
+                            jb.Add("counter", fnolsPerMonth.Count() != 0 ? fnolsPerMonth.First().Counter : 0);
+                            jb.Add("TotalSumClaimed", fnolsPerMonth.Count() != 0 ? fnolsPerMonth.First().GWP : 0);
                             jsonArray.Add(jb);
                         }
                         break;
@@ -480,12 +532,25 @@ namespace InsuredTraveling.Controllers
                 case 1:
                     {
                         dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                        List<first_notice_of_loss> policies = _fnls.GetBrokersFnols(logUserId, dateFrom);
+                        List<first_notice_of_loss> fnols = null;
+                        if (_roleAuthorize.IsUser("Broker"))
+                        {
+                            fnols = _fnls.GetBrokersFnols(logUserId, dateFrom);
+
+                        }
+                        else if (_roleAuthorize.IsUser("Broker manager"))
+                        {
+                            fnols = _fnls.GetBrokeManagerFnols(logUserId, dateFrom);
+                        }
+
+                        if (fnols == null) break;
+                        if (fnols.Count() == 0) break;
+
                         for (int i = 1; i <= DateTime.Now.Day; i++)
                         {
                             DateTime dateDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, i);
-                            var policiesPerDay =
-                            policies.Where(x =>
+                            var fnolsPerDay =
+                            fnols.Where(x =>
                                                 x.CreatedDateTime <= dateDay.AddHours(24) && x.CreatedDateTime >= dateDay).
                                                 GroupBy(l => 1).
                                                 Select(cl => new BrokerSales
@@ -496,21 +561,35 @@ namespace InsuredTraveling.Controllers
                                                 }).ToList();
                             JObject jb = new JObject();
                             jb.Add("date", dateDay.ToShortDateString());
-                            jb.Add("counter", policiesPerDay.Count() != 0 ? policiesPerDay.First().Counter : 0);
-                            jb.Add("TotalCostClaimed", policiesPerDay.Count() != 0 ? policiesPerDay.First().GWP : 0);
+                            jb.Add("counter", fnolsPerDay.Count() != 0 ? fnolsPerDay.First().Counter : 0);
+                            jb.Add("TotalCostClaimed", fnolsPerDay.Count() != 0 ? fnolsPerDay.First().GWP : 0);
                             jsonArray.Add(jb);
                         }
                         break;
                     }
                 case 2:
                     {
-                        dateFrom = dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-7); ;
-                        List<first_notice_of_loss> policies = _fnls.GetBrokersFnols(logUserId, dateFrom);
+                        dateFrom = dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-7);
+                        List<first_notice_of_loss> fnols = null;
+
+                        if (_roleAuthorize.IsUser("Broker"))
+                        {
+                            fnols = _fnls.GetBrokersFnols(logUserId, dateFrom);
+
+                        }
+                        else if (_roleAuthorize.IsUser("Broker manager"))
+                        {
+                            fnols = _fnls.GetBrokeManagerFnols(logUserId, dateFrom);
+                        }
+
+                        if (fnols == null) break;
+                        if (fnols.Count() == 0) break;
+
                         for (int i = 1; i <= 7; i++)
                         {
                             DateTime dateDay = dateFrom.AddDays(i);
-                            var policiesPerDay =
-                            policies.Where(x =>
+                            var fnolsPerDay =
+                            fnols.Where(x =>
                                                x.CreatedDateTime <= dateDay.AddHours(24) && x.CreatedDateTime >= dateDay).
                                                 GroupBy(l => 1).
                                                 Select(cl => new BrokerSales
@@ -521,8 +600,8 @@ namespace InsuredTraveling.Controllers
                                                 }).ToList();
                             JObject jb = new JObject();
                             jb.Add("date", dateDay.ToShortDateString());
-                            jb.Add("counter", policiesPerDay.Count() != 0 ? policiesPerDay.First().Counter : 0);
-                            jb.Add("TotalCostClaimed", policiesPerDay.Count() != 0 ? policiesPerDay.First().GWP : 0);
+                            jb.Add("counter", fnolsPerDay.Count() != 0 ? fnolsPerDay.First().Counter : 0);
+                            jb.Add("TotalCostClaimed", fnolsPerDay.Count() != 0 ? fnolsPerDay.First().GWP : 0);
                             jsonArray.Add(jb);
                         }
                         break;
@@ -551,8 +630,24 @@ namespace InsuredTraveling.Controllers
                 case 0:
                     {
                         dateFrom = new DateTime(DateTime.Now.Year, 1, 1);
-                        List<travel_policy> policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
-                        List<travel_policy> quotes = _ps.GetBrokersQuotes(logUserId, dateFrom);
+                        List<travel_policy> policies = new List<travel_policy>();
+                        List<travel_policy> quotes = new List<travel_policy>();
+
+                        if (_roleAuthorize.IsUser("Broker"))
+                        {
+                            policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
+                            quotes = _ps.GetBrokersQuotes(logUserId, dateFrom);
+
+                        }
+                        else if (_roleAuthorize.IsUser("Broker manager"))
+                        {
+                            policies = _ps.GetBrokerManagerPolicies(logUserId, dateFrom);
+                            quotes = _ps.GetBrokerManagerQuotes(logUserId, dateFrom);
+                        }
+
+                        if (policies == null || quotes == null) break;
+                        if (policies.Count() == 0 || quotes.Count() == 0) break;
+
                         for (int i = 1; i <= DateTime.Now.Month; i++)
                         {
                             DateTime greaterThenDate = new DateTime(DateTime.Now.Year, i, 1);
@@ -575,8 +670,24 @@ namespace InsuredTraveling.Controllers
                 case 1:
                     {
                         dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                        List<travel_policy> policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
-                        List<travel_policy> quotes = _ps.GetBrokersQuotes(logUserId, dateFrom);
+                        List<travel_policy> policies = new List<travel_policy>();
+                        List<travel_policy> quotes = new List<travel_policy>();
+
+                        if (_roleAuthorize.IsUser("Broker"))
+                        {
+                            policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
+                            quotes = _ps.GetBrokersQuotes(logUserId, dateFrom);
+
+                        }
+                        else if (_roleAuthorize.IsUser("Broker manager"))
+                        {
+                            policies = _ps.GetBrokerManagerPolicies(logUserId, dateFrom);
+                            quotes = _ps.GetBrokerManagerQuotes(logUserId, dateFrom);
+                        }
+
+                        if (policies == null || quotes == null) break;
+                        if (policies.Count() == 0 || quotes.Count() == 0) break;
+
                         for (int i = 1; i <= DateTime.Now.Day; i++)
                         {
                             DateTime dateDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, i);
@@ -599,8 +710,24 @@ namespace InsuredTraveling.Controllers
                 case 2:
                     {
                         dateFrom = dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-7); ;
-                        List<travel_policy> policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
-                        List<travel_policy> quotes = _ps.GetBrokersQuotes(logUserId, dateFrom);
+                        List<travel_policy> policies = new List<travel_policy>();
+                        List<travel_policy> quotes = new List<travel_policy>();
+
+                        if (_roleAuthorize.IsUser("Broker"))
+                        {
+                            policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
+                            quotes = _ps.GetBrokersQuotes(logUserId, dateFrom);
+
+                        }
+                        else if (_roleAuthorize.IsUser("Broker manager"))
+                        {
+                            policies = _ps.GetBrokerManagerPolicies(logUserId, dateFrom);
+                            quotes = _ps.GetBrokerManagerQuotes(logUserId, dateFrom);
+                        }
+
+                        if (policies == null || quotes == null) break;
+                        if (policies.Count() == 0 || quotes.Count() == 0) break;
+
                         for (int i = 1; i <= 7; i++)
                         {
                             DateTime dateDay = dateFrom.AddDays(i);
@@ -625,6 +752,8 @@ namespace InsuredTraveling.Controllers
             jsonObject.Add("data", jsonArray);
             return jsonObject;
         }
+
+       
 
         [HttpGet]
         [Route("GetQuotes")]
