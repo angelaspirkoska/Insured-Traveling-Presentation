@@ -1296,13 +1296,12 @@
   <data name="AdminPanel_DiscountNameErrorMessage" xml:space="preserve">
     <value>Discount code already exist.</value>
   </data>
-
   <data name="Policy_DiscoundCodeError" xml:space="preserve">
     <value>Invalid discount code</value>
   </data>
   <data name="Policy_DiscoundCodeValid" xml:space="preserve">
     <value>Valid discount code</value>
-</data>
+  </data>
   <data name="PolicyThePremiumIsExceededMsg" xml:space="preserve">
     <value>The premium value is exceeded</value>
   </data>
@@ -1323,6 +1322,17 @@
   </data>
   <data name="SSNNotValid" xml:space="preserve">
     <value>SSN number is not valid</value>
-
+  </data>
+  <data name="Policy_Modal_Date_CancelDate" xml:space="preserve">
+    <value>Cancel change</value>
+  </data>
+  <data name="Policy_Modal_Date_ChangeDate" xml:space="preserve">
+    <value>Change date</value>
+  </data>
+  <data name="Policy_Modal_Date_Header" xml:space="preserve">
+    <value>Change policy expiry date</value>
+  </data>
+  <data name="Policy_Modal_Date_Text" xml:space="preserve">
+    <value>Change policy expiry date accordning to duration of the policy.</value>
   </data>
 </root>

@@ -433,6 +433,26 @@
         </div>
     </div>
 </form>
+<div class="modal fade" id="modalHolder" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@InsuredTraveling.Resource.Policy_Modal_Date_Header </h4>
+            </div>
+            <div class="modal-body">
+                <p>@InsuredTraveling.Resource.Policy_Modal_Date_Text</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="ChangeDate">@InsuredTraveling.Resource.Policy_Modal_Date_ChangeDate</button><button type="button" class="btn btn-danger" data-dismiss="modal" id="DontChangeDate">@InsuredTraveling.Resource.Policy_Modal_Date_CancelDate</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/additional-methods.js"></script>
 <!-- macedonian language-->
@@ -679,14 +699,7 @@
 
                     console.log(result.status);
 
-                    //This code is for AdvancedSSN validation in premium controler
-                    if (result.status != null && result.isValid == false) {
-                        console.log(result.message);
-                        $("#errorMessage").text("@Resource.Error_EMBG_Val_Advanced");
-                        $(".loader").css("display", "none");
-                        $("#SSN").attr("style", "border: 1px solid red;");
-                        $("#totalPremiumLabel").hide();
-                        $("#totalPremium").val("");
+                 
 
 
                         //This code is for AdvancedSSN validation in premium controler & if Premium Amount exceeded
@@ -727,7 +740,7 @@
                             }
 
                         }
-                    }
+                    
                     
                 },
                 error: function (result) {
@@ -764,6 +777,7 @@
 
         }
         else {
+            $("#DiscountCode").val('');
             $("#Discount_div").hide();
             $("#DiscountCode").removeClass("mandatoryField");
 
@@ -1053,5 +1067,58 @@
             }
         });
     }
+
+    $('#Valid_Days').focusout(function () {
+        var validDays = $("#Valid_Days").val();
+
+        function addDays(date, days) {
+
+            var result = new Date(date);
+            console.log(result);
+            result.setDate(result.getDate() + parseInt(days) );
+            return result;
+        }
+
+        var startDateParts = $("#Start_Date").val().split("/");
+        var startDate = new Date(startDateParts[2], startDateParts[1] - 1, startDateParts[0]);
+
+        var endDateParts = $("#End_Date").val().split("/");
+        var endDate = new Date(endDateParts[2], endDateParts[1] - 1, endDateParts[0]);
+
+        var startDate1 = new Date(startDate);
+        var endDate1 = new Date(endDate);
+
+        if (validDays != null || validDays != " ") {
+            var oneDay = 24 * 60 * 60 * 1000;
+            console.log(endDate1.getTime());
+            console.log(startDate1.getTime());
+            var diffDays = Math.round(Math.abs((endDate1.getTime() - startDate1.getTime()) / (oneDay)));
+            console.log(parseInt(Math.abs((endDate1.getTime() - startDate1.getTime()))));
+            console.log(parseInt(diffDays));
+
+            console.log(validDays);
+            console.log("Start date:" + startDate);
+            console.log(addDays(startDate, validDays));
+            if (diffDays < validDays-1) {
+                $("#modalHolder").modal("show");
+            }
+
+        }
+
+        $('#ChangeDate').click(function () {
+            var res = addDays(startDate, validDays);
+
+            var day = res.getDate();
+            var monthIndex = res.getMonth();
+            var year = res.getFullYear();
+
+            var date = day - 1 + '/' + parseInt(monthIndex + 1) + '/' + year;
+
+            $("#End_Date").val(date);
+
+        });
+
+       
+    });
 
 </script>

@@ -134,7 +134,7 @@ namespace Authentication.WEB.Controllers
                     }
                 }
 
-                return Json(new { PremiumAmount = Premium.PremiumAmount });
+                return Json(new { isValid = true, status = "ok", PremiumAmount = Premium.PremiumAmount });
             }
             else
             {

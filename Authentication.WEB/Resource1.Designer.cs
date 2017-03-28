@@ -1870,6 +1870,42 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel change.
+        /// </summary>
+        public static string Policy_Modal_Date_CancelDate {
+            get {
+                return ResourceManager.GetString("Policy_Modal_Date_CancelDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change date.
+        /// </summary>
+        public static string Policy_Modal_Date_ChangeDate {
+            get {
+                return ResourceManager.GetString("Policy_Modal_Date_ChangeDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change policy expiry date.
+        /// </summary>
+        public static string Policy_Modal_Date_Header {
+            get {
+                return ResourceManager.GetString("Policy_Modal_Date_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change policy expiry date accordning to duration of the policy..
+        /// </summary>
+        public static string Policy_Modal_Date_Text {
+            get {
+                return ResourceManager.GetString("Policy_Modal_Date_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More Trips.
         /// </summary>
         public static string Policy_MoreTrip {
