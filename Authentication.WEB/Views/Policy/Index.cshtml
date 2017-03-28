@@ -326,7 +326,7 @@
                                 <label for="radio1" checked="checked">@InsuredTraveling.Resource.Policy_OneTrip</label>
                             </label>
                             <br />
-                            <label class="radio-inline">
+                            <label style="display: none; class="radio-inline">
                                 <input type="radio" name="Travel_NumberID" value="2" class="numberTrips checkbox-position" />
                                 @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "2", @text = "Повеќе патувања" })*@
                                 <label for="radio1">@InsuredTraveling.Resource.Policy_MoreTrip</label>
@@ -470,9 +470,11 @@
         var future = new Date();
         $("#Start_Date").val($.datepicker.formatDate(dateFormatString, new Date(future.setDate(future.getDate() + 1))));
         $("#End_Date").val($.datepicker.formatDate(dateFormatString, new Date(future.setDate(future.getDate() + 9))));
+        var DateToday = new Date();
 
         $("#Start_Date").datepicker({
             dateFormat: dateFormatString,
+            "minDate": DateToday,
             onSelect: function (selected) {
                 $("#End_Date").datepicker("option", "minDate", selected);
                 var startDateParts = $("#Start_Date").val().split("/");
@@ -492,6 +494,7 @@
 
         $("#End_Date").datepicker({
             dateFormat: dateFormatString,
+            "minDate": DateToday,
             onSelect: function (selected) {
                 $("#Start_Date").datepicker("option", "maxDate", selected);
                 var startDateParts = $("#Start_Date").val().split("/");
@@ -1074,7 +1077,7 @@
         function addDays(date, days) {
 
             var result = new Date(date);
-            console.log(result);
+           
             result.setDate(result.getDate() + parseInt(days) );
             return result;
         }
@@ -1090,15 +1093,9 @@
 
         if (validDays != null || validDays != " ") {
             var oneDay = 24 * 60 * 60 * 1000;
-            console.log(endDate1.getTime());
-            console.log(startDate1.getTime());
+           
             var diffDays = Math.round(Math.abs((endDate1.getTime() - startDate1.getTime()) / (oneDay)));
-            console.log(parseInt(Math.abs((endDate1.getTime() - startDate1.getTime()))));
-            console.log(parseInt(diffDays));
-
-            console.log(validDays);
-            console.log("Start date:" + startDate);
-            console.log(addDays(startDate, validDays));
+          
             if (diffDays < validDays-1) {
                 $("#modalHolder").modal("show");
             }

@@ -409,7 +409,7 @@
     <value>Enter only numbers</value>
   </data>
   <data name="Policy_AddOffer" xml:space="preserve">
-    <value>Add to Offers</value>
+    <value>Add to Quotes</value>
   </data>
   <data name="Policy_AddOn" xml:space="preserve">
     <value>Add-on</value>
@@ -1237,7 +1237,7 @@
     <value>Discount</value>
   </data>
   <data name="Policy_AddOfferMsg" xml:space="preserve">
-    <value>You have successfully added the offer. Number of offer </value>
+    <value>You have successfully added the quote. Number of quote: </value>
   </data>
   <data name="Policy_AddOfferMsgFail" xml:space="preserve">
     <value>You have not successfully added the offer</value>
@@ -1334,5 +1334,8 @@
   </data>
   <data name="Policy_Modal_Date_Text" xml:space="preserve">
     <value>Change policy expiry date accordning to duration of the policy.</value>
+  </data>
+  <data name="SignUp_ButtonCreateUser" xml:space="preserve">
+    <value>Create user</value>
   </data>
 </root>

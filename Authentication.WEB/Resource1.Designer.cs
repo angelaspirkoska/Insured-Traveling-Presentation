@@ -1492,7 +1492,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to Offers.
+        ///   Looks up a localized string similar to Add to Quotes.
         /// </summary>
         public static string Policy_AddOffer {
             get {
@@ -1501,7 +1501,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have successfully added the offer. Number of offer .
+        ///   Looks up a localized string similar to You have successfully added the quote. Number of quote: .
         /// </summary>
         public static string Policy_AddOfferMsg {
             get {
@@ -3396,6 +3396,15 @@ namespace InsuredTraveling {
         public static string SignUp_Back {
             get {
                 return ResourceManager.GetString("SignUp_Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create user.
+        /// </summary>
+        public static string SignUp_ButtonCreateUser {
+            get {
+                return ResourceManager.GetString("SignUp_ButtonCreateUser", resourceCulture);
             }
         }
         

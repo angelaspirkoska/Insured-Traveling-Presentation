@@ -1329,4 +1329,7 @@
   <data name="Policy_Modal_Date_Text" xml:space="preserve">
     <value>Промени датум на истекување на полисата според времетраење на полисата</value>
   </data>
+  <data name="SignUp_ButtonCreateUser" xml:space="preserve">
+    <value>Креирај корисник</value>
+  </data>
 </root>
