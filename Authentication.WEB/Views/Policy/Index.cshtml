@@ -326,7 +326,7 @@
                                 <label for="radio1" checked="checked">@InsuredTraveling.Resource.Policy_OneTrip</label>
                             </label>
                             <br />
-                            <label style="display: none; class="radio-inline">
+                            <label style="display: none;" class="radio-inline">
                                 <input type="radio" name="Travel_NumberID" value="2" class="numberTrips checkbox-position" />
                                 @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "2", @text = "Повеќе патувања" })*@
                                 <label for="radio1">@InsuredTraveling.Resource.Policy_MoreTrip</label>
@@ -702,9 +702,6 @@
 
                     console.log(result.status);
 
-                 
-
-
                         //This code is for AdvancedSSN validation in premium controler & if Premium Amount exceeded
                         if (result.status != null && result.isValid == false) {
                             if (result.message == "ThePremiumIsExceeded") {
@@ -723,8 +720,7 @@
                         }
                         else {
                             $("#SSN").attr("style", "border: 1px solid #2c3e50;");
-
-
+                            
                             $(".loader").css("display", "none");
                             console.log(result.PremiumAmount);
 

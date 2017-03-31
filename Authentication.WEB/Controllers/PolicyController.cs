@@ -70,6 +70,7 @@ namespace Authentication.WEB.Controllers
             ViewBag.Countries = countries.Result;
             ViewBag.Franchise = franchises.Result;
             ViewBag.additional_charges = additional_charges.Result;
+            ViewBag.DisableDefault = false;
             return View();
         }
 
@@ -201,7 +202,19 @@ namespace Authentication.WEB.Controllers
             ViewBag.Countries = countries.Result;
             ViewBag.Franchise = franchises.Result;
             ViewBag.additional_charges = additional_charges.Result;
-
+            ViewBag.Doplatok1 = 0;
+            ViewBag.Doplatok2 = 0;
+            if (additionalCharges.Count >= 1 && additionalCharges[0] != null)
+            {
+               if(additionalCharges[0].ID == 2 )
+                    ViewBag.Doplatok1 = 1;
+            }
+            if (additionalCharges.Count >= 2 && additionalCharges[1] != null)
+            {
+                if (additionalCharges[1].ID == 3)
+                    ViewBag.Doplatok2 = 1;
+            }
+            ViewBag.DisableDefault = true;
             return View(policyPreview);
         }
 

@@ -304,26 +304,14 @@
                             <div class="form-group">
                                 @Html.ReCaptcha()
                             </div>
-                            @if(Model.Role == "Admin")
-                            {
-
-
-                            }
+                          
                             <div class="form-group">
                                
-                                @if (Model.Role == "Admin")
-                                {
-
-                                    <div class="" style="margin-left:-20px">
-                                        <input type="submit" value="@InsuredTraveling.Resource.SignUp_ButtonCreateUser" onclick="myFunction()" class="btn btn-success signup-btn-style" />
-                                    </div>
-                                }
-                                else
-                                {
+                 
                                     <div class="" style="margin-left:-20px">
                                         <input type="submit" value="@InsuredTraveling.Resource.SignUp" onclick="myFunction()" class="btn btn-success signup-btn-style" />
                                     </div>
-                                }
+                               
 
                             </div>
                         </div>
