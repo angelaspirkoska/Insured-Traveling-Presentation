@@ -3,19 +3,23 @@ using System;
 using System.Web.Mvc;
 using InsuredTraveling.DI;
 using static InsuredTraveling.Models.AdminPanel;
+using InsuredTraveling.Models;
 
 namespace InsuredTraveling.Controllers
 {
     [RoleAuthorize(roles: "Admin")]
+    [SessionExpire]
     public class AdminPanelController : Controller
     {
         private IRolesService _rs;
         private IOkSetupService _okss;
+        private IUserService _us;
 
-        public AdminPanelController(IRolesService rs, IOkSetupService okss)
+        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us)
         {
             _rs = rs;
             _okss = okss;
+            _us = us;
         }
 
         [HttpGet]
@@ -55,11 +59,13 @@ namespace InsuredTraveling.Controllers
 
         [HttpPost]
         [Route("AddOK_setup")]
-        public ActionResult AddOK_setup(ok_setup ok)
+        public ActionResult AddOK_setup(Ok_SetupModel ok)
         {
             ViewBag.AddOk_SetupMsg = "OK";
-            try
-            {
+            try {
+                ok.Created_By = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
+                ok.Created_Date = DateTime.UtcNow;
+
                 _okss.AddOkSetup(ok);
             }
             catch (Exception ex)

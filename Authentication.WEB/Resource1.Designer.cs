@@ -97,6 +97,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only latin letters.
+        /// </summary>
+        public static string AdminPanel_Discount {
+            get {
+                return ResourceManager.GetString("AdminPanel_Discount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string AdminPanel_ID {
@@ -196,6 +205,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SSN Advanced Validation.
+        /// </summary>
+        public static string AdminPanel_SSNValidation {
+            get {
+                return ResourceManager.GetString("AdminPanel_SSNValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test Payment.
+        /// </summary>
+        public static string AdminPanel_TestPayment {
+            get {
+                return ResourceManager.GetString("AdminPanel_TestPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin Panel.
         /// </summary>
         public static string AdminPanel_Title {
@@ -210,6 +237,24 @@ namespace InsuredTraveling {
         public static string AdminPanel_VersionNumber {
             get {
                 return ResourceManager.GetString("AdminPanel_VersionNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have not successfully changed user&apos;s status!.
+        /// </summary>
+        public static string ChangeStatusMessageFail {
+            get {
+                return ResourceManager.GetString("ChangeStatusMessageFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have successfully changed user&apos;s status!.
+        /// </summary>
+        public static string ChangeStatusMessageSuccess {
+            get {
+                return ResourceManager.GetString("ChangeStatusMessageSuccess", resourceCulture);
             }
         }
         
@@ -363,6 +408,24 @@ namespace InsuredTraveling {
         public static string Client_SuccessfullyAdded {
             get {
                 return ResourceManager.GetString("Client_SuccessfullyAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have not successfully edited user.
+        /// </summary>
+        public static string Edit_FailMessage {
+            get {
+                return ResourceManager.GetString("Edit_FailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have successfully edited user.
+        /// </summary>
+        public static string Edit_SuccessMessage {
+            get {
+                return ResourceManager.GetString("Edit_SuccessMessage", resourceCulture);
             }
         }
         
@@ -1024,6 +1087,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Buy Insurance.
+        /// </summary>
+        public static string Home_BuyInsurance {
+            get {
+                return ResourceManager.GetString("Home_BuyInsurance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create User.
         /// </summary>
         public static string Home_CreateUser {
@@ -1065,6 +1137,15 @@ namespace InsuredTraveling {
         public static string Home_News {
             get {
                 return ResourceManager.GetString("Home_News", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No new messages.
+        /// </summary>
+        public static string Home_NoMsg {
+            get {
+                return ResourceManager.GetString("Home_NoMsg", resourceCulture);
             }
         }
         
@@ -1128,6 +1209,24 @@ namespace InsuredTraveling {
         public static string LogOut {
             get {
                 return ResourceManager.GetString("LogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The username or password is incorrect. Please try again..
+        /// </summary>
+        public static string Msg_IncorrectUserPass {
+            get {
+                return ResourceManager.GetString("Msg_IncorrectUserPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid reCaptcha. Try again with clicking the checkbox next to &quot;I&apos;m not a robot.&quot;.
+        /// </summary>
+        public static string Msg_InvalidRecaptcha {
+            get {
+                return ResourceManager.GetString("Msg_InvalidRecaptcha", resourceCulture);
             }
         }
         
@@ -1249,6 +1348,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A SMS code is sent to you. Check you mobile phone..
+        /// </summary>
+        public static string OK_SMSCode {
+            get {
+                return ResourceManager.GetString("OK_SMSCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter only numbers.
         /// </summary>
         public static string OnlyNumbers {
@@ -1258,11 +1366,47 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password not changed successfully!.
+        /// </summary>
+        public static string PasswordResetMessageFail {
+            get {
+                return ResourceManager.GetString("PasswordResetMessageFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password changed successfully!.
+        /// </summary>
+        public static string PasswordResetMessageSuccess {
+            get {
+                return ResourceManager.GetString("PasswordResetMessageSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add to Offers.
         /// </summary>
         public static string Policy_AddOffer {
             get {
                 return ResourceManager.GetString("Policy_AddOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have successfully added the offer. Number of offer .
+        /// </summary>
+        public static string Policy_AddOfferMsg {
+            get {
+                return ResourceManager.GetString("Policy_AddOfferMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have not successfully added the offer.
+        /// </summary>
+        public static string Policy_AddOfferMsgFail {
+            get {
+                return ResourceManager.GetString("Policy_AddOfferMsgFail", resourceCulture);
             }
         }
         
@@ -2347,11 +2491,29 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Search_Cancel {
+            get {
+                return ResourceManager.GetString("Search_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancellation Date.
         /// </summary>
         public static string Search_CancellationDate {
             get {
                 return ResourceManager.GetString("Search_CancellationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change.
+        /// </summary>
+        public static string Search_ChangeUserStatus {
+            get {
+                return ResourceManager.GetString("Search_ChangeUserStatus", resourceCulture);
             }
         }
         
@@ -2428,7 +2590,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archived.
+        ///   Looks up a localized string similar to Historical version.
         /// </summary>
         public static string Search_FNOLArchived {
             get {
@@ -2496,6 +2658,15 @@ namespace InsuredTraveling {
         public static string Search_HealthInsurance {
             get {
                 return ResourceManager.GetString("Search_HealthInsurance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select dates before or after this date.
+        /// </summary>
+        public static string Search_HelpMessage {
+            get {
+                return ResourceManager.GetString("Search_HelpMessage", resourceCulture);
             }
         }
         
@@ -2671,6 +2842,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preview.
+        /// </summary>
+        public static string Search_QuotePreview {
+            get {
+                return ResourceManager.GetString("Search_QuotePreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quote Type.
         /// </summary>
         public static string Search_QuoteType {
@@ -2685,6 +2865,24 @@ namespace InsuredTraveling {
         public static string Search_RegistrationDate {
             get {
                 return ResourceManager.GetString("Search_RegistrationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string Search_Reset {
+            get {
+                return ResourceManager.GetString("Search_Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset user&apos;s password.
+        /// </summary>
+        public static string Search_ResetUserPass {
+            get {
+                return ResourceManager.GetString("Search_ResetUserPass", resourceCulture);
             }
         }
         
@@ -2824,11 +3022,74 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change status.
+        /// </summary>
+        public static string Search_UserChangeStatus {
+            get {
+                return ResourceManager.GetString("Search_UserChangeStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to change user&apos;s status? Are you sure?.
+        /// </summary>
+        public static string Search_UserChangeStatusQuestion {
+            get {
+                return ResourceManager.GetString("Search_UserChangeStatusQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can not change the status of you own registred account..
+        /// </summary>
+        public static string Search_UserItselfChangeStatus {
+            get {
+                return ResourceManager.GetString("Search_UserItselfChangeStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset password.
+        /// </summary>
+        public static string Search_UserResetPass {
+            get {
+                return ResourceManager.GetString("Search_UserResetPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Registered users.
         /// </summary>
         public static string Search_Users {
             get {
                 return ResourceManager.GetString("Search_Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active/Inactive.
+        /// </summary>
+        public static string SearchTable_ActiveInactiveUser {
+            get {
+                return ResourceManager.GetString("SearchTable_ActiveInactiveUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created on.
+        /// </summary>
+        public static string SearchTable_CreatedOn {
+            get {
+                return ResourceManager.GetString("SearchTable_CreatedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit User.
+        /// </summary>
+        public static string SearchTable_EditUser {
+            get {
+                return ResourceManager.GetString("SearchTable_EditUser", resourceCulture);
             }
         }
         
@@ -2874,6 +3135,42 @@ namespace InsuredTraveling {
         public static string SearchTable_UserName {
             get {
                 return ResourceManager.GetString("SearchTable_UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search by status.
+        /// </summary>
+        public static string SearchTable_UserStatus {
+            get {
+                return ResourceManager.GetString("SearchTable_UserStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string SearchTable_UserStatusActive {
+            get {
+                return ResourceManager.GetString("SearchTable_UserStatusActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Both.
+        /// </summary>
+        public static string SearchTable_UserStatusBoth {
+            get {
+                return ResourceManager.GetString("SearchTable_UserStatusBoth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inactive.
+        /// </summary>
+        public static string SearchTable_UserStatusInactive {
+            get {
+                return ResourceManager.GetString("SearchTable_UserStatusInactive", resourceCulture);
             }
         }
         
@@ -2986,7 +3283,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to City.
+        ///   Looks up a localized string similar to Place of residence.
         /// </summary>
         public static string User_City {
             get {

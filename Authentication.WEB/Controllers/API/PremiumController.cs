@@ -15,8 +15,14 @@ namespace Authentication.WEB.Controllers
     [RoutePrefix("api/Premium")]
     public class PremiumController : ApiController
     {
-      
 
+        private IOkSetupService _os;
+
+
+        public PremiumController(IOkSetupService os)
+        {
+            _os = os;
+        }
         [HttpGet]
         public IHttpActionResult Excel(int value1, int value2)
         {
@@ -41,12 +47,16 @@ namespace Authentication.WEB.Controllers
         [Route("Calculate")]
         public IHttpActionResult Code(Policy policy)
         {
-            ValidationService validatePremium = new ValidationService();
-
-            if (!validatePremium.validateSSN_Advanced(policy.SSN))
+            ok_setup Last_Entry = _os.GetLast();
+            if (Last_Entry.SSNValidationActive == 1)
             {
-               
-                return Json(new {isValid=false, status = "error", message = Resource.Error_EMBG_Val_Advanced });
+                ValidationService validatePremium = new ValidationService();
+
+                if (!validatePremium.validateSSN_Advanced(policy.SSN))
+                {
+
+                    return Json(new { isValid = false, status = "error", message = Resource.Error_EMBG_Val_Advanced });
+                }
             }
 
             if (!policy.isMobile && policy.IsSamePolicyHolderInsured)

@@ -155,7 +155,6 @@ namespace Authentication.WEB.Controllers
             pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
             
             pat.mainInsured = _pis.GetAllInsuredByPolicyIdAndInsuredCreatedBy(pat.Pat.ID, pat.Pat.Created_By).First();
-            var policy = _ps.GetPolicyById(pat.Pat.ID);
             var additionalCharges = _acs.GetAdditionalChargesByPolicyId(pat.Pat.ID);
 
             pat.additionalCharge1 = InsuredTraveling.Resource.WithNoAddOn;
@@ -239,7 +238,7 @@ namespace Authentication.WEB.Controllers
                     insuredData.Add("PostalCode", loggedUser.PostalCode);
                     insuredData.Add("Ssn", loggedUser.EMBG);
 
-                    insuredData.Add("DateBirth", loggedUser.DateOfBirth.Year + String.Format("-{0:00}-{0:00}", +loggedUser.DateOfBirth.Month, loggedUser.DateOfBirth.Day));
+                    insuredData.Add("DateBirth", loggedUser.DateOfBirth.Value + String.Format("-{0:00}-{0:00}",  loggedUser.DateOfBirth.Value, loggedUser.DateOfBirth.Value));
                     insuredData.Add("PassportID", loggedUser.PassportNumber);
                     insuredData.Add("Email", loggedUser.Email);
                     insuredData.Add("PhoneNumber", loggedUser.MobilePhoneNumber);

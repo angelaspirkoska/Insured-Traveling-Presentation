@@ -832,7 +832,7 @@
     <value>Задолжителни полиња</value>
   </data>
   <data name="Policy_UseNumberLatinLetters" xml:space="preserve">
-    <value>Користете само бројки и латински букви</value>
+    <value>Користете само бројки и латинични букви</value>
   </data>
   <data name="Chats" xml:space="preserve">
     <value>Разговори</value>
@@ -1072,7 +1072,7 @@
     <value>Оштетно побарување бр.</value>
   </data>
   <data name="Search_FNOLArchived" xml:space="preserve">
-    <value>Архивирани</value>
+    <value>Историски верзии</value>
   </data>
   <data name="SSNNotFoundMsg" xml:space="preserve">
     <value>Не е пронајден корисник со таков матичен број во вашето портфолио. Ве молиме внесете податоци за договорувачот.</value>
@@ -1114,7 +1114,7 @@
     <value>Поштенскиот број треба да содржи само бројки.</value>
   </data>
   <data name="User_City" xml:space="preserve">
-    <value>Град</value>
+    <value>Населено место</value>
   </data>
   <data name="Error_EMBG_Val_Advanced" xml:space="preserve">
     <value>Внесовте невалиден матичен број.</value>
@@ -1154,5 +1154,107 @@
   </data>
   <data name="SearchTable_UserName" xml:space="preserve">
     <value>Корисничко име</value>
+  </data>
+  <data name="Search_UserResetPass" xml:space="preserve">
+    <value>Промени лозинка</value>
+  </data>
+  <data name="PasswordResetMessageFail" xml:space="preserve">
+    <value>Лозинката не беше променета успешно</value>
+  </data>
+  <data name="PasswordResetMessageSuccess" xml:space="preserve">
+    <value>Лозинката беше променета успешно</value>
+  </data>
+  <data name="Search_Cancel" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="Search_Reset" xml:space="preserve">
+    <value>Промени</value>
+  </data>
+  <data name="Search_ResetUserPass" xml:space="preserve">
+    <value>Промени ја лозинката на корисникот</value>
+  </data>
+  <data name="ChangeStatusMessageFail" xml:space="preserve">
+    <value>Статусот на корисникот не беше променет</value>
+  </data>
+  <data name="ChangeStatusMessageSuccess" xml:space="preserve">
+    <value>Успешно го променивте статусот на корисникот</value>
+  </data>
+  <data name="SearchTable_ActiveInactiveUser" xml:space="preserve">
+    <value>Активен/Неактивен</value>
+  </data>
+  <data name="Search_ChangeUserStatus" xml:space="preserve">
+    <value>Промени</value>
+  </data>
+  <data name="Search_UserChangeStatus" xml:space="preserve">
+    <value>Промени статус</value>
+  </data>
+  <data name="Search_UserChangeStatusQuestion" xml:space="preserve">
+    <value>Дали сакаш да го промениш статусот на корисникот? Дали си сигурен?</value>
+  </data>
+  <data name="SearchTable_CreatedOn" xml:space="preserve">
+    <value>Креиран на</value>
+  </data>
+  <data name="SearchTable_UserStatus" xml:space="preserve">
+    <value>Пребрај по статус</value>
+  </data>
+  <data name="SearchTable_UserStatusActive" xml:space="preserve">
+    <value>Активен</value>
+  </data>
+  <data name="SearchTable_UserStatusBoth" xml:space="preserve">
+    <value>Двете</value>
+  </data>
+  <data name="SearchTable_UserStatusInactive" xml:space="preserve">
+    <value>Неактивен</value>
+  </data>
+  <data name="Search_UserItselfChangeStatus" xml:space="preserve">
+    <value>Не можете да го смените статусот на вашиот регистриран профил</value>
+  </data>
+  <data name="AdminPanel_SSNValidation" xml:space="preserve">
+    <value>ЕМБГ напредна валидација</value>
+  </data>
+  <data name="AdminPanel_TestPayment" xml:space="preserve">
+    <value>Тест плаќање</value>
+  </data>
+  <data name="Edit_FailMessage" xml:space="preserve">
+    <value>Промената на корисникот не беше успешна</value>
+  </data>
+  <data name="Edit_SuccessMessage" xml:space="preserve">
+    <value>Успешно ги променивте податоците на корисникот</value>
+  </data>
+  <data name="SearchTable_EditUser" xml:space="preserve">
+    <value>Промени корисник</value>
+  </data>
+  <data name="Search_QuotePreview" xml:space="preserve">
+    <value>Прегледај</value>
+  </data>
+  <data name="SignUP_LatinLettersOnly" xml:space="preserve">
+    <value>Користи само латинични букви</value>
+  </data>
+  <data name="AdminPanel_Discount" xml:space="preserve">
+    <value>Попуст</value>
+  </data>
+  <data name="Policy_AddOfferMsg" xml:space="preserve">
+    <value>Успешно ја додадовте полисата во понуди. Број на понуда</value>
+  </data>
+  <data name="Policy_AddOfferMsgFail" xml:space="preserve">
+    <value>Полисата не беше додадена во понуди</value>
+  </data>
+  <data name="Home_BuyInsurance" xml:space="preserve">
+    <value>Купи осигурување</value>
+  </data>
+  <data name="Home_NoMsg" xml:space="preserve">
+    <value>Немате нови пораки</value>
+  </data>
+  <data name="OK_SMSCode" xml:space="preserve">
+    <value>Испратен Ви е СМС код. Проверете го вашиот мобилен телефон.</value>
+  </data>
+  <data name="Search_HelpMessage" xml:space="preserve">
+    <value>Избери ги датумите пред или после овој датум</value>
+  </data>
+  <data name="Msg_IncorrectUserPass" xml:space="preserve">
+    <value>Погрешно корисничко име или лозинка. Обиди се повторно.</value>
+  </data>
+  <data name="Msg_InvalidRecaptcha" xml:space="preserve">
+    <value>Невалидна reCaptcha. Обиди се повторно со клкнување на копчето до "I'm not a robot".</value>
   </data>
 </root>

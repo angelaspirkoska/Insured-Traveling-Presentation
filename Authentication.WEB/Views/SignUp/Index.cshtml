@@ -5,11 +5,12 @@
     ViewBag.Title = "Sign up";
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
+
 <form id="signup_form" method="post" action="@Url.Action("Index")" data-otf-ajax="true">
     <div class="row">
         <div class="col-md-6">
             <h2 class="form-login-heading heading-padding">@InsuredTraveling.Resource.SignUp</h2>
-        </div>s
+        </div>
         <div class="col-lg-offset-2 col-md-offset-2 col-lg-4 col-md-4 col-sm-4">
             <div class="alert alert-dismissible alert-info alert-position">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -21,6 +22,19 @@
         <div class="col-md-6">
             @if (ViewBag.Message != null)
             {
+                if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <a class="close" data-dismiss="alert">x</a>
+                        @foreach (var modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+                        {
+                            if (modelError.ErrorMessage ==  "recaptchaError")
+                            {
+                                <p>@InsuredTraveling.Resource.Msg_InvalidRecaptcha</p>
+                            }
+                        }
+                    </div>
+                }
                 if (ViewBag.Message == "Registration failed")
                 {
                     <div class="alert alert-dismissible alert-danger">
@@ -68,12 +82,13 @@
                     <div class="form-group">
                         <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
                             <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label " })
+                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-user"></i>
                                 </div>
-                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control mandatoryField", onblur = "FindUsername()", id = "username", style = "" } })
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control mandatoryField", onblur = "FindUsername()", id = "username", title= "Latin letters only" } })
+
                                 <span style="color: red" id="UsernameMsg"></span>
                             </div>
                             @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
@@ -85,7 +100,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-key"></i>
                                 </div>
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control mandatoryField", style = "" } })
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control mandatoryField" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                         </div>
@@ -96,7 +111,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-key"></i>
                                 </div>
-                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
                         </div>
@@ -109,7 +124,7 @@
                                 <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-user"></i>
                                 </div>
-                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", title = "Latin letters only" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                         </div>
@@ -121,7 +136,7 @@
                                 <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-user"></i>
                                 </div>
-                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", title = "Latin letters only" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                         </div>
@@ -137,18 +152,6 @@
                             </div>
                             @Html.ValidationMessageFor(model => model.DateOfBirth,"", new { @class = "text-danger" })
                         </div>
-
-                        @*<div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                                <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                                @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label" })
-                                <div class="input-group date" id="datetimepicker">
-                                    <div class="input-group-addon">
-                                        <i class="glyphicon glyphicon-calendar"></i>
-                                    </div>
-                                    @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control placeholder", type = "date", id = "" } })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
-                            </div>*@
                     </div>
 
                     <div class="form-group">
@@ -159,7 +162,7 @@
                                 <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-map-marker"></i>
                                 </div>
-                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", title = "Latin letters only" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                         </div>
@@ -170,7 +173,7 @@
                                 <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-home"></i>
                                 </div>
-                                @Html.EditorFor(model => model.Municipality, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                                @Html.EditorFor(model => model.Municipality, new { htmlAttributes = new { @class = "form-control", title = "Latin letters only" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.Municipality, "", new { @class = "text-danger" })
                         </div>
@@ -181,7 +184,7 @@
                                 <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-map-marker"></i>
                                 </div>
-                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", title = "Latin letters only" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                         </div>
@@ -194,7 +197,7 @@
                                 <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-user"></i>
                                 </div>
-                                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control", title = "Numbers only" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
                         </div>
@@ -229,7 +232,7 @@
                                 <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-envelope"></i>
                                 </div>
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", title = "Latin letters only" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
@@ -237,9 +240,11 @@
                             @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-earphone"></i>
+                                    <select id="countriesCodes" style="width: 46px;">
+                                        
+                                    </select>
                                 </div>
-                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", title = "Numbers only" } })
                                 @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -248,9 +253,10 @@
                             @Html.LabelFor(model => model.MobilePhoneNumber, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-phone"></i>
+                                        <select id="countriesCodesMobile" style="width: 46px;">                                            
+                                        </select>
                                 </div>
-                                @Html.EditorFor(model => model.MobilePhoneNumber, new { htmlAttributes = new { @class = "form-control", style = "", id = "mobilenumber" } })
+                                @Html.EditorFor(model => model.MobilePhoneNumber, new { htmlAttributes = new { @class = "form-control", title = "Numbers only", id = "mobilenumber" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.MobilePhoneNumber, "", new { @class = "text-danger" })
                         </div>
@@ -263,7 +269,7 @@
                                 <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-user"></i>
                                 </div>
-                                @Html.DropDownListFor(model => model.Gender, (List<SelectListItem>)ViewBag.Gender, Resource.User_SelectGender, new { @class = "form-control", style = "" })
+                                @Html.DropDownListFor(model => model.Gender, (List<SelectListItem>)ViewBag.Gender, Resource.User_SelectGender, new { @class = "form-control" })
                             </div>
                             @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                         </div>
@@ -274,7 +280,7 @@
                                 <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-user"></i>
                                 </div>
-                                @Html.EditorFor(model => model.EMBG, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData", style = "" } })
+                                @Html.EditorFor(model => model.EMBG, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData", title = "Numbers only" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.EMBG, "", new { @class = "text-danger" })
                         </div>
@@ -285,7 +291,7 @@
                                 <div class="input-group-addon">
                                     <i class="glyphicon glyphicon-user"></i>
                                 </div>
-                                @Html.EditorFor(model => model.PassportNumber, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                                @Html.EditorFor(model => model.PassportNumber, new { htmlAttributes = new { @class = "form-control", title = "Latin letters and numbers only" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.PassportNumber, "", new { @class = "text-danger" })
                         </div>
@@ -330,10 +336,52 @@
 @Scripts.Render("~/bundles/jqueryval")
 
 <script type="text/javascript">
+
+    $(document).ready(function () {
+        var countriesCodes;
+
+        $('.form-control').tooltip({
+            placement: "bottom"
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/countriesCodes.json",
+            dataType: "json"
+        }).done(function (result) {
+            countriesCodes = result.countriesCodes;
+
+            $.each(result.countriesCodes, function (index, value) {
+                $('#countriesCodes').append($('<option>', {
+                    value: value.dial_code,
+                    text: value.code + "  " + value.name
+                }));
+            });
+
+            $.each(result.countriesCodes, function (index, value) {
+                $('#countriesCodesMobile').append($('<option>', {
+                    value: value.dial_code,
+                    text: value.code + "  " + value.name
+                }));
+            });
+        });
+
+        $('#countriesCodes').change(function () {
+            $("#PhoneNumber").val($('#countriesCodes').val());
+        });
+
+        $('#countriesCodesMobile').change(function () {
+            $("#mobilenumber").val($('#countriesCodesMobile').val());
+        });
+
+    });
+
     $('#datetimepicker3').datetimepicker({
         viewMode: 'years',
-        format: 'DD/MM/YYYY'    
+        format: 'DD/MM/YYYY'
     });
+
+    $("#Email").removeClass("text-box");
 
     function FindUsername() {
         $.ajax({
@@ -367,26 +415,30 @@
             data: jQuery.param({ username: $("#username").val() }),
         })
         .done(function (result) {
-            alert("OK");
+            alert("@InsuredTraveling.Resource.OK_SMSCode");
         })
         .error(function () {
 
         });
     }
 
-
-
     $(".input-sm, .text-box").keypress(function (event) {
         var ew = event.which;
         console.log(ew);
-        if (ew == 32)
+
+        if (ew == 32) {
             return true;
-        if (46 <= ew && ew <= 57)
+        }
+        if (46 <= ew && ew <= 57) {
             return true;
-        if (64 <= ew && ew <= 90)
+        }
+        if (64 <= ew && ew <= 90) {
             return true;
-        if (97 <= ew && ew <= 122)
+        }
+        if (97 <= ew && ew <= 122) {
             return true;
+        }
+
         return false;
     });
 

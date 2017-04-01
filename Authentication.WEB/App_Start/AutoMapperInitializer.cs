@@ -13,27 +13,6 @@ namespace InsuredTraveling.App_Start
         public static void Initialize()
         {
             InsuredTravelingEntity db = new InsuredTravelingEntity();
-          
-            Mapper.CreateMap<CreateClientModel , insured>().AfterMap((src, dst) =>
-            {
-                dst.Name = src.Name;
-                dst.Lastname = src.LastName;
-                dst.Email = src.Email;
-                dst.DateBirth = src.DateBirth.Date;
-                dst.Address = src.Address;
-                dst.City = src.City;
-                dst.SSN = src.SSN;
-                dst.Postal_Code = src.Postal_Code;
-                dst.Phone_Number = src.PhoneNumber;
-                dst.Passport_Number_IdNumber = src.Passport_Number_IdNumber;
-                dst.Created_By = src.Created_By;
-                dst.Date_Created = DateTime.Now.Date;
-                dst.type_insured = null;
-                dst.aspnetuser = null;
-                dst.aspnetuser1 = null;
-                dst.Type_InsuredID = null;
-                               
-            });
 
             Mapper.CreateMap<aspnetuser, SearchRegisteredUser>().AfterMap((src, dst) =>
             {
@@ -41,9 +20,66 @@ namespace InsuredTraveling.App_Start
                 dst.FirstName = src.FirstName;
                 dst.LastName = src.LastName;
                 dst.Email = src.Email;
-                dst.RoleName = src.aspnetroles.FirstOrDefault().Name;
+                var role = src.aspnetroles.FirstOrDefault();
+                if (role != null) dst.RoleName = role.Name;
+                if (src.CreatedOn != null) dst.CreatedOn = src.CreatedOn.Value.ToShortDateString();
+                dst.ActiveInactive = src.Active == 1 ? "Active" : "Inactive";
+                dst.ID = src.Id;
             });
 
+            Mapper.CreateMap<aspnetuser, User>().AfterMap((src, dst) =>
+            {
+                dst.UserName = src.UserName;
+                dst.FirstName = src.FirstName;
+                dst.LastName = src.LastName;
+                dst.City = src.City;
+                dst.Address = src.Address;
+                dst.Municipality = src.Municipality;
+                dst.MobilePhoneNumber = src.MobilePhoneNumber;
+                dst.Email = src.Email;
+                dst.DateOfBirth = src.DateOfBirth;
+                dst.EMBG = src.EMBG;
+                dst.Gender = src.Gender;
+                dst.PassportNumber = src.PassportNumber;
+                dst.PostalCode = src.PostalCode;
+                var firstOrDefault = src.aspnetroles.FirstOrDefault();
+                if (firstOrDefault != null) dst.Role = firstOrDefault.Name;
+                dst.PhoneNumber = src.PhoneNumber;
+            });
+
+            Mapper.CreateMap<CreateClientModel , insured>().AfterMap((src, dst) =>
+            {
+                dst.Name = src.Name;
+                dst.Lastname = src.LastName;
+                dst.Email = src.Email;
+                dst.DateBirth = src.DateBirth;
+                dst.Address = src.Address;
+                dst.City = src.City;
+                dst.SSN = src.SSN;
+                dst.Postal_Code = src.Postal_Code;
+                dst.Phone_Number = src.PhoneNumber;
+                dst.Passport_Number_IdNumber = src.Passport_Number_IdNumber;
+                dst.Created_By = System.Web.HttpContext.Current.User.Identity.Name;
+                dst.Date_Created = DateTime.UtcNow;
+                dst.Age = src.Age;
+                dst.type_insured = null;
+                dst.aspnetuser = null;
+                dst.aspnetuser1 = null;            
+            });
+            Mapper.CreateMap<Ok_SetupModel, ok_setup>().AfterMap((src, dst) =>
+            {
+                dst.Sms_Code_Seconds = src.Sms_Code_Seconds;
+                dst.NumberOfAttempts = src.NumberOfAttempts;
+                dst.NumberOfNews = src.NumberOfNews;
+                dst.NotificationTime = src.NotificationTime;
+                dst.NumberOfLastMsg = src.NumberOfLastMsg;
+                dst.InsuranceCompany = src.InsuranceCompany;
+                dst.VersionNumber = src.VersionNumber;
+                dst.Created_Date = src.Created_Date;
+                dst.Created_By = src.Created_By;
+          
+                dst.SSNValidationActive = src.SSNValidationActive;
+            });
             Mapper.CreateMap<first_notice_of_loss, FirstNoticeOfLossEditViewModel>().AfterMap((src, dst) =>
             {
                 var policy = src.travel_policy;

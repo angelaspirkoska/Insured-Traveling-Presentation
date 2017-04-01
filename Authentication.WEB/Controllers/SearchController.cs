@@ -12,6 +12,7 @@ using InsuredTraveling.Filters;
 using System.Configuration;
 using InsuredTraveling.App_Start;
 using InsuredTraveling.Models;
+using Microsoft.Office.Interop.Word;
 
 namespace InsuredTraveling.Controllers
 {
@@ -30,6 +31,7 @@ namespace InsuredTraveling.Controllers
         private IPolicySearchService _policySearchService;
         private RoleAuthorize _roleAuthorize;
         private IFirstNoticeOfLossArchiveService _firstNoticeLossArchiveService;
+        private IRolesService _rs;
 
         public SearchController(IPolicyService ps, 
                                 IFirstNoticeOfLossService fnls, 
@@ -40,7 +42,8 @@ namespace InsuredTraveling.Controllers
                                 ICountryService countryService,
                                 IChatService ics,
                                 IPolicySearchService policySearchService,
-                                IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService)
+                                IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService,
+                                IRolesService rs)
         {
             _ps = ps;
             _fnls = fnls;
@@ -50,6 +53,7 @@ namespace InsuredTraveling.Controllers
             _bas = bas;
             _countryService = countryService;
             _ics = ics;
+            _rs = rs;
             _policySearchService = policySearchService;
             _roleAuthorize = new RoleAuthorize();
             _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
@@ -68,6 +72,15 @@ namespace InsuredTraveling.Controllers
 
             var policies = GetAllPolicies();
             ViewBag.Policies = policies.Result;
+            var roles = _rs.GetAll().ToList();
+            foreach(var role in roles)
+            {
+                if (role.Selected)
+                {
+                    role.Selected = false;
+                }
+            }
+            ViewBag.Roles = roles;
             return View();
         }
 
@@ -99,12 +112,11 @@ namespace InsuredTraveling.Controllers
         public JObject GetChats(string username, string chatId, bool all, bool active, bool discarded, bool noticed)
         {
             JObject result = new JObject();
-            RoleAuthorize r = new RoleAuthorize();
             List<chat_requests> chats = new List<chat_requests>();
             JArray chatJArray = new JArray();
             bool isAdmin = false;
 
-            if (r.IsUser("Admin"))
+            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
             {
                 isAdmin = true;
                 chats = _ics.GetChatsAdmin(System.Web.HttpContext.Current.User.Identity.Name);
@@ -113,7 +125,7 @@ namespace InsuredTraveling.Controllers
                     chats = chats.Where(x => x.Requested_by.Equals(username)).ToList();
                 }
             }
-            else if (r.IsUser("End user"))
+            else if (_roleAuthorize.IsUser("End user"))
             {
                 chats = _ics.GetChatsEndUser(System.Web.HttpContext.Current.User.Identity.Name);
                 if (!String.IsNullOrEmpty(username))
@@ -232,7 +244,7 @@ namespace InsuredTraveling.Controllers
 
             List<travel_policy> data = new List<travel_policy>();
 
-            if (_roleAuthorize.IsUser("Admin"))
+            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
             {
                 data = _ps.GetPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, PolicyNumber);
             }
@@ -313,7 +325,7 @@ namespace InsuredTraveling.Controllers
 
             List<travel_policy> data = new List<travel_policy>();
 
-            if (_roleAuthorize.IsUser("Admin"))
+            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
             {
                 data = _ps.GetQuotesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, PolicyNumber);
             }
@@ -357,29 +369,59 @@ namespace InsuredTraveling.Controllers
 
         [HttpGet]
         [Route("GetRegisteredUsers")]
-        public JObject GetRegisteredUsers(string RegisterDate, string operatorRegisterDate, string RoleName)
+        public JObject GetRegisteredUsers(string registerDate, string operatorRegisterDate, string roleName, string status)
         {
             List<aspnetuser> data = new List<aspnetuser>();
-            DateTime RegisterDateValue = String.IsNullOrEmpty(RegisterDate) ? new DateTime() : Convert.ToDateTime(RegisterDate);
+            DateTime registerDateValue = String.IsNullOrEmpty(registerDate) ? new DateTime() : Convert.ToDateTime(registerDate);
 
-            data = _us.GetUsersByRoleName(RoleName);
+            data = _us.GetUsersByRoleName(roleName);
 
-            if (!String.IsNullOrEmpty(RegisterDate))
+            if (!string.IsNullOrEmpty(registerDate))
             {
                 switch (operatorRegisterDate)
                 {
-                    //case "<": data = data.Where(x => x.Start_Date < startDate1).ToList(); break;
-                    //case "=": data = data.Where(x => x.Start_Date == startDate1).ToList(); break;
-                    //case ">": data = data.Where(x => x.Start_Date > startDate1).ToList(); break;
-                    //default: break;
+                    case "<": data = data.Where(x => x.CreatedOn < registerDateValue).ToList(); break;
+                    case "=": data = data.Where(x => x.CreatedOn == registerDateValue).ToList(); break;
+                    case ">": data = data.Where(x => x.CreatedOn > registerDateValue).ToList(); break;
+                    default: break;
                 }
             }
 
-            var JSONObject = new JObject();
+            if (!string.IsNullOrEmpty(status))
+            {
+                switch (status)
+                {
+                    case "0": data = data.Where(x => x.Active == 1).ToList(); break;
+                    case "1": data = data.Where(x => x.Active == 0).ToList(); break;
+                    case "2":
+                        break;
+                    default: break;
+                }
+            }
+
+            var jsonObject = new JObject();
             var searchModel = data.Select(Mapper.Map<aspnetuser, SearchRegisteredUser>).ToList();
             var array = JArray.FromObject(searchModel.ToArray());
-            JSONObject.Add("data", array);
-            return JSONObject;
+            jsonObject.Add("data", array);
+            return jsonObject;
+        }
+
+        [HttpGet]
+        [Route("ChangeUserStatus")]
+        public JObject ChangeUserStatus(string username)
+        {
+            bool result = _us.ChangeStatus(username);
+            JObject resultJson = new JObject();
+            if (result)
+            {
+                resultJson.Add("message", "OK");
+            }
+            else
+            {
+                resultJson.Add("message", "NOK");
+            }
+
+            return resultJson;
         }
 
 
@@ -414,7 +456,7 @@ namespace InsuredTraveling.Controllers
 
             List<first_notice_of_loss> fnol = new List<first_notice_of_loss>();
 
-            if (_roleAuthorize.IsUser("Admin"))
+            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
             {
                 fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
             }
@@ -663,6 +705,76 @@ namespace InsuredTraveling.Controllers
             return data;
         }
 
+        [HttpGet]
+        [Route("EditUser")]
+        public ActionResult EditUser(string id)
+        {
+            var genderList = Gender();
+            var roles = _rs.GetAll().ToList();
+            aspnetuser userEdit = _us.GetUserById(id);
+
+            User userEditModel = Mapper.Map<aspnetuser, User>(userEdit);
+
+            foreach (var role in  roles)
+            {
+                if (role.Selected)
+                    role.Selected = false;
+                if (role.Text == userEditModel.Role)
+                    role.Selected = true;
+            }
+
+            foreach (var gender in genderList)
+            {
+                if (gender.Text == userEditModel.Gender)
+                    gender.Selected = true;
+            }
+
+            ViewBag.Roles = roles;
+            ViewBag.Gender = genderList;
+
+            
+            return View(userEditModel);
+        }
+
+        [HttpPost]
+        [Route("EditUser")]
+        public ActionResult EditUser(User editedUser)
+        {
+            var genderList = Gender();
+            var roles = _rs.GetAll().ToList();
+
+            foreach (var role in roles)
+            {
+                if (role.Selected)
+                    role.Selected = false;
+                if (role.Text == editedUser.Role)
+                    role.Selected = true;
+            }
+
+            foreach (var gender in genderList)
+            {
+                if (gender.Text == editedUser.Gender)
+                    gender.Selected = true;
+            }
+
+            ViewBag.Roles = roles;
+            ViewBag.Gender = genderList;
+
+            int result = _us.UpdateUser(editedUser);
+
+            if (result == -1)
+            {
+                ViewBag.Message = "NOK";
+                return View(editedUser);
+            }
+            else
+            {
+                ViewBag.Message = "OK";
+                return View(editedUser);
+            }
+        }
+
+
         private async Task<List<SelectListItem>> GetTypeOfPolicy()
         {
             var policy = _pts.GetAll();
@@ -688,6 +800,27 @@ namespace InsuredTraveling.Controllers
         {
           
             return policies;
+        }
+
+        private List<SelectListItem> Gender()
+        {
+            List<SelectListItem> data = new List<SelectListItem>();
+            data.Add(new SelectListItem
+            {
+                Text = "Female",
+                Value = "Female"
+            });
+            data.Add(new SelectListItem
+            {
+                Text = "Male",
+                Value = "Male"
+            });
+            data.Add(new SelectListItem
+            {
+                Text = "Other",
+                Value = "Other"
+            });
+            return data;
         }
     }
 }

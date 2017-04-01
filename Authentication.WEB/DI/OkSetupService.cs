@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using InsuredTraveling.Models;
+using AutoMapper;
 
 namespace InsuredTraveling.DI
 {
     public class OkSetupService : IOkSetupService
     {
         InsuredTravelingEntity _db = new InsuredTravelingEntity();
-        public void AddOkSetup(ok_setup ok)
+        public void AddOkSetup(Ok_SetupModel ok)
         {
-            _db.ok_setup.Add(ok);
+            ok_setup ok2 = _db.ok_setup.Create();
+            ok2 = Mapper.Map<Ok_SetupModel,ok_setup>(ok);
+            _db.ok_setup.Add(ok2);
             _db.SaveChanges();
         }
 

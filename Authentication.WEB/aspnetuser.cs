@@ -19,7 +19,9 @@ namespace InsuredTraveling
         {
             this.additional_charge = new HashSet<additional_charge>();
             this.additional_charge1 = new HashSet<additional_charge>();
+            this.first_notice_of_loss_archive = new HashSet<first_notice_of_loss_archive>();
             this.first_notice_of_loss = new HashSet<first_notice_of_loss>();
+            this.first_notice_of_loss1 = new HashSet<first_notice_of_loss>();
             this.discount_age = new HashSet<discount_age>();
             this.discount_age1 = new HashSet<discount_age>();
             this.discount_country = new HashSet<discount_country>();
@@ -38,8 +40,6 @@ namespace InsuredTraveling
             this.travel_duration1 = new HashSet<travel_duration>();
             this.users = new HashSet<user>();
             this.aspnetroles = new HashSet<aspnetrole>();
-            this.first_notice_of_loss_archive = new HashSet<first_notice_of_loss_archive>();
-            this.first_notice_of_loss1 = new HashSet<first_notice_of_loss>();
         }
     
         public string Id { get; set; }
@@ -67,15 +67,21 @@ namespace InsuredTraveling
         public string PostalCode { get; set; }
         public string PassportNumber { get; set; }
         public string City { get; set; }
-        public System.DateTime DateOfBirth { get; set; }
+        public Nullable<System.DateTime> DateOfBirth { get; set; }
         public string Gender { get; set; }
+        public Nullable<sbyte> Active { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<additional_charge> additional_charge { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<additional_charge> additional_charge1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<first_notice_of_loss> first_notice_of_loss { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<first_notice_of_loss> first_notice_of_loss1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<discount_age> discount_age { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -112,9 +118,5 @@ namespace InsuredTraveling
         public virtual ICollection<user> users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aspnetrole> aspnetroles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<first_notice_of_loss> first_notice_of_loss1 { get; set; }
     }
 }

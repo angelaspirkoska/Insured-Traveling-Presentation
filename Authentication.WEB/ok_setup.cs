@@ -27,5 +27,6 @@ namespace InsuredTraveling
         public string Modified_Date { get; set; }
         public string Modified_By { get; set; }
         public sbyte SSNValidationActive { get; set; }
+        public Nullable<sbyte> TestPayment { get; set; }
     }
 }
