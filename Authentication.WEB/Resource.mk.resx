@@ -1241,21 +1241,33 @@
   </data>
   <data name="AdminPanel_DiscountAddButton" xml:space="preserve">
     <value>Додади попуст</value>
+  <data name="Home_BuyInsurance" xml:space="preserve">
+    <value>Купи осигурување</value>
   </data>
   <data name="AdminPanel_DiscountCoefi" xml:space="preserve">
     <value>Попуст во проценти</value>
+  <data name="Home_NoMsg" xml:space="preserve">
+    <value>Немате нови пораки</value>
   </data>
   <data name="AdminPanel_DiscountEndDate" xml:space="preserve">
     <value>Крај на попуст</value>
+  <data name="OK_SMSCode" xml:space="preserve">
+    <value>Испратен Ви е СМС код. Проверете го вашиот мобилен телефон.</value>
   </data>
   <data name="AdminPanel_DiscountName" xml:space="preserve">
     <value>Име на попуст</value>
+  <data name="Search_HelpMessage" xml:space="preserve">
+    <value>Избери ги датумите пред или после овој датум</value>
   </data>
   <data name="AdminPanel_DiscountStartDate" xml:space="preserve">
     <value>Почеток на попуст</value>
+  <data name="Msg_IncorrectUserPass" xml:space="preserve">
+    <value>Погрешно корисничко име или лозинка. Обиди се повторно.</value>
   </data>
   <data name="AdminPanel_DiscountCancelButton" xml:space="preserve">
     <value>Откажи</value>
+  <data name="Msg_InvalidRecaptcha" xml:space="preserve">
+    <value>Невалидна reCaptcha. Обиди се повторно со клкнување на копчето до "I'm not a robot".</value>
   </data>
   <data name="Home_BuyInsurance" xml:space="preserve">
     <value>Купи осигурување</value>

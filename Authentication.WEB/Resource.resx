@@ -1244,6 +1244,8 @@
   </data>
   <data name="AdminPanel_DiscountAddButton" xml:space="preserve">
     <value>Add Discount</value>
+  <data name="Home_BuyInsurance" xml:space="preserve">
+    <value>Buy Insurance</value>
   </data>
   <data name="AdminPanel_DiscountCancelButton" xml:space="preserve">
     <value>Cancel</value>

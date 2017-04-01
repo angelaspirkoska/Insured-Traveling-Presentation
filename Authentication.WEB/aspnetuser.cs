@@ -42,6 +42,8 @@ namespace InsuredTraveling
             this.aspnetroles = new HashSet<aspnetrole>();
             this.broker_employees = new HashSet<broker_employees>();
             this.broker_employees1 = new HashSet<broker_employees>();
+            this.first_notice_of_loss_archive = new HashSet<first_notice_of_loss_archive>();
+            this.first_notice_of_loss1 = new HashSet<first_notice_of_loss>();
         }
     
         public string Id { get; set; }
@@ -121,9 +123,9 @@ namespace InsuredTraveling
         public virtual ICollection<user> users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aspnetrole> aspnetroles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
         public virtual ICollection<broker_employees> broker_employees { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<first_notice_of_loss> first_notice_of_loss1 { get; set; }
         public virtual ICollection<broker_employees> broker_employees1 { get; set; }
     }
 }

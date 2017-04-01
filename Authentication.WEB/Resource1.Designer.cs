@@ -97,7 +97,11 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Discount.
+=======
+        ///   Looks up a localized string similar to Only latin letters.
+>>>>>>> Hopeful merge LimitlessDesign with master
         /// </summary>
         public static string AdminPanel_Discount {
             get {
@@ -106,6 +110,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Add Discount.
         /// </summary>
         public static string AdminPanel_DiscountAddButton {
@@ -169,6 +174,8 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+=======
+>>>>>>> Hopeful merge LimitlessDesign with master
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string AdminPanel_ID {
@@ -1303,6 +1310,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Male.
         /// </summary>
         public static string Male {
@@ -1312,6 +1320,8 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+=======
+>>>>>>> Hopeful merge LimitlessDesign with master
         ///   Looks up a localized string similar to The username or password is incorrect. Please try again..
         /// </summary>
         public static string Msg_IncorrectUserPass {
@@ -1465,6 +1475,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Other.
         /// </summary>
         public static string Other {
@@ -1474,6 +1485,8 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+=======
+>>>>>>> Hopeful merge LimitlessDesign with master
         ///   Looks up a localized string similar to Password not changed successfully!.
         /// </summary>
         public static string PasswordResetMessageFail {
@@ -1492,7 +1505,11 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Add to Quotes.
+=======
+        ///   Looks up a localized string similar to Add to Offers.
+>>>>>>> Hopeful merge LimitlessDesign with master
         /// </summary>
         public static string Policy_AddOffer {
             get {
@@ -1501,7 +1518,11 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to You have successfully added the quote. Number of quote: .
+=======
+        ///   Looks up a localized string similar to You have successfully added the offer. Number of offer .
+>>>>>>> Hopeful merge LimitlessDesign with master
         /// </summary>
         public static string Policy_AddOfferMsg {
             get {
@@ -3265,6 +3286,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Days before expiring.
         /// </summary>
         public static string SearchPolicyByExpiringDays {
@@ -3283,6 +3305,8 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+=======
+>>>>>>> Hopeful merge LimitlessDesign with master
         ///   Looks up a localized string similar to Active/Inactive.
         /// </summary>
         public static string SearchTable_ActiveInactiveUser {

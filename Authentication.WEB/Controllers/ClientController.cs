@@ -42,6 +42,7 @@ namespace Authentication.WEB.Controllers
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
             var client = entities.insureds.Create();
             
+
             ValidationService validationService = new ValidationService();
             ViewBag.CountryCodes = model.countriesCodes;
             ViewBag.PhoneNumber = model.PhoneNumber;
