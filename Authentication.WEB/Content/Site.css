@@ -6,6 +6,11 @@
     margin-bottom:20px;
     height:100vh !important;
 }
+
+.body-position-for-limitless {
+    margin: 35px 40px 10px 40px;
+}
+
 .footer-material-design{
     padding-top: 1%;
 }
@@ -90,9 +95,6 @@
     from {opacity: 0;}
     to {opacity:1 ;}
 }
-
-
-
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -188,6 +190,11 @@ form.cmxform .gray * { color: gray; }
 
 .field-size {
     width: 85% !important;
+}
+
+.active-tab {
+    background-color: #0a826b;
+    border-color: #11866f;
 }
 
 .field-size-holder {
@@ -343,7 +350,7 @@ form.cmxform .gray * { color: gray; }
 }
 
 .logo {
-    width:40px; 
+    width:45px; 
     height:auto;
     margin-right:15px;
 }

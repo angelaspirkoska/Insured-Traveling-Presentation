@@ -26,13 +26,13 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
-    
-    <!-- / Our files-->
 
+    <!-- / Our files-->
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <script type="text/javascript" src="~/Scripts/Limitless-js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/Limitless-js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    
     <script type="text/javascript" src="~/Scripts/Limitless-js/core/libraries/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/Scripts/Limitless-js/plugins/loaders/blockui.min.js"></script>
     <!-- /core JS files -->
@@ -49,7 +49,7 @@
     <script type="text/javascript" src="~/Scripts/Limitless-js/core/app.js"></script>
     <script type="text/javascript" src="~/Scripts/Limitless-js/pages/dashboard.js"></script>
     <script type="text/javascript" src="~/Scripts/Limitless-js/pages/layout_fixed_custom.js"></script>
-    
+
     <!-- /theme JS files -->
     <!--Our files-->
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
@@ -149,8 +149,11 @@
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
                                 <li class="divider"></li>
-                                <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken">
-                                        <i class="icon-switch2"></i> @InsuredTraveling.Resource.LogOut </a></li>
+                                <li>
+                                    <a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken">
+                                        <i class="icon-switch2"></i> @InsuredTraveling.Resource.LogOut
+                                    </a>
+                                </li>
                             </ul>
                     </li>
                 }
@@ -169,77 +172,77 @@
                 <div class="sidebar-content">
                     <!-- Main navigation -->
                     <div class="sidebar-category sidebar-category-visible">
-                    @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-                    {
-                        <div class="category-content no-padding">
-                            <ul class="navigation navigation-main navigation-accordion">
+                        @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                        {
+                            <div class="category-content no-padding">
+                                <ul class="navigation navigation-main navigation-accordion">
 
-                                <!-- Main -->
-                                <li class="navigation-header">
-                                    <span>Main</span> <i class="icon-menu" title="Main pages"></i>                                
-                                </li>
-                                <li>
-                                    <a href="/Policy" id="addNewPolicy">
-                                        <i class="icon-add-to-list"></i>
-                                        <span id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</span>
-                                    </a>
-                                </li>
-                                @if (r.IsUser("Admin") || r.IsUser("Broker"))
-                                {
+                                    <!-- Main -->
+                                    <li class="navigation-header">
+                                        <span>Main</span> <i class="icon-menu" title="Main pages"></i>
+                                    </li>
                                     <li>
-                                        <a href="/News/Index">
-                                            <i class="icon-newspaper2"></i>
-                                            <span id="btnNews">@InsuredTraveling.Resource.Home_News</span>
+                                        <a href="/Policy">
+                                            <i class="icon-add-to-list"></i>
+                                            <span id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</span>
                                         </a>
                                     </li>
-                                }
-                                <li>
-                                    <a href="/Search/Index">
-                                        <i class="icon-search4"></i>
-                                        <span id="btnSearch">@InsuredTraveling.Resource.Home_Search</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/FirstNoticeOfLoss/Index">
-                                        <i class="icon-file-plus"></i>
-                                        <span id="btnFNOL">@InsuredTraveling.Resource.Home_FirstNoticeOfLoss</span>
-                                    </a>
-                                </li>
-                                @if (r.IsUser("Admin"))
-                                {
+                                    @if (r.IsUser("Admin") || r.IsUser("Broker"))
+                                    {
+                                        <li>
+                                            <a href="/News/Index">
+                                                <i class="icon-newspaper2"></i>
+                                                <span id="btnNews">@InsuredTraveling.Resource.Home_News</span>
+                                            </a>
+                                        </li>
+                                    }
                                     <li>
-                                        <a href="/AdminPanel/Index">
-                                            <i class="icon-cog2"></i>
-                                            <span id="btnAdmin" >@InsuredTraveling.Resource.Home_AdminPanel</span>
+                                        <a href="/Search/Index">
+                                            <i class="icon-search4"></i>
+                                            <span id="btnSearch">@InsuredTraveling.Resource.Home_Search</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/Client/Create">
-                                            <i class="icon-user-plus"></i>
-                                            <span id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</span>
+                                        <a href="/FirstNoticeOfLoss/Index">
+                                            <i class="icon-file-plus"></i>
+                                            <span id="btnFNOL">@InsuredTraveling.Resource.Home_FirstNoticeOfLoss</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="/SignUp/CreateUser">
-                                            <i class="icon-man-woman"></i>
-                                            <span>@InsuredTraveling.Resource.Home_CreateUser</span>
-                                        </a>
-                                    </li>
-                                }
-                                @if (r.IsUser("Broker"))
-                                {
-                                    <li>
-                                        <a href="/Client/Create">
-                                            <i class="icon-stack2"></i>
-                                            <span id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</span>
-                                        </a>
-                                    </li>
-                                }
-                                
-                                <!-- /main -->
+                                    @if (r.IsUser("Admin"))
+                                    {
+                                        <li>
+                                            <a href="/AdminPanel/Index">
+                                                <i class="icon-cog2"></i>
+                                                <span id="btnAdmin">@InsuredTraveling.Resource.Home_AdminPanel</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Client/Create">
+                                                <i class="icon-user-plus"></i>
+                                                <span id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/SignUp/CreateUser">
+                                                <i class="icon-man-woman"></i>
+                                                <span>@InsuredTraveling.Resource.Home_CreateUser</span>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (r.IsUser("Broker"))
+                                    {
+                                        <li>
+                                            <a href="/Client/Create">
+                                                <i class="icon-stack2"></i>
+                                                <span id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</span>
+                                            </a>
+                                        </li>
+                                    }
 
-                            </ul>
-                        </div>
+                                    <!-- /main -->
+
+                                </ul>
+                            </div>
                         }
                     </div>
                     <!-- /main navigation <-->
@@ -252,7 +255,7 @@
             </div>
             <!-- Footer -->
             @*<div class="footer text-muted">
-            </div>*@
+                </div>*@
             <div class="footer text-muted" align="center" style="margin: 0 auto;">
                 <a href="#">&copy; @DateTime.Now.Year - Insured Traveling</a>
             </div>

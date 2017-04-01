@@ -2427,6 +2427,7 @@
     <Content Include="Scripts\Limitless-js\plugins\editors\codemirror\mode\livescript\livescript.ls" />
     <Content Include="Scripts\Limitless-js\plugins\pickers\pickadate\translations\FORMATTING.md" />
     <Content Include="Scripts\Limitless-js\plugins\pickers\pickadate\translations\NAMING.md" />
+    <Content Include="Views\Shared\_LayoutLimitless2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

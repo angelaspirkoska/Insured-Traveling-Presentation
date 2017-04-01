@@ -44,6 +44,7 @@ html {
 body {
   position: relative;
   min-height: 100%;
+  font-size: 14px;
 }
 a {
   cursor: pointer;
@@ -1125,8 +1126,8 @@ textarea {
 /* Form components
 ----------------------------------*/
 .form-group {
-  margin-bottom: 20px;
-  position: relative;
+  margin-bottom: 15px;
+  /*position: relative;*/
 }
 .form-group .form-group:last-child {
   margin-bottom: 0;
@@ -1494,6 +1495,7 @@ input[class*=bg-] + .form-control-feedback {
 *  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
+
 .btn {
   position: relative;
 }
@@ -1508,7 +1510,7 @@ input[class*=bg-] + .form-control-feedback {
 .btn::-moz-focus-inner {
   border: 0;
 }
-.btn:hover,
+/*.btn:hover,
 .btn:focus,
 .btn.focus {
   -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.05) inset;
@@ -1755,8 +1757,8 @@ input[class*=bg-] + .form-control-feedback {
 }
 .btn-block + .btn-block {
   margin-top: 10px;
-}
-.btn-default:focus,
+}*/
+/*.btn-default:focus,
 .btn-default.focus,
 .btn-default:hover {
   background-color: #fcfcfc;
@@ -1923,7 +1925,7 @@ input[class*=bg-] + .form-control-feedback {
 .btn-danger.disabled {
   -webkit-box-shadow: none;
   box-shadow: none;
-}
+}*/
 .btn-xlg,
 .btn-group-xlg > .btn {
   padding: 10px 16px;
@@ -3502,7 +3504,7 @@ li + .dropdown-header.highlight,
 }
 @media (min-width: 769px) {
   .navbar-nav {
-    margin-left: 20px;
+    margin-left: 0px;
   }
 }
 .navbar-form {
@@ -6281,7 +6283,6 @@ h6.panel-title,
 *
 * ---------------------------------------------------------------------------- */
 .well {
-  margin-bottom: 0;
   padding: 20px;
   -webkit-box-shadow: none;
   box-shadow: none;

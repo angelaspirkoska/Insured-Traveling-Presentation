@@ -3,7 +3,7 @@
 @using System.Web.Optimization;
 @{
     ViewBag.Title = InsuredTraveling.Resource.NewPolicy_Title;
-    Layout = "~/Views/Shared/_Layout2.cshtml";
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
 }
 
 <h2>@InsuredTraveling.Resource.Policy_CreatePolicy</h2>
@@ -371,7 +371,7 @@
     </div>
     <div class="row">
         <div class="col-md-3 btns-position">
-            <div class="form-group totalPremium">
+            <div class="form-group totalPremium" style="padding-top: 15px;">
                 @Html.LabelFor(model => model.Total_Premium, htmlAttributes: new { @class = "control-label", @id = "totalPremiumLabel" })
                 <div>
                     <div class="input-group">
@@ -407,13 +407,13 @@
                 <input type="submit" id="printOffers" formmethod="post" formaction="/Policy/RedirectPrintOffer" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
             </div>
         </div>
-        <div id="successMsg" class="col-md-4 col-sm-4">
+        <div id="successMsg" class="col-md-4 col-sm-4" style="display:none;">
             <div class="alert alert-dismissible alert-success">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <span>Успешно ја додадовте полисата во понуди. Број на понуда <span style="font-weight:bold;" id="ReturnedQuoteNumber"></span> </span>
             </div>
         </div>
-        <div id="failMsg" class="col-md-4 col-sm-4">
+        <div id="failMsg" class="col-md-4 col-sm-4" style="display:none;">
             <div class="alert alert-dismissible alert-danger">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <span>Полисата не беше додадена успешно!</span>
@@ -453,7 +453,12 @@
         $("#successMsg").hide();
         $("#failMsg").hide();
         $("#Valid_Days").val(10);
-
+        
+        $("#totalPremiumLabel").hide();
+        $("#totalPremium").hide();
+        $("#buyPolicyBtn").hide();
+        $("#AddOffer").hide();
+      
         $("input:checkbox[id='IsExistentPolicyHolder']").attr('checked', true);
         $(".hideWhenSelect").hide();
         $("#PolicyHolderSSN").removeClass("mandatoryField");
@@ -473,6 +478,10 @@
         $("#policy_type option[value='2']").show();
         $("#policy_type option[value='3']").show();
         $("#policy_type option[value='4']").hide();
+
+        //Postavuvanje na klasata active-tab za da se znae koj tab e klikant
+        $("#addNewPolicy").addClass("active-tab");
+        
 
         $('#AddOffer').on('click', function () {
             $.ajax({
@@ -636,7 +645,7 @@
                     else{
                         $("#SSN").attr("style", "border: 1px solid #2c3e50;");
                       
-                            $(".loader").css("display", "none");
+                        $(".loader").css("display", "none");
                         console.log(result.PremiumAmount);
                         $("#totalPremium").val(result.PremiumAmount);
                         $("#totalPremium").show();
@@ -657,10 +666,7 @@
                     $("#totalPremiumLabel").hide();
                     $("#totalPremium").val("");
                     $("#errorMessage").text((JSON.parse(result.responseText)).Message);
-                    
-                    
-                }
-                
+                }                
             });
         }
         else {
