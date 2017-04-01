@@ -410,13 +410,13 @@
         <div id="successMsg" class="col-md-4 col-sm-4" style="display:none;">
             <div class="alert alert-dismissible alert-success">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <span>Успешно ја додадовте полисата во понуди. Број на понуда <span style="font-weight:bold;" id="ReturnedQuoteNumber"></span> </span>
+                <span>@Resource.Policy_AddOfferMsg <span style="font-weight:bold;" id="ReturnedQuoteNumber"></span> </span>
             </div>
         </div>
         <div id="failMsg" class="col-md-4 col-sm-4" style="display:none;">
             <div class="alert alert-dismissible alert-danger">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <span>Полисата не беше додадена успешно!</span>
+                <span>@Resource.Policy_AddOfferMsgFail!</span>
             </div>
         </div>
     </div>
@@ -453,12 +453,7 @@
         $("#successMsg").hide();
         $("#failMsg").hide();
         $("#Valid_Days").val(10);
-        
-        $("#totalPremiumLabel").hide();
-        $("#totalPremium").hide();
-        $("#buyPolicyBtn").hide();
-        $("#AddOffer").hide();
-      
+
         $("input:checkbox[id='IsExistentPolicyHolder']").attr('checked', true);
         $(".hideWhenSelect").hide();
         $("#PolicyHolderSSN").removeClass("mandatoryField");
@@ -478,6 +473,16 @@
         $("#policy_type option[value='2']").show();
         $("#policy_type option[value='3']").show();
         $("#policy_type option[value='4']").hide();
+
+        $("#btnNovaPolisa").addClass("active-tab");
+        $("#btnNews").removeClass("active-tab");
+        $("#btnSearch").removeClass("active-tab");
+        $("#btnFNOL").removeClass("active-tab");
+        $("#btnAdmin").removeClass("active-tab");
+        $("#dodadiKlient").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+        
 
         //Postavuvanje na klasata active-tab za da se znae koj tab e klikant
         $("#addNewPolicy").addClass("active-tab");
@@ -667,6 +672,10 @@
                     $("#totalPremium").val("");
                     $("#errorMessage").text((JSON.parse(result.responseText)).Message);
                 }                
+                    
+                    
+                }
+                
             });
         }
         else {

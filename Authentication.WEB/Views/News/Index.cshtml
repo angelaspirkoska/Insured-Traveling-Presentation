@@ -6,8 +6,6 @@
     <div class="row" style="margin-top: 20px;">
         <h3>@InsuredTraveling.Resource.News_AddTitle</h3>
         <hr />
-        <div col-sm-12>
-            <div class="col-sm-3 col-md-12 "></div>
             <div class="col-md-6">
                 <form id="newsForm" method="post" action="@Url.Action("AddNews")" enctype="multipart/form-data">
                     <div class="form-group">
@@ -16,20 +14,20 @@
                     </div>
                     <div class="form-group">
                         <label for="newsImage">@InsuredTraveling.Resource.News_Image</label>
-                        <input type="file" id="newsImage" name="newsImage" @*accept="image/**@ ">
+                        <input type="file" id="newsImage" name="newsImage" @*accept="image/**@>
                     </div>
                     <div class="form-group">
                         <label for="newsContent">@InsuredTraveling.Resource.News_Content</label>
                         <textarea class="form-control " name="newsContent" id="newsContent" rows="10" placeholder="@InsuredTraveling.Resource.News_Content"></textarea>
                     </div>
                     <div class="form-group">
-                        <input type="checkbox" id="newsIsNotification" name="newsIsNotification" />
+                        <input type="checkbox" id="newsIsNotification" name="newsIsNotification" class="radiobtn-position" />
                         <label for="newsIsNotification">@InsuredTraveling.Resource.News_Notification</label>
                     </div>
                     <input type="submit" style="width:100px; margin-left:20px;" value="@InsuredTraveling.Resource.News_Add" class="btn btn-success">
                 </form>
             </div>
-        </div>
+        
     </div>
     <div class="row">
         @if (Model == null || Model.Count() == 0)
@@ -67,6 +65,18 @@
 
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script>
+
+    $(document).ready(function () {
+        $("#btnNovaPolisa").removeClass("active-tab");
+        $("#btnNews").addClass("active-tab");
+        $("#btnSearch").removeClass("active-tab");
+        $("#btnFNOL").removeClass("active-tab");
+        $("#btnAdmin").removeClass("active-tab");
+        $("#dodadiKlient").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+    });
+
     function deleteNews(newsId) {
         $.ajax({
             type: "POST",

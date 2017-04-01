@@ -9,14 +9,22 @@
 <div class="container-fluid col-md-offset-4 col-md-4 col-sm-3">
     @using (Html.BeginForm())    {
         <h2 class="panel-heading " style="" >@InsuredTraveling.Resource.Login_Title</h2>
-        @*<h4 style="color:red">@Html.ValidationSummary(false, "", new { @class = "alert alert-error" })</h4>*@
+
     if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
     {
         <div class="alert alert-danger" role="alert">
             <a class="close" data-dismiss="alert">x</a>
             @foreach (var modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
             {
-                <p>@modelError.ErrorMessage</p>
+                if(modelError.ErrorMessage == "recaptchaError")
+                {
+                    <p>@InsuredTraveling.Resource.Msg_InvalidRecaptcha</p>
+                }
+
+                if (modelError.ErrorMessage == "usernameOrPasswordError")
+                {
+                    <p>@InsuredTraveling.Resource.Msg_IncorrectUserPass</p>
+                }
             }
         </div>
     }

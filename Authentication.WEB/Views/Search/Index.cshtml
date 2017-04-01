@@ -5,7 +5,7 @@
 @{
     ViewBag.Title = InsuredTraveling.Resource.Search;
     RoleAuthorize r = new RoleAuthorize();
-    // ima problem so js iszgleda, poso se se menuva i ima nepoterbni data tables
+    var isClaimsAdjuster = r.IsUser("Claims adjuster");
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
 }
 <br />
@@ -13,7 +13,7 @@
 <ul class="nav nav-pills">
     <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
     <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
-    @if (r.IsUser("Admin") || r.IsUser("Broker"))
+    @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Claims adjuster"))
     {
         <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
     }
@@ -22,7 +22,7 @@
         <li id="registeredUsers"><a href="#" onclick="ShowUsers()">@InsuredTraveling.Resource.Search_Users</a></li>
     }
     <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
-    @if (r.IsUser("Admin") || r.IsUser("End user"))
+    @if (r.IsUser("Admin") || r.IsUser("End user") || r.IsUser("Claims adjuster"))
     {
         <li id="searchChat"><a href="#" onclick="ShowChats()">@InsuredTraveling.Resource.Chats</a></li>
     }
@@ -37,8 +37,8 @@
         <div class="row">
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
-                    <label for="country">@InsuredTraveling.Resource.User_Role:</label>
-                    <input class="form-control" type="text" id="SearchRole" name="SearchRole" />
+                    <label>@InsuredTraveling.Resource.User_Role:</label>
+                    @Html.DropDownList("RoleName",(List<SelectListItem>)ViewBag.Roles, Resource.SearchTable_RoleName, new { @class = "form-control", style = "" })
                 </div>
             </div>
             <div class="col-md-4 col-sm-4">
@@ -59,6 +59,16 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="">
+                    <label>@InsuredTraveling.Resource.SearchTable_UserStatus:</label>
+                    <div class="form-group">
+                        <input type="radio" name="status" value="0" style="width:15px;"> @Resource.SearchTable_UserStatusActive
+                        <input type="radio" name="status" value="1" style="width:15px;"> @Resource.SearchTable_UserStatusInactive
+                        <input type="radio" name="status" value="2" style="width:15px;"> @Resource.SearchTable_UserStatusBoth
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row">
@@ -73,10 +83,7 @@
         </div>
         <br />
         <br />
-        <br />
-        <br />
     </form>
-    <br />
     <br />
     <br />
     <div class="row">
@@ -88,6 +95,8 @@
                     <th>@InsuredTraveling.Resource.SearchTable_LastName</th>
                     <th>@InsuredTraveling.Resource.SearchTable_Email</th>
                     <th>@InsuredTraveling.Resource.SearchTable_RoleName</th>
+                    <th>@InsuredTraveling.Resource.SearchTable_CreatedOn</th>
+                    <th>@InsuredTraveling.Resource.SearchTable_ActiveInactiveUser</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -98,8 +107,79 @@
     </div>
 </div>
 
+<!-- Reset password modal dialog-->
+<div class="modal fade" id="modal" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%; width:35%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@Resource.Search_ResetUserPass</h4>
+            </div>
+            <div class="modal-body" style="width:70%;">
+                <div class="form-group">
+                    <label class = "control-label">@Resource.User_Password</label>
+                    <input type="password" id="UserPassword" class = "form-control"/>
+                </div>
+                <div class="form-group">
+                    <label class = "control-label">@Resource.User_ConfirmPassword</label>
+                    <input type="password" id="UserRepeatPassword" class = "form-control" />
+                </div>
+                <div class="form-group">
+                    <label id="PassResetMsg"></label>
+                </div>
+                <input type="hidden" id="hiddenUsername" />
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="ResetPass">@Resource.Search_Reset</button> <button type="button" onclick="$('#PassResetMsg').text(' ')" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
+<!-- Change user status modal dialog-->
+<div class="modal fade" id="modalChangeStatus" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%; width:35%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@Resource.Search_UserChangeStatus</h4>
+            </div>
+            <div class="modal-body" style="width:70%;">
+                <div class="form-group">
+                    <h4>@Resource.Search_UserChangeStatusQuestion</h4>
+                </div>
+                <div class="form-group">
+                    <label id="ChangeStatusMsg"></label>
+                </div>
+                <input type="hidden" id="hiddenUsernameChangeStatus" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="ChangeStatus">@Resource.Search_ChangeUserStatus</button> <button type="button" onclick="$('#ChangeStatusMsg').text(' ')" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Do not allow user to set itself as inactive modal-->
+<div class="modal fade" id="modalUserNotallowedToChangeItselfStatus" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%; width:35%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@Resource.Search_UserChangeStatus</h4>
+            </div>
+            <div class="modal-body" style="width:70%;">
+                <div class="form-group">
+                    <h4>@Resource.Search_UserItselfChangeStatus</h4>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--Table search result of policies -->
 <div class="" id="searchPolycies">
@@ -134,7 +214,8 @@
                     <div class="input-group">
                         <input type="date" id="startDate" class="form-control placeholder" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                            <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle explain-functionality" 
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -152,9 +233,10 @@
                     <div class="input-group">
                         <input type="date" name="endDate" class="form-control" id="endDate" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorEndDate" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
-                                = <span class="caret"></span>
-                            </button>
+                                <button type="button" id="operatorEndDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
+                                        aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                    = <span class="caret"></span>
+                                </button>
                             <ul class="dropdown-menu">
                                 <li onclick="$('#operatorEndDate').html(' = '); $('#operatorEndDate').val('=');">=</li>
                                 <li onclick="$('#operatorEndDate').html(' < '); $('#operatorEndDate').val('<');">&lt</li>
@@ -172,7 +254,8 @@
                     <div class="input-group">
                         <input type="date" class="form-control placeholder" id="dateI" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorDateI" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                            <button type="button" id="operatorDateI" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -190,7 +273,8 @@
                     <div class="input-group">
                         <input type="date" id="dateS" class="form-control" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorDateS" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                            <button type="button" id="operatorDateS" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -208,11 +292,15 @@
             <div class="col-md-4">
                 <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchPolycies()" type="button" style="float:left;" />
             </div>
-            <div class="col-md-offset-4 col-md-4">
-                <div class="hover-tooltip">
-                    <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddPolicyButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+            @if (!isClaimsAdjuster)
+            {
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="hover-tooltip">
+                        <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddPolicyButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                    </div>
                 </div>
-            </div>
+            }
+
         </div>
         <br />
     </form>
@@ -296,7 +384,8 @@
                     <div class="input-group">
                         <input type="date" id="startDate1" class="form-control placeholder" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorStartDate1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                            <button type="button" id="operatorStartDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
+                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -314,7 +403,8 @@
                     <div class="input-group">
                         <input type="date" name="endDate" class="form-control" id="endDate1" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorEndDate1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                            <button type="button" id="operatorEndDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -332,11 +422,15 @@
             <div class="col-md-4">
                 <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchQuotes()" type="button" style="float:left;" />
             </div>
-            <div class="col-md-offset-4 col-md-4">
-                <div class="hover-tooltip">
-                    <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddQuoteButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+            @if (!isClaimsAdjuster)
+            {
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="hover-tooltip">
+                        <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddQuoteButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                    </div>
                 </div>
-            </div>
+            }
+
         </div>
         <br />
     </form>
@@ -428,11 +522,14 @@
         <div class="col-md-4">
             <input id="btnSubmit" class="btn btn-primary btn-material-design-success btn-block" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchClients()" type="button" style="float:left;" />
         </div>
-        <div class="col-md-offset-4 col-md-4">
-            <div class="hover-tooltip">
-                <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" style="float:right;" title="@InsuredTraveling.Resource.Search_AddNewClient" onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+        @if (!isClaimsAdjuster)
+        {
+            <div class="col-md-offset-4 col-md-4">
+                <div class="hover-tooltip">
+                    <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" style="float: right;" title="@InsuredTraveling.Resource.Search_AddNewClient" onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                </div>
             </div>
-        </div>
+        }
     </div>
     <br />
 
@@ -528,7 +625,8 @@
                         <div class="input-group">
                             <input type="date" class="form-control placeholder" id="DateAdded" />
                             <div class="input-group-btn">
-                                <button type="button" id="operatorDateAdded" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                <button type="button" id="operatorDateAdded" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
+                                        aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                     = <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
@@ -589,7 +687,8 @@
                         <label for="totalPrice">@InsuredTraveling.Resource.Search_TotalCost:</label>
                         <div class="input-group-btn">
                             <input type="search" name="totalPrice" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLtotalcost" id="totalPrice" />
-                            <button type="button" id="totalCostOperator" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                            <button type="button" id="totalCostOperator" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
+                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -640,6 +739,10 @@
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTableLuggageInsurance</th>
                     <th></th>
                     <th></th>
+                    @if (r.IsUser("Claims adjuster"))
+                    {
+                        <th></th>
+                    }
                 </tr>
             </thead>
             <tbody></tbody>
@@ -722,7 +825,15 @@
 <script type="text/javascript">
     var isAdmin = false;
     $(document).ready(function () {
+
+        $('.explain-functionality').tooltip({
+            placement: "right"
+        });
+
         $(".hover-tooltip button").tooltip('show');
+
+        $('#operatorRegisterDate').html(' = ');
+        $('#operatorRegisterDate').val('=');
 
         $("#searchClients").hide();
         $("#searchFNOL").hide();
@@ -745,10 +856,20 @@
         $("#tableFNOL").DataTable().destroy();
         $("#tableFNOL").DataTable();
 
-        $("#tableFNOLPolicies").css("display", "none"); 
+        $("#tableFNOLPolicies").css("display", "none");
         $("#tableArchivedFNOL").css("display", "none");
+
         $("#tablePoliciesClients").css("display", "none");
         $("#tablePoliciesHolders").css("display", "none");
+
+        $("#btnNovaPolisa").removeClass("active-tab");
+        $("#btnNews").removeClass("active-tab");
+        $("#btnSearch").addClass("active-tab");
+        $("#btnFNOL").removeClass("active-tab");
+        $("#btnAdmin").removeClass("active-tab");
+        $("#dodadiKlient").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
 
         $.ajax({
             type: "GET",
@@ -760,6 +881,63 @@
         });
     });
 
+    $("#ResetPass").click(function () {
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/ForgetPassword/Change",
+            type: "POST",
+            data: { Username: $("#hiddenUsername").val(), Password: $("#UserPassword").val(), NewPassword: $("#UserRepeatPassword").val() },
+            success: function (data) {
+                if ((JSON.parse(data)).message === "OK") {
+                    $("#PassResetMsg").text("@Resource.PasswordResetMessageSuccess");
+                    $("#ResetPass").hide();
+                } else {
+                    $("#PassResetMsg").text("@Resource.PasswordResetMessageFail");
+                }
+
+            },
+            error: function () {
+                $("#PassResetMsg").text("@Resource.PasswordResetMessageFail")
+            }
+        });
+    });
+
+    $("#ChangeStatus").click(function () {
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ChangeUserStatus?username=" + $("#hiddenUsernameChangeStatus").val(),
+            type: "GET",
+            success: function (data) {
+                if ((JSON.parse(data)).message === "OK") {
+                    $("#ChangeStatusMsg").text("@Resource.ChangeStatusMessageSuccess");
+                    $("#ChangeStatus").hide();
+                    SearchUsers();
+                } else {
+                    $("#ChangeStatusMsg").text("@Resource.ChangeStatusMessageFail");
+                }
+
+            },
+            error: function () {
+                $("#PassResetMsg").text("@Resource.ChangeStatusMessageFail")
+            }
+        });
+    });
+
+    function ShowModal(username) {
+        $("#modal").modal("show");
+        $("#hiddenUsername").val(username);
+        $("#ResetPass").show();
+    }
+
+    function ShowModalChangeStatus(username) {
+        if (username == "@System.Web.HttpContext.Current.User.Identity.Name") {
+            $("#modalUserNotallowedToChangeItselfStatus").modal("show");
+        } else {
+            $("#ChangeStatus").show();
+            $("#modalChangeStatus").modal("show");
+            $("#hiddenUsernameChangeStatus").val(username);
+            console.log(username);
+        }
+
+    }
     function showInsured() {
         $("#insured").attr("class", "active");
         $("#holder").removeAttr("class");
@@ -926,23 +1104,20 @@
         $("searchChats").hide();
         $("#searchQuotes").hide();
         $("#searchUsers").show();
-        
+
         $("#polycies").removeAttr("class");
         $("#clients").removeAttr("class");
         $("#first_notice_of_loss").removeAttr("class");
         $("#quotes").removeAttr("class");
         $("#searchChat").removeAttr("class");
         $("#registeredUsers").attr("class", "active");
-    }; 
-
-    function SearchUsers() {
-
     };
+
 
     function SearchChat() {
         $('html,body').animate({
             scrollTop: $("#tableChats").offset().top
-        }, 800);     
+        }, 800);
         $("#tableChats").DataTable().destroy();
         $("#tableChats").DataTable({
             dom: "Bfrtip",
@@ -1107,17 +1282,70 @@
         $("#tableRegisteredUsers").DataTable().destroy();
         $("#tableRegisteredUsers").DataTable({
             dom: "Bfrtip",
-            ajax: "/Search/GetRegisteredUsers?RoleName=" + $("#SearchRole").val(),
+            ajax: "/Search/GetRegisteredUsers?roleName=" + $("#RoleName").val() + "&registerDate=" + $("#RegisterDate").val() + "&operatorRegisterDate=" + $("#operatorRegisterDate").val() + "&status=" + $("input[name=status]:checked").val(),
             columns: [
                     { data: "Username" },
                     { data: "FirstName" },
                     { data: "LastName" },
                     { data: "Email" },
-                    { data: "RoleName" }                 
+                    { data: "RoleName" },
+                    { data: "CreatedOn" },
+                    { data: "ActiveInactive" },
+                    {
+                        data: "Username",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                var value = data;
+                                return $('<a>')
+                                    .attr('href', '#')
+                                    .attr('id', 'UserResetPass')
+                                    .attr('onclick', "ShowModal('" + data + "')")
+                                    .text("@InsuredTraveling.Resource.Search_UserResetPass")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    },
+                    {
+                        data: "Username",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                var value = data;
+                                return $('<a>')
+                                    .attr('href', '#')
+                                    .attr('onclick', "ShowModalChangeStatus('" + data + "')")
+                                    .text("@InsuredTraveling.Resource.Search_UserChangeStatus")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    },
+                    {
+                        data: "ID",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                var value = data;
+                                return $('<a>')
+                                    .attr('href', '/Search/EditUser?id=' + data)
+                                    .attr('target', '_blank')
+                                    .text("@InsuredTraveling.Resource.SearchTable_EditUser")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    }
             ],
             select: true
         });
-
         $("#tableRegisteredUsers").css("display", "table");
     };
 
@@ -1211,7 +1439,25 @@
                                 return data;
                             }
                         }
-                    },
+                    }@*,
+                    {
+                        data: "ID",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                return $('<a>')
+                                    .attr('href', 'javascript:;')
+                                    .attr('class', 'archived')
+                                    .attr('id', data)
+                                    .text("@InsuredTraveling.Resource.Search_FNOLArchived")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    
+                    }*@
             ],
             select: true
         });
@@ -1396,7 +1642,7 @@
                                .attr('class', 'detailsHolder')
                                .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
                                .wrap('<div></div>')
-                               .parent()
+                               .parent()    
                                .html();
                        } else {
                            return data;
