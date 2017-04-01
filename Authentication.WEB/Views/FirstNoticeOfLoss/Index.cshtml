@@ -4,6 +4,8 @@
 @{
     ViewBag.Title = InsuredTraveling.Resource.FNOL_Title;
     var policyNumber = ViewBag.PolicyNumber != null ? Convert.ToInt32(ViewBag.PolicyNumber) : 0;
+    // well-sot ne se otvaraat
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
 }
 @using InsuredTraveling.Filters
 @{

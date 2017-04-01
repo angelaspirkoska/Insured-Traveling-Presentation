@@ -6,7 +6,8 @@
 
 @{
     ViewBag.Title = InsuredTraveling.Resource.Client;
-    Layout = "~/Views/Shared/_Layout2.cshtml";
+    // ne e dodeden potrebniot jQuery 2.2.1 za date pickerot
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
     var dateTime = ConfigurationManager.AppSettings["DateFormat"];
     var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy").ToLower() : dateTime.ToLower();
 }

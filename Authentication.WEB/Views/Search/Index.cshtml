@@ -8,6 +8,8 @@
     RoleAuthorize r = new RoleAuthorize();
     var isClaimsAdjuster = r.IsUser("Claims adjuster");
     var isBrokerManager = r.IsUser("Broker manager");
+    // ima problem so js iszgleda, poso se se menuva i ima nepoterbni data tables
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
     var isBroker = r.IsUser("Broker");
     var isAdmin = r.IsUser("Admin");
     var isEndUser = r.IsUser("End user");
