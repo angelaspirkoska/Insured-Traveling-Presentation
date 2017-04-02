@@ -75,7 +75,7 @@
                             @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label " })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-user"></i>
+                                    <i class="icon-user"></i>
                                 </div>
                                 @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control mandatoryField", onblur = "FindUsername()", id = "username", style = "" } })
                                 <span style="color: red" id="UsernameMsg"></span>
@@ -87,7 +87,7 @@
                             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-key"></i>
+                                    <i class="icon-lock"></i>
                                 </div>
                                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control mandatoryField", style = "" } })
                             </div>
@@ -98,7 +98,7 @@
                             @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-key"></i>
+                                    <i class="icon-lock"></i>
                                 </div>
                                 @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", style = "" } })
                             </div>
@@ -111,7 +111,7 @@
                             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-user"></i>
+                                    <i class="icon-user"></i>
                                 </div>
                                 @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", style = "" } })
                             </div>
@@ -123,7 +123,7 @@
                             @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-user"></i>
+                                    <i class="icon-user"></i>
                                 </div>
                                 @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", style = "" } })
                             </div>
@@ -134,7 +134,7 @@
                             @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-calendar"></i>
+                                    <i class="icon-calendar22"></i>
                                 </div>
                                 @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control mandatoryField", @placeholder = dateTimeFormat } })
                             </div>
@@ -148,7 +148,7 @@
                             @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-map-marker"></i>
+                                    <i class="icon-home2"></i>
                                 </div>
                                 @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", style = "" } })
                             </div>
@@ -159,7 +159,7 @@
                             @Html.LabelFor(model => model.Municipality, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-home"></i>
+                                    <i class="icon-location4"></i>
                                 </div>
                                 @Html.EditorFor(model => model.Municipality, new { htmlAttributes = new { @class = "form-control", style = "" } })
                             </div>
@@ -170,7 +170,7 @@
                             @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-map-marker"></i>
+                                    <i class="icon-city"></i>
                                 </div>
                                 @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", style = "" } })
                             </div>
@@ -183,7 +183,7 @@
                             @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-user"></i>
+                                    <i class="icon-home2"></i>
                                 </div>
                                 @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control", style = "" } })
                             </div>
@@ -218,7 +218,7 @@
                             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-envelope"></i>
+                                    <i class="icon-mail5"></i>
                                 </div>
                                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", style = "" } })
                             </div>
@@ -228,8 +228,7 @@
                             @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <select id="countriesCodes" style="width: 46px;">
-                                        
+                                    <select id="countriesCodes" style="width: 46px;">                                        
                                     </select>
                                 </div>
                                 @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", style = "" } })
@@ -254,7 +253,7 @@
                             @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-user"></i>
+                                    <i class="icon-users2"></i>
                                 </div>
                                 @Html.DropDownListFor(model => model.Gender, (List<SelectListItem>)ViewBag.Gender, Resource.User_SelectGender, new { @class = "form-control", style = "" })
                             </div>
@@ -265,7 +264,7 @@
                             @Html.LabelFor(model => model.EMBG, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-user"></i>
+                                    <i class="icon-vcard"></i>
                                 </div>
                                 @Html.EditorFor(model => model.EMBG, new { htmlAttributes = new { @class = "form-control mandatoryField insuredData", style = "" } })
                             </div>
@@ -276,7 +275,7 @@
                             @Html.LabelFor(model => model.PassportNumber, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-user"></i>
+                                    <i class="icon-profile"></i>
                                 </div>
                                 @Html.EditorFor(model => model.PassportNumber, new { htmlAttributes = new { @class = "form-control", style = "" } })
                             </div>
@@ -290,7 +289,7 @@
                             @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="glyphicon glyphicon-user"></i>
+                                    <i class="icon-users4"></i>
                                 </div>
                                 @Html.DropDownListFor(model => model.Role, (List<SelectListItem>)ViewBag.Roles, new { @class = "form-control", style = "" })
                             </div>
