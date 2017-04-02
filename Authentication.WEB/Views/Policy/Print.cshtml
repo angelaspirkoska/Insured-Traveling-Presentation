@@ -1,6 +1,9 @@
 ﻿<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/Site.css" rel="stylesheet" />
 @model InsuredTraveling.Models.PaymentModel
+@{ 
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+}
 <hr />
 @Html.Partial("_PolicyPrint" ,Model )
 @*<br />
