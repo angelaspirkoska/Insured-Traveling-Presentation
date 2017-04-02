@@ -624,6 +624,15 @@ textarea {
     margin-bottom: 7px;
 } 
 
+/*on Search tab*/
+.explain-functionality {
+    height: 36px;
+}
+
+.caret-position {
+    margin-top: -3px;
+}
+
 .portlet-body .media-body {
     max-width: 231px;
 }
