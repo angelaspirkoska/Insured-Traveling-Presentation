@@ -35,12 +35,13 @@
     <script type="text/javascript" src="~/Scripts/Limitless-js/plugins/loaders/blockui.min.js"></script>
     <!-- /core JS files -->
 
+    <script src="~/Scripts/Chat/Chat.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
     <script src="~/signalr/hubs"></script>
-    <script src="~/Scripts/Chat/Chat.js"></script>
+    
 
     <!-- Theme JS files -->
     <script type="text/javascript" src="~/Scripts/Limitless-js/plugins/visualization/d3/d3.min.js"></script>
@@ -80,13 +81,13 @@
 
             <ul class="nav navbar-nav navbar-right">                
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    @*<a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-bubbles4"></i>
                         <span class="visible-xs-inline-block position-right">Messages</span>
                         <span class="badge bg-warning-400"></span>
-                    </a>
+                    </a>*@
 
-                    <div class="dropdown-menu dropdown-content width-350">
+                    @*<div class="dropdown-menu dropdown-content width-350">
                         <div class="dropdown-content-heading">
                             Messages
                             <ul class="icons-list">
@@ -105,13 +106,32 @@
                         <div class="dropdown-content-footer">
                             <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
                         </div>
-                    </div>
+                    </div>*@
                 </li>
+                @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                        <ul id="messages" class="dropdown-menu message-dropdown">
+                            <li id="no-messages" style="display: none;">@InsuredTraveling.Resource.Home_NoMsg</li>
+                        </ul>
+
+                    </li>
+                    if (r.IsUser("Admin"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" id="messageRequests" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="icon-esc"></span>
+                            </a>
+                            <ul class="dropdown-menu alert-dropdown" id="ul_alerts"></ul>
+                        </li>
+                    }
+                }
                 @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                 {
                     <li class="dropdown dropdown-user">
                         <a class="dropdown-toggle" data-toggle="dropdown">
-                            <span>@System.Web.HttpContext.Current.User.Identity.Name</span>
+                            <span>@System.Web.HttpContext.Current.User.Identity.Name</span><b class="caret"></b>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
                                 <li class="divider"></li>
