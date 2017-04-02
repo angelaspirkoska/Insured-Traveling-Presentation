@@ -54,7 +54,7 @@
                 <div class="form-group">
                     <label for="country">@InsuredTraveling.Resource.RegisterDate:</label>
                     <div class="input-group">
-                        <input type="date" id="RegisterDate" class="form-control placeholder" />
+                        <input type="text" id="RegisterDate" class="form-control" placeholder= "@dateTimeFormat"/>
                         <div class="input-group-btn">
                             <button type="button" id="operatorRegisterDate" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
                                 = <span class="caret"></span>
@@ -864,6 +864,15 @@
         });
 
         $("#startDate").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
+
+
+        $("#RegisterDate").datepicker({
             dateFormat: dateFormatString,
             changeMonth: true,
             changeYear: true,
