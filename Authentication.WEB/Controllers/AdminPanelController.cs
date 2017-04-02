@@ -7,19 +7,22 @@ using InsuredTraveling.Models;
 
 namespace InsuredTraveling.Controllers
 {
-    [RoleAuthorize(roles: "Admin")]
+    //[RoleAuthorize(roles: "Admin")]
     [SessionExpire]
     public class AdminPanelController : Controller
     {
         private IRolesService _rs;
         private IOkSetupService _okss;
         private IUserService _us;
+        private IDiscountService _ds;
 
-        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us)
+
+        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us, IDiscountService ds)
         {
             _rs = rs;
             _okss = okss;
             _us = us;
+            _ds = ds;         
         }
 
         [HttpGet]
@@ -31,6 +34,10 @@ namespace InsuredTraveling.Controllers
             ViewBag.Ok_setup = ok_setup;
             ViewBag.Roles = roles;
 
+            //View Bag Discount
+            var discount = _ds.GetAllDiscounts();
+            ViewBag.Discount = discount;
+            ViewBag.TabIndex = "1";
             return View();
         }
 
@@ -50,10 +57,13 @@ namespace InsuredTraveling.Controllers
             if (result.Succeeded)
             {
                 ViewBag.AddRoleMsg = "Ok";
-
+                ViewBag.TabIndex = "1";
                 return View("Index");
             }
+            var discount = _ds.GetAllDiscounts();
+            ViewBag.Discount = discount;
             ViewBag.AddRoleMsg = "NOk";
+            ViewBag.TabIndex = "1";
             return View("Index");
         }
 
@@ -77,10 +87,12 @@ namespace InsuredTraveling.Controllers
             var ok_setup = _okss.GetAllOkSetups();
 
             var roles = _rs.GetAllRoles();
-
+            var discount = _ds.GetAllDiscounts();
+            ViewBag.Discount = discount;
             ViewBag.Roles = roles;
             ViewBag.Ok_setup = ok_setup;
-
+          
+            ViewBag.TabIndex = "2";
             return View("Index");
         }
 
@@ -90,10 +102,67 @@ namespace InsuredTraveling.Controllers
             _okss.DeleteOkSetup(id);
             var roles = _rs.GetAllRoles();
             var ok_setup = _okss.GetAllOkSetups();
-
+            var discount = _ds.GetAllDiscounts();
+            ViewBag.Discount = discount;
             ViewBag.Ok_setup = ok_setup;
             ViewBag.Roles = roles;
+            ViewBag.TabIndex = "2";
             return View("Index");
         }
+
+        [HttpPost]
+        [Route("AddDiscount")]
+        public ActionResult AddDiscount(AdminPanelModel dis)
+        {
+            var ok_setup = _okss.GetAllOkSetups();
+            var roles = _rs.GetAllRoles();
+            ViewBag.Roles = roles;
+            ViewBag.Ok_setup = ok_setup;
+            var discount = _ds.GetAllDiscounts();
+            ViewBag.Discount = discount;
+
+            if (ModelState.IsValid)
+            {
+                DiscountModel dm = new DiscountModel();
+
+                dm.Discount_Coef = dis.Discount_Coef;
+                dm.Discount_Name = dis.Discount_Name;
+                dm.Start_Date = dis.Start_Date;
+                dm.End_Date = dis.End_Date;
+
+                try
+                {
+                    _ds.AddDiscount(dm);
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.AddOk_SetupMsg = ex.ToString();
+                }               
+            }else
+            {
+                ViewBag.Message = "Registration failed";
+            }
+
+            ViewBag.TabIndex = "3";
+            return View("Index");
+        }
+
+        //[HttpPost]
+        //[Route("DeleteDiscount")]
+        //public ActionResult DeleteDiscount(int id)
+        //{
+
+        //    try
+        //    {
+        //        _ds.DeleteDiscount(id);
+              
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ViewBag.AddOk_SetupMsg = ex.ToString();
+        //    }
+
+        //    return View("Index");
+        //}
     }
 }

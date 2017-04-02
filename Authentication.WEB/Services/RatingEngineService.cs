@@ -10,7 +10,7 @@ namespace Authentication.WEB.Services
     {
         private InsuredTravelingEntity entities = new InsuredTravelingEntity();
         public double? discountCountry(int countryID, int policy_typeID, int franchiseID)
-        {            
+        {
             double? discount = (entities.discount_country.Where(x => x.CountryID == countryID &&
                                                         x.Policy_typeID == policy_typeID && x.Franchise == franchiseID.ToString()).First()).Percentage;
             return discount;
@@ -43,13 +43,13 @@ namespace Authentication.WEB.Services
         {
             int travelDurationID;
 
-            if(days < 14)
+            if (days < 14)
             {
                 travelDurationID = entities.travel_duration.Where(x => x.Days == "Do 14 dena").Single().ID;
-            }else if(days > 14 && days < 30)
+            } else if (days > 14 && days < 30)
             {
                 travelDurationID = entities.travel_duration.Where(x => x.Days == "Nad 15 dena").Single().ID;
-            }else
+            } else
             {
                 travelDurationID = entities.travel_duration.Where(x => x.Days == "Nad 30 dena").Single().ID;
             }
@@ -71,6 +71,17 @@ namespace Authentication.WEB.Services
             double? discount = (entities.discount_group.Where(x => x.Policy_typeID == policy_typeID).Where(x => x.group.Memebers < members)
                 .OrderByDescending(x => x.group.Memebers).First()).Discount;
             return discount;
+        }
+
+        public double? Discount(string DiscountCode )
+        {
+            if ((entities.discount_codes.Where(x => ( x.Discount_Name == DiscountCode) && ( x.End_Date >= DateTime.Now ))).Count() >= 1)
+                {
+                double? discount = (entities.discount_codes.Where(x => x.Discount_Name == DiscountCode).First()).Discount_Coef;
+
+                return discount;
+            }
+            return null;
         }
 
         public double? procentDoplata(double? ac1, double? ac2)
@@ -114,6 +125,7 @@ namespace Authentication.WEB.Services
 
             return age;
         }
+
         public double? totalPremium(Policy policy)
         {           
             double? dCountry = discountCountry(policy.CountryID, policy.Policy_TypeID, policy.Retaining_RiskID);
@@ -156,6 +168,16 @@ namespace Authentication.WEB.Services
             {
                 double? dGroup = DiscountGroup(policy.Policy_TypeID, policy.Group_Members);
                 minPremium *= policy.Group_Members * (1 - dGroup);
+            }
+            
+            if (policy.DiscountCode != null && policy.DiscountCode != "" )
+            {
+                double? discount = Discount(policy.DiscountCode);
+                if(discount != null || discount != 0)
+                {
+                    minPremium = minPremium * (1 - (discount / 100));
+                }
+               
             }
 
             if(policy.additional_charges != null)

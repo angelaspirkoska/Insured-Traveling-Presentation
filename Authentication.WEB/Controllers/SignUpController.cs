@@ -18,10 +18,12 @@ namespace InsuredTraveling.Controllers
     {
         private IRolesService _rs;
         private IUserService _us;
+        private RoleAuthorize _roleAuthorize;
         public SignUpController(IRolesService rs, IUserService us)
         {
             _rs = rs;
             _us = us;
+            _roleAuthorize = new RoleAuthorize();
         }
 
         [HttpGet]
@@ -45,6 +47,7 @@ namespace InsuredTraveling.Controllers
             if (ModelState.IsValid && CaptchaValid)
             {
                 user.Role = "End user";
+                user.CreatedBy = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
                 Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/account/RegisterWeb");
                 HttpClient client = new HttpClient();
                 client.BaseAddress = uri;
@@ -67,7 +70,12 @@ namespace InsuredTraveling.Controllers
         public ActionResult CreateUser()
         {
             ViewBag.Gender = Gender();
-            ViewBag.Roles = Roles();
+            var roles = Roles();
+            if (_roleAuthorize.IsUser("Broker manager"))
+            {
+                roles = GetBrokerManagerRoles();
+            }
+            ViewBag.Roles = roles;
             return View();
         }
 
@@ -75,7 +83,12 @@ namespace InsuredTraveling.Controllers
         public async Task<ActionResult> CreateUser(User user, bool CaptchaValid)
         {
             ViewBag.Gender = Gender();
-            ViewBag.Roles = Roles();
+            var roles = Roles();
+            if (_roleAuthorize.IsUser("Broker manager"))
+            {
+                roles = GetBrokerManagerRoles();
+            }
+            ViewBag.Roles = roles;
 
             if (ModelState.IsValid && CaptchaValid)
             {
@@ -129,17 +142,17 @@ namespace InsuredTraveling.Controllers
             List<SelectListItem> data = new List<SelectListItem>();
             data.Add(new SelectListItem
             {
-                Text = "Female",
+                Text = InsuredTraveling.Resource.Female,
                 Value = "Female"
             });
             data.Add(new SelectListItem
             {
-                Text = "Male",
+                Text = InsuredTraveling.Resource.Male,
                 Value = "Male"
             });
             data.Add(new SelectListItem
             {
-                Text = "Other",
+                Text = InsuredTraveling.Resource.Other,
                 Value = "Other"
             });
             return data;
@@ -149,6 +162,25 @@ namespace InsuredTraveling.Controllers
         {
             return _rs.GetAll().ToList();
         }
+
+        private List<SelectListItem> GetBrokerManagerRoles()
+        {
+
+            List<SelectListItem> roles = new List<SelectListItem>();
+            roles.Add(new SelectListItem
+            {
+                Text = "End user",
+                Value = "End user"
+            });
+
+            roles.Add(new SelectListItem
+            {
+                Text = "Broker",
+                Value = "Broker"
+            });
+          
+            return roles;
+         }
 
     }
 }

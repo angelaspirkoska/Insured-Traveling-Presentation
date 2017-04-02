@@ -4,6 +4,8 @@ using InsuredTraveling.Models;
 using System;
 using Autofac;
 using InsuredTraveling.ViewModels;
+using System.Globalization;
+using System.Configuration;
 
 namespace InsuredTraveling.App_Start
 {
@@ -80,6 +82,16 @@ namespace InsuredTraveling.App_Start
           
                 dst.SSNValidationActive = src.SSNValidationActive;
             });
+
+            Mapper.CreateMap<DiscountModel, discount_codes>().AfterMap((src, dst) =>
+            {
+                dst.Discount_Name = src.Discount_Name;
+                dst.Discount_Coef = src.Discount_Coef;
+                dst.Start_Date = src.End_Date;
+                dst.End_Date = src.End_Date;
+            
+            });
+
             Mapper.CreateMap<first_notice_of_loss, FirstNoticeOfLossEditViewModel>().AfterMap((src, dst) =>
             {
                 var policy = src.travel_policy;
@@ -170,6 +182,24 @@ namespace InsuredTraveling.App_Start
                 dst.Policy_Number = src.Policy_Number;
                 dst.policy_type = null;
                 
+            });
+
+            Mapper.CreateMap<travel_policy, Policy>().AfterMap((src, dst) =>
+            {
+                dst.Policy_Number = src.Policy_Number;
+                dst.PaymentStatys = src.Payment_Status == true ? 1 : 0;
+                dst.Exchange_RateID = src.Exchange_RateID;
+                dst.CountryID = src.CountryID;
+                dst.Policy_TypeID = src.Policy_TypeID;
+                dst.IsSamePolicyHolderInsured = src.Policy_HolderID == src.insured.ID;
+                dst.Date_Created = src.Date_Created;
+                dst.Created_By = src.Created_By;
+                dst.Start_Date = src.Start_Date;
+                dst.End_Date = src.End_Date;
+                dst.Valid_Days = src.Valid_Days;
+                dst.Travel_NumberID = src.Travel_NumberID;
+                dst.Total_Premium = src.Total_Premium;
+                dst.PolicyHolderId = src.Policy_HolderID;                
             });
 
             Mapper.CreateMap<FirstNoticeOfLossReportViewModel, first_notice_of_loss>().AfterMap((src, dst) =>
@@ -357,21 +387,24 @@ namespace InsuredTraveling.App_Start
 
             Mapper.CreateMap<travel_policy, SearchPolicyViewModel>().AfterMap((src, dst) =>
             {
+                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
                 dst.CountryId = src.CountryID;    
                 dst.InsuredName = src.policy_insured.Count() == 0 ? " " : src.policy_insured.FirstOrDefault().insured.Lastname + " " + src.policy_insured.FirstOrDefault().insured.Name;
                 dst.Polisa_Id = src.ID;
                 dst.Polisa_Broj = src.Policy_Number;
                 dst.Policy_type = src.policy_type.type;
-                dst.Zapocnuva_Na = src.Start_Date.Date.ToShortDateString();
-                dst.Zavrsuva_Na = src.End_Date.Date.ToShortDateString();
-                dst.Datum_Na_Izdavanje = src.Date_Created.Date.ToShortDateString();
+                dst.Zapocnuva_Na = src.Start_Date.ToString(dateTimeFormat, new CultureInfo("en-US"));
+                dst.Zavrsuva_Na = src.End_Date.ToString(dateTimeFormat, new CultureInfo("en-US"));
+                dst.Datum_Na_Izdavanje = src.Date_Created.ToString(dateTimeFormat, new CultureInfo("en-US"));
                 dst.Datum_Na_Storniranje = src.Date_Cancellation.HasValue ? src.Date_Cancellation.Value.Date.ToShortDateString().ToString() : "/";
             });
 
             Mapper.CreateMap<first_notice_of_loss, SearchFNOLViewModel>().AfterMap((src, dst) =>
             {
+                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
                 dst.ID = src.ID;
-                var policyId = src.PolicyId;
                 var policy = src.travel_policy;
                 var healthInsurance = src.additional_info.health_insurance_info;
                 var luggageInsurance = src.additional_info.luggage_insurance_info;
@@ -382,13 +415,16 @@ namespace InsuredTraveling.App_Start
                 dst.ClaimantPersonName = src.insured != null ? src.insured.Name + " " + src.insured.Lastname : null;
                 dst.Claimant_insured_relation = src.Relation_claimant_policy_holder;
                 dst.AllCosts = src.Total_cost.ToString();
-                dst.Date = src.additional_info != null ? src.additional_info.Datetime_accident.Date.ToShortDateString().ToString() : null;
+                dst.Date = src.additional_info != null ? src.additional_info.Datetime_accident.ToString(dateTimeFormat, new CultureInfo("en-US")) : null;
                 dst.HealthInsurance = healthInsurance != null ? InsuredTraveling.Resource.Yes : InsuredTraveling.Resource.No;
                 dst.LuggageInsurance = luggageInsurance != null ? InsuredTraveling.Resource.Yes : InsuredTraveling.Resource.No;
             });
 
             Mapper.CreateMap<first_notice_of_loss_archive, SearchFNOLViewModel>().AfterMap((src, dst) =>
             {
+                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+
                 dst.ID = src.ID;
                 var policyId = src.PolicyId;
                 var policy = src.travel_policy;
@@ -401,7 +437,7 @@ namespace InsuredTraveling.App_Start
                 dst.ClaimantPersonName = src.insured != null ? src.insured.Name + " " + src.insured.Lastname : null;
                 dst.Claimant_insured_relation = src.Relation;
                 dst.AllCosts = src.Total_cost.ToString();
-                dst.Date = src.additional_info != null ? src.additional_info.Datetime_accident.Date.ToShortDateString().ToString() : null;
+                dst.Date = src.additional_info != null ? src.additional_info.Datetime_accident.ToString(dateTimeFormat, new CultureInfo("en-US")) : null;
                 dst.HealthInsurance = healthInsurance != null ? InsuredTraveling.Resource.Yes : InsuredTraveling.Resource.No;
                 dst.LuggageInsurance = luggageInsurance != null ? InsuredTraveling.Resource.Yes : InsuredTraveling.Resource.No;
             });

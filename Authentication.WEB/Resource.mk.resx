@@ -1239,6 +1239,24 @@
   <data name="Policy_AddOfferMsgFail" xml:space="preserve">
     <value>Полисата не беше додадена во понуди</value>
   </data>
+  <data name="AdminPanel_DiscountAddButton" xml:space="preserve">
+    <value>Додади попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountCoefi" xml:space="preserve">
+    <value>Попуст во проценти</value>
+  </data>
+  <data name="AdminPanel_DiscountEndDate" xml:space="preserve">
+    <value>Крај на попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountName" xml:space="preserve">
+    <value>Име на попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountStartDate" xml:space="preserve">
+    <value>Почеток на попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountCancelButton" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
   <data name="Home_BuyInsurance" xml:space="preserve">
     <value>Купи осигурување</value>
   </data>
@@ -1256,5 +1274,62 @@
   </data>
   <data name="Msg_InvalidRecaptcha" xml:space="preserve">
     <value>Невалидна reCaptcha. Обиди се повторно со клкнување на копчето до "I'm not a robot".</value>
+  </data>
+  <data name="PolicyPreview" xml:space="preserve">
+    <value>Прегледај полиса</value>
+  </data>
+  <data name="SearchPolicyByExpiringDays" xml:space="preserve">
+    <value>Денови пред истекување</value>
+  </data>
+  <data name="PolicyDiscountCode" xml:space="preserve">
+    <value>Код за попуст</value>
+  </data>
+  <data name="Policy_DiscountErrorMessage" xml:space="preserve">
+    <value>Грешен код за попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountNameErrorMessage" xml:space="preserve">
+    <value>Кодот за попуст веќе постои</value>
+  </data>
+  <data name="Policy_DiscoundCodeError" xml:space="preserve">
+    <value>Невалиден код за попуст</value>
+  </data>
+  <data name="Policy_DiscoundCodeValid" xml:space="preserve">
+    <value>Валиден код за попуст</value>
+  </data>
+  <data name="PolicyThePremiumIsExceededMsg" xml:space="preserve">
+    <value>Вредноста на премијата е надмината</value>
+  </data>
+  <data name="EnterAllData" xml:space="preserve">
+    <value>Внесете ги сите податоци</value>
+  </data>
+  <data name="Client_DataNotValid" xml:space="preserve">
+    <value>Податоците не се во соодветен формат. Внесете точни податоци</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Женски</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Машки</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Друго</value>
+  </data>
+  <data name="SSNNotValid" xml:space="preserve">
+    <value>Матичниот број не е валиден</value>
+  </data>
+  <data name="Policy_Modal_Date_CancelDate" xml:space="preserve">
+    <value>Остави датум</value>
+  </data>
+  <data name="Policy_Modal_Date_ChangeDate" xml:space="preserve">
+    <value>Промени датум</value>
+  </data>
+  <data name="Policy_Modal_Date_Header" xml:space="preserve">
+    <value>Промена на датумот на истекување на полисата</value>
+  </data>
+  <data name="Policy_Modal_Date_Text" xml:space="preserve">
+    <value>Промени датум на истекување на полисата според времетраење на полисата</value>
+  </data>
+  <data name="SignUp_ButtonCreateUser" xml:space="preserve">
+    <value>Креирај корисник</value>
   </data>
 </root>

@@ -1,7 +1,13 @@
 ﻿using Authentication.WEB.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Text;
+using System.Web.Script.Serialization;
 
 namespace InsuredTraveling.Models
 {
@@ -34,14 +40,14 @@ namespace InsuredTraveling.Models
         public string Franchise_Age { get; set; }
 
         [Required]
-        // [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yyyy}")]
         [Display(Name = "Policy_PolicyEffectiveDate", ResourceType = typeof(Resource))]
         public DateTime Start_Date { get; set; }
 
         public string test { get; set; }
 
         [Required]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yyyy}")]
         [Display(Name = "Policy_PolicyExpiryDate", ResourceType = typeof(Resource))]       
         public DateTime End_Date { get; set; }
 
@@ -96,7 +102,7 @@ namespace InsuredTraveling.Models
         public string PolicyHolderEmail { get; set; }
 
         [Display(Name = "Policy_HolderBirthDay", ResourceType = typeof(Resource))]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yyyy}")]
         public DateTime? PolicyHolderBirthDate { get; set; }
 
         [Display(Name = "Policy_HolderCity", ResourceType = typeof(Resource))]
@@ -105,7 +111,7 @@ namespace InsuredTraveling.Models
         [Display(Name = "Policy_HolderPostalCode", ResourceType = typeof(Resource))]
         public string PolicyHolderPostalCode { get; set; }
 
-       
+
         [Display(Name = "Policy_HolderSSN", ResourceType = typeof(Resource))]
         public string PolicyHolderSSN { get; set; }
 
@@ -138,7 +144,7 @@ namespace InsuredTraveling.Models
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         [Display(Name = "Policy_InsuredBirthDate", ResourceType = typeof(Resource))]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
@@ -160,6 +166,10 @@ namespace InsuredTraveling.Models
         public int AdditionalChargeId1 { get; set; }
         public int AdditionalChargeId2 { get; set; }
 
+      
+        [DiscountCodeValidation(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Policy_DiscountErrorMessage")]
+      
+        public string DiscountCode { get; set; }
         public List<insured> insureds { get; set; }
         public List<additional_charge> additional_charges {get;set;}
 
@@ -169,6 +179,43 @@ namespace InsuredTraveling.Models
         }
 
     }
-   
+    public class DiscountCodeValidation : ValidationAttribute
+    {
+
+        public DiscountCodeValidation()
+        {
+        }
+     
+
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            ValidationService validationService = new ValidationService();
+            if (value != null)
+            {
+                Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/OkSetup/FindDiscountName");
+                HttpClient client = new HttpClient();
+                client.BaseAddress = uri;
+
+                DiscountCodeValidateModel discModel = new DiscountCodeValidateModel();
+                discModel.DiscCode = value.ToString();
+                var jsonFormatter = new JsonMediaTypeFormatter();
+                HttpContent content = new ObjectContent<DiscountCodeValidateModel>(discModel, jsonFormatter);
+                HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
+                string responseBody = responseMessage.Content.ToString();
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+                else
+                {
+                    return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
+                }
+             
+            }
+            return null;
+        }
+
+    }
+
 
 }

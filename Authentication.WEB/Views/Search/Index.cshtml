@@ -2,27 +2,34 @@
 @model InsuredTravelingEntity
 @using InsuredTraveling.Filters
 @using System.Web.Optimization;
+@using System.Configuration;
 @{
     ViewBag.Title = InsuredTraveling.Resource.Search;
     RoleAuthorize r = new RoleAuthorize();
     var isClaimsAdjuster = r.IsUser("Claims adjuster");
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+    var isBrokerManager = r.IsUser("Broker manager");
+    var isAdmin = r.IsUser("Admin");
+    var isEndUser = r.IsUser("End user");
+    var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+    var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy").ToLower() : dateTime.ToLower();
 }
 <br />
 <br />
 <ul class="nav nav-pills">
     <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
     <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
-    @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Claims adjuster"))
+    @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBrokerManager)
     {
         <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
     }
-    @if (r.IsUser("Admin"))
+    @if (isAdmin || isBrokerManager)
     {
         <li id="registeredUsers"><a href="#" onclick="ShowUsers()">@InsuredTraveling.Resource.Search_Users</a></li>
     }
     <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
-    @if (r.IsUser("Admin") || r.IsUser("End user") || r.IsUser("Claims adjuster"))
+
+    @if (isAdmin || isEndUser || isClaimsAdjuster || isBrokerManager)
     {
         <li id="searchChat"><a href="#" onclick="ShowChats()">@InsuredTraveling.Resource.Chats</a></li>
     }
@@ -212,7 +219,7 @@
                 <div class="form-group">
                     <label for="startDate">@InsuredTraveling.Resource.Search_PolicyEffectiveDate:</label>
                     <div class="input-group">
-                        <input type="date" id="startDate" class="form-control placeholder" />
+                        <input type="text" id="startDate" class="form-control" placeholder= "@dateTimeFormat"/>
                         <div class="input-group-btn">
                             <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle explain-functionality" 
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
@@ -231,7 +238,7 @@
                 <div class="form-group">
                     <label for="endDate">@InsuredTraveling.Resource.Search_PolicyExpiryDate</label>
                     <div class="input-group">
-                        <input type="date" name="endDate" class="form-control" id="endDate" />
+                        <input type="text" name="endDate" class="form-control" id="endDate" placeholder= "@dateTimeFormat"/>
                         <div class="input-group-btn">
                                 <button type="button" id="operatorEndDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
                                         aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
@@ -252,7 +259,7 @@
                 <div class="form-group">
                     <label for="startDate">@InsuredTraveling.Resource.Search_PolicyIssuanceDate:</label>
                     <div class="input-group">
-                        <input type="date" class="form-control placeholder" id="dateI" />
+                        <input type="text" class="form-control placeholder" id="dateI" placeholder= "@dateTimeFormat"/>
                         <div class="input-group-btn">
                             <button type="button" id="operatorDateI" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                      aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
@@ -271,7 +278,7 @@
                 <div class="form-group">
                     <label for="endDate">@InsuredTraveling.Resource.Search_CancellationDate:</label>
                     <div class="input-group">
-                        <input type="date" id="dateS" class="form-control" />
+                        <input type="text" id="dateS" class="form-control" placeholder= "@dateTimeFormat"/>
                         <div class="input-group-btn">
                             <button type="button" id="operatorDateS" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                      aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
@@ -292,15 +299,17 @@
             <div class="col-md-4">
                 <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchPolycies()" type="button" style="float:left;" />
             </div>
+            <div class="col-md-4">
+                <input id="SearchResultsExcel"  class="btn btn-primary btn-block btn-material-design-success" value="Show search results in excel" onclick="ShowSearchResultsInExcel()" type="button" style="float:left;" />
+            </div>
             @if (!isClaimsAdjuster)
             {
-                <div class="col-md-offset-4 col-md-4">
+                <div class="col-md-4">
                     <div class="hover-tooltip">
                         <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddPolicyButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
                     </div>
                 </div>
             }
-
         </div>
         <br />
     </form>
@@ -382,7 +391,7 @@
                 <div class="form-group">
                     <label for="startDate">@InsuredTraveling.Resource.Search_QuoteEffectiveDate:</label>
                     <div class="input-group">
-                        <input type="date" id="startDate1" class="form-control placeholder" />
+                        <input type="text" id="startDate1" class="form-control" placeholder= "@dateTimeFormat"/>
                         <div class="input-group-btn">
                             <button type="button" id="operatorStartDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
@@ -401,7 +410,7 @@
                 <div class="form-group">
                     <label for="endDate">@InsuredTraveling.Resource.Search_QuoteExpiryDate:</label>
                     <div class="input-group">
-                        <input type="date" name="endDate" class="form-control" id="endDate1" />
+                        <input type="text" name="endDate" class="form-control" id="endDate1" placeholder= "@dateTimeFormat"/>
                         <div class="input-group-btn">
                             <button type="button" id="operatorEndDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                      aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
@@ -447,6 +456,7 @@
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
                     <th>@InsuredTraveling.Resource.Seacrh_QuoteSearchTableFrom</th>
                     <th>@InsuredTraveling.Resource.Seacrh_QuoteSearchTableTo</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id="searchResultQuotes"></tbody>
@@ -623,7 +633,7 @@
                     <div class="form-group">
                         <label for="startDate">@InsuredTraveling.Resource.Search_RegistrationDate:</label>
                         <div class="input-group">
-                            <input type="date" class="form-control placeholder" id="DateAdded" />
+                            <input type="text" class="form-control placeholder" id="DateAdded" placeholder= "@dateTimeFormat"/>
                             <div class="input-group-btn">
                                 <button type="button" id="operatorDateAdded" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
                                         aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
@@ -825,40 +835,88 @@
 <script type="text/javascript">
     var isAdmin = false;
     $(document).ready(function () {
+        var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
 
         $('.explain-functionality').tooltip({
             placement: "right"
         });
 
-        $(".hover-tooltip button").tooltip('show');
+        $("#startDate").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
 
+        $("#endDate").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
+
+        $("#dateI").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
+
+        $("#dateS").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
+
+        $("#startDate1").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
+
+        $("#endDate1").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        }); 
+
+        $("#DateAdded").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        }); 
+
+        $(".hover-tooltip button").tooltip('show');
         $('#operatorRegisterDate').html(' = ');
         $('#operatorRegisterDate').val('=');
-
         $("#searchClients").hide();
         $("#searchFNOL").hide();
         $("#searchChats").hide();
         $("#searchQuotes").hide();
         $("#searchUsers").hide();
-
         $("#tableClients").DataTable().destroy();
         $("#tableClients").DataTable();
-
         $("#tableRegisteredUsers").DataTable().destroy();
         $("#tableRegisteredUsers").DataTable();
-
         $("#tablePolicies").DataTable().destroy();
         $("#tablePolicies").DataTable();
-
         $("#tableQuotes").DataTable().destroy();
         $("#tableQuotes").DataTable();
-
         $("#tableFNOL").DataTable().destroy();
         $("#tableFNOL").DataTable();
-
         $("#tableFNOLPolicies").css("display", "none");
         $("#tableArchivedFNOL").css("display", "none");
-
         $("#tablePoliciesClients").css("display", "none");
         $("#tablePoliciesHolders").css("display", "none");
 
@@ -952,20 +1010,6 @@
         $("#policiesHolders").css("display", "block");
     }
 
-    $("#DateI").focusout(function () {
-        var Sdat = $("#DateI").val();
-        $("#startDate").attr('min', Sdat);
-        $("#endDate").attr('min', Sdat);
-        $("#DateS").attr('min', Sdat);
-
-    });
-
-    $("#endDate").focusout(function () {
-        var Edat = $("#endDate").val();
-        $("#DateS").attr('max', Edat);
-        $("#startDate").attr('max', Edat);
-    });
-
     $("#PolicyNumber").autocomplete({
         source: function (request, response) {
             $.ajax({
@@ -992,12 +1036,13 @@
                 type: "POST",
                 dataType: "json",
                 data: { Prefix: request.term },
-                success: function (data) {
-                    response($.map(data, function (item) {
-                        return { label: item.Name, value: item.Name };
-                    }))
+                success: function(data) {
+                    response($.map(data,
+                        function(item) {
+                            return { label: item.Name, value: item.Name };
+                        }))
                 }
-            })
+            });
         },
         messages: {
             noResults: "", results: ""
@@ -1104,7 +1149,6 @@
         $("searchChats").hide();
         $("#searchQuotes").hide();
         $("#searchUsers").show();
-
         $("#polycies").removeAttr("class");
         $("#clients").removeAttr("class");
         $("#first_notice_of_loss").removeAttr("class");
@@ -1159,15 +1203,13 @@
     function ShowChatDetails(chatWith, requestId) {
         var chatDTO = { Sender: chatWith, RequestId: requestId, Admin: isAdmin };
         openChatU(chatDTO);
-        //if (isAdmin) {
-
-        //    openChat(chatWith, requestId);
-        //}
-        //else {
-        //    openChatEndUser(chatWith, requestId);
-        //}
         getLastTenMessages(requestId);
-    }
+    };
+
+    function ShowSearchResultsInExcel() {
+        var urlString = "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowPoliciesSearchResultInExcel?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val();
+        window.location.href = urlString;
+    };
 
     function SearchPolycies() {
         $("#tablePolicies").DataTable().destroy();
@@ -1227,29 +1269,31 @@
                                .attr('class', 'newLoss')
                                .attr('id', data)
                                .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
-                               .wrap('<div></div>')
-                               .parent()
-                               .html();
-                       } else {
-                           return data;
-                       }
-                   }
-               }
-
+                                .wrap('<div></div>')
+                                .parent()
+                                .html();
+                        } else {
+                            return data;
+                        }
+                    }
+                }
             ],
             select: true
         });
 
-        $('#tablePolicies tbody').on('click', 'td .loss', function () {
-            var $row = $(this).closest('td');
-            var policy_num = $row.children().attr('id');
-            CreateFNOLTablePoliciesByPolicyNumber(policy_num);
+        $('#tablePolicies tbody').on('click',
+            'td .loss',
+            function() {
+                var $row = $(this).closest('td');
+                var policy_num = $row.children().attr('id');
+                CreateFNOLTablePoliciesByPolicyNumber(policy_num);
 
-        });
+            });
 
         $('html,body').animate({
-            scrollTop: $("#tablePolicies").offset().top
-        }, 800);
+                scrollTop: $("#tablePolicies").offset().top
+            },
+            800);
     };
 
     function SearchQuotes() {
@@ -1257,14 +1301,42 @@
         $("#tableQuotes").DataTable().destroy();
         $("#tableQuotes").DataTable({
             dom: "Bfrtip",
-            ajax: "/Search/GetQuotes?TypePolicy=" + $("#TypePolicy1").val() + "&Country=" + $("#Country1").val() + "&startDate=" + $("#startDate1").val() + "&endDate=" + $("#endDate1").val() + "&operatorStartDate=" + $("#operatorStartDate1").val() + "&operatorEndDate=" + $("#operatorEndDate1").val() + "&PolicyNumber=" + $("#PolicyNumber1").val(),
+            ajax: "/Search/GetQuotes?TypePolicy=" +
+                $("#TypePolicy1").val() +
+                "&Country=" +
+                $("#Country1").val() +
+                "&startDate=" +
+                $("#startDate1").val() +
+                "&endDate=" +
+                $("#endDate1").val() +
+                "&operatorStartDate=" +
+                $("#operatorStartDate1").val() +
+                "&operatorEndDate=" +
+                $("#operatorEndDate1").val() +
+                "&PolicyNumber=" +
+                $("#PolicyNumber1").val(),
             columns: [
-               { data: "Polisa_Broj" },
-               { data: "InsuredName" },
-               { data: "Country" },
-               { data: "Policy_type" },
-               { data: "Zapocnuva_Na" },
-               { data: "Zavrsuva_Na" }
+                { data: "Polisa_Broj" },
+                { data: "InsuredName" },
+                { data: "Country" },
+                { data: "Policy_type" },
+                { data: "Zapocnuva_Na" },
+                { data: "Zavrsuva_Na" },
+                {
+                    data: "Polisa_Id",
+                    "render": function(data, type, row, meta) {
+                        if (type === 'display') {
+                            return $('<a>')
+                                .attr('href', '/Policy/Preview?policyId=' + data)
+                                .text("@InsuredTraveling.Resource.Search_QuotePreview")
+                               .wrap('<div></div>')
+                               .parent()
+                               .html();
+                       } else {
+                           return data;
+                       }
+                    }
+               }
             ],
             select: true
         });
@@ -1456,7 +1528,7 @@
                                 return data;
                             }
                         }
-                    
+
                     }*@
             ],
             select: true
@@ -1642,7 +1714,7 @@
                                .attr('class', 'detailsHolder')
                                .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
                                .wrap('<div></div>')
-                               .parent()    
+                               .parent()
                                .html();
                        } else {
                            return data;
