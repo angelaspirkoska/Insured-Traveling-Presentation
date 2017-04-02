@@ -78,37 +78,7 @@
                 <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown language-switch">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="" class="position-left" id="choosen-language-flag" alt="">
-                        <p id="choosen-language"></p>
-                        <span class="caret" style="margin-top: -13px;"></span>
-                    </a>
-
-                    <ul class="dropdown-menu">
-                        @foreach (var i in InsuredTraveling.App_Start.SiteLanguages.GetAllanguages())
-                        {
-                            if (i.CultureName == "en")
-                            {
-                                <li id="english-lang" onclick="ShowEngFlag()">
-                                    <a href="@Url.Action("ChangeLanguage", "ChangeLanuage", new { lang = i.CultureName })">
-                                        <img src="~/Content/flags/en-US.png" /> English
-                                    </a>
-                                </li>
-                            }
-                            if (i.CultureName == "mk")
-                            {
-                                <li id="macedonian-lang" onclick="ShowMkFlag()">
-                                    <a href="@Url.Action("ChangeLanguage", "ChangeLanuage", new { lang = i.CultureName })">
-                                        <img src="~/Content/flags/mk-MK.png" /> Macedonian
-                                    </a>
-                                </li>
-                            }
-                        }
-                    </ul>
-                </li>
-
+            <ul class="nav navbar-nav navbar-right">                
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-bubbles4"></i>
@@ -152,6 +122,21 @@
                                 </li>
                             </ul>
                     </li>
+                }
+                @foreach (var i in InsuredTraveling.App_Start.SiteLanguages.GetAllanguages())
+                {
+                    if (i.CultureName == "en")
+                    {
+                        <a href="@Url.Action("ChangeLanguage", "ChangeLanuage", new { lang = i.CultureName })">
+                            <img src="~/Content/flags/en-US.png" />
+                        </a>
+                    }
+                    if (i.CultureName == "mk")
+                    {
+                        <a href="@Url.Action("ChangeLanguage", "ChangeLanuage", new { lang = i.CultureName })">
+                            <img src="~/Content/flags/mk-MK.png" />
+                        </a>
+                    }
                 }
             </ul>
         </div>
