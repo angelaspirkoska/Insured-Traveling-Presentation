@@ -826,8 +826,11 @@ namespace InsuredTraveling.Controllers
         [Route("GetRegisteredUsers")]
         public JObject GetRegisteredUsers(string registerDate, string operatorRegisterDate, string roleName, string status)
         {
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+
             List<aspnetuser> data = new List<aspnetuser>();
-            DateTime registerDateValue = String.IsNullOrEmpty(registerDate) ? new DateTime() : Convert.ToDateTime(registerDate);
+            DateTime registerDateValue = String.IsNullOrEmpty(registerDate) ? new DateTime() : DateTime.ParseExact(registerDate, dateTimeFormat, CultureInfo.InvariantCulture);
 
             string currentUserId = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
             data = _us.GetUsersByRoleName(roleName);
