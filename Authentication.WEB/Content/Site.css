@@ -318,15 +318,15 @@ form.cmxform .gray * { color: gray; }
 }
 
 .ui-datepicker-prev {
-    padding-top: 35px !important;
+    margin-top: 16px !important;
 }
 
 .ui-datepicker-next {
-    padding-top: 35px !important;
+    margin-top: 16px !important;
 }
 
 .ui-state-hover .ui-datepicker-next-hover {
-    padding-top: 35px !important;
+    margin-top: 16px !important;
 }
 
 
