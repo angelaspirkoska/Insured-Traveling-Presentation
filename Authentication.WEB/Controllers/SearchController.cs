@@ -1247,90 +1247,23 @@ namespace InsuredTraveling.Controllers
             }
         }
 
-        public FileResult ShowPoliciesSearchResultInExcel(string name,
-            string embg,
-            string land,
-            string address,
-            int? TypePolicy,
-            int? Country,
-            string agency,
-            string startDate,
-            string endDate,
-            string dateI,
-            string dateS,
-            string operatorStartDate,
-            string operatorEndDate,
-            string operatorDateI,
-            string operatorDateS,
-            string PolicyNumber)
+        public FileResult ShowPoliciesSearchResultInExcel(string path)
         {
-            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
-            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+            if (String.IsNullOrEmpty(path))
+                return null;
+            return File(path, "application/vnd.ms-excel", "PoliciesSearchResults.xlsx");
+        }
 
-            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : DateTime.ParseExact(startDate, dateTimeFormat, CultureInfo.InvariantCulture);
-            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : DateTime.ParseExact(endDate, dateTimeFormat, CultureInfo.InvariantCulture);
-            DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : DateTime.ParseExact(dateI, dateTimeFormat, CultureInfo.InvariantCulture);
-            DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : DateTime.ParseExact(dateS, dateTimeFormat, CultureInfo.InvariantCulture);
+        [HttpPost]
+        public JObject GetPoliciesSearchResultsAsExcelDocument(List<SearchPolicyViewModel> policies)
+        {
+            if(policies == null || !policies.Any())
+            return null;
 
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUser = _us.GetUserIdByUsername(username);
 
-            List<travel_policy> data = new List<travel_policy>();
-
-            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
-            {
-                data = _ps.GetPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, PolicyNumber);
-            }
-            else if (_roleAuthorize.IsUser("End user") || _roleAuthorize.IsUser("Broker"))
-            {
-                data = _ps.GetPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, logUser, PolicyNumber);
-            }
-            else if (_roleAuthorize.IsUser("Broker manager"))
-            {
-                data = _ps.GetBrokerManagerBrokersPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, logUser, PolicyNumber);
-            }
-            if (!String.IsNullOrEmpty(startDate))
-            {
-                switch (operatorStartDate)
-                {
-                    case "<": data = data.Where(x => x.Start_Date < startDate1).ToList(); break;
-                    case "=": data = data.Where(x => x.Start_Date == startDate1).ToList(); break;
-                    case ">": data = data.Where(x => x.Start_Date > startDate1).ToList(); break;
-                    default: break;
-                }
-            }
-            if (!String.IsNullOrEmpty(endDate))
-            {
-                switch (operatorEndDate)
-                {
-                    case "<": data = data.Where(x => x.End_Date < endDate1).ToList(); break;
-                    case "=": data = data.Where(x => x.End_Date == endDate1).ToList(); break;
-                    case ">": data = data.Where(x => x.End_Date > endDate1).ToList(); break;
-                    default: break;
-                }
-            }
-            if (!String.IsNullOrEmpty(dateI))
-            {
-                switch (operatorDateI)
-                {
-                    case "<": data = data.Where(x => x.Date_Created < dateI1).ToList(); break;
-                    case "=": data = data.Where(x => x.Date_Created == dateI1).ToList(); break;
-                    case ">": data = data.Where(x => x.Date_Created > dateI1).ToList(); break;
-                    default: break;
-                }
-            }
-            if (!String.IsNullOrEmpty(dateS))
-            {
-                switch (operatorDateS)
-                {
-                    case "<": data = data.Where(x => x.Date_Cancellation < dateS2).ToList(); break;
-                    case "=": data = data.Where(x => x.Date_Cancellation == dateS2).ToList(); break;
-                    case ">": data = data.Where(x => x.Date_Cancellation > dateS2).ToList(); break;
-                    default: break;
-                }
-            }
-
-            string fileName = logUser+Guid.NewGuid().ToString()+ ".xlsx";
+            string fileName = logUser + Guid.NewGuid().ToString() + ".xlsx";
             var path = @"~/ExcelSearchResults/Policies/" + fileName;
             path = System.Web.HttpContext.Current.Server.MapPath(path);
             FileInfo newFile = new FileInfo(path);
@@ -1358,15 +1291,15 @@ namespace InsuredTraveling.Controllers
 
                 int counter = 2;
 
-                foreach (travel_policy policy in  data)
+                foreach (SearchPolicyViewModel policy in policies)
                 {
-                    worksheet.Cells[counter, 1].Value = policy.Policy_Number;
-                    worksheet.Cells[counter, 2].Value = policy.insured.Name + " " + policy.insured.Lastname;
-                    worksheet.Cells[counter, 3].Value = policy.country.countries_name.FirstOrDefault(x => x.countries_id == policy.CountryID).name;
-                    worksheet.Cells[counter, 4].Value = policy.Start_Date.ToString(dateTimeFormat, new CultureInfo("en-US"));
-                    worksheet.Cells[counter, 5].Value = policy.End_Date.ToString(dateTimeFormat, new CultureInfo("en-US"));
-                    worksheet.Cells[counter, 6].Value = policy.Date_Created.ToString(dateTimeFormat, new CultureInfo("en-US"));
-                    worksheet.Cells[counter, 7].Value = policy.Date_Cancellation.HasValue == true ? policy.Date_Cancellation.Value.ToString(dateTimeFormat, new CultureInfo("en-US")) : "";
+                    worksheet.Cells[counter, 1].Value = policy.Polisa_Broj;
+                    worksheet.Cells[counter, 2].Value = policy.InsuredName;
+                    worksheet.Cells[counter, 3].Value = policy.Country;
+                    worksheet.Cells[counter, 4].Value = policy.Zapocnuva_Na;
+                    worksheet.Cells[counter, 5].Value = policy.Zavrsuva_Na;
+                    worksheet.Cells[counter, 6].Value = policy.Datum_Na_Izdavanje;
+                    worksheet.Cells[counter, 7].Value = policy.Datum_Na_Storniranje;
 
                     counter++;
                 }
@@ -1386,10 +1319,14 @@ namespace InsuredTraveling.Controllers
                 package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "EPPlus");
                 // save our new workbook and we are done!
                 package.Save();
+
             }
 
-            return File(path, "application/vnd.ms-excel", "PoliciesSearchResults.xlsx");
-            // return new FilePathResult(path, "\"application/vnd.ms-excel\"");
+            JObject jsonPath = new JObject();
+            jsonPath.Add("path", path);
+
+            return jsonPath;
+            //return File(path, "application/vnd.ms-excel", "PoliciesSearchResults.xlsx");
         }
 
         private async Task<List<SelectListItem>> GetTypeOfPolicy()
