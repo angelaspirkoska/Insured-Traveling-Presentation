@@ -1299,4 +1299,7 @@
   <data name="PolicyThePremiumIsExceededMsg" xml:space="preserve">
     <value>The premium value is exceeded</value>
   </data>
+  <data name="SearchPoliciesSearchResultsExcel" xml:space="preserve">
+    <value>Show search results in excel</value>
+  </data>
 </root>
