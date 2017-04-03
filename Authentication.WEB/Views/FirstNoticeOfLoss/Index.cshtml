@@ -657,14 +657,14 @@ else if (ViewBag.insurance == "Luggage Insurance")
         $('#ForeignBankAccountInsured').prop('disabled', true);
         $('#relationship').prop('readonly', true);
 
-        $("#btnNovaPolisa").removeClass("active-tab");
-        $("#btnNews").removeClass("active-tab");
-        $("#btnSearch").removeClass("active-tab");
-        $("#btnFNOL").addClass("active-tab");
-        $("#btnAdmin").removeClass("active-tab");
-        $("#dodadiKlient").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
+        //Setting the class active-tab, so the user will know which tab is clicked
+        $("#addNewPolicy").removeClass("active-tab");
+        $("#newsTab").removeClass("active-tab");
+        $("#searchTab").removeClass("active-tab");
+        $("#fnolTab").addClass("active-tab");
+        $("#adminTab").removeClass("active-tab");
+        $("#createTab").removeClass("active-tab");
+        $("#signupTab").removeClass("active-tab");
 
         $("#DropDownPolicyNumber").change(function () {
             if ($("#DropDownPolicyNumber").val() == "") {

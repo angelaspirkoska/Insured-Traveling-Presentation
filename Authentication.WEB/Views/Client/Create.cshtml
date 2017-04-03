@@ -173,14 +173,14 @@
     $(document).ready(function () {
         var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
 
-        $("#btnNovaPolisa").removeClass("active-tab");
-        $("#btnNews").removeClass("active-tab");
-        $("#btnSearch").removeClass("active-tab");
-        $("#btnFNOL").removeClass("active-tab");
-        $("#btnAdmin").removeClass("active-tab");
-        $("#dodadiKlient").addClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
+        //Setting the class active-tab, so the user will know which tab is clicked
+        $("#addNewPolicy").removeClass("active-tab");
+        $("#newsTab").removeClass("active-tab");
+        $("#searchTab").removeClass("active-tab");
+        $("#fnolTab").removeClass("active-tab");
+        $("#adminTab").removeClass("active-tab");
+        $("#createTab").addClass("active-tab");
+        $("#signupTab").removeClass("active-tab");
 
         $.ajax({
             type: "GET",
