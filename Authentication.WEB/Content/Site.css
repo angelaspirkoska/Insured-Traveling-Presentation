@@ -312,6 +312,24 @@ form.cmxform .gray * { color: gray; }
     font-weight: bold;
 }
 
+.arrows-style {    
+    padding-top: 110%;
+    font-size: 25px;
+}
+
+.ui-datepicker-prev {
+    padding-top: 35px !important;
+}
+
+.ui-datepicker-next {
+    padding-top: 35px !important;
+}
+
+.ui-state-hover .ui-datepicker-next-hover {
+    padding-top: 35px !important;
+}
+
+
 .nav-material-design {
     -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
