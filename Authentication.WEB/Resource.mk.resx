@@ -1350,4 +1350,7 @@
   <data name="MainPage" xml:space="preserve">
     <value>ПОЧЕТНА СТРАНА</value>
   </data>
+  <data name="Home_MyProfile" xml:space="preserve">
+    <value>Мој профил</value>
+  </data>
 </root>
