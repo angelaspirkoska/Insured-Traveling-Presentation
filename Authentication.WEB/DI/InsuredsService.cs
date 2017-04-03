@@ -21,6 +21,16 @@ namespace InsuredTraveling.DI
             return Insured.ID;
         }
 
+        public type_insured GetInsuredType()
+        {
+            return _db.type_insured.Where(x => x.Name == "insured").FirstOrDefault();
+        }
+
+        public List<type_insured> GetAllInsuredTypes()
+        {
+            return _db.type_insured.ToList();
+        }
+
         public insured Create()
         {
             return _db.insureds.Create();

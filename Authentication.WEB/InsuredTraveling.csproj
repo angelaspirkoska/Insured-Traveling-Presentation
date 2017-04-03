@@ -591,6 +591,7 @@
     <Compile Include="Helpers\SavePolicyHelper.cs" />
     <Compile Include="Helpers\UpdateBankAccountInfoHelper.cs" />
     <Compile Include="Helpers\UpdateFirstNoticeOfLossHelper.cs" />
+    <Compile Include="Models\AdminPanelModel.cs" />
     <Compile Include="Models\BrokerSales.cs" />
     <Compile Include="Models\CreditCardInfoModel.cs" />
     <Compile Include="Models\DiscountModel.cs" />

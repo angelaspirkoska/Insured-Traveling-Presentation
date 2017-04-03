@@ -1,6 +1,7 @@
 ﻿@model InsuredTraveling.Models.Policy
 @using InsuredTraveling.Filters;
 @using System.Web.Optimization;
+@using System.Configuration;
 @{
     ViewBag.Title = InsuredTraveling.Resource.NewPolicy_Title;
     Layout = "~/Views/Shared/_Layout2.cshtml";
@@ -49,7 +50,7 @@
                         <div class="col-md-4">
                             @Html.LabelFor(model => model.Start_Date, htmlAttributes: new { @class = "control-label" })
                             <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField policyInfo" } })
+                                @Html.EditorFor(model => model.Start_Date, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField policyInfo" } })
                                 @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -57,7 +58,7 @@
                             <input type="hidden" id="inTenDays" name="inTenDays" value="@ViewBag.DateAfterTenDays">
                             @Html.LabelFor(model => model.End_Date, htmlAttributes: new { @class = "control-label" })
                             <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField policyInfo" } })
+                                @Html.EditorFor(model => model.End_Date, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField policyInfo" } })
                                 @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -124,22 +125,11 @@
                         @Html.ValidationMessageFor(model => model.PolicyHolderSSN, "", new { @class = "text-danger", id = "ErrorPolicyHolderSSN" })
                     </div>
                     <div class="hideWhenSelect">
-                        @Html.LabelFor(model => model.PolicyHolderBirthDate, htmlAttributes: new { @class = "control-label" }) <br />
+                        @Html.LabelFor(model => model.PolicyHolderBirthDate, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            <div class='input-group date field-size-holder' id='datetimepicker1'>
-                                @Html.EditorFor(model => model.PolicyHolderBirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField datepicker-size holderInfo", @max = ViewBag.Date } })
-                                <span class="input-group-addon" style="width: 55px; border-radius: 2px;">
-                                    <span class="glyphicon glyphicon-calendar">
-                                    </span>
-                                </span>
-                                @Html.ValidationMessageFor(model => model.PolicyHolderBirthDate, "", new { @class = "text-danger" })
-                            </div>
+                            @Html.EditorFor(model => model.PolicyHolderBirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  placeholder mandatoryField holderInfo" } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderBirthDate, "", new { @class = "text-danger" })
                         </div>
-                        @*@Html.LabelFor(model => model.PolicyHolderBirthDate, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderBirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField", type = "date", @max = ViewBag.Date } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderBirthDate, "", new { @class = "text-danger" })
-                            </div>*@
                         @Html.LabelFor(model => model.PolicyHolderPassportNumber_ID, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
                             @Html.EditorFor(model => model.PolicyHolderPassportNumber_ID, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
@@ -219,22 +209,11 @@
                             @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
                             @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
                         </div>
-                        @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" }) <br />
+                       @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            <div class='input-group date field-size' id='datetimepicker2'>
-                                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField insuredData datepicker-size insuredInfo" } })
-                                <span class="input-group-addon" style="width: 55px; border-radius: 2px;">
-                                    <span class="glyphicon glyphicon-calendar">
-                                    </span>
-                                </span>
-                                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
-                            </div>
+                            @Html.EditorFor(model => model.BirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  mandatoryField insuredData field-size" } })
+                            @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
                         </div>
-                        @*@Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField insuredData field-size" } })
-                                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
-                            </div>*@
                         @Html.LabelFor(model => model.PassportNumber_ID, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
                             @Html.EditorFor(model => model.PassportNumber_ID, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
@@ -347,7 +326,7 @@
                                 <label for="radio1" checked="checked">@InsuredTraveling.Resource.Policy_OneTrip</label>
                             </label>
                             <br />
-                            <label class="radio-inline">
+                            <label style="display: none;" class="radio-inline">
                                 <input type="radio" name="Travel_NumberID" value="2" class="numberTrips checkbox-position" />
                                 @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "2", @text = "Повеќе патувања" })*@
                                 <label for="radio1">@InsuredTraveling.Resource.Policy_MoreTrip</label>
@@ -375,8 +354,9 @@
                 <label class="control-label col-md-5" for="DiscountCode">@InsuredTraveling.Resource.PolicyDiscountCode</label>
                 <input class="col-md-1" onclick="DiscountChange()" type="checkbox" id="DiscountCheck">
                 <div id="Discount_div" class="inputs-spacing col-md-6">
-                    <input class="form-control input-sm insuredData field-size insuredInfo text-box" id="DiscountCode" name="DiscountCode" type="text" value="">
-                    <span class="field-validation-valid text-danger" data-valmsg-for="DiscountCode" data-valmsg-replace="true"></span>
+                    <input class="form-control input-sm insuredData field-size insuredInfo text-box" id="DiscountCode" name="DiscountCode" onblur="DiscountCodeVal()" type="text" value="">
+                    <span id="discErrorMessage" class="field-validation-valid text-danger" data-valmsg-for="DiscountCode" data-valmsg-replace="true"></span>
+                   
                 </div>
             </div>
         </div>
@@ -453,6 +433,26 @@
         </div>
     </div>
 </form>
+<div class="modal fade" id="modalHolder" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@InsuredTraveling.Resource.Policy_Modal_Date_Header </h4>
+            </div>
+            <div class="modal-body">
+                <p>@InsuredTraveling.Resource.Policy_Modal_Date_Text</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="ChangeDate">@InsuredTraveling.Resource.Policy_Modal_Date_ChangeDate</button><button type="button" class="btn btn-danger" data-dismiss="modal" id="DontChangeDate">@InsuredTraveling.Resource.Policy_Modal_Date_CancelDate</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/additional-methods.js"></script>
 <!-- macedonian language-->
@@ -465,6 +465,68 @@
         $("#successMsg").hide();
         $("#failMsg").hide();
         $("#Valid_Days").val(10);
+
+        var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
+        var future = new Date();
+        $("#Start_Date").val($.datepicker.formatDate(dateFormatString, new Date(future.setDate(future.getDate() + 1))));
+        $("#End_Date").val($.datepicker.formatDate(dateFormatString, new Date(future.setDate(future.getDate() + 9))));
+        var DateToday = new Date();
+
+        $("#Start_Date").datepicker({
+            dateFormat: dateFormatString,
+            "minDate": DateToday,
+            onSelect: function (selected) {
+                $("#End_Date").datepicker("option", "minDate", selected);
+                var startDateParts = $("#Start_Date").val().split("/");
+                var endDateParts = $("#End_Date").val().split("/");
+                var startDate = new Date(startDateParts[2], startDateParts[1] - 1, startDateParts[0]);
+                var endDate = new Date(endDateParts[2], endDateParts[1] - 1, endDateParts[0]);
+                if (startDate != null && endDate != null) {
+                    c = 24 * 60 * 60 * 1000;
+                    var validDays = Math.round(((endDate - startDate) / c) + 1);
+                    $("#Valid_Days").attr({
+                        "max": validDays
+                    });
+                    $("#Valid_Days").val(validDays);
+                }
+            }
+        });
+
+        $("#End_Date").datepicker({
+            dateFormat: dateFormatString,
+            "minDate": DateToday,
+            onSelect: function (selected) {
+                $("#Start_Date").datepicker("option", "maxDate", selected);
+                var startDateParts = $("#Start_Date").val().split("/");
+                var endDateParts = $("#End_Date").val().split("/");
+                var startDate = new Date(startDateParts[2], startDateParts[1] - 1, startDateParts[0]);
+                var endDate = new Date(endDateParts[2], endDateParts[1] - 1, endDateParts[0]);
+                if (startDate != null && endDate != null) {
+                    c = 24 * 60 * 60 * 1000;
+                    var validDays = Math.round(((endDate - startDate) / c) + 1);
+                    $("#Valid_Days").attr({
+                        "max": validDays
+                    });
+                    $("#Valid_Days").val(validDays);
+                }
+            }
+        });
+
+        $("#BirthDate").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
+
+        $("#PolicyHolderBirthDate").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
 
         $("input:checkbox[id='IsExistentPolicyHolder']").attr('checked', true);
         $(".hideWhenSelect").hide();
@@ -516,17 +578,6 @@
 
         $("#policy_type option[value='2']").attr("selected", "selected");
 
-        $('#datetimepicker1').datetimepicker({
-            viewMode: 'years',
-            format: 'MM/DD/YYYY'
-        });
-
-        $('#datetimepicker2').datetimepicker({
-            viewMode: 'years',
-            format: 'MM/DD/YYYY'
-        });
-
-        $
         $(".hideMe").hide();
         $("#totalPremium").hide();
         $("#totalPremiumLabel").hide();
@@ -589,6 +640,8 @@
     var i = 0;
     var errorWell = 0; // error in the well
 
+
+
     function CalculateTotalPremium() {
         var flag = ValidateFields();
         console.log(flag);
@@ -643,40 +696,52 @@
             $(".loader").css("display", "inline");
             $.ajax({
                 type: "POST",
-                url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/Premium/Calculate?username=@System.Web.HttpContext.Current.User.Identity.Name",
+                url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Policy/Index",
                 data: $("#policy_form").serialize(),
                 success: function (result) {
-                    //This code is for AdvancedSSN validation in premium controler & if Premium Amount exceeded 
-                    if(result.status != null && result.isValid==false){
-                        if (result.message == "ThePremiumIsExceeded") {
+
+                    console.log(result.status);
+
+                        //This code is for AdvancedSSN validation in premium controler & if Premium Amount exceeded
+                        if (result.status != null && result.isValid == false) {
+                            if (result.message == "ThePremiumIsExceeded") {
+                                $("#totalPremium").val(result.PremiumAmount);
+                                $("#totalPremium").show();
+                                $("#errorMessage").text("@Resource.PolicyThePremiumIsExceededMsg");
+                                $(".loader").css("display", "none");
+                            } else {
+                                $("#errorMessage").text("@Resource.Error_EMBG_Val_Advanced");
+                                $(".loader").css("display", "none");
+                                $("#SSN").attr("style", "border: 1px solid red;");
+                                $("#totalPremiumLabel").hide();
+                                $("#totalPremium").val("");
+                            }
+
+                        }
+                        else {
+                            $("#SSN").attr("style", "border: 1px solid #2c3e50;");
+                            
+                            $(".loader").css("display", "none");
+                            console.log(result.PremiumAmount);
+
+                            $(".loader").css("display", "none");
+
                             $("#totalPremium").val(result.PremiumAmount);
                             $("#totalPremium").show();
-                            $("#errorMessage").text("@Resource.PolicyThePremiumIsExceededMsg");
-                            $(".loader").css("display", "none");
-                        } else {
-                            $("#errorMessage").text("@Resource.Error_EMBG_Val_Advanced");
-                            $(".loader").css("display", "none");
-                            $("#SSN").attr("style", "border: 1px solid red;");
-                            $("#totalPremiumLabel").hide();
-                            $("#totalPremium").val("");
-                        }
-                    }
-                    else{
-                        $("#SSN").attr("style", "border: 1px solid #2c3e50;");
-                        $(".loader").css("display", "none");
-                        $("#totalPremium").val(result.PremiumAmount);
-                        $("#totalPremium").show();
-                        $("#totalPremiumLabel").show();
-                        $(".hideMe").show();
-                        $("#errorMessage").text(" ");
+                            $("#totalPremiumLabel").show();
+                            $(".hideMe").show();
+                            $("#errorMessage").text(" ");
 
-                        if (errorWell == 0) {
-                            $('html,body').animate({
-                                scrollTop: $("#printOffers").offset().top
-                            }, 800);
-                        }
+                            if (errorWell == 0) {
+                                $('html,body').animate({
+                                    scrollTop: $("#printOffers").offset().top
+                                }, 800);
+                            }
 
-                    }},
+                        }
+                    
+                    
+                },
                 error: function (result) {
                     $(".loader").css("display", "none");
                     $(".hideMe").hide();
@@ -702,22 +767,41 @@
         }
     }
 
-    $('#dugme').on('submit', function (e) {
-        if (!valid) {
-            e.preventDefault();
-        }
-    });
 
-    function DiscountChange(){
-        if($("#DiscountCheck").is(":checked") ){
+    function DiscountChange() {
+        if ($("#DiscountCheck").is(":checked")) {
             $("#Discount_div").show();
 
+            $("#DiscountCode").addClass("mandatoryField");
+
         }
-        else{
+        else {
+            $("#DiscountCode").val('');
             $("#Discount_div").hide();
+            $("#DiscountCode").removeClass("mandatoryField");
 
         }
     };
+    function DiscountCodeVal() {
+        $.ajax({
+            type: "POST",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/Premium/DiscountCode",
+            data: jQuery.param({ Discount_Name: $("#DiscountCode").val() })
+        })
+
+    .done(function (result) {
+
+        $("#DiscountCode").removeClass("mandatoryField");
+        $("#discErrorMessage").text("@InsuredTraveling.Resource.Policy_DiscoundCodeValid ");
+    })
+    .fail(function () {
+       $("#discErrorMessage").text("@InsuredTraveling.Resource.Policy_DiscoundCodeError ");
+        $("#DiscountCode").addClass("mandatoryField");
+
+    });
+    }
+
+
 
     $("#policyForm").validate({
         rules: {
@@ -745,55 +829,6 @@
 
         lang: 'is'
 
-    });
-
-    $("#dugme").click(function () {
-        if (form.valid() == true) {
-            var data = $("#policyForm").serialize();
-            $.ajax({
-                type: "POST",
-                url: "CreatePolicy",
-                data: data,
-                success: function () {
-
-                }
-            });
-        }
-    });
-
-    $("#Start_Date").datepicker({
-        dateFormat: "mm/dd/yy",
-        onSelect: function (selected) {
-            $("#End_Date").datepicker("option", "minDate", selected);
-            var startDate = new Date($("#Start_Date").val()).getTime();
-            var endDate = new Date($("#End_Date").val()).getTime();
-            if (startDate != null && endDate != null) {
-                c = 24 * 60 * 60 * 1000;
-                var validDays = Math.round(((endDate - startDate) / c) + 1);
-                $("#Valid_Days").attr({
-                    "max": validDays
-                });
-                $("#Valid_Days").val(validDays);
-            }
-        }
-    });
-
-    $("#End_Date").datepicker({
-        dateFormat: "mm/dd/yy",
-        onSelect: function (selected) {
-            $("#Start_Date").datepicker("option", "maxDate", selected);
-
-            var startDate = new Date($("#Start_Date").val()).getTime();
-            var endDate = new Date($("#End_Date").val()).getTime();
-            if (startDate != null && endDate != null) {
-                c = 24 * 60 * 60 * 1000;
-                var validDays = Math.round(((endDate - startDate) / c) + 1);
-                $("#Valid_Days").attr({
-                    "max": validDays
-                });
-                $("#Valid_Days").val(validDays);
-            }
-        }
     });
 
     $("#SSN").keydown(function (e) {
@@ -948,9 +983,7 @@
 
         }
     });
-    var future = new Date();
-    $("#Start_Date").val($.datepicker.formatDate("mm/dd/yy", new Date(future.setDate(future.getDate() + 1))));
-    $("#End_Date").val($.datepicker.formatDate("mm/dd/yy", new Date(future.setDate(future.getDate() + 9))));
+
 
     $('#PolicyPolicyInformation').click(function () {
         $("#PolicyPolicyInformationContent").toggle();
@@ -1033,5 +1066,52 @@
             }
         });
     }
+
+    $('#Valid_Days').focusout(function () {
+        var validDays = $("#Valid_Days").val();
+
+        function addDays(date, days) {
+
+            var result = new Date(date);
+           
+            result.setDate(result.getDate() + parseInt(days) );
+            return result;
+        }
+
+        var startDateParts = $("#Start_Date").val().split("/");
+        var startDate = new Date(startDateParts[2], startDateParts[1] - 1, startDateParts[0]);
+
+        var endDateParts = $("#End_Date").val().split("/");
+        var endDate = new Date(endDateParts[2], endDateParts[1] - 1, endDateParts[0]);
+
+        var startDate1 = new Date(startDate);
+        var endDate1 = new Date(endDate);
+
+        if (validDays != null || validDays != " ") {
+            var oneDay = 24 * 60 * 60 * 1000;
+           
+            var diffDays = Math.round(Math.abs((endDate1.getTime() - startDate1.getTime()) / (oneDay)));
+          
+            if (diffDays < validDays-1) {
+                $("#modalHolder").modal("show");
+            }
+
+        }
+
+        $('#ChangeDate').click(function () {
+            var res = addDays(startDate, validDays);
+
+            var day = res.getDate();
+            var monthIndex = res.getMonth();
+            var year = res.getFullYear();
+
+            var date = day - 1 + '/' + parseInt(monthIndex + 1) + '/' + year;
+
+            $("#End_Date").val(date);
+
+        });
+
+       
+    });
 
 </script>

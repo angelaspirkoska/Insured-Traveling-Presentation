@@ -40,15 +40,15 @@ namespace InsuredTraveling.Models
         public string Franchise_Age { get; set; }
 
         [Required]
-        // [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yyyy}")]
         [Display(Name = "Policy_PolicyEffectiveDate", ResourceType = typeof(Resource))]
         public DateTime Start_Date { get; set; }
 
         public string test { get; set; }
 
         [Required]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
-        [Display(Name = "Policy_PolicyExpiryDate", ResourceType = typeof(Resource))]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yyyy}")]
+        [Display(Name = "Policy_PolicyExpiryDate", ResourceType = typeof(Resource))]       
         public DateTime End_Date { get; set; }
 
         [Required]
@@ -102,7 +102,7 @@ namespace InsuredTraveling.Models
         public string PolicyHolderEmail { get; set; }
 
         [Display(Name = "Policy_HolderBirthDay", ResourceType = typeof(Resource))]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yyyy}")]
         public DateTime? PolicyHolderBirthDate { get; set; }
 
         [Display(Name = "Policy_HolderCity", ResourceType = typeof(Resource))]
@@ -144,7 +144,7 @@ namespace InsuredTraveling.Models
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         [Display(Name = "Policy_InsuredBirthDate", ResourceType = typeof(Resource))]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
@@ -166,7 +166,7 @@ namespace InsuredTraveling.Models
         public int AdditionalChargeId1 { get; set; }
         public int AdditionalChargeId2 { get; set; }
 
-       
+      
         [DiscountCodeValidation(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Policy_DiscountErrorMessage")]
       
         public string DiscountCode { get; set; }
@@ -184,7 +184,6 @@ namespace InsuredTraveling.Models
 
         public DiscountCodeValidation()
         {
-            // this._embg = _embg;
         }
      
 
@@ -193,21 +192,15 @@ namespace InsuredTraveling.Models
             ValidationService validationService = new ValidationService();
             if (value != null)
             {
-                Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/Premium/DiscountCode");
+                Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/OkSetup/FindDiscountName");
                 HttpClient client = new HttpClient();
                 client.BaseAddress = uri;
 
                 DiscountCodeValidateModel discModel = new DiscountCodeValidateModel();
                 discModel.DiscCode = value.ToString();
-
-              
-              
-
                 var jsonFormatter = new JsonMediaTypeFormatter();
                 HttpContent content = new ObjectContent<DiscountCodeValidateModel>(discModel, jsonFormatter);
                 HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
-               
-
                 string responseBody = responseMessage.Content.ToString();
                 if (responseMessage.IsSuccessStatusCode)
                 {

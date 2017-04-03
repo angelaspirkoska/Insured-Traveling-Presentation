@@ -7,11 +7,11 @@ using InsuredTraveling.DI;
 using InsuredTraveling.Models;
 using InsuredTraveling.ViewModels;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Services.Description;
-using InsuredTraveling.Filters;
 
 namespace Authentication.WEB.Controllers
 {
@@ -49,11 +49,9 @@ namespace Authentication.WEB.Controllers
 
         [HttpPost]
         [Route("Calculate")]
-        public IHttpActionResult Code(string username, Policy policy)
+        public IHttpActionResult Code(Policy policy)
         {
-            RoleAuthorize _roleAuthorize = new RoleAuthorize();
             ok_setup Last_Entry = _os.GetLast();
-
             if (Last_Entry.SSNValidationActive == 1)
             {
                 ValidationService validatePremium = new ValidationService();
@@ -96,20 +94,6 @@ namespace Authentication.WEB.Controllers
 
                 Premium Premium = new Premium();
                 Premium.PremiumAmount = (int)ratingEngineService.totalPremium(policy);
-
-                if (_roleAuthorize.IsUser("Broker manager", username))
-                {
-                    if(Premium.PremiumAmount > 10000)
-                    {
-                        return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded", PremiumAmount = Premium.PremiumAmount });
-                    }
-                }else if (_roleAuthorize.IsUser("Broker", username))
-                {
-                    if (Premium.PremiumAmount > 10000)
-                    {
-                        return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded", PremiumAmount = Premium.PremiumAmount });
-                    }
-                }
                 return Ok(new { PremiumAmount = Premium.PremiumAmount });
             }
             else
@@ -135,23 +119,26 @@ namespace Authentication.WEB.Controllers
 
         [HttpPost]
         [Route("DiscountCode")]
-        public async Task<IHttpActionResult> DiscountCode(DiscountCodeValidateModel DiscountModel)
+        public async Task<IHttpActionResult> DiscountCode(DiscountModel username)
         {
          
             var data = new JObject();
-            if (!_ds.CheckCode(DiscountModel.DiscCode))
+            if (!String.IsNullOrEmpty(username.Discount_Name))
             {
+                if (!_ds.CheckCode(username.Discount_Name))
+                {
 
-                data.Add("message", false);
-                return BadRequest();
+                    data.Add("message", false);
+                    return BadRequest();
+                }
+                {
+                    data.Add("message", true);
+                    return Json(data);
+                }
+
             }
-            {
-                data.Add("message", true);
-                return Json(data);
-            }
-            
-        
-          
+            return Ok();
+
 
 
         }

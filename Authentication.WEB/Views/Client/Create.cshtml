@@ -1,8 +1,11 @@
 ﻿@model InsuredTraveling.Models.CreateClientModel
-
+@using System.Web.Optimization;
+@using System.Configuration;
 @{
     ViewBag.Title = InsuredTraveling.Resource.Client;
     Layout = "~/Views/Shared/_Layout2.cshtml";
+    var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+    var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy").ToLower() : dateTime.ToLower();
 }
 
 <form method="post" action="@Url.Action("Create")" style="margin-top:30px;">
@@ -11,27 +14,26 @@
         <div><h5>@InsuredTraveling.Resource.Required <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:red"></span></h5></div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @if (ViewBag.Message != null){
-                if (ViewBag.Message == "Успешно го креиравте клиентот!")
-                {
-                  
-                    <div class="row" style="width:35%;">
-                        <div class="alert alert-dismissible alert-success" style="margin-top: 27%;margin-left:12px; width:211%">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <span>@InsuredTraveling.Resource.Client_SuccessfullyAdded</span>
-                        </div>
-                    </div>
-            }
-            else
-            {
-                <div class="row" style="width:35%;">
-                    <div class="alert alert-dismissible alert-danger" style="margin-top: 27%; margin-left:12px; width:211%">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <span>@InsuredTraveling.Resource.Client_NotSuccessfullyAdded</span>
-                    </div>
+
+        @if (ViewBag.SuccessMessage != null)
+        {
+            <div class="row" style="width:35%;">
+                <div class="alert alert-dismissible alert-success" style="margin-top: 27%;margin-left:12px; width:211%">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span>@ViewBag.SuccessMessage</span>
                 </div>
-                }
+            </div>
         }
+        @if(ViewBag.ErrorMessage != null)
+        {
+        <div class="row" style="width:35%;">
+            <div class="alert alert-dismissible alert-danger" style="margin-top: 27%; margin-left:12px; width:211%">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span>@ViewBag.ErrorMessage</span>
+            </div>
+        </div>
+        }
+
         <div class="row">
             <div class="col-md-5">
                 <div class="form-group">
@@ -71,26 +73,26 @@
                     <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
                     @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "control-label" })
                     <div style="margin-bottom:10px; padding:0;">
-                        <div class='input-group date field-size-holder' id='datetimepicker4'>
-                            <div class="input-group-addon" style="width: 45px; border-radius: 2px;">
+                        <div class="input-group date field-size-holder">
+                            <div class="input-group-addon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </div>
-                            @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>                    
-                    @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "col-md-6 text-danger" })
-                </div> 
-                @*<div class="form-group">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
-                    @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "" })<br />
-                    <div style="margin-bottom:10px; padding:0;">
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
-                            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "col-md-6 text-danger" })
+                            @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control", @placeholder = dateTimeFormat } })
                         </div>
                     </div>
-                </div>*@
+                    @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "col-md-6 text-danger" })
+                </div>
+                @*<div class="form-group">
+                        <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                        @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "" })<br />
+                        <div style="margin-bottom:10px; padding:0;">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "col-md-6 text-danger" })
+                            </div>
+                        </div>
+                    </div>*@
                 <div class="form-group">
                     <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
                     @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "" })<br />
@@ -171,14 +173,16 @@
     </div>
 </form>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
 <script type="text/javascript" src="~/Scripts/additional-methods.js"></script>
 <!-- macedonian language-->
 <script src="~/Scripts/messages_is.js"></script>
+@Scripts.Render("~/bundles/jqueryui")
+@Styles.Render("~/Content/jqueryuicss")
 <script>
-
     $(document).ready(function () {
+        var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
+
         $("#btnNovaPolisa").removeClass("active-tab");
         $("#btnNews").removeClass("active-tab");
         $("#btnSearch").removeClass("active-tab");
@@ -210,14 +214,13 @@
             $("#PhoneNumber").val($('#countriesCodes').val());
         });
 
-
-    });
-
-
-
-    $('#datetimepicker4').datetimepicker({
-        viewMode: 'years',
-        format: 'DD/MM/YYYY'
+        $("#DateBirth").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
     });
 
     $("#CreateForm").validate({

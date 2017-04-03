@@ -17,15 +17,15 @@ namespace InsuredTraveling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public retaining_risk()
         {
-            this.retaining_risk_name = new HashSet<retaining_risk_name>();
             this.travel_policy = new HashSet<travel_policy>();
+            this.retaining_risk_name = new HashSet<retaining_risk_name>();
         }
     
         public int ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<retaining_risk_name> retaining_risk_name { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<travel_policy> travel_policy { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<retaining_risk_name> retaining_risk_name { get; set; }
     }
 }

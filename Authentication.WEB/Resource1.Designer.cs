@@ -385,6 +385,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The data is not valid. Enter valid data.
+        /// </summary>
+        public static string Client_DataNotValid {
+            get {
+                return ResourceManager.GetString("Client_DataNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Birth Date.
         /// </summary>
         public static string Client_DateBirth {
@@ -502,6 +511,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter all data.
+        /// </summary>
+        public static string EnterAllData {
+            get {
+                return ResourceManager.GetString("EnterAllData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Email Address..
         /// </summary>
         public static string Error_Email {
@@ -579,6 +597,15 @@ namespace InsuredTraveling {
         public static string Error_PostalCode_Numeric {
             get {
                 return ResourceManager.GetString("Error_PostalCode_Numeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Female.
+        /// </summary>
+        public static string Female {
+            get {
+                return ResourceManager.GetString("Female", resourceCulture);
             }
         }
         
@@ -1276,6 +1303,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Male.
+        /// </summary>
+        public static string Male {
+            get {
+                return ResourceManager.GetString("Male", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The username or password is incorrect. Please try again..
         /// </summary>
         public static string Msg_IncorrectUserPass {
@@ -1429,6 +1465,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        public static string Other {
+            get {
+                return ResourceManager.GetString("Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password not changed successfully!.
         /// </summary>
         public static string PasswordResetMessageFail {
@@ -1447,7 +1492,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to Offers.
+        ///   Looks up a localized string similar to Add to Quotes.
         /// </summary>
         public static string Policy_AddOffer {
             get {
@@ -1456,7 +1501,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have successfully added the offer. Number of offer .
+        ///   Looks up a localized string similar to You have successfully added the quote. Number of quote: .
         /// </summary>
         public static string Policy_AddOfferMsg {
             get {
@@ -1551,6 +1596,24 @@ namespace InsuredTraveling {
         public static string Policy_DeductibleByDay {
             get {
                 return ResourceManager.GetString("Policy_DeductibleByDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid discount code.
+        /// </summary>
+        public static string Policy_DiscoundCodeError {
+            get {
+                return ResourceManager.GetString("Policy_DiscoundCodeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid discount code.
+        /// </summary>
+        public static string Policy_DiscoundCodeValid {
+            get {
+                return ResourceManager.GetString("Policy_DiscoundCodeValid", resourceCulture);
             }
         }
         
@@ -1803,6 +1866,42 @@ namespace InsuredTraveling {
         public static string Policy_InsuredSSN {
             get {
                 return ResourceManager.GetString("Policy_InsuredSSN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel change.
+        /// </summary>
+        public static string Policy_Modal_Date_CancelDate {
+            get {
+                return ResourceManager.GetString("Policy_Modal_Date_CancelDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change date.
+        /// </summary>
+        public static string Policy_Modal_Date_ChangeDate {
+            get {
+                return ResourceManager.GetString("Policy_Modal_Date_ChangeDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change policy expiry date.
+        /// </summary>
+        public static string Policy_Modal_Date_Header {
+            get {
+                return ResourceManager.GetString("Policy_Modal_Date_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change policy expiry date accordning to duration of the policy..
+        /// </summary>
+        public static string Policy_Modal_Date_Text {
+            get {
+                return ResourceManager.GetString("Policy_Modal_Date_Text", resourceCulture);
             }
         }
         
@@ -3310,6 +3409,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create user.
+        /// </summary>
+        public static string SignUp_ButtonCreateUser {
+            get {
+                return ResourceManager.GetString("SignUp_ButtonCreateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>
         public static string SignUp_Continue {
@@ -3387,6 +3495,15 @@ namespace InsuredTraveling {
         public static string SSNNotFoundMsg {
             get {
                 return ResourceManager.GetString("SSNNotFoundMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSN number is not valid.
+        /// </summary>
+        public static string SSNNotValid {
+            get {
+                return ResourceManager.GetString("SSNNotValid", resourceCulture);
             }
         }
         

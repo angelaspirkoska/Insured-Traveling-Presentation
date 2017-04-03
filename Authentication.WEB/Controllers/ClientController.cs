@@ -16,10 +16,12 @@ namespace Authentication.WEB.Controllers
     public class ClientController : Controller
     {
         private IInsuredsService _ins;
+        private IUserService _userService;
 
-        public ClientController(IInsuredsService ins)
+        public ClientController(IInsuredsService ins, IUserService userService)
         {
             _ins = ins;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -33,27 +35,43 @@ namespace Authentication.WEB.Controllers
         [HttpPost]
         public ActionResult Create(CreateClientModel model) 
         {
+            var username = System.Web.HttpContext.Current.User.Identity.Name;
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
             var client = entities.insureds.Create();
 
             ValidationService validationService = new ValidationService();
 
-            if (ModelState.IsValid && validationService.validateEMBG(model.SSN))
+            if (ModelState.IsValid)
             {
-                model.Age = validationService.CountAgeByBirthDate(model.DateBirth);          
-                client = Mapper.Map<CreateClientModel, insured>(model);
-                try
+                if(validationService.validateEMBG(model.SSN))
                 {
-                    _ins.AddInsured(client);
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.Message = ex.Message;
-                    return View();
-                }
+                    model.Age = validationService.CountAgeByBirthDate(model.DateBirth);
+                    client = Mapper.Map<CreateClientModel, insured>(model);
+                    var insuredType = _ins.GetInsuredType();
+                    client.Type_InsuredID = insuredType != null ? insuredType.ID : _ins.GetAllInsuredTypes().FirstOrDefault().ID;
+                    client.Created_By = _userService.GetUserIdByUsername(username);
+                    client.Date_Created = DateTime.UtcNow;
 
-                ViewBag.Message = "Успешно го креиравте клиентот!";
-                return View();
+                    try
+                    {
+                        _ins.AddInsured(client);
+                        ViewBag.SuccessMessage = InsuredTraveling.Resource.Client_SuccessfullyAdded;
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.ErrorMessage = InsuredTraveling.Resource.Client_NotSuccessfullyAdded;
+                        return View();
+                    }
+                }
+                else
+                {
+                    ViewBag.Message = InsuredTraveling.Resource.SSNNotValid;
+                }
+                             
+            }
+            else
+            {
+                ViewBag.Message = InsuredTraveling.Resource.Client_DataNotValid;
             }
             return View();
         }

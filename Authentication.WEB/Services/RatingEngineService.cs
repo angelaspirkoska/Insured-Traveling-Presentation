@@ -173,7 +173,11 @@ namespace Authentication.WEB.Services
             if (policy.DiscountCode != null && policy.DiscountCode != "" )
             {
                 double? discount = Discount(policy.DiscountCode);
-                minPremium = minPremium * (1-(discount / 100));
+                if(discount != null || discount != 0)
+                {
+                    minPremium = minPremium * (1 - (discount / 100));
+                }
+               
             }
 
             if(policy.additional_charges != null)

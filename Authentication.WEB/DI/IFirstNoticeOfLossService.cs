@@ -8,6 +8,7 @@ namespace InsuredTraveling.DI
 {
     public interface IFirstNoticeOfLossService
     {
+        List<first_notice_of_loss> GetBrokeManagerFnols(string userId, DateTime dateFrom);
         List<first_notice_of_loss> GetFNOLForBrokerManagerBySearchValues(string username, string PolicyNumber,
             string FNOLNumber, string holderName, string holderLastName, string clientName, string clientLastName,
             string insuredName, string insuredLastName, string totalPrice, string healthInsurance,

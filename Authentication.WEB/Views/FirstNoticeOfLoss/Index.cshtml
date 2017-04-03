@@ -1046,7 +1046,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     $("#PolicyHolderPhone").attr("value", rez.policyholder.PhoneNumber);
                     $("#PolicyHolderSSN").attr("value", rez.policyholder.SSN);
                     $("#PolicyHolderAddress").attr("value", rez.policyholder.Adress + " " + rez.policyholder.City);
-
+                    $("#DepartDateTime").val(rez.StartDate);
+                    $("#ArrivalDateTime").val(rez.EndDate);
                     $.each(rez.policyholder.BankAccounts, function (key, value) {
                         $('#DropDownBankAccountPolicyHolder').append($("<option></option>").attr({ value: value.Id, bank: value.BankName }).text(value.AccountNumber));
                     });
@@ -1176,7 +1177,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     $("#InsuredPhone").attr("value", result.PhoneNumber);
                     $("#InsuredSSN").attr("value", result.SSN);
                     $("#relationship").attr("isSameUserWithSelectedInsured", result.IsSameUserAndSelectedInsured);
-
+                  
                     $.each(result.BankAccounts, function (key, value) {
                         $('#DropDownBankAccountInsured').append($("<option></option>").attr({ value: value.Id, bank: value.BankName }).text(value.AccountNumber));
                     });

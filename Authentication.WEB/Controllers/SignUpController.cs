@@ -47,6 +47,7 @@ namespace InsuredTraveling.Controllers
             if (ModelState.IsValid && CaptchaValid)
             {
                 user.Role = "End user";
+                user.CreatedBy = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
                 Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/account/RegisterWeb");
                 HttpClient client = new HttpClient();
                 client.BaseAddress = uri;
@@ -141,17 +142,17 @@ namespace InsuredTraveling.Controllers
             List<SelectListItem> data = new List<SelectListItem>();
             data.Add(new SelectListItem
             {
-                Text = "Female",
+                Text = InsuredTraveling.Resource.Female,
                 Value = "Female"
             });
             data.Add(new SelectListItem
             {
-                Text = "Male",
+                Text = InsuredTraveling.Resource.Male,
                 Value = "Male"
             });
             data.Add(new SelectListItem
             {
-                Text = "Other",
+                Text = InsuredTraveling.Resource.Other,
                 Value = "Other"
             });
             return data;

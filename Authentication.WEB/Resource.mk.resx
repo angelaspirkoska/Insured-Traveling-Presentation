@@ -1290,10 +1290,49 @@
   <data name="AdminPanel_DiscountNameErrorMessage" xml:space="preserve">
     <value>Кодот за попуст веќе постои</value>
   </data>
+  <data name="Policy_DiscoundCodeError" xml:space="preserve">
+    <value>Невалиден код за попуст</value>
+  </data>
+  <data name="Policy_DiscoundCodeValid" xml:space="preserve">
+    <value>Валиден код за попуст</value>
+  </data>
   <data name="PolicyThePremiumIsExceededMsg" xml:space="preserve">
     <value>Вредноста на премијата е надмината</value>
   </data>
   <data name="SearchPoliciesSearchResultsExcel" xml:space="preserve">
     <value>Прикажи ги пребараните резултати во excel</value>
+  </data>
+  <data name="EnterAllData" xml:space="preserve">
+    <value>Внесете ги сите податоци</value>
+  </data>
+  <data name="Client_DataNotValid" xml:space="preserve">
+    <value>Податоците не се во соодветен формат. Внесете точни податоци</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Женски</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Машки</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Друго</value>
+  </data>
+  <data name="SSNNotValid" xml:space="preserve">
+    <value>Матичниот број не е валиден</value>
+  </data>
+  <data name="Policy_Modal_Date_CancelDate" xml:space="preserve">
+    <value>Остави датум</value>
+  </data>
+  <data name="Policy_Modal_Date_ChangeDate" xml:space="preserve">
+    <value>Промени датум</value>
+  </data>
+  <data name="Policy_Modal_Date_Header" xml:space="preserve">
+    <value>Промена на датумот на истекување на полисата</value>
+  </data>
+  <data name="Policy_Modal_Date_Text" xml:space="preserve">
+    <value>Промени датум на истекување на полисата според времетраење на полисата</value>
+  </data>
+  <data name="SignUp_ButtonCreateUser" xml:space="preserve">
+    <value>Креирај корисник</value>
   </data>
 </root>
