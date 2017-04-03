@@ -1406,6 +1406,235 @@ namespace InsuredTraveling.Controllers
             return jsonPath;
         }
 
+        [HttpPost]
+        public JObject GetFnolsSearchResultsAsExcelDocument(List<SearchFNOLViewModel> fnols)
+        {
+            if (fnols == null || !fnols.Any())
+                return null;
+
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            var logUser = _us.GetUserIdByUsername(username);
+
+            string fileName = logUser + Guid.NewGuid().ToString() + ".xlsx";
+            var path = @"~/ExcelSearchResults/Fnols/" + fileName;
+            path = System.Web.HttpContext.Current.Server.MapPath(path);
+            FileInfo newFile = new FileInfo(path);
+            if (newFile.Exists)
+            {
+                newFile.Delete();  // ensures we create a new workbook
+                fileName = logUser + DateTime.Now.ToShortDateString() + Guid.NewGuid().ToString();
+                path = @"~/ExcelSearchResults/Fnols/" + fileName;
+                newFile = new FileInfo(path);
+            }
+
+            using (ExcelPackage package = new ExcelPackage(newFile))
+            {
+                // add a new worksheet to the empty workbook
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Fnols");
+                //Add the headers
+                worksheet.Cells[1, 1].Value = "FNOL Number";
+                worksheet.Cells[1, 2].Value = "Policy Number";
+                worksheet.Cells[1, 3].Value = "Insured Name and Last Name";
+                worksheet.Cells[1, 4].Value = "Claimant Name and Last Name";
+                worksheet.Cells[1, 5].Value = "Relationship between the policyholder and the insured";
+                worksheet.Cells[1, 6].Value = "Total cost";
+                worksheet.Cells[1, 7].Value = "Date of fnol";
+                worksheet.Cells[1, 8].Value = "Health Insurance Yes/No";
+                worksheet.Cells[1, 9].Value = "Luggage Insurance Yes/No";
+
+                int counter = 2;
+
+                foreach (SearchFNOLViewModel fnol in fnols)
+                {
+                    worksheet.Cells[counter, 1].Value = fnol.FNOLNumber;
+                    worksheet.Cells[counter, 2].Value = fnol.PolicyNumber;
+                    worksheet.Cells[counter, 3].Value = fnol.InsuredName;
+                    worksheet.Cells[counter, 4].Value = fnol.ClaimantPersonName;
+                    worksheet.Cells[counter, 5].Value = fnol.Claimant_insured_relation;
+                    worksheet.Cells[counter, 6].Value = fnol.AllCosts;
+                    worksheet.Cells[counter, 7].Value = fnol.Date;
+                    worksheet.Cells[counter, 8].Value = fnol.HealthInsurance;
+                    worksheet.Cells[counter, 9].Value = fnol.LuggageInsurance;
+
+                    counter++;
+                }
+
+                worksheet.View.PageLayoutView = true;
+
+                // set some document properties
+                package.Workbook.Properties.Title = "First notice of loss";
+                package.Workbook.Properties.Author = username;
+                package.Workbook.Properties.Comments = "";
+
+                // set some extended property values
+                package.Workbook.Properties.Company = " ";
+
+                // set some custom property values
+                package.Workbook.Properties.SetCustomPropertyValue("Checked by", username);
+                package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "EPPlus");
+                // save our new workbook and we are done!
+                package.Save();
+
+            }
+
+            JObject jsonPath = new JObject();
+            jsonPath.Add("path", path);
+
+            return jsonPath;
+            //return File(path, "application/vnd.ms-excel", "PoliciesSearchResults.xlsx");
+        }
+
+        [HttpPost]
+        public JObject GetClientsSearchResultsAsExcelDocument(List<SearchClientsViewModel> clients)
+        {
+            if (clients == null || !clients.Any())
+                return null;
+
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            var logUser = _us.GetUserIdByUsername(username);
+
+            string fileName = logUser + Guid.NewGuid().ToString() + ".xlsx";
+            var path = @"~/ExcelSearchResults/Clients/" + fileName;
+            path = System.Web.HttpContext.Current.Server.MapPath(path);
+            FileInfo newFile = new FileInfo(path);
+            if (newFile.Exists)
+            {
+                newFile.Delete();  // ensures we create a new workbook
+                fileName = logUser + DateTime.Now.ToShortDateString() + Guid.NewGuid().ToString();
+                path = @"~/ExcelSearchResults/Clients/" + fileName;
+                newFile = new FileInfo(path);
+            }
+
+            using (ExcelPackage package = new ExcelPackage(newFile))
+            {
+                // add a new worksheet to the empty workbook
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Clients");
+                //Add the headers
+                worksheet.Cells[1, 1].Value = "Name";
+                worksheet.Cells[1, 2].Value = "Last Name";
+                worksheet.Cells[1, 3].Value = "SSN";
+                worksheet.Cells[1, 4].Value = "Address";
+                worksheet.Cells[1, 5].Value = "City";
+                worksheet.Cells[1, 6].Value = "Postal code";
+                worksheet.Cells[1, 7].Value = "Phone number";
+                worksheet.Cells[1, 8].Value = "Email";
+                worksheet.Cells[1, 9].Value = "Passport number/ID number";
+
+                int counter = 2;
+
+                foreach (SearchClientsViewModel client in clients)
+                {
+                    worksheet.Cells[counter, 1].Value = client.Name;
+                    worksheet.Cells[counter, 2].Value = client.Lastname;
+                    worksheet.Cells[counter, 3].Value = client.SSN;
+                    worksheet.Cells[counter, 4].Value = client.Address;
+                    worksheet.Cells[counter, 5].Value = client.City;
+                    worksheet.Cells[counter, 6].Value = client.Postal_Code;
+                    worksheet.Cells[counter, 7].Value = client.Phone_Number;
+                    worksheet.Cells[counter, 8].Value = client.Email;
+                    worksheet.Cells[counter, 9].Value = client.Passport_Number_IdNumber;
+
+                    counter++;
+                }
+
+                worksheet.View.PageLayoutView = true;
+
+                // set some document properties
+                package.Workbook.Properties.Title = "Clients";
+                package.Workbook.Properties.Author = username;
+                package.Workbook.Properties.Comments = "";
+
+                // set some extended property values
+                package.Workbook.Properties.Company = " ";
+
+                // set some custom property values
+                package.Workbook.Properties.SetCustomPropertyValue("Checked by", username);
+                package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "EPPlus");
+                // save our new workbook and we are done!
+                package.Save();
+
+            }
+
+            JObject jsonPath = new JObject();
+            jsonPath.Add("path", path);
+
+            return jsonPath;
+        }
+
+        [HttpPost]
+        public JObject GetRegisteredUsersSearchResultsAsExcelDocument(List<SearchRegisteredUser> users)
+        {
+            if (users == null || !users.Any())
+                return null;
+
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            var logUser = _us.GetUserIdByUsername(username);
+
+            string fileName = logUser + Guid.NewGuid().ToString() + ".xlsx";
+            var path = @"~/ExcelSearchResults/RegisteredUsers/" + fileName;
+            path = System.Web.HttpContext.Current.Server.MapPath(path);
+            FileInfo newFile = new FileInfo(path);
+            if (newFile.Exists)
+            {
+                newFile.Delete();  // ensures we create a new workbook
+                fileName = logUser + DateTime.Now.ToShortDateString() + Guid.NewGuid().ToString();
+                path = @"~/ExcelSearchResults/RegisteredUsers/" + fileName;
+                newFile = new FileInfo(path);
+            }
+
+            using (ExcelPackage package = new ExcelPackage(newFile))
+            {
+                // add a new worksheet to the empty workbook
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Registered users");
+                //Add the headers
+                worksheet.Cells[1, 1].Value = "Username";
+                worksheet.Cells[1, 2].Value = "First Name";
+                worksheet.Cells[1, 3].Value = "Last Name";
+                worksheet.Cells[1, 4].Value = "Email";
+                worksheet.Cells[1, 5].Value = "Role name";
+                worksheet.Cells[1, 6].Value = "Created On";
+                worksheet.Cells[1, 7].Value = "Active/Inactive";
+
+                int counter = 2;
+
+                foreach (SearchRegisteredUser user in users)
+                {
+                    worksheet.Cells[counter, 1].Value = user.Username;
+                    worksheet.Cells[counter, 2].Value = user.FirstName;
+                    worksheet.Cells[counter, 3].Value = user.LastName;
+                    worksheet.Cells[counter, 4].Value = user.Email;
+                    worksheet.Cells[counter, 5].Value = user.RoleName;
+                    worksheet.Cells[counter, 6].Value = user.CreatedOn;
+                    worksheet.Cells[counter, 7].Value = user.ActiveInactive;
+
+                    counter++;
+                }
+
+                worksheet.View.PageLayoutView = true;
+
+                // set some document properties
+                package.Workbook.Properties.Title = "Registered users";
+                package.Workbook.Properties.Author = username;
+                package.Workbook.Properties.Comments = "";
+
+                // set some extended property values
+                package.Workbook.Properties.Company = " ";
+
+                // set some custom property values
+                package.Workbook.Properties.SetCustomPropertyValue("Checked by", username);
+                package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "EPPlus");
+                // save our new workbook and we are done!
+                package.Save();
+
+            }
+
+            JObject jsonPath = new JObject();
+            jsonPath.Add("path", path);
+
+            return jsonPath;
+            //return File(path, "application/vnd.ms-excel", "PoliciesSearchResults.xlsx");
+        }
+
         private async Task<List<SelectListItem>> GetTypeOfPolicy()
         {
             var policy = _pts.GetAll();
