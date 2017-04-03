@@ -44,7 +44,7 @@
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
                     <label>@InsuredTraveling.Resource.User_Role:</label>
-                    @Html.DropDownList("RoleName",(List<SelectListItem>)ViewBag.Roles, Resource.SearchTable_RoleName, new { @class = "form-control", style = "" })
+                    @Html.DropDownList("RoleName", (List<SelectListItem>)ViewBag.Roles, Resource.SearchTable_RoleName, new { @class = "form-control", style = "" })
                 </div>
             </div>
             <div class="col-md-4 col-sm-4">
@@ -81,7 +81,10 @@
             <div class="col-md-4">
                 <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchUsers()" type="button" style="float:left;" />
             </div>
-            <div class="col-md-offset-4 col-md-4">
+            <div class="col-md-4">
+                <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowRegisteredUsersSearchResultsInExcel()" type="button" style="float:left;" />
+            </div>
+            <div class="col-md-4">
                 <div class="hover-tooltip">
                     <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddUserButton" onclick="@("window.location.href='" + @Url.Action("CreateUser", "SignUp") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
                 </div>
@@ -123,18 +126,18 @@
             </div>
             <div class="modal-body" style="width:70%;">
                 <div class="form-group">
-                    <label class = "control-label">@Resource.User_Password</label>
-                    <input type="password" id="UserPassword" class = "form-control"/>
+                    <label class="control-label">@Resource.User_Password</label>
+                    <input type="password" id="UserPassword" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label class = "control-label">@Resource.User_ConfirmPassword</label>
-                    <input type="password" id="UserRepeatPassword" class = "form-control" />
+                    <label class="control-label">@Resource.User_ConfirmPassword</label>
+                    <input type="password" id="UserRepeatPassword" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label id="PassResetMsg"></label>
                 </div>
                 <input type="hidden" id="hiddenUsername" />
-                </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" id="ResetPass">@Resource.Search_Reset</button> <button type="button" onclick="$('#PassResetMsg').text(' ')" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
             </div>
@@ -218,9 +221,9 @@
                 <div class="form-group">
                     <label for="startDate">@InsuredTraveling.Resource.Search_PolicyEffectiveDate:</label>
                     <div class="input-group">
-                        <input type="text" id="startDate" class="form-control" placeholder= "@dateTimeFormat"/>
+                        <input type="text" id="startDate" class="form-control" placeholder="@dateTimeFormat" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle explain-functionality" 
+                            <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle explain-functionality"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
@@ -238,12 +241,12 @@
                 <div class="form-group">
                     <label for="endDate">@InsuredTraveling.Resource.Search_PolicyExpiryDate</label>
                     <div class="input-group">
-                        <input type="text" name="endDate" class="form-control" id="endDate" placeholder= "@dateTimeFormat"/>
+                        <input type="text" name="endDate" class="form-control" id="endDate" placeholder="@dateTimeFormat" />
                         <div class="input-group-btn">
-                                <button type="button" id="operatorEndDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
-                                        aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                    = <span class="caret"></span>
-                                </button>
+                            <button type="button" id="operatorEndDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                = <span class="caret"></span>
+                            </button>
                             <ul class="dropdown-menu">
 
                                 <li onclick="$('#operatorEndDate').html(' = '); $('#operatorEndDate').val('=');">=</li>
@@ -260,10 +263,10 @@
                 <div class="form-group">
                     <label for="startDate">@InsuredTraveling.Resource.Search_PolicyIssuanceDate:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control placeholder" id="dateI" placeholder= "@dateTimeFormat"/>
+                        <input type="text" class="form-control placeholder" id="dateI" placeholder="@dateTimeFormat" />
                         <div class="input-group-btn">
                             <button type="button" id="operatorDateI" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
-                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -279,10 +282,10 @@
                 <div class="form-group">
                     <label for="endDate">@InsuredTraveling.Resource.Search_CancellationDate:</label>
                     <div class="input-group">
-                        <input type="text" id="dateS" class="form-control" placeholder= "@dateTimeFormat"/>
+                        <input type="text" id="dateS" class="form-control" placeholder="@dateTimeFormat" />
                         <div class="input-group-btn">
                             <button type="button" id="operatorDateS" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
-                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -301,7 +304,7 @@
                 <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchPolycies()" type="button" style="float:left;" />
             </div>
             <div class="col-md-4">
-                <input id="SearchResultsExcel"  class="btn btn-primary btn-block btn-material-design-success" value="Show search results in excel" onclick="ShowSearchResultsInExcel()" type="button" style="float:left;" />
+                <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowSearchResultsInExcel()" type="button" style="float:left;" />
             </div>
             @if (!isClaimsAdjuster)
             {
@@ -392,9 +395,9 @@
                 <div class="form-group">
                     <label for="startDate">@InsuredTraveling.Resource.Search_QuoteEffectiveDate:</label>
                     <div class="input-group">
-                        <input type="text" id="startDate1" class="form-control" placeholder= "@dateTimeFormat"/>
+                        <input type="text" id="startDate1" class="form-control" placeholder="@dateTimeFormat" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorStartDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
+                            <button type="button" id="operatorStartDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
@@ -411,10 +414,10 @@
                 <div class="form-group">
                     <label for="endDate">@InsuredTraveling.Resource.Search_QuoteExpiryDate:</label>
                     <div class="input-group">
-                        <input type="text" name="endDate" class="form-control" id="endDate1" placeholder= "@dateTimeFormat"/>
+                        <input type="text" name="endDate" class="form-control" id="endDate1" placeholder="@dateTimeFormat" />
                         <div class="input-group-btn">
                             <button type="button" id="operatorEndDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
-                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -432,9 +435,12 @@
             <div class="col-md-4">
                 <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchQuotes()" type="button" style="float:left;" />
             </div>
+            <div class="col-md-4">
+                <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowQuotesSearchResultsInExcel()" type="button" style="float:left;" />
+            </div>
             @if (!isClaimsAdjuster)
             {
-                <div class="col-md-offset-4 col-md-4">
+                <div class="col-md-4">
                     <div class="hover-tooltip">
                         <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddQuoteButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
                     </div>
@@ -533,9 +539,12 @@
         <div class="col-md-4">
             <input id="btnSubmit" class="btn btn-primary btn-material-design-success btn-block" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchClients()" type="button" style="float:left;" />
         </div>
+        <div class="col-md-4">
+            <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowClientsSearchResultsInExcel()" type="button" style="float:left;" />
+        </div>
         @if (!isClaimsAdjuster)
         {
-            <div class="col-md-offset-4 col-md-4">
+            <div class="col-md-4">
                 <div class="hover-tooltip">
                     <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" style="float: right;" title="@InsuredTraveling.Resource.Search_AddNewClient" onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
                 </div>
@@ -634,9 +643,9 @@
                     <div class="form-group">
                         <label for="startDate">@InsuredTraveling.Resource.Search_RegistrationDate:</label>
                         <div class="input-group">
-                            <input type="text" class="form-control placeholder" id="DateAdded" placeholder= "@dateTimeFormat"/>
+                            <input type="text" class="form-control placeholder" id="DateAdded" placeholder="@dateTimeFormat" />
                             <div class="input-group-btn">
-                                <button type="button" id="operatorDateAdded" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
+                                <button type="button" id="operatorDateAdded" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                     = <span class="caret"></span>
                                 </button>
@@ -698,7 +707,7 @@
                         <label for="totalPrice">@InsuredTraveling.Resource.Search_TotalCost:</label>
                         <div class="input-group-btn">
                             <input type="search" name="totalPrice" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLtotalcost" id="totalPrice" />
-                            <button type="button" id="totalCostOperator" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" 
+                            <button type="button" id="totalCostOperator" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
                                 = <span class="caret"></span>
                             </button>
@@ -723,7 +732,10 @@
                 <div class="col-md-4">
                     <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="Search" onclick="SearchFNOL()" type="button" style="float:left;" />
                 </div>
-                <div class="col-md-offset-4 col-md-4">
+                <div class="col-md-4">
+                    <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowFnolsSearchResultsInExcel()" type="button" style="float:left;" />
+                </div>
+                <div class="col-md-4">
                     <div class="hover-tooltip">
                         <button type="button" style="float:right;" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddFNOL" onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
                     </div>
@@ -802,7 +814,7 @@
                     <option value="all">@InsuredTraveling.Resource.Search_All</option>
                     <option value="active">@InsuredTraveling.Resource.Search_Active</option>
                     <option value="discarded">@InsuredTraveling.Resource.Search_Discarded</option>
-                    <option value="noticed">@InsuredTraveling.Resource.Search_Noticed</option>                    
+                    <option value="noticed">@InsuredTraveling.Resource.Search_Noticed</option>
                 </select>
             </div>
         </div>
@@ -887,8 +899,13 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '-100y:c+nn',
+<<<<<<< HEAD
             //maxDate: 'd'
         }); 
+=======
+            maxDate: 'd'
+        });
+>>>>>>> origin/master
 
         $("#DateAdded").datepicker({
             dateFormat: dateFormatString,
@@ -896,7 +913,7 @@
             changeYear: true,
             yearRange: '-100y:c+nn',
             maxDate: 'd'
-        }); 
+        });
 
         $(".hover-tooltip button").tooltip('show');
         $('#operatorRegisterDate').html(' = ');
@@ -1037,9 +1054,9 @@
                 type: "POST",
                 dataType: "json",
                 data: { Prefix: request.term },
-                success: function(data) {
+                success: function (data) {
                     response($.map(data,
-                        function(item) {
+                        function (item) {
                             return { label: item.Name, value: item.Name };
                         }))
                 }
@@ -1193,9 +1210,9 @@
             ],
             select: true
         });
-
-
     }
+
+
     $('#tableChats tbody').on('click', 'tr', function () {
         console.log($(this));
         $(this).toggleClass('selected');
@@ -1205,11 +1222,95 @@
         var chatDTO = { Sender: chatWith, RequestId: requestId, Admin: isAdmin };
         openChatU(chatDTO);
         getLastTenMessages(requestId);
-    };
+    }
 
     function ShowSearchResultsInExcel() {
-        var urlString = "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowPoliciesSearchResultInExcel?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val();
-        window.location.href = urlString;
+        var policiesTable = $("#tablePolicies").dataTable();
+        var policies = policiesTable.fnGetData();
+
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetPoliciesSearchResultsAsExcelDocument",
+            type: "POST",
+            data: { policies: policies },
+            success: function (data) {
+                console.log(JSON.parse(data).path);
+                var urlString =
+                    "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
+                window.location.href = urlString;
+            }
+        });
+    };
+
+    function ShowQuotesSearchResultsInExcel() {
+
+        var quotesTable = $("#tableQuotes").dataTable();
+        var quotes = quotesTable.fnGetData();
+
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetQuotesSearchResultsAsExcelDocument",
+            type: "POST",
+            data: { quotes: quotes },
+            success: function (data) {
+                var urlString =
+                    "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
+                window.location.href = urlString;
+            }
+        });
+
+    };
+
+    function ShowFnolsSearchResultsInExcel() {
+
+        var fnolsTable = $("#tableFNOL").dataTable();
+        var fnols = fnolsTable.fnGetData();
+
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFnolsSearchResultsAsExcelDocument",
+            type: "POST",
+            data: { fnols: fnols },
+            success: function (data) {
+                var urlString =
+                    "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
+                window.location.href = urlString;
+            }
+         });
+    
+    };
+
+    function ShowClientsSearchResultsInExcel() {
+
+        var clientsTable = $("#tableClients").dataTable();
+        var clients = clientsTable.fnGetData();
+
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetClientsSearchResultsAsExcelDocument",
+            type: "POST",
+            data: { clients: clients },
+            success: function (data) {
+                var urlString =
+                    "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
+                window.location.href = urlString;
+            }
+    });
+    
+    };
+
+    function ShowRegisteredUsersSearchResultsInExcel() {
+
+        var usersTable = $("#tableRegisteredUsers").dataTable();
+        var users = usersTable.fnGetData();
+
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetRegisteredUsersSearchResultsAsExcelDocument",
+            type: "POST",
+            data: { users: users },
+            success: function (data) {
+                var urlString =
+                    "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
+                window.location.href = urlString;
+            }
+    });
+    
     };
 
     function SearchPolycies() {
@@ -1273,18 +1374,18 @@
                                 .wrap('<div></div>')
                                 .parent()
                                 .html();
-                        } else {
-                            return data;
-                        }
-                    }
-                }
+                       } else {
+                           return data;
+                       }
+                   }
+               }
             ],
             select: true
         });
 
         $('#tablePolicies tbody').on('click',
             'td .loss',
-            function() {
+            function () {
                 var $row = $(this).closest('td');
                 var policy_num = $row.children().attr('id');
                 CreateFNOLTablePoliciesByPolicyNumber(policy_num);
@@ -1292,8 +1393,8 @@
             });
 
         $('html,body').animate({
-                scrollTop: $("#tablePolicies").offset().top
-            },
+            scrollTop: $("#tablePolicies").offset().top
+        },
             800);
     };
 
@@ -1325,7 +1426,7 @@
                 { data: "Zavrsuva_Na" },
                 {
                     data: "Polisa_Id",
-                    "render": function(data, type, row, meta) {
+                    "render": function (data, type, row, meta) {
                         if (type === 'display') {
                             return $('<a>')
                                 .attr('href', '/Policy/Preview?policyId=' + data)
@@ -1333,11 +1434,11 @@
                                .wrap('<div></div>')
                                .parent()
                                .html();
-                       } else {
-                           return data;
-                       }
+                        } else {
+                            return data;
+                        }
                     }
-               }
+                }
             ],
             select: true
         });
@@ -1579,7 +1680,7 @@
                                 return data;
                             }
                         }
-                    },
+                    }
             ],
             select: true
         });
@@ -1729,4 +1830,3 @@
 
     };
 </script>
-

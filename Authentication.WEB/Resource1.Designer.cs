@@ -3274,6 +3274,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show search results in excel.
+        /// </summary>
+        public static string SearchResultsExcel {
+            get {
+                return ResourceManager.GetString("SearchResultsExcel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active/Inactive.
         /// </summary>
         public static string SearchTable_ActiveInactiveUser {
