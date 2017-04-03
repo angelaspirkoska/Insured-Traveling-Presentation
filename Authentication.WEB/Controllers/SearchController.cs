@@ -1247,11 +1247,12 @@ namespace InsuredTraveling.Controllers
             }
         }
 
-        public FileResult ShowPoliciesSearchResultInExcel(string path)
+        public FileResult ShowSearchResultInExcel(string path)
         {
             if (String.IsNullOrEmpty(path))
                 return null;
-            return File(path, "application/vnd.ms-excel", "PoliciesSearchResults.xlsx");
+            string dateNow = DateTime.Now.ToShortDateString() + "-" + DateTime.Now.ToShortTimeString();
+            return File(path, "application/vnd.ms-excel", "SearchResults-" + dateNow + ".xlsx");
         }
 
         [HttpPost]
@@ -1287,7 +1288,7 @@ namespace InsuredTraveling.Controllers
                 worksheet.Cells[1, 5].Value = "Expiry Date";
                 worksheet.Cells[1, 6].Value = "Effective Date";
                 worksheet.Cells[1, 7].Value = "Issuance Date";
-                worksheet.Cells[1, 6].Value = "Cancellation Date";
+                worksheet.Cells[1, 8].Value = "Cancellation Date";
 
                 int counter = 2;
 
@@ -1296,10 +1297,11 @@ namespace InsuredTraveling.Controllers
                     worksheet.Cells[counter, 1].Value = policy.Polisa_Broj;
                     worksheet.Cells[counter, 2].Value = policy.InsuredName;
                     worksheet.Cells[counter, 3].Value = policy.Country;
-                    worksheet.Cells[counter, 4].Value = policy.Zapocnuva_Na;
-                    worksheet.Cells[counter, 5].Value = policy.Zavrsuva_Na;
-                    worksheet.Cells[counter, 6].Value = policy.Datum_Na_Izdavanje;
-                    worksheet.Cells[counter, 7].Value = policy.Datum_Na_Storniranje;
+                    worksheet.Cells[counter, 4].Value = policy.Policy_type;
+                    worksheet.Cells[counter, 5].Value = policy.Zapocnuva_Na;
+                    worksheet.Cells[counter, 6].Value = policy.Zavrsuva_Na;
+                    worksheet.Cells[counter, 7].Value = policy.Datum_Na_Izdavanje;
+                    worksheet.Cells[counter, 8].Value = policy.Datum_Na_Storniranje;
 
                     counter++;
                 }
@@ -1327,6 +1329,81 @@ namespace InsuredTraveling.Controllers
 
             return jsonPath;
             //return File(path, "application/vnd.ms-excel", "PoliciesSearchResults.xlsx");
+        }
+
+        [HttpPost]
+        public JObject GetQuotesSearchResultsAsExcelDocument(List<SearchPolicyViewModel> quotes)
+        {
+            if (quotes == null || !quotes.Any())
+                return null;
+
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            var logUser = _us.GetUserIdByUsername(username);
+
+            string fileName = logUser + Guid.NewGuid().ToString() + ".xlsx";
+            var path = @"~/ExcelSearchResults/Quotes/" + fileName;
+            path = System.Web.HttpContext.Current.Server.MapPath(path);
+            FileInfo newFile = new FileInfo(path);
+            if (newFile.Exists)
+            {
+                newFile.Delete();  // ensures we create a new workbook
+                fileName = logUser + DateTime.Now.ToShortDateString() + Guid.NewGuid().ToString();
+                path = @"~/ExcelSearchResults/Quotes/" + fileName;
+                newFile = new FileInfo(path);
+            }
+
+            using (ExcelPackage package = new ExcelPackage(newFile))
+            {
+                // add a new worksheet to the empty workbook
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Quotes");
+                //Add the headers
+                worksheet.Cells[1, 1].Value = "Quote Number";
+                worksheet.Cells[1, 2].Value = "Insured Name and Last Name";
+                worksheet.Cells[1, 3].Value = "Country";
+                worksheet.Cells[1, 4].Value = "Quote type";
+                worksheet.Cells[1, 5].Value = "Expiry Date";
+                worksheet.Cells[1, 6].Value = "Effective Date";
+                worksheet.Cells[1, 7].Value = "Issuance Date";
+                worksheet.Cells[1, 8].Value = "Cancellation Date";
+
+                int counter = 2;
+
+                foreach (SearchPolicyViewModel quote in quotes)
+                {
+                    worksheet.Cells[counter, 1].Value = quote.Polisa_Broj;
+                    worksheet.Cells[counter, 2].Value = quote.InsuredName;
+                    worksheet.Cells[counter, 3].Value = quote.Country;
+                    worksheet.Cells[counter, 4].Value = quote.Policy_type;
+                    worksheet.Cells[counter, 5].Value = quote.Zapocnuva_Na;
+                    worksheet.Cells[counter, 6].Value = quote.Zavrsuva_Na;
+                    worksheet.Cells[counter, 7].Value = quote.Datum_Na_Izdavanje;
+                    worksheet.Cells[counter, 8].Value = quote.Datum_Na_Storniranje;
+
+                    counter++;
+                }
+
+                worksheet.View.PageLayoutView = true;
+
+                // set some document properties
+                package.Workbook.Properties.Title = "Quotes";
+                package.Workbook.Properties.Author = username;
+                package.Workbook.Properties.Comments = "";
+
+                // set some extended property values
+                package.Workbook.Properties.Company = " ";
+
+                // set some custom property values
+                package.Workbook.Properties.SetCustomPropertyValue("Checked by", username);
+                package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "EPPlus");
+                // save our new workbook and we are done!
+                package.Save();
+
+            }
+
+            JObject jsonPath = new JObject();
+            jsonPath.Add("path", path);
+
+            return jsonPath;
         }
 
         private async Task<List<SelectListItem>> GetTypeOfPolicy()

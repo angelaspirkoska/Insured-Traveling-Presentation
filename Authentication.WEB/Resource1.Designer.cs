@@ -3265,20 +3265,20 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show search results in excel.
-        /// </summary>
-        public static string SearchPoliciesSearchResultsExcel {
-            get {
-                return ResourceManager.GetString("SearchPoliciesSearchResultsExcel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Days before expiring.
         /// </summary>
         public static string SearchPolicyByExpiringDays {
             get {
                 return ResourceManager.GetString("SearchPolicyByExpiringDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show search results in excel.
+        /// </summary>
+        public static string SearchResultsExcel {
+            get {
+                return ResourceManager.GetString("SearchResultsExcel", resourceCulture);
             }
         }
         
