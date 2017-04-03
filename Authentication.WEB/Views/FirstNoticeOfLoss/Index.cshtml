@@ -138,11 +138,11 @@
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <div class="form-group">
-                        @Html.CheckBoxFor(model => model.PolicyHolderExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccount", @readonly = true, @style = "margin-top:15px;" })
+                        @Html.CheckBoxFor(model => model.PolicyHolderExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccount", @readonly = true })
                         <label class="control-label">@InsuredTraveling.Resource.FNOL_UsePreviousBankAccount</label>
                     </div>
                     <div class="form-group">
-                        @Html.CheckBoxFor(model => model.PolicyHolderForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccount", @readonly = true, @style = "margin-top:15px;" })
+                        @Html.CheckBoxFor(model => model.PolicyHolderForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccount", @readonly = true })
                         <label class="control-label">@InsuredTraveling.Resource.FNOL_ForeignBankAccount</label>
                     </div>
                     <div class="form-group">
@@ -227,11 +227,11 @@
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <div class="form-group">
-                        @Html.CheckBoxFor(model => model.ClaimantExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccountInsured", @readonly = true, @style = "margin-top:3%;" })
+                        @Html.CheckBoxFor(model => model.ClaimantExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccountInsured", @readonly = true })
                         <label class="control-label">@InsuredTraveling.Resource.FNOL_UsePreviousBankAccount:</label>
                     </div>
                     <div class="form-group">
-                        @Html.CheckBoxFor(model => model.ClaimantForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccountInsured", @readonly = true, @style = "margin-top:3%;" })
+                        @Html.CheckBoxFor(model => model.ClaimantForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccountInsured", @readonly = true })
                         <label class="control-label">@InsuredTraveling.Resource.FNOL_ForeignBankAccount</label>
                     </div>
                     <div class="form-group">

@@ -1347,4 +1347,7 @@
   <data name="SignUp_ButtonCreateUser" xml:space="preserve">
     <value>Креирај корисник</value>
   </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>ПОЧЕТНА СТРАНА</value>
+  </data>
 </root>
