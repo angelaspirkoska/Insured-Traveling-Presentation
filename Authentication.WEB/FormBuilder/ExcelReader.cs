@@ -5,6 +5,7 @@ using System.Web;
 using OfficeOpenXml;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace InsuredTraveling.FormBuilder
 {
@@ -35,7 +36,8 @@ namespace InsuredTraveling.FormBuilder
                     if (formula.ToUpper().StartsWith("DGET"))
                     {
                         result = new Dget();
-                        result.Resolver(formula, functionName, pck, worksheet);               
+                        result.Resolver(formula, functionName, pck, worksheet);    
+                        result.ToString();           
                     }
                     else if (formula.ToUpper().StartsWith("IF"))
                     {
@@ -86,6 +88,7 @@ namespace InsuredTraveling.FormBuilder
                     {
                         result = new IfCondition();
                         result.ResolverProcedure(formula, row, procedures, helperFunctions, pck, worksheet);
+                        result.ToString();
                     }
                     else if (formula.ToUpper().StartsWith("EXACT"))
                     {
@@ -300,6 +303,11 @@ namespace InsuredTraveling.FormBuilder
         public string PropertyValueName { get; set; }
         public string[,] ParametersNameAndInputValue { get; set; }
         public string[,] Database { get; set; }
+        public int DatabaseRows { get; set; }
+        public int DatabaseColumns { get; set; }
+        public int ParametersNameAndInputValueRows { get; set; }
+        public int ParametersNameAndInputValueColumns { get; set; }
+
 
         public void PopulateDatabase( )
         {
@@ -359,6 +367,8 @@ namespace InsuredTraveling.FormBuilder
                 valueStart = Location.GetLocation(indexes[0], dgetWorksheet);
                 valueEnd = Location.GetLocation(indexes[1], dgetWorksheet);
                 Database = new string[valueEnd.Row - valueStart.Row + 1, valueEnd.Column - valueStart.Column + 1];
+                DatabaseRows = valueEnd.Row - valueStart.Row + 1;
+                DatabaseColumns = valueEnd.Column - valueStart.Column + 1;
                 int i = 0, j = 0;
                 for (int row = valueStart.Row; row <= valueEnd.Row; row++, i++)
                 {
@@ -383,6 +393,9 @@ namespace InsuredTraveling.FormBuilder
 
 
                 ParametersNameAndInputValue = new string[parameterEnd.Row - parameterStart.Row + 1, parameterEnd.Column - parameterStart.Column + 1];
+                ParametersNameAndInputValueRows = parameterEnd.Row - parameterStart.Row + 1;
+                ParametersNameAndInputValueColumns = parameterEnd.Column - parameterStart.Column + 1;
+
                 i = j = 0;
                 for (int row = parameterStart.Row; row <= parameterEnd.Row; row++, i++)
                 {
@@ -405,6 +418,26 @@ namespace InsuredTraveling.FormBuilder
         public override void ResolverProcedure(string formula, int sequence, int procedureRow, int functionRow, ExcelPackage pck, ExcelWorksheet current)
         {
             this.Resolver(formula, sequence.ToString(),  pck, current);
+        }
+
+        public override string ToString()
+        {
+            StringBuilder result = new StringBuilder();
+            result.Append("DGET(");
+              int i, j = 0;
+              for(i = 0; i < DatabaseRows - 1; i++)
+                {
+                result.Append(Database[i, 0] + ";");
+                }
+            result.Append(Database[DatabaseRows - 1, 0] + ","+ PropertyValueName + ",");
+            
+            for (i = 0; i < ParametersNameAndInputValueRows - 1; i++)
+            {
+                    result.Append(ParametersNameAndInputValue[i, 0] + ";"); 
+            }         
+                result.Append(ParametersNameAndInputValue[ParametersNameAndInputValueRows - 1, 0]);
+
+            return result.ToString();
         }
     }
     public class MathOperation : Function
@@ -569,6 +602,10 @@ namespace InsuredTraveling.FormBuilder
 
 
         }
+        public override string ToString()
+        {
+            return "(" + OperandLeft +" "+ Operation + " " + OperandRight + ")";
+        }
     }
     public class IfCondition : Function
     {
@@ -655,6 +692,10 @@ namespace InsuredTraveling.FormBuilder
                 IfFalse = formulaSplitted[2].TrimEnd().TrimStart();
             }
 
+        }
+        public override string ToString()
+        {
+            return "(IF "+ Condition.ToString() + " ," + IfTrue + "," +IfFalse + ")";
         }
     }
     public class Round : Function
@@ -759,6 +800,14 @@ namespace InsuredTraveling.FormBuilder
             }
             }
         }
+        public override string ToString()
+        {
+            if(RoundTo.Equals("UP") || RoundTo.Equals("DOWN"))
+            {
+                return "ROUND" + RoundTo + "("+Number+")";
+            }
+            return "ROUND" + "(" + Number + "," + RoundTo + ")";
+        }
     }
     public class Exact : Function
     {
@@ -835,8 +884,11 @@ namespace InsuredTraveling.FormBuilder
                 else
                 {
                     RightOperand = formulaSplitted[1].TrimEnd().TrimStart();
-                }
-            
+                }          
+        }
+        public override string ToString()
+        {
+            return "(" + LeftOperand + " Exact " + RightOperand + ")";
         }
     }
 }
