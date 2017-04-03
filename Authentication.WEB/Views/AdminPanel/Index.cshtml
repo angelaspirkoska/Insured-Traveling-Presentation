@@ -315,15 +315,14 @@
 
     $(document).ready(function () {
         if(@ViewBag.TabIndex == 1) {
-            $("#btnNovaPolisa").removeClass("active-tab");
-            $("#btnNews").removeClass("active-tab");
-            $("#btnSearch").removeClass("active-tab");
-            $("#btnFNOL").removeClass("active-tab");
-            $("#btnAdmin").addClass("active-tab");
-            $("#dodadiKlient").removeClass("active-tab");
-            $("#btnCreateUser").removeClass("active-tab");
-            $("#btnCreateUser").removeClass("active-tab");
-            $("#DiscountMenu").removeClass("active-tab");
+            //Setting the class active-tab, so the user will know which tab is clicked
+            $("#addNewPolicy").removeClass("active-tab");
+            $("#newsTab").removeClass("active-tab");
+            $("#searchTab").removeClass("active-tab");
+            $("#fnolTab").removeClass("active-tab");
+            $("#adminTab").addClass("active-tab");
+            $("#createTab").removeClass("active-tab");
+            $("#signupTab").removeClass("active-tab");
         }
         ChangeTabsOnPost();
 

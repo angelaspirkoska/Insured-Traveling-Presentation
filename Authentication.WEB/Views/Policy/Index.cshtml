@@ -552,19 +552,17 @@
         $("#policy_type option[value='2']").show();
         $("#policy_type option[value='3']").show();
         $("#policy_type option[value='4']").hide();
-
-        $("#btnNovaPolisa").addClass("active-tab");
-        $("#btnNews").removeClass("active-tab");
-        $("#btnSearch").removeClass("active-tab");
-        $("#btnFNOL").removeClass("active-tab");
-        $("#btnAdmin").removeClass("active-tab");
-        $("#dodadiKlient").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
-
         $("#Discount_div").hide();
 
+        //Setting the class active-tab, so the user will know which tab is clicked
 
+        $("#addNewPolicy").addClass("active-tab");
+        $("#newsTab").removeClass("active-tab");
+        $("#searchTab").removeClass("active-tab");
+        $("#fnolTab").removeClass("active-tab");
+        $("#adminTab").removeClass("active-tab");
+        $("#createTab").removeClass("active-tab");
+        $("#signupTab").removeClass("active-tab");        
         $('#AddOffer').on('click', function () {
             $.ajax({
                 type: 'POST',

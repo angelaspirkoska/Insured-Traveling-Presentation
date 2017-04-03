@@ -989,14 +989,14 @@
         $("#tablePoliciesClients").css("display", "none");
         $("#tablePoliciesHolders").css("display", "none");
 
-        $("#btnNovaPolisa").removeClass("active-tab");
-        $("#btnNews").removeClass("active-tab");
-        $("#btnSearch").addClass("active-tab");
-        $("#btnFNOL").removeClass("active-tab");
-        $("#btnAdmin").removeClass("active-tab");
-        $("#dodadiKlient").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
+        //Setting the class active-tab, so the user will know which tab is clicked
+        $("#addNewPolicy").removeClass("active-tab");
+        $("#newsTab").removeClass("active-tab");
+        $("#searchTab").addClass("active-tab");
+        $("#fnolTab").removeClass("active-tab");
+        $("#adminTab").removeClass("active-tab");
+        $("#createTab").removeClass("active-tab");
+        $("#signupTab").removeClass("active-tab");
 
         $.ajax({
             type: "GET",
