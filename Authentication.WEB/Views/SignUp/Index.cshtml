@@ -341,15 +341,6 @@
         var countriesCodes;
         var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
 
-        //Setting the class active-tab, so the user will know which tab is clicked
-        $("#addNewPolicy").removeClass("active-tab");
-        $("#newsTab").removeClass("active-tab");
-        $("#searchTab").removeClass("active-tab");
-        $("#fnolTab").removeClass("active-tab");
-        $("#adminTab").removeClass("active-tab");
-        $("#createTab").removeClass("active-tab");
-        $("#signupTab").addClass("active-tab");
-
         $('.form-control').tooltip({
             placement: "bottom"
         });
