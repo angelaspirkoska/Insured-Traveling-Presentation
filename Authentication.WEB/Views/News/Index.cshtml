@@ -3,8 +3,8 @@
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
 }
 <div class="container" style="margin-left: 0px;">
-    <div class="row" style="margin-top: 20px;">
-        <h3>@InsuredTraveling.Resource.News_AddTitle</h3>
+    <div class="row">
+        <h2 class="heading-padding">@InsuredTraveling.Resource.News_AddTitle</h2>
         <hr />
             <div class="col-md-6">
                 <form id="newsForm" method="post" action="@Url.Action("AddNews")" enctype="multipart/form-data">

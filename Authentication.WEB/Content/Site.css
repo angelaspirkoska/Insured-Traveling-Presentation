@@ -11,8 +11,11 @@
     margin: 35px 40px 10px 40px;
 }
 
-.footer-material-design{
-    padding-top: 1%;
+.footer-material-design {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:60px;   /* Height of the footer */
 }
 .btn-circle {
   width: 30px;
@@ -286,7 +289,7 @@ form.cmxform .gray * { color: gray; }
 }
 
 .heading-padding {
-    margin: 43px 0px 33px 0px !important;
+    margin: 15px 0px 33px 0px !important;
 }
 
 .alert-position {
@@ -304,7 +307,7 @@ form.cmxform .gray * { color: gray; }
 
 .signup-btn-style {
     margin-left: 20px;
-    width: 91%;
+    width: 346px;
     height: 70px;
     font-weight: bold;
 }
