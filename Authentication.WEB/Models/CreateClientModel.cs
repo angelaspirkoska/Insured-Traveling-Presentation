@@ -58,5 +58,7 @@ namespace InsuredTraveling.Models
         public string Created_By { get; set; }
         public DateTime Date_Modified { get; set; }
         public string Modified_By { get; set; }
+        public string countriesCodes { get; set; }
     }
+    
 }

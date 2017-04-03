@@ -29,6 +29,9 @@ namespace Authentication.WEB.Controllers
         {
             if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                 Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
+            ViewBag.BirthDate = new DateTime();
+            ViewBag.PhoneNumber = 0;
+            ViewBag.CountryCodes = 0;
             return View();
         }
 
@@ -38,9 +41,19 @@ namespace Authentication.WEB.Controllers
             var username = System.Web.HttpContext.Current.User.Identity.Name;
             InsuredTravelingEntity entities = new InsuredTravelingEntity();
             var client = entities.insureds.Create();
-
+            
             ValidationService validationService = new ValidationService();
-
+            ViewBag.CountryCodes = model.countriesCodes;
+            ViewBag.PhoneNumber = model.PhoneNumber;
+            if (model.DateBirth != DateTime.MinValue)
+            {
+                ViewBag.BirthDate = model.DateBirth;
+            }
+            else
+            {
+                ViewBag.BirthDate = new DateTime(); 
+            }
+            
             if (ModelState.IsValid)
             {
                 if(validationService.validateEMBG(model.SSN))

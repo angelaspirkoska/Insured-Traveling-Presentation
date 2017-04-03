@@ -1,6 +1,9 @@
 ﻿@model InsuredTraveling.Models.CreateClientModel
+
+
 @using System.Web.Optimization;
 @using System.Configuration;
+
 @{
     ViewBag.Title = InsuredTraveling.Resource.Client;
     Layout = "~/Views/Shared/_Layout2.cshtml";
@@ -112,8 +115,8 @@
                     <div style="margin-bottom:10px; padding:0;">
                         <div class="input-group">
                             <div class="input-group-addon">
-                                <select id="countriesCodes" style="width: 46px;"></select>
-                            </div>
+                                <select id="countriesCodes" name="countriesCodes" style="width: 46px;"></select>
+                             </div>
                             @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "col-md-6 text-danger" })
                         </div>
@@ -192,11 +195,14 @@
         $("#btnCreateUser").removeClass("active-tab");
         $("#btnCreateUser").removeClass("active-tab");
 
+
+
         $.ajax({
             type: "GET",
             url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/countriesCodes.json",
             dataType: 'json',
-            headers: { 'Access-Control-Allow-Origin': '*' }
+            headers: { 'Access-Control-Allow-Origin': '*' },
+
         }).done(function (result) {
 
             $.each(result.countriesCodes, function (index, value) {
@@ -204,11 +210,20 @@
                     value: value.dial_code,
                     text: value.code + "  " + value.name
                 }));
-            });
+            }
+
+            );
 
             $("#countriesCodes option[value='+389']").prop("selected", true);
             $("#PhoneNumber").val("+389");
+            if(@ViewBag.PhoneNumber != 0){
+                var TempPhone = "@ViewBag.PhoneNumber";
+                if(@ViewBag.CountryCodes != 0){
+                    $("#countriesCodes option[value='@ViewBag.CountryCodes']").prop("selected", true);
 
+                };
+                $("#PhoneNumber").val("@ViewBag.PhoneNumber");
+            }
         });
         $('#countriesCodes').change(function () {
             $("#PhoneNumber").val($('#countriesCodes').val());
@@ -221,7 +236,9 @@
             yearRange: '-100y:c+nn',
             maxDate: 'd'
         });
-    });
+
+                PostBackFill();
+        });
 
     $("#CreateForm").validate({
         rules: {
@@ -240,4 +257,16 @@
             }
         }
     });
+
+    function PostBackFill() {
+
+        if("@ViewBag.BirthDate" != "01.1.0001 00:00:00"){
+            console.log("@ViewBag.BirthDate");
+            var BirthDate = new Date('@ViewBag.BirthDate.ToUniversalTime().ToString("r")');
+            $('#DateBirth').datepicker('setDate', new Date(BirthDate));
+        }
+        //console.log(@ViewBag.PhoneNumber);
+
+
+    }
 </script>
