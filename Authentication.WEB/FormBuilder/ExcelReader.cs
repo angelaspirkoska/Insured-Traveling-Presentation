@@ -11,15 +11,16 @@ namespace InsuredTraveling.FormBuilder
     public static class ExcelReader
     {
         public static int helperFunctions { get; set; }
+        public static int procedures { get; set; }
         public static IHtmlString ReadExcel(string path)
         {
-
             ExcelPackage pck = new ExcelPackage(new FileInfo(path));
             var result = CreateForm(pck);
-            DetermineFunction(pck);    
+            var functions = DetermineFunction(pck);
+            var procedures = DetermineProcedures(pck);
             return result;
         }
-        public static void DetermineFunction(ExcelPackage pck)
+        public static List<Function> DetermineFunction(ExcelPackage pck)
         {
             ExcelWorksheet worksheet = pck.Workbook.Worksheets["ConfigurationSetup"];
             int row = 1;
@@ -41,9 +42,15 @@ namespace InsuredTraveling.FormBuilder
                         result = new IfCondition();
                         result.Resolver(formula, functionName, pck, worksheet);
                     }
+                    else if (formula.ToUpper().StartsWith("ROUND"))
+                    {
+                        result = new Round();
+                        result.Resolver(formula, functionName, pck, worksheet);
+                    }
                     else if (formula.ToUpper().StartsWith("EXACT"))
                     {
-
+                        result = new Exact();
+                        result.Resolver(formula, functionName, pck, worksheet);
                     }
                     else
                     {
@@ -54,9 +61,53 @@ namespace InsuredTraveling.FormBuilder
                 }
                
             }
-
+            return functions;
         }
-      
+        
+        public static List<Function> DetermineProcedures(ExcelPackage pck)
+        {
+            ExcelWorksheet worksheet = pck.Workbook.Worksheets["ConfigurationSetup"];
+            List<Function> proceduresList = new List<Function>();
+            int row = 1;
+            string functionName = worksheet.Cells[row, procedures - 1].Value.ToString();
+            for (row = 2; worksheet.Cells[row, procedures].Value != null; row++)
+            {
+                Function result = null;
+                if (!worksheet.Cells[row, procedures].Value.ToString().Equals("empty"))
+                {
+                    var formula = worksheet.Cells[row, procedures].Formula;
+
+                    if (formula.ToUpper().StartsWith("DGET"))
+                    {
+                        result = new Dget();
+                        result.ResolverProcedure(formula, row, procedures, helperFunctions, pck, worksheet);
+                    }
+                    else if (formula.ToUpper().StartsWith("IF"))
+                    {
+                        result = new IfCondition();
+                        result.ResolverProcedure(formula, row, procedures, helperFunctions, pck, worksheet);
+                    }
+                    else if (formula.ToUpper().StartsWith("EXACT"))
+                    {
+                        result = new Exact();
+                        result.ResolverProcedure(formula, row, procedures, helperFunctions, pck, worksheet);
+                    }
+                    else if (formula.ToUpper().StartsWith("ROUND"))
+                    {
+                        result = new Round();
+                        result.ResolverProcedure(formula, row, procedures, helperFunctions, pck, worksheet);
+                    }
+                    else
+                    {
+                        result = new MathOperation();
+                        result.ResolverProcedure(formula, row, procedures, helperFunctions, pck, worksheet);
+                    }
+                    proceduresList.Add(result);
+                }
+
+            }
+            return proceduresList;
+        }
         public static HtmlString CreateForm(ExcelPackage pck)
         {
             ExcelWorksheet worksheet = pck.Workbook.Worksheets["ConfigurationSetup"];
@@ -82,8 +133,6 @@ namespace InsuredTraveling.FormBuilder
             int cssIndex = -1;
             int variableName = -1;
             int helpingFunc = -1;
-            int funcOutput = -1;
-            int midResult = -1;   
 
             for (int i = 1; worksheet.Cells[1, i].Value != null; i++)
             {
@@ -104,7 +153,7 @@ namespace InsuredTraveling.FormBuilder
                     case "VariableName": variableName = i; break;
                     case "HelpingFunc": helpingFunc = i; break;
                     case "FuncOutput": helperFunctions = i; break;
-                    case "MidResult": midResult = i; break;
+                    case "MidResult": procedures = i; break;
                     default: continue;
                 }
             }
@@ -186,11 +235,65 @@ namespace InsuredTraveling.FormBuilder
             return new HtmlString(result);
         }
     }
+
+
+    public class Location
+    {
+        public int Column { get; set; }
+        public int Row { get; set; }
+        public string WorksheetName { get; set; }
+
+        public Location(int column, int row)
+        {
+            Column = column;
+            Row = row;
+        }
+
+        public Location()
+        {
+        }
+        public static Location GetLocation(string location, ExcelWorksheet current)
+        {
+            Location result = new Location();
+            string located = location;
+            if (location.Contains("!"))
+            {
+                var sheetAndLocation = location.TrimStart().TrimEnd().Split('!');
+                result.WorksheetName = sheetAndLocation[0];
+                located = sheetAndLocation[1];
+            }
+            else
+            {
+                result.WorksheetName = current.Name;
+            }
+            //works only with two letters
+            Regex regex = new Regex(@"(\D+)(\d+)");
+            Match match = regex.Match(located);
+            if (match.Success)
+            {
+                var row = match.Groups[1].Value.ToCharArray();
+                int rowInt = 0;
+                for (int i = 0; i < row.Length - 1; i++)
+                {
+                    var number = System.Convert.ToInt32(row[i]) - System.Convert.ToInt32('A') + 1;
+
+                    rowInt += (row.Length - 1 - i) * 26 * number;
+                }
+                rowInt += System.Convert.ToInt32(row[row.Length - 1]) - System.Convert.ToInt32('A') + 1;
+
+                int columnInt = Convert.ToInt32(match.Groups[2].Value);
+                result.Column = columnInt;
+                result.Row = rowInt;
+                return result;
+            }
+            return null;
+        }
+    }
     public abstract class Function
         {
           public string Name { get; set; }
           public abstract void Resolver(string formula, string formulaName, ExcelPackage pck, ExcelWorksheet current);
-
+          public abstract void ResolverProcedure(string formula, int sequence, int procedureRow, int functionRow, ExcelPackage pck, ExcelWorksheet current);
         }
     public class Dget : Function
     {
@@ -255,15 +358,15 @@ namespace InsuredTraveling.FormBuilder
 
                 valueStart = Location.GetLocation(indexes[0], dgetWorksheet);
                 valueEnd = Location.GetLocation(indexes[1], dgetWorksheet);
-                Database = new string[valueEnd.Column, valueEnd.Row];
-
-                for (int column = valueStart.Column; column <= valueEnd.Column; column++)
+                Database = new string[valueEnd.Row - valueStart.Row + 1, valueEnd.Column - valueStart.Column + 1];
+                int i = 0, j = 0;
+                for (int row = valueStart.Row; row <= valueEnd.Row; row++, i++)
                 {
-                    for (int row = valueStart.Row; row <= valueEnd.Row; row++)
+                    for (int column = valueStart.Column; column <= valueEnd.Column; column++, j++)
                     {
-
-                        Database[column - 1, row - 1] = dgetWorksheet.Cells[column, row].Value.ToString();
+                        Database[i, j] = dgetWorksheet.Cells[column, row].Value.ToString();
                     }
+                    j = 0;
                 }
 
                 dgetWorksheet = current;
@@ -272,29 +375,36 @@ namespace InsuredTraveling.FormBuilder
                 {
                     sheetAndValueLocation = parameters[2].Split('!');
                     dgetWorksheet = pck.Workbook.Worksheets[sheetAndValueLocation[0].TrimEnd().TrimStart()];
-                    indexes = sheetAndValueLocation[1].TrimEnd().TrimStart().Split(':');
-                    
-                }
-                
+                    indexes = sheetAndValueLocation[1].TrimEnd().TrimStart().Split(':');                   
+                } 
                     indexes = parameters[2].TrimStart().TrimEnd().Split(':');
                     parameterStart = Location.GetLocation(indexes[0], dgetWorksheet);
                     parameterEnd = Location.GetLocation(indexes[1], dgetWorksheet);
 
 
-                ParametersNameAndInputValue = new string[parameterEnd.Column, parameterEnd.Row];
-
-                for (int column = parameterStart.Column; column <= parameterEnd.Column; column++)
+                ParametersNameAndInputValue = new string[parameterEnd.Row - parameterStart.Row + 1, parameterEnd.Column - parameterStart.Column + 1];
+                i = j = 0;
+                for (int row = parameterStart.Row; row <= parameterEnd.Row; row++, i++)
                 {
-                    for (int row = parameterStart.Row; row <= parameterEnd.Row; row++)
+                    for (int column = parameterStart.Column; column <= parameterEnd.Column; column++, j++)
                     {
-
-                        ParametersNameAndInputValue[column - 1, row - 1] = dgetWorksheet.Cells[column, row].Value.ToString();
+                        if(dgetWorksheet.Cells[column, row].Value != null)
+                        {
+                            ParametersNameAndInputValue[i, j] = dgetWorksheet.Cells[column, row].Value.ToString();
+                        }
+                       
                     }
+                    j = 0;
                 }
 
             }
             
             
+        }
+
+        public override void ResolverProcedure(string formula, int sequence, int procedureRow, int functionRow, ExcelPackage pck, ExcelWorksheet current)
+        {
+            this.Resolver(formula, sequence.ToString(),  pck, current);
         }
     }
     public class MathOperation : Function
@@ -302,15 +412,18 @@ namespace InsuredTraveling.FormBuilder
         public string Operation { get; set; }
         public string OperandLeft { get; set; }
         public string OperandRight { get; set; }
-        public override void Resolver(string formula, string formulaName, ExcelPackage pck, ExcelWorksheet current)
+        private void OperationResolver(string formula)
         {
-            Name = formulaName;
-            string[] operands;
+            
             var minus = "-";
             var plus = "+";
             var multiplication = "*";
             var division = "/";
             var equal = "=";
+            var bigger = ">";
+            var smaller = "<";
+            var biggerEqual = ">=";
+            var smallerEqual = "<=";
             if (formula.Contains(minus))
             {
                 Operation = minus;
@@ -331,6 +444,45 @@ namespace InsuredTraveling.FormBuilder
             {
                 Operation = division;
             }
+            else if (formula.Contains(bigger))
+            {
+                Operation = bigger;
+            }
+            else if (formula.Contains(biggerEqual))
+            {
+                Operation = biggerEqual;
+            }
+            else if (formula.Contains(smaller))
+            {
+                Operation = smaller;
+            }
+            else if (formula.Contains(smallerEqual))
+            {
+                Operation = smallerEqual;
+            }
+            else
+            {
+                Operation = "";
+            }
+        }
+        public override void Resolver(string formula, string formulaName, ExcelPackage pck, ExcelWorksheet current)
+        {
+            Name = formulaName;
+            OperationResolver(formula);
+            if (Operation.Equals(String.Empty)){
+                Regex reg = new Regex(@"\D\d");
+                Match mat = reg.Match(formula);
+                if (mat.Success)
+                {
+                    Operation = "=";
+                    OperandRight = "0";
+                    var location = Location.GetLocation(formula, current);
+                    var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
+                    OperandLeft = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+                }
+                return;
+            }
+            string[] operands;
             operands = formula.Split(new string[] { Operation }, StringSplitOptions.None);
                 Regex regex = new Regex(@"\D\d");
                 Match match = regex.Match(operands[0]);
@@ -357,7 +509,67 @@ namespace InsuredTraveling.FormBuilder
                 }
             
         }
+        public override void ResolverProcedure(string formula, int sequence, int procedureRow, int functionRow, ExcelPackage pck, ExcelWorksheet current)
+        {
+            Name = sequence.ToString();
+            OperationResolver(formula);
+            if (Operation.Equals(String.Empty))
+            {
+                Regex reg = new Regex(@"\D\d");
+                Match mat = reg.Match(formula);
+                if (mat.Success)
+                {
+                    Operation = "=";
+                    OperandRight = "0";
+                    var location = Location.GetLocation(formula, current);
+                    var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
+                    OperandLeft = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+                }
+                return;
+            }
+
+            string[] operands;
+            operands = formula.Split(new string[] { Operation }, StringSplitOptions.None);
+            Regex regex = new Regex(@"\D\d");
+            Match match = regex.Match(operands[0]);
+            if (match.Success && !operands[0].Contains("."))
+            {
+                var location = Location.GetLocation(operands[0], current);
+                if(location.Row == procedureRow)
+                {
+                    OperandLeft = "Procedure" + location.Column;
+                }
+                else
+                {
+                    OperandLeft = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                }
+            }
+            else
+            {
+                OperandLeft = operands[0].TrimStart().TrimEnd();
+            }
+
+            match = regex.Match(operands[1]);
+            if (match.Success && !operands[1].Contains("."))
+            {
+                var location = Location.GetLocation(operands[1], current);
+                if (location.Row == procedureRow)
+                {
+                    OperandRight = "Procedure" + location.Column;
+                }
+                else
+                {
+                    OperandRight = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                }
+            }
+            else
+            {
+                OperandRight = operands[1].TrimStart().TrimEnd();
+            }
+
+
         }
+    }
     public class IfCondition : Function
     {
         public MathOperation Condition { get; set; }
@@ -369,10 +581,10 @@ namespace InsuredTraveling.FormBuilder
             var formulaSplitted = formula.Split(',');
             Condition = new MathOperation();
             Condition.Resolver(formulaSplitted[0].TrimEnd().TrimStart(), formulaName, pck, current);
+            Name = Condition.Name;
             Regex regex = new Regex(@"\D\d");
-            //ne treba tacku da gu zeme u predvid treba da vidu regex sto znaci bukva a ne nebroj
             Match match = regex.Match(formulaSplitted[1].TrimEnd().TrimStart());
-            if (match.Success)
+            if (match.Success && !formulaSplitted[1].Contains('.'))
             {
                 var location = Location.GetLocation(formulaSplitted[1].TrimEnd().TrimStart(), current);
                 var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
@@ -384,68 +596,247 @@ namespace InsuredTraveling.FormBuilder
             }
 
             match = regex.Match(formulaSplitted[2].TrimEnd().TrimStart());
+            if (match.Success && !formulaSplitted[2].Contains('.'))
+            {
+                var location = Location.GetLocation(formulaSplitted[2].TrimEnd().TrimStart(), current);
+               
+                var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
+                IfFalse = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+            }
+            else
+            {
+                IfFalse = formulaSplitted[2].TrimEnd().TrimStart();
+            }
+        }
+        public override void ResolverProcedure(string formula, int sequence, int procedureRow, int functionRow, ExcelPackage pck, ExcelWorksheet current)
+        {
+            Name = sequence.ToString();
+            formula = formula.Replace("IF", "").Replace("(", "").Replace(")", "");
+            var formulaSplitted = formula.Split(',');
+            Condition = new MathOperation();
+            Condition.ResolverProcedure(formulaSplitted[0].TrimEnd().TrimStart(), sequence, procedureRow, functionRow, pck, current);
+
+            Regex regex = new Regex(@"\D\d");
+            Match match = regex.Match(formulaSplitted[1].TrimEnd().TrimStart());
+            if (match.Success && !formulaSplitted[1].Contains('.'))
+            {
+                var location = Location.GetLocation(formulaSplitted[1].TrimEnd().TrimStart(), current);
+                //tujj novo
+                if (location.Row == procedureRow)
+                {
+                    IfTrue = "Procedure" + location.Column;
+                }
+                else
+                {
+                    IfTrue = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                }              
+            }
+            else
+            {
+                IfTrue = formulaSplitted[1].TrimEnd().TrimStart();
+            }
+
+            match = regex.Match(formulaSplitted[2].TrimEnd().TrimStart());
             if (match.Success)
             {
                 var location = Location.GetLocation(formulaSplitted[2].TrimEnd().TrimStart(), current);
-                var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
-                IfTrue = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+                //tujj novo
+                if (location.Row == procedureRow)
+                {
+                    IfFalse = "Procedure" + location.Column;
+                }
+                else
+                {
+                    IfFalse = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                }
             }
             else
             {
-                IfTrue = formulaSplitted[2].TrimEnd().TrimStart();
+                IfFalse = formulaSplitted[2].TrimEnd().TrimStart();
+            }
+
+        }
+    }
+    public class Round : Function
+    {
+        public string Number { get; set; }
+        public string RoundTo { get; set; }
+        public override void Resolver(string formula, string formulaName, ExcelPackage pck, ExcelWorksheet current)
+        {
+            Name = formulaName;
+            formula = formula.Replace("ROUND", "").Replace("(", "").Replace(")", "");
+            if (formula.Contains("UP"))
+            {
+                RoundTo = "UP";
+                formula.Replace("UP", "");
+            }
+            else if (formula.Contains("DOWN"))
+            {
+                RoundTo = "DOWN";
+                formula.Replace("DOWN", "");
+            }
+            var formulaSplitted = formula.Split(',');
+            Regex regex = new Regex(@"\D\d");
+            Match match = regex.Match(formulaSplitted[0].TrimEnd().TrimStart());
+            if (match.Success && !formulaSplitted[0].Contains('.'))
+            {
+                var location = Location.GetLocation(formulaSplitted[0].TrimEnd().TrimStart(), current);
+                var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
+                Number = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+            }
+            else
+            {
+                Number = formulaSplitted[0].TrimEnd().TrimStart();
+            }
+
+            if (RoundTo == "")
+            {
+                match = regex.Match(formulaSplitted[1].TrimEnd().TrimStart());
+                if (match.Success && !formulaSplitted[1].Contains('.'))
+                {
+                    var location = Location.GetLocation(formulaSplitted[1].TrimEnd().TrimStart(), current);
+                    var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
+                    RoundTo = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+                }
+                else
+                {
+                    RoundTo = formulaSplitted[1].TrimEnd().TrimStart();
+                }
+            }
+        }
+        public override void ResolverProcedure(string formula, int sequence, int procedureRow, int functionRow, ExcelPackage pck, ExcelWorksheet current)
+        {
+            Name = sequence.ToString();
+            formula = formula.Replace("ROUND", "").Replace("(", "").Replace(")", "");
+            if (formula.Contains("UP"))
+            {
+                RoundTo = "UP";
+                formula.Replace("UP", "");
+            } 
+            else if (formula.Contains("DOWN"))
+            {
+                RoundTo = "DOWN";
+                formula.Replace("DOWN", "");
+            }
+            var formulaSplitted = formula.Split(',');
+            Regex regex = new Regex(@"\D\d");
+            Match match = regex.Match(formulaSplitted[0].TrimEnd().TrimStart());
+            if (match.Success && !formulaSplitted[0].Contains('.'))
+            {
+                var location = Location.GetLocation(formulaSplitted[0].TrimEnd().TrimStart(), current);
+                if (location.Row == procedureRow)
+                {
+                    Number = "Procedure" + location.Column;
+                }
+                else
+                {
+                    Number = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                }     
+            }
+            else
+            {
+                Number = formulaSplitted[0].TrimEnd().TrimStart();
+            }
+
+            if (RoundTo == "")
+            {      
+            match = regex.Match(formulaSplitted[1].TrimEnd().TrimStart());
+            if (match.Success && !formulaSplitted[1].Contains('.'))
+            {
+                var location = Location.GetLocation(formulaSplitted[1].TrimEnd().TrimStart(), current);
+                if (location.Row == procedureRow)
+                {
+                    RoundTo = "Procedure" + location.Column;
+                }
+                else
+                {
+                    RoundTo = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                }
+            }
+            else
+            {
+                RoundTo = formulaSplitted[1].TrimEnd().TrimStart();
+            }
             }
         }
     }
-    public class Location
+    public class Exact : Function
     {
-        public int Column { get; set; }
-        public int Row { get; set; }
-        public string WorksheetName { get; set; }
-
-        public Location(int column, int row)
+        public string LeftOperand { get; set; }
+        public string RightOperand { get; set; }
+        public override void Resolver(string formula, string formulaName, ExcelPackage pck, ExcelWorksheet current)
         {
-            Column = column;
-            Row = row;
-        }
-
-        public Location()
-        {
-        }
-        public static Location GetLocation(string location, ExcelWorksheet current)
-        {
-            Location result = new Location();
-            string located = location;
-            if (location.Contains("!"))
+            Name = formulaName;
+            formula = formula.Replace("EXACT", "").Replace("(", "").Replace(")", "");      
+            var formulaSplitted = formula.Split(',');
+            Regex regex = new Regex(@"\D\d");
+            Match match = regex.Match(formulaSplitted[0].TrimEnd().TrimStart());
+            if (match.Success && !formulaSplitted[0].Contains('.'))
             {
-                var sheetAndLocation = location.TrimStart().TrimEnd().Split('!');
-                result.WorksheetName = sheetAndLocation[0];
-                located = sheetAndLocation[1];
+                var location = Location.GetLocation(formulaSplitted[0].TrimEnd().TrimStart(), current);
+                var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
+                LeftOperand = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
             }
             else
             {
-                result.WorksheetName = current.Name;
+                LeftOperand = formulaSplitted[0].TrimEnd().TrimStart();
             }
-            //works only with two letters
-            Regex regex = new Regex(@"(\D+)(\d+)");
-            Match match = regex.Match(location);
-            if (match.Success)
+
+            match = regex.Match(formulaSplitted[1].TrimEnd().TrimStart());
+            if (match.Success && !formulaSplitted[1].Contains('.'))
             {
-                var row = match.Groups[1].Value.ToCharArray();
-                int rowInt = 0;
-                for (int i = 0; i < row.Length - 1; i++)
-                {
-                    var number = System.Convert.ToInt32(row[i]) - System.Convert.ToInt32('A') + 1;
-
-                    rowInt += (row.Length - 1 - i) * 26 * number;
-                }
-                rowInt += System.Convert.ToInt32(row[row.Length - 1]) - System.Convert.ToInt32('A') + 1;
-
-                int columnInt = Convert.ToInt32(match.Groups[2].Value);
-                result.Column = columnInt;
-                result.Row = rowInt;
-                return result;
+                var location = Location.GetLocation(formulaSplitted[1].TrimEnd().TrimStart(), current);
+                var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
+                RightOperand = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
             }
-            return null;
+            else
+            {
+                RightOperand = formulaSplitted[1].TrimEnd().TrimStart();
+            }
+        }
+        public override void ResolverProcedure(string formula, int sequence, int procedureRow, int functionRow, ExcelPackage pck, ExcelWorksheet current)
+        {
+            Name = sequence.ToString();
+            formula = formula.Replace("EXACT", "").Replace("(", "").Replace(")", "");
+            var formulaSplitted = formula.Split(',');
+            Regex regex = new Regex(@"\D\d");
+            Match match = regex.Match(formulaSplitted[0].TrimEnd().TrimStart());
+            if (match.Success && !formulaSplitted[0].Contains('.'))
+            {
+                var location = Location.GetLocation(formulaSplitted[0].TrimEnd().TrimStart(), current);
+                if (location.Row == procedureRow)
+                {
+                    LeftOperand = "Procedure" + location.Column;
+                }
+                else
+                {
+                    LeftOperand = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                }
+            }
+            else
+            {
+                LeftOperand = formulaSplitted[0].TrimEnd().TrimStart();
+            }
+
+
+                match = regex.Match(formulaSplitted[1].TrimEnd().TrimStart());
+                if (match.Success && !formulaSplitted[1].Contains('.'))
+                {
+                    var location = Location.GetLocation(formulaSplitted[1].TrimEnd().TrimStart(), current);
+                    if (location.Row == procedureRow)
+                    {
+                        RightOperand = "Procedure" + location.Column;
+                    }
+                    else
+                    {
+                        RightOperand = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                    }
+                }
+                else
+                {
+                    RightOperand = formulaSplitted[1].TrimEnd().TrimStart();
+                }
+            
         }
     }
 }
