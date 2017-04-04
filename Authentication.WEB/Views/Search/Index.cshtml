@@ -76,6 +76,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-4">
                 <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchUsers()" type="button" style="float:left;" />
@@ -224,9 +225,10 @@
                         <div class="input-group-btn">
                             <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle explain-functionality"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                = <span class="caret"></span>
+                                All <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
+                                <li onclick="$('#operatorStartDate').html(' All '); $('#operatorStartDate').val('All');">All</li>
                                 <li onclick="$('#operatorStartDate').html(' = '); $('#operatorStartDate').val('=');">=</li>
                                 <li onclick="$('#operatorStartDate').html(' < '); $('#operatorStartDate').val('<');">&lt</li>
                                 <li onclick="$('#operatorStartDate').html(' > '); $('#operatorStartDate').val('>');">&gt</li>
@@ -243,9 +245,10 @@
                         <div class="input-group-btn">
                             <button type="button" id="operatorEndDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                = <span class="caret"></span>
+                                All <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
+                                <li onclick="$('#operatorEndDate').html(' All '); $('#operatorStartDate').val('All');">All</li>
                                 <li onclick="$('#operatorEndDate').html(' = '); $('#operatorEndDate').val('=');">=</li>
                                 <li onclick="$('#operatorEndDate').html(' < '); $('#operatorEndDate').val('<');">&lt</li>
                                 <li onclick="$('#operatorEndDate').html(' > '); $('#operatorEndDate').val('>');">&gt</li>
@@ -264,9 +267,10 @@
                         <div class="input-group-btn">
                             <button type="button" id="operatorDateI" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                = <span class="caret"></span>
+                                All <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
+                                <li onclick="$('#operatorDateI').html(' All '); $('#operatorStartDate').val('All');">All</li>
                                 <li onclick="$('#operatorDateI').html(' = '); $('#operatorDateI').val('=');">=</li>
                                 <li onclick="$('#operatorDateI').html(' < '); $('#operatorDateI').val('<');">&lt</li>
                                 <li onclick="$('#operatorDateI').html(' > '); $('#operatorDateI').val('>');">&gt</li>
@@ -283,9 +287,10 @@
                         <div class="input-group-btn">
                             <button type="button" id="operatorDateS" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                = <span class="caret"></span>
+                                All <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
+                                <li onclick="$('#operatorDateS').html(' All '); $('#operatorStartDate').val('All');">All</li>
                                 <li onclick="$('#operatorDateS').html(' = '); $('#operatorDateS').val('=');">=</li>
                                 <li onclick="$('#operatorDateS').html(' < '); $('#operatorDateS').val('<');">&lt</li>
                                 <li onclick="$('#operatorDateS').html(' > '); $('#operatorDateS').val('>');">&gt</li>
@@ -396,9 +401,10 @@
                         <div class="input-group-btn">
                             <button type="button" id="operatorStartDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                = <span class="caret"></span>
+                                All <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
+                                <li onclick="$('#operatorStartDate1').html(' All '); $('#operatorStartDate1').val('All');">All</li>
                                 <li onclick="$('#operatorStartDate1').html(' = '); $('#operatorStartDate1').val('=');">=</li>
                                 <li onclick="$('#operatorStartDate1').html(' < '); $('#operatorStartDate1').val('<');">&lt</li>
                                 <li onclick="$('#operatorStartDate1').html(' > '); $('#operatorStartDate1').val('>');">&gt</li>
@@ -415,9 +421,10 @@
                         <div class="input-group-btn">
                             <button type="button" id="operatorEndDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                = <span class="caret"></span>
+                                All <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
+                                <li onclick="$('#operatorEndDate1').html(' All '); $('#operatorEndDate1').val('All');">All</li>
                                 <li onclick="$('#operatorEndDate1').html(' = '); $('#operatorEndDate1').val('=');">=</li>
                                 <li onclick="$('#operatorEndDate1').html(' < '); $('#operatorEndDate1').val('<');">&lt</li>
                                 <li onclick="$('#operatorEndDate1').html(' > '); $('#operatorEndDate1').val('>');">&gt</li>
@@ -644,9 +651,10 @@
                             <div class="input-group-btn">
                                 <button type="button" id="operatorDateAdded" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                    = <span class="caret"></span>
+                                    All <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
+                                    <li onclick="$('#operatorDateAdded').html(' All '); $('#operatorDateAdded').val('All');">All</li>
                                     <li onclick="$('#operatorDateAdded').html(' = '); $('#operatorDateAdded').val('=');">=</li>
                                     <li onclick="$('#operatorDateAdded').html(' < '); $('#operatorDateAdded').val('<');">&lt</li>
                                     <li onclick="$('#operatorDateAdded').html(' > '); $('#operatorDateAdded').val('>');">&gt</li>
@@ -856,15 +864,26 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '-100y:c+nn',
-            maxDate: 'd'
+            maxDate: 'd',
+            onSelect: function () {
+                
+                $("#operatorStartDate").val("=");
+                $('#operatorStartDate').html(' = '); $('#operatorStartDate').val('=');
+            }
         });
+
 
         $("#endDate").datepicker({
             dateFormat: dateFormatString,
             changeMonth: true,
             changeYear: true,
             yearRange: '-100y:c+nn',
-            maxDate: 'd'
+            onSelect: function () {
+                
+                $("#operatorEndDate").val("=");
+                $('#operatorEndDate').html(' = '); $('#operatorEndDate').val('=');
+            }
+            
         });
 
         $("#dateI").datepicker({
@@ -872,7 +891,12 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '-100y:c+nn',
-            maxDate: 'd'
+            maxDate: 'd',
+            onSelect: function () {
+                
+                $("#operatorDateI").val("=");
+                $('#operatorDateI').html(' = '); $('#operatorDateI').val('=');
+            }
         });
 
         $("#dateS").datepicker({
@@ -880,7 +904,12 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '-100y:c+nn',
-            maxDate: 'd'
+            maxDate: 'd',
+            onSelect: function () {
+                
+                $("#operatorDateS").val("=");
+                $('#operatorDateS').html(' = '); $('#operatorDateS').val('=');
+        }
         });
 
         $("#startDate1").datepicker({
@@ -888,7 +917,12 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '-100y:c+nn',
-            maxDate: 'd'
+            maxDate: 'd',
+            onSelect: function () {
+
+                $("#operatorStartDate1").val("=");
+                $('#operatorStartDate1').html(' = '); $('#operatorStartDate1').val('=');
+            }
         });
 
         $("#endDate1").datepicker({
@@ -896,15 +930,27 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '-100y:c+nn',
-            maxDate: 'd'
+            onSelect: function () {
+
+                $("#operatorEndDate1").val("=");
+                $('#operatorEndDate1').html(' = '); $('#operatorEndDate1').val('=');
+            }
+
+          
         });
+
 
         $("#DateAdded").datepicker({
             dateFormat: dateFormatString,
             changeMonth: true,
             changeYear: true,
             yearRange: '-100y:c+nn',
-            maxDate: 'd'
+            maxDate: 'd',
+            onSelect: function () {
+
+                $("#operatorDateAdded").val("=");
+                $('#operatorDateAdded').html(' = '); $('#operatorDateAdded').val('=');
+        }
         });
 
         $(".hover-tooltip button").tooltip('show');
@@ -1266,7 +1312,7 @@
                 window.location.href = urlString;
             }
          });
-
+    
     };
 
     function ShowClientsSearchResultsInExcel() {
@@ -1284,7 +1330,7 @@
                 window.location.href = urlString;
             }
     });
-
+    
     };
 
     function ShowRegisteredUsersSearchResultsInExcel() {
@@ -1302,7 +1348,7 @@
                 window.location.href = urlString;
             }
     });
-
+    
     };
 
     function SearchPolycies() {
@@ -1821,4 +1867,6 @@
         $("#tablePoliciesHolders").css("display", "table");
 
     };
+
+   
 </script>
