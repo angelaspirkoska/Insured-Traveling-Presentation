@@ -113,7 +113,7 @@ namespace InsuredTraveling.Controllers
         [HttpGet]
         
         [Route("GetChats")]
-        public JObject GetChats(string username, string chatId, string filter)
+        public JObject GetChats(string username, string chatId, bool all, string filter)
         {
             JObject result = new JObject();
             List<chat_requests> chats = new List<chat_requests>();

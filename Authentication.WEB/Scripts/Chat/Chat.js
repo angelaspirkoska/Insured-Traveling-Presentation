@@ -24,6 +24,7 @@ function prepareSocket() {
     });
 
     hProxy.on("MessageRequest", function (MessageRequestsDTO) {
+        console.log("pristignaa");
         var numberRequests = MessageRequestsDTO.RequestNumber;       
         $("#ul_alerts").empty();
         if (numberRequests !== 0)
