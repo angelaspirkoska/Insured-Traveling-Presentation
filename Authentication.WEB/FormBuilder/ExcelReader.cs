@@ -18,7 +18,9 @@ namespace InsuredTraveling.FormBuilder
             ExcelPackage pck = new ExcelPackage(new FileInfo(path));
             var result = CreateForm(pck);
             var functions = DetermineFunction(pck);
-            var procedures = DetermineProcedures(pck);
+            var procedures = DetermineProcedure(pck);
+            var functionsStrings = GenerateStringFunctions(functions);
+            var proceduresStrings = GenerateStringProcedures(procedures);
             return result;
         }
         public static List<Function> DetermineFunction(ExcelPackage pck)
@@ -26,18 +28,18 @@ namespace InsuredTraveling.FormBuilder
             ExcelWorksheet worksheet = pck.Workbook.Worksheets["ConfigurationSetup"];
             int row = 1;
             List<Function> functions = new List<Function>();
-            string functionName = worksheet.Cells[row, helperFunctions - 1].Value.ToString();
+           
             for (row = 2; worksheet.Cells[row, helperFunctions].Value != null; row++)
                 {
+               
                 Function result = null;
                 if (!worksheet.Cells[row, helperFunctions].Value.ToString().Equals("empty")){
                     var formula = worksheet.Cells[row, helperFunctions].Formula;
-                    
+                    string functionName = worksheet.Cells[row, helperFunctions - 1].Value.ToString();
                     if (formula.ToUpper().StartsWith("DGET"))
                     {
                         result = new Dget();
-                        result.Resolver(formula, functionName, pck, worksheet);    
-                        result.ToString();           
+                        result.Resolver(formula, functionName, pck, worksheet);             
                     }
                     else if (formula.ToUpper().StartsWith("IF"))
                     {
@@ -64,9 +66,8 @@ namespace InsuredTraveling.FormBuilder
                
             }
             return functions;
-        }
-        
-        public static List<Function> DetermineProcedures(ExcelPackage pck)
+        }     
+        public static List<Function> DetermineProcedure(ExcelPackage pck)
         {
             ExcelWorksheet worksheet = pck.Workbook.Worksheets["ConfigurationSetup"];
             List<Function> proceduresList = new List<Function>();
@@ -88,7 +89,6 @@ namespace InsuredTraveling.FormBuilder
                     {
                         result = new IfCondition();
                         result.ResolverProcedure(formula, row, procedures, helperFunctions, pck, worksheet);
-                        result.ToString();
                     }
                     else if (formula.ToUpper().StartsWith("EXACT"))
                     {
@@ -110,6 +110,26 @@ namespace InsuredTraveling.FormBuilder
 
             }
             return proceduresList;
+        }
+        public static List<string> GenerateStringFunctions(List<Function> functions)
+        {
+            List<string> generatedStringFunctions = new List<string>();
+            foreach(Function function in functions)
+            {
+                generatedStringFunctions.Add(function.Name + function.ToString());
+                // add to database!
+            }
+            return generatedStringFunctions;
+        }
+        public static List<string> GenerateStringProcedures(List<Function> procedures)
+        {
+            List<string> generatedStringProcedures = new List<string>();
+            foreach (Function procedure in procedures)
+            {
+                generatedStringProcedures.Add(procedure.Name + procedure.ToString());
+                // add to database!
+            }
+            return generatedStringProcedures;
         }
         public static HtmlString CreateForm(ExcelPackage pck)
         {
@@ -424,7 +444,7 @@ namespace InsuredTraveling.FormBuilder
         {
             StringBuilder result = new StringBuilder();
             result.Append("DGET(");
-              int i, j = 0;
+              int i = 0;
               for(i = 0; i < DatabaseRows - 1; i++)
                 {
                 result.Append(Database[i, 0] + ";");
@@ -435,7 +455,7 @@ namespace InsuredTraveling.FormBuilder
             {
                     result.Append(ParametersNameAndInputValue[i, 0] + ";"); 
             }         
-                result.Append(ParametersNameAndInputValue[ParametersNameAndInputValueRows - 1, 0]);
+                result.Append(ParametersNameAndInputValue[ParametersNameAndInputValueRows - 1, 0] + ")");
 
             return result.ToString();
         }
@@ -779,7 +799,7 @@ namespace InsuredTraveling.FormBuilder
                 Number = formulaSplitted[0].TrimEnd().TrimStart();
             }
 
-            if (RoundTo == "")
+            if (String.IsNullOrEmpty(RoundTo))
             {      
             match = regex.Match(formulaSplitted[1].TrimEnd().TrimStart());
             if (match.Success && !formulaSplitted[1].Contains('.'))
@@ -802,7 +822,7 @@ namespace InsuredTraveling.FormBuilder
         }
         public override string ToString()
         {
-            if(RoundTo.Equals("UP") || RoundTo.Equals("DOWN"))
+            if(RoundTo.Contains("UP") || RoundTo.Contains("DOWN"))
             {
                 return "ROUND" + RoundTo + "("+Number+")";
             }
@@ -888,7 +908,7 @@ namespace InsuredTraveling.FormBuilder
         }
         public override string ToString()
         {
-            return "(" + LeftOperand + " Exact " + RightOperand + ")";
+            return "(" + LeftOperand + " EXACT " + RightOperand + ")";
         }
     }
 }
