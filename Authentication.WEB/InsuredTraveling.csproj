@@ -447,6 +447,7 @@
     <Compile Include="Controllers\FirstNoticeOfLossController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValidateMailController.cs" />
     <Compile Include="countries_name.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
@@ -807,6 +808,7 @@
     <Content Include="Views\SignUp\CreateUser.cshtml" />
     <Content Include="Views\Search\EditUser.cshtml" />
     <Content Include="Views\Policy\Preview.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
