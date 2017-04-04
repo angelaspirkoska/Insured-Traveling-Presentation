@@ -76,7 +76,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-4">
                 <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchUsers()" type="button" style="float:left;" />
@@ -228,7 +227,6 @@
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                @*<li onclick="$('#operatorStartDate').html(' All '); $('#operatorStartDate').val('All');">All</li>*@
                                 <li onclick="$('#operatorStartDate').html(' = '); $('#operatorStartDate').val('=');">=</li>
                                 <li onclick="$('#operatorStartDate').html(' < '); $('#operatorStartDate').val('<');">&lt</li>
                                 <li onclick="$('#operatorStartDate').html(' > '); $('#operatorStartDate').val('>');">&gt</li>
@@ -248,7 +246,6 @@
                                 = <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-
                                 <li onclick="$('#operatorEndDate').html(' = '); $('#operatorEndDate').val('=');">=</li>
                                 <li onclick="$('#operatorEndDate').html(' < '); $('#operatorEndDate').val('<');">&lt</li>
                                 <li onclick="$('#operatorEndDate').html(' > '); $('#operatorEndDate').val('>');">&gt</li>
@@ -867,7 +864,7 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '-100y:c+nn',
-            
+            maxDate: 'd'
         });
 
         $("#dateI").datepicker({
@@ -899,13 +896,8 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '-100y:c+nn',
-<<<<<<< HEAD
-            //maxDate: 'd'
-        }); 
-=======
             maxDate: 'd'
         });
->>>>>>> origin/master
 
         $("#DateAdded").datepicker({
             dateFormat: dateFormatString,
@@ -1274,7 +1266,7 @@
                 window.location.href = urlString;
             }
          });
-    
+
     };
 
     function ShowClientsSearchResultsInExcel() {
@@ -1292,7 +1284,7 @@
                 window.location.href = urlString;
             }
     });
-    
+
     };
 
     function ShowRegisteredUsersSearchResultsInExcel() {
@@ -1310,7 +1302,7 @@
                 window.location.href = urlString;
             }
     });
-    
+
     };
 
     function SearchPolycies() {
