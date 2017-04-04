@@ -1219,9 +1219,10 @@
             scrollTop: $("#tableChats").offset().top
         }, 800);
         $("#tableChats").DataTable().destroy();
+        console.log("kako se prakja/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&all=" + $("#all option:selected").val());
         $("#tableChats").DataTable({
             dom: "Bfrtip",
-            ajax: "/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&all=" + $("#all option:selected").val(),
+            ajax: "/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&filter=" + $("#all option:selected").val(),
             columns: [
                 { data: "chatId" },
                 { data: "chatWith" },
