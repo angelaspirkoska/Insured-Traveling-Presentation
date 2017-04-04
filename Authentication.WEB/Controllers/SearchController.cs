@@ -325,7 +325,18 @@ namespace InsuredTraveling.Controllers
             List<travel_policy> data = new List<travel_policy>();
             DateTime dateFromGettingPolicies = DateTime.Now.AddDays(days);
 
-            data = _ps.GetBrokersExpiringPolicies(logUser, dateFromGettingPolicies);
+           if (_roleAuthorize.IsUser("Broker"))
+           {
+                data = _ps.GetBrokersExpiringPolicies(logUser, dateFromGettingPolicies);
+
+            }else if (_roleAuthorize.IsUser("Broker manager"))
+            {
+                data = _ps.GetBrokerManagerExpiringPolicies(logUser, dateFromGettingPolicies);
+
+            }else if (_roleAuthorize.IsUser("End user"))
+            {
+                data = _ps.GetEndUserExpiringPolicies(logUser, dateFromGettingPolicies);
+            }
 
             var jsonObject = new JObject();           
 

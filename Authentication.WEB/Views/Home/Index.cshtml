@@ -4,8 +4,6 @@
     RoleAuthorize r = new RoleAuthorize();
 }
 
-@if (!(r.IsUser("Broker") || r.IsUser("Broker manager")))
-{
     <div class="row">
         <div class="container">
             <br>
@@ -49,8 +47,7 @@
             </div>
         </div>
     </div>
-}
-else
+@if ((r.IsUser("Broker") || r.IsUser("Broker manager") || r.IsUser("End user")))
 {
     <div id="searchExpiringPolicy" style="margin-top: 30px;">
         <div class="row">
@@ -98,8 +95,8 @@ else
         $("#DaysBeforeExpiring").val(7);
         $("#tablePolicies").DataTable().destroy();
         $("#tablePolicies").DataTable();
-        SearchPoliciesExpiring();
-    });
+    SearchPoliciesExpiring();
+});
 
     function SearchPoliciesExpiring() {
         $("#tablePolicies").DataTable().destroy();

@@ -11,6 +11,7 @@ namespace InsuredTraveling.DI
 {
    public interface IPolicyService
    {
+        List<travel_policy> GetEndUserExpiringPolicies(string userId, DateTime dateFrom);
         List<travel_policy> GetBrokerManagerQuotes(string userId, DateTime dateFrom);
         List<travel_policy> GetBrokerManagerPolicies(string userId, DateTime dateFrom);
         List<travel_policy> GetBrokerManagerExpiringPolicies(string userId, DateTime dateFrom);
