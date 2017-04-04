@@ -113,7 +113,7 @@ namespace InsuredTraveling.Controllers
         [HttpGet]
         
         [Route("GetChats")]
-        public JObject GetChats(string username, string chatId, bool all, bool active, bool discarded, bool noticed)
+        public JObject GetChats(string username, string chatId, bool all, string filter)
         {
             JObject result = new JObject();
             List<chat_requests> chats = new List<chat_requests>();
@@ -143,17 +143,17 @@ namespace InsuredTraveling.Controllers
                 chats = chats.Where(x => x.ID == Int32.Parse(chatId)).ToList();
             }
 
-            if(!all)
+            if(!filter.Equals("all"))
             {
-                if (active)
+                if (filter.Equals("active"))
                 {
                     chats = chats.Where(x => x.fnol_created == false && x.discarded == false && x.Accepted == true).ToList();
                 }
-                else if (discarded)
+                else if (filter.Equals("discarded"))
                 {
                     chats = chats.Where(x => x.fnol_created == false && x.discarded == true && x.Accepted == true).ToList();
                 }
-                else if (noticed)
+                else if (filter.Equals("noticed"))
                 {
                     chats = chats.Where(x => x.fnol_created == true && x.discarded == false && x.Accepted == true).ToList();
                 }
