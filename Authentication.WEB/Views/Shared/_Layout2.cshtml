@@ -92,9 +92,24 @@
                         <li><a href="#" id="welcome">@System.Web.HttpContext.Current.User.Identity.Name</a></li>
                         <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken"> @InsuredTraveling.Resource.LogOut </a></li>
                     }
-                    else
+                    else if (@HttpContext.Current.Request.Url.AbsolutePath == "/Login")
                     {
                         <li><a></a></li>
+                        <li></li>
+
+                        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp" id="signup"> @InsuredTraveling.Resource.SignUp</a></li>
+
+                    }
+                    else if (@HttpContext.Current.Request.Url.AbsolutePath == "/SignUp")
+                    {
+
+                        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login"> @InsuredTraveling.Resource.Login</a></li>
+
+
+
+                    }
+                    else
+                    {
                         <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login"> @InsuredTraveling.Resource.Login</a></li>
                         <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp" id="signup"> @InsuredTraveling.Resource.SignUp</a></li>
                     }
