@@ -309,6 +309,7 @@ namespace InsuredTraveling.Controllers
         [AllowAnonymous]
         public IHttpActionResult DeleteToken()
         {
+            
             if (HttpContext.Current.Request.Cookies["token"] != null)
             {
                 var token = HttpContext.Current.Request.Cookies["token"];
@@ -319,7 +320,7 @@ namespace InsuredTraveling.Controllers
 
             }
 
-            if (HttpContext.Current.Request.Cookies["refresh_token"] == null)
+            if (HttpContext.Current.Request.Cookies["refresh_token"] != null)
             {
                 var refresh_token = HttpContext.Current.Request.Cookies["refresh_token"];
                 refresh_token.Expires = DateTime.Now.AddYears(-1);
