@@ -259,8 +259,10 @@ namespace InsuredTraveling.DI
 
         public List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string PolicyNumber)
         {
-            return _db.travel_policy.Where(x =>  (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
-                                    (Country == null || x.CountryID == Country.Value)).ToList();
+            return _db.travel_policy.Where(x =>  (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && 
+                                                 (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
+                                                 (Country == null || x.CountryID == Country.Value) &&
+                                                 x.Payment_Status == true).ToList();
         }
 
         public List<travel_policy> GetQuotesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string PolicyNumber)
