@@ -1338,4 +1338,7 @@
   <data name="Home_MyProfile" xml:space="preserve">
     <value>Мој профил</value>
   </data>
+  <data name="Msg_EmptyUsernameOrPassword" xml:space="preserve">
+    <value>Полето за корисничко име и/или лозинка е празно</value>
+  </data>
 </root>

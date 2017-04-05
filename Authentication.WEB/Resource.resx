@@ -1344,4 +1344,7 @@
   <data name="Home_MyProfile" xml:space="preserve">
     <value>My Profile</value>
   </data>
+  <data name="Msg_EmptyUsernameOrPassword" xml:space="preserve">
+    <value>The username or/and password field is empty</value>
+  </data>
 </root>

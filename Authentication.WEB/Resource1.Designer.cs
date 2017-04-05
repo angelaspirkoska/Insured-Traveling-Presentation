@@ -1330,6 +1330,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The username or/and password field is empty.
+        /// </summary>
+        public static string Msg_EmptyUsernameOrPassword {
+            get {
+                return ResourceManager.GetString("Msg_EmptyUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The username or password is incorrect. Please try again..
         /// </summary>
         public static string Msg_IncorrectUserPass {
