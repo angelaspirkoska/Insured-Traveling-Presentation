@@ -9,6 +9,7 @@
     var isClaimsAdjuster = r.IsUser("Claims adjuster");
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
     var isBrokerManager = r.IsUser("Broker manager");
+    var isBroker = r.IsUser("Broker");
     var isAdmin = r.IsUser("Admin");
     var isEndUser = r.IsUser("End user");
     var dateTime = ConfigurationManager.AppSettings["DateFormat"];
@@ -19,7 +20,7 @@
 <ul class="nav nav-pills">
     <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
     <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
-    @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBrokerManager)
+    @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBroker)
     {
         <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
     }
