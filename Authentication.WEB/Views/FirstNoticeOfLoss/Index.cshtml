@@ -732,7 +732,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 $('#relationship').prop('readonly', true);
 
                 $("#PolicyHolderId").attr("value", "");
-                $("#PolicyHolderName").attr("value", " ");
+                $("#PolicyHolderName").attr("value", "");
                 $("#PolicyHolderName").attr("IdPolicyHolder", "");
                 $("#PolicyHolderPhone").attr("value", "");
                 $("#PolicyHolderSSN").attr("value", "");
@@ -752,12 +752,14 @@ else if (ViewBag.insurance == "Luggage Insurance")
 
         $("#SelectForeignBankAccountHolder").on('click', function () {
             $("#ForeignBankAccount").prop("checked", true);
-            $("#TransactionAccount").prop("value", " ");
+            $("#TransactionAccount").prop("value", "");
+            $("#deponent").prop('readonly', false);
         });
 
         $("#SelectForeignBankAccountInsured").on('click', function () {
             $("#ForeignBankAccountInsured").prop("checked", true);
-            $("#insuredTransactionAccount").prop("value", " ");
+            $("#insuredTransactionAccount").prop("value", "");
+            $("#deponentInsured").prop('readonly', false);
         });
 
         $("#TransactionAccount, #insuredTransactionAccount, #TotalCost, #FloatersValue").keydown(function (e) {
@@ -871,8 +873,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $('#DropDownBankAccountPolicyHolder').show();
             $('#TransactionAccount').prop('readonly', true);
             $('#deponent').prop('readonly', true);
-            $("#TransactionAccount").prop("value", " ");
-            $("#deponent").prop("value", " ");
+            $("#TransactionAccount").prop("value", "");
+            $("#deponent").prop("value", "");
             $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false)
         }
         else {
@@ -897,8 +899,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $('#DropDownBankAccountInsured').show();
             $('#insuredTransactionAccount').prop('readonly', true);
             $('#deponentInsured').prop('readonly', true);
-            $("#insuredTransactionAccount").prop("value", " ");
-            $("#deponentInsured").prop("value", " ");
+            $("#insuredTransactionAccount").prop("value", "");
+            $("#deponentInsured").prop("value", "");
             $("#DropDownBankAccountInsured option:selected").prop("selected", false)
         }
         else {
@@ -973,7 +975,9 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 var validBank = false;
                 $.each(Banks, function (key, value) {
                     if (value.Prefix == prefixTillNow) {
+                        
                         $('#deponent').attr('value', value.BankName);
+                        $('#deponent').val(value.BankName);
                         validBank = true;
                     }
                 });
@@ -981,7 +985,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     if (($('#ForeignBankAccount').is(':checked')) || ($("#ExistentBankAccount").is(':checked'))) {
 
                     } else {
-                        $('#deponent').attr('value', " ");
+                        $('#deponent').attr('value', "");
                         $("#modalHolder").modal("show");
                     }
 
@@ -1002,6 +1006,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 $.each(Banks, function (key, value) {
                     if (value.Prefix == prefixTillNow) {
                         $('#deponentInsured').attr('value', value.BankName);
+                        $('#deponentInsured').val(value.BankName);
                         validBank = true;
                     }
                 });
@@ -1009,7 +1014,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     if (($('#ForeignBankAccountInsured').is(':checked')) || ($("#ExistentBankAccountInsured").is(':checked'))) {
 
                     } else {
-                        $('#deponentInsured').attr('value', " ");
+                        $('#deponentInsured').attr('value', "");
                         $("#modalInsured").modal("show");
                     }
 
