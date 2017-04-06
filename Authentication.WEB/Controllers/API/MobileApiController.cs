@@ -14,6 +14,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Configuration;
+using Authentication.WEB.Models;
+using System.Net.Http.Headers;
+using System.Net.Http.Formatting;
+
 
 namespace InsuredTraveling.Controllers.API
 {
@@ -37,29 +41,30 @@ namespace InsuredTraveling.Controllers.API
         private IExchangeRateService _exch;
         private IFranchiseService _fran;
         private ITravelNumberService _tn;
-
+        private IOkSetupService _os;
         public MobileApiController()
         {
 
         }
 
-        public MobileApiController(IUserService us, 
-                                   IPolicyInsuredService pis, 
-                                   IAdditionalChargesService acs, 
-                                   IPolicyService ps, 
-                                   IFirstNoticeOfLossService fnls, 
-                                   IHealthInsuranceService his, 
-                                   ILuggageInsuranceService lis, 
-                                   IOkSetupService oss, 
-                                   IBankAccountService bas, 
-                                   IInsuredsService iss, 
-                                   IFirstNoticeOfLossService fis, 
-                                   IPolicyTypeService pts, 
-                                   IAdditionalInfoService ais, 
+        public MobileApiController(IUserService us,
+                                   IPolicyInsuredService pis,
+                                   IAdditionalChargesService acs,
+                                   IPolicyService ps,
+                                   IFirstNoticeOfLossService fnls,
+                                   IHealthInsuranceService his,
+                                   ILuggageInsuranceService lis,
+                                   IOkSetupService oss,
+                                   IBankAccountService bas,
+                                   IInsuredsService iss,
+                                   IFirstNoticeOfLossService fis,
+                                   IPolicyTypeService pts,
+                                   IAdditionalInfoService ais,
                                    ICountryService coun,
-                                   IExchangeRateService exch, 
+                                   IExchangeRateService exch,
                                    IFranchiseService fran,
-                                   ITravelNumberService tn)
+                                   ITravelNumberService tn,
+                                   IOkSetupService os)
         {
             _ps = ps;
             _us = us;
@@ -78,6 +83,20 @@ namespace InsuredTraveling.Controllers.API
             _exch = exch;
             _fran = fran;
             _tn = tn;
+            _os = os;
+        }
+
+        [Route("IsUserVerified")]
+        public JObject IsUserVerified(UserDTO model)
+        {
+            JObject data = new JObject();
+
+            aspnetuser user = _us.GetUserDataByUsername(model.username);
+
+            data.Add("email", user.EmailConfirmed == true ? true : false);
+            data.Add("phone", user.PhoneNumberConfirmed == true ? true : false);
+
+            return data;
         }
 
         [Route("RetrieveUserInfo")]
@@ -209,7 +228,7 @@ namespace InsuredTraveling.Controllers.API
             }
             data.Add("policy", userPolicies);
 
-           // user's quotes
+            // user's quotes
             JArray userQuotes = new JArray();
             travel_policy[] quotes = _ps.GetPolicyNotPayedByUsernameId(user.Id);
             foreach (travel_policy policy in quotes)
@@ -418,7 +437,7 @@ namespace InsuredTraveling.Controllers.API
                     foreach (var invoice in allInvoices)
                     {
                         var invoiceObject = new JObject();
-                        invoiceObject.Add("invoicePath" , ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/Invoices/" + invoice);
+                        invoiceObject.Add("invoicePath", ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/Invoices/" + invoice);
                         invoices.Add(invoiceObject);
                     }
                     fnolObject.Add("invoices", invoices);
@@ -428,7 +447,7 @@ namespace InsuredTraveling.Controllers.API
                     foreach (var doc in allDoc)
                     {
                         var document = new JObject();
-                        document.Add("documentPath" , healthInsurance != null ? ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/HealthInsurance/" + doc : ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + doc);
+                        document.Add("documentPath", healthInsurance != null ? ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/HealthInsurance/" + doc : ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + doc);
                         documents.Add(document);
                     }
 
@@ -461,51 +480,10 @@ namespace InsuredTraveling.Controllers.API
         }
 
         [HttpPost]
-        [Route("ReportLoss")]
-        public IHttpActionResult ReportLoss(FirstNoticeOfLossReportViewModel f)
-        {
-            if (f.ShortDetailed == true)
-            {
-
-                first_notice_of_loss f1 = _fnls.Create();
-                var user = _ps.GetPolicyHolderByPolicyID(f1.PolicyId);
-                f1.travel_policy.Policy_HolderID = user.ID;
-                f1.ChatId = f.ChatId;
-                f1.travel_policy.Policy_Number = f.PolicyNumber.ToString();
-                f1.Web_Mobile = f.isMobile;
-                try
-                {
-                    _fnls.Add(f1);
-
-                }
-                catch (Exception ex)
-                {
-                    return InternalServerError(ex);
-                }
-                return Ok();
-            }
-            else
-            {
-                var user = _ps.GetPolicyHolderByPolicyID(_ps.GetPolicyIdByPolicyNumber(f.PolicyNumber.ToString()).ID);
-                if (user == null)
-                    throw new Exception("Policy not found");
-                f.PolicyHolderId = user.ID;
-
-                var result = SaveFirstNoticeOfLossHelper.SaveFirstNoticeOfLoss(_iss, _us, _fis,
-                                                    _bas, _pts, _ais, f, null, null, null);
-
-                if (result > 0)
-                    return Ok();
-
-                else throw new Exception("Internal error: Not saved");
-            }
-        }
-
-        [HttpPost]
         [Route("ReportDetailLoss")]
         public JObject ReportDetailLoss(DetailFirstNoticeOfLossViewModel addLoss)
         {
-            if(addLoss == null)
+            if (addLoss == null)
             {
                 throw new Exception("Internal error: Empty Loss");
             }
@@ -524,18 +502,78 @@ namespace InsuredTraveling.Controllers.API
         }
 
         [HttpPost]
-        [Route("CreatePolicy")]
-        public IHttpActionResult CreatePolicy(AddPolicyMobileViewModel addPolicy)
+        [Route("CreateQuote")]
+        public IHttpActionResult CreateQuote(AddPolicyMobileViewModel addPolicy)
         {
-            if(addPolicy == null)
+            if (addPolicy == null)
             {
                 throw new Exception("Internal error: Empty Policy");
             }
-            bool result = SavePolicyHelper.SavePolicyFromMobile(addPolicy, _ps, _us, _iss, _pis, _acs);
-            if (result)
-                return Ok();
+            int result = SavePolicyHelper.SavePolicyFromMobile(addPolicy, _ps, _us, _iss, _pis, _acs);
+            if (result != -1)
+                return Ok(new { QuoteID = result });
             else throw new Exception("Internal error: Not saved");
         }
+
+        //If not used from mobile app, delete it
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("ExistsPolicy")]
+        public IHttpActionResult ExistsPolicy(Policy policy)
+        {
+            if (policy.Policy_Number == null || policy.Policy_Number == "")
+            {
+                throw new Exception("Internal error: Empty Input");
+            }
+            try
+            {
+                var result = _ps.GetPolicyIdByPolicyNumber(policy.Policy_Number);
+                if (result == null)
+                {
+                    var myCustomMessage = "Policy/Quote doesn't exists";
+                    return ResponseMessage(
+                        Request.CreateResponse(
+                            HttpStatusCode.NotFound,
+                            myCustomMessage
+                        ));
+
+
+                }
+                else return ResponseMessage(
+                       Request.CreateResponse(
+                           HttpStatusCode.Found,
+                           "Found " + policy.Policy_Number
+                       ));
+
+            }
+            catch
+            {
+                throw new Exception("Internal error");
+            }
+
+        }
+
+        [HttpPost]
+        [Route("CreatePolicy")]
+        public IHttpActionResult CreatePolicy(Policy policy)
+        {
+            if (policy.Policy_Number == null || policy.Policy_Number == "")
+            {
+                throw new Exception("Internal error: Empty Policy");
+            }
+            try
+            {
+                _ps.UpdatePaymentStatus(policy.Policy_Number);
+                return Ok();
+            }
+            catch
+            {
+                throw new Exception("Internal error: Payment status not changed");
+            }
+
+        }
+
+
 
         [HttpPost]
         [Route("GetDefaultData")]
@@ -700,7 +738,7 @@ namespace InsuredTraveling.Controllers.API
                 }
                 return Ok();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception("Internal error: Not saved");
             }
@@ -765,5 +803,71 @@ namespace InsuredTraveling.Controllers.API
                 throw new Exception("Internal error: Not saved");
             }
         }
+
+        [HttpPost]
+        [Route("Payment")]
+        public async Task<HttpResponseMessage> MobilePayment(CreditCardInfoModel paymentModel)
+        {
+
+            ok_setup LastEntry = _os.GetLast();
+            if (LastEntry.TestPayment == 1)
+            {
+
+                if (paymentModel.OrderId.HasValue)
+                {
+                    try
+                    {
+                        string quoteNumber = _ps.GetPolicyNumberByPolicyId(paymentModel.OrderId.Value);
+                        _ps.UpdatePaymentStatus(quoteNumber);
+                        HttpError myCustomError = new HttpError("File successfuly.") { { "Is3DSecure", false }, { "Response", "{'TRANID':'','PAResSyntaxOK':'false','islemtipi':'Auth','refreshtime':'10','lang':'mk','merchantID':'180000069','amount':'500','sID':'1','ACQBIN':'435742','Ecom_Payment_Card_ExpDate_Year':'20','MaskedPan':'429724***4937','clientIp':'88.85.116.22','iReqDetail':'','okUrl':'https://localhost:44375/api/HalkbankPayment/Handle','md':'429724:B1BFD1386EE5C99F997854210EFE15930334DF46EC90BC7994AB81564537D7CE:4274:##180000069','ProcReturnCode':'99','taksit':'','vendorCode':'','paresTxStatus':'-','Ecom_Payment_Card_ExpDate_Month':'02','storetype':'3D_PAY_HOSTING','iReqCode':'','veresEnrolledStatus':'N','Response':'Approved','mdErrorMsg':'N-status/Not enrolled from Directory Server: http://katmai:8080/mdpayacs/vereq','ErrMsg':'Нарачката е веќе платена','PAResVerified':'false','cavv':'','digest':'digest','failUrl':'https://localhost:44375/api/HalkbankPayment/Handle','cavvAlgorithm':'','xid':'C5BphugnaeXHj26RXrVOyR91QFA=','encoding':'UTF-8','currency':'807','oid':'23011','mdStatus':'2','dsId':'1','eci':'','version':'2.0','clientid':'180000069','txstatus':'N','HASH':'UAMehE7tsfURlS4d8udtWa3m+C4=','rnd':'SIUIAvmeELilibPLVdFW','HASHPARAMS':'clientid:oid:AuthCode:ProcReturnCode:Response:mdStatus:cavv:eci:md:rnd:','HASHPARAMSVAL':'1800000692301199Declined2429724:B1BFD1386EE5C99F997854210EFE15930334DF46EC90BC7994AB81564537D7CE:4274:##180000069SIUIAvmeELilibPLVdFW'}" } } ;
+                        return Request.CreateErrorResponse(HttpStatusCode.OK, myCustomError);
+                       
+                    }
+                    catch
+                    {
+                        throw new Exception("Internal error: Payment status not changed, Connection to Database timeout");
+                    }
+
+                }
+                else
+                {
+                    throw new Exception("Internal error: Empty Policy");
+                }
+            }
+            else if (LastEntry.TestPayment == 0)
+            {
+                try
+                {
+                    return HalkBankPayment(paymentModel);
+                }
+                catch
+                {
+                    throw new Exception("Internal error: Can`t access HalkBank Payment api");
+                }
+            }
+            
+
+            else
+            {
+                throw new Exception("No valid method for payment.");
+            }
+
+        }
+        public HttpResponseMessage HalkBankPayment(CreditCardInfoModel paymenyModel)
+        {
+
+         
+            Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/halkbankpayment/pay");
+            HttpClient client = new HttpClient();
+            client.BaseAddress = uri;
+            var mediaType = new MediaTypeHeaderValue("application/json");
+            var jsonFormatter = new JsonMediaTypeFormatter();
+            HttpContent content = new ObjectContent<CreditCardInfoModel>(paymenyModel, jsonFormatter);
+            HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
+            return responseMessage;
+        }
+
+
     }
 }
+

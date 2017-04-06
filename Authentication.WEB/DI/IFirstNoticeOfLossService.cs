@@ -8,8 +8,15 @@ namespace InsuredTraveling.DI
 {
     public interface IFirstNoticeOfLossService
     {
+        List<first_notice_of_loss> GetBrokeManagerFnols(string userId, DateTime dateFrom);
+        List<first_notice_of_loss> GetFNOLForBrokerManagerBySearchValues(string username, string PolicyNumber,
+            string FNOLNumber, string holderName, string holderLastName, string clientName, string clientLastName,
+            string insuredName, string insuredLastName, string totalPrice, string healthInsurance,
+            string luggageInsurance);
+        List<first_notice_of_loss> GetBrokersFnols(string userId, DateTime dateFrom);
         List<first_notice_of_loss> GetAll();
         List<first_notice_of_loss> GetFNOLBySearchValues(string PolicyNumber, string FNOLNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance);
+        List<first_notice_of_loss> GetFNOLForBrokerBySearchValues(string username, string PolicyNumber, string FNOLNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance);
         List<first_notice_of_loss> GetFNOLBySearchValues(string username, string PolicyNumber, string FNOLNumber, string holderName, string holderLastName, string clientName, string clientLastName, string insuredName, string insuredLastName, string totalPrice, string healthInsurance, string luggageInsurance);
         luggage_insurance_info isHealthInsurance(int lossId);
         first_notice_of_loss GetById(int id);
@@ -28,7 +35,8 @@ namespace InsuredTraveling.DI
         void UpdateClaimantBankAccountId(int fnolId, int bankAccountId);
         void UpdatePolicyHolderBankAccountId(int fnolId, int bankAccountId);
         void Update(first_notice_of_loss newFnol);
-        int Archive(first_notice_of_loss_archive archiveFnol);
         string CreateFNOLNumber();
+
+        int LastDocumentId();
     }
 }

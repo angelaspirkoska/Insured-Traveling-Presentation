@@ -19,8 +19,8 @@ namespace InsuredTraveling.App_Start
 
                 UriBuilder uriBuilder = new UriBuilder(actionContext.Request.RequestUri);
                 uriBuilder.Scheme = Uri.UriSchemeHttps;
-                
-                if(actionContext.Request.IsLocal())
+
+                if (actionContext.Request.IsLocal())
                 {
                     uriBuilder.Port = 44375;
                 }

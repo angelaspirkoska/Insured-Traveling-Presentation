@@ -8,6 +8,7 @@ using InsuredTraveling.Controllers;
 using System.IO;
 using System.Web;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace Authentication.WEB.Controllers
 {
@@ -25,6 +26,8 @@ namespace Authentication.WEB.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
             IQueryable<news_all> news = _ns.GetAllNews();
             return View(news);
         }
@@ -32,9 +35,13 @@ namespace Authentication.WEB.Controllers
         public ActionResult AddNews(HttpPostedFileBase newsImage, string newsTitle = null, string newsContent = null, bool newsIsNotification = false)
         {
             if (newsImage == null || newsTitle == null || newsContent == null || newsTitle == "" || newsContent == "")
-                return Json(new { Success = "False", Message = "All fields are required" }, JsonRequestBehavior.AllowGet); 
+                return Json(new { Success = "False", Message = "All fields are required" }, JsonRequestBehavior.AllowGet);
 
-            var path = @"~/News/" + newsImage.FileName;
+            var lastNewsId = _ns.LastNewsId() + 1;
+            string fileName = lastNewsId + "_" + newsImage.FileName;
+
+
+            var path = @"~/News/" + fileName;
             newsImage.SaveAs(Server.MapPath(path));
 
             news_all news = new news_all();
@@ -43,7 +50,7 @@ namespace Authentication.WEB.Controllers
             news.isNotification = newsIsNotification;
             news.DataCreated = DateTime.Now;
             news.InsuranceCompany = "Eurolink";
-            news.ImageLocation = newsImage.FileName;
+            news.ImageLocation = fileName;
 
             try
             {

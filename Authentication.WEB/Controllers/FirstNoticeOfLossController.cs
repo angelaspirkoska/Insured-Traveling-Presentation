@@ -12,6 +12,8 @@ using InsuredTraveling.Filters;
 using AutoMapper;
 using System.IO;
 using System.Linq;
+using System.Configuration;
+using System.Globalization;
 
 namespace InsuredTraveling.Controllers
 {
@@ -29,6 +31,7 @@ namespace InsuredTraveling.Controllers
         private IBankAccountService _bas;
         private IHealthInsuranceService _his;
         private ILuggageInsuranceService _lis;
+        private IFirstNoticeOfLossArchiveService _firstNoticeLossArchiveService;
         
         public FirstNoticeOfLossController(IUserService us, 
                                            IPolicyService ps, 
@@ -39,7 +42,8 @@ namespace InsuredTraveling.Controllers
                                            IPolicyTypeService pts, 
                                            IAdditionalInfoService ais, 
                                            IHealthInsuranceService his,
-                                           ILuggageInsuranceService lis)
+                                           ILuggageInsuranceService lis,
+                                           IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService)
         {
             _us = us;
             _ps = ps;
@@ -51,11 +55,14 @@ namespace InsuredTraveling.Controllers
             _fis = fis;
             _his = his;
             _lis = lis;
+            _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
         }
 
         [SessionExpire]
         public ActionResult Index(int? policyId)
         {
+            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
             if (policyId != null)
             {
                 var policy = _ps.GetPolicyById(Convert.ToInt32(policyId));
@@ -63,6 +70,17 @@ namespace InsuredTraveling.Controllers
             }
            
             return View();
+        }
+
+        [HttpGet]
+        public JsonResult GetBankName(int prefix)
+        {
+            string result = _bas.GetBankNameBasedOnPrefixNumber(prefix);
+            if (result != null)
+            {
+                return Json(new { success = true, responseText = result, bankName = result }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "Fail." }, JsonRequestBehavior.AllowGet);
         }
 
         [SessionExpire]
@@ -121,6 +139,10 @@ namespace InsuredTraveling.Controllers
                     return View();
                 }
             }
+            else
+            {
+                ViewBag.PolicyNumber = firstNoticeOfLossViewModel.PolicyNumber;
+            }
             return View(firstNoticeOfLossViewModel);
         }
 
@@ -142,26 +164,7 @@ namespace InsuredTraveling.Controllers
                 //documents and invoices
                 model.Invoices = new List<FileDescriptionViewModel>();
                 model.InsuranceInfoDoc = new List<FileDescriptionViewModel>();
-
-                var allInvoices = _fis.GetInvoiceDocumentName(model.Id);
-                foreach (var invoice in allInvoices)
-                {
-                    var file = new FileDescriptionViewModel();
-                    file.FileName = invoice;
-                    file.FilePath = "~/DocumentsFirstNoticeOfLoss/Invoices/" + file.FileName;
-                    model.Invoices.Add(file);
-                }
-
-                var isHealthInsurance = _fis.IsHealthInsuranceByAdditionalInfoId(data.Additional_infoID);
-                var allDoc = _fis.GetHealthLuggageDocumentName(model.Id);
-                foreach (var doc in allDoc)
-                {
-                    var file = new FileDescriptionViewModel();
-                    file.FileName = doc;
-                    file.FilePath = isHealthInsurance ? "~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + file.FileName : "~/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + file.FileName;
-                    model.InsuranceInfoDoc.Add(file);
-                }
-
+                model = GetAllDocuments(model);
             }          
             return View(model);
         }
@@ -171,11 +174,29 @@ namespace InsuredTraveling.Controllers
         [HttpPost]
         public ActionResult Edit(FirstNoticeOfLossEditViewModel model, IEnumerable<HttpPostedFileBase> invoices, IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
         {
+            if(model.AccidentDateTimeHealth < model.DepartDateTime || model.AccidentDateTimeHealth > model.ArrivalDateTime)
+            {
+                ViewBag.Message = InsuredTraveling.Resource.FNOL_AccidentDateTimeHealthWrongRange;
+                model = GetAllDocuments(model);
+                return View(model);
+            }
+            if (model.DoctorVisitDateTime < model.DepartDateTime || model.DoctorVisitDateTime > model.ArrivalDateTime)
+            {
+                ViewBag.Message = InsuredTraveling.Resource.FNOL_DoctorVisitDateTimehWrongRange;
+                model = GetAllDocuments(model);
+                return View(model);
+            }
+            if (model.AccidentDateTimeLuggage < model.DepartDateTime || model.AccidentDateTimeLuggage > model.ArrivalDateTime)
+            {
+                ViewBag.Message = InsuredTraveling.Resource.FNOL_AccidentDateTimeHealthWrongRange;
+                model = GetAllDocuments(model);
+                return View(model);
+            }
             model.PolicyHolderBankAccountNumber = model.PolicyHolderBankAccountNumber.Trim();
             model.ClaimantBankAccountNumber = model.ClaimantBankAccountNumber.Trim();
             model.ModifiedBy = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
 
-            UpdateFirstNoticeOfLossHelper.UpdateFirstNoticeOfLoss(model, _fis, _bas, _ais,  _his,  _lis, invoices, documentsHealth, documentsLuggage);
+            UpdateFirstNoticeOfLossHelper.UpdateFirstNoticeOfLoss(model, _fis, _bas, _ais,  _his,  _lis, _firstNoticeLossArchiveService, invoices, documentsHealth, documentsLuggage);
             return RedirectToAction("View", new { id = model.Id });
         }
 
@@ -211,6 +232,66 @@ namespace InsuredTraveling.Controllers
 
             }
             return View(model);
+        }
+
+        [SessionExpire]
+        public ActionResult ViewArchived(int? id)
+        {
+            var model = new FirstNoticeOfLossReportViewModel();
+            if (id != null)
+            {
+                var data = _firstNoticeLossArchiveService.GetFNOLArchivedById(Convert.ToInt32(id));
+                model = Mapper.Map<first_notice_of_loss_archive, FirstNoticeOfLossReportViewModel>(data);
+                model.IsArchived = true;
+                model.Invoices = new List<FileDescriptionViewModel>();
+                model.InsuranceInfoDoc = new List<FileDescriptionViewModel>();
+
+                var allInvoices = _fis.GetInvoiceDocumentName(model.Id);
+                foreach (var invoice in allInvoices)
+                {
+                    var file = new FileDescriptionViewModel();
+                    file.FileName = invoice;
+                    file.FilePath = "~/DocumentsFirstNoticeOfLoss/Invoices/" + file.FileName;
+                    model.Invoices.Add(file);
+                }
+
+                var isHealthInsurance = _fis.IsHealthInsuranceByAdditionalInfoId(data.Additional_infoId);
+                var allDoc = _fis.GetHealthLuggageDocumentName(model.Id);
+                foreach (var doc in allDoc)
+                {
+                    var file = new FileDescriptionViewModel();
+                    file.FileName = doc;
+                    file.FilePath = isHealthInsurance ? "~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + file.FileName : "~/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + file.FileName;
+                    model.InsuranceInfoDoc.Add(file);
+                }
+
+            }
+            return View("View", model);
+        }
+
+        public FirstNoticeOfLossEditViewModel GetAllDocuments(FirstNoticeOfLossEditViewModel model)
+        {
+            var allInvoices = _fis.GetInvoiceDocumentName(model.Id);
+            model.Invoices = new List<FileDescriptionViewModel>();
+            foreach (var invoice in allInvoices)
+            {
+                var file = new FileDescriptionViewModel();
+                file.FileName = invoice;
+                file.FilePath = "~/DocumentsFirstNoticeOfLoss/Invoices/" + file.FileName;
+                model.Invoices.Add(file);
+            }
+
+            var isHealthInsurance = _fis.IsHealthInsuranceByAdditionalInfoId(model.AdditionalInfoId);
+            var allDoc = _fis.GetHealthLuggageDocumentName(model.Id);
+            model.InsuranceInfoDoc = new List<FileDescriptionViewModel>();
+            foreach (var doc in allDoc)
+            {
+                var file = new FileDescriptionViewModel();
+                file.FileName = doc;
+                file.FilePath = isHealthInsurance ? "~/DocumentsFirstNoticeOfLoss/HealthInsurance/" + file.FileName : "~/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + file.FileName;
+                model.InsuranceInfoDoc.Add(file);
+            }
+            return model;
         }
 
         [SessionExpire]
@@ -406,14 +487,14 @@ namespace InsuredTraveling.Controllers
         public JsonResult ShowPolicies(string Prefix)
         {
             RoleAuthorize r = new RoleAuthorize();
-            if (r.IsUser("end user"))
+            if (r.IsUser("End user"))
             {
                 var policies = _us.GetPoliciesByUsernameToList(System.Web.HttpContext.Current.User.Identity.Name, Prefix);
                 var policiesAutoComplete = policies.Select(Mapper.Map<travel_policy, PolicyAutoCompleteViewModel>).ToList();
                 return Json(policiesAutoComplete, JsonRequestBehavior.AllowGet);
 
             }
-            else if (r.IsUser("admin"))
+            else if (r.IsUser("Admin"))
             {
                 var policies = _ps.GetAllPoliciesByPolicyNumber(Prefix);
                 var policiesAutoComplete = policies.Select(Mapper.Map<travel_policy, PolicyAutoCompleteViewModel>).ToList();
@@ -432,6 +513,8 @@ namespace InsuredTraveling.Controllers
                 var SelectedInsured = _iss.GetInsuredData(SelectedInsuredId);
                 bool ISSameUserAndSelectedInsured = _us.IsSameLoggedUserAndInsured(System.Web.HttpContext.Current.User.Identity.Name, SelectedInsuredId);
                 var InsuredBankAccounts = _bas.BankAccountsByInsuredId(SelectedInsuredId);
+               
+
 
                 NewJsonInsured.Add("Id", SelectedInsured.ID);
                 NewJsonInsured.Add("FirstName", SelectedInsured.Name);
@@ -484,11 +567,16 @@ namespace InsuredTraveling.Controllers
                     var PolicyHolder = Policy.insured;
                     var PolicyHolderBankAccounts = Policy.insured.bank_account_info;
 
-                    var StartDate = Policy.Start_Date;
-                    var EndDate = Policy.End_Date;
+                    //var StartDate = Policy.Start_Date;
+                    //var EndDate = Policy.End_Date;
+                    var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                    var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+                    result.Add("StartDate", Policy.Start_Date.ToString(dateTimeFormat, new CultureInfo("en-US")));
+                    result.Add("EndDate", Policy.End_Date.ToString(dateTimeFormat, new CultureInfo("en-US")));
 
-                    result.Add("StartDate", StartDate.Year + String.Format("-{0:00}-{0:00}", StartDate.Month, StartDate.Day));
-                    result.Add("EndDate", EndDate.Year + String.Format("-{0:00}-{0:00}", EndDate.Month, EndDate.Day));
+                    //result.Add("StartDate", StartDate.Year + String.Format("-{0:00}-{0:00}", StartDate.Month, StartDate.Day));
+                    //result.Add("EndDate", EndDate.Year + String.Format("-{0:00}-{0:00}", EndDate.Month, EndDate.Day));
+
                     var PolicyHolderData = new JObject();
                     PolicyHolderData.Add("Id", PolicyHolder.ID);
                     PolicyHolderData.Add("FirstName", PolicyHolder.Name);
@@ -535,6 +623,63 @@ namespace InsuredTraveling.Controllers
                         BankListData.Add(BanksData);
                     }
                     result.Add("banks", BankListData);
+                    return result;
+                }
+                else
+                {
+                    result.Add("response", "Not authenticated user");
+                }
+            }
+            else
+            {
+                result.Add("response", "No policy found");
+            }
+            return result;
+        }
+
+        [HttpGet]
+        public JObject GetBankPrefixes()
+        {
+            var result = new JObject();
+            var Banks = _bas.GetAllPrefix();
+            var BankListData = new JArray();
+            foreach (var Bank in Banks)
+            {
+                var BanksData = new JObject();
+                BanksData.Add("Prefix", Bank.Prefix_Number);
+                BanksData.Add("BankName", Bank.bank.Name);
+                BankListData.Add(BanksData);
+            }
+            result.Add("banks", BankListData);
+            return result;
+        }
+
+        [HttpGet]
+        public async Task<JObject> GetInsuredsForDropdownList(string policyNumber)
+        {
+            var result = new JObject();
+            var policy = _ps.GetPolicyIdByPolicyNumber(policyNumber);
+
+            if (policy != null)
+            {
+                if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    var Policy = _ps.GetPolicyClientsInfo(policy.ID);
+                    var Insureds = Policy.policy_insured;
+
+                    var InsuredsJsonArray = new JArray();
+
+                    foreach (var v in Insureds)
+                    {
+                        var NewJsonInsured = new JObject();
+                        NewJsonInsured.Add("Id", v.insured.ID);
+                        NewJsonInsured.Add("FirstName", v.insured.Name);
+                        NewJsonInsured.Add("LastName", v.insured.Lastname);
+
+                        InsuredsJsonArray.Add(NewJsonInsured);
+                    }
+
+                    result.Add("data", InsuredsJsonArray);
                     return result;
                 }
                 else

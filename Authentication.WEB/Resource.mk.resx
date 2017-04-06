@@ -199,7 +199,7 @@
     <value>Постоечки корисник</value>
   </data>
   <data name="Policy_FillData" xml:space="preserve">
-    <value>Внесете податоци во сите полиња!</value>
+    <value>Внесете податоци во сите црвени полиња!</value>
   </data>
   <data name="Policy_HolderAddress" xml:space="preserve">
     <value>Адреса</value>
@@ -832,7 +832,7 @@
     <value>Задолжителни полиња</value>
   </data>
   <data name="Policy_UseNumberLatinLetters" xml:space="preserve">
-    <value>Користете само бројки и латински букви</value>
+    <value>Користете само бројки и латинични букви</value>
   </data>
   <data name="Chats" xml:space="preserve">
     <value>Разговори</value>
@@ -863,12 +863,6 @@
   </data>
   <data name="PolicyPrint_AdditionalPremium" xml:space="preserve">
     <value>Доплатоци</value>
-  </data>
-  <data name="PolicyPrint_Address" xml:space="preserve">
-    <value>Адреса</value>
-  </data>
-  <data name="PolicyPrint_Agency" xml:space="preserve">
-    <value>Агенција</value>
   </data>
   <data name="PolicyPrint_BasicPremium" xml:space="preserve">
     <value>Основна премија</value>
@@ -959,5 +953,386 @@
   </data>
   <data name="Search_SearchTableFNOLNumber" xml:space="preserve">
     <value>Број на оштетно побарување</value>
+  </data>
+  <data name="AdminPanel_AddRecButton" xml:space="preserve">
+    <value>Додади</value>
+  </data>
+  <data name="AdminPanel_AddRecordBtn" xml:space="preserve">
+    <value>Додади ставка</value>
+  </data>
+  <data name="AdminPanel_AddRoleBtn" xml:space="preserve">
+    <value>Додади улога</value>
+  </data>
+  <data name="AdminPanel_ID" xml:space="preserve">
+    <value>ИД</value>
+  </data>
+  <data name="AdminPanel_InsuranceCompany" xml:space="preserve">
+    <value>Осигурителна компанија</value>
+  </data>
+  <data name="AdminPanel_InsuranceSetupTab" xml:space="preserve">
+    <value>Подесувања за осигурителна компанија</value>
+  </data>
+  <data name="AdminPanel_Notification" xml:space="preserve">
+    <value>Време на Нотификација</value>
+  </data>
+  <data name="AdminPanel_NumAttepmts" xml:space="preserve">
+    <value>Број на обиди</value>
+  </data>
+  <data name="AdminPanel_NumMessage" xml:space="preserve">
+    <value>Број на пораки:</value>
+  </data>
+  <data name="AdminPanel_NumViews" xml:space="preserve">
+    <value>Број на прегледи</value>
+  </data>
+  <data name="AdminPanel_RequiredFields" xml:space="preserve">
+    <value>Задолжителни полиња</value>
+  </data>
+  <data name="AdminPanel_RoleName" xml:space="preserve">
+    <value>Име на улога</value>
+  </data>
+  <data name="AdminPanel_Roles" xml:space="preserve">
+    <value>Улоги</value>
+  </data>
+  <data name="AdminPanel_SMSCode" xml:space="preserve">
+    <value>СМС код секунди</value>
+  </data>
+  <data name="AdminPanel_Title" xml:space="preserve">
+    <value>Админ панел</value>
+  </data>
+  <data name="AdminPanel_VersionNumber" xml:space="preserve">
+    <value>Верзија број</value>
+  </data>
+  <data name="ForgetPassword_Enter" xml:space="preserve">
+    <value>Корисничко име или емаил</value>
+  </data>
+  <data name="ForgetPassword_Submit" xml:space="preserve">
+    <value>Прати</value>
+  </data>
+  <data name="ForgetPassword_Title" xml:space="preserve">
+    <value>Внеси корисничко име или емаил:</value>
+  </data>
+  <data name="Policy_CountryDD" xml:space="preserve">
+    <value>-- Земја --</value>
+  </data>
+  <data name="Policy_TypeDD" xml:space="preserve">
+    <value>-- Тип на полиса --</value>
+  </data>
+  <data name="Search_FNOLname" xml:space="preserve">
+    <value>Пребарувај по име</value>
+  </data>
+  <data name="Search_FNOLsurname" xml:space="preserve">
+    <value>Пребарувај по презиме</value>
+  </data>
+  <data name="Search_FNOLtotalcost" xml:space="preserve">
+    <value>Пребарувај по вкупен износ</value>
+  </data>
+  <data name="SignUP_FailMessage" xml:space="preserve">
+    <value>Вашата регистрација не е успешна. Внесете точни податоци во полињата за регистрација.</value>
+  </data>
+  <data name="SignUp_SameUserName" xml:space="preserve">
+    <value>Корисничкото име е регистирано во системот</value>
+  </data>
+  <data name="SignUp_SuccessMessage" xml:space="preserve">
+    <value>Успешно се регистриравте</value>
+  </data>
+  <data name="Quotes" xml:space="preserve">
+    <value>Понуди</value>
+  </data>
+  <data name="Search_Quote" xml:space="preserve">
+    <value>Понуди</value>
+  </data>
+  <data name="Search_QuoteEffectiveDate" xml:space="preserve">
+    <value>Датум на издавање</value>
+  </data>
+  <data name="Search_QuoteExpiryDate" xml:space="preserve">
+    <value>Датум на истекување</value>
+  </data>
+  <data name="Quote_TypeDD" xml:space="preserve">
+    <value>--Тип на понуда --</value>
+  </data>
+  <data name="Search_QuoteNumber" xml:space="preserve">
+    <value>Број на понуда</value>
+  </data>
+  <data name="Search_QuoteType" xml:space="preserve">
+    <value>Тип на понуда</value>
+  </data>
+  <data name="Search_AddQuoteButton" xml:space="preserve">
+    <value>Додади понуда</value>
+  </data>
+  <data name="FNOL_AccidentDateTimeHealthWrongRange" xml:space="preserve">
+    <value>Датумот на несреќата треба да биде помеѓу датумот на заминување и датумот на враќање.</value>
+  </data>
+  <data name="FNOL_DoctorVisitDateTimehWrongRange" xml:space="preserve">
+    <value>Датумот кога е посетен доктор треба да биде помеѓу датумот на заминување и датумот на пристигнување.</value>
+  </data>
+  <data name="FNOL_Edit" xml:space="preserve">
+    <value>Измени</value>
+  </data>
+  <data name="FNOL_FNOLNumber" xml:space="preserve">
+    <value>Оштетно побарување бр.</value>
+  </data>
+  <data name="Search_FNOLArchived" xml:space="preserve">
+    <value>Историски верзии</value>
+  </data>
+  <data name="SSNNotFoundMsg" xml:space="preserve">
+    <value>Не е пронајден корисник со таков матичен број во вашето портфолио. Ве молиме внесете податоци за договорувачот.</value>
+  </data>
+  <data name="SMScode" xml:space="preserve">
+    <value>SMS код</value>
+  </data>
+  <data name="SMSCodeButton" xml:space="preserve">
+    <value>Потврди</value>
+  </data>
+  <data name="VerifyMobilePhone" xml:space="preserve">
+    <value>Потврдете го вашиот мобилен телефон</value>
+  </data>
+  <data name="VerifyMobilePhoneMessage" xml:space="preserve">
+    <value>Беше испратена порака на вашиот број. Внесете го кодот кој го примивте за да го потврдите вашиот мобилен број:</value>
+  </data>
+  <data name="Error_Email" xml:space="preserve">
+    <value>Невалидна е-маил адреса.</value>
+  </data>
+  <data name="Error_EMBG_Numeric" xml:space="preserve">
+    <value>Матичниот број треба да содржи само бројки.</value>
+  </data>
+  <data name="Error_EmptyBirthDate" xml:space="preserve">
+    <value>Полето е задолжително.</value>
+  </data>
+  <data name="Error_Mobile_Numeric" xml:space="preserve">
+    <value>Телефонскиот број треба да содржи само бројки.</value>
+  </data>
+  <data name="Error_PasswordLen" xml:space="preserve">
+    <value>Лозинката треба да биде подолга од 6 карактери.</value>
+  </data>
+  <data name="Error_PasswordNotMatch" xml:space="preserve">
+    <value>Внесените лозинки не се совпаѓаат</value>
+  </data>
+  <data name="Error_Phone_Numeric" xml:space="preserve">
+    <value>Телефонскиот број треба да содржи само бројки.</value>
+  </data>
+  <data name="Error_PostalCode_Numeric" xml:space="preserve">
+    <value>Поштенскиот број треба да содржи само бројки.</value>
+  </data>
+  <data name="User_City" xml:space="preserve">
+    <value>Населено место</value>
+  </data>
+  <data name="Error_EMBG_Val_Advanced" xml:space="preserve">
+    <value>Внесовте невалиден матичен број.</value>
+  </data>
+  <data name="NewPolicy_Title" xml:space="preserve">
+    <value>Нова полиса</value>
+  </data>
+  <data name="Admin_SignUp" xml:space="preserve">
+    <value>Регистрирај корисник</value>
+  </data>
+  <data name="Home_CreateUser" xml:space="preserve">
+    <value>Креирај корисник</value>
+  </data>
+  <data name="User_Role" xml:space="preserve">
+    <value>Улога</value>
+  </data>
+  <data name="RegisterDate" xml:space="preserve">
+    <value>Датум на регистрација</value>
+  </data>
+  <data name="Search_AddUserButton" xml:space="preserve">
+    <value>Додади корисник</value>
+  </data>
+  <data name="Search_Users" xml:space="preserve">
+    <value>Регистрирани корисници</value>
+  </data>
+  <data name="SearchTable_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="SearchTable_FirstName" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="SearchTable_LastName" xml:space="preserve">
+    <value>Презиме</value>
+  </data>
+  <data name="SearchTable_RoleName" xml:space="preserve">
+    <value>Улога</value>
+  </data>
+  <data name="SearchTable_UserName" xml:space="preserve">
+    <value>Корисничко име</value>
+  </data>
+  <data name="Search_UserResetPass" xml:space="preserve">
+    <value>Промени лозинка</value>
+  </data>
+  <data name="PasswordResetMessageFail" xml:space="preserve">
+    <value>Лозинката не беше променета успешно</value>
+  </data>
+  <data name="PasswordResetMessageSuccess" xml:space="preserve">
+    <value>Лозинката беше променета успешно</value>
+  </data>
+  <data name="Search_Cancel" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="Search_Reset" xml:space="preserve">
+    <value>Промени</value>
+  </data>
+  <data name="Search_ResetUserPass" xml:space="preserve">
+    <value>Промени ја лозинката на корисникот</value>
+  </data>
+  <data name="ChangeStatusMessageFail" xml:space="preserve">
+    <value>Статусот на корисникот не беше променет</value>
+  </data>
+  <data name="ChangeStatusMessageSuccess" xml:space="preserve">
+    <value>Успешно го променивте статусот на корисникот</value>
+  </data>
+  <data name="SearchTable_ActiveInactiveUser" xml:space="preserve">
+    <value>Активен/Неактивен</value>
+  </data>
+  <data name="Search_ChangeUserStatus" xml:space="preserve">
+    <value>Промени</value>
+  </data>
+  <data name="Search_UserChangeStatus" xml:space="preserve">
+    <value>Промени статус</value>
+  </data>
+  <data name="Search_UserChangeStatusQuestion" xml:space="preserve">
+    <value>Дали сакаш да го промениш статусот на корисникот? Дали си сигурен?</value>
+  </data>
+  <data name="SearchTable_CreatedOn" xml:space="preserve">
+    <value>Креиран на</value>
+  </data>
+  <data name="SearchTable_UserStatus" xml:space="preserve">
+    <value>Пребрај по статус</value>
+  </data>
+  <data name="SearchTable_UserStatusActive" xml:space="preserve">
+    <value>Активен</value>
+  </data>
+  <data name="SearchTable_UserStatusBoth" xml:space="preserve">
+    <value>Двете</value>
+  </data>
+  <data name="SearchTable_UserStatusInactive" xml:space="preserve">
+    <value>Неактивен</value>
+  </data>
+  <data name="Search_UserItselfChangeStatus" xml:space="preserve">
+    <value>Не можете да го смените статусот на вашиот регистриран профил</value>
+  </data>
+  <data name="AdminPanel_SSNValidation" xml:space="preserve">
+    <value>ЕМБГ напредна валидација</value>
+  </data>
+  <data name="AdminPanel_TestPayment" xml:space="preserve">
+    <value>Тест плаќање</value>
+  </data>
+  <data name="Edit_FailMessage" xml:space="preserve">
+    <value>Промената на корисникот не беше успешна</value>
+  </data>
+  <data name="Edit_SuccessMessage" xml:space="preserve">
+    <value>Успешно ги променивте податоците на корисникот</value>
+  </data>
+  <data name="SearchTable_EditUser" xml:space="preserve">
+    <value>Промени корисник</value>
+  </data>
+  <data name="Search_QuotePreview" xml:space="preserve">
+    <value>Прегледај</value>
+  </data>
+  <data name="SignUP_LatinLettersOnly" xml:space="preserve">
+    <value>Користи само латинични букви</value>
+  </data>
+  <data name="AdminPanel_Discount" xml:space="preserve">
+    <value>Попуст</value>
+  </data>
+  <data name="Policy_AddOfferMsg" xml:space="preserve">
+    <value>Успешно ја додадовте полисата во понуди. Број на понуда</value>
+  </data>
+  <data name="Policy_AddOfferMsgFail" xml:space="preserve">
+    <value>Полисата не беше додадена во понуди</value>
+  </data>
+  <data name="AdminPanel_DiscountAddButton" xml:space="preserve">
+    <value>Додади попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountCoefi" xml:space="preserve">
+    <value>Попуст во проценти</value>
+  </data>
+  <data name="AdminPanel_DiscountEndDate" xml:space="preserve">
+    <value>Крај на попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountName" xml:space="preserve">
+    <value>Име на попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountStartDate" xml:space="preserve">
+    <value>Почеток на попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountCancelButton" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="Home_BuyInsurance" xml:space="preserve">
+    <value>Купи осигурување</value>
+  </data>
+  <data name="Home_NoMsg" xml:space="preserve">
+    <value>Немате нови пораки</value>
+  </data>
+  <data name="OK_SMSCode" xml:space="preserve">
+    <value>Испратен Ви е СМС код. Проверете го вашиот мобилен телефон.</value>
+  </data>
+  <data name="Search_HelpMessage" xml:space="preserve">
+    <value>Избери ги датумите пред или после овој датум</value>
+  </data>
+  <data name="Msg_IncorrectUserPass" xml:space="preserve">
+    <value>Погрешно корисничко име или лозинка. Обиди се повторно.</value>
+  </data>
+  <data name="Msg_InvalidRecaptcha" xml:space="preserve">
+    <value>Невалидна reCaptcha. Обиди се повторно со клкнување на копчето до "I'm not a robot".</value>
+  </data>
+  <data name="PolicyPreview" xml:space="preserve">
+    <value>Прегледај полиса</value>
+  </data>
+  <data name="SearchPolicyByExpiringDays" xml:space="preserve">
+    <value>Денови пред истекување</value>
+  </data>
+  <data name="PolicyDiscountCode" xml:space="preserve">
+    <value>Код за попуст</value>
+  </data>
+  <data name="Policy_DiscountErrorMessage" xml:space="preserve">
+    <value>Грешен код за попуст</value>
+  </data>
+  <data name="AdminPanel_DiscountNameErrorMessage" xml:space="preserve">
+    <value>Кодот за попуст веќе постои</value>
+  </data>
+  <data name="Policy_DiscoundCodeError" xml:space="preserve">
+    <value>Невалиден код за попуст</value>
+  </data>
+  <data name="Policy_DiscoundCodeValid" xml:space="preserve">
+    <value>Валиден код за попуст</value>
+  </data>
+  <data name="PolicyThePremiumIsExceededMsg" xml:space="preserve">
+    <value>Вредноста на премијата е надмината</value>
+  </data>
+  <data name="SearchResultsExcel" xml:space="preserve">
+    <value>Прикажи ги пребараните резултати во excel</value>
+  </data>
+  <data name="EnterAllData" xml:space="preserve">
+    <value>Внесете ги сите податоци</value>
+  </data>
+  <data name="Client_DataNotValid" xml:space="preserve">
+    <value>Податоците не се во соодветен формат. Внесете точни податоци</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Женски</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Машки</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Друго</value>
+  </data>
+  <data name="SSNNotValid" xml:space="preserve">
+    <value>Матичниот број не е валиден</value>
+  </data>
+  <data name="Policy_Modal_Date_CancelDate" xml:space="preserve">
+    <value>Остави датум</value>
+  </data>
+  <data name="Policy_Modal_Date_ChangeDate" xml:space="preserve">
+    <value>Промени датум</value>
+  </data>
+  <data name="Policy_Modal_Date_Header" xml:space="preserve">
+    <value>Промена на датумот на истекување на полисата</value>
+  </data>
+  <data name="Policy_Modal_Date_Text" xml:space="preserve">
+    <value>Промени датум на истекување на полисата според времетраење на полисата</value>
+  </data>
+  <data name="SignUp_ButtonCreateUser" xml:space="preserve">
+    <value>Креирај корисник</value>
   </data>
 </root>

@@ -31,6 +31,8 @@ namespace InsuredTraveling
 
         public static string Decrypt(string cipherText)
         {
+            if (!IsBase64(cipherText))
+                return "";
             string EncryptionKey = "MAKV2SPBNI99212";
             cipherText = cipherText.Replace(" ", "+");
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
@@ -50,6 +52,24 @@ namespace InsuredTraveling
                 }
             }
             return cipherText;
+        }
+
+        public static bool IsBase64(string base64String)
+        {
+            if (base64String == null || base64String.Length == 0 || base64String.Length % 4 != 0
+               || base64String.Contains(" ") || base64String.Contains("\t") || base64String.Contains("\r") || base64String.Contains("\n"))
+                return false;
+
+            try
+            {
+                Convert.FromBase64String(base64String);
+                return true;
+            }
+            catch (Exception exception)
+            {
+                return false;
+            }
+            return false;
         }
     }
 }

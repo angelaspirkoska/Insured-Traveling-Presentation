@@ -4,27 +4,30 @@
     ViewBag.Title = "First Notice of Loss";
     var noValue = "/";
 }
-@if (ViewBag.Message != null && ViewBag.Message == "Successfully reported!")
+@if (ViewBag.Message != null)
 {
-    <div class="row" style="width:35%;">
-        <div class="alert alert-dismissible alert-success" style="margin-top: 27%;margin-left:12px; width:211%">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Great!</strong> <span>Успешно ја пријавивте штетата!</span>
+    <div class="row">
+        <div class="col-md-5 col-sm-5" style="padding-top:5px">
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span>@ViewBag.Message</span>
+            </div>
         </div>
     </div>
 }
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <form style="margin-top:40px;" method="post" enctype="multipart/form-data" action="@Url.Action("Edit")">
     <div class="form-horizontal">
-        <h3>Штета број @Model.FNOLNumber</h3>
+        <h3>@InsuredTraveling.Resource.FNOL_FNOLNumber @Model.FNOLNumber</h3>
+        @Html.TextBoxFor(model => model.AdditionalInfoId, new { @class = "form-control input-sm", @style = "display: none;" })
         @Html.TextBoxFor(model => model.Id, new { @class = "form-control input-sm", @style = "display: none;" })
-
+      
         <hr />
         <div class="row container">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Број на полиса: </label>
+                        <label>@InsuredTraveling.Resource.FNOL_PolicyNumber: </label>
                         <label>
                             @Html.TextBoxFor(model => model.PolicyNumber, new { @class = "form-control input-sm", @style = "display: none;", @readonly = true })
                             @Model.PolicyNumber
@@ -32,27 +35,34 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-lg-7" style="font-size: 18px;">
+                        <a href="/Policy/PolicyDetails?policyNumber=@Model.PolicyNumber" target="_blank">@Resource.PolicyPreview</a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row container">
-            <header class="well">Податоци за договорувач</header>
+            <header class="well">@InsuredTraveling.Resource.FNOL_PolicyHolderInfo</header>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-lg-8">
-                        <label>Договорувач:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_Name:</label>
                         @Html.TextBoxFor(model => model.PolicyHolderName, new { @class = "form-control input-sm", @style = "display: none;", @readonly = true })
                         @Model.PolicyHolderName
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-8">
-                        <label>Адреса:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_Address:</label>
                         @Html.TextBoxFor(model => model.PolicyHolderAdress, new { @class = "form-control input-sm", @style = "display: none;", @readonly = true })
                         @Model.PolicyHolderAdress
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-8">
-                        <label>Телефон:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_Phone:</label>
                         @Html.TextBoxFor(model => model.PolicyHolderPhoneNumber, new { @class = "form-control input-sm", @style = "display: none;", @readonly = true })
                         @Model.PolicyHolderPhoneNumber
 
@@ -60,7 +70,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-lg-8">
-                        <label>ЕМБГ:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_SSN:</label>
                         @Html.TextBoxFor(model => model.PolicyHolderSsn, new { @class = "form-control input-sm", @style = "display: none;", @readonly = true })
                         @Model.PolicyHolderSsn
                     </div>
@@ -68,26 +78,22 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-
                     @Html.CheckBoxFor(model => model.PolicyHolderExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccount", @readonly = true, @style = "margin-top:3%;" })
                     <div class="col-lg-8 col-md-8">
-                        <label class="control-label">Искористи претходна трансакциска сметка</label>
+                        <label class="control-label">@InsuredTraveling.Resource.FNOL_UsePreviousBankAccount</label>
                     </div>
-
                 </div>
                 <div class="form-group">
-
                     @Html.CheckBoxFor(model => model.PolicyHolderBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccount", @readonly = true, @style = "margin-top:3%;" })
                     <div class="col-lg-4 col-md-4">
-                        <label class="control-label">Странска сметка</label>
+                        <label class="control-label">@InsuredTraveling.Resource.FNOL_ForeignBankAccount</label>
                     </div>
                 </div>
                 <div class="form-group">
-
                     <div class="col-md-12">
                         @Html.TextBoxFor(model => model.PolicyHolderBankAccountId, new { @class = "form-control input-sm", @id = "hiddenDropDownBankAccountPolicyHolder", @style = "display: none;" })
                         <select class="form-control" data-val="true" id="DropDownBankAccountPolicyHolder" name="PolicyHolderBankAccountId">
-                            <option value="0">Избери трансакциска сметка</option>
+                            <option value="0">@InsuredTraveling.Resource.FNOL_ChooseBankAccount</option>
                             @foreach (var item in Model.PolicyHolderBankAccounts)
                             {
                                 <option value="@item.ID" bank="@item.bank.Name">
@@ -97,57 +103,50 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="form-group">
-
                     <div class="col-lg-6">
-                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="taccountspan"></span> Трансакциона сметка:</label>
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="taccountspan"></span> @InsuredTraveling.Resource.FNOL_BankAccount:</label>
                         @Html.EditorFor(model => model.PolicyHolderBankAccountNumber, new { htmlAttributes = new { @class = "form-control input-sm", @maxLength = "15", @id = "TransactionAccount" } })
 
                         @Html.ValidationMessageFor(model => model.PolicyHolderBankAccountNumber, "", new { @class = "text-danger input-sm" })
                     </div>
-
                 </div>
-
                 <div class="form-group">
                     <div class="col-lg-6">
-                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="deponentspan"></span> Депонент банка:</label>
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="deponentspan"></span> @InsuredTraveling.Resource.FNOL_Bank :</label>
                         @Html.EditorFor(model => model.PolicyHolderBankName, new { htmlAttributes = new { @class = "form-control input-sm", @id = "deponent" } })
                         @Html.ValidationMessageFor(model => model.PolicyHolderBankName, "", new { @class = "text-danger input-sm" })
-
                     </div>
-
                 </div>
             </div>
         </div>
         <div class="row container">
-            <header class="well">Корисник на осигурувањето</header>
+            <header class="well">@InsuredTraveling.Resource.FNOL_InsuredInfo</header>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label> Оштетен:</label>
+                        <label> @InsuredTraveling.Resource.FNOL_Name:</label>
                         @Html.TextBoxFor(model => model.ClaimantName, new { @class = "form-control input-sm", @style = "display: none;", @readonly = true })
                         @Model.ClaimantName
                     </div>
                 </div>
                 <div class="form-group">
-
                     <div class="col-lg-7">
-                        <label> Адреса:</label>
+                        <label> @InsuredTraveling.Resource.FNOL_Address:</label>
                         @Html.TextBoxFor(model => model.ClaimantAdress, new { @class = "form-control input-sm", @style = "display: none;", @readonly = true })
                         @Model.ClaimantAdress
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Телефон:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_Phone:</label>
                         @Html.TextBoxFor(model => model.ClaimantPhoneNumber, new { @class = "form-control input-sm", @style = "display: none;", @readonly = true })
                         @Model.ClaimantPhoneNumber
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>ЕМБГ:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_SSN:</label>
                         @Html.TextBoxFor(model => model.ClaimantSsn, new { @class = "form-control input-sm", @style = "display: none;", @readonly = true })
                         @Model.ClaimantSsn
                     </div>
@@ -156,36 +155,32 @@
                 {
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Сродство со осигуреникот:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_RelationshipInsuredHolder:</label>
                             @Html.EditorFor(model => model.RelationClaimantPolicyHolder, new { htmlAttributes = new { @class = "form-control input-sm", @id = "relationship" } })
                             @Html.ValidationMessageFor(model => model.RelationClaimantPolicyHolder, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 }
-               
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-
                     @Html.CheckBoxFor(model => model.ClaimantExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccountInsured", @readonly = true, @style = "margin-top:3%;" })
                     <div class="col-lg-8 col-md-8">
-                        <label class="control-label">Искористи претходна трансакциска сметка</label>
+                        <label class="control-label">@InsuredTraveling.Resource.FNOL_UsePreviousBankAccount</label>
                     </div>
-
                 </div>
                 <div class="form-group">
 
                     @Html.CheckBoxFor(model => model.ClaimantBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccountInsured", @readonly = true, @style = "margin-top:3%;" })
                     <div class="col-lg-4 col-md-4">
-                        <label class="control-label">Странска сметка</label>
+                        <label class="control-label">@InsuredTraveling.Resource.FNOL_ForeignBankAccount</label>
                     </div>
                 </div>
                 <div class="form-group">
-
                     <div class="col-md-12">
                         @Html.TextBoxFor(model => model.ClaimantBankAccountId, new { @class = "form-control input-sm", @id = "hiddenDropDownBankAccountInsured", @style = "display: none;" })
                         <select class="form-control" data-val="true" id="DropDownBankAccountInsured" name="ClaimantBankAccountId">
-                            <option value="0">Избери трансакциска сметка</option>
+                            <option value="0">@InsuredTraveling.Resource.FNOL_ChooseBankAccount</option>
                             @foreach (var item in Model.ClaimantBankAccounts)
                             {
                                 <option value="@item.ID" bank="@item.bank.Name">
@@ -195,154 +190,127 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="form-group">
-
                     <div class="col-lg-6">
-                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="taccountspan"></span> Трансакциона сметка:</label>
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="taccountspan"></span> @InsuredTraveling.Resource.FNOL_BankAccount:</label>
                         @Html.EditorFor(model => model.ClaimantBankAccountNumber, new { htmlAttributes = new { @class = "form-control input-sm", @maxLength = "15", @id = "insuredTransactionAccount" } })
                         @Html.ValidationMessageFor(model => model.ClaimantBankAccountNumber, "", new { @class = "text-danger input-sm" })
                     </div>
-
                 </div>
-
                 <div class="form-group">
                     <div class="col-lg-6">
-                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="deponentspan"></span> Депонент банка:</label>
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;" id="deponentspan"></span> @InsuredTraveling.Resource.FNOL_Bank:</label>
                         @Html.EditorFor(model => model.ClaimantBankName, new { htmlAttributes = new { @class = "form-control input-sm", @id = "deponentInsured" } })
                         @Html.ValidationMessageFor(model => model.ClaimantBankName, "", new { @class = "text-danger" })
-
                     </div>
-
                 </div>
             </div>
         </div>
         <div class="row container">
-            <header class="well">Податоци за патувањето</header>
+            <header class="well">@InsuredTraveling.Resource.FNOL_TravelInformation</header>
             <div class="col-md-6">
                 <div class="form-group">
-
                     <div class="col-lg-7">
-                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Место на патување:</label>
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_TravelPlace:</label>
                         @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control input-sm", @id = "travelDestination" } })
                         @Html.ValidationMessageFor(model => model.Destination, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-
                     <div class="col-lg-7">
-                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на заминување:</label>
-                        @Html.EditorFor(model => model.DepartDateTime, "{0:dd/mm/yy}", new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_StartDate:</label>
+                        @Html.EditorFor(model => model.DepartDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
                         @Html.ValidationMessageFor(model => model.DepartDateTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Време на заминување:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_StartTime:</label>
                         @Html.EditorFor(model => model.DepartTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id = "travelTimeFrom" } })
                         @Html.ValidationMessageFor(model => model.DepartTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-
                     <div class="col-lg-7">
-                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Превозно средство:</label>
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_Vehicle:</label>
                         @Html.EditorFor(model => model.TransportMeans, new { htmlAttributes = new { @class = "form-control input-sm", @id = "transportationType" } })
                         @Html.ValidationMessageFor(model => model.TransportMeans, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
-
                 <div class="form-group">
-
                     <div class="col-lg-7">
-                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на враќање:</label>
+                        <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>@InsuredTraveling.Resource.FNOL_EndDate:</label>
                         @Html.EditorFor(model => model.ArrivalDateTime, new { htmlAttributes = new { @class = "form-control input-sm placeholder" } })
                         @Html.ValidationMessageFor(model => model.ArrivalDateTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Време на враќање:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_EndTime:</label>
                         @Html.EditorFor(model => model.ArriveTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time", @id = "travelTimeTo" } })
                         @Html.ValidationMessageFor(model => model.ArriveTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
         </div>
-
-
-
         @if (Model.IsHealthInsurance)
         {
             <div class="row container">
-                <header class="well">Податоци за штетата - Здравствено осигурување</header>
+                <header class="well">@InsuredTraveling.Resource.FNOL_HealthInsuranceInfo</header>
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Датум на незгодата:</label>
-                            @if (Model.AccidentDateTimeHealth.HasValue)
-                            {
-                                @Model.AccidentDateTimeHealth.Value.Date.ToShortDateString()
-                            }
+                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_AccidentDate:</label>
+                            @Html.EditorFor(model => model.AccidentDateTimeHealth, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                            @Html.ValidationMessageFor(model => model.AccidentDateTimeHealth, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Време на незгодата:</label>
-                            @Model.AccidentTimeHealth
+                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>@InsuredTraveling.Resource.FNOL_AccidentTime:</label>
+                            @Html.EditorFor(model => model.AccidentTimeHealth, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                            @Html.ValidationMessageFor(model => model.AccidentTimeHealth, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Место на незгодата:</label>
-                            @Model.AccidentPlaceHealth
+                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>@InsuredTraveling.Resource.FNOL_AccidentPlace:</label>
+                            @Html.EditorFor(model => model.AccidentPlaceHealth, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                            @Html.ValidationMessageFor(model => model.AccidentPlaceHealth, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Датум на посета кај доктор:</label>
-                            @if (Model.DoctorVisitDateTime.HasValue)
-                            {
-                                @Model.DoctorVisitDateTime.Value.Date.ToShortDateString()
-                            }
+                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>@InsuredTraveling.Resource.FNOL_DateWhenDoctorVisit:</label>
+                            @Html.EditorFor(model => model.DoctorVisitDateTime, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                            @Html.ValidationMessageFor(model => model.DoctorVisitDateTime, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Податоци за докторот:</label>
-                            @Model.DoctorInfo
+                            <label>@InsuredTraveling.Resource.FNOL_DoctorInfo:</label>
+                            @Html.TextAreaFor(model => model.DoctorInfo, new { @class = "form-control input-sm" })
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Опис на болеста:</label>
-                            @Model.MedicalCaseDescription
+                            <label>@InsuredTraveling.Resource.FNOL_DiseaseDescription:</label>
+                            @Html.TextAreaFor(model => model.MedicalCaseDescription, new { @class = "form-control input-sm", @id = "illnessInfo" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Претходно сте биле лекувани од истата:</label>
-                            @if (Model.PreviousMedicalHistory)
-                            {
-                                var valueYes = "Да";
-                                @valueYes
-                            }
-                            else
-                            {
-                                var valueNo = "Не";
-                                @valueNo
-                            }
+                            @Html.CheckBoxFor(model => model.PreviousMedicalHistory, new { @class = "col-md-1", @style = "margin-top:3%;" })
+                            <label>@InsuredTraveling.Resource.FNOL_PreviousDiseaseHistory</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Документи приложени како доказ:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_DocumentsAsProof:</label>
                             <br />
                             <table>
                                 @if (Model.InsuranceInfoDoc != null)
@@ -365,59 +333,56 @@
                                 }
 
                             </table>
+                            <br />
+                            <label>@InsuredTraveling.Resource.FNOL_DocumentsAsProof:</label>
+                            <input type="file" name="documentsHealth" id="documentsHealth" multiple />
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Во случај на тешка повреда или смрт, кој орган составил записник и детален опис на настанот :</label>
-                            @Model.ResponsibleInstitution
+                            <label>@InsuredTraveling.Resource.FNOL_ReportWroted:</label>
+                            @Html.EditorFor(model => model.ResponsibleInstitution, new { @class = "form-control input-sm" })
                         </div>
                     </div>
                 </div>
-
             </div>
         }
         else
         {
             <div class="row container">
-                <header class="well">Податоци за штетата - Осигурување на багаж</header>
+                <header class="well">@InsuredTraveling.Resource.FNOL_LuggageInsurance</header>
                 <div class="col-md-6">
                     <div class="form-group">
-
                         <div class="col-lg-7">
-                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Датум на настанот:</label>
+                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_AccidentDate:</label>
                             @Html.EditorFor(model => model.AccidentDateTimeLuggage, new { htmlAttributes = new { @class = "form-control input-sm" } })
                             @Html.ValidationMessageFor(model => model.AccidentDateTimeLuggage, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-
                         <div class="col-md-7">
-                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Место на незгодата:</label>
+                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_AccidentPlace:</label>
                             @Html.EditorFor(model => model.AccidentPlaceLuggage, new { htmlAttributes = new { @class = "form-control input-sm" } })
                             @Html.ValidationMessageFor(model => model.AccidentPlaceLuggage, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-
                         <div class="col-lg-7">
-                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Опис на настанот:</label>
+                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_AccidentDescription:</label>
                             @Html.TextAreaFor(model => model.PlaceDescription, new { @class = "form-control input-sm" })
                             @Html.ValidationMessageFor(model => model.PlaceDescription, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-
                         <div class="col-lg-7">
-                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Детален опис на настанот:</label>
+                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_AccidentDescriptionDetails:</label>
                             @Html.TextAreaFor(model => model.DetailDescription, new { @class = "form-control input-sm" })
                             @Html.ValidationMessageFor(model => model.DetailDescription, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-
                         <div class="col-md-7">
-                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> Место на пријавување:</label><br />
+                            <label><span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span> @InsuredTraveling.Resource.FNOL_ReportPlace:</label><br />
                             @Html.TextAreaFor(model => model.ReportPlace, new { @class = "form-control input-sm" })
                             @Html.ValidationMessageFor(model => model.ReportPlace, "", new { @class = "text-danger" })
                         </div>
@@ -426,19 +391,19 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Опис на украдените/оштетени предмети:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_FloatersDescription:</label>
                             @Html.TextAreaFor(model => model.Floaters, new { @class = "form-control input-sm" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Вредност:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_FloatersValue:</label>
                             @Html.EditorFor(model => model.FloatersValue, new { htmlAttributes = new { @class = "form-control input-sm" } })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Документи приложени како доказ :</label>
+                            <label>@InsuredTraveling.Resource.FNOL_DocumentsAsProof:</label>
                             <br />
                             <table>
                                 @if (Model.InsuranceInfoDoc != null)
@@ -466,14 +431,14 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Време на пристигнување на аеродром:</label>
+                            <label>@InsuredTraveling.Resource.FNOL_AirportTimeArrival:</label>
                             @Html.EditorFor(model => model.AccidentTimeLuggage, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
                             @Html.ValidationMessageFor(model => model.AccidentTimeLuggage, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-7">
-                            <label>Време на предавање на багаж :</label>
+                            <label>@InsuredTraveling.Resource.FNOL_LuggageCheckInTime:</label>
                             @Html.EditorFor(model => model.LugaggeCheckingTime, new { htmlAttributes = new { @class = "form-control input-sm", type = "time" } })
                             @Html.ValidationMessageFor(model => model.LugaggeCheckingTime, "", new { @class = "text-danger" })
                         </div>
@@ -482,11 +447,11 @@
             </div>
         }
         <div class="row container">
-            <header class="well">Податоци за трошоци</header>
+            <header class="well">@InsuredTraveling.Resource.FNOL_CostInformation</header>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Фактури како доказ:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_InvoicesAsProof:</label>
                         <br />
                         <table>
                             @if (Model.Invoices != null)
@@ -513,7 +478,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-lg-7">
-                        <label>Вкупна вредност на сите трошоци:</label>
+                        <label>@InsuredTraveling.Resource.FNOL_TotalCost:</label>
                         <div class="input-group">
                             @Html.EditorFor(model => model.TotalCost, new { htmlAttributes = new { @class = "form-control input-sm" } })
                             <span class="input-group-addon">.00 денари</span>
@@ -526,295 +491,369 @@
 
         <div class="form-group">
             <div class="col-md-2">
-                <input type="submit" value="Измени" class="btn btn-default" />
+                <input type="submit" value="@InsuredTraveling.Resource.FNOL_Edit" class="btn btn-default" />
             </div>
         </div>
 
     </div>
 </form>
-    @if (ViewBag.insurance == "Health Insurance")
-    {
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#health").attr("checked", "true");
-                $("#hiddenIsHealthInsurance").prop("checked", true);
-                $("#healthInsurance").toggle();
 
-            });
-        </script>
-    }
-    else if (ViewBag.insurance == "Luggage Insurance")
-    {
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#luggage").attr("checked", "true");
-                $("#hiddenIsHealthInsurance").prop("checked", false);
-                $("#luggageInsurance").toggle();
-            });
-        </script>
-    }
+<div class="modal fade" id="modalHolder" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%;">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Not valid Macedonian bank account</h4>
+            </div>
+            <div class="modal-body">
+                <p>The bank account you have entered is not a valid Macedonian bank account. Do you want to correct it or switch to Foreign bank account</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="CorrectEntry">Correct entry</button><button type="button" class="btn btn-danger" data-dismiss="modal" id="SelectForeignBankAccountHolder">Select Foreign bank account</button>
+            </div>
+        </div>
 
-    @Scripts.Render("~/bundles/jqueryui")
-    @Styles.Render("~/Content/jqueryuicss")
+    </div>
+</div>
+
+<div class="modal fade" id="modalInsured" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Not valid Macedonian bank account</h4>
+            </div>
+            <div class="modal-body">
+                <p>The bank account you have entered is not a valid Macedonian bank account. Do you want to correct it or switch to Foreign bank account</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="CorrectEntry">Correct entry</button><button type="button" class="btn btn-danger" data-dismiss="modal" id="SelectForeignBankAccountInsured">Select Foreign bank account</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@if (ViewBag.insurance == "Health Insurance")
+{
     <script type="text/javascript">
-        var Banks;
         $(document).ready(function () {
-
-            $.ajax({
-                type: "GET",
-                url: "/FirstNoticeOfLoss/GetBankPrefixes",
-                success: function (result) {
-
-                    var rez = JSON.parse(result);
-                    console.log(rez);
-                    Banks = rez.banks;
-                }
-            });
-            @*Banks = @Html.Raw(Json.Encode((Model.BankPrefixes)));*@
-            @*Banks = @(Model.BankPrefixes).banks;*@
-            //console.log(Banks.banks);
-            $('#deponent').prop('readonly', true);
-            $('#deponentInsured').prop('readonly', true);
-
-            $('#DropDownBankAccountPolicyHolder').hide();
-            $('#DropDownBankAccountInsured').hide();
-
-
-
-            $("#TransactionAccount, #insuredTransactionAccount, #TotalCost, #FloatersValue").keydown(function (e) {
-
-                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-                    (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-                    (e.keyCode >= 35 && e.keyCode <= 40)) {
-                    return;
-                }
-                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                    e.preventDefault();
-                }
-            });
-
+            $("#health").attr("checked", "true");
+            $("#hiddenIsHealthInsurance").prop("checked", true);
+            $("#healthInsurance").toggle();
 
         });
-
-        $("#ExistentBankAccount").change(function () {
-            if (this.checked) {
-                $('#DropDownBankAccountPolicyHolder').show();
-                $('#TransactionAccount').prop('readonly', true);
-                $('#deponent').prop('readonly', true);
-                $("#TransactionAccount").attr("value", "");
-                $("#deponent").attr("value", "");
-                $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false)
-            }
-            else {
-                $('#DropDownBankAccountPolicyHolder').hide();
-
-                $('#TransactionAccount').prop('readonly', false);
-                $("#TransactionAccount").attr("value", "");
-                $("#deponent").attr("value", "");
-                $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false);
-
-                if ($('#ForeignBankAccount').is(':checked')) {
-                    $('#deponent').prop('readonly', false);
-                }
-            }
+    </script>
+}
+else if (ViewBag.insurance == "Luggage Insurance")
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#luggage").attr("checked", "true");
+            $("#hiddenIsHealthInsurance").prop("checked", false);
+            $("#luggageInsurance").toggle();
         });
+    </script>
+}
 
-        $("#ExistentBankAccountInsured").change(function () {
-            if (this.checked) {
-                $('#DropDownBankAccountInsured').show();
-                $('#insuredTransactionAccount').prop('readonly', true);
 
-                $('#DropDownBankAccountInsured').show();
-                $('#insuredTransactionAccount').prop('readonly', true);
-                $('#deponentInsured').prop('readonly', true);
-                $("#insuredTransactionAccount").attr("value", "");
-                $("#deponentInsured").attr("value", "");
-                $("#DropDownBankAccountInsured option:selected").prop("selected", false)
-            }
-            else {
-
-                $('#DropDownBankAccountInsured').hide();
-                $('#insuredTransactionAccount').prop('readonly', false);
-                $("#insuredTransactionAccount").attr("value", "");
-                $("#deponentInsured").attr("value", "");
-                $("#DropDownBankAccountInsured option:selected").prop("selected", false);
-                if ($('#ForeignBankAccountInsured').is(':checked')) {
-                    $('#deponentInsured').prop('readonly', false);
-                }
-            }
-        });
+@Scripts.Render("~/bundles/jqueryui")
+@Styles.Render("~/Content/jqueryuicss")
+<script type="text/javascript">
+    var Banks;
+    $(document).ready(function () {
+        var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
 
         $("#DepartDateTime").datepicker({
-            dateFormat: "dd-mm-yy",
-            dateonly:true,
+            dateFormat: dateFormatString,
+            dateonly: true,
             onSelect: function (selected) {
+                var arrivalDate = $("#ArrivalDateTime").datepicker().val()
                 $("#ArrivalDateTime").datepicker("option", "minDate", selected);
+                $("#ArrivalDateTime").val(arrivalDate);
+
+                var accidentDateLuggage = $("#AccidentDateTimeLuggage").val();
                 $("#AccidentDateTimeLuggage").datepicker("option", "minDate", selected);
+                $("#AccidentDateTimeLuggage").val(accidentDateLuggage);
+
+                var accidentDateHealth = $("#AccidentDateTimeHealth").val();
                 $("#AccidentDateTimeHealth").datepicker("option", "minDate", selected);
+                $("#AccidentDateTimeHealth").val(accidentDateHealth);
+
+                var doctorVisitDate = $("#DoctorVisitDateTime").val();
                 $("#DoctorVisitDateTime").datepicker("option", "minDate", selected);
+                $("#DoctorVisitDateTime").val(doctorVisitDate);
             },
         });
 
         $("#ArrivalDateTime").datepicker({
-            dateFormat: "dd/mm/yy",
+            dateFormat: dateFormatString,
             dateonly: true,
             onSelect: function (selected) {
+                var departDate = $("#DepartDateTime").datepicker().val();
                 $("#DepartDateTime").datepicker("option", "maxDate", selected);
+                $("#DepartDateTime").val(departDate);
+
+                var accidentDateLuggage = $("#AccidentDateTimeLuggage").val();
                 $("#AccidentDateTimeLuggage").datepicker("option", "maxDate", selected);
+                $("#AccidentDateTimeLuggage").val(accidentDateLuggage);
+
+                var accidentDateHealth = $("#AccidentDateTimeHealth").val();
                 $("#AccidentDateTimeHealth").datepicker("option", "maxDate", selected);
+                $("#AccidentDateTimeHealth").val(accidentDateHealth);
+
+                var doctorVisitDate = $("#DoctorVisitDateTime").val();
                 $("#DoctorVisitDateTime").datepicker("option", "maxDate", selected);
+                $("#DoctorVisitDateTime").val(doctorVisitDate);
             },
         });
 
         $("#AccidentDateTimeHealth").datepicker({
-            dateFormat: "dd/mm/yy",
+            dateFormat: dateFormatString,
             dateonly: true,
             onSelect: function (selected) {
-                $("#DepartDateTime").datepicker("option", "minDate", selected);
-                $("#ArrivalDateTime").datepicker("option", "maxDate", selected);
+                $("#DoctorVisitDateTime").datepicker("option", "minDate", selected);
             },
         });
 
         $("#AccidentDateTimeLuggage").datepicker({
-            dateFormat: "dd/mm/yy",
+            dateFormat: dateFormatString,
             dateonly: true,
             onSelect: function (selected) {
-
+                $("#DoctorVisitDateTime").datepicker("option", "minDate", selected);
             },
         });
 
         $("#DoctorVisitDateTime").datepicker({
-            dateFormat: "dd/mm/yy",
+            dateFormat: dateFormatString,
             dateonly: true,
             onSelect: function (selected) {
-
             },
         });
 
+        $.ajax({
+            type: "GET",
+            url: "/FirstNoticeOfLoss/GetBankPrefixes",
+            success: function (result) {
+                var rez = JSON.parse(result);
+                console.log(rez);
+                Banks = rez.banks;
+            }
+        });
 
-        $("#ForeignBankAccount").change(function () {
-            if (this.checked) {
-                $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false);
-                $("#TransactionAccount").attr("value", "");
-                $("#deponent").attr("value", "");
-                $('#TransactionAccount').attr('maxLength', 30);
+        $("#SelectForeignBankAccountHolder").on('click', function () {
+            $("#ForeignBankAccount").prop("checked", true);
+            $("#TransactionAccount").prop("value", " ");
+        });
 
-                if ($('#ExistentBankAccount').is(':checked')) {
-                    $('#TransactionAccount').prop('readonly', true);
+        $("#SelectForeignBankAccountInsured").on('click', function () {
+            $("#ForeignBankAccountInsured").prop("checked", true);
+            $("#insuredTransactionAccount").prop("value", " ");
+        });
 
+        @*$("#ArrivalDateTime").datepicker("setDate", new Date(@Model.ArrivalDateTime.Date));
+            $("#DepartDateTime").datepicker("setDate", new Date(@Model.DepartDateTime.Date));*@
+
+        $('#deponent').prop('readonly', true);
+        $('#deponentInsured').prop('readonly', true);
+        $('#DropDownBankAccountPolicyHolder').hide();
+        $('#DropDownBankAccountInsured').hide();
+        $("#TransactionAccount, #insuredTransactionAccount, #TotalCost, #FloatersValue").keydown(function (e) {
+
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                return;
+            }
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+    });
+    $("#ExistentBankAccount").change(function () {
+        if ($("#ExistentBankAccount").is(':checked')) {
+            $('#DropDownBankAccountPolicyHolder').show();
+            $('#TransactionAccount').prop('readonly', true);
+            $('#deponent').prop('readonly', true);
+            $("#TransactionAccount").prop("value", " ");
+            $("#deponent").prop("value", "");
+            $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false)
+        }
+        else {
+            $('#DropDownBankAccountPolicyHolder').hide();
+
+            $('#TransactionAccount').prop('readonly', false);
+            $("#TransactionAccount").attr("value", "");
+            $("#deponent").attr("value", "");
+            $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false);
+
+            if ($('#ForeignBankAccount').is(':checked')) {
+                $('#deponent').prop('readonly', false);
+            }
+        }
+    });
+
+    $("#ExistentBankAccountInsured").change(function () {
+        if ($("#ExistentBankAccountInsured").is(':checked')) {
+            $('#DropDownBankAccountInsured').show();
+            $('#insuredTransactionAccount').prop('readonly', true);
+
+            $('#DropDownBankAccountInsured').show();
+            $('#insuredTransactionAccount').prop('readonly', true);
+            $('#deponentInsured').prop('readonly', true);
+            $("#insuredTransactionAccount").prop("value", " ");
+            $("#deponentInsured").prop("value", "");
+            $("#DropDownBankAccountInsured option:selected").prop("selected", false)
+        }
+        else {
+
+            $('#DropDownBankAccountInsured').hide();
+            $('#insuredTransactionAccount').prop('readonly', false);
+            $("#insuredTransactionAccount").attr("value", "");
+            $("#deponentInsured").attr("value", "");
+            $("#DropDownBankAccountInsured option:selected").prop("selected", false);
+            if ($('#ForeignBankAccountInsured').is(':checked')) {
+                $('#deponentInsured').prop('readonly', false);
+            }
+        }
+    });
+  
+    $("#ForeignBankAccount").change(function () {
+        if (this.checked) {
+            $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false);
+            $("#TransactionAccount").attr("value", "");
+            $("#deponent").attr("value", "");
+            $('#TransactionAccount').attr('maxLength', 30);
+
+            if ($('#ExistentBankAccount').is(':checked')) {
+                $('#TransactionAccount').prop('readonly', true);
+            }
+            else {
+                $('#deponent').prop('readonly', false);
+            }
+        }
+        else {
+            $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false);
+            $("#TransactionAccount").attr("value", "");
+            $("#deponent").attr("value", "");
+            $('#TransactionAccount').attr('maxLength', 15);
+            $('#deponent').prop('readonly', true);
+        }
+    });
+
+    $("#ForeignBankAccountInsured").change(function () {
+        if (this.checked) {
+            $("#DropDownBankAccountInsured option:selected").prop("selected", false);
+            $("#insuredTransactionAccount").attr("value", "");
+            $("#deponentInsured").attr("value", "");
+            $('#insuredTransactionAccount').attr('maxLength', 30);
+
+            if ($('#ExistentBankAccountInsured').is(':checked')) {
+                $('#insuredTransactionAccount').prop('readonly', true);
+            }
+            else {
+                $('#deponentInsured').prop('readonly', false);
+            }
+        }
+        else {
+            $("#DropDownBankAccountInsured option:selected").prop("selected", false);
+            $("#insuredTransactionAccount").attr("value", "");
+            $("#deponentInsured").attr("value", "");
+            $('#insuredTransactionAccount').attr('maxLength', 15);
+            $('#deponentInsured').prop('readonly', true);
+        }
+    });
+
+    $('#TransactionAccount').focusout(function () {
+        if ($("#ForeignBankAccount").checked && $("#ExistentBankAccount").checked) {
+            $('#deponent').prop('readonly', true);
+        }
+        else {
+            var bankAccount = $('#TransactionAccount').val();
+            var prefixTillNow = bankAccount.substring(0, 3);
+            var validBank = false;
+            $.each(Banks, function (key, value) {
+                if (value.Prefix == prefixTillNow) {
+                    $('#deponent').attr('value', value.BankName);
+                    validBank = true;
                 }
-                else {
-                    $('#deponent').prop('readonly', false);
+            });
+            if (!validBank) {
+                if (($('#ForeignBankAccount').is(':checked')) || ($("#ExistentBankAccount").is(':checked'))) {
 
+                } else {
+                    $('#deponent').attr('value', " ");
+                    $("#modalHolder").modal("show");
+                }
+
+            }
+        }
+    });
+    $('#insuredTransactionAccount').focusout(function () {
+        if ($("#ForeignBankAccountInsured").checked && $("#ExistentBankAccountInsured").checked) {
+            $('#deponentInsured').prop('readonly', true);
+        }
+        else {
+            var bankAccount = $('#insuredTransactionAccount').val();
+            var prefixTillNow = bankAccount.substring(0, 3);
+            var validBank = false;
+            $.each(Banks, function (key, value) {
+                if (value.Prefix == prefixTillNow) {
+                    $('#deponentInsured').attr('value', value.BankName);
+                    validBank = true;
+                }
+            });
+            if (!validBank) {
+                if (($('#ForeignBankAccountInsured').is(':checked')) || ($("#ExistentBankAccountInsured").is(':checked'))) {
+
+                } else {
+                    $('#deponentInsured').attr('value', " ");
+                    $("#modalInsured").modal("show");
                 }
             }
-            else {
-                $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false);
-                $("#TransactionAccount").attr("value", "");
-                $("#deponent").attr("value", "");
-                $('#TransactionAccount').attr('maxLength', 15);
-                $('#deponent').prop('readonly', true);
-            }
-        });
+        }
+    });
 
-        $("#ForeignBankAccountInsured").change(function () {
-            if (this.checked) {
-                $("#DropDownBankAccountInsured option:selected").prop("selected", false);
-                $("#insuredTransactionAccount").attr("value", "");
-                $("#deponentInsured").attr("value", "");
-                $('#insuredTransactionAccount').attr('maxLength', 30);
+    $('#DropDownBankAccountPolicyHolder').on('change', function () {
+        if ($('#DropDownBankAccountPolicyHolder option:selected').val() == 0) {
+            $('#deponent').prop('value', "");
+            $('#TransactionAccount').prop('value', "");
+        }
+        else {
+            $('#deponent').prop('value', $('#DropDownBankAccountPolicyHolder option:selected').attr("bank"));
+            $('#TransactionAccount').prop('value', $('#DropDownBankAccountPolicyHolder option:selected').text());
+            var InsuredId = $('#DropDownBankAccountPolicyHolder option:selected').val();
+            $('#hiddenDropDownBankAccountPolicyHolder').val(InsuredId);
+        }
+    });
 
-                if ($('#ExistentBankAccountInsured').is(':checked')) {
-                    $('#insuredTransactionAccount').prop('readonly', true);
-
-                }
-                else {
-                    $('#deponentInsured').prop('readonly', false);
-
-                }
-            }
-            else {
-                $("#DropDownBankAccountInsured option:selected").prop("selected", false);
-                $("#insuredTransactionAccount").attr("value", "");
-                $("#deponentInsured").attr("value", "");
-                $('#insuredTransactionAccount').attr('maxLength', 15);
-                $('#deponentInsured').prop('readonly', true);
-            }
-        });
-
-        $('#TransactionAccount').focusout(function () {
-
-            if ($("#ForeignBankAccount").checked && $("#ExistentBankAccount").checked) {
-                $('#deponent').prop('readonly', true);
-            }
-            else {
-                var bankAccount = $('#TransactionAccount').val();
-                var prefixTillNow = bankAccount.substring(0, 3);
-                $.each(Banks, function (key, value) {
-                    if (value.Prefix == prefixTillNow) {
-                        $('#deponent').attr('value', value.BankName);
-                    }
-                });
-            }
-        });
-
-        $('#insuredTransactionAccount').focusout(function () {
-
-            if ($("#ForeignBankAccountInsured").checked && $("#ExistentBankAccountInsured").checked) {
-                $('#deponentInsured').prop('readonly', true);
-            }
-            else {
-                var bankAccount = $('#insuredTransactionAccount').val();
-                var prefixTillNow = bankAccount.substring(0, 3);
-                $.each(Banks, function (key, value) {
-                    if (value.Prefix == prefixTillNow) {
-                        $('#deponentInsured').attr('value', value.BankName);
-                    }
-                });
-            }
-        });
-
-        $('#DropDownBankAccountPolicyHolder').on('change', function () {
-            if ($('#DropDownBankAccountPolicyHolder option:selected').val() == 0) {
-                $('#deponent').attr('value', "");
-                $('#TransactionAccount').attr('value', "");
-            }
-            else {
-
-                $('#deponent').attr('value', $('#DropDownBankAccountPolicyHolder option:selected').attr("bank"));
-                $('#TransactionAccount').attr('value', $('#DropDownBankAccountPolicyHolder option:selected').text());
-                var InsuredId = $('#DropDownBankAccountPolicyHolder option:selected').val();
-                $('#hiddenDropDownBankAccountPolicyHolder').val(InsuredId);
-            }
-        });
-
-        $('#DropDownBankAccountInsured').on('change', function () {
-            if ($('#DropDownBankAccountInsured option:selected').val() == 0) {
-                $('#deponentInsured').attr('value', "");
-                $('#insuredTransactionAccount').attr('value', "");
-            }
-            else {
-                var InsuredId = $('#DropDownBankAccountInsured option:selected').val();
-                $('#hiddenDropDownBankAccountInsured').val(InsuredId);
-                $('#deponentInsured').attr('value', $('#DropDownBankAccountInsured option:selected').attr("bank"));
-                $('#insuredTransactionAccount').attr('value', $('#DropDownBankAccountInsured option:selected').text());
-            }
-        });
-        //Disable other than English letters
-        $(".input-sm, .text-box").keypress(function (event) {
-            var ew = event.which;
-            if (ew == 32)
-                return true;
-            if (48 <= ew && ew <= 57)
-                return true;
-            if (65 <= ew && ew <= 90)
-                return true;
-            if (97 <= ew && ew <= 122)
-                return true;
-            return false;
-        });
-
-
-
-    </script>
+    $('#DropDownBankAccountInsured').on('change', function () {
+        if ($('#DropDownBankAccountInsured option:selected').val() == 0) {
+            $('#deponentInsured').prop('value', "");
+            $('#insuredTransactionAccount').prop('value', "");
+        }
+        else {
+            var InsuredId = $('#DropDownBankAccountInsured option:selected').val();
+            $('#hiddenDropDownBankAccountInsured').val(InsuredId);
+            $('#deponentInsured').prop('value', $('#DropDownBankAccountInsured option:selected').attr("bank"));
+            $('#insuredTransactionAccount').prop('value', $('#DropDownBankAccountInsured option:selected').text());
+        }
+    });
+    //Disable other than English letters
+    $(".input-sm, .text-box").keypress(function (event) {
+        var ew = event.which;
+        if (ew == 32)
+            return true;
+        if (48 <= ew && ew <= 57)
+            return true;
+        if (65 <= ew && ew <= 90)
+            return true;
+        if (97 <= ew && ew <= 122)
+            return true;
+        return false;
+    });
+</script>

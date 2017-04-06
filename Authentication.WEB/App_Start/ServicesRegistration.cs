@@ -24,8 +24,10 @@ namespace InsuredTraveling
             builder.RegisterType<InsuredsService>().As<IInsuredsService>().InstancePerRequest();
             builder.RegisterType<NewsService>().As<INewsService>().InstancePerRequest();
             builder.RegisterType<PolicyService>().As<IPolicyService>().InstancePerRequest();
+            builder.RegisterType<PolicySearchService>().As<IPolicySearchService>().InstancePerRequest();
             builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
             builder.RegisterType<FirstNoticeOfLossService>().As<IFirstNoticeOfLossService>().InstancePerRequest();
+            builder.RegisterType<FirstNoticeOfLossArchiveService>().As<IFirstNoticeOfLossArchiveService>().InstancePerRequest();
             builder.RegisterType<PolicyTypeService>().As<IPolicyTypeService>().InstancePerRequest();
             builder.RegisterType<LuggageInsuranceService>().As<ILuggageInsuranceService>().InstancePerRequest();
             builder.RegisterType<TransactionsService>().As<ITransactionsService>().InstancePerRequest();
@@ -37,8 +39,9 @@ namespace InsuredTraveling
             builder.RegisterType<BankAccountService>().As<IBankAccountService>().InstancePerRequest();
             builder.RegisterType<AdditionalInfoService>().As<IAdditionalInfoService>().InstancePerRequest();
             builder.RegisterType<ExchangeRateService>().As<IExchangeRateService>().InstancePerRequest();
-            builder.RegisterType< TravelNumberService>().As<ITravelNumberService>().InstancePerRequest();
+            builder.RegisterType<TravelNumberService>().As<ITravelNumberService>().InstancePerRequest();
             builder.RegisterType<ChatService>().As<IChatService>().InstancePerRequest();
+            builder.RegisterType<DiscountService>().As<IDiscountService>().InstancePerRequest();
 
             base.Load(builder);
 

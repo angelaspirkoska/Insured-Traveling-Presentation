@@ -149,7 +149,7 @@ input:focus { border: 1px dotted black; }
 input.error { border: 1px dotted red; }
 form.cmxform .gray * { color: gray; }
 
-/*====================================== Customized CSS ====================================================*/
+/*=== Customized CSS ===*/
 
 .borderedContent {
     border: solid 1px #646464;
@@ -173,7 +173,7 @@ form.cmxform .gray * { color: gray; }
 }
 
 .radiobtn-position {
-    width: 16px !important;
+    width: 20px !important;
 }
 
 .checkbox-policyholder {
@@ -187,7 +187,11 @@ form.cmxform .gray * { color: gray; }
 }
 
 .field-size {
-    width: 75% !important;
+    width: 85% !important;
+}
+
+.field-size-holder {
+    width: 100% !important;
 }
 
 .label-position {
@@ -215,8 +219,26 @@ form.cmxform .gray * { color: gray; }
     margin-left: 110px !important;
 }
 
+.toolbar-padding {
+    padding: 35px 0px 0px 0px;
+    margin: 0px;
+}
+
+.toolbar-margin {
+    margin-left: -45px;
+}
+
 .btns-position {
     padding-left: 0px;
+}
+
+.form-padding {
+    padding: 40px 0px;
+}
+
+.active-tab {
+    background-color: #128f76;
+    border-color: #11866f;
 }
 
 /* Style for the headings in the print version of the policy */
@@ -266,6 +288,15 @@ form.cmxform .gray * { color: gray; }
 
 .alert-position {
     margin-top:38px;
+}
+
+.hideItem {
+    visibility: hidden;
+}
+
+.datepicker-size {
+    width: 100% !important;
+    height: 39px;
 }
 
 .signup-btn-style {
@@ -347,6 +378,16 @@ form.cmxform .gray * { color: gray; }
     width:180px;
     z-index:100;
 }
+
+.carousel-inner {
+     max-height:400px;
+     widows:auto;
+}
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+      width: 100%;
+      margin: auto;
+  }
 
 /*Home page background video css*/
 /*video {

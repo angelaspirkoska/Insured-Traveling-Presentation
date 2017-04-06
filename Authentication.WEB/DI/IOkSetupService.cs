@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InsuredTraveling.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,9 @@ namespace InsuredTraveling.DI
 
         List<ok_setup> GetAllOkSetups();
 
-        void AddOkSetup(ok_setup ok); //????? dali ili samo se menja status
+        ok_setup GetLast();
+
+        void AddOkSetup(Ok_SetupModel ok); //????? dali ili samo se menja status
 
         void DeleteOkSetup(int id);
 

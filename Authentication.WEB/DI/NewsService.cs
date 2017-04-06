@@ -44,5 +44,18 @@ namespace InsuredTraveling.DI
                 return true;
             else return false;
         }
+
+        public int LastNewsId()
+        {
+            var lastNews = _db.news_all.OrderByDescending(x => x.ID).FirstOrDefault();
+            if (lastNews == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return lastNews.ID;
+            }
+        }
     }
 }

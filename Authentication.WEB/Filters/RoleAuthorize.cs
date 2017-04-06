@@ -42,19 +42,29 @@ namespace InsuredTraveling.Filters
         {
             bool authorize = false;
             var user = System.Web.HttpContext.Current.User;
-            var aspnetuser = context.aspnetusers.Where(m => m.UserName == user.Identity.Name);
-            if (aspnetuser.Count() == 0)
-                return authorize;
-            var selectedUser = aspnetuser.Single();            
-            if (selectedUser == null)
-                return false;
-            if (selectedUser.aspnetroles.Count == 0)
+            aspnetuser aspnetuser = context.aspnetusers.Where(m => m.UserName == user.Identity.Name).FirstOrDefault();
+            if (aspnetuser == null)
+                return authorize;     
+            if (aspnetuser.aspnetroles.Count == 0)
             {
                 authorize = false;
                 return authorize;
             }
-            authorize = selectedUser.aspnetroles.FirstOrDefault().Name == role;
+            authorize = aspnetuser.aspnetroles.FirstOrDefault() != null ? aspnetuser.aspnetroles.FirstOrDefault().Name == role : false;
             
+            return authorize;
+        }
+
+        public bool IsUser(string role, string username)
+        {
+            bool authorize = false;
+            aspnetuser aspnetuser = context.aspnetusers.FirstOrDefault(m => m.UserName == username);
+            if (aspnetuser == null)
+                return authorize;
+            if (aspnetuser.aspnetroles.Count == 0)
+                return authorize;
+            authorize = aspnetuser.aspnetroles.FirstOrDefault() != null ? aspnetuser.aspnetroles.FirstOrDefault().Name == role : false;
+
             return authorize;
         }
     }

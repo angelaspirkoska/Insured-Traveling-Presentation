@@ -29,11 +29,11 @@ namespace InsuredTraveling
         public string Modified_By { get; set; }
         public int Version { get; set; }
     
-        public virtual aspnetuser aspnetuser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<policy_additional_charge> policy_additional_charge { get; set; }
-        public virtual aspnetuser aspnetuser1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<additional_charge_name> additional_charge_name { get; set; }
+        public virtual aspnetuser aspnetuser { get; set; }
+        public virtual aspnetuser aspnetuser1 { get; set; }
     }
 }

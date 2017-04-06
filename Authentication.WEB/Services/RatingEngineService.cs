@@ -10,7 +10,7 @@ namespace Authentication.WEB.Services
     {
         private InsuredTravelingEntity entities = new InsuredTravelingEntity();
         public double? discountCountry(int countryID, int policy_typeID, int franchiseID)
-        {            
+        {
             double? discount = (entities.discount_country.Where(x => x.CountryID == countryID &&
                                                         x.Policy_typeID == policy_typeID && x.Franchise == franchiseID.ToString()).First()).Percentage;
             return discount;
@@ -43,13 +43,13 @@ namespace Authentication.WEB.Services
         {
             int travelDurationID;
 
-            if(days < 14)
+            if (days < 14)
             {
                 travelDurationID = entities.travel_duration.Where(x => x.Days == "Do 14 dena").Single().ID;
-            }else if(days > 14 && days < 30)
+            } else if (days > 14 && days < 30)
             {
                 travelDurationID = entities.travel_duration.Where(x => x.Days == "Nad 15 dena").Single().ID;
-            }else
+            } else
             {
                 travelDurationID = entities.travel_duration.Where(x => x.Days == "Nad 30 dena").Single().ID;
             }
@@ -73,12 +73,23 @@ namespace Authentication.WEB.Services
             return discount;
         }
 
+        public double? Discount(string DiscountCode )
+        {
+            if ((entities.discount_codes.Where(x => ( x.Discount_Name == DiscountCode) && ( x.End_Date >= DateTime.Now ))).Count() >= 1)
+                {
+                double? discount = (entities.discount_codes.Where(x => x.Discount_Name == DiscountCode).First()).Discount_Coef;
+
+                return discount;
+            }
+            return null;
+        }
+
         public double? procentDoplata(double? ac1, double? ac2)
         {
             return ac1*ac2;
         }
 
-        public int countAge(DateTime policyStart, string embg = null)
+        public int countAgeUsingSSN(DateTime policyStart, string embg = null)
         {
             if (policyStart == null)
                 return -1;
@@ -96,6 +107,17 @@ namespace Authentication.WEB.Services
                 year += 1000;
 
             DateTime birthDate = new DateTime(year, month, day);
+
+            int age = policyStart.Year - birthDate.Year;
+            if (policyStart.Month < birthDate.Month || (policyStart.Month == birthDate.Month && policyStart.Day < birthDate.Day))
+                age--;
+
+            return age;
+        }
+        public int countAgeUsingBirthDate(DateTime policyStart, DateTime birthDate)
+        {
+            if (birthDate == null)
+                return -1;
 
             int age = policyStart.Year - birthDate.Year;
             if (policyStart.Month < birthDate.Month || (policyStart.Month == birthDate.Month && policyStart.Day < birthDate.Day))
@@ -125,7 +147,7 @@ namespace Authentication.WEB.Services
 
             if (policy.Travel_Insurance_TypeID == 1)
             {
-                double? pVozrast = DiscountAge(countAge(policy.Start_Date, policy.SSN));
+                double? pVozrast = DiscountAge(countAgeUsingBirthDate(policy.Start_Date, policy.BirthDate));
                 minPremium *= (1 - pVozrast);
             }
             if (policy.Travel_Insurance_TypeID==2)
@@ -135,7 +157,7 @@ namespace Authentication.WEB.Services
 
                 foreach (insured i in p_i)
                 {
-                    dAge = DiscountAge(countAge(policy.Start_Date, i.SSN));
+                    dAge = DiscountAge(countAgeUsingBirthDate(policy.Start_Date, i.DateBirth));
                     double? osnovnaPremija1 = exchange_rate * dCountry * (1 - dFranchise) * policy.Valid_Days * (1 - dDays) * (1 - dAge);
                     minPremium += osnovnaPremija1;
                 }
@@ -147,20 +169,33 @@ namespace Authentication.WEB.Services
                 double? dGroup = DiscountGroup(policy.Policy_TypeID, policy.Group_Members);
                 minPremium *= policy.Group_Members * (1 - dGroup);
             }
-
-            additional_charge[] aditional_charges = policy.additional_charges.ToArray();
-
-            double? additional_charge1 = 1;
-            double? additional_charge2 = 1;
-            if (aditional_charges != null)
+            
+            if (policy.DiscountCode != null && policy.DiscountCode != "" )
             {
-                int id1 = aditional_charges[0].ID;
-                int id2 = aditional_charges[1].ID;                               
-                additional_charge1 = entities.additional_charge.Where(x => x.ID == id1).Single().Percentage;
-                additional_charge2 = entities.additional_charge.Where(x => x.ID == id2).Single().Percentage;
+                double? discount = Discount(policy.DiscountCode);
+                if(discount != null || discount != 0)
+                {
+                    minPremium = minPremium * (1 - (discount / 100));
+                }
+               
             }
-            double? pDoplata = procentDoplata(additional_charge1, additional_charge2 );
-            minPremium *= pDoplata;
+
+            if(policy.additional_charges != null)
+            {
+                additional_charge[] aditional_charges = policy.additional_charges.ToArray();
+
+                double? additional_charge1 = 1;
+                double? additional_charge2 = 1;
+                if (aditional_charges.Count() != 0)
+                {
+                    int id1 = aditional_charges[0].ID;
+                    int id2 = aditional_charges.Count() == 2 ? aditional_charges[1].ID : 1;
+                    additional_charge1 = entities.additional_charge.Where(x => x.ID == id1).Single().Percentage;
+                    additional_charge2 = entities.additional_charge.Where(x => x.ID == id2).Single().Percentage;
+                }
+                double? pDoplata = procentDoplata(additional_charge1, additional_charge2);
+                minPremium *= pDoplata;
+            }
 
             int roundedPremium = (int)minPremium;
             roundedPremium = ((int)Math.Round(roundedPremium / 10.0)) * 10;

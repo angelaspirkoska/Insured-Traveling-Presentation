@@ -16,6 +16,10 @@ using System.Data.Entity;
 using InsuredTraveling.DI;
 using InsuredTraveling.Filters;
 using InsuredTraveling.Helpers;
+using AutoMapper;
+using InsuredTraveling.ViewModels;
+using System.Globalization;
+using Authentication.WEB.Models;
 
 namespace Authentication.WEB.Controllers
 {
@@ -31,9 +35,11 @@ namespace Authentication.WEB.Controllers
         private IUserService _us;
         private IPolicyInsuredService _pis;
         private IInsuredsService _iss;
+        private RoleAuthorize _roleAuthorize;
+        private IOkSetupService _os;
 
         public PolicyController(IPolicyService ps, IPolicyTypeService pts, ICountryService cs, IFranchiseService fs,
-            IAdditionalChargesService acs, IUserService us, IInsuredsService iss, IPolicyInsuredService pis)
+            IAdditionalChargesService acs, IUserService us, IInsuredsService iss, IPolicyInsuredService pis, IOkSetupService os)
         {
             _ps = ps;
             _pts = pts;
@@ -43,12 +49,16 @@ namespace Authentication.WEB.Controllers
             _us = us;
             _iss = iss;
             _pis = pis;
+            _roleAuthorize = new RoleAuthorize();
+            _os = os;
         }
-
-        // GET: Policy
         [HttpGet]
+        [SessionExpire]
         public async Task<ActionResult> Index()
         {
+            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
+
             var type_policies = GetTypeOfPolicy();
             var countries = GetTypeOfCountry();
             var franchises = GetTypeOfFranchise();
@@ -59,14 +69,153 @@ namespace Authentication.WEB.Controllers
             ViewBag.TypeOfPolicy = type_policies.Result;
             ViewBag.Countries = countries.Result;
             ViewBag.Franchise = franchises.Result;
-            ViewBag.additional_charges = additional_charges.Result;       
+            ViewBag.additional_charges = additional_charges.Result;
+            ViewBag.DisableDefault = false;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Index(Policy p)
+        public async Task<JsonResult> Index(Policy policy)
         {
-            return View();
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+
+            ok_setup Last_Entry = _os.GetLast();
+            if (Last_Entry.SSNValidationActive == 1)
+            {
+                ValidationService validatePremium = new ValidationService();
+
+                if (!validatePremium.validateSSN_Advanced(policy.SSN))
+                {
+                    return Json(new { isValid = false, status = "error", message = Resource.Error_EMBG_Val_Advanced });
+                }
+            }
+
+            if (policy.IsSamePolicyHolderInsured)
+            {
+                policy.PolicyHolderName = policy.Name;
+                policy.PolicyHolderLastName = policy.LastName;
+                policy.PolicyHolderSSN = policy.SSN;
+                policy.PolicyHolderEmail = policy.Email;
+                policy.PolicyHolderAddress = policy.Address;
+                policy.PolicyHolderBirthDate = policy.BirthDate;
+                policy.PolicyHolderCity = policy.City;
+                policy.PolicyHolderPostalCode = policy.PostalCode;
+                policy.PolicyHolderPhoneNumber = policy.PhoneNumber;
+            }
+            else
+            { 
+                ModelState.Remove("PolicyHolderName");
+                ModelState.Remove("PolicyHolderLastName");
+                ModelState.Remove("PolicyHolderEmail");
+                ModelState.Remove("PolicyHolderAddress");
+                ModelState.Remove("PolicyHolderBirthDate");
+                ModelState.Remove("PolicyHolderCity");
+                ModelState.Remove("PolicyHolderPostalCode");
+                ModelState.Remove("PolicyHolderPhoneNumber");
+                ModelState.Remove("PolicyHolderSSN");
+            }
+
+            if (ModelState.IsValid && policy != null)
+            {
+                RatingEngineService ratingEngineService = new RatingEngineService();
+                Premium Premium = new Premium();
+                Premium.PremiumAmount = (int)ratingEngineService.totalPremium(policy);
+                if (_roleAuthorize.IsUser("Broker manager", username))
+                {
+                    if (Premium.PremiumAmount > 10000)
+                    {
+                        return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded", PremiumAmount = Premium.PremiumAmount });
+                    }
+                }
+                else if (_roleAuthorize.IsUser("Broker", username))
+                {
+                    if (Premium.PremiumAmount > 10000)
+                    {
+                        return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded", PremiumAmount = Premium.PremiumAmount });
+                    }
+                }
+
+                return Json(new { isValid = true, status = "ok", PremiumAmount = Premium.PremiumAmount });
+            }
+            else
+            {
+                return Json(new { isValid = false, status = "error", message = InsuredTraveling.Resource.EnterAllData });
+            }
+        }
+
+        public async Task<ActionResult> Preview(int policyId)
+        {
+            travel_policy policy = _ps.GetPolicyById(policyId);
+            insured policyHolder = _ps.GetPolicyHolderByPolicyID(policyId);
+            List<insured> insureds = _pis.GetAllInsuredByPolicyId(policyId);
+            List<additional_charge> additionalCharges = _acs.GetAdditionalChargesByPolicyId(policyId);
+
+
+            Policy policyPreview = new Policy
+            {
+                Policy_Number = policy.Policy_Number,
+                PaymentStatys = policy.Payment_Status == true ? 1 : 0,
+                Exchange_RateID = policy.Exchange_RateID,
+                CountryID = policy.CountryID,
+                Policy_TypeID = policy.Policy_TypeID,
+                IsSamePolicyHolderInsured = policy.Policy_HolderID == policy.insured.ID,
+                Date_Created = policy.Date_Created,
+                Created_By = policy.Created_By,
+                Start_Date = policy.Start_Date,
+                End_Date = policy.End_Date,
+                Valid_Days = policy.Valid_Days,
+                Travel_NumberID = policy.Travel_NumberID,
+                Total_Premium = policy.Total_Premium,
+                PolicyHolderId = policy.Policy_HolderID,
+                PolicyHolderName = policyHolder.Name,
+                PolicyHolderAddress = policyHolder.Address,
+                PolicyHolderBirthDate = policyHolder.DateBirth,
+                PolicyHolderCity = policyHolder.City,
+                PolicyHolderEmail = policyHolder.Email,
+                PolicyHolderLastName = policyHolder.Lastname,
+                PolicyHolderPassportNumber_ID = policyHolder.Passport_Number_IdNumber,
+                PolicyHolderPhoneNumber = policyHolder.Phone_Number,
+                PolicyHolderPostalCode = policyHolder.Postal_Code,
+                PolicyHolderSSN = policyHolder.SSN,
+                insureds = insureds,
+                additional_charges = additionalCharges,
+                Address = insureds[0].Address,
+                Name = insureds[0].Name,
+                LastName = insureds[0].Lastname,
+                City = insureds[0].City,
+                PostalCode = insureds[0].Postal_Code,
+                BirthDate = insureds[0].DateBirth,
+                SSN = insureds[0].SSN,
+                Email = insureds[0].Email,
+                PhoneNumber = insureds[0].Phone_Number,
+                PassportNumber_ID = insureds[0].Passport_Number_IdNumber
+
+            };
+            var type_policies = GetTypeOfPolicy();
+            var countries = GetTypeOfCountry();
+            var franchises = GetTypeOfFranchise();
+            var additional_charges = GetTypeOfAdditionalCharges();
+
+            await Task.WhenAll(type_policies, countries, franchises, additional_charges);
+
+            ViewBag.TypeOfPolicy = type_policies.Result;
+            ViewBag.Countries = countries.Result;
+            ViewBag.Franchise = franchises.Result;
+            ViewBag.additional_charges = additional_charges.Result;
+            ViewBag.Doplatok1 = 0;
+            ViewBag.Doplatok2 = 0;
+            if (additionalCharges.Count >= 1 && additionalCharges[0] != null)
+            {
+               if(additionalCharges[0].ID == 2 )
+                    ViewBag.Doplatok1 = 1;
+            }
+            if (additionalCharges.Count >= 2 && additionalCharges[1] != null)
+            {
+                if (additionalCharges[1].ID == 3)
+                    ViewBag.Doplatok2 = 1;
+            }
+            ViewBag.DisableDefault = true;
+            return View(policyPreview);
         }
 
         public async System.Threading.Tasks.Task<ActionResult> CreatePolicy(Policy policy)
@@ -86,7 +235,7 @@ namespace Authentication.WEB.Controllers
             string responseBody = await responseMessage.Content.ReadAsStringAsync();
             dynamic data = JObject.Parse(responseBody);
             int premium = data.PremiumAmount;
-
+   
             bool valid = validationService.masterValidate(polisaEntity);
             double? vkupnaPremija = ratingEngineService.totalPremium(policy);
             policy.Total_Premium = vkupnaPremija;
@@ -114,12 +263,22 @@ namespace Authentication.WEB.Controllers
                 polisaEntity.Valid_Days = policy.Valid_Days;
                 polisaEntity.Travel_Insurance_TypeID = policy.Travel_Insurance_TypeID;
                 polisaEntity.Travel_NumberID = policy.Travel_NumberID;
-                polisaEntity.Travel_Insurance_TypeID = policy.Travel_Insurance_TypeID;
                 polisaEntity.Exchange_RateID = (policy.Exchange_RateID.HasValue)? policy.Exchange_RateID.Value : 1;
                 var result = _ps.AddPolicy(polisaEntity);
             }
 
             return Json(new { success = true, responseText = "Success." }, JsonRequestBehavior.AllowGet);
+        }
+
+        public async System.Threading.Tasks.Task<ActionResult> CreateQuote(Policy policy)
+        {
+            var result = SavePolicyHelper.SavePolicy(policy, _ps, _us, _iss, _pis, _acs);
+            var quoteNumber= _ps.GetPolicyById(result).Policy_Number;
+            if (result != 0)
+            {
+                return Json(new { success = true, responseText = quoteNumber, numberQuote = quoteNumber }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "Fail." }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -138,7 +297,6 @@ namespace Authentication.WEB.Controllers
             pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
             
             pat.mainInsured = _pis.GetAllInsuredByPolicyIdAndInsuredCreatedBy(pat.Pat.ID, pat.Pat.Created_By).First();
-            var policy = _ps.GetPolicyById(pat.Pat.ID);
             var additionalCharges = _acs.GetAdditionalChargesByPolicyId(pat.Pat.ID);
 
             pat.additionalCharge1 = InsuredTraveling.Resource.WithNoAddOn;
@@ -201,14 +359,16 @@ namespace Authentication.WEB.Controllers
 
 
         [HttpGet]
+        [SessionExpire]
         public async Task<JObject> GetExistentLoggedInUserData()
         {
             var Result = new JObject();
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
+                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
                 string username = System.Web.HttpContext.Current.User.Identity.Name;
                 var loggedUserSsn = _us.GetUserSsnByUsername(username);
-                //var loggedUserData = _iss.GetInsuredDataBySsn(loggedUserSsn);
                 var loggedUserData = _iss.GetInsuredBySsnAndCreatedBy(loggedUserSsn, _us.GetUserIdByUsername(username));
                 JObject insuredData = new JObject();
                 if (loggedUserData == null)
@@ -221,7 +381,7 @@ namespace Authentication.WEB.Controllers
                     insuredData.Add("PostalCode", loggedUser.PostalCode);
                     insuredData.Add("Ssn", loggedUser.EMBG);
 
-                    insuredData.Add("DateBirth", loggedUser.DateOfBirth.Year + String.Format("-{0:00}-{0:00}", +loggedUser.DateOfBirth.Month, loggedUser.DateOfBirth.Day));
+                    insuredData.Add("DateBirth", loggedUser.DateOfBirth != null ? loggedUser.DateOfBirth.Value.ToString(dateTimeFormat, new CultureInfo("en-US")) : null);
                     insuredData.Add("PassportID", loggedUser.PassportNumber);
                     insuredData.Add("Email", loggedUser.Email);
                     insuredData.Add("PhoneNumber", loggedUser.MobilePhoneNumber);
@@ -238,7 +398,7 @@ namespace Authentication.WEB.Controllers
                 insuredData.Add("PostalCode", loggedUserData.Postal_Code);
                 insuredData.Add("Ssn", loggedUserData.SSN);
                
-                insuredData.Add("DateBirth", loggedUserData.DateBirth.Year + String.Format("-{0:00}-{0:00}", +loggedUserData.DateBirth.Month, loggedUserData.DateBirth.Day));
+                insuredData.Add("DateBirth", loggedUserData.DateBirth.ToString(dateTimeFormat, new CultureInfo("en-US")));
                 insuredData.Add("PassportID", loggedUserData.Passport_Number_IdNumber);
                 insuredData.Add("Email", loggedUserData.Email);
                 insuredData.Add("PhoneNumber", loggedUserData.Phone_Number);
@@ -251,7 +411,50 @@ namespace Authentication.WEB.Controllers
             }
 
             return Result;           
+        }
 
+        public JObject GetExistentInsuredUserData(string ssn)
+        {
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+
+            var Result = new JObject();
+            insured InsuredUser = null;
+            if (_roleAuthorize.IsUser("Admin"))
+            {
+                InsuredUser = _iss.GetInsuredBySsn(ssn);
+
+            }else if(_roleAuthorize.IsUser("Broker"))
+            {
+                InsuredUser = _iss.GetInsuredBySsnAndCreatedBy(ssn, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name));
+
+            }else if (_roleAuthorize.IsUser("Broker manager"))
+            {
+                InsuredUser = _iss.GetBrokerManagerInsuredBySsnAndCreatedBy(ssn, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name));
+            }
+            JObject insuredData = new JObject();
+
+            if(InsuredUser != null)
+            {
+                insuredData.Add("FirstName", InsuredUser.Name);
+                insuredData.Add("Name", InsuredUser.Lastname);
+                insuredData.Add("Address", InsuredUser.Address);
+                insuredData.Add("City", InsuredUser.City);
+                insuredData.Add("PostalCode", InsuredUser.Postal_Code);
+                insuredData.Add("Ssn", InsuredUser.SSN);
+
+                insuredData.Add("DateBirth", InsuredUser.DateBirth.ToString(dateTimeFormat, new CultureInfo("en-US")));
+                insuredData.Add("PassportID", InsuredUser.Passport_Number_IdNumber);
+                insuredData.Add("Email", InsuredUser.Email);
+                insuredData.Add("PhoneNumber", InsuredUser.Phone_Number);
+
+                Result.Add("InsuredData", insuredData);
+                return Result;
+            }else
+            {
+                Result.Add("response", "User with that SSN not found");
+                return Result;
+            }
         }
     }
 }

@@ -19,5 +19,7 @@ namespace InsuredTraveling.DI
         bool IsNull(int id);
 
         news_all GetNewsById(int id);
+
+        int LastNewsId();
     }
 }

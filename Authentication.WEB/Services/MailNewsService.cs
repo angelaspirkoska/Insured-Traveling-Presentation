@@ -2,6 +2,7 @@
 using S22.Imap;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 
 namespace Authentication.WEB.Services
@@ -14,7 +15,7 @@ namespace Authentication.WEB.Services
             string n = "[notification]";
 
             using (ImapClient client = new ImapClient("imap.zoho.com", 993,
-                "info@optimalreinsurance.com", "Enter4Sy", AuthMethod.Login, true))
+                "news@insuredtraveling.com", "Enter4Sy", AuthMethod.Login, true))
             {
                 IEnumerable<uint> uids = client.Search(SearchCondition.Unseen());
 
@@ -41,9 +42,13 @@ namespace Authentication.WEB.Services
 
                 client.Expunge("Inbox");
                 client.Dispose();
+
+                if (uids.Count() != 0)
+                    entities.SaveChanges();
+
             }
 
-            entities.SaveChanges();
+           
         }
     }
 }

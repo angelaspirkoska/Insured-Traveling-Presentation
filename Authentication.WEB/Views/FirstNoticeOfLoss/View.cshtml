@@ -1,5 +1,5 @@
 ﻿@model InsuredTraveling.Models.FirstNoticeOfLossReportViewModel
-
+@using System.Configuration;
 @{
     ViewBag.Title = InsuredTraveling.Resource.FNOL_ViewTitle;
     var noValue = "/";
@@ -17,7 +17,7 @@
         <h3>@InsuredTraveling.Resource.FNOL_Number @Model.FNOLNumber</h3>
         <hr />
         <div class="row container">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <div class="col-lg-7">
                         <label>@InsuredTraveling.Resource.FNOL_PolicyNumber: </label>
@@ -27,13 +27,23 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
-                    <div class="col-lg-7">
-                        <button type="button" style="float:right;" class="btn btn-success btn-material-design"   onclick="@("window.location.href='" + @Url.Action("Edit", "FirstNoticeOfLoss", new { id = Model.Id}) + "'");"> <i class="glyphicon glyphicon-edit"></i></button>
+                    <div class="col-lg-7" style="font-size: 18px;">
+                            <a href="/Policy/PolicyDetails?policyNumber=@Model.PolicyNumber" target="_blank">@Resource.PolicyPreview</a>
                     </div>
                 </div>
             </div>
+            @if (!Model.IsArchived)
+            {
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-lg-7">
+                            <button type="button" style="float:right;" class="btn btn-success btn-material-design" onclick="@("window.location.href='" + @Url.Action("Edit", "FirstNoticeOfLoss", new { id = Model.Id}) + "'");"> <i class="glyphicon glyphicon-edit"></i></button>
+                        </div>
+                    </div>
+                </div>
+            }           
         </div>
         <div class="row container">
             <header class="well">@InsuredTraveling.Resource.FNOL_PolicyHolderInfo</header>
@@ -153,7 +163,7 @@
                 <div class="form-group">                  
                     <div class="col-lg-7">
                         <label>@InsuredTraveling.Resource.FNOL_StartDate:</label>   
-                        @Model.DepartDateTime.Date.ToShortDateString()                     
+                        @Model.DepartDateTime.Date.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString())             
                     </div>
                 </div>
                 <div class="form-group">
@@ -174,7 +184,7 @@
                 <div class="form-group">
                    <div class="col-lg-7">
                         <label>@InsuredTraveling.Resource.FNOL_EndDate:</label>
-                         @Model.ArrivalDateTime.Date.ToShortDateString()       
+                         @Model.ArrivalDateTime.Date.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString())    
                     </div>
                 </div>
                 <div class="form-group">
@@ -195,7 +205,7 @@
                             <label>@InsuredTraveling.Resource.FNOL_AccidentDate:</label>
                             @if (Model.AccidentDateTimeHealth.HasValue)
                             {
-                                @Model.AccidentDateTimeHealth.Value.Date.ToShortDateString()
+                                @Model.AccidentDateTimeHealth.Value.Date.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString())
                             }
                         </div>
                     </div>
@@ -216,7 +226,7 @@
                             <label>@InsuredTraveling.Resource.FNOL_DateWhenDoctorVisit:</label>
                             @if (Model.DoctorVisitDateTime.HasValue)
                             {
-                                @Model.DoctorVisitDateTime.Value.Date.ToShortDateString()
+                                @Model.DoctorVisitDateTime.Value.Date.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString())
                             }
                         </div>
                     </div>
@@ -298,7 +308,7 @@
                             <label>@InsuredTraveling.Resource.FNOL_AccidentDate:</label>
                             @if (Model.AccidentDateTimeLuggage.HasValue)
                             {
-                                @Model.AccidentDateTimeLuggage.Value.Date.ToShortDateString()
+                                @Model.AccidentDateTimeLuggage.Value.Date.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString())
                             }
                         </div>
                     </div>

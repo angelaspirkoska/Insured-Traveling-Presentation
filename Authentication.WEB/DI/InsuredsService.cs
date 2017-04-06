@@ -21,6 +21,16 @@ namespace InsuredTraveling.DI
             return Insured.ID;
         }
 
+        public type_insured GetInsuredType()
+        {
+            return _db.type_insured.Where(x => x.Name == "insured").FirstOrDefault();
+        }
+
+        public List<type_insured> GetAllInsuredTypes()
+        {
+            return _db.type_insured.ToList();
+        }
+
         public insured Create()
         {
             return _db.insureds.Create();
@@ -49,7 +59,7 @@ namespace InsuredTraveling.DI
             return -1;
         }
 
-        public List<insured> GetInsuredBySearchValues(string name, string lastname, string embg, string address, string email, string postal_code, string phone, string city, string passport)
+        public List<insured> GetInsuredBySearchValues(string name, string lastname, string embg, string address, string email, string postal_code, string phone, string city, string passport, string createdBy)
         {
             return _db.insureds.Where(x => (x.Name.Contains(name) || String.IsNullOrEmpty(name)) &&
                                            (x.Lastname.Contains(lastname) || String.IsNullOrEmpty(lastname)) &&
@@ -59,12 +69,13 @@ namespace InsuredTraveling.DI
                                            (x.Postal_Code.Contains(postal_code) || String.IsNullOrEmpty(postal_code)) &&
                                            (x.Phone_Number.Contains(phone) || String.IsNullOrEmpty(phone)) &&
                                            (x.City.Contains(city) || String.IsNullOrEmpty(city)) &&
-                                           (x.Passport_Number_IdNumber.Contains(passport) || String.IsNullOrEmpty(passport))).ToList();
+                                           (x.Passport_Number_IdNumber.Contains(passport) || String.IsNullOrEmpty(passport)) &&
+                                           (x.Created_By.Contains(createdBy))).ToList();
         }
 
         public insured GetInsuredBySsn(string Ssn)
         {
-            var insured = _db.insureds.Where(x => x.SSN == Ssn).SingleOrDefault();
+            var insured = _db.insureds.Where(x => x.SSN == Ssn).FirstOrDefault();
             return insured;
         }
 
@@ -74,8 +85,17 @@ namespace InsuredTraveling.DI
             return insured;
         }
 
+        public insured GetBrokerManagerInsuredBySsnAndCreatedBy(string Ssn, string userId)
+        {
+            var user = _db.aspnetusers.FirstOrDefault(x => x.Id == userId);
 
-        
+            List<string> brokersUsers =
+                _db.aspnetusers.Where(x => x.CreatedBy == user.Id).Select(x => x.Id).ToList();
+
+            var insured = _db.insureds.FirstOrDefault(x => x.SSN == Ssn && brokersUsers.Contains(x.Created_By));
+            return insured;
+        }
+
 
         public void UpdateInsuredData(insured insured)
         {

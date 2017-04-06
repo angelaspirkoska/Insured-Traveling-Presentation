@@ -1,6 +1,7 @@
 ﻿using InsuredTraveling.Filters;
 using InsuredTraveling.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -61,6 +62,28 @@ namespace InsuredTraveling.Controllers
             }
             ViewBag.Msg = "Not valid username or mail";
             return View();
+        }
+
+        [HttpPost]
+        [Route("Change")]
+        public JObject Change(ForgetPasswordModel model)
+        {
+            AuthRepository _repo = new AuthRepository();
+            JObject resultJSON = new JObject();
+            if (ModelState.IsValid)
+            {
+
+                IdentityResult result =  _repo.PasswordChangeByUsername(model);
+                if (result.Succeeded)
+                {
+                    resultJSON.Add("message", "OK");
+                }else
+                {
+                    resultJSON.Add("message", "NOK");
+                }
+
+            }
+            return resultJSON;
         }
     }
 }

@@ -23,7 +23,6 @@ namespace InsuredTraveling.ViewModels
         public string FNOLNumber { get; set; }
         public bool? ShortDetailed { get; set; }
         public JObject BankPrefixes { get; set; }
-
         public int PolicyId { get; set; }
         public int PolicyNumber { get; set; }
         public string Message { get; set; }
@@ -75,10 +74,10 @@ namespace InsuredTraveling.ViewModels
         public string Destination { get; set; }
         
         [Required(ErrorMessage = "Полето е задолжително")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DepartDateTime { get; set; }
         [Required(ErrorMessage = "Полето е задолжително")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ArrivalDateTime { get; set; }
         [Required(ErrorMessage = "Полето е задолжително")]
         public TimeSpan? DepartTime { get; set; }
@@ -91,9 +90,9 @@ namespace InsuredTraveling.ViewModels
         public int AdditionalInfoId { get; set; }
         public bool IsHealthInsurance { get; set; }
         [Required(ErrorMessage = "Полето е задолжително")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? AccidentDateTimeHealth { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Полето е задолжително")]
         public DateTime? AccidentDateTimeLuggage { get; set; }
         [Required(ErrorMessage = "Полето е задолжително")]
@@ -120,7 +119,7 @@ namespace InsuredTraveling.ViewModels
         public List<FileDescriptionViewModel> InsuranceInfoDoc { get; set; }
         //HealthInsuranceInfo
         [Required(ErrorMessage = "Полето е задолжително")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DoctorVisitDateTime { get; set; }
         [Required(ErrorMessage = "Полето е задолжително")]
         public string DoctorInfo { get; set; }

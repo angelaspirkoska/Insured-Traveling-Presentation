@@ -9,13 +9,21 @@ namespace InsuredTraveling.Helpers
 {
     public static class UpdateFirstNoticeOfLossHelper
     {
-        public static void UpdateFirstNoticeOfLoss(FirstNoticeOfLossEditViewModel model, IFirstNoticeOfLossService _fnol, IBankAccountService _bas, IAdditionalInfoService _ais, IHealthInsuranceService _his, ILuggageInsuranceService _lis, IEnumerable<HttpPostedFileBase> invoices,
-            IEnumerable<HttpPostedFileBase> documentsHealth, IEnumerable<HttpPostedFileBase> documentsLuggage)
+        public static void UpdateFirstNoticeOfLoss(FirstNoticeOfLossEditViewModel model, 
+                                                   IFirstNoticeOfLossService _fnol, 
+                                                   IBankAccountService _bas, 
+                                                   IAdditionalInfoService _ais, 
+                                                   IHealthInsuranceService _his, 
+                                                   ILuggageInsuranceService _lis, 
+                                                   IFirstNoticeOfLossArchiveService _firstNoticeLossArchive,
+                                                   IEnumerable<HttpPostedFileBase> invoices,
+                                                   IEnumerable<HttpPostedFileBase> documentsHealth, 
+                                                   IEnumerable<HttpPostedFileBase> documentsLuggage)
         {
           
             var fnol = _fnol.GetById(model.Id);
             //bank accounts update    
-            var isArchived = ArchiveFirstNoticeOfLossHelper.ArchiveFirstNoticeOfLoss(fnol, model.ModifiedBy, _fnol);
+            var isArchived = ArchiveFirstNoticeOfLossHelper.ArchiveFirstNoticeOfLoss(fnol, model.ModifiedBy, _fnol, _firstNoticeLossArchive);
             if (!fnol.Claimant_bank_account_info.Account_Number.ToString().Equals( model.ClaimantBankAccountNumber)
                 || !fnol.Claimant_bank_account_info.bank.Name.Equals(model.ClaimantBankName))
             {

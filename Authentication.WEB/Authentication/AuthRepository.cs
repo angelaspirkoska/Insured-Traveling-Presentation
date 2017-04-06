@@ -14,6 +14,8 @@ using System.Configuration;
 using System.Net.Http;
 using System.Web;
 using Newtonsoft.Json.Linq;
+using System.Net.Mail;
+using System.Net.Mime;
 
 namespace InsuredTraveling
 {
@@ -50,7 +52,7 @@ namespace InsuredTraveling
 
             //Random r = new Random();
             //string id = "1234" + r.Next(1000, 9999).ToString() + r.Next(100,999).ToString();
-                    
+
             ApplicationUser user = new ApplicationUser
             {
                 UserName = userModel.UserName,
@@ -65,10 +67,12 @@ namespace InsuredTraveling
                 AccessFailedCount = 0,
                 MobilePhoneNumber = userModel.MobilePhoneNumber,
                 Gender = userModel.Gender,
-                DateOfBirth = userModel.DateOfBirth
+                DateOfBirth = userModel.DateOfBirth,
+                CreatedOn = DateTime.UtcNow
+                
             };
             var result = await _userManager.CreateAsync(user, userModel.Password);
-            var result2 = _userManager.AddToRole(user.Id, "end user");
+            var result2 = _userManager.AddToRole(user.Id, "End user");
 
             return result;
         }
@@ -148,13 +152,16 @@ namespace InsuredTraveling
                 AccessFailedCount = 0,
                 MobilePhoneNumber = userModel.MobilePhoneNumber,
                 Gender = userModel.Gender,
-                DateOfBirth = userModel.DateOfBirth,
+                DateOfBirth = userModel.DateOfBirth.Value,
                 PhoneNumber = userModel.PhoneNumber,
                 PassportNumber = userModel.PassportNumber,
                 Municipality = userModel.Municipality,
                 PostalCode = userModel.PostalCode,
                 Address = userModel.Address,
-                EMBG = userModel.EMBG
+                EMBG = userModel.EMBG,
+                City = userModel.City,
+                CreatedOn = DateTime.UtcNow,
+                CreatedBy = userModel.CreatedBy
             };
             
             var result = await _userManager.CreateAsync(user, userModel.Password);
@@ -163,13 +170,29 @@ namespace InsuredTraveling
             {
                 try
                 {
-                    string body = "Welcome to Optimal Insurance " + " " + ",";
-                    body += "<br /><br />Please click the following link to activate your account";
-                    body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
-                    body += "<br /><br />Thanks";
-                    MailService mailService = new MailService(userModel.Email); //Change the email with the email user mail
-                    mailService.setSubject("Account Activation Validation");
-                    mailService.setBodyText(body, true);
+                   
+                    var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/EmailHeaderWelcome1.png"));
+                    inlineLogo.ContentId = Guid.NewGuid().ToString();
+
+                    string body1 = string.Format(@"   
+                        <div style='margin-left:20px'>
+                     <img style='width:700px' src=""cid:{0}"" />
+                     <p> <b>Welcome to Insured Traveling </b> - the standalone platform for online sales of insurance policies.</p>
+                  
+                     <br /> <br /> Please click the following link to activate your account
+                     <br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>"+
+                     "<br /> <br />Thanks </div>"
+                     
+                    , inlineLogo.ContentId);
+                    var view = AlternateView.CreateAlternateViewFromString(body1, null, "text/html");
+                    view.LinkedResources.Add(inlineLogo);             
+
+                    MailService mailService = new MailService(userModel.Email, "signup@insuredtraveling.com"); //Change the email with the email user mail
+                    mailService.setSubject("Insured Traveling - Account Activation Validation");
+                    mailService.setBodyText(body1, true);
+                    //ALTERNATIVE VIEW
+                    mailService.AlternativeViews(view);
+
                     mailService.sendMail();
                 }
                 catch(Exception e)
@@ -178,7 +201,7 @@ namespace InsuredTraveling
                 }
             }
 
-            var result2 = _userManager.AddToRole(user.Id, "end user");
+            var result2 = _userManager.AddToRole(user.Id, userModel.Role);
 
             return result;
         }
@@ -242,11 +265,11 @@ namespace InsuredTraveling
 
                 if (r1.Succeeded)
                 {
-                    string body = "Welcome to Optimal Insurance " + " " + ",";
+                    string body = "Welcome to Insured Traveling  " + " " + ",";
                     body += "<br /><br />Please click the following link to activate your account";
                     body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
                     body += "<br /><br />Thanks";
-                    MailService mailService = new MailService("slobodanka@optimalreinsurance.com");
+                    MailService mailService = new MailService("slobodanka@optimalreinsurance.com", "signup@insuredtraveling.com");
                     mailService.setSubject("Account Activation Validation");
                     mailService.setBodyText(body, true);
                     mailService.sendMail();
@@ -264,11 +287,11 @@ namespace InsuredTraveling
                 var user = await _userManager.FindByNameAsync(username);
                 if (user != null)
                 {
-                    string body = "Welcome to Optimal Insurance " + " " + ",";
+                    string body = "Welcome to Insured Traveling " + " " + ",";
                     body += "<br /><br />Please click the following link to activate your account";
                     body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
                     body += "<br /><br />Thanks";
-                    MailService mailService = new MailService(user.Email);
+                    MailService mailService = new MailService(user.Email, "signup@insuredtraveling.com");
                     mailService.setSubject("Account Activation Validation");
                     mailService.setBodyText(body, true);
                     mailService.sendMail();
@@ -303,11 +326,11 @@ namespace InsuredTraveling
             var r = _userManager.FindByName(username);
             if (r != null)
             {
-                string body = "Welcome to Optimal Insurance " + " " + ",";
+                string body = "Welcome to Insured Traveling " + " " + ",";
                 body += "<br /><br />Please click the following link to reset your password";
                 body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
                 body += "<br /><br />Thanks";
-                MailService mailService = new MailService(r.Email);
+                MailService mailService = new MailService(r.Email, "signup@insuredtraveling.com");
                 mailService.setSubject("Account Reset Password");
                 mailService.setBodyText(body, true);
                 mailService.sendMail();
@@ -319,11 +342,11 @@ namespace InsuredTraveling
             var r = _userManager.FindByEmail(email);
             if (r != null)
             {
-                string body = "Welcome to Optimal Insurance " + " " + ",";
+                string body = "Welcome to Insured Traveling " + " " + ",";
                 body += "<br /><br />Please click the following link to reset your password";
                 body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
                 body += "<br /><br />Thanks";
-                MailService mailService = new MailService("slobodanka@optimalreinsurance.com");
+                MailService mailService = new MailService("slobodanka@optimalreinsurance.com", "signup@insuredtraveling.com");
                 mailService.setSubject("Account Reset Password");
                 mailService.setBodyText(body, true);
                 mailService.sendMail();
@@ -368,6 +391,26 @@ namespace InsuredTraveling
             return new IdentityResult();
         }
 
+        public  IdentityResult PasswordChangeByUsername(ForgetPasswordModel model)
+        {
+            var user1 =  _userManager.FindByName(model.username);
+            if (user1 != null)
+            {
+                var r1 = _userManager.RemovePassword(user1.Id);
+                _userManager.Update(user1);
+                if (r1.Succeeded)
+                {
+                    var r2 = _userManager.AddPassword(user1.Id, model.Password);
+                    _userManager.Update(user1);
+                    var r3 = _userManager.CheckPassword(user1, model.Password);
+
+                    return r2;
+                }
+            }
+
+            return new IdentityResult();
+        }
+
         public async Task<IdentityResult> SendSmsCode(string username)
         {
             if (!String.IsNullOrEmpty(username))
@@ -379,7 +422,7 @@ namespace InsuredTraveling
                     {
                         if (user1.AccessFailedCount > 5)
                         {
-                            return new IdentityResult("You have reached the limited numbers of atempts, try again tomorrow");
+                            return new IdentityResult("You have reached the limited numbers of attempts, try again tomorrow");
                         }
                         SMSvalidation s = new SMSvalidation();
                         string code = s.SendMessage();

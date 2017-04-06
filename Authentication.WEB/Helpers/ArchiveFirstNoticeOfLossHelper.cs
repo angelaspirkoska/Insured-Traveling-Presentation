@@ -8,7 +8,10 @@ namespace InsuredTraveling.Helpers
 {
     public static class ArchiveFirstNoticeOfLossHelper
     {
-        public static bool ArchiveFirstNoticeOfLoss(first_notice_of_loss firstNoticeOfLoss, string modifiedBy, IFirstNoticeOfLossService _fnol)
+        public static bool ArchiveFirstNoticeOfLoss(first_notice_of_loss firstNoticeOfLoss, 
+                                                    string modifiedBy, 
+                                                    IFirstNoticeOfLossService _fnol,
+                                                    IFirstNoticeOfLossArchiveService _firstNoticeLossArchive)
         {
             first_notice_of_loss_archive firstNoticeOfLossArchive = new first_notice_of_loss_archive();
 
@@ -44,6 +47,7 @@ namespace InsuredTraveling.Helpers
             firstNoticeOfLossArchive.Additional_infoId = firstNoticeOfLoss.Additional_infoID;
             firstNoticeOfLossArchive.Additional_info_datetime = firstNoticeOfLoss.additional_info.Datetime_accident;
             firstNoticeOfLossArchive.Additional_info_accident_place = firstNoticeOfLoss.additional_info.Accident_place;
+            firstNoticeOfLossArchive.FNOL_Number = firstNoticeOfLoss.FNOL_Number;
 
             if(firstNoticeOfLoss.additional_info.luggage_insurance_info!=null)
             {
@@ -62,7 +66,7 @@ namespace InsuredTraveling.Helpers
                 firstNoticeOfLossArchive.health_previous_medical_history = firstNoticeOfLoss.additional_info.health_insurance_info.Previous_medical_history;
             }
 
-            var result = _fnol.Archive(firstNoticeOfLossArchive);
+            var result = _firstNoticeLossArchive.Archive(firstNoticeOfLossArchive);
 
             if (result > 0)
             {

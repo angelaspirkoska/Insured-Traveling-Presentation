@@ -10,7 +10,8 @@ using System.Web;
 
 namespace InsuredTraveling.Hubs
 {
-    [Authorize]
+   
+    [SessionExpire]
     public class ChatHub : Hub
     {
         readonly InsuredTravelingEntity _db = new InsuredTravelingEntity();
@@ -25,8 +26,14 @@ namespace InsuredTraveling.Hubs
         public override Task OnReconnected()
         {
             RoleAuthorize roleAuthorize = new RoleAuthorize();
-            _currentUser = System.Web.HttpContext.Current.User.Identity.Name;
-            _isAdmin = roleAuthorize.IsUser("admin");
+            if (System.Web.HttpContext.Current !=null)
+            {
+                _currentUser = System.Web.HttpContext.Current.User.Identity.Name;
+                _isAdmin = roleAuthorize.IsUser("Admin");
+            }else
+            {
+                _isAdmin = false;
+            }
 
             return base.OnReconnected();
         }
@@ -35,7 +42,7 @@ namespace InsuredTraveling.Hubs
             RoleAuthorize roleAuthorize = new RoleAuthorize();
             _currentUser = System.Web.HttpContext.Current.User.Identity.Name;
             List<LastMessagesDTO> lastMessages = new List<LastMessagesDTO>();
-            _isAdmin = roleAuthorize.IsUser("admin");
+            _isAdmin = roleAuthorize.IsUser("Admin");
 
             if (_isAdmin)
             {
@@ -50,8 +57,11 @@ namespace InsuredTraveling.Hubs
                 Groups.Add(Context.ConnectionId, _currentUser);
                 lastMessages = GetLastMessages(_currentUser, false);
             }
-
-            Clients.Group(_currentUser).ActiveMessages(lastMessages);
+            if(!_currentUser.Equals(String.Empty))
+            {
+                Clients.Group(_currentUser).ActiveMessages(lastMessages);
+            }
+           
 
             return base.OnConnected();
         }

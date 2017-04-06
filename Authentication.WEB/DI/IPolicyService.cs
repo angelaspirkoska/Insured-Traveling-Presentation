@@ -10,8 +10,21 @@ using Authentication.WEB.Models;
 namespace InsuredTraveling.DI
 {
    public interface IPolicyService
-    {
+   {
+        List<travel_policy> GetEndUserExpiringPolicies(string userId, DateTime dateFrom);
+        List<travel_policy> GetBrokerManagerQuotes(string userId, DateTime dateFrom);
+        List<travel_policy> GetBrokerManagerPolicies(string userId, DateTime dateFrom);
+        List<travel_policy> GetBrokerManagerExpiringPolicies(string userId, DateTime dateFrom);
+        List<travel_policy> GetBrokerManagerBrokersQuotesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country,
+           string UserId, string PolicyNumber);
+        List<travel_policy> GetBrokerManagerBrokersPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy,
+           int? Country, string UserId, string PolicyNumber);
+        List<travel_policy> GetBrokersQuotes(string userId, DateTime dateFrom);
+        List<travel_policy> GetBrokersExpiringPolicies(string userId, DateTime dateFrom);
+        List<travel_policy> GetBrokersPolicies(string userId, DateTime dateFrom);
         int AddPolicy(travel_policy TravelPolicy);
+        retaining_risk GetRetainingRisk(int id);
+        policy_type GetPolicyType(int id);
         travel_policy GetPolicyIdByPolicyNumber(string id);
         travel_policy GetPolicyById(int id);
         string GetPolicyNumberByPolicyId(int id);
@@ -33,6 +46,8 @@ namespace InsuredTraveling.DI
         List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber);
 
         List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string PolicyNumber);
+        List<travel_policy> GetQuotesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber);
+        List<travel_policy> GetQuotesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string PolicyNumber);
         List<travel_policy> GetPoliciesByInsuredId(int insuredId);
         List<travel_policy> GetPoliciesByHolderId(int holderId);
         IQueryable<SelectListItem> GetPoliciesByUserId(string userID);

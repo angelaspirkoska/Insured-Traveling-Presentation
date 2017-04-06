@@ -1,82 +1,84 @@
 ﻿@model InsuredTraveling.Models.Policy
 @using InsuredTraveling.Filters;
 @using System.Web.Optimization;
+@using System.Configuration;
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = InsuredTraveling.Resource.NewPolicy_Title;
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
+
 <h2>@InsuredTraveling.Resource.Policy_CreatePolicy</h2>
-<form id="policy_form" metod="post" >    
-        <div class="row">
-            <div class="loader" style="display:none"></div>
-            <div class="form-horizontal">
-                <hr />
-                    <header class="well" id="PolicyPolicyInformation">
-                        <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                        <a href="javascript:void(0)" id="PolicyPolicyInformation">@InsuredTraveling.Resource.Policy_PolicyInformation</a>
-                    </header>
-                    <div id="PolicyPolicyInformationContent" style="display:none;">
-                        <div class="form-group">
-                            <div class="">
-                                <div class="col-md-4">
-                                    @Html.LabelFor(model => model.CountryID, htmlAttributes: new { @class = "control-label" })
-                                    <div class="inputs-spacing">
-                                        @Html.DropDownListFor(model => model.CountryID, (List<SelectListItem>)ViewBag.Countries, new { @class = "form-control input-sm" })
-                                        @Html.ValidationMessageFor(model => model.CountryID, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    @Html.LabelFor(model => model.Retaining_RiskID, htmlAttributes: new { @class = "control-label" })
-                                    <div class="inputs-spacing">
-                                        @Html.DropDownListFor(model => model.Retaining_RiskID, (List<SelectListItem>)ViewBag.Franchise, new { @class = "form-control input-sm" })
-                                        @Html.ValidationMessageFor(model => model.Retaining_RiskID, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    @Html.LabelFor(model => model.Policy_TypeID, htmlAttributes: new { @class = "control-label" })
-                                    <div class="inputs-spacing">
-                                        @Html.DropDownListFor(model => model.Policy_TypeID, (List<SelectListItem>)ViewBag.TypeOfPolicy, new { @class = "form-control input-sm" })
-                                        @Html.ValidationMessageFor(model => model.Policy_TypeID, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
+<form id="policy_form" metod="post">
+    <div class="row">
+        <div class="loader" style="display:none"></div>
+        <div class="form-horizontal">
+            <hr />
+            <header class="well">
+                <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                <a href="javascript:void(0)" id="PolicyPolicyInformation">@InsuredTraveling.Resource.Policy_PolicyInformation</a>
+            </header>
+            <div id="PolicyPolicyInformationContent" style="display:none;">
+                <div class="form-group">
+                    <div class="">
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.CountryID, htmlAttributes: new { @class = "control-label" })
+                            <div class="inputs-spacing">
+                                @Html.DropDownListFor(model => model.CountryID, (List<SelectListItem>)ViewBag.Countries, new { @class = "form-control input-sm", id = "CountryID", onchange = "ChangeType()" })
+                                @Html.ValidationMessageFor(model => model.CountryID, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
-                        <input type="hidden" id="todayDate" name="todayDate" value="@ViewBag.Date">
-                        <div class="form-group">
-                            <div class="">
-                                <div class="col-md-4">
-                                    @Html.LabelFor(model => model.Start_Date, htmlAttributes: new { @class = "control-label" })
-                                    <div class="inputs-spacing">
-                                        @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField" } })
-                                        @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="hidden" id="inTenDays" name="inTenDays" value="@ViewBag.DateAfterTenDays">
-                                    @Html.LabelFor(model => model.End_Date, htmlAttributes: new { @class = "control-label" })
-                                    <div class="inputs-spacing">
-                                        @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField" } })
-                                        @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
-                                    <div class="input-group">
-                                        @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", @style = "position: static;", @min = "1" } })
-                                        <span class="input-group-addon">@InsuredTraveling.Resource.Policy_Days</span>
-                                    </div>
-                                    @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
-                                </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.Retaining_RiskID, htmlAttributes: new { @class = "control-label" })
+                            <div class="inputs-spacing">
+                                @Html.DropDownListFor(model => model.Retaining_RiskID, (List<SelectListItem>)ViewBag.Franchise, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Retaining_RiskID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.Policy_TypeID, htmlAttributes: new { @class = "control-label" })
+                            <div class="inputs-spacing">
+                                @Html.DropDownListFor(model => model.Policy_TypeID, (List<SelectListItem>)ViewBag.TypeOfPolicy, new { @class = "form-control input-sm", id = "policy_type"})
+                                @Html.ValidationMessageFor(model => model.Policy_TypeID, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
-            </div>        
+                </div>
+
+                <input type="hidden" id="todayDate" name="todayDate" value="@ViewBag.Date">
+                <div class="form-group">
+                    <div class="">
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.Start_Date, htmlAttributes: new { @class = "control-label" })
+                            <div class="inputs-spacing">
+                                @Html.EditorFor(model => model.Start_Date, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField policyInfo" } })
+                                @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="hidden" id="inTenDays" name="inTenDays" value="@ViewBag.DateAfterTenDays">
+                            @Html.LabelFor(model => model.End_Date, htmlAttributes: new { @class = "control-label" })
+                            <div class="inputs-spacing">
+                                @Html.EditorFor(model => model.End_Date, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField policyInfo" } })
+                                @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField policyInfo", @style = "position: static;", @min = "1", @max = "10" } })
+                                <span class="input-group-addon">@InsuredTraveling.Resource.Policy_Days</span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     @{
         RoleAuthorize r = new RoleAuthorize();
     }
-    @if (r.IsUser("admin"))
+    @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Broker manager"))
     {
         <div class="row">
             <header class="well" id="HolderInformation">
@@ -84,69 +86,69 @@
                 <a href="javascript:void(0)" id="HolderInformation">@InsuredTraveling.Resource.Policy_HolderInformation</a>
             </header>
             <div id="HolderInformationContent" style="display:none;">
-                    <div class="form-group col-md-5">
+                <div class="form-group col-md-5">
+                    <div class="inputs-spacing">
+                        @Html.CheckBoxFor(model => model.IsExistentPolicyHolder, new { @class = "col-md-1", @style = "" }) @InsuredTraveling.Resource.Policy_ExistingUser
+                    </div>
+                    <div class="hideWhenSelect">
+                        @Html.LabelFor(model => model.PolicyHolderName, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.CheckBoxFor(model => model.IsExistentPolicyHolder, new { @class = "col-md-1", @style = "" }) @InsuredTraveling.Resource.Policy_ExistingUser
+                            @Html.EditorFor(model => model.PolicyHolderName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderName, "", new { @class = "text-danger" })
                         </div>
-                        <div class="hideWhenSelect">
-                            @Html.LabelFor(model => model.PolicyHolderName, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField" } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderName, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PolicyHolderLastName, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderLastName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderLastName, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PolicyHolderAddress, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderAddress, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField" } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderAddress, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PolicyHolderCity, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderCity, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderCity, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PolicyHolderPostalCode, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderPostalCode, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField" } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderPostalCode, "", new { @class = "text-danger" })
-                            </div>
+                        @Html.LabelFor(model => model.PolicyHolderLastName, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderLastName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo", } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderLastName, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.PolicyHolderAddress, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderAddress, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderAddress, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.PolicyHolderCity, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderCity, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderCity, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.PolicyHolderPostalCode, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderPostalCode, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderPostalCode, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="form-group col-md-5 top-padding">
-                        @Html.LabelFor(model => model.PolicyHolderSSN, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="form-group col-md-5 top-padding">
+                    @Html.LabelFor(model => model.PolicyHolderSSN, htmlAttributes: new { @class = "control-label" })
+                    <div class="inputs-spacing">
+                        @Html.EditorFor(model => model.PolicyHolderSSN, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
+                        @Html.ValidationMessageFor(model => model.PolicyHolderSSN, "", new { @class = "text-danger", id = "ErrorPolicyHolderSSN" })
+                    </div>
+                    <div class="hideWhenSelect">
+                        @Html.LabelFor(model => model.PolicyHolderBirthDate, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderSSN, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField" } })
-                            @Html.ValidationMessageFor(model => model.PolicyHolderSSN, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.PolicyHolderBirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  placeholder mandatoryField holderInfo" } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderBirthDate, "", new { @class = "text-danger" })
                         </div>
-                        <div class="hideWhenSelect">
-                            @Html.LabelFor(model => model.PolicyHolderBirthDate, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderBirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField", type = "date", @max = ViewBag.Date } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderBirthDate, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PolicyHolderPassportNumber_ID, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderPassportNumber_ID, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField" } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderPassportNumber_ID, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PolicyHolderEmail, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderEmail, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField" } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderEmail, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PolicyHolderPhoneNumber, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderPhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField", } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderPhoneNumber, "", new { @class = "text-danger" })
-                            </div>
+                        @Html.LabelFor(model => model.PolicyHolderPassportNumber_ID, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderPassportNumber_ID, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderPassportNumber_ID, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.PolicyHolderEmail, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderEmail, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderEmail, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.PolicyHolderPhoneNumber, htmlAttributes: new { @class = "control-label" })
+                        <div class="inputs-spacing">
+                            @Html.EditorFor(model => model.PolicyHolderPhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo", } })
+                            @Html.ValidationMessageFor(model => model.PolicyHolderPhoneNumber, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     }
     @*Insured information*@
     <div class="row">
@@ -155,15 +157,16 @@
             <a href="javascript:void(0)" id="InsuredInformation">
                 @InsuredTraveling.Resource.Policy_InsuredInformation
             </a>
-            @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "checkbox-policyholder", @ariahidden = "false" })
-            @if (r.IsUser("end user"))
+            @if (r.IsUser("End user"))
             {
+                @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "checkbox-policyholder", @ariahidden = "false" })
                 <p class="checkbox-label">
                     @InsuredTraveling.Resource.Policy_IamInsured
-                </p>                
+                </p>
             }
-            @if (r.IsUser("admin"))
+            @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Broker manager"))
             {
+                @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "checkbox-policyholder", @ariahidden = "false", @id = "IsSamePolicyHolderInsuredAdmin" })
                 <p class="checkbox-label">
                     @InsuredTraveling.Resource.Policy_HolderSameInsured
                 </p>
@@ -176,22 +179,22 @@
                     <div class="form-group col-sm-6">
                         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size" } })
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
                             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size", } })
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo", } })
                             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size", } })
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo", } })
                             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size", } })
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo", } })
                             @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label" })
@@ -203,27 +206,27 @@
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size" } })
+                            @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
                             @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
                         </div>
-                        @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
+                       @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField insuredData field-size" } })
+                            @Html.EditorFor(model => model.BirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  mandatoryField insuredData field-size" } })
                             @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PassportNumber_ID, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PassportNumber_ID, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size" } })
+                            @Html.EditorFor(model => model.PassportNumber_ID, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
                             @Html.ValidationMessageFor(model => model.PassportNumber_ID, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size" } })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                         @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label" })
                         <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size" } })
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
                             @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -250,13 +253,13 @@
                                     <label for="radio1" checked="checked">@InsuredTraveling.Resource.Policy_PolicySingle</label>
                                 </label>
                                 <br />
-                                <label class="radio-inline">
+                                <label class="radio-inline hideItem">
                                     <input type="radio" name="Travel_Insurance_TypeID" , value="2" id="family_type" class="checkbox-position" />
                                     @*@Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "2", id = "family_type" })*@
                                     <label for="radio1">@InsuredTraveling.Resource.Policy_PolicyFamily</label>
                                 </label>
                                 <br />
-                                <label class="radio-inline">
+                                <label class="radio-inline hideItem">
                                     <input type="radio" name="Travel_Insurance_TypeID" , value="3" id="group_type" class="checkbox-position" />
                                     @*@Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "3", id = "group_type" })*@
                                     <label for="radio1">@InsuredTraveling.Resource.Policy_PolicyGroup</label>
@@ -280,7 +283,7 @@
                             <div class="form-group col-md-4 col-sm-4">
                                 <div><label>@InsuredTraveling.Resource.Policy_InsuredSSN:</label></div>
                                 @Html.EditorFor(model => model.insureds[i].SSN, new { htmlAttributes = new { @class = "form-control input-sm", } })
-                            </div>                            
+                            </div>
                         </div>
                         <br />
                     }
@@ -299,50 +302,64 @@
                         </div>
                     </div>
                 </div>
-                    <div class="form-horizontal">
-                            @for (int i = 0; i < 2; i++)
-                            {
-                                <div class="col-md-4">
-                                    <div><label>@InsuredTraveling.Resource.Policy_AddOn @(i + 1)</label></div>
-                                    <div>
-                                        @Html.DropDownListFor(model => model.additional_charges[i].ID, (List<SelectListItem>)ViewBag.additional_charges, new { @class = "form-control input-sm" })
-                                    </div>
-                                </div>
-                            }
+                <div class="form-horizontal">
+                    <div class="col-md-4">
+                        <div><label>@InsuredTraveling.Resource.Policy_AddOn</label></div>
+                        @for (int k = 1; k < 3; k++)
+                        {
+                            var i = k - 1;
+                            var val = k + 1;
+                            var addid = "additional_charges_" + i + "__ID";
+                            <input id="@addid" type="checkbox" value="@val" name="additional_charges[@i].ID" style="width:4%;" class="" /> <label>@ViewBag.additional_charges[k].Text</label> <br />
+                        }
                     </div>
-                <div class="col-md-2">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Travel_NumberID, htmlAttributes: new { @class = "control-label" })
-                            <div class="checkbox-container">
-                                <label class="radio-inline">
-                                    <input type="radio" name="Travel_NumberID" checked="checked" value="1" class="numberTrips checkbox-position" />
-                                    @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "1", @text = "Едно патување" })*@
-                                    <label for="radio1" checked="checked">@InsuredTraveling.Resource.Policy_OneTrip</label>
-                                </label>
-                                <br />
-                                <label class="radio-inline">
-                                    <input type="radio" name="Travel_NumberID" value="2" class="numberTrips checkbox-position" />
-                                    @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "2", @text = "Повеќе патувања" })*@
-                                    <label for="radio1">@InsuredTraveling.Resource.Policy_MoreTrip</label>
-                                </label>
-                            </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-inline">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Travel_NumberID, htmlAttributes: new { @class = "control-label" })
+                        <div class="checkbox-container">
+                            <label class="radio-inline">
+                                <input type="radio" name="Travel_NumberID" checked="checked" value="1" class="numberTrips checkbox-position" />
+                                @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "1", @text = "Едно патување" })*@
+                                <label for="radio1" checked="checked">@InsuredTraveling.Resource.Policy_OneTrip</label>
+                            </label>
+                            <br />
+                            <label style="display: none;" class="radio-inline">
+                                <input type="radio" name="Travel_NumberID" value="2" class="numberTrips checkbox-position" />
+                                @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "2", @text = "Повеќе патувања" })*@
+                                <label for="radio1">@InsuredTraveling.Resource.Policy_MoreTrip</label>
+                            </label>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-4 btns-position">
             <div class="form-inline">
                 <div class="form-group">
                     <div>
-                        <input type="button" id="calculateTotalPremium" value="@InsuredTraveling.Resource.Policy_CalculatePremium" class="btn btn-default btn-block" onclick="CalculateTotalPremium()" />
+                        <input type="button" target="" id="calculateTotalPremium" value="@InsuredTraveling.Resource.Policy_CalculatePremium" class="btn btn-default btn-block" onclick="CalculateTotalPremium()" />
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
+       
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-5" for="DiscountCode">@InsuredTraveling.Resource.PolicyDiscountCode</label>
+                <input class="col-md-1" onclick="DiscountChange()" type="checkbox" id="DiscountCheck">
+                <div id="Discount_div" class="inputs-spacing col-md-6">
+                    <input class="form-control input-sm insuredData field-size insuredInfo text-box" id="DiscountCode" name="DiscountCode" onblur="DiscountCodeVal()" type="text" value="">
+                    <span id="discErrorMessage" class="field-validation-valid text-danger" data-valmsg-for="DiscountCode" data-valmsg-replace="true"></span>
+                   
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-3 btns-position">
@@ -357,32 +374,85 @@
             <div>
                 <label id="errorMessage" style="color:red"></label>
             </div>
-        </div>                   
+        </div>
         <div class="col-md-4">
             <p id="locationError"></p>
         </div>
     </div>
     <div class="row">
-            <div class="col-md-4 col-sm-4 btns-position">
-                <!-- So JS se dodavaat formaction="/Payment/Index"
-                formmethod="post" -->
-                <input type="button" value="@InsuredTraveling.Resource.Policy_BuyPolicy" class="btn btn-success hideMe btn-padding btn-block customButton" id="buyPolicyBtn" @*onclick="@("window.location.href='" + @Url.Action("Index", "Payment", new { p = Model }) + "'");"*@ />
-            </div>
+        <div class="col-md-4 col-sm-4 btns-position">
+            <!-- So JS se dodavaat formaction="/Payment/Index"
+            formmethod="post" -->
+            <input type="submit" value="@InsuredTraveling.Resource.Policy_BuyPolicy" class="btn btn-success hideMe btn-padding btn-block customButton" id="buyPolicyBtn" formmethod="post" formaction="/Payment/Index" />
+        </div>
     </div>
     <br />
     <div class="row">
-            <div class="form-group col-md-2 col-sm-2 btns-position">
-                <div>
-                    <input type="button" value="@InsuredTraveling.Resource.Policy_AddOffer" class="btn btn-default btn-block hideMe" />
+        <div class="form-group col-md-2 col-sm-2 btns-position">
+            <div>
+                <input type="button" id="AddOffer" value="@InsuredTraveling.Resource.Policy_AddOffer" class="btn btn-default btn-block hideMe" />
+            </div>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-2 btns-position">
+            <div>
+                <input type="submit" id="printOffers" formmethod="post" formaction="/Policy/RedirectPrintOffer" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
+            </div>
+        </div>
+        <div id="successMsg" class="col-md-4 col-sm-4">
+            <div class="alert alert-dismissible alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span>@Resource.Policy_AddOfferMsg <span style="font-weight:bold;" id="ReturnedQuoteNumber"></span> </span>
+            </div>
+        </div>
+        <div id="failMsg" class="col-md-4 col-sm-4">
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span>@Resource.Policy_AddOfferMsgFail!</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal" role="dialog">
+        <div class="modal-dialog" style="margin-top:13%;">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">The user with that SSN already exists</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Do you want to use the existing data? Or enter new data?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="UseExistingDataForUser">Yes</button><button type="button" class="btn btn-danger" data-dismiss="modal">No</button>  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
-            <div class="form-group col-md-2 col-sm-2 btns-position">
-                <div>
-                    <input type="submit" formmethod="post" formaction="/Policy/RedirectPrintOffer" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
-                </div>
-            </div>
-    </div>   
+
+        </div>
+    </div>
 </form>
+<div class="modal fade" id="modalHolder" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@InsuredTraveling.Resource.Policy_Modal_Date_Header </h4>
+            </div>
+            <div class="modal-body">
+                <p>@InsuredTraveling.Resource.Policy_Modal_Date_Text</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="ChangeDate">@InsuredTraveling.Resource.Policy_Modal_Date_ChangeDate</button><button type="button" class="btn btn-danger" data-dismiss="modal" id="DontChangeDate">@InsuredTraveling.Resource.Policy_Modal_Date_CancelDate</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/additional-methods.js"></script>
 <!-- macedonian language-->
@@ -390,10 +460,125 @@
 @Scripts.Render("~/bundles/jqueryui")
 @Styles.Render("~/Content/jqueryuicss")
 @Styles.Render("~/Content/loader")
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
-        $(".hideMe").hide();
+        $("#successMsg").hide();
+        $("#failMsg").hide();
         $("#Valid_Days").val(10);
+
+        var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
+        var future = new Date();
+        $("#Start_Date").val($.datepicker.formatDate(dateFormatString, new Date(future.setDate(future.getDate() + 1))));
+        $("#End_Date").val($.datepicker.formatDate(dateFormatString, new Date(future.setDate(future.getDate() + 9))));
+        var DateToday = new Date();
+
+        $("#Start_Date").datepicker({
+            dateFormat: dateFormatString,
+            "minDate": DateToday,
+            onSelect: function (selected) {
+                $("#End_Date").datepicker("option", "minDate", selected);
+                var startDateParts = $("#Start_Date").val().split("/");
+                var endDateParts = $("#End_Date").val().split("/");
+                var startDate = new Date(startDateParts[2], startDateParts[1] - 1, startDateParts[0]);
+                var endDate = new Date(endDateParts[2], endDateParts[1] - 1, endDateParts[0]);
+                if (startDate != null && endDate != null) {
+                    c = 24 * 60 * 60 * 1000;
+                    var validDays = Math.round(((endDate - startDate) / c) + 1);
+                    $("#Valid_Days").attr({
+                        "max": validDays
+                    });
+                    $("#Valid_Days").val(validDays);
+                }
+            }
+        });
+
+        $("#End_Date").datepicker({
+            dateFormat: dateFormatString,
+            "minDate": DateToday,
+            onSelect: function (selected) {
+                $("#Start_Date").datepicker("option", "maxDate", selected);
+                var startDateParts = $("#Start_Date").val().split("/");
+                var endDateParts = $("#End_Date").val().split("/");
+                var startDate = new Date(startDateParts[2], startDateParts[1] - 1, startDateParts[0]);
+                var endDate = new Date(endDateParts[2], endDateParts[1] - 1, endDateParts[0]);
+                if (startDate != null && endDate != null) {
+                    c = 24 * 60 * 60 * 1000;
+                    var validDays = Math.round(((endDate - startDate) / c) + 1);
+                    $("#Valid_Days").attr({
+                        "max": validDays
+                    });
+                    $("#Valid_Days").val(validDays);
+                }
+            }
+        });
+
+        $("#BirthDate").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
+
+        $("#PolicyHolderBirthDate").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
+
+        $("input:checkbox[id='IsExistentPolicyHolder']").attr('checked', true);
+        $(".hideWhenSelect").hide();
+        $("#PolicyHolderSSN").removeClass("mandatoryField");
+        $("#PolicyHolderName").removeClass("mandatoryField");
+        $("#PolicyHolderLastName").removeClass("mandatoryField");
+        $("#PolicyHolderAddress").removeClass("mandatoryField");
+        $("#PolicyHolderSSN").removeClass("mandatoryField");
+        $("#PolicyHolderPostalCode").removeClass("mandatoryField");
+        $("#PolicyHolderBirthDate").removeClass("mandatoryField");
+        $("#PolicyHolderPassportNumber_ID").removeClass("mandatoryField");
+        $("#PolicyHolderEmail").removeClass("mandatoryField");
+        $("#PolicyHolderPhoneNumber").removeClass("mandatoryField");
+        $("#PolicyHolderCity").removeClass("mandatoryField");
+
+        $("#policy_type option[value='5']").hide();
+        $("#policy_type option[value='1']").show();
+        $("#policy_type option[value='2']").show();
+        $("#policy_type option[value='3']").show();
+        $("#policy_type option[value='4']").hide();
+
+        $("#btnNovaPolisa").addClass("active-tab");
+        $("#btnNews").removeClass("active-tab");
+        $("#btnSearch").removeClass("active-tab");
+        $("#btnFNOL").removeClass("active-tab");
+        $("#btnAdmin").removeClass("active-tab");
+        $("#dodadiKlient").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+
+        $("#Discount_div").hide();
+
+
+        $('#AddOffer').on('click', function () {
+            $.ajax({
+                type: 'POST',
+                url: '@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Policy/CreateQuote',
+                data: $('#policy_form').serialize(),
+                success: function (result) {
+                    console.log(result.numberQuote);
+                    $("#ReturnedQuoteNumber").text(result.numberQuote);
+                    $("#successMsg").show();
+                },
+                error: function () {
+                    $("#failMsg").show();
+                }
+            });
+        });
+
+        $("#policy_type option[value='2']").attr("selected", "selected");
+
+        $(".hideMe").hide();
         $("#totalPremium").hide();
         $("#totalPremiumLabel").hide();
         $("#family").hide();
@@ -416,9 +601,6 @@
         $("#Policy_TypeID").val(1);
         $("#Retaining_RiskID").val(2);
 
-        $("#additional_charges_0__ID").val(1);
-        $("#additional_charges_1__ID").val(1);
-
         getLocation();
 
     });
@@ -426,7 +608,6 @@
     $(".mandatoryField, #Policy_TypeID, #Retaining_RiskID, #CountryID, .numberTrips, #additional_charges_1__ID, #additional_charges_0__ID, #single_type, #family_type, #group_type").on('change', function () {
         $(".hideMe").hide();
     })
-
 
     $(".input-sm, .text-box").keypress(function (event) {
         var ew = event.which;
@@ -455,24 +636,111 @@
         return flag;
     }
 
+    var objects = document.getElementsByClassName("mandatoryField");
+    var i = 0;
+    var errorWell = 0; // error in the well
+
+
+
     function CalculateTotalPremium() {
         var flag = ValidateFields();
         console.log(flag);
+
+        // Front end validation
+        errorWell = 0;
+        for (i = 0; i < objects.length; i++) {
+            if (objects[i].value.length == 0) {
+                if ($(objects[i]).hasClass("policyInfo")) {
+                    document.getElementById("PolicyPolicyInformationContent").removeAttribute("style");
+                    document.getElementById("PolicyPolicyInformationContent").setAttribute("style", "display: block");
+                    errorWell = 1;
+                }
+                if ($(objects[i]).hasClass("holderInfo")) {
+                    document.getElementById("HolderInformationContent").removeAttribute("style");
+                    document.getElementById("HolderInformationContent").setAttribute("style", "display: block");
+                    if (errorWell == 0)
+                        errorWell = 2;
+                }
+                if ($(objects[i]).hasClass("insuredInfo")) {
+                    document.getElementById("InsuredInformationContent").removeAttribute("style");
+                    document.getElementById("InsuredInformationContent").setAttribute("style", "display: block");
+                    if (errorWell == 0)
+                        errorWell = 3;
+                }
+                objects[i].setAttribute("style", "border: 1px solid red;");
+
+            }
+            else {
+                objects[i].setAttribute("style", "border: 1px solid #2c3e50;");
+            }
+        }
+
+        if (errorWell == 1) {
+            $('html,body').animate({
+                scrollTop: $("#PolicyPolicyInformationContent").offset().top
+            }, 800);
+        }
+        else if (errorWell == 2) {
+            $('html,body').animate({
+                scrollTop: $("#HolderInformationContent").offset().top
+            }, 800);
+        }
+        else if (errorWell == 3) {
+            $('html,body').animate({
+                scrollTop: $("#InsuredInformationContent").offset().top
+            }, 800);
+        }
+
         if (flag) {
             $("#errorMessage").text("");
             $(".loader").css("display", "inline");
             $.ajax({
                 type: "POST",
-                url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/Premium/Calculate",
+                url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Policy/Index",
                 data: $("#policy_form").serialize(),
                 success: function (result) {
-                    $(".loader").css("display", "none");
-                    console.log(result.PremiumAmount);
-                    $("#totalPremium").val(result.PremiumAmount);
-                    $("#totalPremium").show();
-                    $("#totalPremiumLabel").show();
-                    $(".hideMe").show();
-                    $("#errorMessage").text(" ");
+
+                    console.log(result.status);
+
+                        //This code is for AdvancedSSN validation in premium controler & if Premium Amount exceeded
+                        if (result.status != null && result.isValid == false) {
+                            if (result.message == "ThePremiumIsExceeded") {
+                                $("#totalPremium").val(result.PremiumAmount);
+                                $("#totalPremium").show();
+                                $("#errorMessage").text("@Resource.PolicyThePremiumIsExceededMsg");
+                                $(".loader").css("display", "none");
+                            } else {
+                                $("#errorMessage").text("@Resource.Error_EMBG_Val_Advanced");
+                                $(".loader").css("display", "none");
+                                $("#SSN").attr("style", "border: 1px solid red;");
+                                $("#totalPremiumLabel").hide();
+                                $("#totalPremium").val("");
+                            }
+
+                        }
+                        else {
+                            $("#SSN").attr("style", "border: 1px solid #2c3e50;");
+                            
+                            $(".loader").css("display", "none");
+                            console.log(result.PremiumAmount);
+
+                            $(".loader").css("display", "none");
+
+                            $("#totalPremium").val(result.PremiumAmount);
+                            $("#totalPremium").show();
+                            $("#totalPremiumLabel").show();
+                            $(".hideMe").show();
+                            $("#errorMessage").text(" ");
+
+                            if (errorWell == 0) {
+                                $('html,body').animate({
+                                    scrollTop: $("#printOffers").offset().top
+                                }, 800);
+                            }
+
+                        }
+                    
+                    
                 },
                 error: function (result) {
                     $(".loader").css("display", "none");
@@ -480,7 +748,10 @@
                     $("#totalPremiumLabel").hide();
                     $("#totalPremium").val("");
                     $("#errorMessage").text((JSON.parse(result.responseText)).Message);
+
+
                 }
+
             });
         }
         else {
@@ -493,15 +764,44 @@
             else {
                 $("#errorMessage").text("@InsuredTraveling.Resource.Policy_FillData");
             }
+        }
+    }
+
+
+    function DiscountChange() {
+        if ($("#DiscountCheck").is(":checked")) {
+            $("#Discount_div").show();
+
+            $("#DiscountCode").addClass("mandatoryField");
+
+        }
+        else {
+            $("#DiscountCode").val('');
+            $("#Discount_div").hide();
+            $("#DiscountCode").removeClass("mandatoryField");
 
         }
     };
+    function DiscountCodeVal() {
+        $.ajax({
+            type: "POST",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/Premium/DiscountCode",
+            data: jQuery.param({ Discount_Name: $("#DiscountCode").val() })
+        })
 
-    $('#dugme').on('submit', function (e) {
-        if (!valid) {
-            e.preventDefault();
-        }
+    .done(function (result) {
+
+        $("#DiscountCode").removeClass("mandatoryField");
+        $("#discErrorMessage").text("@InsuredTraveling.Resource.Policy_DiscoundCodeValid ");
+    })
+    .fail(function () {
+       $("#discErrorMessage").text("@InsuredTraveling.Resource.Policy_DiscoundCodeError ");
+        $("#DiscountCode").addClass("mandatoryField");
+
     });
+    }
+
+
 
     $("#policyForm").validate({
         rules: {
@@ -531,52 +831,6 @@
 
     });
 
-    $("#dugme").click(function () {
-        if (form.valid() == true) {
-            var data = $("#policyForm").serialize();
-            $.ajax({
-                type: "POST",
-                url: "CreatePolicy",
-                data: data,
-                success: function () {
-
-                }
-            });
-        }
-    });
-
-    $("#Start_Date").datepicker({
-        dateFormat: "mm/dd/yy",
-        onSelect: function (selected) {
-            $("#End_Date").datepicker("option", "minDate", selected);
-        },
-    });
-
-    $("#End_Date").datepicker({
-        dateFormat: "mm/dd/yy",
-        onSelect: function (selected) {
-            $("#Start_Date").datepicker("option", "maxDate", selected);
-        },
-    });
-
-    $("#BirthDate").datepicker({
-        dateFormat: "mm/dd/yy",
-        onSelect: function (selected) {
-        },
-    });
-
-    $("#vaziDenovi").focusin(function () {
-        var Sdat = new Date($("#startDate").val());
-        var Edat = new Date($("#endDate").val());
-        if ($('#povekePatuvanja').is(':checked')) {
-            $("#vaziDenovi").attr('min', 15);
-        }
-        else {
-            $("#vaziDenovi").attr('min', 2);
-        }
-
-    });
-
     $("#SSN").keydown(function (e) {
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
             (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
@@ -591,20 +845,122 @@
     $("#IsExistentPolicyHolder").change(function () {
         if (this.checked) {
             $(".hideWhenSelect").hide();
+            $("#PolicyHolderSSN").removeClass("mandatoryField");
+            $("#PolicyHolderName").removeClass("mandatoryField");
+            $("#PolicyHolderLastName").removeClass("mandatoryField");
+            $("#PolicyHolderAddress").removeClass("mandatoryField");
+            $("#PolicyHolderSSN").removeClass("mandatoryField");
+            $("#PolicyHolderPostalCode").removeClass("mandatoryField");
+            $("#PolicyHolderBirthDate").removeClass("mandatoryField");
+            $("#PolicyHolderPassportNumber_ID").removeClass("mandatoryField");
+            $("#PolicyHolderEmail").removeClass("mandatoryField");
+            $("#PolicyHolderPhoneNumber").removeClass("mandatoryField"); PolicyHolderCity
+            $("#PolicyHolderCity").removeClass("mandatoryField");
         }
         else {
             $(".hideWhenSelect").show();
         }
     });
+    $("#UseExistingDataForUser").on('click', function () {
+        console.log("Here");
+        $("input:checkbox[id='IsExistentPolicyHolder']").prop('checked', true);
+        $(".hideWhenSelect").hide();
+    });
+
+    $("#PolicyHolderSSN").on('change paste', function () {
+        if ($("#IsExistentPolicyHolder").is(':checked')) {
+            $.ajax({
+                type: "GET",
+                url: "/Policy/GetExistentInsuredUserData?ssn=" + $("#PolicyHolderSSN").val(),
+                success: function (result) {
+                    var rez = JSON.parse(result);
+                    if (rez.response == "User with that SSN not found") {
+                        $("#ErrorPolicyHolderSSN").text("@InsuredTraveling.Resource.SSNNotFoundMsg");
+                        $("input:checkbox[id='IsExistentPolicyHolder']").attr('checked', false);
+                        $(".hideWhenSelect").show();
+                    } else {
+                        $("#ErrorPolicyHolderSSN").text("");
+                    }
+                },
+                error: function () {
+
+                }
+            });
+        } else {
+            $.ajax({
+                type: "GET",
+                url: "/Policy/GetExistentInsuredUserData?ssn=" + $("#PolicyHolderSSN").val(),
+                success: function (result) {
+                    var rez = JSON.parse(result);
+                    if (rez.response == "User with that SSN not found") {
+                        $("#ErrorPolicyHolderSSN").text("");
+                    } else {
+                        $("#modal").modal("show");
+                        $("#ErrorPolicyHolderSSN").text("");
+                    }
+                },
+                error: function () {
+
+                }
+            });
+        }
+    });
+
+    $("#IsSamePolicyHolderInsuredAdmin").change(function () {
+        if (this.checked) {
+            if ($("#IsExistentPolicyHolder").is(':checked')) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Policy/GetExistentInsuredUserData?ssn=" + $("#PolicyHolderSSN").val(),
+                    success: function (result) {
+                        var rez = JSON.parse(result);
+                        if (rez.response == "User with that SSN not found") {
+                            $("#ErrorPolicyHolderSSN").text("@InsuredTraveling.Resource.SSNNotFoundMsg");
+                            $("input:checkbox[id='IsExistentPolicyHolder']").attr('checked', false);
+                            $(".hideWhenSelect").show();
+                        }
+                        else {
+                            $("#Name").val(rez.InsuredData.FirstName);
+                            $("#LastName").val(rez.InsuredData.Name);
+                            $("#Address").val(rez.InsuredData.Address);
+                            $("#City").val(rez.InsuredData.City);
+                            $("#PostalCode").val(rez.InsuredData.PostalCode);
+                            $("#SSN").val(rez.InsuredData.Ssn);
+                            $("#BirthDate").val(rez.InsuredData.DateBirth);
+                            $("#PassportNumber_ID").val(rez.InsuredData.PassportID);
+                            $("#Email").val(rez.InsuredData.Email);
+                            $("#PhoneNumber").val(rez.InsuredData.PhoneNumber);
+                        }
+                    }
+                });
+            } else {
+                $("#Name").val($("#PolicyHolderName").val());
+                $("#LastName").val($("#PolicyHolderLastName").val());
+                $("#Address").val($("#PolicyHolderAddress").val());
+                $("#City").val($("#PolicyHolderCity").val());
+                $("#PostalCode").val($("#PolicyHolderPostalCode").val());
+                $("#SSN").val($("#PolicyHolderSSN").val());
+                $("#BirthDate").val($("#PolicyHolderBirthDate").val());
+                $("#PassportNumber_ID").val($("#PolicyHolderPassportNumber_ID").val());
+                $("#Email").val($("#PolicyHolderEmail").val());
+                $("#PhoneNumber").val($("#PolicyHolderPhoneNumber").val());
+            }
+        }
+        else {
+            $("#hideWhenSamePerson").show();
+            $("#hideWhenSamePerson .form-control").prop('readonly', false);
+            $(".insuredData").val("");
+
+        }
+    });
 
     $("#IsSamePolicyHolderInsured").change(function () {
-        if (this.checked) {
+        if ($("#IsSamePolicyHolderInsured").is(":checked")) {
             $.ajax({
                 type: "GET",
                 url: "/Policy/GetExistentLoggedInUserData",
                 success: function (result) {
                     var rez = JSON.parse(result);
-                    console.log(rez);
                     $("#Name").val(rez.InsuredData.FirstName);
                     $("#LastName").val(rez.InsuredData.Name);
                     $("#Address").val(rez.InsuredData.Address);
@@ -617,6 +973,8 @@
                     $("#PhoneNumber").val(rez.InsuredData.PhoneNumber);
                 }
             });
+
+            $("#SSN").prop('readonly', true);
         }
         else {
             $("#hideWhenSamePerson").show();
@@ -625,9 +983,7 @@
 
         }
     });
-    var future = new Date();
-    $("#Start_Date").val($.datepicker.formatDate("mm/dd/yy", new Date()));
-    $("#End_Date").val($.datepicker.formatDate("mm/dd/yy", new Date(future.setDate(future.getDate() + 10))));
+
 
     $('#PolicyPolicyInformation').click(function () {
         $("#PolicyPolicyInformationContent").toggle();
@@ -646,6 +1002,33 @@
 
     });
 
+    function ChangeType() {
+        var v = $("#CountryID option:selected").val();
+        console.log(v);
+        if (v == 3) {
+            $("#policy_type option[value='2']").prop("selected", true);
+            $("#policy_type option[value='3']").hide();
+            $("#policy_type option[value='4']").show();
+            $("#policy_type option[value='5']").hide();
+        } else if (v == 2) {
+            $("#policy_type option[value='5']").hide();
+            $("#policy_type option[value='2']").prop("selected", true);
+            $("#policy_type option[value='3']").show();
+            $("#policy_type option[value='4']").hide();
+        } else if (v == 1) {
+            $("#policy_type option[value='5']").hide();
+            $("#policy_type option[value='2']").prop("selected", true);
+            $("#policy_type option[value='3']").show();
+            $("#policy_type option[value='4']").hide();
+        } else if (v == 4) {
+            $("#policy_type option[value='5']").show();
+            $("#policy_type option[value='2']").prop("selected", true);
+            $("#policy_type option[value='3']").hide();
+            $("#policy_type option[value='4']").hide();
+        }
+
+    }
+
     // Check the user's location
     function getLocation() {
         if (navigator.geolocation) {
@@ -656,8 +1039,8 @@
     }
 
     function showPosition(position) {
-      //  x.innerHTML = "Latitude: " + position.coords.latitude +
-      //  "<br>Longitude: " + position.coords.longitude;
+        //  x.innerHTML = "Latitude: " + position.coords.latitude +
+        //  "<br>Longitude: " + position.coords.longitude;
         $.getJSON('http://ws.geonames.org/countryCode', {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
@@ -667,6 +1050,7 @@
             console.log(result.countryName);
             /* Location not allowed na Chrome, treba da se podesi vo Advanced settings */
             result.countryName = "Macedonia";
+            console.log(result.countryName);
             if (result.countryName == "Macedonia") {
                 var submitBtn = document.getElementById("buyPolicyBtn");
 
@@ -682,5 +1066,52 @@
             }
         });
     }
+
+    $('#Valid_Days').focusout(function () {
+        var validDays = $("#Valid_Days").val();
+
+        function addDays(date, days) {
+
+            var result = new Date(date);
+           
+            result.setDate(result.getDate() + parseInt(days) );
+            return result;
+        }
+
+        var startDateParts = $("#Start_Date").val().split("/");
+        var startDate = new Date(startDateParts[2], startDateParts[1] - 1, startDateParts[0]);
+
+        var endDateParts = $("#End_Date").val().split("/");
+        var endDate = new Date(endDateParts[2], endDateParts[1] - 1, endDateParts[0]);
+
+        var startDate1 = new Date(startDate);
+        var endDate1 = new Date(endDate);
+
+        if (validDays != null || validDays != " ") {
+            var oneDay = 24 * 60 * 60 * 1000;
+           
+            var diffDays = Math.round(Math.abs((endDate1.getTime() - startDate1.getTime()) / (oneDay)));
+          
+            if (diffDays < validDays-1) {
+                $("#modalHolder").modal("show");
+            }
+
+        }
+
+        $('#ChangeDate').click(function () {
+            var res = addDays(startDate, validDays);
+
+            var day = res.getDate();
+            var monthIndex = res.getMonth();
+            var year = res.getFullYear();
+
+            var date = day - 1 + '/' + parseInt(monthIndex + 1) + '/' + year;
+
+            $("#End_Date").val(date);
+
+        });
+
+       
+    });
 
 </script>

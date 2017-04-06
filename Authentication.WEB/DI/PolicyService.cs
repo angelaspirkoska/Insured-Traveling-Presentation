@@ -20,6 +20,16 @@ namespace InsuredTraveling.DI
             return TravelPolicy.ID;
         }
 
+        public retaining_risk GetRetainingRisk(int id)
+        {
+            retaining_risk r = _db.retaining_risk.Where(x=> x.ID == id).FirstOrDefault();
+            return r;
+        }
+        public policy_type GetPolicyType(int id)
+        {
+            policy_type pt = _db.policy_type.Where(x => x.ID == id).FirstOrDefault();
+            return pt;
+        }
         public void UpdatePaymentStatus(string PolicyNumber)
         {
             var Policy = _db.travel_policy.Where(x => x.Policy_Number == PolicyNumber).SingleOrDefault();
@@ -128,10 +138,117 @@ namespace InsuredTraveling.DI
             return _db.travel_policy.Where(x => x.ID == id).SingleOrDefault();
         }
 
+        public List<travel_policy> GetBrokersExpiringPolicies(string userId, DateTime dateFrom)
+        {
+            if (userId == "")
+                return null;
+            return _db.travel_policy.Where(x => x.Created_By == userId && x.End_Date < dateFrom && x.End_Date > DateTime.Now).ToList();
+        }
+
+        public List<travel_policy> GetEndUserExpiringPolicies(string userId, DateTime dateFrom)
+        {
+            if (userId == "")
+                return null;
+            aspnetuser currentUser = _db.aspnetusers.FirstOrDefault(x => x.Id == userId);
+            if (currentUser == null)
+                return null;
+            return _db.travel_policy.Where(x =>( x.Created_By == userId || 
+                                                 x.insured.SSN ==currentUser.EMBG || 
+                                                 _db.policy_insured.Where(h => h.PolicyID == x.ID).Select(k => k.insured.SSN).ToList().Contains(currentUser.EMBG)) && 
+                                                 x.End_Date < dateFrom && x.End_Date > DateTime.Now).ToList();
+        }
+
+        public List<travel_policy> GetBrokerManagerExpiringPolicies(string userId, DateTime dateFrom)
+        {
+            if (userId == "")
+                return null;
+            var user = _db.aspnetusers.FirstOrDefault(x => x.Id == userId);
+            List<string> brokersUsers =
+                _db.aspnetusers.Where(x => x.CreatedBy == user.Id).Select(x => x.Id).ToList();
+            return _db.travel_policy.Where(x => (x.Created_By == userId || brokersUsers.Contains(x.Created_By)) && x.End_Date < dateFrom && x.End_Date > DateTime.Now).ToList();
+        }
+
+        public List<travel_policy> GetBrokersPolicies(string userId, DateTime dateFrom)
+        {
+            if (userId == "")
+                return null;
+            return _db.travel_policy.Where(x => x.Created_By == userId && x.Date_Created > dateFrom && x.Payment_Status == true).ToList();
+        }
+
+        public List<travel_policy> GetBrokersQuotes(string userId, DateTime dateFrom)
+        {
+            if (userId == "")
+                return null;
+            return _db.travel_policy.Where(x => x.Created_By == userId && x.Date_Created > dateFrom && x.Payment_Status == false).ToList();
+        }
+        public List<travel_policy> GetBrokerManagerPolicies(string userId, DateTime dateFrom)
+        {
+            if (userId == "")
+                return null;
+            var user = _db.aspnetusers.FirstOrDefault(x => x.Id == userId);
+            List<string> brokersUsers =
+                _db.aspnetusers.Where(x => x.CreatedBy == user.Id).Select(x => x.Id).ToList();
+            return _db.travel_policy.Where(x => (x.Created_By == userId || brokersUsers.Contains(x.Created_By)) && x.Date_Created >= dateFrom && x.Payment_Status == true).ToList();
+        }
+
+        public List<travel_policy> GetBrokerManagerQuotes(string userId, DateTime dateFrom)
+        {
+            if (userId == "")
+                return null;
+            var user = _db.aspnetusers.FirstOrDefault(x => x.Id == userId);
+            List<string> brokersUsers =
+                _db.aspnetusers.Where(x => x.CreatedBy == user.Id).Select(x => x.Id).ToList();
+            return _db.travel_policy.Where(x => (x.Created_By == userId || brokersUsers.Contains(x.Created_By)) && x.Date_Created >= dateFrom && x.Payment_Status == false).ToList();
+        }
         public List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber)
-        {            
-            return _db.travel_policy.Where(x => (x.Created_By == UserId) && (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) &&(TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
-                                    (Country == null || x.CountryID == Country.Value) && x.Payment_Status == true).ToList();
+        {
+            if(UserId != "")
+            {
+                string ssn = " ";
+                insured insured;
+                var user = _db.aspnetusers.Where(x => x.Id == UserId).FirstOrDefault();
+
+                if (user == null)
+                    return null;
+                ssn = user.EMBG;
+                insured = _db.insureds.Where(x => x.SSN == ssn).FirstOrDefault();
+                if (insured == null)
+                    return null;
+                return _db.travel_policy.Where(x => (x.Created_By == UserId || x.insured.SSN == ssn || x.policy_insured.Where(k => k.InsuredID == insured.ID).FirstOrDefault() != null) && (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
+                                        (Country == null || x.CountryID == Country.Value) && x.Payment_Status == true).ToList();
+            }
+            return _db.travel_policy.Where(x => (x.Created_By == UserId) && (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
+                                       (Country == null || x.CountryID == Country.Value) && x.Payment_Status == true).ToList();
+        }
+
+        public List<travel_policy> GetBrokerManagerBrokersPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber)
+        {
+            if (UserId != "")
+            {
+                var user = _db.aspnetusers.FirstOrDefault(x => x.Id == UserId);
+                List<string> brokersUsers =
+                    _db.aspnetusers.Where(x => x.CreatedBy == user.Id).Select(x => x.Id).ToList();
+                return _db.travel_policy.Where(x => (x.Created_By == UserId || brokersUsers.Contains(x.Created_By)) && (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
+                                        (Country == null || x.CountryID == Country.Value) && x.Payment_Status == true).ToList();
+            }
+            return null;
+        }
+        public List<travel_policy> GetBrokerManagerBrokersQuotesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber)
+        {
+            if (UserId != "")
+            {
+                var user = _db.aspnetusers.FirstOrDefault(x => x.Id == UserId);
+                List<string> brokersUsers =
+                    _db.aspnetusers.Where(x => x.CreatedBy == user.Id).Select(x => x.Id).ToList();
+                return _db.travel_policy.Where(x => (x.Created_By == UserId || brokersUsers.Contains(x.Created_By)) && (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
+                                        (Country == null || x.CountryID == Country.Value) && x.Payment_Status == false).ToList();
+            }
+            return null;
+        }
+        public List<travel_policy> GetQuotesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string UserId, string PolicyNumber)
+        {
+            return _db.travel_policy.Where(x => (x.Created_By == UserId) && (x.Payment_Status == false) && (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
+                                    (Country == null || x.CountryID == Country.Value)).ToList();
         }
         public List<travel_policy> GetPoliciesByInsuredId(int insuredId)
         {
@@ -156,7 +273,13 @@ namespace InsuredTraveling.DI
         public List<travel_policy> GetPoliciesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string PolicyNumber)
         {
             return _db.travel_policy.Where(x =>  (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
-                                    (Country == null || x.CountryID == Country.Value) && x.Payment_Status == true).ToList();
+                                    (Country == null || x.CountryID == Country.Value)).ToList();
+        }
+
+        public List<travel_policy> GetQuotesByCountryAndTypeAndPolicyNumber(int? TypePolicy, int? Country, string PolicyNumber)
+        {
+            return _db.travel_policy.Where(x => (PolicyNumber == "" || x.Policy_Number.Contains(PolicyNumber)) && (x.Payment_Status == false) && (TypePolicy == null || x.Policy_TypeID == TypePolicy.Value) &&
+                                    (Country == null || x.CountryID == Country.Value)).ToList();
         }
 
         public string GetPolicyHolderEmailByPolicyId(int PolicyId)

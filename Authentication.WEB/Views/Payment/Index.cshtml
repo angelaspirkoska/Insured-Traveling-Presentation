@@ -7,9 +7,7 @@
 
 
 <div class="col-md-12 text-center">
-
     <h2> Преглед на полиса </h2>
-
 </div>
 
 <br />
@@ -17,8 +15,7 @@
 
 
 @{ Html.RenderPartial("../Policy/_PolicyPrint", Model);  }    
-<form id="paymentForm" target="output_frame" method="post" action="https://entegrasyon.asseco-see.com.tr/fim/est3Dgate" style="padding-bottom: 100px;
-">
+<form id="paymentForm" target="output_frame" method="post" action="https://entegrasyon.asseco-see.com.tr/fim/est3Dgate" style="padding-bottom: 100px;">
     <center>
         <h3 id="hideMe">
             Плати ја полисата
@@ -58,6 +55,10 @@
     $(document).ready(function () {
         $("#output_frame").hide();
 
+        $('html,body').animate({
+            scrollTop: $("#button").offset().top
+        }, 800);
+
     });
 
     $("#button").click(function () {
@@ -71,7 +72,7 @@
                 },
                 100);
             $("#output_frame").show();
-            $('html,body').animate({
+            $('html, body').animate({
                 scrollTop: $("#output_frame").offset().top
             }, 800);
     });

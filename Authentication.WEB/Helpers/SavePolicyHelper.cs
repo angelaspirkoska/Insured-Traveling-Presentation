@@ -47,7 +47,7 @@ namespace InsuredTraveling.Helpers
 
             RoleAuthorize r = new RoleAuthorize();
 
-            if (p.IsSamePolicyHolderInsured && (p.isMobile || r.IsUser("end user")))
+            if (p.IsSamePolicyHolderInsured && (p.isMobile || r.IsUser("End user")))
             {
                 _us.UpdateSsnById(policy.Created_By, p.SSN);
 
@@ -55,79 +55,123 @@ namespace InsuredTraveling.Helpers
                 policy.Policy_HolderID = PolicyHolderId;
 
             }
-            else if (r.IsUser("admin") || r.IsUser("broker"))
-            {}
+            else if (p.IsSamePolicyHolderInsured && (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Broker manager")))
+            {
+                if (p.IsExistentPolicyHolder)
+                {
+                    policy.Policy_HolderID = _iss.GetInsuredBySsn(p.SSN).ID;
+
+                }else
+                {
+                    var PolicyHolderId = SaveInsuredHelper.SaveInsured(_iss, p.PolicyHolderName, p.PolicyHolderLastName, p.PolicyHolderSSN, p.PolicyHolderEmail, p.PolicyHolderBirthDate.Value, p.PolicyHolderPhoneNumber, p.PolicyHolderPassportNumber_ID, p.PolicyHolderAddress, p.PolicyHolderCity, p.PolicyHolderPostalCode, policy.Created_By);
+                    policy.Policy_HolderID = PolicyHolderId;
+                }
+            }
 
             if (!p.IsSamePolicyHolderInsured)
             {
                 var ssn = "";
-                if (r.IsUser("admin") || r.IsUser("broker"))
+                if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Broker manager"))
                 {
                     ssn = p.PolicyHolderSSN;
+                    var policyHolderId = _iss.GetInsuredIdBySsnAndCreatedBy(ssn, policy.Created_By);
+                    if (policyHolderId != -1)
+                    {
+                        insured updateInsuredData = new insured();
+
+                        policy.Policy_HolderID = policyHolderId;
+                        updateInsuredData.ID = policyHolderId;
+                        updateInsuredData.Name = p.PolicyHolderName;
+                        updateInsuredData.Lastname = p.PolicyHolderLastName;
+                        updateInsuredData.SSN = p.PolicyHolderSSN;
+
+                        updateInsuredData.Email = p.PolicyHolderEmail;
+                        updateInsuredData.DateBirth = p.PolicyHolderBirthDate ?? DateTime.UtcNow;
+                        updateInsuredData.Phone_Number = p.PolicyHolderPhoneNumber;
+
+                        updateInsuredData.Passport_Number_IdNumber = p.PolicyHolderPassportNumber_ID;
+
+                        updateInsuredData.City = p.PolicyHolderCity;
+                        updateInsuredData.Postal_Code = p.PolicyHolderPostalCode;
+                        updateInsuredData.Address = p.PolicyHolderAddress;
+
+                        updateInsuredData.Date_Modified = DateTime.Now;
+                        updateInsuredData.Modified_By = policy.Created_By;
+
+                        _iss.UpdateInsuredData(updateInsuredData);
+                    }
+                    else
+                    {
+                        var newInsured = _iss.Create();
+
+                        newInsured.Name = p.PolicyHolderName;
+                        newInsured.Lastname = p.PolicyHolderLastName;
+                        newInsured.SSN = p.PolicyHolderSSN;
+
+                        newInsured.Email = p.PolicyHolderEmail;
+                        newInsured.DateBirth = p.PolicyHolderBirthDate ?? DateTime.UtcNow;
+                        newInsured.Phone_Number = p.PolicyHolderPhoneNumber;
+
+                        newInsured.Passport_Number_IdNumber = p.PolicyHolderPassportNumber_ID;
+
+                        newInsured.City = p.PolicyHolderCity;
+                        newInsured.Postal_Code = p.PolicyHolderPostalCode;
+                        newInsured.Address = p.PolicyHolderAddress;
+
+                        newInsured.Date_Created = DateTime.Now;
+                        newInsured.Created_By = policy.Created_By;
+                        try
+                        {
+                            var Id = _iss.AddInsured(newInsured);
+                            policy.Policy_HolderID = Id;
+                        }
+                        finally { }
+                    }
                 }
-                else if (r.IsUser("end user"))
+                else if (r.IsUser("End user"))
                 {
                     ssn = _us.GetUserSsnByUsername(username);
-                }
-
-                var policyHolderId = _iss.GetInsuredIdBySsnAndCreatedBy(ssn, policy.Created_By);
-                if (policyHolderId != -1)
-                {
-                    insured updateInsuredData = new insured();
-
-                    policy.Policy_HolderID = policyHolderId;
-                    updateInsuredData.ID = policyHolderId;
-                    updateInsuredData.Name = p.PolicyHolderName;
-                    updateInsuredData.Lastname = p.PolicyHolderLastName;
-                    updateInsuredData.SSN = p.PolicyHolderSSN;
-
-                    updateInsuredData.Email = p.PolicyHolderEmail;
-                    updateInsuredData.DateBirth = p.PolicyHolderBirthDate;
-                    updateInsuredData.Phone_Number = p.PolicyHolderPhoneNumber;
-
-                    updateInsuredData.Passport_Number_IdNumber = p.PolicyHolderPassportNumber_ID;
-
-                    updateInsuredData.City = p.PolicyHolderCity;
-                    updateInsuredData.Postal_Code = p.PolicyHolderPostalCode;
-                    updateInsuredData.Address = p.PolicyHolderAddress;
-
-                    updateInsuredData.Date_Modified = DateTime.Now;
-                    updateInsuredData.Modified_By = policy.Created_By;
-
-                    _iss.UpdateInsuredData(updateInsuredData);
-                }
-                else
-                {
-                    var newInsured = _iss.Create();
-
-                    newInsured.Name = p.PolicyHolderName;
-                    newInsured.Lastname = p.PolicyHolderLastName;
-                    newInsured.SSN = p.PolicyHolderSSN;
-
-                    newInsured.Email = p.PolicyHolderEmail;
-                    newInsured.DateBirth = p.PolicyHolderBirthDate;
-                    newInsured.Phone_Number = p.PolicyHolderPhoneNumber;
-
-                    newInsured.Passport_Number_IdNumber = p.PolicyHolderPassportNumber_ID;
-
-                    newInsured.City = p.PolicyHolderCity;
-                    newInsured.Postal_Code = p.PolicyHolderPostalCode;
-                    newInsured.Address = p.PolicyHolderAddress;
-
-                    newInsured.Date_Created = DateTime.Now;
-                    newInsured.Created_By = policy.Created_By;
-                    try
+                    var policyHolderId = _iss.GetInsuredIdBySsnAndCreatedBy(ssn, policy.Created_By);
+                    if (policyHolderId != -1)
                     {
-                        var Id = _iss.AddInsured(newInsured);
-                        policy.Policy_HolderID = Id;
+                        policy.Policy_HolderID = policyHolderId;
                     }
-                    finally { }
+                    else
+                    {
+                        var currentEndUser = _us.GetUserDataByUsername(username);
+                        var newInsured = _iss.Create();
+
+                        newInsured.Name = currentEndUser.FirstName;
+                        newInsured.Lastname = currentEndUser.LastName;
+                        newInsured.SSN = currentEndUser.EMBG;
+
+                        newInsured.Email = currentEndUser.Email;
+                        newInsured.DateBirth = currentEndUser.DateOfBirth.HasValue == true ? currentEndUser.DateOfBirth.Value: DateTime.Now;
+                        newInsured.Phone_Number = currentEndUser.PhoneNumber;
+
+                        newInsured.Passport_Number_IdNumber = currentEndUser.PassportNumber;
+
+                        newInsured.City = currentEndUser.City;
+                        newInsured.Postal_Code = currentEndUser.PostalCode;
+                        newInsured.Address = currentEndUser.Address;
+
+                        newInsured.Date_Created = DateTime.Now;
+                        newInsured.Created_By = policy.Created_By;
+                        try
+                        {
+                            var Id = _iss.AddInsured(newInsured);
+                            policy.Policy_HolderID = Id;
+                        }
+                        finally { }
+                    }
+
                 }
+
+                
             }
 
             var policyID = _ps.AddPolicy(policy);
-            //polisa da se kreira pa posle osigurenik!!!!
-            var insuredId = _iss.GetInsuredIdBySsnAndCreatedBy(p.SSN, p.Created_By);
+            var insuredId = _iss.GetInsuredIdBySsnAndCreatedBy(p.SSN, policy.Created_By);
             if (insuredId != -1)
             {
                 // da se update
@@ -186,23 +230,25 @@ namespace InsuredTraveling.Helpers
             }
             else
             {
-                foreach (additional_charge additionalCharge in p.additional_charges)
+                if(p.additional_charges != null)
                 {
-                    if (additionalCharge.ID != 1)
+                    foreach (additional_charge additionalCharge in p.additional_charges)
                     {
-                        var addChargeNew = _acs.Create();
-                        addChargeNew.PolicyID = policyID;
-                        addChargeNew.Additional_ChargeID = additionalCharge.ID;
-                        _acs.AddAdditionalChargesPolicy(addChargeNew);
+                        if (additionalCharge.ID != 1)
+                        {
+                            var addChargeNew = _acs.Create();
+                            addChargeNew.PolicyID = policyID;
+                            addChargeNew.Additional_ChargeID = additionalCharge.ID;
+                            _acs.AddAdditionalChargesPolicy(addChargeNew);
+                        }
                     }
-
                 }
             }
             return policyID;
 
         }
 
-        public static bool SavePolicyFromMobile(AddPolicyMobileViewModel addPolicyMobile,
+        public static int SavePolicyFromMobile(AddPolicyMobileViewModel addPolicyMobile,
                                                 IPolicyService _ps,
                                                 IUserService _us,
                                                 IInsuredsService _iss,
@@ -292,12 +338,12 @@ namespace InsuredTraveling.Helpers
                         }
                     }
                 }
-                return true;
-                
+                return policyID;
+
             }
             catch (Exception e)
             {
-                return false;
+                return -1;
             }
            
         }
