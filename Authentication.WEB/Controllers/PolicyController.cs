@@ -54,10 +54,12 @@ namespace Authentication.WEB.Controllers
         }
         [HttpGet]
         [SessionExpire]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string ssn)
         {
             if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                 Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
+
+            Policy p = new Policy();
 
             var type_policies = GetTypeOfPolicy();
             var countries = GetTypeOfCountry();
@@ -71,6 +73,23 @@ namespace Authentication.WEB.Controllers
             ViewBag.Franchise = franchises.Result;
             ViewBag.additional_charges = additional_charges.Result;
             ViewBag.DisableDefault = false;
+
+            if (!String.IsNullOrEmpty(ssn))
+            {
+                insured insured = _iss.GetInsuredBySsn(ssn);
+                if (insured == null)
+                    return View();
+                p.PolicyHolderAddress = insured.Address;
+                p.PolicyHolderBirthDate = insured.DateBirth;
+                p.PolicyHolderCity = insured.City;
+                p.PolicyHolderEmail = insured.Email;
+                p.PolicyHolderName = insured.Name;
+                p.PolicyHolderLastName = insured.Lastname;
+                p.PolicyHolderPostalCode = insured.Postal_Code;
+                p.PolicyHolderSSN = insured.SSN;
+                p.PolicyHolderPassportNumber_ID = insured.Passport_Number_IdNumber;
+                return View(p);
+            }
             return View();
         }
 

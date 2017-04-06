@@ -573,6 +573,7 @@
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTableEmail</th>
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTablePassport</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id="searchResultClients"></tbody>
@@ -1747,7 +1748,7 @@
                             "render": function (data, type, row, meta) {
                                 if (type === 'display') {
                                     return $('<a>')
-                                         .attr('href', 'javascript:;')
+                                        .attr('href', 'javascript:;')
                                         .attr('class', 'clients')
                                         .attr('id', data)
                                         .text("@InsuredTraveling.Resource.Search_PolicyLink")
@@ -1757,6 +1758,22 @@
                                 } else {
                                     return data;
                                 }
+                            }
+                        },
+                        {
+                            data: "SSN",
+                            "render": function (data, type, row, meta) {
+                                if (type === 'display') {
+                                return $('<a>')
+                                    .attr('href', '/Policy?ssn=' + data)
+                                    .attr('target', '_blank')
+                                    .text("@InsuredTraveling.Resource.Policy_CreatePolicy")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                                    } else {
+                                        return data;
+                                    }
                             }
                         }
             ],
