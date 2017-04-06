@@ -8,7 +8,10 @@
 }
 
 .body-position-for-limitless {
-    margin: 35px 40px 10px 40px;
+    margin: 0px 40px 10px 40px;
+}
+.container-position-for-limitless-admin-panel {
+    margin: 35px 40px 10px 0px;
 }
 
 .footer-material-design {
