@@ -68,7 +68,18 @@
         </div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="row">
+    
+     @if(Model != null)
+     {
+         <input id="modelId" value="@Model.PolicyNumber" type="text" hidden/>
+     }
+     else
+     {
+        <input id="modelId" value="0" type="text" hidden />
+     }
+
+
+    <div class="row">
             <div class="col-md-5 col-sm-5">
                 <div class="form-group">
                     <div class="">
@@ -504,7 +515,7 @@
             <div class="col-md-12 col-sm-12">
                 <div class="form-group">
                     <div class="col-md-4 col-sm-4" style="padding-left: 0px;">
-                        <input type="submit" onclick="validateFNOL()" value="@InsuredTraveling.Resource.FNOL_Add" class="btn btn-default btn-block" />
+                        <input type="submit" value="@InsuredTraveling.Resource.FNOL_Add" class="btn btn-default btn-block" />
                     </div>
 
                 </div>
@@ -588,6 +599,53 @@ else if (ViewBag.insurance == "Luggage Insurance")
     $(document).ready(function () {
         var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
 
+        if ($("#modelId").val() != "0") {
+
+            $('#TransactionAccount').prop('readonly', false);
+            $('#insuredTransactionAccount').prop('readonly', false);
+            $('#travelDestination').prop('readonly', false);
+            $('#DepartDateTime').prop('readonly', false);
+            $('#transportationType').prop('readonly', false);
+            $('#travelTimeFrom').prop('readonly', false);
+            $('#ArrivalDateTime').prop('readonly', false);
+            $('#travelTimeTo').prop('readonly', false);
+            $('#TotalCost').prop('readonly', false);
+            $('#invoices').prop('disabled', false);
+            $('#health').prop('disabled', false);
+            $('#luggage').prop('disabled', false);
+            $('#ExistentBankAccount').prop('disabled', false);
+            $('#ForeignBankAccount').prop('disabled', false);
+            $('#ExistentBankAccountInsured').prop('disabled', false);
+            $('#ForeignBankAccountInsured').prop('disabled', false);
+            $('#relationship').prop('readonly', false);
+
+            validateFNOL();
+
+        } else {
+            $("#previewPolicy").hide();
+            $('#deponent').prop('readonly', true);
+            $('#deponentInsured').prop('readonly', true);
+            $('#DropDownBankAccountPolicyHolder').hide();
+            $('#DropDownBankAccountInsured').hide();
+            $('#TransactionAccount').prop('readonly', true);
+            $('#insuredTransactionAccount').prop('readonly', true);
+            $('#travelDestination').prop('readonly', true);
+            $('#DepartDateTime').prop('readonly', true);
+            $('#transportationType').prop('readonly', true);
+            $('#travelTimeFrom').prop('readonly', true);
+            $('#ArrivalDateTime').prop('readonly', true);
+            $('#travelTimeTo').prop('readonly', true);
+            $('#TotalCost').prop('readonly', true);
+            $('#invoices').prop('disabled', true);
+            $('#health').prop('disabled', true);
+            $('#luggage').prop('disabled', true);
+            $('#ExistentBankAccount').prop('disabled', true);
+            $('#ForeignBankAccount').prop('disabled', true);
+            $('#ExistentBankAccountInsured').prop('disabled', true);
+            $('#ForeignBankAccountInsured').prop('disabled', true);
+            $('#relationship').prop('readonly', true);
+        }
+
         $("#DepartDateTime").datepicker({
             dateFormat: dateFormatString,
             onSelect: function (selected) {
@@ -629,31 +687,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
             onSelect: function (selected) {
                 //$("#DepartDateTime").datepicker("option", "minDate", selected);
                 //$("#ArrivalDateTime").datepicker("option", "maxDate", selected);
-            },
+            }
         });
-
-        $("#previewPolicy").hide();
-        $('#deponent').prop('readonly', true);
-        $('#deponentInsured').prop('readonly', true);
-        $('#DropDownBankAccountPolicyHolder').hide();
-        $('#DropDownBankAccountInsured').hide();
-        $('#TransactionAccount').prop('readonly', true);
-        $('#insuredTransactionAccount').prop('readonly', true);
-        $('#travelDestination').prop('readonly', true);
-        $('#DepartDateTime').prop('readonly', true);
-        $('#transportationType').prop('readonly', true);
-        $('#travelTimeFrom').prop('readonly', true);
-        $('#ArrivalDateTime').prop('readonly', true);
-        $('#travelTimeTo').prop('readonly', true);
-        $('#TotalCost').prop('readonly', true);
-        $('#invoices').prop('disabled', true);
-        $('#health').prop('disabled', true);
-        $('#luggage').prop('disabled', true);
-        $('#ExistentBankAccount').prop('disabled', true);
-        $('#ForeignBankAccount').prop('disabled', true);
-        $('#ExistentBankAccountInsured').prop('disabled', true);
-        $('#ForeignBankAccountInsured').prop('disabled', true);
-        $('#relationship').prop('readonly', true);
 
         $("#btnNovaPolisa").removeClass("active-tab");
         $("#btnNews").removeClass("active-tab");
@@ -681,19 +716,23 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 $('#ExistentBankAccount').prop('disabled', true);
                 $('#ForeignBankAccount').prop('disabled', true);
                 $('#relationship').prop('readonly', true);
-            } else {
-                //$('#TransactionAccount').prop('readonly', false);
-                //$('#insuredTransactionAccount').prop('readonly', false);
-                //$('#travelDestination').prop('readonly', false);
-                //$('#DepartDateTime').prop('readonly', false);
-                //$('#transportationType').prop('readonly', false);
-                //$('#travelTimeFrom').prop('readonly', false);
-                //$('#ArrivalDateTime').prop('readonly', false);
-                //$('#travelTimeTo').prop('readonly', false);
-                //$('#TotalCost').prop('readonly', false);
-                //$('#invoices').prop('readonly', false);
-                //$('#health').prop('disabled', false);
-                //$('#luggage').prop('disabled', false);
+
+                $("#PolicyHolderId").attr("value", "");
+                $("#PolicyHolderName").attr("value", " ");
+                $("#PolicyHolderName").attr("IdPolicyHolder", "");
+                $("#PolicyHolderPhone").attr("value", "");
+                $("#PolicyHolderSSN").attr("value", "");
+                $("#PolicyHolderAddress").attr("value", "");
+                $("#DepartDateTime").val("");
+                $("#ArrivalDateTime").val("");
+
+                $("#InsuredName").attr("value", "");
+                $("#InsuredAdress").attr("value", "");
+                $("#InsuredPhone").attr("value", "");
+                $("#InsuredSSN").attr("value", "");
+                $("#relationship").attr("isSameUserWithSelectedInsured", "");
+
+                $("#previewPolicy").hide();
             }
         });
 
