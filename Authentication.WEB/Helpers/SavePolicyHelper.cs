@@ -315,7 +315,7 @@ namespace InsuredTraveling.Helpers
                                                                                insured.Address, 
                                                                                insured.City, 
                                                                                insured.Postal_Code, 
-                                                                               insured.Created_By);
+                                                                               addPolicyMobile.Created_By);
 
                         var policyInsured = _pis.Create();
                         policyInsured.InsuredID = addInsuredID;
