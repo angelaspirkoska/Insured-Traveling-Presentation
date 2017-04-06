@@ -614,15 +614,15 @@ namespace InsuredTraveling.Controllers
                     }
 
                     result.Add("data", InsuredsJsonArray);
-                    var BankListData = new JArray();
-                    foreach (var Bank in Banks)
-                    {
-                        var BanksData = new JObject();
-                        BanksData.Add("Prefix", Bank.Prefix_Number);
-                        BanksData.Add("BankName", Bank.bank.Name);
-                        BankListData.Add(BanksData);
-                    }
-                    result.Add("banks", BankListData);
+                    //var BankListData = new JArray();
+                    //foreach (var Bank in Banks)
+                    //{
+                    //    var BanksData = new JObject();
+                    //    BanksData.Add("Prefix", Bank.Prefix_Number);
+                    //    BanksData.Add("BankName", Bank.bank.Name);
+                    //    BankListData.Add(BanksData);
+                    //}
+                    //result.Add("banks", BankListData);
                     return result;
                 }
                 else
@@ -634,6 +634,24 @@ namespace InsuredTraveling.Controllers
             {
                 result.Add("response", "No policy found");
             }
+            return result;
+        }
+
+        public JObject GetBanks()
+        {
+            var result =  new JObject();
+            var Banks = _bas.GetAllPrefix();
+            var BankListData = new JArray();
+
+            foreach (var Bank in Banks)
+            {
+                var BanksData = new JObject();
+                BanksData.Add("Prefix", Bank.Prefix_Number);
+                BanksData.Add("BankName", Bank.bank.Name);
+                BankListData.Add(BanksData);
+            }
+
+            result.Add("banks", BankListData);
             return result;
         }
 

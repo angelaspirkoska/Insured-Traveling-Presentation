@@ -597,6 +597,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
 <script type="text/javascript">
     var Banks;
     $(document).ready(function () {
+
         var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
 
         if ($("#modelId").val() != "0") {
@@ -622,6 +623,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
             validateFNOL();
 
         } else {
+
             $("#previewPolicy").hide();
             $('#deponent').prop('readonly', true);
             $('#deponentInsured').prop('readonly', true);
@@ -646,6 +648,18 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $('#relationship').prop('readonly', true);
         }
 
+        //Fill the banks
+        $.ajax({
+            type: "GET",
+            url: "/FirstNoticeOfLoss/GetBanks",
+            success: function (result) {
+                var rez = JSON.parse(result);
+                Banks = rez.banks;
+                console.log(Banks);
+            }
+        });
+
+
         $("#DepartDateTime").datepicker({
             dateFormat: dateFormatString,
             onSelect: function (selected) {
@@ -653,7 +667,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 $("#AccidentDateTimeLuggage").datepicker("option", "minDate", selected);
                 $("#AccidentDateTimeHealth").datepicker("option", "minDate", selected);
                 $("#DoctorVisitDateTime").datepicker("option", "minDate", selected);
-            },
+            }
         });
 
         $("#ArrivalDateTime").datepicker({
@@ -663,7 +677,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 $("#AccidentDateTimeLuggage").datepicker("option", "maxDate", selected);
                 $("#AccidentDateTimeHealth").datepicker("option", "maxDate", selected);
                 $("#DoctorVisitDateTime").datepicker("option", "maxDate", selected);
-            },
+            }
         });
 
         $("#AccidentDateTimeHealth").datepicker({
@@ -758,7 +772,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
         });
 
         $("#DropDownPolicyNumber").autocomplete({
-            source: function(request,response) {
+            source: function (request, response) {
                 $.ajax({
                     url: "/FirstNoticeOfLoss/ShowPolicies",
                     type: "POST",
@@ -953,7 +967,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $('#deponent').prop('readonly', true);
         }
         else {
-            console.log(Banks);
             if (Banks != null || Banks != undefined) {
                 var bankAccount = $('#TransactionAccount').val();
                 var prefixTillNow = bankAccount.substring(0, 3);
@@ -1078,7 +1091,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     $('#relationship').prop('readonly', false);
 
                    // fill data
-                    Banks = rez.banks;
                     $("#PolicyHolderId").attr("value", rez.policyholder.Id);
                     $("#PolicyHolderName").attr("value", rez.policyholder.FirstName + " " + rez.policyholder.LastName);
                     $("#PolicyHolderName").attr("IdPolicyHolder", rez.policyholder.Id);
