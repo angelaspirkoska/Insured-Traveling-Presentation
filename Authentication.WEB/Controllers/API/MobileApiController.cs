@@ -707,7 +707,8 @@ namespace InsuredTraveling.Controllers.API
                 {
                     riskObject.Add("NameMK", riskDataMK.name);
                 }
-                retainingRisks.Add(riskObject);
+                if(!(riskDataMK == null || riskDataEN == null))
+                    retainingRisks.Add(riskObject);
             }
             data.Add("retainingRisk", retainingRisks);
             return data;
