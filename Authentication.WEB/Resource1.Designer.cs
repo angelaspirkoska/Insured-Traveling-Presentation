@@ -1175,6 +1175,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin.
+        /// </summary>
+        public static string Home_Admin {
+            get {
+                return ResourceManager.GetString("Home_Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin site.
         /// </summary>
         public static string Home_AdminPanel {
@@ -1184,11 +1193,38 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Broker.
+        /// </summary>
+        public static string Home_Broker {
+            get {
+                return ResourceManager.GetString("Home_Broker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Broker manager.
+        /// </summary>
+        public static string Home_Broker_manager {
+            get {
+                return ResourceManager.GetString("Home_Broker_manager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Buy Insurance.
         /// </summary>
         public static string Home_BuyInsurance {
             get {
                 return ResourceManager.GetString("Home_BuyInsurance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Claims adjuster.
+        /// </summary>
+        public static string Home_Claims_adjuster {
+            get {
+                return ResourceManager.GetString("Home_Claims_adjuster", resourceCulture);
             }
         }
         
