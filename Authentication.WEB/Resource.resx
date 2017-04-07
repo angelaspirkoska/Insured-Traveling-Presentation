@@ -1244,8 +1244,6 @@
   </data>
   <data name="AdminPanel_DiscountAddButton" xml:space="preserve">
     <value>Add Discount</value>
-  <data name="Home_BuyInsurance" xml:space="preserve">
-    <value>Buy Insurance</value>
   </data>
   <data name="AdminPanel_DiscountCancelButton" xml:space="preserve">
     <value>Cancel</value>
@@ -1342,26 +1340,5 @@
   </data>
   <data name="SignUp_ButtonCreateUser" xml:space="preserve">
     <value>Create user</value>
-  </data>
-  <data name="MainPage" xml:space="preserve">
-    <value>MAIN</value>
-  </data>
-  <data name="Home_MyProfile" xml:space="preserve">
-    <value>My Profile</value>
-  </data>
-  <data name="Msg_EmptyUsernameOrPassword" xml:space="preserve">
-    <value>The username or/and password field is empty</value>
-  </data>
-  <data name="Home_Admin" xml:space="preserve">
-    <value>Admin</value>
-  </data>
-  <data name="Home_Broker" xml:space="preserve">
-    <value>Broker</value>
-  </data>
-  <data name="Home_Broker_manager" xml:space="preserve">
-    <value>Broker manager</value>
-  </data>
-  <data name="Home_Claims_adjuster" xml:space="preserve">
-    <value>Claims adjuster</value>
   </data>
 </root>

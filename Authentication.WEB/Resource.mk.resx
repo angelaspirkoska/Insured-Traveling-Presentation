@@ -1241,33 +1241,21 @@
   </data>
   <data name="AdminPanel_DiscountAddButton" xml:space="preserve">
     <value>Додади попуст</value>
-  <data name="Home_BuyInsurance" xml:space="preserve">
-    <value>Купи осигурување</value>
   </data>
   <data name="AdminPanel_DiscountCoefi" xml:space="preserve">
     <value>Попуст во проценти</value>
-  <data name="Home_NoMsg" xml:space="preserve">
-    <value>Немате нови пораки</value>
   </data>
   <data name="AdminPanel_DiscountEndDate" xml:space="preserve">
     <value>Крај на попуст</value>
-  <data name="OK_SMSCode" xml:space="preserve">
-    <value>Испратен Ви е СМС код. Проверете го вашиот мобилен телефон.</value>
   </data>
   <data name="AdminPanel_DiscountName" xml:space="preserve">
     <value>Име на попуст</value>
-  <data name="Search_HelpMessage" xml:space="preserve">
-    <value>Избери ги датумите пред или после овој датум</value>
   </data>
   <data name="AdminPanel_DiscountStartDate" xml:space="preserve">
     <value>Почеток на попуст</value>
-  <data name="Msg_IncorrectUserPass" xml:space="preserve">
-    <value>Погрешно корисничко име или лозинка. Обиди се повторно.</value>
   </data>
   <data name="AdminPanel_DiscountCancelButton" xml:space="preserve">
     <value>Откажи</value>
-  <data name="Msg_InvalidRecaptcha" xml:space="preserve">
-    <value>Невалидна reCaptcha. Обиди се повторно со клкнување на копчето до "I'm not a robot".</value>
   </data>
   <data name="Home_BuyInsurance" xml:space="preserve">
     <value>Купи осигурување</value>
@@ -1346,26 +1334,5 @@
   </data>
   <data name="SignUp_ButtonCreateUser" xml:space="preserve">
     <value>Креирај корисник</value>
-  </data>
-  <data name="MainPage" xml:space="preserve">
-    <value>ПОЧЕТНА СТРАНА</value>
-  </data>
-  <data name="Home_MyProfile" xml:space="preserve">
-    <value>Мој профил</value>
-  </data>
-  <data name="Msg_EmptyUsernameOrPassword" xml:space="preserve">
-    <value>Полето за корисничко име и/или лозинка е празно</value>
-  </data>
-  <data name="Home_Admin" xml:space="preserve">
-    <value>Админ</value>
-  </data>
-  <data name="Home_Broker" xml:space="preserve">
-    <value>Брокер</value>
-  </data>
-  <data name="Home_Broker_manager" xml:space="preserve">
-    <value>Брокер менаџер</value>
-  </data>
-  <data name="Home_Claims_adjuster" xml:space="preserve">
-    <value>Агент за штети</value>
   </data>
 </root>

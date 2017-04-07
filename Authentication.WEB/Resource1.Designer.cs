@@ -97,11 +97,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Discount.
-=======
-        ///   Looks up a localized string similar to Only latin letters.
->>>>>>> Hopeful merge LimitlessDesign with master
         /// </summary>
         public static string AdminPanel_Discount {
             get {
@@ -110,7 +106,6 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Add Discount.
         /// </summary>
         public static string AdminPanel_DiscountAddButton {
@@ -174,8 +169,6 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-=======
->>>>>>> Hopeful merge LimitlessDesign with master
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string AdminPanel_ID {
@@ -1175,15 +1168,6 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Admin.
-        /// </summary>
-        public static string Home_Admin {
-            get {
-                return ResourceManager.GetString("Home_Admin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Admin site.
         /// </summary>
         public static string Home_AdminPanel {
@@ -1193,38 +1177,11 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Broker.
-        /// </summary>
-        public static string Home_Broker {
-            get {
-                return ResourceManager.GetString("Home_Broker", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Broker manager.
-        /// </summary>
-        public static string Home_Broker_manager {
-            get {
-                return ResourceManager.GetString("Home_Broker_manager", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Buy Insurance.
         /// </summary>
         public static string Home_BuyInsurance {
             get {
                 return ResourceManager.GetString("Home_BuyInsurance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Claims adjuster.
-        /// </summary>
-        public static string Home_Claims_adjuster {
-            get {
-                return ResourceManager.GetString("Home_Claims_adjuster", resourceCulture);
             }
         }
         
@@ -1243,15 +1200,6 @@ namespace InsuredTraveling {
         public static string Home_FirstNoticeOfLoss {
             get {
                 return ResourceManager.GetString("Home_FirstNoticeOfLoss", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to My Profile.
-        /// </summary>
-        public static string Home_MyProfile {
-            get {
-                return ResourceManager.GetString("Home_MyProfile", resourceCulture);
             }
         }
         
@@ -1355,29 +1303,11 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MAIN.
-        /// </summary>
-        public static string MainPage {
-            get {
-                return ResourceManager.GetString("MainPage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Male.
         /// </summary>
         public static string Male {
             get {
                 return ResourceManager.GetString("Male", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The username or/and password field is empty.
-        /// </summary>
-        public static string Msg_EmptyUsernameOrPassword {
-            get {
-                return ResourceManager.GetString("Msg_EmptyUsernameOrPassword", resourceCulture);
             }
         }
         
@@ -1535,7 +1465,6 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Other.
         /// </summary>
         public static string Other {
@@ -1545,8 +1474,6 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-=======
->>>>>>> Hopeful merge LimitlessDesign with master
         ///   Looks up a localized string similar to Password not changed successfully!.
         /// </summary>
         public static string PasswordResetMessageFail {
@@ -1565,11 +1492,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Add to Quotes.
-=======
-        ///   Looks up a localized string similar to Add to Offers.
->>>>>>> Hopeful merge LimitlessDesign with master
         /// </summary>
         public static string Policy_AddOffer {
             get {
@@ -1578,11 +1501,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to You have successfully added the quote. Number of quote: .
-=======
-        ///   Looks up a localized string similar to You have successfully added the offer. Number of offer .
->>>>>>> Hopeful merge LimitlessDesign with master
         /// </summary>
         public static string Policy_AddOfferMsg {
             get {
@@ -3346,7 +3265,6 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Days before expiring.
         /// </summary>
         public static string SearchPolicyByExpiringDays {
@@ -3365,8 +3283,6 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-=======
->>>>>>> Hopeful merge LimitlessDesign with master
         ///   Looks up a localized string similar to Active/Inactive.
         /// </summary>
         public static string SearchTable_ActiveInactiveUser {
