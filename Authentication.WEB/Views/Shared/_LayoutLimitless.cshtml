@@ -79,34 +79,34 @@
                 <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right">                
+            <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     @*<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-bubbles4"></i>
-                        <span class="visible-xs-inline-block position-right">Messages</span>
-                        <span class="badge bg-warning-400"></span>
-                    </a>*@
+                    <i class="icon-bubbles4"></i>
+                    <span class="visible-xs-inline-block position-right">Messages</span>
+                    <span class="badge bg-warning-400"></span>
+                </a>*@
 
                     @*<div class="dropdown-menu dropdown-content width-350">
-                        <div class="dropdown-content-heading">
-                            Messages
-                            <ul class="icons-list">
-                                <li><a href="#"><i class="icon-compose"></i></a></li>
-                            </ul>
-                        </div>
-
-                        <ul class="media-list dropdown-content-body">
-                            <li class="media">
-                                <div class="media-left">
-                                    <span class="badge bg-danger-400 media-badge">5</span>
-                                </div>
-                            </li>
+                    <div class="dropdown-content-heading">
+                        Messages
+                        <ul class="icons-list">
+                            <li><a href="#"><i class="icon-compose"></i></a></li>
                         </ul>
+                    </div>
 
-                        <div class="dropdown-content-footer">
-                            <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
-                        </div>
-                    </div>*@
+                    <ul class="media-list dropdown-content-body">
+                        <li class="media">
+                            <div class="media-left">
+                                <span class="badge bg-danger-400 media-badge">5</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="dropdown-content-footer">
+                        <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
+                    </div>
+                </div>*@
                 </li>
                 @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                 {
@@ -131,16 +131,33 @@
                 {
                     <li class="dropdown dropdown-user">
                         <a class="dropdown-toggle" data-toggle="dropdown">
-                            <span>@System.Web.HttpContext.Current.User.Identity.Name</span><b class="caret"></b>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="#"><i class="icon-user-plus"></i>@InsuredTraveling.Resource.Home_MyProfile</a></li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken">
-                                        <i class="icon-switch2"></i> @InsuredTraveling.Resource.LogOut
-                                    </a>
-                                </li>
-                            </ul>
+                            @if (r.IsUser("Admin"))
+                            {
+                                @InsuredTraveling.Resource.Home_Admin
+                            }
+                            @if (r.IsUser("Broker"))
+                            {
+                                @InsuredTraveling.Resource.Home_Broker
+                            }
+                            @if (r.IsUser("Broker manager"))
+                            {
+                                @InsuredTraveling.Resource.Home_Broker_manager
+                            }
+                            @if (r.IsUser("Claims adjuster"))
+                            {
+                                @InsuredTraveling.Resource.Home_Claims_adjuster 
+                            }
+                    <span>@System.Web.HttpContext.Current.User.Identity.Name</span>
+                    <b class="caret"></b>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#"><i class="icon-user-plus"></i>@InsuredTraveling.Resource.Home_MyProfile</a></li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken">
+                                <i class="icon-switch2"></i> @InsuredTraveling.Resource.LogOut
+                            </a>
+                        </li>
+                    </ul>
                     </li>
                 }
                 @foreach (var i in InsuredTraveling.App_Start.SiteLanguages.GetAllanguages())
@@ -159,6 +176,7 @@
                     }
                 }
             </ul>
+
         </div>
     </div>
     <!-- /main navbar -->
@@ -259,7 +277,7 @@
         <!-- /page container -->
     </div>
             <!-- Footer -->
-            <div class="footer text-muted col-md-12" align="center" style="margin: 30px;">
+            <div class="footer text-muted col-md-12" align="center" @*style="margin: 30px;"*@>
                 <a href="#">&copy; @DateTime.Now.Year - Insured Traveling</a>
             </div>
         

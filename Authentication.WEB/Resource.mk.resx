@@ -1341,4 +1341,16 @@
   <data name="Msg_EmptyUsernameOrPassword" xml:space="preserve">
     <value>Полето за корисничко име и/или лозинка е празно</value>
   </data>
+  <data name="Home_Admin" xml:space="preserve">
+    <value>Админ</value>
+  </data>
+  <data name="Home_Broker" xml:space="preserve">
+    <value>Брокер</value>
+  </data>
+  <data name="Home_Broker_manager" xml:space="preserve">
+    <value>Брокер менаџер</value>
+  </data>
+  <data name="Home_Claims_adjuster" xml:space="preserve">
+    <value>Агент за штети</value>
+  </data>
 </root>
