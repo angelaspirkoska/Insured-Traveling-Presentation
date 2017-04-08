@@ -11,7 +11,8 @@ using System.Web;
 namespace InsuredTraveling.Hubs
 {
    
-    [SessionExpire]
+    //[SessionExpire]
+    [Authorize]
     public class ChatHub : Hub
     {
         readonly InsuredTravelingEntity _db = new InsuredTravelingEntity();

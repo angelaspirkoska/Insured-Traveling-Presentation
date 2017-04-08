@@ -24,7 +24,7 @@ function prepareSocket() {
     });
 
     hProxy.on("MessageRequest", function (MessageRequestsDTO) {
-        console.log("pristignaa");
+        console.log("on MessageRequest" + MessageRequestsDTO);
         var numberRequests = MessageRequestsDTO.RequestNumber;       
         $("#ul_alerts").empty();
         if (numberRequests !== 0)
@@ -49,6 +49,7 @@ function prepareSocket() {
     });
 
     hProxy.on("ReceiveMessage", function (messageDTO) {
+        console.log("on ReceiveMessage " + messageDTO)
         pushMessageToChat(messageDTO);
     });
     
@@ -99,11 +100,13 @@ function prepareSocket() {
     });
 
     hProxy.on("SendAcknowledge", function (endUserResponseDTO) {
+        console.log("on SendAcknowledge - requestId: " + endUserResponseDTO.RequestId + ", sender: " + endUserResponseDTO.Admin);
         var chatDTO = { Sender: endUserResponseDTO.Admin, RequestId: endUserResponseDTO.RequestId, Admin: false };
         openChatU(chatDTO);
     });
 
     $("#requestChatBtn").click(function () {
+        console.log("requestChatBtn click - invoke SendRequest");
         hProxy.invoke("SendRequest");
         $("#requestChatBtn").val("Request sent"); 
     });
@@ -111,10 +114,12 @@ function prepareSocket() {
 }
 
 function acceptChat(requestedBy) {
+    console.log("acceptChat - invoke AcceptRequest, requestedBy: " + requestedBy)
     hProxy.invoke("AcceptRequest", requestedBy);
 }
 
 function openMessageInChat(requestId, from, admin) {  
+    console.log("openMessageInChat - requestId: " + requestId + ", from: " + from + ", admin: " + admin)
     var selection = $("div#" + from);
     var chat = document.getElementById("from");
             if (!document.getElementById(from)){                
@@ -198,7 +203,7 @@ function LoadNextTenMessages(requestId, lastMessageId) {
 }
 
 function pushOldMessage(messageDTO, ichatwith, requestId) {
-   
+    debugger;
     var PushMessageDTO = { Sender: messageDTO.From, Message: messageDTO.Text, Date: messageDTO.Date + " " + messageDTO.Hour + ":" + messageDTO.Minute };
     var $div = $('div[requestId = ' + requestId + '] .portlet-body');
     var row = generateMessage(PushMessageDTO);
@@ -287,6 +292,7 @@ function fillMessages(LastMessagesDTOs) {
 }
 
 function openChatU(chatDTO) {
+    debugger;
     var sender = chatDTO.Sender;
     var requestId = chatDTO.RequestId;
     var isAdmin = chatDTO.Admin;
