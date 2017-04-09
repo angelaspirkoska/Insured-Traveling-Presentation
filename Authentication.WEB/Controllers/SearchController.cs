@@ -959,7 +959,6 @@ namespace InsuredTraveling.Controllers
 
             if (!String.IsNullOrEmpty(DateAdded))
             {
-                DateTime dateAdded = Convert.ToDateTime(DateAdded);
                 switch (operatorDateAdded)
                 {
                     case "<": fnol = fnol.Where(x => x.additional_info.Datetime_accident < dateAdded).ToList(); break;

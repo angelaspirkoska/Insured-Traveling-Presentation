@@ -1168,6 +1168,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin.
+        /// </summary>
+        public static string Home_Admin {
+            get {
+                return ResourceManager.GetString("Home_Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin site.
         /// </summary>
         public static string Home_AdminPanel {
@@ -1177,11 +1186,38 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Broker.
+        /// </summary>
+        public static string Home_Broker {
+            get {
+                return ResourceManager.GetString("Home_Broker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Broker manager.
+        /// </summary>
+        public static string Home_Broker_manager {
+            get {
+                return ResourceManager.GetString("Home_Broker_manager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Buy Insurance.
         /// </summary>
         public static string Home_BuyInsurance {
             get {
                 return ResourceManager.GetString("Home_BuyInsurance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Claims adjuster.
+        /// </summary>
+        public static string Home_Claims_adjuster {
+            get {
+                return ResourceManager.GetString("Home_Claims_adjuster", resourceCulture);
             }
         }
         
@@ -1200,6 +1236,15 @@ namespace InsuredTraveling {
         public static string Home_FirstNoticeOfLoss {
             get {
                 return ResourceManager.GetString("Home_FirstNoticeOfLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Profile.
+        /// </summary>
+        public static string Home_MyProfile {
+            get {
+                return ResourceManager.GetString("Home_MyProfile", resourceCulture);
             }
         }
         
@@ -1303,11 +1348,29 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MAIN.
+        /// </summary>
+        public static string MainPage {
+            get {
+                return ResourceManager.GetString("MainPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Male.
         /// </summary>
         public static string Male {
             get {
                 return ResourceManager.GetString("Male", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The username or/and password field is empty.
+        /// </summary>
+        public static string Msg_EmptyUsernameOrPassword {
+            get {
+                return ResourceManager.GetString("Msg_EmptyUsernameOrPassword", resourceCulture);
             }
         }
         

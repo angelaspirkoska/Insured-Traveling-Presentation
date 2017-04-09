@@ -82,25 +82,13 @@ namespace InsuredTraveling.App_Start
           
                 dst.SSNValidationActive = src.SSNValidationActive;
             });
-            Mapper.CreateMap<Ok_SetupModel, ok_setup>().AfterMap((src, dst) =>
             Mapper.CreateMap<DiscountModel, discount_codes>().AfterMap((src, dst) =>
             {
                 dst.Discount_Name = src.Discount_Name;
                 dst.Discount_Coef = src.Discount_Coef;
                 dst.Start_Date = src.End_Date;
                 dst.End_Date = src.End_Date;
-            
-                dst.Sms_Code_Seconds = src.Sms_Code_Seconds;
-                dst.NumberOfAttempts = src.NumberOfAttempts;
-                dst.NumberOfNews = src.NumberOfNews;
-                dst.NotificationTime = src.NotificationTime;
-                dst.NumberOfLastMsg = src.NumberOfLastMsg;
-                dst.InsuranceCompany = src.InsuranceCompany;
-                dst.VersionNumber = src.VersionNumber;
-                dst.Created_Date = src.Created_Date;
-                dst.Created_By = src.Created_By;
-          
-                dst.SSNValidationActive = src.SSNValidationActive;
+           
             });
             Mapper.CreateMap<first_notice_of_loss, FirstNoticeOfLossEditViewModel>().AfterMap((src, dst) =>
             {
