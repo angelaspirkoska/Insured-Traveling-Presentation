@@ -285,9 +285,8 @@
         
       
     <script type="text/javascript">
-
         $(document).ready(function () {
-            localStorage.setItem("username", $("#userName").val());
+            localStorage.setItem("username", '@HttpContext.Current.User.Identity.Name');
             console.log(localStorage.getItem("username"));
             if (localStorage.getItem("username") != "") {
             }

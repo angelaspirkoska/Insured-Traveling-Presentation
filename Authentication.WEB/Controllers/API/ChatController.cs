@@ -21,7 +21,7 @@ namespace InsuredTraveling.Controllers.API
         }
 
         [HttpPost]
-    
+
         [Route("requestinfo")]
         public JObject requestInfo(Request request)
         {
@@ -55,7 +55,7 @@ namespace InsuredTraveling.Controllers.API
 
                 listMessages.Add(messageJSON);
             }
-            response.Add("Messages",listMessages);
+            response.Add("Messages", listMessages);
             return response;
         }
 
@@ -88,7 +88,7 @@ namespace InsuredTraveling.Controllers.API
         [Route("lasttenmessagesweb")]
         public JObject LastTenMessagesWeb(int requestId, string username)
         {
-            string ichatwith="";          
+            string ichatwith = "";
             JObject response = new JObject();
             JArray listMessages = new JArray();
             var messages = _ics.LastTenMessagesByRequest(requestId).OrderBy(x => x.ID);
@@ -98,7 +98,7 @@ namespace InsuredTraveling.Controllers.API
 
             if (username.Equals(requestedby) || username.Equals(acceptedby))
             {
-                if(username == requestedby)
+                if (username == requestedby)
                 {
                     ichatwith = acceptedby;
                 }
@@ -108,7 +108,7 @@ namespace InsuredTraveling.Controllers.API
                 }
 
                 response.Add("ichatwith", ichatwith);
-                
+
                 foreach (message message in messages)
                 {
                     JObject messageJSON = new JObject();
@@ -116,24 +116,21 @@ namespace InsuredTraveling.Controllers.API
                     messageJSON.Add("Id", message.ID);
                     messageJSON.Add("RequestId", message.ConversationID);
                     messageJSON.Add("Text", message.Text);
-                    messageJSON.Add("Date", message.Timestamp.Date.Day +"-"+ message.Timestamp.Date.Month+"-"+message.Timestamp.Date.Year);                   
+                    messageJSON.Add("Date", message.Timestamp.Date.Day + "-" + message.Timestamp.Date.Month + "-" + message.Timestamp.Date.Year);
                     messageJSON.Add("Hour", message.Timestamp.Hour);
                     messageJSON.Add("Minute", message.Timestamp.Minute);
                     messageJSON.Add("From", message.from_username);
 
                     listMessages.Add(messageJSON);
                 }
-
-                response.Add("Messages", listMessages);
-                
             }
-           else
+            else
             {
-                response.Add("Error","Not your username");
+                response.Add("Error", "Not your username");
             }
 
+            response.Add("Messages", listMessages);
             
-
             return response;
         }
 

@@ -7,31 +7,40 @@ using System.Diagnostics;
 using InsuredTraveling.DTOs;
 using System.Collections.Generic;
 using System.Web;
+using Autofac;
 
 namespace InsuredTraveling.Hubs
 {
-   
-    //[SessionExpire]
     [Authorize]
     public class ChatHub : Hub
     {
         readonly InsuredTravelingEntity _db = new InsuredTravelingEntity();
 
+        private readonly ILifetimeScope _hubLifetimeScope;
         private string _currentUser = string.Empty;
         private bool _isAdmin = false;
 
+        public ChatHub()
+        {
+
+        }
+        public ChatHub(ILifetimeScope lifetimeScope)
+        {
+            _hubLifetimeScope = lifetimeScope.BeginLifetimeScope();
+        }
         public override Task OnDisconnected(bool stopCalled)
         {
             return base.OnDisconnected(stopCalled);
         }
         public override Task OnReconnected()
         {
-            RoleAuthorize roleAuthorize = new RoleAuthorize();
-            if (System.Web.HttpContext.Current !=null)
+            var roleAuthorize = new RoleAuthorize();
+            if (HttpContext.Current != null)
             {
-                _currentUser = System.Web.HttpContext.Current.User.Identity.Name;
+                _currentUser = HttpContext.Current.User.Identity.Name;
                 _isAdmin = roleAuthorize.IsUser("Admin");
-            }else
+            }
+            else
             {
                 _isAdmin = false;
             }
@@ -40,9 +49,9 @@ namespace InsuredTraveling.Hubs
         }
         public override Task OnConnected()
         {
-            RoleAuthorize roleAuthorize = new RoleAuthorize();
-            _currentUser = System.Web.HttpContext.Current.User.Identity.Name;
-            List<LastMessagesDTO> lastMessages = new List<LastMessagesDTO>();
+            var roleAuthorize = new RoleAuthorize();
+            _currentUser = HttpContext.Current.User.Identity.Name;
+            var lastMessages = new List<LastMessagesDTO>();
             _isAdmin = roleAuthorize.IsUser("Admin");
 
             if (_isAdmin)
@@ -58,11 +67,10 @@ namespace InsuredTraveling.Hubs
                 Groups.Add(Context.ConnectionId, _currentUser);
                 lastMessages = GetLastMessages(_currentUser, false);
             }
-            if(!_currentUser.Equals(String.Empty))
+            if (!_currentUser.Equals(String.Empty))
             {
                 Clients.Group(_currentUser).ActiveMessages(lastMessages);
             }
-           
 
             return base.OnConnected();
         }
@@ -295,6 +303,14 @@ namespace InsuredTraveling.Hubs
                 Debug.WriteLine($"Error saving request to db: {ex.ToString()}");
             }
             return result;
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _hubLifetimeScope != null)
+            {
+                _hubLifetimeScope.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

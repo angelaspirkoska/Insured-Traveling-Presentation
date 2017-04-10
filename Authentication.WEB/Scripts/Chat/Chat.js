@@ -19,8 +19,25 @@ function prepareSocket() {
 
     hProxy = connection.createHubProxy("chatHub");
 
+    //http://stackoverflow.com/a/32878511
+    hProxy.on("RequestId", function (RequestIdDTO) {
+        console.log("on RequestId - RequestId: " + RequestIdDTO.RequestId)
+    });
+    
     connection.start().done(function () {
-        console.log("connection established");
+        console.log("connection started");
+    });
+
+    connection.stateChanged(function (change) {
+        if (change.newState === $.signalR.connectionState.reconnecting) {
+            console.log('Re-connecting');
+        }
+        else if (change.newState === $.signalR.connectionState.connected) {
+            console.log('Connected');
+        }
+        else if (change.newState === $.signalR.connectionState.disconnected) {
+            console.log('Disconnected');
+        }
     });
 
     hProxy.on("MessageRequest", function (MessageRequestsDTO) {
@@ -43,9 +60,6 @@ function prepareSocket() {
         if ($("#ul_alerts").children().length === 0)
             $("#ul_alerts").prepend("<p> There are no requests </p>")
         $("#chatRequests").show();
-    });
-
-    hProxy.on("RequestId", function (RequestIdDTO) {
     });
 
     hProxy.on("ReceiveMessage", function (messageDTO) {

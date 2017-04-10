@@ -9,6 +9,10 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System;
 using System.Web.Http;
+using Autofac;
+using Autofac.Integration.SignalR;
+using System.Reflection;
+using Microsoft.AspNet.SignalR.Hubs;
 
 [assembly: OwinStartup("InsuredTravelingStartup", typeof(InsuredTraveling.Startup))]
 namespace InsuredTraveling
@@ -19,6 +23,7 @@ namespace InsuredTraveling
         public static string PublicClientId { get; private set; }
         IAppBuilder _app;
         HttpConfiguration _config;
+
         public void Configuration(IAppBuilder app)
         {
             _app = app;
@@ -53,22 +58,31 @@ namespace InsuredTraveling
 
         private void ConfigureSignalR()
         {
-            GlobalHost.HubPipeline.AddModule(new ExceptionPipelineModule());
-            GlobalHost.HubPipeline.AddModule(new LoggingPipelineModule());
-            //GlobalHost.HubPipeline.RequireAuthentication();
-
-            GlobalHost.Configuration.ConnectionTimeout = TimeSpan.FromSeconds(110);
-            GlobalHost.Configuration.DisconnectTimeout = TimeSpan.FromSeconds(30);
-            GlobalHost.Configuration.KeepAlive = TimeSpan.FromSeconds(10);
+            var builder = new ContainerBuilder();
 
             var hubConfig = new HubConfiguration
             {
                 EnableJavaScriptProxies = true,
                 EnableDetailedErrors = true
             };
+
+            builder.RegisterHubs(Assembly.GetExecutingAssembly());
+
+            var container = builder.Build();
+            _app.UseAutofacMiddleware(container);
+            hubConfig.Resolver = new AutofacDependencyResolver(container);
+
             _app.UseCors(CorsOptions.AllowAll);
             _app.UseWebApi(_config);
             _app.MapSignalR(hubConfig);
+
+            var hubPipeline = hubConfig.Resolver.Resolve<IHubPipeline>();
+            hubPipeline.AddModule(new ExceptionPipelineModule());
+            hubPipeline.AddModule(new LoggingPipelineModule());
+
+            //GlobalHost.Configuration.ConnectionTimeout = TimeSpan.FromSeconds(110);
+            //GlobalHost.Configuration.DisconnectTimeout = TimeSpan.FromSeconds(30);
+            //GlobalHost.Configuration.KeepAlive = TimeSpan.FromSeconds(10);
         }
     }
 }
