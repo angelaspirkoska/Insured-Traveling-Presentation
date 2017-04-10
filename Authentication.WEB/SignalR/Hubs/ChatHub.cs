@@ -266,13 +266,13 @@ namespace InsuredTraveling.Hubs
                 : _db.chat_requests.Where(x => x.Requested_by.Equals(username));
 
             chatsActive = chatsActiveByRole.Where(x => x.Accepted == true && x.discarded == false
-                                           && x.fnol_created == false).OrderByDescending(x => x.ID).Take(5).ToList();
+                                           && x.fnol_created == false).OrderByDescending(x => x.ID).ToList();
 
             List<LastMessagesDTO> lastMessagesDTO = new List<LastMessagesDTO>();
 
             foreach (chat_requests chat in chatsActive)
             {
-                var messageLast = chat.messages.Where(x => x.ConversationID == chat.ID).OrderByDescending(x => x.Timestamp).Select(x => new LastMessagesDTO
+                var messageLast = chat.messages.Where(x => x.ConversationID == chat.ID).OrderByDescending(x => x.Timestamp).Take(5).Select(x => new LastMessagesDTO
                 {
                     From = x.from_username,
                     Message = x.Text,
