@@ -198,7 +198,7 @@
                                 <td>@r.Discount_Coef</td>
                                 <td>@r.Start_Date</td>
                                 <td>@r.End_Date</td>
-                                <td><a href="" ><span class="glyphicon glyphicon-trash"></span></a></td>
+                                <td><a href="/AdminPanel/DeleteDiscount?ID=@r.ID" ><span class="glyphicon glyphicon-trash"></span></a></td>
                             </tr>
                             i++;
                         }
@@ -362,7 +362,7 @@
     }
     // temporary workaround 
     $("form").submit(function (e,valid) {
-        if ($("#UsernameMsg").html() != " " ){
+        if ($("#UsernameMsg").html() != " " && $('#navDiscount').hasClass('active') ){
             e.preventDefault();
         }              
     }); 
@@ -384,23 +384,23 @@
     }
 
     function FindName() {
-    
-        $.ajax({
-            type: "POST",
-            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/OkSetup/FindDiscountName",
-            data: jQuery.param({ Discount_Name: $("#Discount_Name").val() })
-        })
+       
+            $.ajax({
+                type: "POST",
+                url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/OkSetup/FindDiscountName",
+                data: jQuery.param({ Discount_Name: $("#Discount_Name").val() })
+            })
 
-    .done(function (result) {
-        $("#UsernameMsg").text(" ");
+        .done(function (result) {
+            $("#UsernameMsg").text(" ");
 
       
         
-    })
-    .fail(function () {
-        $("#UsernameMsg").text("@InsuredTraveling.Resource.AdminPanel_DiscountNameErrorMessage");
+        })
+        .fail(function () {
+            $("#UsernameMsg").text("@InsuredTraveling.Resource.AdminPanel_DiscountNameErrorMessage");
        
-    });
+        });
        
     };
 

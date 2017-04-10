@@ -147,22 +147,28 @@ namespace InsuredTraveling.Controllers
             return View("Index");
         }
 
-        //[HttpPost]
-        //[Route("DeleteDiscount")]
-        //public ActionResult DeleteDiscount(int id)
-        //{
+        [HttpGet]
+        [Route("DeleteDiscount")]
+        public ActionResult DeleteDiscount(int id)
+        {
+            var ok_setup = _okss.GetAllOkSetups();
+            var roles = _rs.GetAllRoles();
+            ViewBag.Roles = roles;
+            ViewBag.Ok_setup = ok_setup;
+            var discount = _ds.GetAllDiscounts();
+            ViewBag.Discount = discount;
+            ViewBag.TabIndex = "3";
+            try
+            {
+                _ds.DeleteDiscount(id);
 
-        //    try
-        //    {
-        //        _ds.DeleteDiscount(id);
-              
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.AddOk_SetupMsg = ex.ToString();
-        //    }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.AddOk_SetupMsg = ex.ToString();
+            }
 
-        //    return View("Index");
-        //}
+            return View("Index");
+        }
     }
 }
