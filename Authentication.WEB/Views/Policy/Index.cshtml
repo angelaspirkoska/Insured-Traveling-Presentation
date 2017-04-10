@@ -857,7 +857,7 @@
             $("#PolicyHolderBirthDate").removeClass("mandatoryField");
             $("#PolicyHolderPassportNumber_ID").removeClass("mandatoryField");
             $("#PolicyHolderEmail").removeClass("mandatoryField");
-            $("#PolicyHolderPhoneNumber").removeClass("mandatoryField"); PolicyHolderCity
+            $("#PolicyHolderPhoneNumber").removeClass("mandatoryField");
             $("#PolicyHolderCity").removeClass("mandatoryField");
         }
         else {
@@ -910,7 +910,7 @@
     });
 
     $("#IsSamePolicyHolderInsuredAdmin").change(function () {
-        if (this.checked) {
+        if ($("#IsSamePolicyHolderInsuredAdmin").is(':checked')){
             if ($("#IsExistentPolicyHolder").is(':checked')) {
                 $.ajax({
                     type: "GET",
