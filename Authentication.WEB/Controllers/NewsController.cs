@@ -56,7 +56,8 @@ namespace Authentication.WEB.Controllers
             {
                 _ns.AddNews(news);
                 ViewBag.Success = true;
-                return RedirectToAction("Index", "News");
+                IQueryable<news_all> news1 = _ns.GetAllNews();
+                return View("Index",news1);
             }
             catch
             {
