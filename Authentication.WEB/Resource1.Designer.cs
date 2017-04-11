@@ -3580,6 +3580,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Today&apos;s registered users.
+        /// </summary>
+        public static string TodayRegisteredUsersMsg {
+            get {
+                return ResourceManager.GetString("TodayRegisteredUsersMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address.
         /// </summary>
         public static string User_Address {

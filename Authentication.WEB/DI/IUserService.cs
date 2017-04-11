@@ -10,6 +10,7 @@ namespace InsuredTraveling.DI
 {
     public interface IUserService
     {
+        List<aspnetuser> GetAllUsersCreatedTodayForSavaAdmin();
         int UpdateUser(User editedUser);
         aspnetuser GetUserDataByUsername(string Username);
         aspnetuser GetUserById(string id);

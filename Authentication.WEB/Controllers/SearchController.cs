@@ -881,6 +881,17 @@ namespace InsuredTraveling.Controllers
             return jsonObject;
         }
 
+        public JObject GetAllRegisteredUsersCreatedToday()
+        {
+            List<aspnetuser> data = new List<aspnetuser>();
+            data = _us.GetAllUsersCreatedTodayForSavaAdmin();
+            var jsonObject = new JObject();
+            var searchModel = data.Select(Mapper.Map<aspnetuser, SearchRegisteredUser>).ToList();
+            var array = JArray.FromObject(searchModel.ToArray());
+            jsonObject.Add("data", array);
+            return jsonObject;
+        }
+
         [HttpGet]
         [Route("ChangeUserStatus")]
         public JObject ChangeUserStatus(string username)
