@@ -43,8 +43,6 @@ namespace InsuredTraveling
         public string FNOL_Number { get; set; }
     
         public virtual additional_info additional_info { get; set; }
-        public virtual aspnetuser aspnetuser { get; set; }
-        public virtual aspnetuser aspnetuser1 { get; set; }
         public virtual bank_account_info bank_account_info { get; set; }
         public virtual bank_account_info bank_account_info1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -55,5 +53,7 @@ namespace InsuredTraveling
         public virtual travel_policy travel_policy { get; set; }
         public virtual health_insurance health_insurance { get; set; }
         public virtual luggage_insurance luggage_insurance { get; set; }
+        public virtual aspnetuser aspnetuser { get; set; }
+        public virtual aspnetuser aspnetuser1 { get; set; }
     }
 }

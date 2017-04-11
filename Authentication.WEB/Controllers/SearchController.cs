@@ -17,6 +17,7 @@ using System.IO;
 using System.Security.Policy;
 using OfficeOpenXml;
 using System.Globalization;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 
 namespace InsuredTraveling.Controllers
 {
@@ -881,10 +882,14 @@ namespace InsuredTraveling.Controllers
             return jsonObject;
         }
 
-        public JObject GetAllRegisteredUsersCreatedToday()
+        public JObject GetAllRegisteredUsersCreatedToday(string dateCreated)
         {
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+
+            DateTime createdDate = String.IsNullOrEmpty(dateCreated) ? DateTime.Now.Date : DateTime.ParseExact(dateCreated, dateTimeFormat, CultureInfo.InvariantCulture);
             List<aspnetuser> data = new List<aspnetuser>();
-            data = _us.GetAllUsersCreatedTodayForSavaAdmin();
+            data = _us.GetAllUsersCreatedTodayForSavaAdmin(createdDate);
             var jsonObject = new JObject();
             var searchModel = data.Select(Mapper.Map<aspnetuser, SearchRegisteredUser>).ToList();
             var array = JArray.FromObject(searchModel.ToArray());

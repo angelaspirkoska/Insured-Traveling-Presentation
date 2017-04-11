@@ -2324,6 +2324,9 @@
     <Compile Include="sava_policy.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="sava_setup.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="sava_voucher.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>

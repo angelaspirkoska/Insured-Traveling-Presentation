@@ -77,10 +77,9 @@ namespace InsuredTraveling.DI
             return _db.aspnetusers.Where(x => x.aspnetroles.FirstOrDefault().Name.Contains(Role)).ToList();
         }
 
-        public List<aspnetuser> GetAllUsersCreatedTodayForSavaAdmin()
+        public List<aspnetuser> GetAllUsersCreatedTodayForSavaAdmin(DateTime createdDate)
         {
-            DateTime currentDate = DateTime.Now.Date;
-            return _db.aspnetusers.Where(x => (x.aspnetroles.FirstOrDefault().Name.Contains("Sava_admin") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_normal") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_Sport_VIP") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_Sport+") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_support")) && x.CreatedOn == currentDate).ToList();
+            return _db.aspnetusers.Where(x => (x.aspnetroles.FirstOrDefault().Name.Contains("Sava_admin") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_normal") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_Sport_VIP") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_Sport+") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_support")) && x.CreatedOn == createdDate).ToList();
         }
 
         public List<travel_policy> GetPoliciesByUsernameToList(string Username, string Prefix)
