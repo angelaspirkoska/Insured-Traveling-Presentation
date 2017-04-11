@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using InsuredTraveling.DI;
 using System.Linq;
+using System.Net.Mail;
+using Authentication.WEB.Services;
 
 namespace InsuredTraveling.Controllers
 {
@@ -57,6 +59,40 @@ namespace InsuredTraveling.Controllers
                 string responseBody = await responseMessage.Content.ReadAsStringAsync();
                 if (responseMessage.IsSuccessStatusCode)
                 {
+                    List < aspnetuser > sava_admins = _us.GetUsersByRoleName("Sava_admin");
+                    foreach (var sava_admin in sava_admins)
+                    {
+                        try
+                        {
+                            var inlineLogo =
+                                new LinkedResource(
+                                    System.Web.HttpContext.Current.Server.MapPath(
+                                        "~/Content/img/EmailHeaderWelcome1.png"));
+                            inlineLogo.ContentId = Guid.NewGuid().ToString();
+
+                            string body2 = string.Format(@"   
+                            <div style='margin-left:20px'>
+                            <p> <b>Welcome to My Sava </b> - the standalone platform for online sales of insurance policies.</p>                  
+                            <br /> <br /> To inform you that the following user was registered at MySava : 
+                            <br />" + "Username: " + user.UserName +
+                                                         "<br /> " + "SSN: " + user.EMBG +
+                                                         "<br /> " + "Email: " + user.Email +
+                                                         "<br /> " + "Role: " + user.Role +
+                                                         "<br /> <br />Thanks </div>", inlineLogo.ContentId);
+
+
+                            MailService mailService2 = new MailService(sava_admin.Email, "signup@insuredtraveling.com");
+                            mailService2.setSubject("My Sava - User registered on Sava");
+                            mailService2.setBodyText(body2, true);
+
+                            mailService2.sendMail();
+                        }
+                        catch (Exception ex)
+                        {
+                            ViewBag.Message = ex;
+                            return View();
+                        }
+                    }
                     ViewBag.Message = "You are successfully registered!";
                     return View();
                 }

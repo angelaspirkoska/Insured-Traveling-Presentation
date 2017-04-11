@@ -158,7 +158,7 @@ namespace InsuredTraveling
                 EMBG = userModel.EMBG,
                 City = userModel.City,
                 CreatedOn = DateTime.UtcNow,
-                CreatedBy = userModel.CreatedBy
+                CreatedBy = userModel.CreatedBy != null ? userModel.CreatedBy  : " "
             };
             
             var result = await _userManager.CreateAsync(user, userModel.Password);
@@ -184,13 +184,14 @@ namespace InsuredTraveling
                     var view = AlternateView.CreateAlternateViewFromString(body1, null, "text/html");
                     view.LinkedResources.Add(inlineLogo);             
 
-                    MailService mailService = new MailService(userModel.Email, "signup@insuredtraveling.com"); //Change the email with the email user mail
+                    MailService mailService = new MailService(userModel.Email, "signup@insuredtraveling.com"); 
                     mailService.setSubject("Insured Traveling - Account Activation Validation");
                     mailService.setBodyText(body1, true);
                     //ALTERNATIVE VIEW
                     mailService.AlternativeViews(view);
 
                     mailService.sendMail();
+
                 }
                 catch(Exception e)
                 {
