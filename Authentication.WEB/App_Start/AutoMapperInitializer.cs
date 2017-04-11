@@ -90,12 +90,21 @@ namespace InsuredTraveling.App_Start
                 dst.End_Date = src.End_Date;
            
             });
+
+            Mapper.CreateMap<Sava_AdminPanelModel, sava_setup>().AfterMap((src, dst) =>
+            {
+                dst.points_percentage = src.points_percentage;
+                dst.vip_sum = src.vip_sum;
+                dst.email_administrator = src.email_administrator;
+                
+
+            });
             //Mapper.CreateMap<first_notice_of_loss, FirstNoticeOfLossEditViewModel>().AfterMap((src, dst) =>
             //{
             //    var policy = src.travel_policy;
             //    var user = policy != null ? policy.insured : null;
             //    var policy_holder_bank_account = src.Policy_holder_bank_account_info;
-            //    var policy_holder_bank = src.Policy_holder_bank_account_info.bank;          
+            //    var policy_holder_bank = src.Polidcy_holder_bank_account_info.bank;          
             //    var claimant = src.insured;
             //    var claimant_bank_account = src.Claimant_bank_account_info;
             //    var claimant_bank = src.Claimant_bank_account_info.bank;                               

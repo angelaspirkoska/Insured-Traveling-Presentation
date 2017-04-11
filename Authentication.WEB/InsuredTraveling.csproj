@@ -2159,6 +2159,8 @@
     <Compile Include="DI\PolicyService.cs" />
     <Compile Include="DI\PolicyTypeService.cs" />
     <Compile Include="DI\RolesService.cs" />
+    <Compile Include="DI\ISava_setupService.cs" />
+    <Compile Include="DI\Sava_setupService.cs" />
     <Compile Include="DI\TransactionsService.cs" />
     <Compile Include="DI\TravelNumberService.cs" />
     <Compile Include="DI\UserService.cs" />
@@ -2275,6 +2277,7 @@
     <Compile Include="Models\DiscountModel.cs" />
     <Compile Include="Models\DiscountCodeValidateModel.cs" />
     <Compile Include="Models\Ok_SetupModel.cs" />
+    <Compile Include="Models\Sava_AdminPanelModel.cs" />
     <Compile Include="Models\SearchRegisteredUser.cs" />
     <Compile Include="news_all.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
@@ -2322,6 +2325,9 @@
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="sava_policy.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sava_setup.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="sava_voucher.cs">

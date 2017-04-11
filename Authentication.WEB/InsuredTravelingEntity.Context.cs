@@ -84,5 +84,6 @@ namespace InsuredTraveling
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<aspnetuserlogin> aspnetuserlogins { get; set; }
         public virtual DbSet<transaction> transactions { get; set; }
+        public virtual DbSet<sava_setup> sava_setup { get; set; }
     }
 }

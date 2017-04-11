@@ -42,6 +42,7 @@ namespace InsuredTraveling
             builder.RegisterType<TravelNumberService>().As<ITravelNumberService>().InstancePerRequest();
             builder.RegisterType<ChatService>().As<IChatService>().InstancePerRequest();
             builder.RegisterType<DiscountService>().As<IDiscountService>().InstancePerRequest();
+            builder.RegisterType<Sava_setupService>().As<ISava_setupService>().InstancePerRequest();
 
             base.Load(builder);
 

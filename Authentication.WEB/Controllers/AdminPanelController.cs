@@ -15,30 +15,83 @@ namespace InsuredTraveling.Controllers
         private IOkSetupService _okss;
         private IUserService _us;
         private IDiscountService _ds;
+        private ISava_setupService _sok;
 
+        
 
-        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us, IDiscountService ds)
+        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us, IDiscountService ds, ISava_setupService sok)
         {
             _rs = rs;
             _okss = okss;
             _us = us;
-            _ds = ds;         
+            _ds = ds;
+            _sok = sok;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            var roles = _rs.GetAllRoles();
-            var ok_setup = _okss.GetAllOkSetups();
+            RoleAuthorize rol = new RoleAuthorize();
+            if (!rol.IsUser("Sava_admin"))
+            {
+                ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
+                ViewBag.TabIndex = "1";
 
-            ViewBag.Ok_setup = ok_setup;
-            ViewBag.Roles = roles;
+            }
+            else
+            {
+                var roles = _rs.GetAllRoles();
+                var ok_setup = _okss.GetAllOkSetups();
 
-            //View Bag Discount
-            var discount = _ds.GetAllDiscounts();
-            ViewBag.Discount = discount;
-            ViewBag.TabIndex = "1";
+                ViewBag.Ok_setup = ok_setup;
+                ViewBag.Roles = roles;
+
+                //View Bag Discount
+                var discount = _ds.GetAllDiscounts();
+                ViewBag.Discount = discount;
+
+                ViewBag.TabIndex = "1";
+               
+            }
             return View();
+        }
+
+        [HttpPost]
+        [Route("AddSavaOKSetup")]
+        public ActionResult AddSavaOKSetup(Sava_AdminPanelModel Sok)
+        {
+            RoleAuthorize rol = new RoleAuthorize();
+            ViewBag.AddOk_SetupMsg = "OK";
+            try
+            {
+                //ok.Created_By = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
+                //ok.Created_Date = DateTime.UtcNow;
+
+                _sok.AddSavaOkSetup(Sok);
+                ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.AddOk_SetupMsg = ex.ToString();
+            }
+            if (rol.IsUser("Sava_admin"))
+            {
+                ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
+                ViewBag.TabIndex = "1";
+            }
+            else
+            {
+
+                var ok_setup = _okss.GetAllOkSetups();
+                var roles = _rs.GetAllRoles();
+                var discount = _ds.GetAllDiscounts();
+                ViewBag.Discount = discount;
+                ViewBag.Roles = roles;
+                ViewBag.Ok_setup = ok_setup;
+                ViewBag.TabIndex = "2";
+            }
+
+            return View("Index");
         }
 
 
