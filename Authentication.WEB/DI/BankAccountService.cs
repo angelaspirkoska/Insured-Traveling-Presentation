@@ -9,7 +9,7 @@ namespace InsuredTraveling.DI
 {
     public class BankAccountService : IBankAccountService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
 
         public int AddBank(bank bank)
         {

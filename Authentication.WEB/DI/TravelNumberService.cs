@@ -7,7 +7,7 @@ namespace InsuredTraveling.DI
 {
     public class TravelNumberService : ITravelNumberService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
 
         public List<travel_number> GetAllTravelNumbers()
         {

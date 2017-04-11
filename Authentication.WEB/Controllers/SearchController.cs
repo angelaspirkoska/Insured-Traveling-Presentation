@@ -1075,7 +1075,7 @@ namespace InsuredTraveling.Controllers
             var user = _ps.GetPolicyHolderByPolicyID(loss.PolicyId);
 
             var Claimant = _iss.GetInsuredData(loss.ClaimantId);
-            var ClaimantBankAccount = _bas.BankAccountInfoById(loss.Claimant_bank_accountID);
+            var ClaimantBankAccount = _bas.BankAccountInfoById(loss.Claimant_bank_accountID.Value);
 
             var jarray = new JArray();
             var j = new JObject();

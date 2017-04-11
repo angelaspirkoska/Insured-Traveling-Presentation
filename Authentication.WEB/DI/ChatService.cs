@@ -10,7 +10,7 @@ namespace InsuredTraveling.DI
 {
     public class ChatService : IChatService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
 
         public chat_requests ChatRequest(int requestID)
         {

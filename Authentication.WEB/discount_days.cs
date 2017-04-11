@@ -24,8 +24,9 @@ namespace InsuredTraveling
         public string Modified_By { get; set; }
         public int Version { get; set; }
     
+        public virtual aspnetuser aspnetuser { get; set; }
+        public virtual aspnetuser aspnetuser1 { get; set; }
         public virtual policy_type policy_type { get; set; }
         public virtual travel_duration travel_duration { get; set; }
-        public virtual aspnetuser aspnetuser { get; set; }
     }
 }

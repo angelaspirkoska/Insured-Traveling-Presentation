@@ -46,7 +46,7 @@ namespace InsuredTraveling.Controllers
 
             if (ModelState.IsValid /*&& CaptchaValid*/)
             {
-                user.Role = "End user";
+                user.Role = "Sava_normal";
                 user.CreatedBy = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
                 Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/account/RegisterWeb");
                 HttpClient client = new HttpClient();

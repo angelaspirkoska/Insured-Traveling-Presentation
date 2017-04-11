@@ -8,7 +8,7 @@ namespace InsuredTraveling.DI
 {
     public class PolicySearchService : IPolicySearchService
     {
-        private readonly InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        private readonly InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
 
         public List<SearchPolicyViewModel>  GetCountriesName(List<SearchPolicyViewModel> searchModel, int languageId)
         {

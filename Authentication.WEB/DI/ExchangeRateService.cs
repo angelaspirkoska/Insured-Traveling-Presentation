@@ -7,7 +7,7 @@ namespace InsuredTraveling.DI
 {
     public class ExchangeRateService : IExchangeRateService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
         public List<exchange_rate> GetAllExchangeRates()
         {
             return _db.exchange_rate.ToList();

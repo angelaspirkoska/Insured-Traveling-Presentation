@@ -7,7 +7,7 @@ namespace InsuredTraveling.DI
 {
     public class FirstNoticeOfLossArchiveService : IFirstNoticeOfLossArchiveService
     {
-        private readonly InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        private readonly InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
 
         public int Archive(first_notice_of_loss_archive archiveFnol)
         {

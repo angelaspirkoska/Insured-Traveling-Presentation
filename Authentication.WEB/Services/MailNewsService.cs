@@ -11,7 +11,7 @@ namespace Authentication.WEB.Services
     {
         public void getUnreadEmails()
         {
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
+            InsuredTravelingEntity2 entities = new InsuredTravelingEntity2();
             string n = "[notification]";
 
             using (ImapClient client = new ImapClient("imap.zoho.com", 993,

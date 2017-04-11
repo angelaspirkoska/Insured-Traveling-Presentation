@@ -10,7 +10,7 @@ namespace InsuredTraveling.DI
 {
     public class UserService : IUserService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
 
         public IQueryable<SelectListItem> GetPolicyNumberListByUsername(string Username)
         {

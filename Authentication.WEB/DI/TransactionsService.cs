@@ -8,7 +8,7 @@ namespace InsuredTraveling.DI
 {
     public class TransactionsService : ITransactionsService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
 
         public void AddTransaction(transaction Transaction)
         {

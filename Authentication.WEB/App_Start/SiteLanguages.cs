@@ -13,7 +13,7 @@ namespace InsuredTraveling.App_Start
 
         public static List<language> GetAllanguages()
         {
-            InsuredTravelingEntity _db = new InsuredTravelingEntity();
+            InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
             return _db.languages.Where(x => x.Active == true).ToList();
         }
         public static bool IsLanguageAvailable(string lang)

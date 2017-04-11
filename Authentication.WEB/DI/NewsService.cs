@@ -8,7 +8,7 @@ namespace InsuredTraveling.DI
 {
     public class NewsService : INewsService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
         public void AddNews(news_all News)
         {
             _db.news_all.Add(News);

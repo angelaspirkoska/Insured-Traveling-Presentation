@@ -36,9 +36,9 @@ namespace InsuredTraveling.Helpers
             firstNoticeOfLossArchive.Policy_Holder_Address = firstNoticeOfLoss.travel_policy.insured.Address + " " + firstNoticeOfLoss.travel_policy.insured.City +" "+ firstNoticeOfLoss.travel_policy.insured.Postal_Code;
             firstNoticeOfLossArchive.Policy_Holder_Phone = firstNoticeOfLoss.travel_policy.insured.Phone_Number;
             firstNoticeOfLossArchive.Policy_Holder_Ssn = firstNoticeOfLoss.travel_policy.insured.SSN;
-            firstNoticeOfLossArchive.Policy_Holder_BankAccountId = firstNoticeOfLoss.Policy_holder_bank_accountID;
+            firstNoticeOfLossArchive.Policy_Holder_BankAccountId = firstNoticeOfLoss.Policy_holder_bank_accountID.Value;
             firstNoticeOfLossArchive.ClaimantId = firstNoticeOfLoss.insured.ID;
-            firstNoticeOfLossArchive.Claimant_BankAccountId = firstNoticeOfLoss.Claimant_bank_accountID;
+            firstNoticeOfLossArchive.Claimant_BankAccountId = firstNoticeOfLoss.Claimant_bank_accountID.Value;
             firstNoticeOfLossArchive.Claimant_Address = firstNoticeOfLoss.insured.Address + " " + firstNoticeOfLoss.insured.City + " " + firstNoticeOfLoss.insured.Postal_Code;
             firstNoticeOfLossArchive.Claimant_Last_Name = firstNoticeOfLoss.insured.Lastname;
             firstNoticeOfLossArchive.Claimant_Name = firstNoticeOfLoss.insured.Name;

@@ -5,7 +5,7 @@ namespace InsuredTraveling.DI
 {
     public class AdditionalInfoService : IAdditionalInfoService
     {
-        private InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        private InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
 
         public int Add( additional_info additionalInfo)
         {

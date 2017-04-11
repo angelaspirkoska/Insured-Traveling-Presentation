@@ -39,7 +39,7 @@ namespace Authentication.WEB.Controllers
         public ActionResult Create(CreateClientModel model) 
         {
             var username = System.Web.HttpContext.Current.User.Identity.Name;
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
+            InsuredTravelingEntity2 entities = new InsuredTravelingEntity2();
             var client = entities.insureds.Create();
             
 

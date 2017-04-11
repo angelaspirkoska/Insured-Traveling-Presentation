@@ -46,7 +46,7 @@ namespace Authentication.WEB.Controllers
                 return null;
             MailNewsService mailNewsService = new MailNewsService();
             mailNewsService.getUnreadEmails();
-            InsuredTravelingEntity entities = new InsuredTravelingEntity();
+            InsuredTravelingEntity2 entities = new InsuredTravelingEntity2();
             news_all lastReadNews = entities.news_all.Where(x => x.ID == lastReadID).FirstOrDefault();
             IQueryable<news_all> unreadNews;
             if (lastReadNews == null)

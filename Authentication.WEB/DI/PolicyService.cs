@@ -11,7 +11,7 @@ namespace InsuredTraveling.DI
 {
     public class PolicyService : IPolicyService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
         public int AddPolicy(travel_policy TravelPolicy)
         {
             TravelPolicy.Payment_Status = false;

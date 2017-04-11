@@ -69,7 +69,7 @@ namespace InsuredTraveling
                 
             };
             var result = await _userManager.CreateAsync(user, userModel.Password);
-            var result2 = _userManager.AddToRole(user.Id, "End user");
+            var result2 = _userManager.AddToRole(user.Id, "Sava_normal");
 
             return result;
         }

@@ -12,7 +12,7 @@ namespace InsuredTraveling.DI
 {
     public class FirstNoticeOfLossService : IFirstNoticeOfLossService
     {
-        private InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        private InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
 
         public int Add(first_notice_of_loss FirstNoticeOfLoss)
         {

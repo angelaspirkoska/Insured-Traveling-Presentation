@@ -17,10 +17,10 @@ namespace InsuredTraveling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public bank_account_info()
         {
-            this.first_notice_of_loss = new HashSet<first_notice_of_loss>();
-            this.first_notice_of_loss1 = new HashSet<first_notice_of_loss>();
             this.first_notice_of_loss_archive = new HashSet<first_notice_of_loss_archive>();
             this.first_notice_of_loss_archive1 = new HashSet<first_notice_of_loss_archive>();
+            this.first_notice_of_loss = new HashSet<first_notice_of_loss>();
+            this.first_notice_of_loss1 = new HashSet<first_notice_of_loss>();
         }
     
         public int ID { get; set; }
@@ -31,12 +31,12 @@ namespace InsuredTraveling
         public virtual insured insured { get; set; }
         public virtual bank bank { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<first_notice_of_loss> first_notice_of_loss { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<first_notice_of_loss> first_notice_of_loss1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<first_notice_of_loss_archive> first_notice_of_loss_archive1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<first_notice_of_loss> first_notice_of_loss { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<first_notice_of_loss> first_notice_of_loss1 { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace InsuredTraveling.DI
 {
     public class RolesService : IRolesService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
         public List<aspnetrole> GetAllRoles()
         {
             return _db.aspnetroles.ToList();

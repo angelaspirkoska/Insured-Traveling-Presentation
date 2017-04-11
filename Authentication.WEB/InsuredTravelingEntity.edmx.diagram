@@ -4,136 +4,138 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="98e5219c4ee54651afe193f34e768c8b" Name="Diagram1" ZoomLevel="60">
-        <EntityTypeShape EntityType="Entities.additional_charge" Width="1.5" PointX="5.25" PointY="24.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.additional_info" Width="1.5" PointX="9" PointY="40" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.aspnetrole" Width="1.5" PointX="0.75" PointY="31.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.aspnetuserclaim" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.bank_account_info" Width="1.5" PointX="12.5" PointY="23.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.bank_prefix" Width="1.5" PointX="12.5" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.bank" Width="1.5" PointX="10.25" PointY="19.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.client" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.company" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.country" Width="1.5" PointX="13.25" PointY="17.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.discount_age" Width="1.5" PointX="5.25" PointY="28.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.discount_country" Width="1.5" PointX="5.25" PointY="33.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.discount_days" Width="1.5" PointX="7.5" PointY="44.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.discount_family" Width="1.5" PointX="8.25" PointY="30.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.discount_group" Width="1.5" PointX="8.25" PointY="35.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.document" Width="1.5" PointX="14.25" PointY="47.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.documents_first_notice_of_loss" Width="1.5" PointX="16.5" PointY="32.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.exchange_rate" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.first_notice_of_loss" Width="1.5" PointX="11.25" PointY="29.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.group" Width="1.5" PointX="6" PointY="38.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.health_insurance" Width="1.5" PointX="13.5" PointY="31.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.health_insurance_info" Width="1.5" PointX="11.25" PointY="36.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.insured" Width="1.5" PointX="10.25" PointY="22.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.invoice" Width="1.5" PointX="16.5" PointY="47.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.luggage_insurance" Width="1.5" PointX="13.5" PointY="35.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.luggage_insurance_info" Width="1.5" PointX="11.25" PointY="47.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.min_premium" Width="1.5" PointX="15.5" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.news_all" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.p_referent" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.p_stapki" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.policy_additional_charge" Width="1.5" PointX="7.5" PointY="25.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.policy_insured" Width="1.5" PointX="12.5" PointY="21.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.policy_status" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.policy_type" Width="1.5" PointX="13.25" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.refreshtoken" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.retaining_risk" Width="1.5" PointX="13.25" PointY="39.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.travel_duration" Width="1.5" PointX="5.25" PointY="63.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.travel_insurance_type" Width="1.5" PointX="13.25" PointY="42" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.travel_number" Width="1.5" PointX="13.25" PointY="44.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.travel_policy" Width="4.375" PointX="15.5" PointY="23" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.type_insured" Width="1.5" PointX="8" PointY="22.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.user" Width="1.5" PointX="5.25" PointY="67" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.aspnetuserlogin" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.transaction" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
-        <AssociationConnector Association="Entities.fk_additional_charge_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.health_insurance_info_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.luggage_insurance_info_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.bank_account_info_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.bank_account_info_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_3" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_4" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_bank" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_country_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_travel_policy_country" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_policy_type_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.discount_days_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.discount_days_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.discount_family_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.discount_group_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.discount_group_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.documents_first_notice_of_loss_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_invoice_docs" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.documents_first_notice_of_loss_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_6" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_loss_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_luggage_loss_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_insured_type" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.policy_insured_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.travel_policy_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.min_premium_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_policy_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_policy_insured_polcy_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_travel_policy_policy_type" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_travel_policy_retaining_risk" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_policy_insurance_type" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_policy_travel_number" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Entities.payment_status" Width="1.5" PointX="5.375" PointY="8.75" />
-        <EntityTypeShape EntityType="Entities.language" Width="1.5" PointX="7.375" PointY="8.75" />
-        <EntityTypeShape EntityType="Entities.additional_charge_name" Width="1.5" PointX="9.75" PointY="8.75" />
-        <EntityTypeShape EntityType="Entities.countries_name" Width="1.5" PointX="11.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Entities.policy_type_name" Width="1.5" PointX="0.75" PointY="11.75" />
-        <EntityTypeShape EntityType="Entities.retaining_risk_name" Width="1.5" PointX="2.75" PointY="11.75" />
-        <AssociationConnector Association="Entities.additional_charge_name_ibfk_2" />
-        <AssociationConnector Association="Entities.additional_charge_name_ibfk_1" />
-        <AssociationConnector Association="Entities.countries_name_ibfk_1" />
-        <AssociationConnector Association="Entities.countries_name_ibfk_2" />
-        <AssociationConnector Association="Entities.retaining_risk_name_ibfk_2" />
-        <AssociationConnector Association="Entities.retaining_risk_name_ibfk_1" />
-        <EntityTypeShape EntityType="Entities.chat_requests" Width="1.5" PointX="11.375" PointY="3.75" />
-        <EntityTypeShape EntityType="Entities.message" Width="1.5" PointX="7.625" PointY="12.875" />
-        <AssociationConnector Association="Entities.fk_conversation_message1" />
-        <EntityTypeShape EntityType="Entities.first_notice_of_loss_archive" Width="4.625" PointX="13.5" PointY="50.625" IsExpanded="true" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_1" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_4" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_3" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_5" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_6" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_7" />
-        <EntityTypeShape EntityType="Entities.discount_codes" Width="1.5" PointX="12.375" PointY="7.75" />
-        <EntityTypeShape EntityType="Entities.aspnetuser" Width="1.5" PointX="3" PointY="26.625" />
-        <AssociationConnector Association="Entities.fk_additional_charge_created_by" />
-        <AssociationConnector Association="Entities.fk_additional_charge_modified_by" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_2" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_7" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_8" />
-        <AssociationConnector Association="Entities.fk_discount_age_Created_By" />
-        <AssociationConnector Association="Entities.fk_discount_age_Modified_By" />
-        <AssociationConnector Association="Entities.fk_discount_country_Created_By" />
-        <AssociationConnector Association="Entities.fk_discount_country_Modified_by" />
-        <AssociationConnector Association="Entities.fk_discount_days_Created_By" />
-        <AssociationConnector Association="Entities.fk_discount_days_Modified_by" />
-        <AssociationConnector Association="Entities.fk_discount_family_Created_By" />
-        <AssociationConnector Association="Entities.fk_discount_family_Modified_by" />
-        <AssociationConnector Association="Entities.fk_discount_group_Created_By" />
-        <AssociationConnector Association="Entities.fk_discount_group_Modified_by" />
-        <AssociationConnector Association="Entities.fk_insured_createdby" />
-        <AssociationConnector Association="Entities.fk_insured_modifiedby" />
-        <AssociationConnector Association="Entities.fk_policy_created_by" />
-        <AssociationConnector Association="Entities.fk_policy_modified_by" />
-        <AssociationConnector Association="Entities.fk_travel_duration_Created_by" />
-        <AssociationConnector Association="Entities.fk_travel_duration_Modified_by" />
-        <AssociationConnector Association="Entities.fk_users_aspnetuser" />
-        <AssociationConnector Association="Entities.aspnetuserroles" />
-        <EntityTypeShape EntityType="Entities.ok_setup" Width="1.5" PointX="10.375" PointY="13.75" />
-        <EntityTypeShape EntityType="Entities.broker_employees" Width="1.5" PointX="5.25" PointY="41.375" />
-        <AssociationConnector Association="Entities.FKBrrokerID" />
-        <AssociationConnector Association="Entities.FKEmployeID" />
+      <Diagram DiagramId="c890b2d159f34717bc61d4b86d4e01a7" Name="Diagram1">
+        <EntityTypeShape EntityType="db_9eb138_savaModel.additional_charge" Width="1.5" PointX="5.25" PointY="32.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.additional_charge_name" Width="1.5" PointX="7.5" PointY="33" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.additional_info" Width="1.5" PointX="11.25" PointY="46.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.aspnetrole" Width="1.5" PointX="0.75" PointY="40.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.aspnetuserclaim" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.aspnetuser" Width="1.5" PointX="3" PointY="35.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.bank_account_info" Width="1.5" PointX="12.5" PointY="31.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.bank_prefix" Width="1.5" PointX="12.5" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.bank" Width="1.5" PointX="10.25" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.broker_employees" Width="1.5" PointX="5.25" PointY="36.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.chat_requests" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.client" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.company" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.country" Width="1.5" PointX="14.25" PointY="28.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.countries_name" Width="1.5" PointX="16.5" PointY="29" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.discount_age" Width="1.5" PointX="5.25" PointY="39.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.discount_codes" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.discount_country" Width="1.5" PointX="8.25" PointY="39.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.discount_days" Width="1.5" PointX="7.5" PointY="60.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.discount_family" Width="1.5" PointX="5.25" PointY="42.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.discount_group" Width="1.5" PointX="8.25" PointY="44.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.document" Width="1.5" PointX="14.25" PointY="62.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.documents_first_notice_of_loss" Width="1.5" PointX="16.5" PointY="45.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.exchange_rate" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.first_notice_of_loss" Width="1.5" PointX="11.25" PointY="37.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.first_notice_of_loss_archive" Width="1.5" PointX="13.5" PointY="35.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.group" Width="1.5" PointX="6" PointY="47.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.health_insurance" Width="1.5" PointX="13.5" PointY="48.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.health_insurance_info" Width="1.5" PointX="13.5" PointY="65.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.insured" Width="1.5" PointX="10.25" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.invoice" Width="1.5" PointX="16.5" PointY="62.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.language" Width="1.5" PointX="5.25" PointY="28.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.luggage_insurance" Width="1.5" PointX="13.5" PointY="52.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.luggage_insurance_info" Width="1.5" PointX="13.5" PointY="68.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.message" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.min_premium" Width="1.5" PointX="16.5" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.news_all" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.ok_setup" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.p_referent" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.p_stapki" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.payment_status" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.policy_additional_charge" Width="1.5" PointX="7.5" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.policy_insured" Width="1.5" PointX="15.5" PointY="32.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.policy_status" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.policy_type" Width="1.5" PointX="14.25" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.policy_type_name" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.refreshtoken" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.retaining_risk" Width="1.5" PointX="14.25" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.retaining_risk_name" Width="1.5" PointX="16.5" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.sava_policy" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.sava_voucher" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.travel_duration" Width="1.5" PointX="5.25" PointY="85.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.travel_insurance_type" Width="1.5" PointX="14.25" PointY="57" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.travel_number" Width="1.5" PointX="14.25" PointY="59.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.travel_policy" Width="1.5" PointX="16.5" PointY="36" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.type_insured" Width="1.5" PointX="8" PointY="36.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.user" Width="1.5" PointX="5.25" PointY="89.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.aspnetuserlogin" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.transaction" Width="1.5" PointX="2.75" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="db_9eb138_savaModel.additional_charge_name_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_additional_charge_created_by" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_additional_charge_id" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_additional_charge_modified_by" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.additional_charge_name_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_archive_ibfk_4" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.health_insurance_info_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.luggage_insurance_info_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_archive_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_ibfk_7" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_ibfk_8" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_age_Created_By" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_age_Modified_By" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_country_Created_By" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_country_Modified_by" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_days_Created_By" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_days_Modified_by" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_family_Created_By" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_family_Modified_by" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_group_Created_By" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_group_Modified_by" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_insured_createdby" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_insured_modifiedby" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_policy_created_by" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_policy_modified_by" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_travel_duration_Created_by" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_travel_duration_Modified_by" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_users_aspnetuser" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.FKBrrokerID" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.FKEmployeID" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.bank_account_info_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.bank_account_info_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_archive_ibfk_6" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_archive_ibfk_7" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_ibfk_3" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_ibfk_4" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_bank" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_conversation_message" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.countries_name_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_country_id" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_travel_policy_country" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.countries_name_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_policy_type_id" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.discount_days_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.discount_days_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.discount_family_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.discount_group_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.discount_group_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.documents_first_notice_of_loss_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_invoice_docs" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.documents_first_notice_of_loss_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_archive_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_ibfk_6" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_loss_id" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_luggage_loss_id" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_archive_ibfk_3" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_archive_ibfk_5" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_insured_type" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.policy_insured_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.travel_policy_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.retaining_risk_name_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.min_premium_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_policy_id" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_policy_insured_polcy_id" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_travel_policy_policy_type" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_travel_policy_retaining_risk" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.retaining_risk_name_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_policy_insurance_type" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_policy_travel_number" ManuallyRouted="false" />
+        <AssociationConnector Association="db_9eb138_savaModel.aspnetuserroles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

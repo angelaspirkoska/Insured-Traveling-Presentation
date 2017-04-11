@@ -7,7 +7,7 @@ namespace InsuredTraveling.DI
 {
     public class InsuredsService : IInsuredsService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
 
         public int AddInsured(insured Insured)
         {

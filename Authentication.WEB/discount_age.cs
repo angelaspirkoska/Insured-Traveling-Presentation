@@ -24,5 +24,6 @@ namespace InsuredTraveling
         public int Version { get; set; }
     
         public virtual aspnetuser aspnetuser { get; set; }
+        public virtual aspnetuser aspnetuser1 { get; set; }
     }
 }

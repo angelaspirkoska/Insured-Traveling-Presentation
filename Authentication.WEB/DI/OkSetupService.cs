@@ -9,7 +9,7 @@ namespace InsuredTraveling.DI
 {
     public class OkSetupService : IOkSetupService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
         public void AddOkSetup(Ok_SetupModel ok)
         {
             ok_setup ok2 = _db.ok_setup.Create();

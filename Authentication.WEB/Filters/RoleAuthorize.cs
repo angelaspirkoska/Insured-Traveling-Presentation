@@ -6,7 +6,7 @@ namespace InsuredTraveling.Filters
 {
     public class RoleAuthorize : AuthorizeAttribute
     {
-        InsuredTravelingEntity context = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 context = new InsuredTravelingEntity2();
         private readonly string[] allowedroles;
 
         public RoleAuthorize(params string[] roles)

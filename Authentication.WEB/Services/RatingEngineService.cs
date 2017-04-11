@@ -8,7 +8,7 @@ namespace Authentication.WEB.Services
 {
     class RatingEngineService
     {
-        private InsuredTravelingEntity entities = new InsuredTravelingEntity();
+        private InsuredTravelingEntity2 entities = new InsuredTravelingEntity2();
         public double? discountCountry(int countryID, int policy_typeID, int franchiseID)
         {
             double? discount = (entities.discount_country.Where(x => x.CountryID == countryID &&

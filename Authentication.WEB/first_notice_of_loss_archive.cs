@@ -40,6 +40,7 @@ namespace InsuredTraveling
         public string Claimant_Last_Name { get; set; }
         public string Claimant_Address { get; set; }
         public string Claimant_Phone { get; set; }
+        public string Claimant_Ssn { get; set; }
         public int Claimant_BankAccountId { get; set; }
         public int Additional_infoId { get; set; }
         public System.DateTime Additional_info_datetime { get; set; }
@@ -49,6 +50,7 @@ namespace InsuredTraveling
         public string luggage_report_place { get; set; }
         public string luggage_floaters { get; set; }
         public Nullable<float> luggage_floaters_value { get; set; }
+        public Nullable<System.TimeSpan> luggage_checking_time { get; set; }
         public Nullable<System.DateTime> health_datetime_doctor_visit { get; set; }
         public string health_doctor_info { get; set; }
         public string health_medical_case_description { get; set; }
@@ -56,16 +58,14 @@ namespace InsuredTraveling
         public Nullable<bool> health_previous_medical_history { get; set; }
         public string ModifiedBy { get; set; }
         public System.DateTime Modified_Datetime { get; set; }
-        public string Claimant_Ssn { get; set; }
-        public Nullable<System.TimeSpan> luggage_checking_time { get; set; }
         public string FNOL_Number { get; set; }
     
-        public virtual first_notice_of_loss first_notice_of_loss { get; set; }
         public virtual additional_info additional_info { get; set; }
+        public virtual aspnetuser aspnetuser { get; set; }
+        public virtual bank_account_info bank_account_info { get; set; }
+        public virtual bank_account_info bank_account_info1 { get; set; }
+        public virtual first_notice_of_loss first_notice_of_loss { get; set; }
         public virtual travel_policy travel_policy { get; set; }
         public virtual insured insured { get; set; }
-        public virtual bank_account_info Policy_holder_bank_account_info { get; set; }
-        public virtual bank_account_info Claimant_bank_account_info { get; set; }
-        public virtual aspnetuser aspnetuser { get; set; }
     }
 }

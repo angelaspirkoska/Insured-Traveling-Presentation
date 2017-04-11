@@ -8,7 +8,7 @@ namespace InsuredTraveling.DI
 {
     public class HealthInsuranceService : IHealthInsuranceService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
 
         public void Add(health_insurance HealthInsurance)
         {

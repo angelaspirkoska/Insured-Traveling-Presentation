@@ -9,7 +9,7 @@ namespace InsuredTraveling.DI
 {
     public class PolicyTypeService : IPolicyTypeService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
 
         public IQueryable<SelectListItem> GetAll()
         {

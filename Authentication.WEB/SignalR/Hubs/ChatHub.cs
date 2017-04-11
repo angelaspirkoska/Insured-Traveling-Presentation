@@ -14,7 +14,7 @@ namespace InsuredTraveling.Hubs
     [Authorize]
     public class ChatHub : Hub
     {
-        readonly InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        readonly InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
 
         private readonly ILifetimeScope _hubLifetimeScope;
         private string _currentUser = string.Empty;
@@ -198,7 +198,7 @@ namespace InsuredTraveling.Hubs
             var request = _db.chat_requests.Where(x => x.ID == requestIdDTO.RequestId).SingleOrDefault();
             StatusUpdateDTO adminResponse = new StatusUpdateDTO();
 
-            if (!request.discarded)
+            if (!request.discarded.Value)
             {
                 request.fnol_created = true;
                 SaveDBChanges();

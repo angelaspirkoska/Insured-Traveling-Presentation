@@ -10,7 +10,7 @@ namespace InsuredTraveling.DI
 {
     public class AdditionalChargesService : IAdditionalChargesService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
 
         public int AddAdditionalChargesPolicy(policy_additional_charge policyAdditionalCharge)
         {

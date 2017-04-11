@@ -351,7 +351,7 @@ namespace InsuredTraveling.Controllers.API
 
                     if (fnol.insured != null)
                     {
-                        var claimantBankAccount = _bas.BankAccountInfoById(fnol.Claimant_bank_accountID);
+                        var claimantBankAccount = _bas.BankAccountInfoById(fnol.Claimant_bank_accountID.Value);
 
                         fnolObject.Add("Claimant_ID", fnol.insured.ID);
                         fnolObject.Add("Name", fnol.insured.Name);
@@ -380,11 +380,11 @@ namespace InsuredTraveling.Controllers.API
                     fnolObject.Add("Web_Mobile", fnol.Web_Mobile);
                     fnolObject.Add("CreatedBy", fnol.CreatedBy);
 
-                    if (fnol.Policy_holder_bank_account_info != null)
+                    if (fnol.Policy_holder_bank_accountID != null)
                     {
-                        fnolObject.Add("PolicyHolder_Account_HolderID", fnol.Policy_holder_bank_account_info.Account_HolderID);
-                        fnolObject.Add("PolicyHolder_Account_Number", fnol.Policy_holder_bank_account_info.Account_Number);
-                        fnolObject.Add("BankID", fnol.Policy_holder_bank_account_info.BankID);
+                        fnolObject.Add("PolicyHolder_Account_HolderID", fnol.Policy_holder_bank_accountID);
+                        fnolObject.Add("PolicyHolder_Account_Number", fnol.Policy_holder_bank_accountID);
+                        fnolObject.Add("BankID", fnol.Policy_holder_bank_accountID);
                     }
                     var healthInsurance = _fis.GetHealthAdditionalInfoByLossId(fnol.ID);
                     if (healthInsurance == null)

@@ -9,7 +9,7 @@ namespace InsuredTraveling.DI
 {
     public class DiscountService : IDiscountService
     {
-        InsuredTravelingEntity _db = new InsuredTravelingEntity();
+        InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
         public void AddDiscount(DiscountModel discount)
         {
             discount_codes discount2 = _db.discount_codes.Create();
