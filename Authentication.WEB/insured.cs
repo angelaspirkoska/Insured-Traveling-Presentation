@@ -42,8 +42,6 @@ namespace InsuredTraveling
         public Nullable<System.DateTime> Date_Modified { get; set; }
         public string Modified_By { get; set; }
     
-        public virtual aspnetuser aspnetuser { get; set; }
-        public virtual aspnetuser aspnetuser1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bank_account_info> bank_account_info { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -55,5 +53,7 @@ namespace InsuredTraveling
         public virtual ICollection<policy_insured> policy_insured { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<travel_policy> travel_policy { get; set; }
+        public virtual aspnetuser aspnetuser { get; set; }
+        public virtual aspnetuser aspnetuser1 { get; set; }
     }
 }

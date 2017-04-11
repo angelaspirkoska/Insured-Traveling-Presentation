@@ -1356,4 +1356,10 @@
   <data name="Msg_EmptyUsernameOrPassword" xml:space="preserve">
     <value>Полето за корисничко име и/или лозинка е празно</value>
   </data>
+  <data name="SearchByDateCreated" xml:space="preserve">
+    <value>Пребарај корисници по датум на креирање</value>
+  </data>
+  <data name="TodayRegisteredUsersMsg" xml:space="preserve">
+    <value>Последни регистрирани корисници</value>
+  </data>
 </root>

@@ -4,13 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c890b2d159f34717bc61d4b86d4e01a7" Name="Diagram1">
+      <Diagram DiagramId="c890b2d159f34717bc61d4b86d4e01a7" Name="Diagram1" ZoomLevel="64">
         <EntityTypeShape EntityType="db_9eb138_savaModel.additional_charge" Width="1.5" PointX="5.25" PointY="32.5" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.additional_charge_name" Width="1.5" PointX="7.5" PointY="33" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.additional_info" Width="1.5" PointX="11.25" PointY="46.25" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.aspnetrole" Width="1.5" PointX="0.75" PointY="40.625" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.aspnetuserclaim" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_9eb138_savaModel.aspnetuser" Width="1.5" PointX="3" PointY="35.375" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.bank_account_info" Width="1.5" PointX="12.5" PointY="31.875" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.bank_prefix" Width="1.5" PointX="12.5" PointY="19.625" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.bank" Width="1.5" PointX="10.25" PointY="27.5" IsExpanded="true" />
@@ -65,36 +64,12 @@
         <EntityTypeShape EntityType="db_9eb138_savaModel.aspnetuserlogin" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.transaction" Width="1.5" PointX="2.75" PointY="11.75" IsExpanded="true" />
         <AssociationConnector Association="db_9eb138_savaModel.additional_charge_name_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_additional_charge_created_by" ManuallyRouted="false" />
         <AssociationConnector Association="db_9eb138_savaModel.fk_additional_charge_id" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_additional_charge_modified_by" ManuallyRouted="false" />
         <AssociationConnector Association="db_9eb138_savaModel.additional_charge_name_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_archive_ibfk_4" ManuallyRouted="false" />
         <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="db_9eb138_savaModel.health_insurance_info_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="db_9eb138_savaModel.luggage_insurance_info_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_archive_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_ibfk_7" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_ibfk_8" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_age_Created_By" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_age_Modified_By" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_country_Created_By" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_country_Modified_by" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_days_Created_By" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_days_Modified_by" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_family_Created_By" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_family_Modified_by" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_group_Created_By" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_group_Modified_by" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_insured_createdby" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_insured_modifiedby" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_policy_created_by" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_policy_modified_by" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_travel_duration_Created_by" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_travel_duration_Modified_by" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.fk_users_aspnetuser" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.FKBrrokerID" ManuallyRouted="false" />
-        <AssociationConnector Association="db_9eb138_savaModel.FKEmployeID" ManuallyRouted="false" />
         <AssociationConnector Association="db_9eb138_savaModel.bank_account_info_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="db_9eb138_savaModel.bank_account_info_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_archive_ibfk_6" ManuallyRouted="false" />
@@ -135,8 +110,38 @@
         <AssociationConnector Association="db_9eb138_savaModel.retaining_risk_name_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="db_9eb138_savaModel.fk_policy_insurance_type" ManuallyRouted="false" />
         <AssociationConnector Association="db_9eb138_savaModel.fk_policy_travel_number" ManuallyRouted="false" />
+
         <AssociationConnector Association="db_9eb138_savaModel.aspnetuserroles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.sava_setup" Width="1.5" PointX="12.375" PointY="0.75" />
+
+        <EntityTypeShape EntityType="db_9eb138_savaModel.aspnetuser" Width="1.5" PointX="3" PointY="35.5" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.sava_setup" Width="1.5" PointX="12.375" PointY="0.75" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_additional_charge_created_by" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_additional_charge_modified_by" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_archive_ibfk_2" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_ibfk_7" />
+        <AssociationConnector Association="db_9eb138_savaModel.first_notice_of_loss_ibfk_8" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_age_Created_By" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_age_Modified_By" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_country_Created_By" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_country_Modified_by" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_days_Created_By" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_days_Modified_by" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_family_Created_By" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_family_Modified_by" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_group_Created_By" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_discount_group_Modified_by" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_insured_createdby" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_insured_modifiedby" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_policy_created_by" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_policy_modified_by" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_travel_duration_Created_by" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_travel_duration_Modified_by" />
+        <AssociationConnector Association="db_9eb138_savaModel.fk_users_aspnetuser" />
+        <AssociationConnector Association="db_9eb138_savaModel.FKBrrokerID" />
+        <AssociationConnector Association="db_9eb138_savaModel.FKEmployeID" />
+        <AssociationConnector Association="db_9eb138_savaModel.aspnetuserroles" />
+
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

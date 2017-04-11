@@ -1,5 +1,6 @@
 ﻿@{HtmlHelper.UnobtrusiveJavaScriptEnabled = true;}
-@model InsuredTravelingEntity
+
+@model InsuredTravelingEntity2
 @using InsuredTraveling.Filters
 @using System.Web.Optimization;
 @using System.Configuration;
@@ -13,6 +14,8 @@
     var isBroker = r.IsUser("Broker");
     var isAdmin = r.IsUser("Admin");
     var isEndUser = r.IsUser("End user");
+    var isSavaAdmin = r.IsUser("Sava_admin");
+    var isSavaUser = r.IsUser("Sava_normal") || r.IsUser("Sava_Sport_VIP") || r.IsUser("Sava_Sport_VIP") || r.IsUser("Sava_Sport+");
     var dateTime = ConfigurationManager.AppSettings["DateFormat"];
     var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy").ToLower() : dateTime.ToLower();
 }
@@ -22,17 +25,17 @@
     <ul class="nav nav-tabs">
         <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
         <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
-        @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBroker)
+        @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBroker || isSavaAdmin)
         {
             <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
         }
-        @if (isAdmin || isBrokerManager)
+        @if (isAdmin || isBrokerManager || isSavaAdmin)
         {
             <li id="registeredUsers"><a href="#" onclick="ShowUsers()">@InsuredTraveling.Resource.Search_Users</a></li>
         }
         <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
 
-        @if (isAdmin || isEndUser || isClaimsAdjuster || isBrokerManager)
+        @if (isAdmin || isEndUser || isClaimsAdjuster || isBrokerManager || isSavaAdmin || isSavaUser)
         {
             <li id="searchChat"><a href="#" onclick="ShowChats()">@InsuredTraveling.Resource.Chats</a></li>
         }

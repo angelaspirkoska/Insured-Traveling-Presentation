@@ -3328,6 +3328,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search users by date created.
+        /// </summary>
+        public static string SearchByDateCreated {
+            get {
+                return ResourceManager.GetString("SearchByDateCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Days before expiring.
         /// </summary>
         public static string SearchPolicyByExpiringDays {
@@ -3576,6 +3585,15 @@ namespace InsuredTraveling {
         public static string String1 {
             get {
                 return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today&apos;s registered users.
+        /// </summary>
+        public static string TodayRegisteredUsersMsg {
+            get {
+                return ResourceManager.GetString("TodayRegisteredUsersMsg", resourceCulture);
             }
         }
         

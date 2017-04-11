@@ -1362,4 +1362,10 @@
   <data name="Msg_EmptyUsernameOrPassword" xml:space="preserve">
     <value>The username or/and password field is empty</value>
   </data>
+  <data name="SearchByDateCreated" xml:space="preserve">
+    <value>Search users by date created</value>
+  </data>
+  <data name="TodayRegisteredUsersMsg" xml:space="preserve">
+    <value>Today's registered users</value>
+  </data>
 </root>
