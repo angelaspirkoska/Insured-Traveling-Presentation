@@ -43,6 +43,7 @@ namespace InsuredTraveling.Controllers.API
         private ITravelNumberService _tn;
         private IOkSetupService _os;
         private ISava_setupService _sss;
+        private ISavaPoliciesService _sps;
 
         public MobileApiController()
         {
@@ -67,7 +68,7 @@ namespace InsuredTraveling.Controllers.API
                                    IFranchiseService fran,
                                    ITravelNumberService tn,
                                    IOkSetupService os,
-                                   ISava_setupService sss)
+                                   ISava_setupService sss, ISavaPoliciesService sps)
         {
             _ps = ps;
             _us = us;
@@ -88,6 +89,7 @@ namespace InsuredTraveling.Controllers.API
             _tn = tn;
             _os = os;
             _sss = sss;
+            _sps = sps;
         }
 
         [Route("IsUserVerified")]
@@ -130,337 +132,358 @@ namespace InsuredTraveling.Controllers.API
             userJson.Add("City", user.City);
             userJson.Add("Address", user.Address);
             userJson.Add("Email", user.Email);
+            if (user.aspnetroles.FirstOrDefault() != null)
+            {
+                var roleName = user.aspnetroles.FirstOrDefault().Name;
+                userJson.Add("role", roleName);
+            }
             data.Add("user", userJson);
 
-            //user's policies
             JArray userPolicies = new JArray();
-            travel_policy[] policies = _ps.GetPolicyByUsernameId(user.Id);
-            foreach (travel_policy policy in policies)
+            var policies = _sps.GetSavaPoliciesForUser(user.EMBG);
+            foreach (var policy in policies)
             {
                 var userPolicy = new JObject();
-                userPolicy.Add("ID", policy.ID);
-                userPolicy.Add("Policy_Number", policy.Policy_Number);
-                userPolicy.Add("Exchange_RateID", policy.Exchange_RateID);
-                userPolicy.Add("CountryID", policy.CountryID);
-                userPolicy.Add("Policy_TypeID", policy.Policy_TypeID);
-                userPolicy.Add("Retaining_RiskID", policy.Retaining_RiskID);
-                userPolicy.Add("Start_Date", policy.Start_Date);
-                userPolicy.Add("End_Date", policy.End_Date);
-                userPolicy.Add("Valid_Days", policy.Valid_Days);
-                userPolicy.Add("Travel_NumberID", policy.Travel_NumberID);
-                userPolicy.Add("Travel_Insurance_TypeID", policy.Travel_Insurance_TypeID);
-                userPolicy.Add("Created_By", policy.Created_By);
-                userPolicy.Add("Date_Created", policy.Date_Created);
-                userPolicy.Add("Date_Modified", policy.Date_Modified);
-                userPolicy.Add("Modified_By", policy.Modified_By);
-                userPolicy.Add("Payment_Status", policy.Modified_By);
-                userPolicy.Add("Date_Cancellation", policy.Modified_By);
-
-                //information about policy holder
-                if (policy.insured != null)
-                {
-                    userPolicy.Add("Policy_HolderID", policy.Policy_HolderID);
-                    userPolicy.Add("Name", policy.insured.Name);
-                    userPolicy.Add("Lastname", policy.insured.Lastname);
-                    userPolicy.Add("SSN", policy.insured.SSN);
-                    userPolicy.Add("DateBirth", policy.insured.DateBirth);
-                    userPolicy.Add("Age", policy.insured.Age);
-                    userPolicy.Add("Email", policy.insured.Email);
-                    userPolicy.Add("Phone_Number", policy.insured.Phone_Number);
-                    userPolicy.Add("City", policy.insured.City);
-                    userPolicy.Add("Postal_Code", policy.insured.Postal_Code);
-                    userPolicy.Add("Address", policy.insured.Address);
-                    userPolicy.Add("Passport_Number_IdNumber", policy.insured.Passport_Number_IdNumber);
-                    userPolicy.Add("Type_InsuredID", policy.insured.Type_InsuredID);
-
-                    //bank account for the policy holder
-                    var ssn = _us.GetUserSsnByUsername(username.username);
-                    var holderDetails = _iss.GetInsuredDataBySsn(ssn);
-                    if (holderDetails != null)
-                    {
-                        JArray bankAccounts = new JArray();
-                        var banks = _bas.BankAccountsByInsuredId(holderDetails.ID);
-                        foreach (bank_account_info bankAccount in banks)
-                        {
-                            var bankAccountObject = new JObject();
-                            bankAccountObject.Add("BankAccount", bankAccount.Account_Number);
-                            bankAccountObject.Add("BankName", bankAccount.bank.Name);
-                            bankAccountObject.Add("BankAccountId", bankAccount.ID);
-                            bankAccounts.Add(bankAccountObject);
-                        }
-                        userPolicy.Add("policyHolderBankAccounts", bankAccounts);
-                    }
-                }
-                //information about insureds
-                if (policy.policy_insured != null)
-                {
-                    JArray policyInsureds = new JArray();
-                    foreach (var insured in policy.policy_insured)
-                    {
-                        var policyInsured = new JObject();
-                        policyInsured.Add("Insured_ID", policy.Policy_HolderID);
-                        policyInsured.Add("Name", policy.insured.Name);
-                        policyInsured.Add("Lastname", policy.insured.Lastname);
-                        policyInsured.Add("SSN", policy.insured.SSN);
-                        policyInsured.Add("DateBirth", policy.insured.DateBirth);
-                        policyInsured.Add("Age", policy.insured.Age);
-                        policyInsured.Add("Email", policy.insured.Email);
-                        policyInsured.Add("Phone_Number", policy.insured.Phone_Number);
-                        policyInsured.Add("City", policy.insured.City);
-                        policyInsured.Add("Postal_Code", policy.insured.Postal_Code);
-                        policyInsured.Add("Address", policy.insured.Address);
-                        policyInsured.Add("Passport_Number_IdNumber", policy.insured.Passport_Number_IdNumber);
-                        policyInsured.Add("Type_InsuredID", policy.insured.Type_InsuredID);
-
-                        JArray bankAccounts = new JArray();
-                        var banks = _bas.BankAccountsByInsuredId(insured.InsuredID);
-                        foreach (bank_account_info bankAccount in banks)
-                        {
-                            var bankAccountObject = new JObject();
-                            bankAccountObject.Add("BankAccount", bankAccount.Account_Number);
-                            bankAccountObject.Add("BankName", bankAccount.bank.Name);
-                            bankAccountObject.Add("BankAccountId", bankAccount.ID);
-                            bankAccounts.Add(bankAccountObject);
-                        }
-                        policyInsured.Add("insuredBankAccounts", bankAccounts);
-                        policyInsureds.Add(policyInsured);
-                    }
-
-                    userPolicy.Add("insureds", policyInsureds);
-                }
+                userPolicy.Add("SSN_insured", policy.SSN_insured);
+                userPolicy.Add("SSN_policyHolder", policy.SSN_policyHolder);
+                userPolicy.Add("policy_number", policy.policy_number);
+                userPolicy.Add("premium", policy.premium);
+                userPolicy.Add("discount_points", policy.discount_points);
+                userPolicy.Add("email_seller", policy.email_seller);
+                userPolicy.Add("expiry_date", policy.expiry_date);
                 userPolicies.Add(userPolicy);
             }
-            data.Add("policy", userPolicies);
+            data.Add("policies", userPolicies);
+
+            ////user's policies
+            //JArray userPolicies = new JArray();
+            //travel_policy[] policies = _ps.GetPolicyByUsernameId(user.Id);
+            //foreach (travel_policy policy in policies)
+            //{
+            //    var userPolicy = new JObject();
+            //    userPolicy.Add("ID", policy.ID);
+            //    userPolicy.Add("Policy_Number", policy.Policy_Number);
+            //    userPolicy.Add("Exchange_RateID", policy.Exchange_RateID);
+            //    userPolicy.Add("CountryID", policy.CountryID);
+            //    userPolicy.Add("Policy_TypeID", policy.Policy_TypeID);
+            //    userPolicy.Add("Retaining_RiskID", policy.Retaining_RiskID);
+            //    userPolicy.Add("Start_Date", policy.Start_Date);
+            //    userPolicy.Add("End_Date", policy.End_Date);
+            //    userPolicy.Add("Valid_Days", policy.Valid_Days);
+            //    userPolicy.Add("Travel_NumberID", policy.Travel_NumberID);
+            //    userPolicy.Add("Travel_Insurance_TypeID", policy.Travel_Insurance_TypeID);
+            //    userPolicy.Add("Created_By", policy.Created_By);
+            //    userPolicy.Add("Date_Created", policy.Date_Created);
+            //    userPolicy.Add("Date_Modified", policy.Date_Modified);
+            //    userPolicy.Add("Modified_By", policy.Modified_By);
+            //    userPolicy.Add("Payment_Status", policy.Modified_By);
+            //    userPolicy.Add("Date_Cancellation", policy.Modified_By);
+
+            //    //information about policy holder
+            //    if (policy.insured != null)
+            //    {
+            //        userPolicy.Add("Policy_HolderID", policy.Policy_HolderID);
+            //        userPolicy.Add("Name", policy.insured.Name);
+            //        userPolicy.Add("Lastname", policy.insured.Lastname);
+            //        userPolicy.Add("SSN", policy.insured.SSN);
+            //        userPolicy.Add("DateBirth", policy.insured.DateBirth);
+            //        userPolicy.Add("Age", policy.insured.Age);
+            //        userPolicy.Add("Email", policy.insured.Email);
+            //        userPolicy.Add("Phone_Number", policy.insured.Phone_Number);
+            //        userPolicy.Add("City", policy.insured.City);
+            //        userPolicy.Add("Postal_Code", policy.insured.Postal_Code);
+            //        userPolicy.Add("Address", policy.insured.Address);
+            //        userPolicy.Add("Passport_Number_IdNumber", policy.insured.Passport_Number_IdNumber);
+            //        userPolicy.Add("Type_InsuredID", policy.insured.Type_InsuredID);
+
+            //        //bank account for the policy holder
+            //        var ssn = _us.GetUserSsnByUsername(username.username);
+            //        var holderDetails = _iss.GetInsuredDataBySsn(ssn);
+            //        if (holderDetails != null)
+            //        {
+            //            JArray bankAccounts = new JArray();
+            //            var banks = _bas.BankAccountsByInsuredId(holderDetails.ID);
+            //            foreach (bank_account_info bankAccount in banks)
+            //            {
+            //                var bankAccountObject = new JObject();
+            //                bankAccountObject.Add("BankAccount", bankAccount.Account_Number);
+            //                bankAccountObject.Add("BankName", bankAccount.bank.Name);
+            //                bankAccountObject.Add("BankAccountId", bankAccount.ID);
+            //                bankAccounts.Add(bankAccountObject);
+            //            }
+            //            userPolicy.Add("policyHolderBankAccounts", bankAccounts);
+            //        }
+            //    }
+            //    //information about insureds
+            //    if (policy.policy_insured != null)
+            //    {
+            //        JArray policyInsureds = new JArray();
+            //        foreach (var insured in policy.policy_insured)
+            //        {
+            //            var policyInsured = new JObject();
+            //            policyInsured.Add("Insured_ID", policy.Policy_HolderID);
+            //            policyInsured.Add("Name", policy.insured.Name);
+            //            policyInsured.Add("Lastname", policy.insured.Lastname);
+            //            policyInsured.Add("SSN", policy.insured.SSN);
+            //            policyInsured.Add("DateBirth", policy.insured.DateBirth);
+            //            policyInsured.Add("Age", policy.insured.Age);
+            //            policyInsured.Add("Email", policy.insured.Email);
+            //            policyInsured.Add("Phone_Number", policy.insured.Phone_Number);
+            //            policyInsured.Add("City", policy.insured.City);
+            //            policyInsured.Add("Postal_Code", policy.insured.Postal_Code);
+            //            policyInsured.Add("Address", policy.insured.Address);
+            //            policyInsured.Add("Passport_Number_IdNumber", policy.insured.Passport_Number_IdNumber);
+            //            policyInsured.Add("Type_InsuredID", policy.insured.Type_InsuredID);
+
+            //            JArray bankAccounts = new JArray();
+            //            var banks = _bas.BankAccountsByInsuredId(insured.InsuredID);
+            //            foreach (bank_account_info bankAccount in banks)
+            //            {
+            //                var bankAccountObject = new JObject();
+            //                bankAccountObject.Add("BankAccount", bankAccount.Account_Number);
+            //                bankAccountObject.Add("BankName", bankAccount.bank.Name);
+            //                bankAccountObject.Add("BankAccountId", bankAccount.ID);
+            //                bankAccounts.Add(bankAccountObject);
+            //            }
+            //            policyInsured.Add("insuredBankAccounts", bankAccounts);
+            //            policyInsureds.Add(policyInsured);
+            //        }
+
+            //        userPolicy.Add("insureds", policyInsureds);
+            //    }
+            //    userPolicies.Add(userPolicy);
+            //}
+            //data.Add("policy", userPolicies);
 
             // user's quotes
-            JArray userQuotes = new JArray();
-            travel_policy[] quotes = _ps.GetPolicyNotPayedByUsernameId(user.Id);
-            foreach (travel_policy policy in quotes)
-            {
-                var userQuote = new JObject();
-                userQuote.Add("Policy_Number", policy.Policy_Number);
-                userQuote.Add("Exchange_RateID", policy.Exchange_RateID);
-                userQuote.Add("CountryID", policy.CountryID);
-                userQuote.Add("Policy_TypeID", policy.Policy_TypeID);
-                userQuote.Add("Retaining_RiskID", policy.Retaining_RiskID);
-                userQuote.Add("Start_Date", policy.Start_Date);
-                userQuote.Add("End_Date", policy.End_Date);
-                userQuote.Add("Valid_Days", policy.Valid_Days);
-                userQuote.Add("Travel_NumberID", policy.Travel_NumberID);
-                userQuote.Add("Group_Members", policy.Group_Members);
-                userQuote.Add("Group_Total_Premium", policy.Group_Total_Premium);
-                userQuote.Add("Created_By", policy.Created_By);
-                userQuote.Add("Date_Created", policy.Date_Created);
-                userQuote.Add("Date_Modified", policy.Date_Modified);
-                userQuote.Add("Modified_By", policy.Modified_By);
-                userQuote.Add("Payment_Status", policy.Modified_By);
-                userQuote.Add("Date_Cancellation", policy.Modified_By);
+            //JArray userQuotes = new JArray();
+            //travel_policy[] quotes = _ps.GetPolicyNotPayedByUsernameId(user.Id);
+            //foreach (travel_policy policy in quotes)
+            //{
+            //    var userQuote = new JObject();
+            //    userQuote.Add("Policy_Number", policy.Policy_Number);
+            //    userQuote.Add("Exchange_RateID", policy.Exchange_RateID);
+            //    userQuote.Add("CountryID", policy.CountryID);
+            //    userQuote.Add("Policy_TypeID", policy.Policy_TypeID);
+            //    userQuote.Add("Retaining_RiskID", policy.Retaining_RiskID);
+            //    userQuote.Add("Start_Date", policy.Start_Date);
+            //    userQuote.Add("End_Date", policy.End_Date);
+            //    userQuote.Add("Valid_Days", policy.Valid_Days);
+            //    userQuote.Add("Travel_NumberID", policy.Travel_NumberID);
+            //    userQuote.Add("Group_Members", policy.Group_Members);
+            //    userQuote.Add("Group_Total_Premium", policy.Group_Total_Premium);
+            //    userQuote.Add("Created_By", policy.Created_By);
+            //    userQuote.Add("Date_Created", policy.Date_Created);
+            //    userQuote.Add("Date_Modified", policy.Date_Modified);
+            //    userQuote.Add("Modified_By", policy.Modified_By);
+            //    userQuote.Add("Payment_Status", policy.Modified_By);
+            //    userQuote.Add("Date_Cancellation", policy.Modified_By);
 
-                //information about policy holder
-                if (policy.insured != null)
-                {
-                    userQuote.Add("Policy_HolderID", policy.Policy_HolderID);
-                    userQuote.Add("Name", policy.insured.Name);
-                    userQuote.Add("Lastname", policy.insured.Lastname);
-                    userQuote.Add("SSN", policy.insured.SSN);
-                    userQuote.Add("DateBirth", policy.insured.DateBirth);
-                    userQuote.Add("Age", policy.insured.Age);
-                    userQuote.Add("Email", policy.insured.Email);
-                    userQuote.Add("Phone_Number", policy.insured.Phone_Number);
-                    userQuote.Add("City", policy.insured.City);
-                    userQuote.Add("Postal_Code", policy.insured.Postal_Code);
-                    userQuote.Add("Address", policy.insured.Address);
-                    userQuote.Add("Passport_Number_IdNumber", policy.insured.Passport_Number_IdNumber);
-                    userQuote.Add("Type_InsuredID", policy.insured.Type_InsuredID);
+            //    //information about policy holder
+            //    if (policy.insured != null)
+            //    {
+            //        userQuote.Add("Policy_HolderID", policy.Policy_HolderID);
+            //        userQuote.Add("Name", policy.insured.Name);
+            //        userQuote.Add("Lastname", policy.insured.Lastname);
+            //        userQuote.Add("SSN", policy.insured.SSN);
+            //        userQuote.Add("DateBirth", policy.insured.DateBirth);
+            //        userQuote.Add("Age", policy.insured.Age);
+            //        userQuote.Add("Email", policy.insured.Email);
+            //        userQuote.Add("Phone_Number", policy.insured.Phone_Number);
+            //        userQuote.Add("City", policy.insured.City);
+            //        userQuote.Add("Postal_Code", policy.insured.Postal_Code);
+            //        userQuote.Add("Address", policy.insured.Address);
+            //        userQuote.Add("Passport_Number_IdNumber", policy.insured.Passport_Number_IdNumber);
+            //        userQuote.Add("Type_InsuredID", policy.insured.Type_InsuredID);
 
-                    //bank account for the policy holder
-                    var ssn = _us.GetUserSsnByUsername(username.username);
-                    var holderDetails = _iss.GetInsuredDataBySsn(ssn);
-                    if (holderDetails != null)
-                    {
-                        JArray bankAccounts = new JArray();
-                        var banks = _bas.BankAccountsByInsuredId(holderDetails.ID);
-                        foreach (bank_account_info bankAccount in banks)
-                        {
-                            var bankAccountObject = new JObject();
-                            bankAccountObject.Add("BankAccount", bankAccount.Account_Number);
-                            bankAccountObject.Add("BankName", bankAccount.bank.Name);
-                            bankAccountObject.Add("BankAccountId", bankAccount.ID);
-                            bankAccounts.Add(bankAccountObject);
-                        }
-                        userQuote.Add("policyHolderBankAccounts", bankAccounts);
-                    }
-                }
-                //information about insureds
-                if (policy.policy_insured != null)
-                {
-                    JArray quoteInsureds = new JArray();
-                    foreach (var insured in policy.policy_insured)
-                    {
-                        var quoteInsured = new JObject();
-                        quoteInsured.Add("ID", policy.Policy_HolderID);
-                        quoteInsured.Add("Name", policy.insured.Name);
-                        quoteInsured.Add("Lastname", policy.insured.Lastname);
-                        quoteInsured.Add("SSN", policy.insured.SSN);
-                        quoteInsured.Add("DateBirth", policy.insured.DateBirth);
-                        quoteInsured.Add("Age", policy.insured.Age);
-                        quoteInsured.Add("Email", policy.insured.Email);
-                        quoteInsured.Add("Phone_Number", policy.insured.Phone_Number);
-                        quoteInsured.Add("City", policy.insured.City);
-                        quoteInsured.Add("Postal_Code", policy.insured.Postal_Code);
-                        quoteInsured.Add("Address", policy.insured.Address);
-                        quoteInsured.Add("Passport_Number_IdNumber", policy.insured.Passport_Number_IdNumber);
-                        quoteInsured.Add("Type_InsuredID", policy.insured.Type_InsuredID);
+            //        //bank account for the policy holder
+            //        var ssn = _us.GetUserSsnByUsername(username.username);
+            //        var holderDetails = _iss.GetInsuredDataBySsn(ssn);
+            //        if (holderDetails != null)
+            //        {
+            //            JArray bankAccounts = new JArray();
+            //            var banks = _bas.BankAccountsByInsuredId(holderDetails.ID);
+            //            foreach (bank_account_info bankAccount in banks)
+            //            {
+            //                var bankAccountObject = new JObject();
+            //                bankAccountObject.Add("BankAccount", bankAccount.Account_Number);
+            //                bankAccountObject.Add("BankName", bankAccount.bank.Name);
+            //                bankAccountObject.Add("BankAccountId", bankAccount.ID);
+            //                bankAccounts.Add(bankAccountObject);
+            //            }
+            //            userQuote.Add("policyHolderBankAccounts", bankAccounts);
+            //        }
+            //    }
+            //    //information about insureds
+            //    if (policy.policy_insured != null)
+            //    {
+            //        JArray quoteInsureds = new JArray();
+            //        foreach (var insured in policy.policy_insured)
+            //        {
+            //            var quoteInsured = new JObject();
+            //            quoteInsured.Add("ID", policy.Policy_HolderID);
+            //            quoteInsured.Add("Name", policy.insured.Name);
+            //            quoteInsured.Add("Lastname", policy.insured.Lastname);
+            //            quoteInsured.Add("SSN", policy.insured.SSN);
+            //            quoteInsured.Add("DateBirth", policy.insured.DateBirth);
+            //            quoteInsured.Add("Age", policy.insured.Age);
+            //            quoteInsured.Add("Email", policy.insured.Email);
+            //            quoteInsured.Add("Phone_Number", policy.insured.Phone_Number);
+            //            quoteInsured.Add("City", policy.insured.City);
+            //            quoteInsured.Add("Postal_Code", policy.insured.Postal_Code);
+            //            quoteInsured.Add("Address", policy.insured.Address);
+            //            quoteInsured.Add("Passport_Number_IdNumber", policy.insured.Passport_Number_IdNumber);
+            //            quoteInsured.Add("Type_InsuredID", policy.insured.Type_InsuredID);
 
-                        JArray bankAccounts = new JArray();
-                        var banks = _bas.BankAccountsByInsuredId(insured.InsuredID);
-                        foreach (bank_account_info bankAccount in banks)
-                        {
-                            var bankAccountObject = new JObject();
-                            bankAccountObject.Add("BankAccount", bankAccount.Account_Number);
-                            bankAccountObject.Add("BankName", bankAccount.bank.Name);
-                            bankAccountObject.Add("BankAccountId", bankAccount.ID);
-                            bankAccounts.Add(bankAccountObject);
-                        }
-                        quoteInsured.Add("insuredBankAccounts", bankAccounts);
-                        quoteInsureds.Add(quoteInsured);
-                    }
+            //            JArray bankAccounts = new JArray();
+            //            var banks = _bas.BankAccountsByInsuredId(insured.InsuredID);
+            //            foreach (bank_account_info bankAccount in banks)
+            //            {
+            //                var bankAccountObject = new JObject();
+            //                bankAccountObject.Add("BankAccount", bankAccount.Account_Number);
+            //                bankAccountObject.Add("BankName", bankAccount.bank.Name);
+            //                bankAccountObject.Add("BankAccountId", bankAccount.ID);
+            //                bankAccounts.Add(bankAccountObject);
+            //            }
+            //            quoteInsured.Add("insuredBankAccounts", bankAccounts);
+            //            quoteInsureds.Add(quoteInsured);
+            //        }
 
-                    userQuote.Add("insureds", quoteInsureds);
-                }
-                userQuotes.Add(userQuote);
-            }
+            //        userQuote.Add("insureds", quoteInsureds);
+            //    }
+            //    userQuotes.Add(userQuote);
+            //}
 
-            data.Add("quote", userQuotes);
+            //data.Add("quote", userQuotes);
 
             //user's reports of loss
-            JArray userFNOL = new JArray();
-            first_notice_of_loss[] fnols = _fnls.GetByInsuredUserId(user.Id);
+            //JArray userFNOL = new JArray();
+            //first_notice_of_loss[] fnols = _fnls.GetByInsuredUserId(user.Id);
 
-            foreach (first_notice_of_loss fnol in fnols)
-            {
-                var fnolObject = new JObject();
-                if (fnol.Short_Detailed == true)
-                {
-                    fnolObject.Add("ChatId", fnol.ChatId);
-                    fnolObject.Add("ID", fnol.ID);
-                    fnolObject.Add("Policy_Number", fnol.travel_policy.Policy_Number);
-                    fnolObject.Add("Short_Detailed", fnol.Short_Detailed);
-                }
-                else
-                {
-                    fnolObject.Add("ID", fnol.ID);
-                    fnolObject.Add("PolicyId", fnol.PolicyId);
-                    fnolObject.Add("Policy_Number", fnol.travel_policy.Policy_Number);
+            //foreach (first_notice_of_loss fnol in fnols)
+            //{
+            //    var fnolObject = new JObject();
+            //    if (fnol.Short_Detailed == true)
+            //    {
+            //        fnolObject.Add("ChatId", fnol.ChatId);
+            //        fnolObject.Add("ID", fnol.ID);
+            //        fnolObject.Add("Policy_Number", fnol.travel_policy.Policy_Number);
+            //        fnolObject.Add("Short_Detailed", fnol.Short_Detailed);
+            //    }
+            //    else
+            //    {
+            //        fnolObject.Add("ID", fnol.ID);
+            //        fnolObject.Add("PolicyId", fnol.PolicyId);
+            //        fnolObject.Add("Policy_Number", fnol.travel_policy.Policy_Number);
 
-                    if (fnol.insured != null)
-                    {
-                        var claimantBankAccount = _bas.BankAccountInfoById(fnol.Claimant_bank_accountID.Value);
+            //        if (fnol.insured != null)
+            //        {
+            //            var claimantBankAccount = _bas.BankAccountInfoById(fnol.Claimant_bank_accountID.Value);
 
-                        fnolObject.Add("Claimant_ID", fnol.insured.ID);
-                        fnolObject.Add("Name", fnol.insured.Name);
-                        fnolObject.Add("Lastname", fnol.insured.Lastname);
-                        fnolObject.Add("SSN", fnol.insured.SSN);
-                        fnolObject.Add("DateBirth", fnol.insured.DateBirth);
-                        fnolObject.Add("Age", fnol.insured.Age);
-                        fnolObject.Add("Email", fnol.insured.Email);
-                        fnolObject.Add("Phone_Number", fnol.insured.Phone_Number);
-                        fnolObject.Add("City", fnol.insured.City);
-                        fnolObject.Add("Postal_Code", fnol.insured.Postal_Code);
-                        fnolObject.Add("Address", fnol.insured.Address);
-                        fnolObject.Add("Passport_Number_IdNumber", fnol.insured.Passport_Number_IdNumber);
-                        fnolObject.Add("Type_InsuredID", fnol.insured.Type_InsuredID);
-                        fnolObject.Add("Claimant_Account_HolderID", claimantBankAccount.Account_HolderID);
-                        fnolObject.Add("Claimant_Account_Number", claimantBankAccount.Account_Number);
-                        fnolObject.Add("Claimant_BankID", claimantBankAccount.BankID);
-                    }
+            //            fnolObject.Add("Claimant_ID", fnol.insured.ID);
+            //            fnolObject.Add("Name", fnol.insured.Name);
+            //            fnolObject.Add("Lastname", fnol.insured.Lastname);
+            //            fnolObject.Add("SSN", fnol.insured.SSN);
+            //            fnolObject.Add("DateBirth", fnol.insured.DateBirth);
+            //            fnolObject.Add("Age", fnol.insured.Age);
+            //            fnolObject.Add("Email", fnol.insured.Email);
+            //            fnolObject.Add("Phone_Number", fnol.insured.Phone_Number);
+            //            fnolObject.Add("City", fnol.insured.City);
+            //            fnolObject.Add("Postal_Code", fnol.insured.Postal_Code);
+            //            fnolObject.Add("Address", fnol.insured.Address);
+            //            fnolObject.Add("Passport_Number_IdNumber", fnol.insured.Passport_Number_IdNumber);
+            //            fnolObject.Add("Type_InsuredID", fnol.insured.Type_InsuredID);
+            //            fnolObject.Add("Claimant_Account_HolderID", claimantBankAccount.Account_HolderID);
+            //            fnolObject.Add("Claimant_Account_Number", claimantBankAccount.Account_Number);
+            //            fnolObject.Add("Claimant_BankID", claimantBankAccount.BankID);
+            //        }
 
-                    fnolObject.Add("Relation_claimant_policy_holder", fnol.Relation_claimant_policy_holder);
-                    fnolObject.Add("Destination", fnol.Destination);
-                    fnolObject.Add("Depart_Date_Time", fnol.Depart_Date_Time);
-                    fnolObject.Add("Arrival_Date_Time", fnol.Arrival_Date_Time);
-                    fnolObject.Add("Transport_means", fnol.Transport_means);
-                    fnolObject.Add("Total_cost", fnol.Total_cost);
-                    fnolObject.Add("Web_Mobile", fnol.Web_Mobile);
-                    fnolObject.Add("CreatedBy", fnol.CreatedBy);
+            //        fnolObject.Add("Relation_claimant_policy_holder", fnol.Relation_claimant_policy_holder);
+            //        fnolObject.Add("Destination", fnol.Destination);
+            //        fnolObject.Add("Depart_Date_Time", fnol.Depart_Date_Time);
+            //        fnolObject.Add("Arrival_Date_Time", fnol.Arrival_Date_Time);
+            //        fnolObject.Add("Transport_means", fnol.Transport_means);
+            //        fnolObject.Add("Total_cost", fnol.Total_cost);
+            //        fnolObject.Add("Web_Mobile", fnol.Web_Mobile);
+            //        fnolObject.Add("CreatedBy", fnol.CreatedBy);
 
-                    if (fnol.Policy_holder_bank_accountID != null)
-                    {
-                        fnolObject.Add("PolicyHolder_Account_HolderID", fnol.Policy_holder_bank_accountID);
-                        fnolObject.Add("PolicyHolder_Account_Number", fnol.Policy_holder_bank_accountID);
-                        fnolObject.Add("BankID", fnol.Policy_holder_bank_accountID);
-                    }
-                    var healthInsurance = _fis.GetHealthAdditionalInfoByLossId(fnol.ID);
-                    if (healthInsurance == null)
-                    {
-                        fnolObject.Add("HealthInsurance_Y_N", "N");
-                    }
-                    else
-                    {
-                        fnolObject.Add("HealthInsurance_Y_N", "Y");
-                        if (fnol.additional_info != null)
-                        {
-                            fnolObject.Add("Datetime_accident", fnol.additional_info.Datetime_accident);
-                            fnolObject.Add("Accident_place", fnol.additional_info.Accident_place);
-                            if (fnol.additional_info.health_insurance_info != null)
-                            {
-                                fnolObject.Add("Datetime_doctor_visit", fnol.additional_info.health_insurance_info.Datetime_doctor_visit);
-                                fnolObject.Add("Doctor_info", fnol.additional_info.health_insurance_info.Doctor_info);
-                                fnolObject.Add("Medical_case_description	", fnol.additional_info.health_insurance_info.Medical_case_description);
-                                fnolObject.Add("Previous_medical_history", fnol.additional_info.health_insurance_info.Previous_medical_history);
-                                fnolObject.Add("Responsible_institution", fnol.additional_info.health_insurance_info.Responsible_institution);
-                            }
-                        }
-                    }
+            //        if (fnol.Policy_holder_bank_accountID != null)
+            //        {
+            //            fnolObject.Add("PolicyHolder_Account_HolderID", fnol.Policy_holder_bank_accountID);
+            //            fnolObject.Add("PolicyHolder_Account_Number", fnol.Policy_holder_bank_accountID);
+            //            fnolObject.Add("BankID", fnol.Policy_holder_bank_accountID);
+            //        }
+            //        var healthInsurance = _fis.GetHealthAdditionalInfoByLossId(fnol.ID);
+            //        if (healthInsurance == null)
+            //        {
+            //            fnolObject.Add("HealthInsurance_Y_N", "N");
+            //        }
+            //        else
+            //        {
+            //            fnolObject.Add("HealthInsurance_Y_N", "Y");
+            //            if (fnol.additional_info != null)
+            //            {
+            //                fnolObject.Add("Datetime_accident", fnol.additional_info.Datetime_accident);
+            //                fnolObject.Add("Accident_place", fnol.additional_info.Accident_place);
+            //                if (fnol.additional_info.health_insurance_info != null)
+            //                {
+            //                    fnolObject.Add("Datetime_doctor_visit", fnol.additional_info.health_insurance_info.Datetime_doctor_visit);
+            //                    fnolObject.Add("Doctor_info", fnol.additional_info.health_insurance_info.Doctor_info);
+            //                    fnolObject.Add("Medical_case_description	", fnol.additional_info.health_insurance_info.Medical_case_description);
+            //                    fnolObject.Add("Previous_medical_history", fnol.additional_info.health_insurance_info.Previous_medical_history);
+            //                    fnolObject.Add("Responsible_institution", fnol.additional_info.health_insurance_info.Responsible_institution);
+            //                }
+            //            }
+            //        }
 
-                    var luggageInsurance = _fis.GetLuggageAdditionalInfoByLossId(fnol.ID);
-                    if (luggageInsurance == null)
-                    {
-                        fnolObject.Add("LuggageInsurance_Y_N", "N");
-                    }
-                    else
-                    {
-                        fnolObject.Add("LuggageInsurance_Y_N", "Y");
-                        if (fnol.additional_info != null)
-                        {
-                            fnolObject.Add("Datetime_accident", fnol.additional_info.Datetime_accident);
-                            fnolObject.Add("Accident_place", fnol.additional_info.Accident_place);
-                            if (fnol.additional_info.luggage_insurance_info != null)
-                            {
-                                fnolObject.Add("Place_description", fnol.additional_info.luggage_insurance_info.Place_description);
-                                fnolObject.Add("Detail_description", fnol.additional_info.luggage_insurance_info.Detail_description);
-                                fnolObject.Add("Report_place", fnol.additional_info.luggage_insurance_info.Report_place);
-                                fnolObject.Add("Floaters", fnol.additional_info.luggage_insurance_info.Floaters);
-                                fnolObject.Add("Floaters_value", fnol.additional_info.luggage_insurance_info.Floaters_value);
-                                fnolObject.Add("Luggage_checking_Time", fnol.additional_info.luggage_insurance_info.Luggage_checking_Time);
-                            }
-                        }
-                    }
-                    JArray invoices = new JArray();
-                    var allInvoices = _fis.GetInvoiceDocumentName(fnol.ID);
-                    foreach (var invoice in allInvoices)
-                    {
-                        var invoiceObject = new JObject();
-                        invoiceObject.Add("invoicePath", ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/Invoices/" + invoice);
-                        invoices.Add(invoiceObject);
-                    }
-                    fnolObject.Add("invoices", invoices);
+            //        var luggageInsurance = _fis.GetLuggageAdditionalInfoByLossId(fnol.ID);
+            //        if (luggageInsurance == null)
+            //        {
+            //            fnolObject.Add("LuggageInsurance_Y_N", "N");
+            //        }
+            //        else
+            //        {
+            //            fnolObject.Add("LuggageInsurance_Y_N", "Y");
+            //            if (fnol.additional_info != null)
+            //            {
+            //                fnolObject.Add("Datetime_accident", fnol.additional_info.Datetime_accident);
+            //                fnolObject.Add("Accident_place", fnol.additional_info.Accident_place);
+            //                if (fnol.additional_info.luggage_insurance_info != null)
+            //                {
+            //                    fnolObject.Add("Place_description", fnol.additional_info.luggage_insurance_info.Place_description);
+            //                    fnolObject.Add("Detail_description", fnol.additional_info.luggage_insurance_info.Detail_description);
+            //                    fnolObject.Add("Report_place", fnol.additional_info.luggage_insurance_info.Report_place);
+            //                    fnolObject.Add("Floaters", fnol.additional_info.luggage_insurance_info.Floaters);
+            //                    fnolObject.Add("Floaters_value", fnol.additional_info.luggage_insurance_info.Floaters_value);
+            //                    fnolObject.Add("Luggage_checking_Time", fnol.additional_info.luggage_insurance_info.Luggage_checking_Time);
+            //                }
+            //            }
+            //        }
+            //        JArray invoices = new JArray();
+            //        var allInvoices = _fis.GetInvoiceDocumentName(fnol.ID);
+            //        foreach (var invoice in allInvoices)
+            //        {
+            //            var invoiceObject = new JObject();
+            //            invoiceObject.Add("invoicePath", ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/Invoices/" + invoice);
+            //            invoices.Add(invoiceObject);
+            //        }
+            //        fnolObject.Add("invoices", invoices);
 
-                    JArray documents = new JArray();
-                    var allDoc = _fis.GetHealthLuggageDocumentName(fnol.ID);
-                    foreach (var doc in allDoc)
-                    {
-                        var document = new JObject();
-                        document.Add("documentPath", healthInsurance != null ? ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/HealthInsurance/" + doc : ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + doc);
-                        documents.Add(document);
-                    }
+            //        JArray documents = new JArray();
+            //        var allDoc = _fis.GetHealthLuggageDocumentName(fnol.ID);
+            //        foreach (var doc in allDoc)
+            //        {
+            //            var document = new JObject();
+            //            document.Add("documentPath", healthInsurance != null ? ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/HealthInsurance/" + doc : ConfigurationManager.AppSettings["webpage_url"] + "/DocumentsFirstNoticeOfLoss/LuggageInsurance/" + doc);
+            //            documents.Add(document);
+            //        }
 
-                    fnolObject.Add("documents", documents);
+            //        fnolObject.Add("documents", documents);
 
-                    userFNOL.Add(fnolObject);
-                }
-            }
-            data.Add("loss", userFNOL);
+            //        userFNOL.Add(fnolObject);
+            //    }
+            //}
+            //data.Add("loss", userFNOL);
             return data;
         }
 

@@ -12,18 +12,13 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class sava_policy
+    public partial class event_users
     {
-        public int id { get; set; }
-        public int policy_number { get; set; }
-        public string id_seller { get; set; }
-        public string SSN_insured { get; set; }
-        public string SSN_policyHolder { get; set; }
-        public Nullable<System.DateTime> expiry_date { get; set; }
-        public float premium { get; set; }
-        public string email_seller { get; set; }
-        public float discount_points { get; set; }
+        public int ID { get; set; }
+        public int EventID { get; set; }
+        public string UserID { get; set; }
     
         public virtual aspnetuser aspnetuser { get; set; }
+        public virtual @event @event { get; set; }
     }
 }

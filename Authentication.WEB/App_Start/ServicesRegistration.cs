@@ -43,7 +43,7 @@ namespace InsuredTraveling
             builder.RegisterType<ChatService>().As<IChatService>().InstancePerRequest();
             builder.RegisterType<DiscountService>().As<IDiscountService>().InstancePerRequest();
             builder.RegisterType<Sava_setupService>().As<ISava_setupService>().InstancePerRequest();
-
+            builder.RegisterType<SavaPoliciesService>().As<ISavaPoliciesService>().InstancePerRequest();
             base.Load(builder);
 
 

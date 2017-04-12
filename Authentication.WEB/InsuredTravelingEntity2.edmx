@@ -105,6 +105,7 @@ warning 6002: The table/view 'def.db_9eb138_sava.aspnetuserlogins' does not have
           <Property Name="CreatedOn" Type="date" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="128" />
           <Property Name="Points" Type="float" />
+          <Property Name="updated" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="bank_account_info">
           <Key>
@@ -276,6 +277,31 @@ warning 6002: The table/view 'def.db_9eb138_sava.aspnetuserlogins' does not have
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DocumentID" Type="int" Nullable="false" />
           <Property Name="First_notice_of_lossID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="event">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Location" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Organizer" Type="text" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="Type" Type="bool" Nullable="false" />
+          <Property Name="Chat" Type="bool" Nullable="false" />
+          <Property Name="Voucher" Type="bool" Nullable="false" />
+          <Property Name="PublishDate" Type="datetime" Precision="0" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="event_users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="exchange_rate">
           <Key>
@@ -625,12 +651,12 @@ warning 6002: The table/view 'def.db_9eb138_sava.aspnetuserlogins' does not have
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="policy_number" Type="int" Nullable="false" />
-          <Property Name="id_seller" Type="int" Nullable="false" />
-          <Property Name="SSN_insured" Type="int" Nullable="false" />
-          <Property Name="SSN_policyHolder" Type="int" Nullable="false" />
-          <Property Name="expiry_date" Type="int" Nullable="false" />
+          <Property Name="id_seller" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="SSN_insured" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="SSN_policyHolder" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="expiry_date" Type="datetime" Precision="0" />
           <Property Name="premium" Type="float" Nullable="false" />
-          <Property Name="email_seller" Type="int" Nullable="false" />
+          <Property Name="email_seller" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="discount_points" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="sava_setup">
@@ -1194,6 +1220,20 @@ warning 6002: The table/view 'def.db_9eb138_sava.transaction' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_createdBy_aspnetuser">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="event" Type="Self.event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="event">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_discount_age_Created_By">
           <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1" />
           <End Role="discount_age" Type="Self.discount_age" Multiplicity="*" />
@@ -1311,6 +1351,20 @@ warning 6002: The table/view 'def.db_9eb138_sava.transaction' does not have a pr
             </Principal>
             <Dependent Role="discount_group">
               <PropertyRef Name="Modified_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EventID_events">
+          <End Role="event" Type="Self.event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="event_users" Type="Self.event_users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="event">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="event_users">
+              <PropertyRef Name="EventID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1478,6 +1532,20 @@ warning 6002: The table/view 'def.db_9eb138_sava.transaction' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_sellerID_aspnetuser">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sava_policy" Type="Self.sava_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="sava_policy">
+              <PropertyRef Name="id_seller" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_travel_duration_Created_by">
           <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1" />
           <End Role="travel_duration" Type="Self.travel_duration" Multiplicity="*" />
@@ -1535,6 +1603,20 @@ warning 6002: The table/view 'def.db_9eb138_sava.transaction' does not have a pr
             </Principal>
             <Dependent Role="travel_policy">
               <PropertyRef Name="Retaining_RiskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserID_events">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="event_users" Type="Self.event_users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="event_users">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1689,6 +1771,8 @@ warning 6002: The table/view 'def.db_9eb138_sava.transaction' does not have a pr
           <EntitySet Name="discount_group" EntityType="Self.discount_group" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="documents" EntityType="Self.documents" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="documents_first_notice_of_loss" EntityType="Self.documents_first_notice_of_loss" Schema="db_9eb138_sava" store:Type="Tables" />
+          <EntitySet Name="event" EntityType="Self.event" Schema="db_9eb138_sava" store:Type="Tables" />
+          <EntitySet Name="event_users" EntityType="Self.event_users" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="exchange_rate" EntityType="Self.exchange_rate" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="first_notice_of_loss" EntityType="Self.first_notice_of_loss" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="first_notice_of_loss_archive" EntityType="Self.first_notice_of_loss_archive" Schema="db_9eb138_sava" store:Type="Tables" />
@@ -1890,6 +1974,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="countries" EntitySet="countries" />
             <End Role="discount_country" EntitySet="discount_country" />
           </AssociationSet>
+          <AssociationSet Name="fk_createdBy_aspnetuser" Association="Self.fk_createdBy_aspnetuser">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="event" EntitySet="event" />
+          </AssociationSet>
           <AssociationSet Name="fk_discount_age_Created_By" Association="Self.fk_discount_age_Created_By">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="discount_age" EntitySet="discount_age" />
@@ -1929,6 +2017,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="fk_discount_group_Modified_by" Association="Self.fk_discount_group_Modified_by">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="discount_group" EntitySet="discount_group" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EventID_events" Association="Self.fk_EventID_events">
+            <End Role="event" EntitySet="event" />
+            <End Role="event_users" EntitySet="event_users" />
           </AssociationSet>
           <AssociationSet Name="fk_insured_createdby" Association="Self.fk_insured_createdby">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
@@ -1982,6 +2074,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="policy_type" EntitySet="policy_type" />
             <End Role="discount_country" EntitySet="discount_country" />
           </AssociationSet>
+          <AssociationSet Name="fk_sellerID_aspnetuser" Association="Self.fk_sellerID_aspnetuser">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="sava_policy" EntitySet="sava_policy" />
+          </AssociationSet>
           <AssociationSet Name="fk_travel_duration_Created_by" Association="Self.fk_travel_duration_Created_by">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="travel_duration" EntitySet="travel_duration" />
@@ -2001,6 +2097,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="fk_travel_policy_retaining_risk" Association="Self.fk_travel_policy_retaining_risk">
             <End Role="retaining_risk" EntitySet="retaining_risk" />
             <End Role="travel_policy" EntitySet="travel_policy" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserID_events" Association="Self.fk_UserID_events">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="event_users" EntitySet="event_users" />
           </AssociationSet>
           <AssociationSet Name="fk_users_aspnetuser" Association="Self.fk_users_aspnetuser">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
@@ -2138,11 +2238,13 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="CreatedOn" Type="DateTime" />
           <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Points" Type="Single" />
+          <Property Name="updated" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="additional_charge" Relationship="Self.fk_additional_charge_created_by" FromRole="aspnetusers" ToRole="additional_charge" />
           <NavigationProperty Name="additional_charge1" Relationship="Self.fk_additional_charge_modified_by" FromRole="aspnetusers" ToRole="additional_charge" />
           <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Self.first_notice_of_loss_archive_ibfk_2" FromRole="aspnetusers" ToRole="first_notice_of_loss_archive" />
           <NavigationProperty Name="first_notice_of_loss" Relationship="Self.first_notice_of_loss_ibfk_7" FromRole="aspnetusers" ToRole="first_notice_of_loss" />
           <NavigationProperty Name="first_notice_of_loss1" Relationship="Self.first_notice_of_loss_ibfk_8" FromRole="aspnetusers" ToRole="first_notice_of_loss" />
+          <NavigationProperty Name="events" Relationship="Self.fk_createdBy_aspnetuser" FromRole="aspnetusers" ToRole="event" />
           <NavigationProperty Name="discount_age" Relationship="Self.fk_discount_age_Created_By" FromRole="aspnetusers" ToRole="discount_age" />
           <NavigationProperty Name="discount_age1" Relationship="Self.fk_discount_age_Modified_By" FromRole="aspnetusers" ToRole="discount_age" />
           <NavigationProperty Name="discount_country" Relationship="Self.fk_discount_country_Created_By" FromRole="aspnetusers" ToRole="discount_country" />
@@ -2159,10 +2261,12 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="travel_policy1" Relationship="Self.fk_policy_modified_by" FromRole="aspnetusers" ToRole="travel_policy" />
           <NavigationProperty Name="travel_duration" Relationship="Self.fk_travel_duration_Created_by" FromRole="aspnetusers" ToRole="travel_duration" />
           <NavigationProperty Name="travel_duration1" Relationship="Self.fk_travel_duration_Modified_by" FromRole="aspnetusers" ToRole="travel_duration" />
+          <NavigationProperty Name="event_users" Relationship="Self.fk_UserID_events" FromRole="aspnetusers" ToRole="event_users" />
           <NavigationProperty Name="users" Relationship="Self.fk_users_aspnetuser" FromRole="aspnetusers" ToRole="users" />
           <NavigationProperty Name="broker_employees" Relationship="Self.FKBrrokerID" FromRole="aspnetusers" ToRole="broker_employees" />
           <NavigationProperty Name="broker_employees1" Relationship="Self.FKEmployeID" FromRole="aspnetusers" ToRole="broker_employees" />
           <NavigationProperty Name="aspnetroles" Relationship="Self.aspnetuserroles" FromRole="aspnetusers" ToRole="aspnetroles" />
+          <NavigationProperty Name="sava_policy" Relationship="db_9eb138_savaModel.fk_sellerID_aspnetuser" FromRole="aspnetuser" ToRole="sava_policy" />
         </EntityType>
         <EntityType Name="bank_account_info">
           <Key>
@@ -2372,6 +2476,35 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="First_notice_of_lossID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="document" Relationship="Self.documents_first_notice_of_loss_ibfk_1" FromRole="documents_first_notice_of_loss" ToRole="documents" />
           <NavigationProperty Name="first_notice_of_loss" Relationship="Self.documents_first_notice_of_loss_ibfk_2" FromRole="documents_first_notice_of_loss" ToRole="first_notice_of_loss" />
+        </EntityType>
+        <EntityType Name="event">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Organizer" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type" Type="Boolean" Nullable="false" />
+          <Property Name="Chat" Type="Boolean" Nullable="false" />
+          <Property Name="Voucher" Type="Boolean" Nullable="false" />
+          <Property Name="PublishDate" Type="DateTime" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Self.fk_createdBy_aspnetuser" FromRole="event" ToRole="aspnetusers" />
+          <NavigationProperty Name="event_users" Relationship="Self.fk_EventID_events" FromRole="event" ToRole="event_users" />
+        </EntityType>
+        <EntityType Name="event_users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Self.fk_UserID_events" FromRole="event_users" ToRole="aspnetusers" />
+          <NavigationProperty Name="event" Relationship="Self.fk_EventID_events" FromRole="event_users" ToRole="event" />
         </EntityType>
         <EntityType Name="exchange_rate">
           <Key>
@@ -2766,20 +2899,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="language" Relationship="Self.retaining_risk_name_ibfk_2" FromRole="retaining_risk_name" ToRole="languages" />
           <NavigationProperty Name="retaining_risk" Relationship="Self.retaining_risk_name_ibfk_1" FromRole="retaining_risk_name" ToRole="retaining_risk" />
         </EntityType>
-        <EntityType Name="sava_policy">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="policy_number" Type="Int32" Nullable="false" />
-          <Property Name="id_seller" Type="Int32" Nullable="false" />
-          <Property Name="SSN_insured" Type="Int32" Nullable="false" />
-          <Property Name="SSN_policyHolder" Type="Int32" Nullable="false" />
-          <Property Name="expiry_date" Type="Int32" Nullable="false" />
-          <Property Name="premium" Type="Single" Nullable="false" />
-          <Property Name="email_seller" Type="Int32" Nullable="false" />
-          <Property Name="discount_points" Type="Single" Nullable="false" />
-        </EntityType>
         <EntityType Name="sava_setup">
           <Key>
             <PropertyRef Name="id" />
@@ -2789,7 +2908,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="points_percentage" Type="Single" Nullable="false" />
           <Property Name="vip_sum" Type="Single" Nullable="false" />
           <Property Name="version" Type="Int32" Nullable="false" />
-          <Property Name="last_modify_by" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="last_modify_by" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="timestamp" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="sava_voucher">
@@ -3090,6 +3209,20 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_createdBy_aspnetuser">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="event" Type="Self.event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="event">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_discount_age_Created_By">
           <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
           <End Role="discount_age" Type="Self.discount_age" Multiplicity="*" />
@@ -3279,6 +3412,20 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="travel_duration">
               <PropertyRef Name="Modified_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserID_events">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="event_users" Type="Self.event_users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="event_users">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3574,6 +3721,20 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_EventID_events">
+          <End Role="event" Type="Self.event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="event_users" Type="Self.event_users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="event">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="event_users">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="first_notice_of_loss_archive_ibfk_1">
           <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="1" />
           <End Role="first_notice_of_loss_archive" Type="Self.first_notice_of_loss_archive" Multiplicity="*" />
@@ -3840,6 +4001,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="discount_group" EntityType="Self.discount_group" />
           <EntitySet Name="documents" EntityType="Self.document" />
           <EntitySet Name="documents_first_notice_of_loss" EntityType="Self.documents_first_notice_of_loss" />
+          <EntitySet Name="events" EntityType="Self.event" />
+          <EntitySet Name="event_users" EntityType="Self.event_users" />
           <EntitySet Name="exchange_rate" EntityType="Self.exchange_rate" />
           <EntitySet Name="first_notice_of_loss" EntityType="Self.first_notice_of_loss" />
           <EntitySet Name="first_notice_of_loss_archive" EntityType="Self.first_notice_of_loss_archive" />
@@ -3866,7 +4029,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="refreshtokens" EntityType="Self.refreshtoken" />
           <EntitySet Name="retaining_risk" EntityType="Self.retaining_risk" />
           <EntitySet Name="retaining_risk_name" EntityType="Self.retaining_risk_name" />
-          <EntitySet Name="sava_policy" EntityType="Self.sava_policy" />
           <EntitySet Name="sava_setup" EntityType="Self.sava_setup" />
           <EntitySet Name="sava_voucher" EntityType="Self.sava_voucher" />
           <EntitySet Name="travel_duration" EntityType="Self.travel_duration" />
@@ -3924,6 +4086,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="first_notice_of_loss_ibfk_8" Association="Self.first_notice_of_loss_ibfk_8">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
+          </AssociationSet>
+          <AssociationSet Name="fk_createdBy_aspnetuser" Association="Self.fk_createdBy_aspnetuser">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="event" EntitySet="events" />
           </AssociationSet>
           <AssociationSet Name="fk_discount_age_Created_By" Association="Self.fk_discount_age_Created_By">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
@@ -3988,6 +4154,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="fk_travel_duration_Modified_by" Association="Self.fk_travel_duration_Modified_by">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="travel_duration" EntitySet="travel_duration" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserID_events" Association="Self.fk_UserID_events">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="event_users" EntitySet="event_users" />
           </AssociationSet>
           <AssociationSet Name="fk_users_aspnetuser" Association="Self.fk_users_aspnetuser">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
@@ -4085,6 +4255,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
             <End Role="documents_first_notice_of_loss" EntitySet="documents_first_notice_of_loss" />
           </AssociationSet>
+          <AssociationSet Name="fk_EventID_events" Association="Self.fk_EventID_events">
+            <End Role="event" EntitySet="events" />
+            <End Role="event_users" EntitySet="event_users" />
+          </AssociationSet>
           <AssociationSet Name="first_notice_of_loss_archive_ibfk_1" Association="Self.first_notice_of_loss_archive_ibfk_1">
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
             <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
@@ -4165,7 +4339,41 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="aspnetroles" EntitySet="aspnetroles" />
             <End Role="aspnetusers" EntitySet="aspnetusers" />
           </AssociationSet>
+          <EntitySet Name="sava_policy" EntityType="db_9eb138_savaModel.sava_policy" />
+          <AssociationSet Name="fk_sellerID_aspnetuser" Association="db_9eb138_savaModel.fk_sellerID_aspnetuser">
+            <End Role="aspnetuser" EntitySet="aspnetusers" />
+            <End Role="sava_policy" EntitySet="sava_policy" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="sava_policy">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="policy_number" Type="Int32" Nullable="false" />
+          <Property Name="id_seller" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="SSN_insured" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="SSN_policyHolder" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="expiry_date" Type="DateTime" />
+          <Property Name="premium" Type="Single" Nullable="false" />
+          <Property Name="email_seller" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="discount_points" Type="Single" Nullable="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.fk_sellerID_aspnetuser" FromRole="sava_policy" ToRole="aspnetuser" />
+        </EntityType>
+        <Association Name="fk_sellerID_aspnetuser">
+          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="db_9eb138_savaModel.sava_policy" Role="sava_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetuser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="sava_policy">
+              <PropertyRef Name="id_seller" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4256,6 +4464,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="updated" ColumnName="updated" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4444,6 +4653,33 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
                 <ScalarProperty Name="First_notice_of_lossID" ColumnName="First_notice_of_lossID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="events">
+            <EntityTypeMapping TypeName="db_9eb138_savaModel.event">
+              <MappingFragment StoreEntitySet="event">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Organizer" ColumnName="Organizer" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Chat" ColumnName="Chat" />
+                <ScalarProperty Name="Voucher" ColumnName="Voucher" />
+                <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="event_users">
+            <EntityTypeMapping TypeName="db_9eb138_savaModel.event_users">
+              <MappingFragment StoreEntitySet="event_users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4815,31 +5051,16 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sava_policy">
-            <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_policy">
-              <MappingFragment StoreEntitySet="sava_policy">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="policy_number" ColumnName="policy_number" />
-                <ScalarProperty Name="id_seller" ColumnName="id_seller" />
-                <ScalarProperty Name="SSN_insured" ColumnName="SSN_insured" />
-                <ScalarProperty Name="SSN_policyHolder" ColumnName="SSN_policyHolder" />
-                <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
-                <ScalarProperty Name="premium" ColumnName="premium" />
-                <ScalarProperty Name="email_seller" ColumnName="email_seller" />
-                <ScalarProperty Name="discount_points" ColumnName="discount_points" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sava_setup">
             <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_setup">
               <MappingFragment StoreEntitySet="sava_setup">
-                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
-                <ScalarProperty Name="last_modify_by" ColumnName="last_modify_by" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="email_administrator" ColumnName="email_administrator" />
                 <ScalarProperty Name="points_percentage" ColumnName="points_percentage" />
                 <ScalarProperty Name="vip_sum" ColumnName="vip_sum" />
                 <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="last_modify_by" ColumnName="last_modify_by" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4977,6 +5198,21 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="sava_policy">
+            <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_policy">
+              <MappingFragment StoreEntitySet="sava_policy">
+                <ScalarProperty Name="discount_points" ColumnName="discount_points" />
+                <ScalarProperty Name="email_seller" ColumnName="email_seller" />
+                <ScalarProperty Name="premium" ColumnName="premium" />
+                <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
+                <ScalarProperty Name="SSN_policyHolder" ColumnName="SSN_policyHolder" />
+                <ScalarProperty Name="SSN_insured" ColumnName="SSN_insured" />
+                <ScalarProperty Name="id_seller" ColumnName="id_seller" />
+                <ScalarProperty Name="policy_number" ColumnName="policy_number" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

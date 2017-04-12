@@ -2148,6 +2148,7 @@
     <Compile Include="DI\IPolicyService.cs" />
     <Compile Include="DI\IPolicyTypeService.cs" />
     <Compile Include="DI\IRolesService.cs" />
+    <Compile Include="DI\ISavaPoliciesService.cs" />
     <Compile Include="DI\ITransactionsService.cs" />
     <Compile Include="DI\ITravelNumberService.cs" />
     <Compile Include="DI\IUserService.cs" />
@@ -2160,6 +2161,7 @@
     <Compile Include="DI\PolicyTypeService.cs" />
     <Compile Include="DI\RolesService.cs" />
     <Compile Include="DI\ISava_setupService.cs" />
+    <Compile Include="DI\SavaPoliciesService.cs" />
     <Compile Include="DI\Sava_setupService.cs" />
     <Compile Include="DI\TransactionsService.cs" />
     <Compile Include="DI\TravelNumberService.cs" />
@@ -2198,6 +2200,12 @@
     </Compile>
     <Compile Include="Errors\500.aspx.designer.cs">
       <DependentUpon>500.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="event.cs">
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="event_users.cs">
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="exchange_rate.cs">
       <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>

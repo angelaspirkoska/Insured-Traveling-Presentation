@@ -22,6 +22,7 @@ namespace InsuredTraveling
             this.first_notice_of_loss_archive = new HashSet<first_notice_of_loss_archive>();
             this.first_notice_of_loss = new HashSet<first_notice_of_loss>();
             this.first_notice_of_loss1 = new HashSet<first_notice_of_loss>();
+            this.events = new HashSet<@event>();
             this.discount_age = new HashSet<discount_age>();
             this.discount_age1 = new HashSet<discount_age>();
             this.discount_country = new HashSet<discount_country>();
@@ -38,10 +39,12 @@ namespace InsuredTraveling
             this.travel_policy1 = new HashSet<travel_policy>();
             this.travel_duration = new HashSet<travel_duration>();
             this.travel_duration1 = new HashSet<travel_duration>();
+            this.event_users = new HashSet<event_users>();
             this.users = new HashSet<user>();
             this.broker_employees = new HashSet<broker_employees>();
             this.broker_employees1 = new HashSet<broker_employees>();
             this.aspnetroles = new HashSet<aspnetrole>();
+            this.sava_policy = new HashSet<sava_policy>();
         }
     
         public string Id { get; set; }
@@ -75,6 +78,7 @@ namespace InsuredTraveling
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<float> Points { get; set; }
+        public bool updated { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<additional_charge> additional_charge { get; set; }
@@ -86,6 +90,8 @@ namespace InsuredTraveling
         public virtual ICollection<first_notice_of_loss> first_notice_of_loss { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<first_notice_of_loss> first_notice_of_loss1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<@event> events { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<discount_age> discount_age { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -119,6 +125,8 @@ namespace InsuredTraveling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<travel_duration> travel_duration1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<event_users> event_users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user> users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<broker_employees> broker_employees { get; set; }
@@ -126,5 +134,7 @@ namespace InsuredTraveling
         public virtual ICollection<broker_employees> broker_employees1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aspnetrole> aspnetroles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<sava_policy> sava_policy { get; set; }
     }
 }
