@@ -1374,4 +1374,13 @@
   <data name="SavaAdminPanel_VipPoints" xml:space="preserve">
     <value>Сума со која корисникот станува VIP</value>
   </data>
+  <data name="SetUser" xml:space="preserve">
+    <value>Постави</value>
+  </data>
+  <data name="SetUserUpdated" xml:space="preserve">
+    <value>Постави го корисникот како ажуриран</value>
+  </data>
+  <data name="SetUserUpdatedQuestion" xml:space="preserve">
+    <value>Дали сакате да го поставите корисникот како ажуриран?</value>
+  </data>
 </root>

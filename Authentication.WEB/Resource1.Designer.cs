@@ -3499,6 +3499,33 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set user.
+        /// </summary>
+        public static string SetUser {
+            get {
+                return ResourceManager.GetString("SetUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set user value to updated.
+        /// </summary>
+        public static string SetUserUpdated {
+            get {
+                return ResourceManager.GetString("SetUserUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to set user as updated?.
+        /// </summary>
+        public static string SetUserUpdatedQuestion {
+            get {
+                return ResourceManager.GetString("SetUserUpdatedQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign up.
         /// </summary>
         public static string SignUp {

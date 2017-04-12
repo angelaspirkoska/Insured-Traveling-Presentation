@@ -1380,4 +1380,13 @@
   <data name="SavaAdminPanel_VipPoints" xml:space="preserve">
     <value>Number of points for Vip user</value>
   </data>
+  <data name="SetUser" xml:space="preserve">
+    <value>Set user</value>
+  </data>
+  <data name="SetUserUpdated" xml:space="preserve">
+    <value>Set user value to updated</value>
+  </data>
+  <data name="SetUserUpdatedQuestion" xml:space="preserve">
+    <value>Do you want to set user as updated?</value>
+  </data>
 </root>
