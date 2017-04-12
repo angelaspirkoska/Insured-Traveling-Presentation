@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Stefan Miteski\Documents\GitHub\InsuredTravelingWeb\Authentication.WEB\InsuredTravelingEntity.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\S4E10\Documents\GitHub\InsuredTravelingWeb\Authentication.WEB\InsuredTravelingEntity2.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

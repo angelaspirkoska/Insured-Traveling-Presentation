@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="db_9eb138_savaModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="db_9eb138_savaModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="additional_charge">
           <Key>
             <PropertyRef Name="ID" />
@@ -641,6 +641,7 @@ warning 6002: The table/view 'def.db_9eb138_sava.aspnetuserlogins' does not have
           <Property Name="email_administrator" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="points_percentage" Type="float" Nullable="false" />
           <Property Name="vip_sum" Type="float" Nullable="false" />
+          <Property Name="version" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sava_voucher">
           <Key>
@@ -2040,7 +2041,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="travel_policy" EntitySet="travel_policy" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="db_9eb138_savaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2056,9 +2058,9 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Version" Type="Int32" Nullable="false" />
           <NavigationProperty Name="additional_charge_name" Relationship="Self.additional_charge_name_ibfk_2" FromRole="additional_charge" ToRole="additional_charge_name" />
+          <NavigationProperty Name="aspnetuser" Relationship="Self.fk_additional_charge_created_by" FromRole="additional_charge" ToRole="aspnetusers" />
           <NavigationProperty Name="policy_additional_charge" Relationship="Self.fk_additional_charge_id" FromRole="additional_charge" ToRole="policy_additional_charge" />
-          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.fk_additional_charge_created_by" FromRole="additional_charge" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="db_9eb138_savaModel.fk_additional_charge_modified_by" FromRole="additional_charge" ToRole="aspnetuser" />
+          <NavigationProperty Name="aspnetuser1" Relationship="Self.fk_additional_charge_modified_by" FromRole="additional_charge" ToRole="aspnetusers" />
         </EntityType>
         <EntityType Name="additional_charge_name">
           <Key>
@@ -2089,7 +2091,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           </Key>
           <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="aspnetusers" Relationship="db_9eb138_savaModel.aspnetuserroles" FromRole="aspnetrole" ToRole="aspnetuser" />
+          <NavigationProperty Name="aspnetusers" Relationship="Self.aspnetuserroles" FromRole="aspnetroles" ToRole="aspnetusers" />
         </EntityType>
         <EntityType Name="aspnetuserclaim">
           <Key>
@@ -2099,6 +2101,67 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ClaimType" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="ClaimValue" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="aspnetuser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMBG" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Municipality" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="InsuranceCompany" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="ActivationCodeMail" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="ActivationCodeSMS" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="GroupID" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MobilePhoneNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="PassportNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" />
+          <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Active" Type="SByte" />
+          <Property Name="CreatedOn" Type="DateTime" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Points" Type="Single" />
+          <NavigationProperty Name="additional_charge" Relationship="Self.fk_additional_charge_created_by" FromRole="aspnetusers" ToRole="additional_charge" />
+          <NavigationProperty Name="additional_charge1" Relationship="Self.fk_additional_charge_modified_by" FromRole="aspnetusers" ToRole="additional_charge" />
+          <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Self.first_notice_of_loss_archive_ibfk_2" FromRole="aspnetusers" ToRole="first_notice_of_loss_archive" />
+          <NavigationProperty Name="first_notice_of_loss" Relationship="Self.first_notice_of_loss_ibfk_7" FromRole="aspnetusers" ToRole="first_notice_of_loss" />
+          <NavigationProperty Name="first_notice_of_loss1" Relationship="Self.first_notice_of_loss_ibfk_8" FromRole="aspnetusers" ToRole="first_notice_of_loss" />
+          <NavigationProperty Name="discount_age" Relationship="Self.fk_discount_age_Created_By" FromRole="aspnetusers" ToRole="discount_age" />
+          <NavigationProperty Name="discount_age1" Relationship="Self.fk_discount_age_Modified_By" FromRole="aspnetusers" ToRole="discount_age" />
+          <NavigationProperty Name="discount_country" Relationship="Self.fk_discount_country_Created_By" FromRole="aspnetusers" ToRole="discount_country" />
+          <NavigationProperty Name="discount_country1" Relationship="Self.fk_discount_country_Modified_by" FromRole="aspnetusers" ToRole="discount_country" />
+          <NavigationProperty Name="discount_days" Relationship="Self.fk_discount_days_Created_By" FromRole="aspnetusers" ToRole="discount_days" />
+          <NavigationProperty Name="discount_days1" Relationship="Self.fk_discount_days_Modified_by" FromRole="aspnetusers" ToRole="discount_days" />
+          <NavigationProperty Name="discount_family" Relationship="Self.fk_discount_family_Created_By" FromRole="aspnetusers" ToRole="discount_family" />
+          <NavigationProperty Name="discount_family1" Relationship="Self.fk_discount_family_Modified_by" FromRole="aspnetusers" ToRole="discount_family" />
+          <NavigationProperty Name="discount_group" Relationship="Self.fk_discount_group_Created_By" FromRole="aspnetusers" ToRole="discount_group" />
+          <NavigationProperty Name="discount_group1" Relationship="Self.fk_discount_group_Modified_by" FromRole="aspnetusers" ToRole="discount_group" />
+          <NavigationProperty Name="insureds" Relationship="Self.fk_insured_createdby" FromRole="aspnetusers" ToRole="insured" />
+          <NavigationProperty Name="insureds1" Relationship="Self.fk_insured_modifiedby" FromRole="aspnetusers" ToRole="insured" />
+          <NavigationProperty Name="travel_policy" Relationship="Self.fk_policy_created_by" FromRole="aspnetusers" ToRole="travel_policy" />
+          <NavigationProperty Name="travel_policy1" Relationship="Self.fk_policy_modified_by" FromRole="aspnetusers" ToRole="travel_policy" />
+          <NavigationProperty Name="travel_duration" Relationship="Self.fk_travel_duration_Created_by" FromRole="aspnetusers" ToRole="travel_duration" />
+          <NavigationProperty Name="travel_duration1" Relationship="Self.fk_travel_duration_Modified_by" FromRole="aspnetusers" ToRole="travel_duration" />
+          <NavigationProperty Name="users" Relationship="Self.fk_users_aspnetuser" FromRole="aspnetusers" ToRole="users" />
+          <NavigationProperty Name="broker_employees" Relationship="Self.FKBrrokerID" FromRole="aspnetusers" ToRole="broker_employees" />
+          <NavigationProperty Name="broker_employees1" Relationship="Self.FKEmployeID" FromRole="aspnetusers" ToRole="broker_employees" />
+          <NavigationProperty Name="aspnetroles" Relationship="Self.aspnetuserroles" FromRole="aspnetusers" ToRole="aspnetroles" />
         </EntityType>
         <EntityType Name="bank_account_info">
           <Key>
@@ -2139,8 +2202,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BrokerID" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EmployeID" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.FKBrrokerID" FromRole="broker_employees" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="db_9eb138_savaModel.FKEmployeID" FromRole="broker_employees" ToRole="aspnetuser" />
+          <NavigationProperty Name="aspnetuser" Relationship="Self.FKBrrokerID" FromRole="broker_employees" ToRole="aspnetusers" />
+          <NavigationProperty Name="aspnetuser1" Relationship="Self.FKEmployeID" FromRole="broker_employees" ToRole="aspnetusers" />
         </EntityType>
         <EntityType Name="chat_requests">
           <Key>
@@ -2206,9 +2269,9 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Modified_Date" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Version" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.fk_discount_age_Created_By" FromRole="discount_age" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="db_9eb138_savaModel.fk_discount_age_Modified_By" FromRole="discount_age" ToRole="aspnetuser" />
-          </EntityType>
+          <NavigationProperty Name="aspnetuser" Relationship="Self.fk_discount_age_Created_By" FromRole="discount_age" ToRole="aspnetusers" />
+          <NavigationProperty Name="aspnetuser1" Relationship="Self.fk_discount_age_Modified_By" FromRole="discount_age" ToRole="aspnetusers" />
+        </EntityType>
         <EntityType Name="discount_codes">
           <Key>
             <PropertyRef Name="ID" />
@@ -2233,10 +2296,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Date_Modified" Type="DateTime" />
           <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Self.fk_discount_country_Created_By" FromRole="discount_country" ToRole="aspnetusers" />
+          <NavigationProperty Name="aspnetuser1" Relationship="Self.fk_discount_country_Modified_by" FromRole="discount_country" ToRole="aspnetusers" />
           <NavigationProperty Name="country" Relationship="Self.fk_country_id" FromRole="discount_country" ToRole="countries" />
           <NavigationProperty Name="policy_type" Relationship="Self.fk_policy_type_id" FromRole="discount_country" ToRole="policy_type" />
-          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.fk_discount_country_Created_By" FromRole="discount_country" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="db_9eb138_savaModel.fk_discount_country_Modified_by" FromRole="discount_country" ToRole="aspnetuser" />
         </EntityType>
         <EntityType Name="discount_days">
           <Key>
@@ -2251,10 +2314,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Modified_Date" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Version" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Self.fk_discount_days_Created_By" FromRole="discount_days" ToRole="aspnetusers" />
+          <NavigationProperty Name="aspnetuser1" Relationship="Self.fk_discount_days_Modified_by" FromRole="discount_days" ToRole="aspnetusers" />
           <NavigationProperty Name="policy_type" Relationship="Self.discount_days_ibfk_1" FromRole="discount_days" ToRole="policy_type" />
           <NavigationProperty Name="travel_duration" Relationship="Self.discount_days_ibfk_2" FromRole="discount_days" ToRole="travel_duration" />
-          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.fk_discount_days_Created_By" FromRole="discount_days" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="db_9eb138_savaModel.fk_discount_days_Modified_by" FromRole="discount_days" ToRole="aspnetuser" />
         </EntityType>
         <EntityType Name="discount_family">
           <Key>
@@ -2268,9 +2331,9 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Modified_Date" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Version" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Self.fk_discount_family_Created_By" FromRole="discount_family" ToRole="aspnetusers" />
+          <NavigationProperty Name="aspnetuser1" Relationship="Self.fk_discount_family_Modified_by" FromRole="discount_family" ToRole="aspnetusers" />
           <NavigationProperty Name="policy_type" Relationship="Self.discount_family_ibfk_1" FromRole="discount_family" ToRole="policy_type" />
-          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.fk_discount_family_Created_By" FromRole="discount_family" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="db_9eb138_savaModel.fk_discount_family_Modified_by" FromRole="discount_family" ToRole="aspnetuser" />
         </EntityType>
         <EntityType Name="discount_group">
           <Key>
@@ -2285,10 +2348,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Modified_Date" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Version" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Self.fk_discount_group_Created_By" FromRole="discount_group" ToRole="aspnetusers" />
+          <NavigationProperty Name="aspnetuser1" Relationship="Self.fk_discount_group_Modified_by" FromRole="discount_group" ToRole="aspnetusers" />
           <NavigationProperty Name="policy_type" Relationship="Self.discount_group_ibfk_1" FromRole="discount_group" ToRole="policy_type" />
           <NavigationProperty Name="group" Relationship="Self.discount_group_ibfk_2" FromRole="discount_group" ToRole="groups" />
-          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.fk_discount_group_Created_By" FromRole="discount_group" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="db_9eb138_savaModel.fk_discount_group_Modified_by" FromRole="discount_group" ToRole="aspnetuser" />
         </EntityType>
         <EntityType Name="document">
           <Key>
@@ -2347,6 +2410,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Modified_Datetime" Type="DateTime" />
           <Property Name="FNOL_Number" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="additional_info" Relationship="Self.first_notice_of_loss_ibfk_1" FromRole="first_notice_of_loss" ToRole="additional_info" />
+          <NavigationProperty Name="aspnetuser" Relationship="Self.first_notice_of_loss_ibfk_7" FromRole="first_notice_of_loss" ToRole="aspnetusers" />
+          <NavigationProperty Name="aspnetuser1" Relationship="Self.first_notice_of_loss_ibfk_8" FromRole="first_notice_of_loss" ToRole="aspnetusers" />
           <NavigationProperty Name="bank_account_info" Relationship="Self.first_notice_of_loss_ibfk_3" FromRole="first_notice_of_loss" ToRole="bank_account_info" />
           <NavigationProperty Name="bank_account_info1" Relationship="Self.first_notice_of_loss_ibfk_4" FromRole="first_notice_of_loss" ToRole="bank_account_info" />
           <NavigationProperty Name="documents_first_notice_of_loss" Relationship="Self.documents_first_notice_of_loss_ibfk_2" FromRole="first_notice_of_loss" ToRole="documents_first_notice_of_loss" />
@@ -2355,8 +2420,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="travel_policy" Relationship="Self.first_notice_of_loss_ibfk_6" FromRole="first_notice_of_loss" ToRole="travel_policy" />
           <NavigationProperty Name="health_insurance" Relationship="Self.fk_loss_id" FromRole="first_notice_of_loss" ToRole="health_insurance" />
           <NavigationProperty Name="luggage_insurance" Relationship="Self.fk_luggage_loss_id" FromRole="first_notice_of_loss" ToRole="luggage_insurance" />
-          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.first_notice_of_loss_ibfk_7" FromRole="first_notice_of_loss" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="db_9eb138_savaModel.first_notice_of_loss_ibfk_8" FromRole="first_notice_of_loss" ToRole="aspnetuser" />
         </EntityType>
         <EntityType Name="first_notice_of_loss_archive">
           <Key>
@@ -2408,12 +2471,12 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Modified_Datetime" Type="DateTime" Nullable="false" />
           <Property Name="FNOL_Number" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="additional_info" Relationship="Self.first_notice_of_loss_archive_ibfk_4" FromRole="first_notice_of_loss_archive" ToRole="additional_info" />
+          <NavigationProperty Name="aspnetuser" Relationship="Self.first_notice_of_loss_archive_ibfk_2" FromRole="first_notice_of_loss_archive" ToRole="aspnetusers" />
           <NavigationProperty Name="bank_account_info" Relationship="Self.first_notice_of_loss_archive_ibfk_6" FromRole="first_notice_of_loss_archive" ToRole="bank_account_info" />
           <NavigationProperty Name="bank_account_info1" Relationship="Self.first_notice_of_loss_archive_ibfk_7" FromRole="first_notice_of_loss_archive" ToRole="bank_account_info" />
           <NavigationProperty Name="first_notice_of_loss" Relationship="Self.first_notice_of_loss_archive_ibfk_1" FromRole="first_notice_of_loss_archive" ToRole="first_notice_of_loss" />
           <NavigationProperty Name="travel_policy" Relationship="Self.first_notice_of_loss_archive_ibfk_3" FromRole="first_notice_of_loss_archive" ToRole="travel_policy" />
           <NavigationProperty Name="insured" Relationship="Self.first_notice_of_loss_archive_ibfk_5" FromRole="first_notice_of_loss_archive" ToRole="insured" />
-          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.first_notice_of_loss_archive_ibfk_2" FromRole="first_notice_of_loss_archive" ToRole="aspnetuser" />
         </EntityType>
         <EntityType Name="group">
           <Key>
@@ -2472,14 +2535,14 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Date_Modified" Type="DateTime" />
           <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Self.fk_insured_createdby" FromRole="insured" ToRole="aspnetusers" />
+          <NavigationProperty Name="aspnetuser1" Relationship="Self.fk_insured_modifiedby" FromRole="insured" ToRole="aspnetusers" />
           <NavigationProperty Name="bank_account_info" Relationship="Self.bank_account_info_ibfk_1" FromRole="insured" ToRole="bank_account_info" />
           <NavigationProperty Name="first_notice_of_loss" Relationship="Self.first_notice_of_loss_ibfk_2" FromRole="insured" ToRole="first_notice_of_loss" />
           <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Self.first_notice_of_loss_archive_ibfk_5" FromRole="insured" ToRole="first_notice_of_loss_archive" />
           <NavigationProperty Name="type_insured" Relationship="Self.fk_insured_type" FromRole="insured" ToRole="type_insured" />
           <NavigationProperty Name="policy_insured" Relationship="Self.policy_insured_ibfk_1" FromRole="insured" ToRole="policy_insured" />
           <NavigationProperty Name="travel_policy" Relationship="Self.travel_policy_ibfk_1" FromRole="insured" ToRole="travel_policy" />
-          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.fk_insured_createdby" FromRole="insured" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="db_9eb138_savaModel.fk_insured_modifiedby" FromRole="insured" ToRole="aspnetuser" />
         </EntityType>
         <EntityType Name="invoice">
           <Key>
@@ -2716,6 +2779,16 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="email_seller" Type="Int32" Nullable="false" />
           <Property Name="discount_points" Type="Single" Nullable="false" />
         </EntityType>
+        <EntityType Name="sava_setup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email_administrator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="points_percentage" Type="Single" Nullable="false" />
+          <Property Name="vip_sum" Type="Single" Nullable="false" />
+          <Property Name="version" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="sava_voucher">
           <Key>
             <PropertyRef Name="id" />
@@ -2736,9 +2809,9 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Modified_Date" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Version" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Self.fk_travel_duration_Created_by" FromRole="travel_duration" ToRole="aspnetusers" />
+          <NavigationProperty Name="aspnetuser1" Relationship="Self.fk_travel_duration_Modified_by" FromRole="travel_duration" ToRole="aspnetusers" />
           <NavigationProperty Name="discount_days" Relationship="Self.discount_days_ibfk_2" FromRole="travel_duration" ToRole="discount_days" />
-          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.fk_travel_duration_Created_by" FromRole="travel_duration" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="db_9eb138_savaModel.fk_travel_duration_Modified_by" FromRole="travel_duration" ToRole="aspnetuser" />
         </EntityType>
         <EntityType Name="travel_insurance_type">
           <Key>
@@ -2784,6 +2857,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Payment_Status" Type="Boolean" Nullable="false" />
           <Property Name="Date_Cancellation" Type="DateTime" />
+          <NavigationProperty Name="aspnetuser" Relationship="Self.fk_policy_created_by" FromRole="travel_policy" ToRole="aspnetusers" />
+          <NavigationProperty Name="aspnetuser1" Relationship="Self.fk_policy_modified_by" FromRole="travel_policy" ToRole="aspnetusers" />
           <NavigationProperty Name="country" Relationship="Self.fk_travel_policy_country" FromRole="travel_policy" ToRole="countries" />
           <NavigationProperty Name="first_notice_of_loss" Relationship="Self.first_notice_of_loss_ibfk_6" FromRole="travel_policy" ToRole="first_notice_of_loss" />
           <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Self.first_notice_of_loss_archive_ibfk_3" FromRole="travel_policy" ToRole="first_notice_of_loss_archive" />
@@ -2794,8 +2869,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="retaining_risk" Relationship="Self.fk_travel_policy_retaining_risk" FromRole="travel_policy" ToRole="retaining_risk" />
           <NavigationProperty Name="travel_insurance_type" Relationship="Self.fk_policy_insurance_type" FromRole="travel_policy" ToRole="travel_insurance_type" />
           <NavigationProperty Name="travel_number" Relationship="Self.fk_policy_travel_number" FromRole="travel_policy" ToRole="travel_number" />
-          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.fk_policy_created_by" FromRole="travel_policy" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="db_9eb138_savaModel.fk_policy_modified_by" FromRole="travel_policy" ToRole="aspnetuser" />
         </EntityType>
         <EntityType Name="type_insured">
           <Key>
@@ -2822,7 +2895,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="PassportNumber_UID" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DateBirth" Type="DateTime" Nullable="false" />
           <Property Name="Gender" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.fk_users_aspnetuser" FromRole="user" ToRole="aspnetuser" />
+          <NavigationProperty Name="aspnetuser" Relationship="Self.fk_users_aspnetuser" FromRole="users" ToRole="aspnetusers" />
         </EntityType>
         <EntityType Name="aspnetuserlogin">
           <Key>
@@ -2880,6 +2953,18 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_additional_charge_created_by">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="additional_charge" Type="Self.additional_charge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="additional_charge">
+              <PropertyRef Name="Created_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_additional_charge_id">
           <End Role="additional_charge" Type="Self.additional_charge" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -2891,6 +2976,18 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="policy_additional_charge">
               <PropertyRef Name="Additional_ChargeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_additional_charge_modified_by">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="additional_charge" Type="Self.additional_charge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="additional_charge">
+              <PropertyRef Name="Modified_By" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2951,6 +3048,274 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="luggage_insurance_info">
               <PropertyRef Name="Additional_infoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_2">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="first_notice_of_loss_archive" Type="Self.first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_ibfk_7">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_ibfk_8">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="0..1" />
+          <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_discount_age_Created_By">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="discount_age" Type="Self.discount_age" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="discount_age">
+              <PropertyRef Name="Created_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_discount_age_Modified_By">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="discount_age" Type="Self.discount_age" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="discount_age">
+              <PropertyRef Name="Modified_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_discount_country_Created_By">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="discount_country" Type="Self.discount_country" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="discount_country">
+              <PropertyRef Name="Created_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_discount_country_Modified_by">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="0..1" />
+          <End Role="discount_country" Type="Self.discount_country" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="discount_country">
+              <PropertyRef Name="Modified_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_discount_days_Created_By">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="discount_days" Type="Self.discount_days" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="discount_days">
+              <PropertyRef Name="Created_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_discount_days_Modified_by">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="discount_days" Type="Self.discount_days" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="discount_days">
+              <PropertyRef Name="Modified_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_discount_family_Created_By">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="discount_family" Type="Self.discount_family" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="discount_family">
+              <PropertyRef Name="Created_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_discount_family_Modified_by">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="discount_family" Type="Self.discount_family" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="discount_family">
+              <PropertyRef Name="Modified_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_discount_group_Created_By">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="discount_group" Type="Self.discount_group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="discount_group">
+              <PropertyRef Name="Created_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_discount_group_Modified_by">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="discount_group" Type="Self.discount_group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="discount_group">
+              <PropertyRef Name="Modified_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_insured_createdby">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="insured" Type="Self.insured" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="insured">
+              <PropertyRef Name="Created_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_insured_modifiedby">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="0..1" />
+          <End Role="insured" Type="Self.insured" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="insured">
+              <PropertyRef Name="Modified_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_policy_created_by">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="travel_policy">
+              <PropertyRef Name="Created_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_policy_modified_by">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="0..1" />
+          <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="travel_policy">
+              <PropertyRef Name="Modified_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_travel_duration_Created_by">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="travel_duration" Type="Self.travel_duration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="travel_duration">
+              <PropertyRef Name="Created_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_travel_duration_Modified_by">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="travel_duration" Type="Self.travel_duration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="travel_duration">
+              <PropertyRef Name="Modified_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_users_aspnetuser">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1" />
+          <End Role="users" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="AspNetUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKBrrokerID">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="broker_employees" Type="Self.broker_employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="broker_employees">
+              <PropertyRef Name="BrokerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKEmployeID">
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="broker_employees" Type="Self.broker_employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="broker_employees">
+              <PropertyRef Name="EmployeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3444,12 +3809,17 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="aspnetuserroles">
+          <End Role="aspnetroles" Type="Self.aspnetrole" Multiplicity="*" />
+          <End Role="aspnetusers" Type="Self.aspnetuser" Multiplicity="*" />
+        </Association>
         <EntityContainer Name="InsuredTravelingEntity2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="additional_charge" EntityType="Self.additional_charge" />
           <EntitySet Name="additional_charge_name" EntityType="Self.additional_charge_name" />
           <EntitySet Name="additional_info" EntityType="Self.additional_info" />
           <EntitySet Name="aspnetroles" EntityType="Self.aspnetrole" />
           <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaim" />
+          <EntitySet Name="aspnetusers" EntityType="Self.aspnetuser" />
           <EntitySet Name="bank_account_info" EntityType="Self.bank_account_info" />
           <EntitySet Name="bank_prefix" EntityType="Self.bank_prefix" />
           <EntitySet Name="banks" EntityType="Self.bank" />
@@ -3494,6 +3864,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="retaining_risk" EntityType="Self.retaining_risk" />
           <EntitySet Name="retaining_risk_name" EntityType="Self.retaining_risk_name" />
           <EntitySet Name="sava_policy" EntityType="Self.sava_policy" />
+          <EntitySet Name="sava_setup" EntityType="Self.sava_setup" />
           <EntitySet Name="sava_voucher" EntityType="Self.sava_voucher" />
           <EntitySet Name="travel_duration" EntityType="Self.travel_duration" />
           <EntitySet Name="travel_insurance_type" EntityType="Self.travel_insurance_type" />
@@ -3507,9 +3878,17 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="additional_charge" EntitySet="additional_charge" />
             <End Role="additional_charge_name" EntitySet="additional_charge_name" />
           </AssociationSet>
+          <AssociationSet Name="fk_additional_charge_created_by" Association="Self.fk_additional_charge_created_by">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="additional_charge" EntitySet="additional_charge" />
+          </AssociationSet>
           <AssociationSet Name="fk_additional_charge_id" Association="Self.fk_additional_charge_id">
             <End Role="additional_charge" EntitySet="additional_charge" />
             <End Role="policy_additional_charge" EntitySet="policy_additional_charge" />
+          </AssociationSet>
+          <AssociationSet Name="fk_additional_charge_modified_by" Association="Self.fk_additional_charge_modified_by">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="additional_charge" EntitySet="additional_charge" />
           </AssociationSet>
           <AssociationSet Name="additional_charge_name_ibfk_1" Association="Self.additional_charge_name_ibfk_1">
             <End Role="languages" EntitySet="languages" />
@@ -3530,6 +3909,94 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="luggage_insurance_info_ibfk_1" Association="Self.luggage_insurance_info_ibfk_1">
             <End Role="additional_info" EntitySet="additional_info" />
             <End Role="luggage_insurance_info" EntitySet="luggage_insurance_info" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_2" Association="Self.first_notice_of_loss_archive_ibfk_2">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_ibfk_7" Association="Self.first_notice_of_loss_ibfk_7">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_ibfk_8" Association="Self.first_notice_of_loss_ibfk_8">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
+          </AssociationSet>
+          <AssociationSet Name="fk_discount_age_Created_By" Association="Self.fk_discount_age_Created_By">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="discount_age" EntitySet="discount_age" />
+          </AssociationSet>
+          <AssociationSet Name="fk_discount_age_Modified_By" Association="Self.fk_discount_age_Modified_By">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="discount_age" EntitySet="discount_age" />
+          </AssociationSet>
+          <AssociationSet Name="fk_discount_country_Created_By" Association="Self.fk_discount_country_Created_By">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="discount_country" EntitySet="discount_country" />
+          </AssociationSet>
+          <AssociationSet Name="fk_discount_country_Modified_by" Association="Self.fk_discount_country_Modified_by">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="discount_country" EntitySet="discount_country" />
+          </AssociationSet>
+          <AssociationSet Name="fk_discount_days_Created_By" Association="Self.fk_discount_days_Created_By">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="discount_days" EntitySet="discount_days" />
+          </AssociationSet>
+          <AssociationSet Name="fk_discount_days_Modified_by" Association="Self.fk_discount_days_Modified_by">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="discount_days" EntitySet="discount_days" />
+          </AssociationSet>
+          <AssociationSet Name="fk_discount_family_Created_By" Association="Self.fk_discount_family_Created_By">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="discount_family" EntitySet="discount_family" />
+          </AssociationSet>
+          <AssociationSet Name="fk_discount_family_Modified_by" Association="Self.fk_discount_family_Modified_by">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="discount_family" EntitySet="discount_family" />
+          </AssociationSet>
+          <AssociationSet Name="fk_discount_group_Created_By" Association="Self.fk_discount_group_Created_By">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="discount_group" EntitySet="discount_group" />
+          </AssociationSet>
+          <AssociationSet Name="fk_discount_group_Modified_by" Association="Self.fk_discount_group_Modified_by">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="discount_group" EntitySet="discount_group" />
+          </AssociationSet>
+          <AssociationSet Name="fk_insured_createdby" Association="Self.fk_insured_createdby">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="insured" EntitySet="insureds" />
+          </AssociationSet>
+          <AssociationSet Name="fk_insured_modifiedby" Association="Self.fk_insured_modifiedby">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="insured" EntitySet="insureds" />
+          </AssociationSet>
+          <AssociationSet Name="fk_policy_created_by" Association="Self.fk_policy_created_by">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="travel_policy" EntitySet="travel_policy" />
+          </AssociationSet>
+          <AssociationSet Name="fk_policy_modified_by" Association="Self.fk_policy_modified_by">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="travel_policy" EntitySet="travel_policy" />
+          </AssociationSet>
+          <AssociationSet Name="fk_travel_duration_Created_by" Association="Self.fk_travel_duration_Created_by">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="travel_duration" EntitySet="travel_duration" />
+          </AssociationSet>
+          <AssociationSet Name="fk_travel_duration_Modified_by" Association="Self.fk_travel_duration_Modified_by">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="travel_duration" EntitySet="travel_duration" />
+          </AssociationSet>
+          <AssociationSet Name="fk_users_aspnetuser" Association="Self.fk_users_aspnetuser">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FKBrrokerID" Association="Self.FKBrrokerID">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="broker_employees" EntitySet="broker_employees" />
+          </AssociationSet>
+          <AssociationSet Name="FKEmployeID" Association="Self.FKEmployeID">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="broker_employees" EntitySet="broker_employees" />
           </AssociationSet>
           <AssociationSet Name="bank_account_info_ibfk_1" Association="Self.bank_account_info_ibfk_1">
             <End Role="insured" EntitySet="insureds" />
@@ -3691,480 +4158,11 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="travel_number" EntitySet="travel_number" />
             <End Role="travel_policy" EntitySet="travel_policy" />
           </AssociationSet>
-          <EntitySet Name="aspnetusers" EntityType="db_9eb138_savaModel.aspnetuser" />
-          <EntitySet Name="sava_setup" EntityType="db_9eb138_savaModel.sava_setup" />
-          <AssociationSet Name="fk_additional_charge_created_by" Association="db_9eb138_savaModel.fk_additional_charge_created_by">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="additional_charge" EntitySet="additional_charge" />
+          <AssociationSet Name="aspnetuserroles" Association="Self.aspnetuserroles">
+            <End Role="aspnetroles" EntitySet="aspnetroles" />
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
           </AssociationSet>
-          <AssociationSet Name="fk_additional_charge_modified_by" Association="db_9eb138_savaModel.fk_additional_charge_modified_by">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="additional_charge" EntitySet="additional_charge" />
-          </AssociationSet>
-          <AssociationSet Name="first_notice_of_loss_archive_ibfk_2" Association="db_9eb138_savaModel.first_notice_of_loss_archive_ibfk_2">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
-          </AssociationSet>
-          <AssociationSet Name="first_notice_of_loss_ibfk_7" Association="db_9eb138_savaModel.first_notice_of_loss_ibfk_7">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
-          </AssociationSet>
-          <AssociationSet Name="first_notice_of_loss_ibfk_8" Association="db_9eb138_savaModel.first_notice_of_loss_ibfk_8">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
-          </AssociationSet>
-          <AssociationSet Name="fk_discount_age_Created_By" Association="db_9eb138_savaModel.fk_discount_age_Created_By">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="discount_age" EntitySet="discount_age" />
-          </AssociationSet>
-          <AssociationSet Name="fk_discount_age_Modified_By" Association="db_9eb138_savaModel.fk_discount_age_Modified_By">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="discount_age" EntitySet="discount_age" />
-          </AssociationSet>
-          <AssociationSet Name="fk_discount_country_Created_By" Association="db_9eb138_savaModel.fk_discount_country_Created_By">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="discount_country" EntitySet="discount_country" />
-          </AssociationSet>
-          <AssociationSet Name="fk_discount_country_Modified_by" Association="db_9eb138_savaModel.fk_discount_country_Modified_by">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="discount_country" EntitySet="discount_country" />
-          </AssociationSet>
-          <AssociationSet Name="fk_discount_days_Created_By" Association="db_9eb138_savaModel.fk_discount_days_Created_By">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="discount_days" EntitySet="discount_days" />
-          </AssociationSet>
-          <AssociationSet Name="fk_discount_days_Modified_by" Association="db_9eb138_savaModel.fk_discount_days_Modified_by">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="discount_days" EntitySet="discount_days" />
-          </AssociationSet>
-          <AssociationSet Name="fk_discount_family_Created_By" Association="db_9eb138_savaModel.fk_discount_family_Created_By">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="discount_family" EntitySet="discount_family" />
-          </AssociationSet>
-          <AssociationSet Name="fk_discount_family_Modified_by" Association="db_9eb138_savaModel.fk_discount_family_Modified_by">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="discount_family" EntitySet="discount_family" />
-          </AssociationSet>
-          <AssociationSet Name="fk_discount_group_Created_By" Association="db_9eb138_savaModel.fk_discount_group_Created_By">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="discount_group" EntitySet="discount_group" />
-          </AssociationSet>
-          <AssociationSet Name="fk_discount_group_Modified_by" Association="db_9eb138_savaModel.fk_discount_group_Modified_by">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="discount_group" EntitySet="discount_group" />
-          </AssociationSet>
-          <AssociationSet Name="fk_insured_createdby" Association="db_9eb138_savaModel.fk_insured_createdby">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="insured" EntitySet="insureds" />
-          </AssociationSet>
-          <AssociationSet Name="fk_insured_modifiedby" Association="db_9eb138_savaModel.fk_insured_modifiedby">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="insured" EntitySet="insureds" />
-          </AssociationSet>
-          <AssociationSet Name="fk_policy_created_by" Association="db_9eb138_savaModel.fk_policy_created_by">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="travel_policy" EntitySet="travel_policy" />
-          </AssociationSet>
-          <AssociationSet Name="fk_policy_modified_by" Association="db_9eb138_savaModel.fk_policy_modified_by">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="travel_policy" EntitySet="travel_policy" />
-          </AssociationSet>
-          <AssociationSet Name="fk_travel_duration_Created_by" Association="db_9eb138_savaModel.fk_travel_duration_Created_by">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="travel_duration" EntitySet="travel_duration" />
-          </AssociationSet>
-          <AssociationSet Name="fk_travel_duration_Modified_by" Association="db_9eb138_savaModel.fk_travel_duration_Modified_by">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="travel_duration" EntitySet="travel_duration" />
-          </AssociationSet>
-          <AssociationSet Name="fk_users_aspnetuser" Association="db_9eb138_savaModel.fk_users_aspnetuser">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="user" EntitySet="users" />
-          </AssociationSet>
-          <AssociationSet Name="FKBrrokerID" Association="db_9eb138_savaModel.FKBrrokerID">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="broker_employees" EntitySet="broker_employees" />
-          </AssociationSet>
-          <AssociationSet Name="FKEmployeID" Association="db_9eb138_savaModel.FKEmployeID">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="broker_employees" EntitySet="broker_employees" />
-          </AssociationSet>
-          <AssociationSet Name="aspnetuserroles" Association="db_9eb138_savaModel.aspnetuserroles">
-            <End Role="aspnetrole" EntitySet="aspnetroles" />
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-          </AssociationSet>
-          <EntitySet Name="sava_setup" EntityType="db_9eb138_savaModel.sava_setup" />
         </EntityContainer>
-
-        <EntityType Name="aspnetuser">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="EMBG" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="Municipality" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="InsuranceCompany" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="ActivationCodeMail" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="ActivationCodeSMS" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="GroupID" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="PasswordHash" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="SecurityStamp" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="LockoutEndDateUtc" Type="DateTime" />
-          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="MobilePhoneNumber" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="PostalCode" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="PassportNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="DateOfBirth" Type="DateTime" />
-          <Property Name="Gender" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Active" Type="SByte" />
-          <Property Name="CreatedOn" Type="DateTime" />
-          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Points" Type="Single" />
-          <NavigationProperty Name="additional_charge" Relationship="db_9eb138_savaModel.fk_additional_charge_created_by" FromRole="aspnetuser" ToRole="additional_charge" />
-          <NavigationProperty Name="additional_charge1" Relationship="db_9eb138_savaModel.fk_additional_charge_modified_by" FromRole="aspnetuser" ToRole="additional_charge" />
-          <NavigationProperty Name="first_notice_of_loss_archive" Relationship="db_9eb138_savaModel.first_notice_of_loss_archive_ibfk_2" FromRole="aspnetuser" ToRole="first_notice_of_loss_archive" />
-          <NavigationProperty Name="first_notice_of_loss" Relationship="db_9eb138_savaModel.first_notice_of_loss_ibfk_7" FromRole="aspnetuser" ToRole="first_notice_of_loss" />
-          <NavigationProperty Name="first_notice_of_loss1" Relationship="db_9eb138_savaModel.first_notice_of_loss_ibfk_8" FromRole="aspnetuser" ToRole="first_notice_of_loss" />
-          <NavigationProperty Name="discount_age" Relationship="db_9eb138_savaModel.fk_discount_age_Created_By" FromRole="aspnetuser" ToRole="discount_age" />
-          <NavigationProperty Name="discount_age1" Relationship="db_9eb138_savaModel.fk_discount_age_Modified_By" FromRole="aspnetuser" ToRole="discount_age" />
-          <NavigationProperty Name="discount_country" Relationship="db_9eb138_savaModel.fk_discount_country_Created_By" FromRole="aspnetuser" ToRole="discount_country" />
-          <NavigationProperty Name="discount_country1" Relationship="db_9eb138_savaModel.fk_discount_country_Modified_by" FromRole="aspnetuser" ToRole="discount_country" />
-          <NavigationProperty Name="discount_days" Relationship="db_9eb138_savaModel.fk_discount_days_Created_By" FromRole="aspnetuser" ToRole="discount_days" />
-          <NavigationProperty Name="discount_days1" Relationship="db_9eb138_savaModel.fk_discount_days_Modified_by" FromRole="aspnetuser" ToRole="discount_days" />
-          <NavigationProperty Name="discount_family" Relationship="db_9eb138_savaModel.fk_discount_family_Created_By" FromRole="aspnetuser" ToRole="discount_family" />
-          <NavigationProperty Name="discount_family1" Relationship="db_9eb138_savaModel.fk_discount_family_Modified_by" FromRole="aspnetuser" ToRole="discount_family" />
-          <NavigationProperty Name="discount_group" Relationship="db_9eb138_savaModel.fk_discount_group_Created_By" FromRole="aspnetuser" ToRole="discount_group" />
-          <NavigationProperty Name="discount_group1" Relationship="db_9eb138_savaModel.fk_discount_group_Modified_by" FromRole="aspnetuser" ToRole="discount_group" />
-          <NavigationProperty Name="insureds" Relationship="db_9eb138_savaModel.fk_insured_createdby" FromRole="aspnetuser" ToRole="insured" />
-          <NavigationProperty Name="insureds1" Relationship="db_9eb138_savaModel.fk_insured_modifiedby" FromRole="aspnetuser" ToRole="insured" />
-          <NavigationProperty Name="travel_policy" Relationship="db_9eb138_savaModel.fk_policy_created_by" FromRole="aspnetuser" ToRole="travel_policy" />
-          <NavigationProperty Name="travel_policy1" Relationship="db_9eb138_savaModel.fk_policy_modified_by" FromRole="aspnetuser" ToRole="travel_policy" />
-          <NavigationProperty Name="travel_duration" Relationship="db_9eb138_savaModel.fk_travel_duration_Created_by" FromRole="aspnetuser" ToRole="travel_duration" />
-          <NavigationProperty Name="travel_duration1" Relationship="db_9eb138_savaModel.fk_travel_duration_Modified_by" FromRole="aspnetuser" ToRole="travel_duration" />
-          <NavigationProperty Name="users" Relationship="db_9eb138_savaModel.fk_users_aspnetuser" FromRole="aspnetuser" ToRole="user" />
-          <NavigationProperty Name="broker_employees" Relationship="db_9eb138_savaModel.FKBrrokerID" FromRole="aspnetuser" ToRole="broker_employees" />
-          <NavigationProperty Name="broker_employees1" Relationship="db_9eb138_savaModel.FKEmployeID" FromRole="aspnetuser" ToRole="broker_employees" />
-          <NavigationProperty Name="aspnetroles" Relationship="db_9eb138_savaModel.aspnetuserroles" FromRole="aspnetuser" ToRole="aspnetrole" />
-        </EntityType>
-
-        <EntityType Name="sava_setup">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="email_administrator" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="points_percentage" Type="Single" Nullable="false" />
-          <Property Name="vip_sum" Type="Single" Nullable="false" />
-        </EntityType>
-
-        <Association Name="fk_additional_charge_created_by">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.additional_charge" Role="additional_charge" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="additional_charge">
-              <PropertyRef Name="Created_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_additional_charge_modified_by">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.additional_charge" Role="additional_charge" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="additional_charge">
-              <PropertyRef Name="Modified_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="first_notice_of_loss_archive_ibfk_2">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.first_notice_of_loss_archive" Role="first_notice_of_loss_archive" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="first_notice_of_loss_archive">
-              <PropertyRef Name="ModifiedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="first_notice_of_loss_ibfk_7">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="first_notice_of_loss">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="first_notice_of_loss_ibfk_8">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="0..1" />
-          <End Type="db_9eb138_savaModel.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="first_notice_of_loss">
-              <PropertyRef Name="ModifiedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_discount_age_Created_By">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.discount_age" Role="discount_age" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="discount_age">
-              <PropertyRef Name="Created_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_discount_age_Modified_By">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.discount_age" Role="discount_age" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="discount_age">
-              <PropertyRef Name="Modified_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_discount_country_Created_By">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.discount_country" Role="discount_country" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="discount_country">
-              <PropertyRef Name="Created_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_discount_country_Modified_by">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="0..1" />
-          <End Type="db_9eb138_savaModel.discount_country" Role="discount_country" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="discount_country">
-              <PropertyRef Name="Modified_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_discount_days_Created_By">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.discount_days" Role="discount_days" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="discount_days">
-              <PropertyRef Name="Created_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_discount_days_Modified_by">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.discount_days" Role="discount_days" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="discount_days">
-              <PropertyRef Name="Modified_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_discount_family_Created_By">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.discount_family" Role="discount_family" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="discount_family">
-              <PropertyRef Name="Created_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_discount_family_Modified_by">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.discount_family" Role="discount_family" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="discount_family">
-              <PropertyRef Name="Modified_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_discount_group_Created_By">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.discount_group" Role="discount_group" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="discount_group">
-              <PropertyRef Name="Created_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_discount_group_Modified_by">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.discount_group" Role="discount_group" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="discount_group">
-              <PropertyRef Name="Modified_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_insured_createdby">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.insured" Role="insured" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="insured">
-              <PropertyRef Name="Created_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_insured_modifiedby">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="0..1" />
-          <End Type="db_9eb138_savaModel.insured" Role="insured" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="insured">
-              <PropertyRef Name="Modified_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_policy_created_by">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.travel_policy" Role="travel_policy" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="travel_policy">
-              <PropertyRef Name="Created_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_policy_modified_by">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="0..1" />
-          <End Type="db_9eb138_savaModel.travel_policy" Role="travel_policy" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="travel_policy">
-              <PropertyRef Name="Modified_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_travel_duration_Created_by">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.travel_duration" Role="travel_duration" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="travel_duration">
-              <PropertyRef Name="Created_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_travel_duration_Modified_by">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.travel_duration" Role="travel_duration" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="travel_duration">
-              <PropertyRef Name="Modified_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_users_aspnetuser">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="db_9eb138_savaModel.user" Role="user" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="user">
-              <PropertyRef Name="AspNetUserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FKBrrokerID">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="db_9eb138_savaModel.broker_employees" Role="broker_employees" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="broker_employees">
-              <PropertyRef Name="BrokerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FKEmployeID">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="db_9eb138_savaModel.broker_employees" Role="broker_employees" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="broker_employees">
-              <PropertyRef Name="EmployeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="aspnetuserroles">
-          <End Type="db_9eb138_savaModel.aspnetrole" Role="aspnetrole" Multiplicity="*" />
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="*" />
-        </Association>
-
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4218,6 +4216,43 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
                 <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnetusers">
+            <EntityTypeMapping TypeName="db_9eb138_savaModel.aspnetuser">
+              <MappingFragment StoreEntitySet="aspnetusers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EMBG" ColumnName="EMBG" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Municipality" ColumnName="Municipality" />
+                <ScalarProperty Name="InsuranceCompany" ColumnName="InsuranceCompany" />
+                <ScalarProperty Name="ActivationCodeMail" ColumnName="ActivationCodeMail" />
+                <ScalarProperty Name="ActivationCodeSMS" ColumnName="ActivationCodeSMS" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="MobilePhoneNumber" ColumnName="MobilePhoneNumber" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4792,6 +4827,17 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sava_setup">
+            <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_setup">
+              <MappingFragment StoreEntitySet="sava_setup">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email_administrator" ColumnName="email_administrator" />
+                <ScalarProperty Name="points_percentage" ColumnName="points_percentage" />
+                <ScalarProperty Name="vip_sum" ColumnName="vip_sum" />
+                <ScalarProperty Name="version" ColumnName="version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sava_voucher">
             <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_voucher">
               <MappingFragment StoreEntitySet="sava_voucher">
@@ -4918,71 +4964,14 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="aspnetusers">
-            <EntityTypeMapping TypeName="db_9eb138_savaModel.aspnetuser">
-              <MappingFragment StoreEntitySet="aspnetusers">
-                <ScalarProperty Name="Points" ColumnName="Points" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
-                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="MobilePhoneNumber" ColumnName="MobilePhoneNumber" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
-                <ScalarProperty Name="ActivationCodeSMS" ColumnName="ActivationCodeSMS" />
-                <ScalarProperty Name="ActivationCodeMail" ColumnName="ActivationCodeMail" />
-                <ScalarProperty Name="InsuranceCompany" ColumnName="InsuranceCompany" />
-                <ScalarProperty Name="Municipality" ColumnName="Municipality" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="EMBG" ColumnName="EMBG" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sava_setup">
-            <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_setup">
-              <MappingFragment StoreEntitySet="sava_setup">
-                <ScalarProperty Name="vip_sum" ColumnName="vip_sum" />
-                <ScalarProperty Name="points_percentage" ColumnName="points_percentage" />
-                <ScalarProperty Name="email_administrator" ColumnName="email_administrator" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="aspnetuserroles" TypeName="db_9eb138_savaModel.aspnetuserroles" StoreEntitySet="aspnetuserroles">
-            <EndProperty Name="aspnetuser">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="aspnetrole">
+            <EndProperty Name="aspnetroles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
+            <EndProperty Name="aspnetusers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="sava_setup">
-            <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_setup">
-              <MappingFragment StoreEntitySet="sava_setup">
-                <ScalarProperty Name="vip_sum" ColumnName="vip_sum" />
-                <ScalarProperty Name="points_percentage" ColumnName="points_percentage" />
-                <ScalarProperty Name="email_administrator" ColumnName="email_administrator" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

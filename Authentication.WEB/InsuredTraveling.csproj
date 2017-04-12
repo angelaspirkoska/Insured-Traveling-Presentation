@@ -305,15 +305,15 @@
     <Content Include="HalkbankPaymentPlugin\HalkbankPayment.HalkbankSmartPayment.dll" />
     <Content Include="HalkbankPaymentPlugin\HalkbankPayment.HalkbankSmartPaymentTrue.dll" />
     <Content Include="index.html" />
-    <Content Include="InsuredTravelingEntity.Context.tt">
+    <Content Include="InsuredTravelingEntity2.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InsuredTravelingEntity.edmx</DependentUpon>
-      <LastGenOutput>InsuredTravelingEntity.Context.cs</LastGenOutput>
+      <DependentUpon>InsuredTravelingEntity2.edmx</DependentUpon>
+      <LastGenOutput>InsuredTravelingEntity2.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="InsuredTravelingEntity.tt">
+    <Content Include="InsuredTravelingEntity2.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InsuredTravelingEntity.edmx</DependentUpon>
-      <LastGenOutput>InsuredTravelingEntity.cs</LastGenOutput>
+      <DependentUpon>InsuredTravelingEntity2.edmx</DependentUpon>
+      <LastGenOutput>InsuredTravelingEntity2.cs</LastGenOutput>
     </Content>
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\additional-methods.js" />
@@ -359,12 +359,12 @@
     <Content Include="Content\Limitless-css\icons\summernote\summernote.eot" />
     <Content Include="Content\Limitless-css\icons\summernote\summernote.ttf" />
     <Content Include="Content\Limitless-css\icons\summernote\summernote.woff" />
-    <EntityDeploy Include="InsuredTravelingEntity.edmx">
+    <EntityDeploy Include="InsuredTravelingEntity2.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>InsuredTravelingEntity.Designer.cs</LastGenOutput>
+      <LastGenOutput>InsuredTravelingEntity2.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="InsuredTravelingEntity.edmx.diagram">
-      <DependentUpon>InsuredTravelingEntity.edmx</DependentUpon>
+    <Content Include="InsuredTravelingEntity2.edmx.diagram">
+      <DependentUpon>InsuredTravelingEntity2.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\Slobodanka.pubxml" />
@@ -2013,13 +2013,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="additional_charge.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="additional_charge_name.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="additional_info.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="App_Start\AutoMapperInitializer.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -2032,39 +2032,39 @@
     <Compile Include="App_Start\SiteLanguages.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="aspnetrole.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="aspnetuser.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="aspnetuserclaim.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="aspnetuserlogin.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="Authentication\AuthContext.cs" />
     <Compile Include="Authentication\AuthRepository.cs" />
     <Compile Include="bank.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="bank_account_info.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="bank_prefix.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="broker_employees.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="chat_requests.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="client.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="company.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\API\AccountController.cs" />
@@ -2091,30 +2091,30 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValidateMailController.cs" />
     <Compile Include="countries_name.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="country.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="CustomAssemblyResolver.cs" />
     <Compile Include="CustomViewEngine.cs" />
     <Compile Include="discount_age.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="discount_codes.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="discount_country.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="discount_days.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="discount_family.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="discount_group.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="DI\AdditionalChargesService.cs" />
     <Compile Include="DI\AdditionalInfoService.cs" />
@@ -2165,10 +2165,10 @@
     <Compile Include="DI\TravelNumberService.cs" />
     <Compile Include="DI\UserService.cs" />
     <Compile Include="document.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="documents_first_notice_of_loss.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="DTOs\Chat\AcknowledgeDTO.cs" />
     <Compile Include="DTOs\Chat\BaseRequestIdDTO.cs" />
@@ -2200,7 +2200,7 @@
       <DependentUpon>500.aspx</DependentUpon>
     </Compile>
     <Compile Include="exchange_rate.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="Filters\RoleAuthorize.cs" />
     <Compile Include="Filters\RecaptchaFilter.cs" />
@@ -2208,22 +2208,22 @@
     <Compile Include="Filters\TwilioDownHandlingFilter.cs" />
     <Compile Include="Filters\ZohoDownHandlingFilter.cs" />
     <Compile Include="first_notice_of_loss.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="first_notice_of_loss_archive.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="group.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="health_insurance.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="health_insurance_info.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="Helpers\ArchiveFirstNoticeOfLossHelper.cs" />
@@ -2236,40 +2236,40 @@
     <Compile Include="Helpers\UpdateBankAccountInfoHelper.cs" />
     <Compile Include="Helpers\UpdateFirstNoticeOfLossHelper.cs" />
     <Compile Include="insured.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
-    <Compile Include="InsuredTravelingEntity.Context.cs">
+    <Compile Include="InsuredTravelingEntity2.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InsuredTravelingEntity.Context.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="InsuredTravelingEntity.cs">
+    <Compile Include="InsuredTravelingEntity2.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
-    <Compile Include="InsuredTravelingEntity.Designer.cs">
+    <Compile Include="InsuredTravelingEntity2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InsuredTravelingEntity.edmx</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.edmx</DependentUpon>
     </Compile>
     <Compile Include="invoice.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="language.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="luggage_insurance.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="luggage_insurance_info.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="message.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="min_premium.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminPanelModel.cs" />
     <Compile Include="Models\BrokerSales.cs" />
@@ -2280,38 +2280,38 @@
     <Compile Include="Models\Sava_AdminPanelModel.cs" />
     <Compile Include="Models\SearchRegisteredUser.cs" />
     <Compile Include="news_all.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="ok_setup.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="payment_status.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="policy_additional_charge.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="policy_insured.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="policy_status.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="policy_type.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="policy_type_name.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="p_referent.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="p_stapki.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="refreshtoken.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2319,19 +2319,19 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="retaining_risk.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="retaining_risk_name.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="sava_policy.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="sava_setup.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="sava_voucher.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="SignalR\PipelineModules\LoggingPipelineModule.cs" />
     <Compile Include="SignalR\Hubs\ChatHub.cs" />
@@ -2381,25 +2381,25 @@
     <Compile Include="Services\ValidationService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="transaction.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="travel_duration.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="travel_insurance_type.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="travel_number.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="travel_policy.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="type_insured.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="user.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AddPolicyMobileViewModel.cs" />
     <Compile Include="ViewModels\BankAccountInfoViewModel.cs" />

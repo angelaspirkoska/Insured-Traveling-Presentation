@@ -25,9 +25,9 @@ namespace InsuredTraveling
         public Nullable<System.DateTime> Date_Modified { get; set; }
         public string Modified_By { get; set; }
     
-        public virtual country country { get; set; }
-        public virtual policy_type policy_type { get; set; }
         public virtual aspnetuser aspnetuser { get; set; }
         public virtual aspnetuser aspnetuser1 { get; set; }
+        public virtual country country { get; set; }
+        public virtual policy_type policy_type { get; set; }
     }
 }

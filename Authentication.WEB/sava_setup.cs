@@ -18,5 +18,6 @@ namespace InsuredTraveling
         public string email_administrator { get; set; }
         public float points_percentage { get; set; }
         public float vip_sum { get; set; }
+        public int version { get; set; }
     }
 }
