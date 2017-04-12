@@ -1,0 +1,54 @@
+﻿@model InsuredTraveling.Models.SavaExcelModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <style type="text/css">
+        #tblExcel {
+            width: 1000px;
+            border: none;
+            background-color: #000000;
+        }
+
+        .tdColumnHeader {
+            padding: 2px 2px 2px 2px;
+            text-align: center;
+            font-family: Verdana;
+            font-size: 12px;
+            font-weight: bold;
+            background-color: cornflowerblue;
+            color: #FFFFFF;
+        }
+
+        .tdCellData {
+            padding: 2px 2px 2px 2px;
+            font-family: Verdana;
+            font-size: 12px;
+            background-color: aqua;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div>
+            @Html.LabelFor(x => x.MyExcelFile)
+            @Html.TextBoxFor(x => x.MyExcelFile, new { type = "file" })
+            @Html.ValidationMessageFor(x => x.MyExcelFile)
+        </div>
+        <button type="submit">Upload</button>
+
+        <br /><br />
+        @Html.Raw(Model.MSExcelTable)
+    }
+</body>
+
+</html>

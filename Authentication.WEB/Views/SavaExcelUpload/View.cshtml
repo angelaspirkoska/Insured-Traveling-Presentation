@@ -1,0 +1,95 @@
+﻿@model InsuredTraveling.Models.SavaExcelModel
+
+
+@{
+    ViewBag.Title = "View2";
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+}
+
+<h2>View</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<form class="form-horizontal" action="../SavaExcelUpload/SavePolicy" method="post">
+    <table class="table table-bordered table-hover table-striped no-footer dataTable">
+        <tr>
+            <th name="" >
+                @Html.DisplayNameFor(model => model.SavaModel.id)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SavaModel.id_seller)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SavaModel.SSN_insured)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SavaModel.SSN_policyHolder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SavaModel.expiry_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SavaModel.premium)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SavaModel.email_seller)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SavaModel.discount_points)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.TableRows)
+        {
+            <tr>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.policy_number)*@
+                    <input class="col-md-12"  type="number" name="id" value=" @Html.DisplayFor(modelItem => item.policy_number)"  />
+                </td>
+                <td>
+                    
+                    <input class="col-md-12" type="text" name="id_seller" value="@Html.DisplayFor(modelItem => item.id_seller)" />
+                </td>
+                <td>
+                   
+                    <input class="col-md-12" type="text" name="SSN_insured" value="@Html.DisplayFor(modelItem => item.SSN_insured)" />
+                </td>
+                <td>
+                    
+                    <input class="col-md-12" type="text" name="SSN_policyHolder" value="@Html.DisplayFor(modelItem => item.SSN_policyHolder)" />
+                </td>
+                <td>
+                  
+                    <input class="col-md-12" type="text" name="expiry_date" value="@Html.DisplayFor(modelItem => item.expiry_date)" />
+                </td>
+                <td>
+                  
+                    <input class="col-md-12" type="text" name="premium)" value="@Html.DisplayFor(modelItem => item.premium)" />
+                </td>
+                <td>
+                   
+                    <input class="col-md-12" type="text" name="email_seller" value="@Html.DisplayFor(modelItem => item.email_seller)" />
+                </td>
+                <td>
+                   
+                    <input class="col-md-12" type="text" name="discount_points" value="@Html.DisplayFor(modelItem => item.discount_points)" />
+                </td>
+                <td>
+                   
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
+
+    </table>
+     
+    <button type="submit" class="form-control btn btn-success  btn btn-sm">
+        Zacuvaj
+    </button>
+
+</form>

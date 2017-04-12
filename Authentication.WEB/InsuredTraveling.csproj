@@ -2086,6 +2086,7 @@
     <Compile Include="Controllers\API\PremiumController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
     <Compile Include="Controllers\FirstNoticeOfLossController.cs" />
+    <Compile Include="Controllers\SavaExcelUploadController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -2287,6 +2288,8 @@
     <Compile Include="Models\DiscountModel.cs" />
     <Compile Include="Models\DiscountCodeValidateModel.cs" />
     <Compile Include="Models\Ok_SetupModel.cs" />
+    <Compile Include="Models\SavaExcelModel.cs" />
+    <Compile Include="Models\SavaPolicyModel.cs" />
     <Compile Include="Models\Sava_AdminPanelModel.cs" />
     <Compile Include="Models\SearchRegisteredUser.cs" />
     <Compile Include="news_all.cs">
@@ -2474,6 +2477,8 @@
     <Content Include="Scripts\Limitless-js\plugins\pickers\pickadate\translations\FORMATTING.md" />
     <Content Include="Scripts\Limitless-js\plugins\pickers\pickadate\translations\NAMING.md" />
     <Content Include="Views\Shared\_LayoutLimitless2.cshtml" />
+    <Content Include="Views\SavaExcelUpload\Index.cshtml" />
+    <Content Include="Views\SavaExcelUpload\View.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

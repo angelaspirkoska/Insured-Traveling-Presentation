@@ -40,6 +40,8 @@ namespace InsuredTraveling.Controllers
             }
             else
             {
+                ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
+                ViewBag.TabIndex = "0";
                 var roles = _rs.GetAllRoles();
                 var ok_setup = _okss.GetAllOkSetups();
 
@@ -50,7 +52,7 @@ namespace InsuredTraveling.Controllers
                 var discount = _ds.GetAllDiscounts();
                 ViewBag.Discount = discount;
 
-                ViewBag.TabIndex = "1";
+               // ViewBag.TabIndex = "1";
                
             }
             return View();
@@ -75,13 +77,15 @@ namespace InsuredTraveling.Controllers
             {
                 ViewBag.AddOk_SetupMsg = ex.ToString();
             }
-            if (rol.IsUser("Sava_admin"))
+           if (rol.IsUser("Sava_admin"))
             {
                 ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
                 ViewBag.TabIndex = "0";
             }
             else
             {
+                ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
+                ViewBag.TabIndex = "0";
 
                 var ok_setup = _okss.GetAllOkSetups();
                 var roles = _rs.GetAllRoles();
@@ -89,7 +93,7 @@ namespace InsuredTraveling.Controllers
                 ViewBag.Discount = discount;
                 ViewBag.Roles = roles;
                 ViewBag.Ok_setup = ok_setup;
-                ViewBag.TabIndex = "2";
+               // ViewBag.TabIndex = "2";
             }
 
             return View("Index");
