@@ -44,6 +44,7 @@ namespace InsuredTraveling.Controllers.API
         private IOkSetupService _os;
         private ISava_setupService _sss;
         private ISavaPoliciesService _sps;
+        private IEventsService _es;
 
         public MobileApiController()
         {
@@ -68,7 +69,8 @@ namespace InsuredTraveling.Controllers.API
                                    IFranchiseService fran,
                                    ITravelNumberService tn,
                                    IOkSetupService os,
-                                   ISava_setupService sss, ISavaPoliciesService sps)
+                                   ISava_setupService sss, ISavaPoliciesService sps,
+                                   IEventsService es)
         {
             _ps = ps;
             _us = us;
@@ -90,6 +92,7 @@ namespace InsuredTraveling.Controllers.API
             _os = os;
             _sss = sss;
             _sps = sps;
+            _es = es;
         }
 
         [Route("IsUserVerified")]
@@ -102,6 +105,36 @@ namespace InsuredTraveling.Controllers.API
             data.Add("email", user.EmailConfirmed == true ? true : false);
             data.Add("phone", user.PhoneNumberConfirmed == true ? true : false);
 
+            return data;
+            
+        }
+
+        [HttpPost]
+        [Route("GetEvents")]
+        public JObject GetEvents(UserDTO username)
+        {
+            var data = new JObject();
+            var events = _es.GetEventsForUser(username.username);
+
+            JArray userEvents = new JArray();
+            foreach (var e in events)
+            {
+                JObject userEvent = new JObject();
+                userEvent.Add("CreatedBy", e.aspnetuser.UserName);
+                userEvent.Add("Description", e.Description);
+                userEvent.Add("Location", e.Location);
+                userEvent.Add("Organizer", e.Organizer);
+                userEvent.Add("Title", e.Title);
+                userEvent.Add("EventType", e.Type == true? "VipEvent" : "Event");
+                userEvent.Add("EndDate", e.EndDate.ToShortDateString());
+                userEvent.Add("StartDate", e.StartDate.ToShortDateString());
+                userEvent.Add("PublishDate", e.PublishDate.ToString());
+                userEvent.Add("Voucher", e.Voucher.ToString());
+                userEvent.Add("Chat", e.Chat.ToString());
+                userEvents.Add(userEvent);
+            }
+
+            data.Add("events", userEvents);
             return data;
         }
 

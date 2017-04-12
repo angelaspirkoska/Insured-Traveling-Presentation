@@ -2122,6 +2122,7 @@
     <Compile Include="DI\ChatService.cs" />
     <Compile Include="DI\CountryService.cs" />
     <Compile Include="DI\DiscountService.cs" />
+    <Compile Include="DI\EventService.cs" />
     <Compile Include="DI\ExchangeRateService.cs" />
     <Compile Include="DI\FirstNoticeOfLossArchiveService.cs" />
     <Compile Include="DI\FranchiseService.cs" />
@@ -2133,6 +2134,7 @@
     <Compile Include="DI\FirstNoticeOfLossService.cs" />
     <Compile Include="DI\HealthInsuranceService.cs" />
     <Compile Include="DI\IDiscountService.cs" />
+    <Compile Include="DI\IEventsService.cs" />
     <Compile Include="DI\IExchangeRateService.cs" />
     <Compile Include="DI\IFirstNoticeOfLossArchiveService.cs" />
     <Compile Include="DI\IFirstNoticeOfLossService.cs" />
