@@ -110,6 +110,18 @@ namespace InsuredTraveling.Controllers.API
         }
 
         [HttpPost]
+        [Route("IsUserUpdated")]
+        public JObject IsUserUpdated(UserDTO username)
+        {
+            var user = _us.GetUserDataByUsername(username.username);
+            var userUpdated =  new JObject();
+            if (user == null)
+                return userUpdated;
+            userUpdated.Add("updated", user.updated == true? "yes" : "no");
+            return userUpdated;           
+        }
+
+        [HttpPost]
         [Route("GetEvents")]
         public JObject GetEvents(UserDTO username)
         {
