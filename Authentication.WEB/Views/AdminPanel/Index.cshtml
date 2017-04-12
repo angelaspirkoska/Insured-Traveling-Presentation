@@ -14,9 +14,9 @@
     <h2 class="page-header"> @InsuredTraveling.Resource.AdminPanel_Title </h2>
     <br />
     <ul class="nav nav-pills" id="adminNavigation">
-        @if (!rol.IsUser("Sava_admin"))
+        @if (rol.IsUser("Sava_admin"))
         {
-        <li id="SavaAdmin" class="active"><a data-toggle="pill" href="#SavaAdmin"> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </a></li>
+        <li id="SavaAdminNav" class="active"><a data-toggle="pill" href="#SavaAdmin"> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </a></li>
         }
         else
         {
@@ -27,7 +27,7 @@
     </ul>
 
     <div class="tab-content">
-        @if (!rol.IsUser("Sava_admin"))
+        @if (rol.IsUser("Sava_admin"))
         {
         <div id="SavaAdmin" class="tab-pane fade">
             <h3> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </h3>
@@ -36,15 +36,15 @@
                     <tr>
                         <th>#</th>
                         <th>@InsuredTraveling.Resource.AdminPanel_ID</th>
-                        <th>@InsuredTraveling.Resource.AdminPanel_SMSCode</th>
-                        <th>@InsuredTraveling.Resource.AdminPanel_NumAttepmts</th>
-                        <th>@InsuredTraveling.Resource.AdminPanel_NumViews</th>
-                        <th>@InsuredTraveling.Resource.AdminPanel_Notification</th>
+                        <th>@InsuredTraveling.Resource.SavaAdminPanel_ModifiedBy</th>
+                        <th>@InsuredTraveling.Resource.SavaAdminPanel_ModifiedByDate</th>
+                        <th>@InsuredTraveling.Resource.SavaAdminPanel_SumToPoints</th>
+                        <th>@InsuredTraveling.Resource.SavaAdminPanel_VipPoints</th>
                         
                     </tr>
                 </thead>
                 <tbody>
-                    @if (ViewBag.Ok_setup != null)
+                    @if (ViewBag.SavaOkSetup != null)
                     {
                         int i = 0;
                         foreach (var r in ViewBag.SavaOkSetup)
@@ -52,11 +52,12 @@
                             <tr>
                                 <td>@i</td>
                                 <td>@r.id</td>
-                                <td>@r.email_administrator</td>
+                                <td>@r.last_modify_by</td>
+                                <td>@r.timestamp </td>
                                 <td>@r.points_percentage</td>
                                 <td>@r.vip_sum</td>
                               
-                                <td><a href="/AdminPanel/?id=@r.id"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                @*<td><a href="/AdminPanel/?id=@r.id"><span class="glyphicon glyphicon-trash"></span></a></td>*@
                             </tr>
                             i++;
                         }
@@ -69,32 +70,19 @@
                     <h4> @InsuredTraveling.Resource.AdminPanel_RequiredFields *</h4>
                  
                     <div class="form-group">
-                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_NumAttepmts * :</label>
+                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.SavaAdminPanel_SumToPoints * :</label>
                         <div class="col-md-6" style="margin-bottom:10px">
-                            <input type="text" class="form-control" name="points_percentage" required />
+                            <input type="number" class="form-control" name="points_percentage" required />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_NumViews *:</label>
+                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.SavaAdminPanel_VipPoints *:</label>
                         <div class="col-md-6" style="margin-bottom:10px">
-                            <input type="text" class="form-control" name="vip_sum" required />
+                            <input type="number" class="form-control" name="vip_sum" required />
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_NumViews *:</label>
-                        <div class="col-md-6" style="margin-bottom:10px">
-                            <input type="text" class="form-control" name="last_modify_by" required />
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_NumViews *:</label>
-                        <div class="col-md-6" style="margin-bottom:10px">
-                            <input type="text" class="form-control" name="timestamp" required />
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-4" style="margin-bottom:10px">
@@ -426,7 +414,21 @@
     function ChangeTabsOnPost() {
         
         var number = parseInt(@ViewBag.TabIndex);
-        if(number == 3){
+        if (number == 0){
+            $("#SavaAdmin").toggle();
+            //$("#addDiscount").toggle();
+            $("#SavaAdmin").addClass("in active");
+            $("#SavaAdminNav").addClass("active");
+
+            $("#home").removeClass("in active");
+            $("#navRoles").removeClass("active");
+
+            $("#navSetup").removeClass("active");
+            $("#menu1").removeClass("in active");
+
+
+        }
+        else if(number == 3){
            
             $("#DiscountMenu").toggle();
             $("#addDiscount").toggle();

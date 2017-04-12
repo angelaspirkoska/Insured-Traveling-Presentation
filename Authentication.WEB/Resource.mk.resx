@@ -1362,4 +1362,16 @@
   <data name="TodayRegisteredUsersMsg" xml:space="preserve">
     <value>Последни регистрирани корисници</value>
   </data>
+  <data name="SavaAdminPanel_ModifiedBy" xml:space="preserve">
+    <value>Последна промена од</value>
+  </data>
+  <data name="SavaAdminPanel_ModifiedByDate" xml:space="preserve">
+    <value>Последна промена на</value>
+  </data>
+  <data name="SavaAdminPanel_SumToPoints" xml:space="preserve">
+    <value>Процент од премијата што влегува во поени</value>
+  </data>
+  <data name="SavaAdminPanel_VipPoints" xml:space="preserve">
+    <value>Сума со која корисникот станува VIP</value>
+  </data>
 </root>

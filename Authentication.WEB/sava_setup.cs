@@ -19,5 +19,7 @@ namespace InsuredTraveling
         public float points_percentage { get; set; }
         public float vip_sum { get; set; }
         public int version { get; set; }
+        public string last_modify_by { get; set; }
+        public System.DateTime timestamp { get; set; }
     }
 }

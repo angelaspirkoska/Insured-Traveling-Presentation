@@ -1368,4 +1368,16 @@
   <data name="TodayRegisteredUsersMsg" xml:space="preserve">
     <value>Today's registered users</value>
   </data>
+  <data name="SavaAdminPanel_ModifiedBy" xml:space="preserve">
+    <value>Modified By</value>
+  </data>
+  <data name="SavaAdminPanel_ModifiedByDate" xml:space="preserve">
+    <value>Modified</value>
+  </data>
+  <data name="SavaAdminPanel_SumToPoints" xml:space="preserve">
+    <value>Percentage of policy premium to points</value>
+  </data>
+  <data name="SavaAdminPanel_VipPoints" xml:space="preserve">
+    <value>Number of points for Vip user</value>
+  </data>
 </root>

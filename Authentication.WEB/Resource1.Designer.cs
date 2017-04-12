@@ -2455,6 +2455,42 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modified By.
+        /// </summary>
+        public static string SavaAdminPanel_ModifiedBy {
+            get {
+                return ResourceManager.GetString("SavaAdminPanel_ModifiedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modified.
+        /// </summary>
+        public static string SavaAdminPanel_ModifiedByDate {
+            get {
+                return ResourceManager.GetString("SavaAdminPanel_ModifiedByDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Percentage of policy premium to points.
+        /// </summary>
+        public static string SavaAdminPanel_SumToPoints {
+            get {
+                return ResourceManager.GetString("SavaAdminPanel_SumToPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of points for Vip user.
+        /// </summary>
+        public static string SavaAdminPanel_VipPoints {
+            get {
+                return ResourceManager.GetString("SavaAdminPanel_VipPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quote Effective Date.
         /// </summary>
         public static string Seacrh_QuoteSearchTableFrom {

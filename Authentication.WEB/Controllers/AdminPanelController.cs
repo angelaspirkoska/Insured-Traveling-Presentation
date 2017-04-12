@@ -32,10 +32,10 @@ namespace InsuredTraveling.Controllers
         public ActionResult Index()
         {
             RoleAuthorize rol = new RoleAuthorize();
-            if (!rol.IsUser("Sava_admin"))
+            if (rol.IsUser("Sava_admin"))
             {
                 ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
-                ViewBag.TabIndex = "1";
+                ViewBag.TabIndex = "0";
 
             }
             else
@@ -64,8 +64,9 @@ namespace InsuredTraveling.Controllers
             ViewBag.AddOk_SetupMsg = "OK";
             try
             {
-                //ok.Created_By = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
-                //ok.Created_Date = DateTime.UtcNow;
+                Sok.email_administrator = "";
+                Sok.last_modify_by = System.Web.HttpContext.Current.User.Identity.Name;
+                Sok.timestamp = DateTime.UtcNow;
 
                 _sok.AddSavaOkSetup(Sok);
                 ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
@@ -77,7 +78,7 @@ namespace InsuredTraveling.Controllers
             if (rol.IsUser("Sava_admin"))
             {
                 ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
-                ViewBag.TabIndex = "1";
+                ViewBag.TabIndex = "0";
             }
             else
             {

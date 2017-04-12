@@ -96,6 +96,8 @@ namespace InsuredTraveling.App_Start
                 dst.points_percentage = src.points_percentage;
                 dst.vip_sum = src.vip_sum;
                 dst.email_administrator = src.email_administrator;
+                dst.timestamp = src.timestamp;
+                dst.last_modify_by = src.last_modify_by;
                 
 
             });
