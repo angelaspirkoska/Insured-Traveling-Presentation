@@ -8,7 +8,7 @@ namespace InsuredTraveling.DI
 {
     public interface ISava_setupService
     {
-         void AddSavaOkSetup(Models.Sava_AdminPanelModel ok);
+        void AddSavaOkSetup(Models.Sava_AdminPanelModel ok);
         List<sava_setup> GetAllSavaSetups();
         sava_setup GetLast();
         void DeleteOkSetup(int id);

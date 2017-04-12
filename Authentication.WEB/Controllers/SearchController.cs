@@ -625,7 +625,7 @@ namespace InsuredTraveling.Controllers
         }
 
 
-        //0 - get last years quotes/policies per months, 1 - get last month quotes/policies per days, 2 - get last week quotes/policies per days
+        //0 - get last year quotes/(policies + quotes)  per months, 1 - get last month quotes/(policies + quotes)  per days, 2 - get last week quotes/(policies + quotes)  per days
         [HttpGet]
         [Route("GetBrokersQuotesPoliciesConversion")]
         public JObject GetBrokersQuotesPoliciesConversion(int period)

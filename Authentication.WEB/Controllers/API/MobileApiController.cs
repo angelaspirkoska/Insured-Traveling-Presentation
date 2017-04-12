@@ -42,6 +42,8 @@ namespace InsuredTraveling.Controllers.API
         private IFranchiseService _fran;
         private ITravelNumberService _tn;
         private IOkSetupService _os;
+        private ISava_setupService _sss;
+
         public MobileApiController()
         {
 
@@ -64,7 +66,8 @@ namespace InsuredTraveling.Controllers.API
                                    IExchangeRateService exch,
                                    IFranchiseService fran,
                                    ITravelNumberService tn,
-                                   IOkSetupService os)
+                                   IOkSetupService os,
+                                   ISava_setupService sss)
         {
             _ps = ps;
             _us = us;
@@ -84,6 +87,7 @@ namespace InsuredTraveling.Controllers.API
             _fran = fran;
             _tn = tn;
             _os = os;
+            _sss = sss;
         }
 
         [Route("IsUserVerified")]
@@ -477,6 +481,26 @@ namespace InsuredTraveling.Controllers.API
                 return Ok();
             }
             return Json(data);
+        }
+
+
+        [HttpPost]
+        [Route("sava_setup")]
+        public IHttpActionResult Sava_Setup(OK_SETUP savaSetup)
+        {
+            var savaSetups = _sss.GetAllSavaSetups();
+            var lastSavaSetup = savaSetups.Any() ? savaSetups.Last() : null;
+            if (lastSavaSetup == null)
+                return Ok(new {message = "No data for the sava setup"});
+            if (savaSetup == null)
+            {
+                return Json(lastSavaSetup);
+            }
+            else if (savaSetup.Version == lastSavaSetup.version)
+            {
+                return Ok();
+            }
+            return Json(lastSavaSetup);
         }
 
         [HttpPost]
