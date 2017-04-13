@@ -45,9 +45,9 @@ namespace InsuredTraveling.DI
             var userRole = editedUserDb.aspnetroles.FirstOrDefault();
             if (userRole != null && userRole.Name != editedUser.Role)
             {
-                aspnetrole previousUserRole = _db.aspnetroles.Where(x => x.Name == userRole.Name).FirstOrDefault();
-                if(previousUserRole != null)
-                    editedUserDb.aspnetroles.Remove(previousUserRole);
+                //aspnetrole previousUserRole = _db.aspnetroles.Where(x => x.Name == userRole.Name).FirstOrDefault();
+                //if(previousUserRole != null)
+                //    editedUserDb.aspnetroles.Remove(previousUserRole);
                 AuthRepository _repo = new AuthRepository();
                 try
                 {

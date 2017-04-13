@@ -206,6 +206,11 @@ namespace InsuredTraveling
 
         public IdentityResult AddUserToRole(string userID, string roleName)
         {
+            var roles = _userManager.GetRoles(userID);
+            foreach (var r in roles)
+            {
+                _userManager.RemoveFromRole(userID, r);
+            }
             var result = _userManager.AddToRole(userID, roleName);
 
             return result;
