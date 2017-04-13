@@ -10,6 +10,7 @@ namespace InsuredTraveling.DI
 {
     public interface IUserService
     {
+        List<aspnetuser> GetSavaUsersByRoleName(string role);
         bool SetUserUpdated(string username);
         List<aspnetuser> GetAllUsersCreatedTodayForSavaAdmin(DateTime createdDate);
         int UpdateUser(User editedUser);

@@ -72,9 +72,19 @@ namespace InsuredTraveling.DI
             return result;
         }
 
-        public List<aspnetuser> GetUsersByRoleName(string Role)
+        public List<aspnetuser> GetUsersByRoleName(string role)
         {
-            return _db.aspnetusers.Where(x => x.aspnetroles.FirstOrDefault().Name.Contains(Role)).ToList();
+            return _db.aspnetusers.Where(x => x.aspnetroles.FirstOrDefault().Name.Contains(role)).ToList();
+        }
+        public List<aspnetuser> GetSavaUsersByRoleName(string role)
+        {
+            if (String.IsNullOrEmpty(role))
+            {
+                //List<aspnetrole> savaRoles = _db.aspnetroles.Where(x => x.Name.Contains("Sava")).ToList();
+                return _db.aspnetusers.Where(x => x.aspnetroles.FirstOrDefault().Name.Contains("Sava")).ToList();
+            }
+
+            return _db.aspnetusers.Where(x => x.aspnetroles.FirstOrDefault().Name.Contains(role)).ToList();
         }
 
         public List<aspnetuser> GetAllUsersCreatedTodayForSavaAdmin(DateTime createdDate)

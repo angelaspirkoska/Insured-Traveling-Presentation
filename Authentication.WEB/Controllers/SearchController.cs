@@ -78,11 +78,28 @@ namespace InsuredTraveling.Controllers
             var policies = GetAllPolicies();
             ViewBag.Policies = policies.Result;
             var roles = _rs.GetAll().ToList();
-            foreach(var role in roles)
+            if (_roleAuthorize.IsUser("Sava_admin"))
             {
-                if (role.Selected)
+                foreach (var role in roles)
                 {
-                    role.Selected = false;
+                    if (role.Selected)
+                    {
+                        role.Selected = false;
+                    }
+                    if (!role.Text.Contains("Sava"))
+                    {
+                        role.Disabled = true;
+                    }
+                }
+            }
+            else
+            {
+                foreach (var role in roles)
+                {
+                    if (role.Selected)
+                    {
+                        role.Selected = false;
+                    }
                 }
             }
             ViewBag.Roles = roles;
@@ -845,7 +862,14 @@ namespace InsuredTraveling.Controllers
             DateTime registerDateValue = String.IsNullOrEmpty(registerDate) ? new DateTime() : DateTime.ParseExact(registerDate, dateTimeFormat, CultureInfo.InvariantCulture);
 
             string currentUserId = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
-            data = _us.GetUsersByRoleName(roleName);
+            if (_roleAuthorize.IsUser("Sava_admin"))
+            {
+                data = _us.GetSavaUsersByRoleName(roleName);
+            }
+            else
+            {
+                data = _us.GetUsersByRoleName(roleName);
+            }
 
             if (_roleAuthorize.IsUser("Broker manager"))
             {
@@ -1236,12 +1260,29 @@ namespace InsuredTraveling.Controllers
 
             User userEditModel = Mapper.Map<aspnetuser, User>(userEdit);
 
-            foreach (var role in  roles)
+            if (_roleAuthorize.IsUser("Sava_admin"))
             {
-                if (role.Selected)
-                    role.Selected = false;
-                if (role.Text == userEditModel.Role)
-                    role.Selected = true;
+                foreach (var role in roles)
+                {
+                    if (role.Selected)
+                    {
+                        role.Selected = false;
+                    }
+                    if (!role.Text.Contains("Sava"))
+                    {
+                        role.Disabled = true;
+                    }
+                }
+            }
+            else
+            {
+                foreach (var role in  roles)
+                {
+                    if (role.Selected)
+                        role.Selected = false;
+                    if (role.Text == userEditModel.Role)
+                        role.Selected = true;
+                }
             }
 
             foreach (var gender in genderList)
@@ -1264,12 +1305,29 @@ namespace InsuredTraveling.Controllers
             var genderList = Gender();
             var roles = _rs.GetAll().ToList();
 
-            foreach (var role in roles)
+            if (_roleAuthorize.IsUser("Sava_admin"))
             {
-                if (role.Selected)
-                    role.Selected = false;
-                if (role.Text == editedUser.Role)
-                    role.Selected = true;
+                foreach (var role in roles)
+                {
+                    if (role.Selected)
+                    {
+                        role.Selected = false;
+                    }
+                    if (!role.Text.Contains("Sava"))
+                    {
+                        role.Disabled = true;
+                    }
+                }
+            }
+            else
+            {
+                foreach (var role in roles)
+                {
+                    if (role.Selected)
+                        role.Selected = false;
+                    if (role.Text == editedUser.Role)
+                        role.Selected = true;
+                }
             }
 
             foreach (var gender in genderList)
