@@ -193,12 +193,12 @@
                     <h4>@Resource.SetUserUpdatedQuestion</h4>
                 </div>
                 <div class="form-group">
-                    <label id="ChangeStatusMsg"></label>
+                    <label id="SetUpdatedMsg"></label>
                 </div>
-                <input type="hidden" id="hiddenUsernameChangeStatus" />
+                <input type="hidden" id="hiddenUsernameSetUpdated" />
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="ChangeStatus">@Resource.SetUser</button> <button type="button" onclick="$('#ChangeStatusMsg').text(' ')" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
+                <button type="button" class="btn btn-success" id="SetUpdated">@Resource.SetUser</button> <button type="button" onclick="$('#SetUpdatedMsg').text(' ')" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
             </div>
         </div>
     </div>
@@ -1071,10 +1071,33 @@
 
             },
             error: function () {
-                $("#PassResetMsg").text("@Resource.ChangeStatusMessageFail")
+                $("#ChangeStatusMsg").text("@Resource.ChangeStatusMessageFail");
             }
         });
     });
+
+    $("#SetUpdated").click(function () {
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/SetUserUpdated?username=" + $("#hiddenUsernameSetUpdated").val(),
+            type: "GET",
+            success: function (data) {
+                if ((JSON.parse(data)).message === "OK") {
+                    $("#SetUpdatedMsg").text("@Resource.SetUpdatedMessageSuccess");
+                    $("#SetUpdated").hide();
+                    SearchUsers();
+                } else {
+                    $("#SetUpdatedMsg").text("@Resource.SetUpdatedMessageFail");
+                    $("#SetUpdated").hide();
+                }
+
+            },
+            error: function () {
+                $("#SetUpdatedMsg").text("@Resource.ChangeStatusMessageFail");
+                $("#SetUpdated").hide();
+            }
+        });
+    });
+
 
     function ShowModal(username) {
         $("#modal").modal("show");
@@ -1098,9 +1121,9 @@
         if (username == "@System.Web.HttpContext.Current.User.Identity.Name") {
             $("#modalUserNotallowedToChangeItselfStatus").modal("show");
         } else {
-            $("#ChangeStatus").show();
+            $("#SetUpdated").show();
             $("#modalSetUserUpdated").modal("show");
-            $("#hiddenUsernameChangeStatus").val(username);
+            $("#hiddenUsernameSetUpdated").val(username);
             console.log(username);
         }
     }

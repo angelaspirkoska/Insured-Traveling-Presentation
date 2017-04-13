@@ -1383,4 +1383,10 @@
   <data name="SetUserUpdatedQuestion" xml:space="preserve">
     <value>Дали сакате да го поставите корисникот како ажуриран?</value>
   </data>
+  <data name="SetUpdatedMessageFail" xml:space="preserve">
+    <value>Корисникот веќе е поставен како ажуриран</value>
+  </data>
+  <data name="SetUpdatedMessageSuccess" xml:space="preserve">
+    <value>Успешно го поставивте корисникот како ажуриран</value>
+  </data>
 </root>

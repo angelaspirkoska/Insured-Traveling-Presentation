@@ -102,6 +102,17 @@ namespace InsuredTraveling.DI
             var result = _db.SaveChanges();
             return result == 1;
         }
+
+        public bool SetUserUpdated(string username)
+        {
+            aspnetuser user = _db.aspnetusers.Where(x => x.UserName == username).FirstOrDefault();
+
+            user.updated = true;
+
+            var result = _db.SaveChanges();
+            return result == 1;
+        }
+
         public aspnetuser GetUserById(string id)
         {
           return  _db.aspnetusers.Where(x => x.Id == id).ToArray().Last();

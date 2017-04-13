@@ -1384,9 +1384,15 @@
     <value>Set user</value>
   </data>
   <data name="SetUserUpdated" xml:space="preserve">
-    <value>Set user value to updated</value>
+    <value>Set user as updated</value>
   </data>
   <data name="SetUserUpdatedQuestion" xml:space="preserve">
     <value>Do you want to set user as updated?</value>
+  </data>
+  <data name="SetUpdatedMessageFail" xml:space="preserve">
+    <value>User is already set as updated</value>
+  </data>
+  <data name="SetUpdatedMessageSuccess" xml:space="preserve">
+    <value>You have successfully set user as updated</value>
   </data>
 </root>

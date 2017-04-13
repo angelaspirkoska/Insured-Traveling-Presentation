@@ -3499,6 +3499,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User is already set as updated.
+        /// </summary>
+        public static string SetUpdatedMessageFail {
+            get {
+                return ResourceManager.GetString("SetUpdatedMessageFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have successfully set user as updated.
+        /// </summary>
+        public static string SetUpdatedMessageSuccess {
+            get {
+                return ResourceManager.GetString("SetUpdatedMessageSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set user.
         /// </summary>
         public static string SetUser {
@@ -3508,7 +3526,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set user value to updated.
+        ///   Looks up a localized string similar to Set user as updated.
         /// </summary>
         public static string SetUserUpdated {
             get {
