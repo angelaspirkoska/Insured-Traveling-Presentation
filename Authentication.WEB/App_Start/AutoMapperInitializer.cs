@@ -114,6 +114,20 @@ namespace InsuredTraveling.App_Start
                 
 
             });
+
+            Mapper.CreateMap<SavaPolicyModel, sava_policy>().AfterMap((src, dst) =>
+            {
+                dst.id_seller = src.id_seller;
+                dst.SSN_insured = src.SSN_insured;
+                dst.SSN_policyHolder = src.SSN_policyHolder;
+                dst.email_seller = src.email_seller;
+                dst.discount_points = src.discount_points;
+                dst.expiry_date = src.expiry_date;
+                dst.email_seller = src.email_seller;
+                dst.premium = src.premium;
+            });
+
+
             //Mapper.CreateMap<first_notice_of_loss, FirstNoticeOfLossEditViewModel>().AfterMap((src, dst) =>
             //{
             //    var policy = src.travel_policy;

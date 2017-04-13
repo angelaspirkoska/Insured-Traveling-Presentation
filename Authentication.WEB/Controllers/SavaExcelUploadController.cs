@@ -8,62 +8,77 @@ using System.Data;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.IO;
-
+using InsuredTraveling.DI;
+using System.Configuration;
+using System.Globalization;
 
 namespace InsuredTraveling.Controllers
 {
     public class SavaExcelUploadController : Controller
     {
+        private ISavaPoliciesService _sp;
+        
+        public SavaExcelUploadController(ISavaPoliciesService sp)
+        {
+            _sp = sp;
+        }
         // GET: SavaExcelUpload
         public ActionResult Index()
         {
             var model = new SavaExcelModel();
-            return View(model);
-        }
-
-        public ActionResult View()
-        {
-            var model = new SavaExcelModel();
+            ViewBag.IsRepost = 0;
             return View(model);
         }
 
         [HttpPost]
         public ActionResult SavePolicy(List<SavaPolicyModel> model)
         {
+            ViewBag.Success = true;
+            try
+            {
+                _sp.AddSavaPolicyList(model);
 
-            return View("View", model);
+            }
+            catch
+            {
+
+                ViewBag.Success = false;
+            }
+            
+            return View(model);
         }
 
         [HttpPost]
         public ActionResult Index(SavaExcelModel model)
         {
-            
+            ViewBag.IsRepost = 1;
             SavaExcelModel SavaExcel = new SavaExcelModel();
             if (!ModelState.IsValid)
             {
-                return View("View",model);
+                return View(model);
             }
             DataTable dt = GetDataTableFromSpreadsheet(model.MyExcelFile.InputStream, false);
-           
-            foreach(DataRow dr in dt.Rows)
+
+            foreach (DataRow dr in dt.Rows)
             {
                 SavaPolicyModel policyModel = new SavaPolicyModel();
                 policyModel.policy_number = Convert.ToInt32(dr.ItemArray[0]);
                 policyModel.id_seller = (dr.ItemArray[1]).ToString();
                 policyModel.SSN_insured = (dr.ItemArray[2]).ToString();
                 policyModel.SSN_policyHolder = (dr.ItemArray[3]).ToString();
-                //policyModel.expiry_date =  Convert.ToDateTime(dr.ItemArray[4]);
-                policyModel.expiry_date = (dr.ItemArray[4]).ToString() ;
+                string tempExpiry = (dr.ItemArray[4]).ToString();
+
+                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+                DateTime startDate1 = String.IsNullOrEmpty(tempExpiry) ? new DateTime() : DateTime.ParseExact(tempExpiry, dateTimeFormat, CultureInfo.InvariantCulture);
+
+                policyModel.expiry_date = startDate1;
                 policyModel.premium = Convert.ToInt32(dr.ItemArray[5]);
                 policyModel.email_seller = (dr.ItemArray[6]).ToString();
                 policyModel.discount_points = Convert.ToInt32(dr.ItemArray[7]);
                 model.TableRows.Add(policyModel);
             }
-            
-
-            string strContent = "<p>Thanks for uploading the file</p>" + ConvertDataTableToHTMLTable(dt);
-            model.MSExcelTable = strContent;
-            return View("View", model);
+            return View(model);
         }
         public static DataTable GetDataTableFromSpreadsheet(Stream MyExcelStream, bool ReadOnly)
         {

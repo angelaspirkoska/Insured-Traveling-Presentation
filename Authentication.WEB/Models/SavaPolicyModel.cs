@@ -13,7 +13,7 @@ namespace InsuredTraveling.Models
         public string id_seller { get; set; }
         public string SSN_insured { get; set; }
         public string SSN_policyHolder { get; set; }
-        public string expiry_date { get; set; }
+        public DateTime expiry_date { get; set; }
         public int premium { get; set; }
         public string email_seller { get; set; }
         public float discount_points { get; set; }

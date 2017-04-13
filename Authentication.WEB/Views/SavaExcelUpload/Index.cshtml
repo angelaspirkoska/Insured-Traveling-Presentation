@@ -2,53 +2,141 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+    var grid = new WebGrid(Model.TableRows);
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-    <style type="text/css">
-        #tblExcel {
-            width: 1000px;
-            border: none;
-            background-color: #000000;
-        }
-
-        .tdColumnHeader {
-            padding: 2px 2px 2px 2px;
-            text-align: center;
-            font-family: Verdana;
-            font-size: 12px;
-            font-weight: bold;
-            background-color: cornflowerblue;
-            color: #FFFFFF;
-        }
-
-        .tdCellData {
-            padding: 2px 2px 2px 2px;
-            font-family: Verdana;
-            font-size: 12px;
-            background-color: aqua;
-            color: #000000;
-        }
-    </style>
-</head>
-<body>
-    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <div>
-            @Html.LabelFor(x => x.MyExcelFile)
-            @Html.TextBoxFor(x => x.MyExcelFile, new { type = "file" })
-            @Html.ValidationMessageFor(x => x.MyExcelFile)
-        </div>
-        <button type="submit">Upload</button>
-
+<div class="row">
+    <div class="row">
         <br /><br />
-        @Html.Raw(Model.MSExcelTable)
-    }
-</body>
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div>
+                    
+                    @Html.TextBoxFor(x => x.MyExcelFile, new { type = "file" })
+                    @Html.ValidationMessageFor(x => x.MyExcelFile)
+                </div>
+                <button class="btn btn-success" type="submit">Upload</button>
+                <br /><br />
+            }
+        
+    </div>
 
-</html>
+<div class="row" id="dataRow">  
+    @grid.GetHtml(    
+        tableStyle: "webgrid-table table table-bordered table-hover table-striped no-footer dataTable",
+        headerStyle: "webgrid-header",
+        footerStyle: "webgrid-footer",
+        alternatingRowStyle: "webgrid-alternating-row",
+        selectedRowStyle: "webgrid-selected-row",
+        rowStyle: "webgrid-row-style",
+        mode: WebGridPagerModes.All,
+        columns:
+            grid.Columns(
+             grid.Column("ID", format: @<text>  <span class="display-mode"> @item.policy_number </span> <label id="UserID" class="edit-mode">@item.policy_number</label> </text>, style: "col1Width"),
+             grid.Column("id_seller", "Name", format: @<text>  <span class="display-mode">   <label id="lblName">@item.id_seller</label> </span> <input type="text" id="Name" value="@item.id_seller" class="edit-mode" /></text>, style: "col2Width"),
+             grid.Column("SSN_insured", "SSN_insured", format: @<text> <span class="display-mode"> <label id="lblSSN_insured">@item.SSN_insured</label> </span>  <input type="text" id="SSN_insured" value="@item.SSN_insured" class="edit-mode" /> </text>, style: "col2Width"),
+             grid.Column("SSN_policyHolder", "SSN_policyHolder", format: @<text> <span class="display-mode"> <label id="lblSSN_policyHolder">@item.SSN_policyHolder</label> </span>  <input type="text" id="SSN_policyHolder" value="@item.SSN_policyHolder" class="edit-mode" /> </text>, style: "col2Width"),
+             grid.Column("expiry_date", "expiry_date", format: @<text> <span class="display-mode"> <label id="lblexpiry_date">@item.expiry_date</label> </span>  <input type="text" id="expiry_date" value="@item.expiry_date" class="edit-mode" /> </text>, style: "col2Width"),
+             grid.Column("premium", "premium", format: @<text> <span class="display-mode"> <label id="lblpremium">@item.premium</label> </span>  <input type="text" id="premium" value="@item.premium" class="edit-mode" /> </text>, style: "col2Width"),
+             grid.Column("email_seller", "email_seller", format: @<text> <span class="display-mode"> <label id="lblemail_seller">@item.email_seller</label> </span>  <input type="text" id="email_seller" value="@item.email_seller" class="edit-mode" /> </text>, style: "col2Width"),
+             grid.Column("discount_points", "discount_points", format: @<text> <span class="display-mode"> <label id="lbldiscount_points">@item.discount_points</label> </span>  <input type="text" id="discount_points" value="@item.discount_points" class="edit-mode" /> </text>, style: "col2Width"),
+
+
+                grid.Column("Action", format: @<text>
+                    <button class="edit-user display-mode">Edit</button>
+                    <button class="save-user edit-mode">Save</button>
+                    <button class="cancel-user edit-mode">Cancel</button>
+                </text>, style: "col3Width", canSort: false)
+           ))
+        
+</div>
+    <div class="row" id="buttonRow">
+        <button type="button" class="btn btn-success " id="SaveTable">
+            Zacuvaj
+        </button>
+    </div>
+    </div>
+<style>
+    tr > td > input {
+            width: 130px;
+    }
+
+</style>
+
+<script type="text/javascript">
+
+    $(document).ready({
+    
+    });
+
+
+    $(function () {
+        $('.edit-mode').hide();
+        $('.edit-user, .cancel-user').on('click', function () {
+            var tr = $(this).parents('tr:first');
+            tr.find('.edit-mode, .display-mode').toggle();
+        });
+
+        $('.save-user').on('click', function () {
+
+            var tr = $(this).parents('tr:first');
+            var Name = tr.find("#Name").val();
+            var SSN_insured = tr.find("#SSN_insured").val();
+            var SSN_policyHolder = tr.find("#SSN_policyHolder").val();
+            var expiry_date = tr.find("#expiry_date").val();
+            var premium = tr.find("#premium").val();
+            var email_seller = tr.find("#email_seller").val();
+            var discount_points = tr.find("#discount_points").val();
+
+            tr.find("#lblName").text(Name);
+            tr.find("#lblSSN_insured").text(SSN_insured);
+            tr.find("#lblSSN_policyHolder").text(SSN_policyHolder);
+            tr.find("#lblexpiry_date").text(expiry_date);
+            tr.find("#lblpremium").text(premium);
+            tr.find("#lblemail_seller").text(email_seller);
+            tr.find("#lbldiscount_points").text(discount_points);
+            tr.find('.edit-mode, .display-mode').toggle();
+        });
+
+        $('#SaveTable').on('click', function () {
+            var list = [];
+            $("tbody tr").each(function (index) {
+                var tr = $(this);
+                var policy_number = tr.find("#UserID").html();
+                var Name = tr.find("#Name").val();
+                var SSN_insured = tr.find("#SSN_insured").val();
+                var SSN_policyHolder = tr.find("#SSN_policyHolder").val();
+                var expiry_date = tr.find("#expiry_date").val();
+                var premium = tr.find("#premium").val();
+                var email_seller = tr.find("#email_seller").val();
+                var discount_points = tr.find("#discount_points").val();
+                var myObj = {
+                    "policy_number": policy_number,
+                    "id_seller": Name,
+                    "SSN_insured": SSN_insured,
+                    "SSN_policyHolder": SSN_policyHolder,
+                    "expiry_date": expiry_date,
+                    "premium": premium,
+                    "email_seller": email_seller,
+                    "discount_points": discount_points
+                };
+
+                list.push(myObj);
+                alert(JSON.stringify(myObj));
+            });
+
+            alert(JSON.stringify(list));
+            $.ajax({
+                url: '../SavaExcelUpload/SavePolicy',
+                data: JSON.stringify(list),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    alert(data);
+                }
+            });
+
+
+        });
+    });
+</script>  

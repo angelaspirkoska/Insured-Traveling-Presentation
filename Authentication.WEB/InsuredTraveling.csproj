@@ -2479,7 +2479,6 @@
     <Content Include="Scripts\Limitless-js\plugins\pickers\pickadate\translations\NAMING.md" />
     <Content Include="Views\Shared\_LayoutLimitless2.cshtml" />
     <Content Include="Views\SavaExcelUpload\Index.cshtml" />
-    <Content Include="Views\SavaExcelUpload\View.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
