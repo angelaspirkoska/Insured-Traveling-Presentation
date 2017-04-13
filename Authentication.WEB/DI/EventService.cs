@@ -28,5 +28,12 @@ namespace InsuredTraveling.DI
             return null;
         }
 
+        public List<@event> GetEventsBySearchValues(string createdBy, string title, string organizer, string location)
+        {
+            return
+                _db.events.Where(x => x.CreatedBy.Contains(createdBy) && x.Title.Contains(title) && x.Organizer.Contains(organizer) && x.Location.Contains(location))
+                    .ToList();
+        }
+
     }
 }

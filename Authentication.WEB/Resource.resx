@@ -1395,4 +1395,34 @@
   <data name="SetUpdatedMessageSuccess" xml:space="preserve">
     <value>You have successfully set user as updated</value>
   </data>
+  <data name="Events" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="Event_CreatedBy" xml:space="preserve">
+    <value>Created by</value>
+  </data>
+  <data name="Event_Desc" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Event_EndDate" xml:space="preserve">
+    <value>Event end date</value>
+  </data>
+  <data name="Event_Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Event_Organizer" xml:space="preserve">
+    <value>Organizer</value>
+  </data>
+  <data name="Event_PublishDate" xml:space="preserve">
+    <value>Publish Date</value>
+  </data>
+  <data name="Event_StartDate" xml:space="preserve">
+    <value>Event start date</value>
+  </data>
+  <data name="Event_Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Event_Type" xml:space="preserve">
+    <value>Event type</value>
+  </data>
 </root>

@@ -29,6 +29,19 @@ namespace InsuredTraveling.App_Start
                 dst.ID = src.Id;
             });
 
+            Mapper.CreateMap<@event, Event>().AfterMap((src, dst) =>
+            {
+                dst.Title = src.Title;
+                dst.EventType = src.Type == false ? "event" : "vip event";
+                dst.Location = src.Location;
+                dst.Organizer = src.Organizer;
+                dst.Description = src.Description;
+                dst.CreatedBy = db.aspnetusers.FirstOrDefault(x => x.Id == src.CreatedBy).UserName;
+                dst.PublishDate = src.PublishDate.Value.Date;
+                dst.StartDate = src.StartDate.Date;
+                dst.EndDate = src.EndDate.Date;
+            });
+
             Mapper.CreateMap<aspnetuser, User>().AfterMap((src, dst) =>
             {
                 dst.UserName = src.UserName;

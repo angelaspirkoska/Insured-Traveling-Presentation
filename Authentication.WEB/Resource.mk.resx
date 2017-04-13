@@ -1389,4 +1389,34 @@
   <data name="SetUpdatedMessageSuccess" xml:space="preserve">
     <value>Успешно го поставивте корисникот како ажуриран</value>
   </data>
+  <data name="Events" xml:space="preserve">
+    <value>Настани</value>
+  </data>
+  <data name="Event_CreatedBy" xml:space="preserve">
+    <value>Креиран од</value>
+  </data>
+  <data name="Event_Desc" xml:space="preserve">
+    <value>Опис</value>
+  </data>
+  <data name="Event_EndDate" xml:space="preserve">
+    <value>Крај на настанот</value>
+  </data>
+  <data name="Event_Location" xml:space="preserve">
+    <value>Локација</value>
+  </data>
+  <data name="Event_Organizer" xml:space="preserve">
+    <value>Организатор</value>
+  </data>
+  <data name="Event_PublishDate" xml:space="preserve">
+    <value>Датум на објава </value>
+  </data>
+  <data name="Event_StartDate" xml:space="preserve">
+    <value>Почеток на настанот</value>
+  </data>
+  <data name="Event_Title" xml:space="preserve">
+    <value>Наслов</value>
+  </data>
+  <data name="Event_Type" xml:space="preserve">
+    <value>Тип на настан</value>
+  </data>
 </root>

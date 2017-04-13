@@ -601,6 +601,96 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created by.
+        /// </summary>
+        public static string Event_CreatedBy {
+            get {
+                return ResourceManager.GetString("Event_CreatedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Event_Desc {
+            get {
+                return ResourceManager.GetString("Event_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event end date.
+        /// </summary>
+        public static string Event_EndDate {
+            get {
+                return ResourceManager.GetString("Event_EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location.
+        /// </summary>
+        public static string Event_Location {
+            get {
+                return ResourceManager.GetString("Event_Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organizer.
+        /// </summary>
+        public static string Event_Organizer {
+            get {
+                return ResourceManager.GetString("Event_Organizer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish Date.
+        /// </summary>
+        public static string Event_PublishDate {
+            get {
+                return ResourceManager.GetString("Event_PublishDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event start date.
+        /// </summary>
+        public static string Event_StartDate {
+            get {
+                return ResourceManager.GetString("Event_StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string Event_Title {
+            get {
+                return ResourceManager.GetString("Event_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event type.
+        /// </summary>
+        public static string Event_Type {
+            get {
+                return ResourceManager.GetString("Event_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Events.
+        /// </summary>
+        public static string Events {
+            get {
+                return ResourceManager.GetString("Events", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Female.
         /// </summary>
         public static string Female {

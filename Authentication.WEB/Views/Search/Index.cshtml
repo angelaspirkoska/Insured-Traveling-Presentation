@@ -25,6 +25,7 @@
     <ul class="nav nav-tabs">
         <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
         <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
+        <li id="events"><a href="#" onclick="ShowEvents()">@InsuredTraveling.Resource.Events </a></li>
         @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBroker || isSavaAdmin)
         {
             <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
@@ -42,6 +43,130 @@
     </ul>
 </div>
 
+<!--Table search result of events -->
+<div class="" id="searchEvents">
+    <br />
+    <br />
+    <form>
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label >@InsuredTraveling.Resource.Event_EndDate:</label>
+                    <div class="input-group">
+                        <input type="text" id="eventEndDate" class="form-control" placeholder="@dateTimeFormat" />
+                        <div class="input-group-btn">
+                            <button type="button" id="operatorEventEndDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                <p class="caret-position">= <span class="caret"></span></p>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li onclick="$('#operatorEventEndDate').html(' = '); $('#operatorEventEndDate').val('=');">=</li>
+                                <li onclick="$('#operatorEventEndDate').html(' < '); $('#operatorEventEndDate').val('<');">&lt</li>
+                                <li onclick="$('#operatorEventEndDate').html(' > '); $('#operatorEventEndDate').val('>');">&gt</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label >@InsuredTraveling.Resource.Event_StartDate:</label>
+                    <div class="input-group">
+                        <input type="text" id="eventStartDate" class="form-control" placeholder="@dateTimeFormat" />
+                        <div class="input-group-btn">
+                            <button type="button" id="operatorEventStartDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                <p class="caret-position">= <span class="caret"></span></p>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li onclick="$('#operatorEventStartDate').html(' = '); $('#operatorEventStartDate').val('=');">=</li>
+                                <li onclick="$('#operatorEventStartDate').html(' < '); $('#operatorEventStartDate').val('<');">&lt</li>
+                                <li onclick="$('#operatorEventStartDate').html(' > '); $('#operatorEventStartDate').val('>');">&gt</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label>@InsuredTraveling.Resource.Event_PublishDate:</label>
+                    <div class="input-group">
+                        <input type="text" id="eventPublishDate" class="form-control" placeholder="@dateTimeFormat" />
+                        <div class="input-group-btn">
+                            <button type="button" id="operatorEventPublishDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                <p class="caret-position">= <span class="caret"></span></p>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li onclick="$('#operatorEventPublishDate').html(' = '); $('#operatorEventPublishDate').val('=');">=</li>
+                                <li onclick="$('#operatorEventPublishDate').html(' < '); $('#operatorEventPublishDate').val('<');">&lt</li>
+                                <li onclick="$('#operatorEventPublishDate').html(' > '); $('#operatorEventPublishDate').val('>');">&gt</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group">
+                    <label>@InsuredTraveling.Resource.Event_CreatedBy:</label>
+                    <input class="form-control" type="text" id="eventCreatedBy" name="eventCreatedBy" />
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group">
+                    <label>@InsuredTraveling.Resource.Event_Location:</label>
+                    <input class="form-control" type="text" id="eventLocation" name="eventLocation" />
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group">
+                    <label>@InsuredTraveling.Resource.Event_Title:</label>
+                    <input class="form-control" type="text" id="eventTitle" name="eventTitle" />
+                </div>
+            </div><div class="col-md-3 col-sm-3">
+                <div class="form-group">
+                    <label>@InsuredTraveling.Resource.Event_Organizer:</label>
+                    <input class="form-control" type="text" id="eventOrganizer" name="eventOrganizer" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <input  class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchEvents()" type="button" style="float:left;" />
+            </div>
+            <div class="col-md-4">
+                <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowRegisteredUsersSearchResultsInExcel()" type="button" style="float:left;" />
+            </div>
+            <div class="col-md-4">
+                <div class="hover-tooltip">
+                    @*<button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddUserButton" onclick="@("window.location.href='" + @Url.Action("CreateUser", "SignUp") + "'");"><i class="glyphicon glyphicon-plus"></i></button>*@
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+    </form>
+    <br />
+    <br />
+    <div class="row">
+        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableEvents">
+            <thead>
+                <tr>
+                    <th>@InsuredTraveling.Resource.Event_Title</th>
+                    <th>@InsuredTraveling.Resource.Event_Desc</th>
+                    <th>@InsuredTraveling.Resource.Event_Location</th>
+                    <th>@InsuredTraveling.Resource.Event_Organizer</th>
+                    <th>@InsuredTraveling.Resource.Event_Type</th>
+                    <th>@InsuredTraveling.Resource.Event_StartDate</th>
+                    <th>@InsuredTraveling.Resource.Event_EndDate</th>
+                    <th>@InsuredTraveling.Resource.Event_PublishDate</th>
+                    <th>@InsuredTraveling.Resource.Event_CreatedBy</th>
+                </tr>
+            </thead>
+            <tbody id="searchResultEvents"></tbody>
+        </table>
+    </div>
+</div>
 
 <!--Table search result of registered users -->
 <div class="" id="searchUsers">
@@ -994,6 +1119,46 @@
             }
         });
 
+        $("#eventEndDate").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd',
+            onSelect: function () {
+
+                $("#operatorEventEndDate").val("=");
+                $('#operatorEventEndDate').html(' = '); $('#operatorEventEndDate').val('=');
+            }
+        });
+
+        $("#eventStartDate").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd',
+            onSelect: function () {
+
+                $("#operatorEventStartDate").val("=");
+                $('#operatorEventStartDate').html(' = '); $('#operatorEventStartDate').val('=');
+            }
+        });
+
+
+        $("#eventPublishDate").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd',
+            onSelect: function () {
+
+                $("#operatorEventPublishDate").val("=");
+                $('#operatorEventPublishDate').html(' = '); $('#operatorEventPublishDate').val('=');
+            }
+        });
+
         //$(".hover-tooltip button").tooltip('show');
         $('#operatorRegisterDate').html(' = ');
         $('#operatorRegisterDate').val('=');
@@ -1002,6 +1167,9 @@
         $("#searchChats").hide();
         $("#searchQuotes").hide();
         $("#searchUsers").hide();
+        $("#searchEvents").hide();
+        $("#tableEvents").DataTable().destroy();
+        $("#tableEvents").DataTable();
         $("#tableClients").DataTable().destroy();
         $("#tableClients").DataTable();
         $("#tableRegisteredUsers").DataTable().destroy();
@@ -1181,14 +1349,34 @@
         }
     });
 
+    function ShowEvents() {
+        $("#searchChats").hide();
+        $("#searchPolycies").hide();
+        $("#searchClients").hide();
+        $("#searchFNOL").hide();
+        $("#searchUsers").hide();
+        $("#searchQuotes").hide();
+        $("#searchEvents").show();
+
+        $("#first_notice_of_loss").removeAttr("class");
+        $("#polycies").removeAttr("class");
+        $("#clients").removeAttr("class");
+        $("#searchChat").removeAttr("class");
+        $("#registeredUsers").removeAttr("class");
+        $("#quotes").removeAttr("class");
+        $("#events").attr("class", "active");
+    };
+
     function ShowClients() {
         $("#searchChats").hide();
         $("#searchPolycies").hide();
         $("#searchFNOL").hide();
         $("#searchQuotes").hide();
         $("#searchUsers").hide();
+        $("#searchEvents").hide();
         $("#searchClients").show();
 
+        $("#events").removeAttr("class");
         $("#polycies").removeAttr("class");
         $("#first_notice_of_loss").removeAttr("class");
         $("#searchChat").removeAttr("class");
@@ -1207,8 +1395,10 @@
         $("#searchClients").hide();
         $("#searchQuotes").hide();
         $("#searchUsers").hide();
+        $("#searchEvents").hide();
         $("#searchPolycies").show();
 
+        $("#events").removeAttr("class");
         $("#registeredUsers").removeAttr("class");
         $("#clients").removeAttr("class");
         $("#first_notice_of_loss").removeAttr("class");
@@ -1225,8 +1415,10 @@
         $("#searchClients").hide();
         $("#searchQuotes").hide();
         $("#searchUsers").hide();
+        $("#searchEvents").hide();
         $("#searchFNOL").show();
 
+        $("#events").removeAttr("class");
         $("#registeredUsers").removeAttr("class");
         $("#polycies").removeAttr("class");
         $("#clients").removeAttr("class");
@@ -1241,9 +1433,10 @@
         $("#searchClients").hide();
         $("#searchFNOL").hide();
         $("#searchUsers").hide();
+        $("#searchEvents").hide();
         $("#searchQuotes").show();
 
-
+        $("#events").removeAttr("class");
         $("#first_notice_of_loss").removeAttr("class");
         $("#polycies").removeAttr("class");
         $("#clients").removeAttr("class");
@@ -1258,8 +1451,10 @@
         $("#searchFNOL").hide();
         $("#searchUsers").hide();
         $("#searchQuotes").hide();
+        $("#searchEvents").hide();
         $("#searchChats").show();
 
+        $("#events").removeAttr("class");
         $("#polycies").removeAttr("class");
         $("#clients").removeAttr("class");
         $("#first_notice_of_loss").removeAttr("class");
@@ -1280,15 +1475,62 @@
         $("#searchFNOL").hide();
         $("searchChats").hide();
         $("#searchQuotes").hide();
+        $("#searchEvents").hide();
         $("#searchUsers").show();
+
         $("#polycies").removeAttr("class");
         $("#clients").removeAttr("class");
         $("#first_notice_of_loss").removeAttr("class");
         $("#quotes").removeAttr("class");
+        $("#events").removeAttr("class");
         $("#searchChat").removeAttr("class");
         $("#registeredUsers").attr("class", "active");
     };
 
+
+    function SearchEvents() {
+        $("#tableEvents").DataTable().destroy();
+        $("#tableEvents").DataTable({
+            dom: "Bfrtip",
+            ajax: "/Search/GetEvents?createdBy=" +
+                $("#eventCreatedBy").val() +
+                "&location=" +
+                $("#eventLocation").val() +
+                "&organizer=" +
+                $("#eventOrganizer").val() +
+                "&title=" +
+                $("#eventTitle").val() +
+                "&startDate=" +
+                $("#eventStartDate").val() +
+                "&endDate=" +
+                $("#eventEndDate").val() +
+                "&publishDate=" +
+                $("#eventPublishDate").val() +
+                "&operatorEventStartDate=" +
+                $("#operatorStartDate").val() +
+                "&operatorEndDate=" +
+                $("#operatorEventEndDate").val() +
+                "&operatorPublishDate=" +
+                $("#operatorEventPublishDate").val(),
+            columns: [
+               { data: "Title" },
+               { data: "Description" },
+               { data: "Location" },
+               { data: "Organizer" },
+               { data: "EventType" },
+               { data: "StartDate" },
+               { data: "EndDate" },
+               { data: "PublishDate" },
+               { data: "CreatedBy" }
+            ],
+            select: true
+        });
+
+        $('html,body').animate({
+            scrollTop: $("#tableEvents").offset().top
+        },
+            800);
+    };
 
     function SearchChat() {
         $('html,body').animate({
@@ -1326,6 +1568,7 @@
             select: true
         });
     }
+
 
 
     $('#tableChats tbody').on('click', 'tr', function () {

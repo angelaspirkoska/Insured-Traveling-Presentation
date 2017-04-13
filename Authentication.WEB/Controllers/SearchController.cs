@@ -37,6 +37,7 @@ namespace InsuredTraveling.Controllers
         private RoleAuthorize _roleAuthorize;
         private IFirstNoticeOfLossArchiveService _firstNoticeLossArchiveService;
         private IRolesService _rs;
+        private IEventsService _es;
 
         public SearchController(IPolicyService ps, 
                                 IFirstNoticeOfLossService fnls, 
@@ -48,7 +49,8 @@ namespace InsuredTraveling.Controllers
                                 IChatService ics,
                                 IPolicySearchService policySearchService,
                                 IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService,
-                                IRolesService rs)
+                                IRolesService rs,
+                                IEventsService es )
         {
             _ps = ps;
             _fnls = fnls;
@@ -62,6 +64,7 @@ namespace InsuredTraveling.Controllers
             _policySearchService = policySearchService;
             _roleAuthorize = new RoleAuthorize();
             _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
+            _es = es;
         }
 
         [HttpGet]
@@ -849,6 +852,60 @@ namespace InsuredTraveling.Controllers
             var array = JArray.FromObject(searchModel.ToArray());
             JSONObject.Add("data", array);
             return JSONObject;
+        }
+
+        [HttpGet]
+        [Route("GetEvents")]
+        public JObject GetEvents(string createdBy, string title, string organizer, string location, string startDate,
+            string endDate, string publishDate, string operatorStartDate, string operatorEndDate, string operatorPublishDate)
+        {
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+
+            DateTime startDate2 = String.IsNullOrEmpty(startDate) ? new DateTime() : DateTime.ParseExact(startDate, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime endDate2 = String.IsNullOrEmpty(endDate) ? new DateTime() : DateTime.ParseExact(endDate, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime publishDate2 = String.IsNullOrEmpty(publishDate) ? new DateTime() : DateTime.ParseExact(publishDate, dateTimeFormat, CultureInfo.InvariantCulture);
+
+            var data = _es.GetEventsBySearchValues(createdBy, title, organizer, location);
+
+            if (!String.IsNullOrEmpty(startDate))
+            {
+                switch (operatorStartDate)
+                {
+                    case "<": data = data.Where(x => x.StartDate < startDate2).ToList(); break;
+                    case "=": data = data.Where(x => x.StartDate == startDate2).ToList(); break;
+                    case ">": data = data.Where(x => x.StartDate > startDate2).ToList(); break;
+                    default: break;
+                }
+            }
+            if (!String.IsNullOrEmpty(endDate))
+            {
+                switch (operatorEndDate)
+                {
+                    case "<": data = data.Where(x => x.EndDate < endDate2).ToList(); break;
+                    case "=": data = data.Where(x => x.EndDate == endDate2).ToList(); break;
+                    case ">": data = data.Where(x => x.EndDate > endDate2).ToList(); break;
+                    default: break;
+                }
+            }
+            if (!String.IsNullOrEmpty(publishDate))
+            {
+                switch (operatorPublishDate)
+                {
+                    case "<": data = data.Where(x => x.PublishDate.Value < publishDate2).ToList(); break;
+                    case "=": data = data.Where(x => x.PublishDate.Value == publishDate2).ToList(); break;
+                    case ">": data = data.Where(x => x.PublishDate.Value > publishDate2).ToList(); break;
+                    default: break;
+                }
+            }
+            var jsonObject = new JObject();
+
+            var languageId = SiteLanguages.CurrentLanguageId();
+            var searchModel = data.Select(Mapper.Map<@event, Event>).ToList();
+
+            var array = JArray.FromObject(searchModel.ToArray());
+            jsonObject.Add("data", array);
+            return jsonObject;
         }
 
         [HttpGet]

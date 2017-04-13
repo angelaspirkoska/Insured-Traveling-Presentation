@@ -2287,6 +2287,7 @@
     <Compile Include="Models\CreditCardInfoModel.cs" />
     <Compile Include="Models\DiscountModel.cs" />
     <Compile Include="Models\DiscountCodeValidateModel.cs" />
+    <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Ok_SetupModel.cs" />
     <Compile Include="Models\SavaExcelModel.cs" />
     <Compile Include="Models\SavaPolicyModel.cs" />
