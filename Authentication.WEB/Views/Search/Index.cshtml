@@ -24,9 +24,13 @@
 <div class="tabbable">
     <ul class="nav nav-tabs">
         <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
-        <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
+        @if (!isSavaAdmin)
+        {
+            <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
+            <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
+        }
         <li id="events"><a href="#" onclick="ShowEvents()">@InsuredTraveling.Resource.Events </a></li>
-        @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBroker || isSavaAdmin)
+        @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBroker)
         {
             <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
         }
@@ -34,8 +38,7 @@
         {
             <li id="registeredUsers"><a href="#" onclick="ShowUsers()">@InsuredTraveling.Resource.Search_Users</a></li>
         }
-        <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
-
+        
         @if (isAdmin || isEndUser || isClaimsAdjuster || isBrokerManager || isSavaAdmin || isSavaUser)
         {
             <li id="searchChat"><a href="#" onclick="ShowChats()">@InsuredTraveling.Resource.Chats</a></li>
