@@ -634,7 +634,7 @@ textarea {
 .chat_position {
     width: 260px; 
     position: fixed; 
-    bottom: 45px;
+    bottom: 0px;
     z-index: 1000000; 
 }    
 

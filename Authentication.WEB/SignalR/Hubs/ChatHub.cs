@@ -160,7 +160,17 @@ namespace InsuredTraveling.Hubs
                 if (string.IsNullOrWhiteSpace(_currentUser))
                     return;
                 else
+                {
                     message.From = _currentUser;
+                    RoleAuthorize r = new RoleAuthorize();
+                 if(r.IsUser("Admin"))
+                    {
+                        message.Admin = false;
+                    }
+                    else message.Admin = true;
+                    
+                }
+                  
             }
             Clients.Group(message.To).ReceiveMessage(message);
 
