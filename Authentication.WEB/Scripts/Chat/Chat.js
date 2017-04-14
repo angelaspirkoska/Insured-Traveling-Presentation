@@ -94,7 +94,7 @@ function prepareSocket() {
         var message = ChatStatusUpdateDTO.Message;
         var success = ChatStatusUpdateDTO.Success;
         console.log("reqid " + requestId + " dali " + success + " message " + message)
-        if (success === "true") {
+        if (success) {
             $("textarea").attr('id', requestId).attr("readonly", true)
             $("textarea").attr('id', requestId).attr("placeholder", message);
         }
@@ -217,7 +217,6 @@ function LoadNextTenMessages(requestId, lastMessageId) {
 }
 
 function pushOldMessage(messageDTO, ichatwith, requestId) {
-    debugger;
     var PushMessageDTO = { Sender: messageDTO.From, Message: messageDTO.Text, Date: messageDTO.Date + " " + messageDTO.Hour + ":" + messageDTO.Minute };
     var $div = $('div[requestId = ' + requestId + '] .portlet-body');
     var row = generateMessage(PushMessageDTO);
@@ -306,7 +305,6 @@ function fillMessages(LastMessagesDTOs) {
 }
 
 function openChatU(chatDTO) {
-    debugger;
     var sender = chatDTO.Sender;
     var requestId = chatDTO.RequestId;
     var isAdmin = chatDTO.Admin;
