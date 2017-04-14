@@ -1356,4 +1356,10 @@
   <data name="Msg_EmptyUsernameOrPassword" xml:space="preserve">
     <value>Полето за корисничко име и/или лозинка е празно</value>
   </data>
+  <data name="AdminPanel_ConfigurableRatingEngine" xml:space="preserve">
+    <value>Конфигурабилни рејтин системи</value>
+  </data>
+  <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
+    <value>Ексел документ</value>
+  </data>
 </root>

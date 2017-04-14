@@ -90,6 +90,10 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="HtmlTags, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlTags.4.2.0\lib\net45\HtmlTags.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -366,6 +370,9 @@
     <Content Include="Content\Limitless-css\icons\summernote\summernote.eot" />
     <Content Include="Content\Limitless-css\icons\summernote\summernote.ttf" />
     <Content Include="Content\Limitless-css\icons\summernote\summernote.woff" />
+    <Content Include="ExcelConfig\config_file - Copy %282%29.xlsx" />
+    <Content Include="ExcelConfig\config_file - Copy.xlsx" />
+    <Content Include="ExcelConfig\config_file.xlsx" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\Slobodanka.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
@@ -2211,6 +2218,9 @@
     <Compile Include="first_notice_of_loss_archive.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="FormBuilder\ExcelReader.cs" />
+    <Compile Include="FormBuilder\Form.cs" />
+    <Compile Include="FormBuilder\FormBuilder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2395,6 +2405,7 @@
     <Compile Include="ViewModels\CalculatePremiumViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\DetailFirstNoticeOfLossViewModel.cs" />
+    <Compile Include="ViewModels\ExcelFileViewModel.cs" />
     <Compile Include="ViewModels\FileDescriptionViewModel.cs" />
     <Compile Include="ViewModels\FirstNoticeOfLossEditViewModel.cs" />
     <Compile Include="ViewModels\JsonWrapperPolicyFirstNoticeOfLossViewModel.cs" />

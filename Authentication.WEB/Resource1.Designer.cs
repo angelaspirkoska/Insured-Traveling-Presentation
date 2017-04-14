@@ -97,6 +97,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configurable Rating Engine.
+        /// </summary>
+        public static string AdminPanel_ConfigurableRatingEngine {
+            get {
+                return ResourceManager.GetString("AdminPanel_ConfigurableRatingEngine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Excel Document.
+        /// </summary>
+        public static string AdminPanel_ConfigurationDocument {
+            get {
+                return ResourceManager.GetString("AdminPanel_ConfigurationDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Discount.
         /// </summary>
         public static string AdminPanel_Discount {
