@@ -82,16 +82,14 @@ namespace InsuredTraveling.App_Start
           
                 dst.SSNValidationActive = src.SSNValidationActive;
             });
-
             Mapper.CreateMap<DiscountModel, discount_codes>().AfterMap((src, dst) =>
             {
                 dst.Discount_Name = src.Discount_Name;
                 dst.Discount_Coef = src.Discount_Coef;
                 dst.Start_Date = src.End_Date;
                 dst.End_Date = src.End_Date;
-            
+           
             });
-
             Mapper.CreateMap<first_notice_of_loss, FirstNoticeOfLossEditViewModel>().AfterMap((src, dst) =>
             {
                 var policy = src.travel_policy;

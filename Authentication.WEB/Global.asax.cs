@@ -7,7 +7,6 @@ using Authentication.WEB;
 using InsuredTraveling.App_Start;
 using Autofac;
 using Autofac.Integration.Mvc;
-using InsuredTraveling.Filters;
 using System;
 using System.Threading;
 using System.Globalization;
@@ -57,16 +56,6 @@ namespace InsuredTraveling
             if (HttpContext.Current.User == null) return;
             if (!HttpContext.Current.User.Identity.IsAuthenticated) return;
             if (!(HttpContext.Current.User.Identity is FormsIdentity)) return;
-
-            //var id = (FormsIdentity)HttpContext.Current.User.Identity;
-            //var ticket = (id.Ticket);
-
-            //if (string.IsNullOrEmpty(ticket.UserData)) return;
-            //string userData = ticket.UserData;
-
-            //string[] roles = userData.Split(',');
-
-            //HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(id, roles);
         }
         private void SetupDependencyInjection()
         {

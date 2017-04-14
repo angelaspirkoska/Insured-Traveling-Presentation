@@ -1,0 +1,2756 @@
+﻿@{HtmlHelper.UnobtrusiveJavaScriptEnabled = true;}
+@model InsuredTravelingEntity
+@using InsuredTraveling.Filters
+@using System.Web.Optimization;
+@using System.Configuration;
+@{
+    ViewBag.Title = InsuredTraveling.Resource.Search;
+    RoleAuthorize r = new RoleAuthorize();
+    var isClaimsAdjuster = r.IsUser("Claims adjuster");
+    var isBrokerManager = r.IsUser("Broker manager");
+    // ima problem so js iszgleda, poso se se menuva i ima nepoterbni data tables
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+    var isBroker = r.IsUser("Broker");
+    var isAdmin = r.IsUser("Admin");
+    var isEndUser = r.IsUser("End user");
+    var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+    var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy").ToLower() : dateTime.ToLower();
+}
+<br />
+<br />
+<<<<<<< HEAD
+<ul class="nav nav-pills">
+    <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
+    <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
+    @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBroker)
+    {
+        <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
+    }
+    @if (isAdmin || isBrokerManager)
+    {
+        <li id="registeredUsers"><a href="#" onclick="ShowUsers()">@InsuredTraveling.Resource.Search_Users</a></li>
+    }
+    <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
+
+    @if (isAdmin || isEndUser || isClaimsAdjuster || isBrokerManager)
+    {
+        <li id="searchChat"><a href="#" onclick="ShowChats()">@InsuredTraveling.Resource.Chats</a></li>
+    }
+</ul>
+
+
+<!--Table search result of registered users -->
+<div class="" id="searchUsers">
+    <br />
+    <br />
+    <form>
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label>@InsuredTraveling.Resource.User_Role:</label>
+                    @Html.DropDownList("RoleName", (List<SelectListItem>)ViewBag.Roles, Resource.SearchTable_RoleName, new { @class = "form-control", style = "" })
+=======
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
+        <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
+        @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBroker)
+        {
+            <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
+        }
+        @if (isAdmin || isBrokerManager)
+        {
+            <li id="registeredUsers"><a href="#" onclick="ShowUsers()">@InsuredTraveling.Resource.Search_Users</a></li>
+        }
+        <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
+
+        @if (isAdmin || isEndUser || isClaimsAdjuster || isBrokerManager)
+        {
+            <li id="searchChat"><a href="#" onclick="ShowChats()">@InsuredTraveling.Resource.Chats</a></li>
+        }
+    </ul>
+</div>
+
+
+    <!--Table search result of registered users -->
+    <div class="" id="searchUsers">
+        <br />
+        <br />
+        <form>
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label>@InsuredTraveling.Resource.User_Role:</label>
+                        @Html.DropDownList("RoleName", (List<SelectListItem>)ViewBag.Roles, Resource.SearchTable_RoleName, new { @class = "form-control", style = "" })
+                    </div>
+>>>>>>> Implement the Search tabs on Search/Index
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="country">@InsuredTraveling.Resource.RegisterDate:</label>
+                        <div class="input-group">
+                            <input type="text" id="RegisterDate" class="form-control" placeholder="@dateTimeFormat" />
+                            <div class="input-group-btn">
+                                <button type="button" id="operatorRegisterDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                    <p class="caret-position">= <span class="caret"></span></p>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li onclick="$('#operatorRegisterDate').html(' = '); $('#operatorRegisterDate').val('=');">=</li>
+                                    <li onclick="$('#operatorRegisterDate').html(' < '); $('#operatorRegisterDate').val('<');">&lt</li>
+                                    <li onclick="$('#operatorRegisterDate').html(' > '); $('#operatorRegisterDate').val('>');">&gt</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="">
+                        <label>@InsuredTraveling.Resource.SearchTable_UserStatus:</label>
+                        <div class="form-group">
+                            <input type="radio" name="status" value="0" style="width:15px;"> @Resource.SearchTable_UserStatusActive
+                            <input type="radio" name="status" value="1" style="width:15px;"> @Resource.SearchTable_UserStatusInactive
+                            <input type="radio" name="status" value="2" style="width:15px;"> @Resource.SearchTable_UserStatusBoth
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<<<<<<< HEAD
+        <div class="row">
+            <div class="col-md-4">
+                <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchUsers()" type="button" style="float:left;" />
+            </div>
+            <div class="col-md-4">
+                <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowRegisteredUsersSearchResultsInExcel()" type="button" style="float:left;" />
+            </div>
+            <div class="col-md-4">
+                <div class="hover-tooltip">
+                    <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddUserButton" onclick="@("window.location.href='" + @Url.Action("CreateUser", "SignUp") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+=======
+            <div class="row">
+                <div class="col-md-4">
+                    <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchUsers()" type="button" style="float:left;" />
+                </div>
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="hover-tooltip">
+                        <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddUserButton" onclick="@("window.location.href='" + @Url.Action("CreateUser", "SignUp") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                    </div>
+>>>>>>> Implement the Search tabs on Search/Index
+                </div>
+            </div>
+            <br />
+            <br />
+        </form>
+        <br />
+        <br />
+        <div class="row">
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableRegisteredUsers">
+                <thead>
+                    <tr>
+                        <th>@InsuredTraveling.Resource.SearchTable_UserName</th>
+                        <th>@InsuredTraveling.Resource.SearchTable_FirstName</th>
+                        <th>@InsuredTraveling.Resource.SearchTable_LastName</th>
+                        <th>@InsuredTraveling.Resource.SearchTable_Email</th>
+                        <th>@InsuredTraveling.Resource.SearchTable_RoleName</th>
+                        <th>@InsuredTraveling.Resource.SearchTable_CreatedOn</th>
+                        <th>@InsuredTraveling.Resource.SearchTable_ActiveInactiveUser</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="searchResultRegisteredUsers"></tbody>
+            </table>
+        </div>
+    </div>
+
+<<<<<<< HEAD
+<!-- Reset password modal dialog-->
+<div class="modal fade" id="modal" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%; width:35%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@Resource.Search_ResetUserPass</h4>
+            </div>
+            <div class="modal-body" style="width:70%;">
+                <div class="form-group">
+                    <label class="control-label">@Resource.User_Password</label>
+                    <input type="password" id="UserPassword" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">@Resource.User_ConfirmPassword</label>
+                    <input type="password" id="UserRepeatPassword" class="form-control" />
+=======
+    <!-- Reset password modal dialog-->
+    <div class="modal fade" id="modal" role="dialog">
+        <div class="modal-dialog" style="margin-top:13%; width:35%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">@Resource.Search_ResetUserPass</h4>
+>>>>>>> Implement the Search tabs on Search/Index
+                </div>
+                <div class="modal-body" style="width:70%;">
+                    <div class="form-group">
+                        <label class="control-label">@Resource.User_Password</label>
+                        <input type="password" id="UserPassword" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">@Resource.User_ConfirmPassword</label>
+                        <input type="password" id="UserRepeatPassword" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label id="PassResetMsg"></label>
+                    </div>
+                    <input type="hidden" id="hiddenUsername" />
+                </div>
+<<<<<<< HEAD
+                <input type="hidden" id="hiddenUsername" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="ResetPass">@Resource.Search_Reset</button> <button type="button" onclick="$('#PassResetMsg').text(' ')" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
+=======
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="ResetPass">@Resource.Search_Reset</button> <button type="button" onclick="$('#PassResetMsg').text(' ')" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
+                </div>
+>>>>>>> Implement the Search tabs on Search/Index
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Change user status modal dialog-->
+    <div class="modal fade" id="modalChangeStatus" role="dialog">
+        <div class="modal-dialog" style="margin-top:13%; width:35%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">@Resource.Search_UserChangeStatus</h4>
+                </div>
+                <div class="modal-body" style="width:70%;">
+                    <div class="form-group">
+                        <h4>@Resource.Search_UserChangeStatusQuestion</h4>
+                    </div>
+                    <div class="form-group">
+                        <label id="ChangeStatusMsg"></label>
+                    </div>
+                    <input type="hidden" id="hiddenUsernameChangeStatus" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="ChangeStatus">@Resource.Search_ChangeUserStatus</button> <button type="button" onclick="$('#ChangeStatusMsg').text(' ')" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Do not allow user to set itself as inactive modal-->
+    <div class="modal fade" id="modalUserNotallowedToChangeItselfStatus" role="dialog">
+        <div class="modal-dialog" style="margin-top:13%; width:35%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">@Resource.Search_UserChangeStatus</h4>
+                </div>
+                <div class="modal-body" style="width:70%;">
+                    <div class="form-group">
+                        <h4>@Resource.Search_UserItselfChangeStatus</h4>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@Resource.Search_Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Table search result of policies -->
+    <div class="" id="searchPolycies">
+        <br />
+        <br />
+        <form>
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyType:</label>
+                        <br />
+                        @Html.DropDownListFor(model => model.policy_type, (List<SelectListItem>)ViewBag.TypeOfPolicy, @InsuredTraveling.Resource.Policy_TypeDD, new { @class = "form-control", name = "TypePolicy", id = "TypePolicy" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="country">@InsuredTraveling.Resource.Search_TravelCountry:</label>
+                        @Html.DropDownListFor(model => model.countries, (List<SelectListItem>)ViewBag.Countries, @InsuredTraveling.Resource.Policy_CountryDD, new { @class = "form-control", name = "Country", id = "Country" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="country">@InsuredTraveling.Resource.Search_PolicyNumber:</label>
+                        <input class="form-control" type="text" id="PolicyNumber" name="PolicyNumber" />
+                    </div>
+                </div>
+            </div>
+<<<<<<< HEAD
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label for="startDate">@InsuredTraveling.Resource.Search_PolicyEffectiveDate:</label>
+                    <div class="input-group">
+                        <input type="text" id="startDate" class="form-control" placeholder="@dateTimeFormat" />
+                        <div class="input-group-btn">
+                            <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle explain-functionality"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                <p class="caret-position">= <span class="caret"></span></p>  
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li onclick="$('#operatorStartDate').html(' All '); $('#operatorStartDate').val('All');">All</li>
+                                <li onclick="$('#operatorStartDate').html(' = '); $('#operatorStartDate').val('=');">=</li>
+                                <li onclick="$('#operatorStartDate').html(' < '); $('#operatorStartDate').val('<');">&lt</li>
+                                <li onclick="$('#operatorStartDate').html(' > '); $('#operatorStartDate').val('>');">&gt</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label for="endDate">@InsuredTraveling.Resource.Search_PolicyExpiryDate</label>
+                    <div class="input-group">
+                        <input type="text" name="endDate" class="form-control" id="endDate" placeholder="@dateTimeFormat" />
+                        <div class="input-group-btn">
+                            <button type="button" id="operatorEndDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                    <p class="caret-position">= <span class="caret"></span></p>  
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li onclick="$('#operatorEndDate').html(' All '); $('#operatorStartDate').val('All');">All</li>
+                                <li onclick="$('#operatorEndDate').html(' = '); $('#operatorEndDate').val('=');">=</li>
+                                <li onclick="$('#operatorEndDate').html(' < '); $('#operatorEndDate').val('<');">&lt</li>
+                                <li onclick="$('#operatorEndDate').html(' > '); $('#operatorEndDate').val('>');">&gt</li>
+                            </ul>
+=======
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="startDate">@InsuredTraveling.Resource.Search_PolicyEffectiveDate:</label>
+                        <div class="input-group">
+                            <input type="text" id="startDate" class="form-control" placeholder="@dateTimeFormat" />
+                            <div class="input-group-btn">
+                                <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle explain-functionality"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                    <p class="caret-position">= <span class="caret"></span></p>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li onclick="$('#operatorStartDate').html(' = '); $('#operatorStartDate').val('=');">=</li>
+                                    <li onclick="$('#operatorStartDate').html(' < '); $('#operatorStartDate').val('<');">&lt</li>
+                                    <li onclick="$('#operatorStartDate').html(' > '); $('#operatorStartDate').val('>');">&gt</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="endDate">@InsuredTraveling.Resource.Search_PolicyExpiryDate</label>
+                        <div class="input-group">
+                            <input type="text" name="endDate" class="form-control" id="endDate" placeholder="@dateTimeFormat" />
+                            <div class="input-group-btn">
+                                <button type="button" id="operatorEndDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                    <p class="caret-position">= <span class="caret"></span></p>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li onclick="$('#operatorEndDate').html(' = '); $('#operatorEndDate').val('=');">=</li>
+                                    <li onclick="$('#operatorEndDate').html(' < '); $('#operatorEndDate').val('<');">&lt</li>
+                                    <li onclick="$('#operatorEndDate').html(' > '); $('#operatorEndDate').val('>');">&gt</li>
+                                </ul>
+                            </div>
+>>>>>>> Implement the Search tabs on Search/Index
+                        </div>
+                    </div>
+                </div>
+            </div>
+<<<<<<< HEAD
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label for="startDate">@InsuredTraveling.Resource.Search_PolicyIssuanceDate:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control placeholder" id="dateI" placeholder="@dateTimeFormat" />
+                        <div class="input-group-btn">
+                            <button type="button" id="operatorDateI" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                <p class="caret-position">= <span class="caret"></span></p>  
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li onclick="$('#operatorDateI').html(' All '); $('#operatorStartDate').val('All');">All</li>
+                                <li onclick="$('#operatorDateI').html(' = '); $('#operatorDateI').val('=');">=</li>
+                                <li onclick="$('#operatorDateI').html(' < '); $('#operatorDateI').val('<');">&lt</li>
+                                <li onclick="$('#operatorDateI').html(' > '); $('#operatorDateI').val('>');">&gt</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label for="endDate">@InsuredTraveling.Resource.Search_CancellationDate:</label>
+                    <div class="input-group">
+                        <input type="text" id="dateS" class="form-control" placeholder="@dateTimeFormat" />
+                        <div class="input-group-btn">
+                            <button type="button" id="operatorDateS" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                <p class="caret-position">= <span class="caret"></span></p>  
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li onclick="$('#operatorDateS').html(' All '); $('#operatorStartDate').val('All');">All</li>
+                                <li onclick="$('#operatorDateS').html(' = '); $('#operatorDateS').val('=');">=</li>
+                                <li onclick="$('#operatorDateS').html(' < '); $('#operatorDateS').val('<');">&lt</li>
+                                <li onclick="$('#operatorDateS').html(' > '); $('#operatorDateS').val('>');">&gt</li>
+                            </ul>
+=======
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="startDate">@InsuredTraveling.Resource.Search_PolicyIssuanceDate:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control placeholder" id="dateI" placeholder="@dateTimeFormat" />
+                            <div class="input-group-btn">
+                                <button type="button" id="operatorDateI" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                    <p class="caret-position">= <span class="caret"></span></p>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li onclick="$('#operatorDateI').html(' = '); $('#operatorDateI').val('=');">=</li>
+                                    <li onclick="$('#operatorDateI').html(' < '); $('#operatorDateI').val('<');">&lt</li>
+                                    <li onclick="$('#operatorDateI').html(' > '); $('#operatorDateI').val('>');">&gt</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="endDate">@InsuredTraveling.Resource.Search_CancellationDate:</label>
+                        <div class="input-group">
+                            <input type="text" id="dateS" class="form-control" placeholder="@dateTimeFormat" />
+                            <div class="input-group-btn">
+                                <button type="button" id="operatorDateS" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                    <p class="caret-position">= <span class="caret"></span></p>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li onclick="$('#operatorDateS').html(' = '); $('#operatorDateS').val('=');">=</li>
+                                    <li onclick="$('#operatorDateS').html(' < '); $('#operatorDateS').val('<');">&lt</li>
+                                    <li onclick="$('#operatorDateS').html(' > '); $('#operatorDateS').val('>');">&gt</li>
+                                </ul>
+                            </div>
+>>>>>>> Implement the Search tabs on Search/Index
+                        </div>
+                    </div>
+                </div>
+            </div>
+<<<<<<< HEAD
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchPolycies()" type="button" style="float:left;" />
+            </div>
+            <div class="col-md-4">
+                <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowSearchResultsInExcel()" type="button" style="float:left;" />
+            </div>
+            @if (!isClaimsAdjuster)
+            {
+=======
+            <br />
+            <div class="row">
+>>>>>>> Implement the Search tabs on Search/Index
+                <div class="col-md-4">
+                    <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchPolycies()" type="button" style="float:left;" />
+                </div>
+<<<<<<< HEAD
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label for="startDate">@InsuredTraveling.Resource.Search_QuoteEffectiveDate:</label>
+                    <div class="input-group">
+                        <input type="text" id="startDate1" class="form-control" placeholder="@dateTimeFormat" />
+                        <div class="input-group-btn">
+                            <button type="button" id="operatorStartDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                              <p class="caret-position">= <span class="caret"></span></p>  
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li onclick="$('#operatorStartDate1').html(' All '); $('#operatorStartDate1').val('All');">All</li>
+                                <li onclick="$('#operatorStartDate1').html(' = '); $('#operatorStartDate1').val('=');">=</li>
+                                <li onclick="$('#operatorStartDate1').html(' < '); $('#operatorStartDate1').val('<');">&lt</li>
+                                <li onclick="$('#operatorStartDate1').html(' > '); $('#operatorStartDate1').val('>');">&gt</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label for="endDate">@InsuredTraveling.Resource.Search_QuoteExpiryDate:</label>
+                    <div class="input-group">
+                        <input type="text" name="endDate" class="form-control" id="endDate1" placeholder="@dateTimeFormat" />
+                        <div class="input-group-btn">
+                            <button type="button" id="operatorEndDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                <p class="caret-position">= <span class="caret"></span></p>  
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li onclick="$('#operatorEndDate1').html(' All '); $('#operatorEndDate1').val('All');">All</li>
+                                <li onclick="$('#operatorEndDate1').html(' = '); $('#operatorEndDate1').val('=');">=</li>
+                                <li onclick="$('#operatorEndDate1').html(' < '); $('#operatorEndDate1').val('<');">&lt</li>
+                                <li onclick="$('#operatorEndDate1').html(' > '); $('#operatorEndDate1').val('>');">&gt</li>
+                            </ul>
+=======
+                <div class="col-md-4">
+                    <input id="SearchResultsExcel" class="btn btn-primary btn-block btn-material-design-success" value="Show search results in excel" onclick="ShowSearchResultsInExcel()" type="button" style="float:left;" />
+                </div>
+                @if (!isClaimsAdjuster)
+            {
+                    <div class="col-md-4">
+                        <div class="hover-tooltip">
+                            <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddPolicyButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+>>>>>>> Implement the Search tabs on Search/Index
+                        </div>
+                    </div>
+                }
+            </div>
+            <br />
+        </form>
+        <br />
+        <br />
+        <br />
+        <div class="row">
+<<<<<<< HEAD
+            <div class="col-md-4">
+                <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchQuotes()" type="button" style="float:left;" />
+            </div>
+            <div class="col-md-4">
+                <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowQuotesSearchResultsInExcel()" type="button" style="float:left;" />
+            </div>
+            @if (!isClaimsAdjuster)
+            {
+                <div class="col-md-4">
+                    <div class="hover-tooltip">
+                        <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddQuoteButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                    </div>
+                </div>
+            }
+
+=======
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePolicies">
+                <thead>
+                    <tr>
+                        <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTravelCountry</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyIssuanceDate</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableCancellationDate</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="searchResultPolycies"></tbody>
+            </table>
+>>>>>>> Implement the Search tabs on Search/Index
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableFNOLPolicies">
+                <thead>
+                    <tr>
+                        <th>@InsuredTraveling.Resource.Search_SearchTableFNOLNumber</th>
+                        <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableClaimantNameLastName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredHolderRelationship</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTotalCost</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableRegistrationDate</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableHealthInsurance</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableLuggageInsurance</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!--Table search result of quotes -->
+    <div id="searchQuotes">
+        <br />
+        <br />
+        <form>
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="vidPolisa">@InsuredTraveling.Resource.Search_QuoteType:</label>
+                        <br />
+                        @Html.DropDownListFor(model => model.policy_type, (List<SelectListItem>)ViewBag.TypeOfPolicy, @InsuredTraveling.Resource.Quote_TypeDD, new { @class = "form-control", name = "TypePolicy", id = "TypePolicy1" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="country">@InsuredTraveling.Resource.Search_TravelCountry:</label>
+                        @Html.DropDownListFor(model => model.countries, (List<SelectListItem>)ViewBag.Countries, @InsuredTraveling.Resource.Policy_CountryDD, new { @class = "form-control", name = "Country", id = "Country1" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="country">@InsuredTraveling.Resource.Search_QuoteNumber:</label>
+                        <input class="form-control" type="text" id="PolicyNumber1" name="PolicyNumber" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="startDate">@InsuredTraveling.Resource.Search_QuoteEffectiveDate:</label>
+                        <div class="input-group">
+                            <input type="text" id="startDate1" class="form-control" placeholder="@dateTimeFormat" />
+                            <div class="input-group-btn">
+                                <button type="button" id="operatorStartDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                    <p class="caret-position">= <span class="caret"></span></p>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li onclick="$('#operatorStartDate1').html(' = '); $('#operatorStartDate1').val('=');">=</li>
+                                    <li onclick="$('#operatorStartDate1').html(' < '); $('#operatorStartDate1').val('<');">&lt</li>
+                                    <li onclick="$('#operatorStartDate1').html(' > '); $('#operatorStartDate1').val('>');">&gt</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="endDate">@InsuredTraveling.Resource.Search_QuoteExpiryDate:</label>
+                        <div class="input-group">
+                            <input type="text" name="endDate" class="form-control" id="endDate1" placeholder="@dateTimeFormat" />
+                            <div class="input-group-btn">
+                                <button type="button" id="operatorEndDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                    <p class="caret-position">= <span class="caret"></span></p>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li onclick="$('#operatorEndDate1').html(' = '); $('#operatorEndDate1').val('=');">=</li>
+                                    <li onclick="$('#operatorEndDate1').html(' < '); $('#operatorEndDate1').val('<');">&lt</li>
+                                    <li onclick="$('#operatorEndDate1').html(' > '); $('#operatorEndDate1').val('>');">&gt</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchQuotes()" type="button" style="float:left;" />
+                </div>
+                @if (!isClaimsAdjuster)
+            {
+                    <div class="col-md-offset-4 col-md-4">
+                        <div class="hover-tooltip">
+                            <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddQuoteButton" onclick="@("window.location.href='" + @Url.Action("Index", "Policy") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <br />
+        </form>
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableQuotes">
+                <thead>
+                    <tr>
+                        <th>@InsuredTraveling.Resource.Search_SearchTableQuoteNumber</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTravelCountry</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_QuoteSearchTableFrom</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_QuoteSearchTableTo</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="searchResultQuotes"></tbody>
+            </table>
+        </div>
+<<<<<<< HEAD
+        <div class="col-md-4">
+            <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowClientsSearchResultsInExcel()" type="button" style="float:left;" />
+        </div>
+        @if (!isClaimsAdjuster)
+        {
+            <div class="col-md-4">
+                <div class="hover-tooltip">
+                    <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" style="float: right;" title="@InsuredTraveling.Resource.Search_AddNewClient" onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                </div>
+            </div>
+        }
+    </div>
+    <br />
+
+    @*Data table for clients*@
+    <div class="row">
+        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableClients">
+            <thead>
+                <tr>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableName</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableLastName</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableSSN</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableStreet</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableCity</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePostalCode</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePhoneNumber</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableEmail</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePassport</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="searchResultClients"></tbody>
+        </table>
+    </div>
+    <br />
+    <ul class="nav nav-pills">
+        <li id="insured" class="active"><a onclick="showInsured()" style="cursor:pointer">@InsuredTraveling.Resource.Search_InsuredPolicy</a></li>
+        <li id="holder"><a onclick="showHolders()" style="cursor:pointer">@InsuredTraveling.Resource.Search_PolicyPolicyHolder </a></li>
+    </ul>
+    <br />
+    <div class="row" id="policiesClients">
+        <div>@InsuredTraveling.Resource.Search_InsuredPolicy</div>
+        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePoliciesClients">
+            <thead>
+                <tr>
+                    <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableTravelCountry</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyIssuanceDate</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableCancellationDate</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="row" style="display:none;" id="policiesHolders">
+        <div>@InsuredTraveling.Resource.Search_PolicyPolicyHolder</div>
+        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePoliciesHolders">
+            <thead>
+                <tr>
+                    <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableTravelCountry</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyIssuanceDate</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableCancellationDate</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+=======
+        <br />
+        <br />
+>>>>>>> Implement the Search tabs on Search/Index
+    </div>
+
+
+    <!--Table search result of clients -->
+    <div class="" id="searchClients">
+        <br />
+        <br />
+        <div class="row">
+            <form style="margin-left:20px;">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="search" name="name" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="name" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="search" name="lastname" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchLastName" id="lastname" />
+                        </div>
+                    </div>
+<<<<<<< HEAD
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="startDate">@InsuredTraveling.Resource.Search_RegistrationDate:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control placeholder" id="DateAdded" placeholder="@dateTimeFormat" />
+                            <div class="input-group-btn">
+                                <button type="button" id="operatorDateAdded" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                    <p class="caret-position">= <span class="caret"></span></p>  
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li onclick="$('#operatorDateAdded').html(' All '); $('#operatorDateAdded').val('All');">All</li>
+                                    <li onclick="$('#operatorDateAdded').html(' = '); $('#operatorDateAdded').val('=');">=</li>
+                                    <li onclick="$('#operatorDateAdded').html(' < '); $('#operatorDateAdded').val('<');">&lt</li>
+                                    <li onclick="$('#operatorDateAdded').html(' > '); $('#operatorDateAdded').val('>');">&gt</li>
+                                </ul>
+                            </div>
+=======
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="search" name="embg" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchSSN" id="embg" />
+>>>>>>> Implement the Search tabs on Search/Index
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="search" name="address" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchAddress" id="address" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="search" name="city" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchCity" id="city" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="search" name="postal_code" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchPostalCode" id="postal_code" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="search" name="phone" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchPhoneNumber" id="phone" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="search" name="email" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchEmail" id="email" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="search" name="passport" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchPassport" id="passport" />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input id="btnSubmit" class="btn btn-primary btn-material-design-success btn-block" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchClients()" type="button" style="float:left;" />
+            </div>
+            @if (!isClaimsAdjuster)
+            {
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="hover-tooltip">
+                        <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" style="float: right;" title="@InsuredTraveling.Resource.Search_AddNewClient" onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                    </div>
+                </div>
+            }
+        </div>
+        <br />
+
+        @*Data table for clients*@
+        <div class="row">
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableClients">
+                <thead>
+                    <tr>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableLastName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableSSN</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableStreet</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableCity</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePostalCode</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePhoneNumber</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableEmail</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePassport</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="searchResultClients"></tbody>
+            </table>
+        </div>
+        <br />
+        <ul class="nav nav-pills">
+            <li id="insured" class="active"><a onclick="showInsured()" style="cursor:pointer">@InsuredTraveling.Resource.Search_InsuredPolicy</a></li>
+            <li id="holder"><a onclick="showHolders()" style="cursor:pointer">@InsuredTraveling.Resource.Search_PolicyPolicyHolder </a></li>
+        </ul>
+        <br />
+        <div class="row" id="policiesClients">
+            <div>@InsuredTraveling.Resource.Search_InsuredPolicy</div>
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePoliciesClients">
+                <thead>
+                    <tr>
+                        <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTravelCountry</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyIssuanceDate</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableCancellationDate</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="row" style="display:none;" id="policiesHolders">
+            <div>@InsuredTraveling.Resource.Search_PolicyPolicyHolder</div>
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePoliciesHolders">
+                <thead>
+                    <tr>
+                        <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTravelCountry</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyIssuanceDate</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableCancellationDate</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--Table search result of first notice of loss -->
+    <div id="searchFNOL">
+        <br />
+        <br />
+        <div id="searchFNOLAttributes">
+            <form>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="vidPolisa">@InsuredTraveling.Resource.Search_FNOLNumber :</label>
+                            <br />
+                            <input class="form-control" type="text" id="FNOLNumber" name="FNOLNumber" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyNumber :</label>
+                            <br />
+                            <input class="form-control" type="text" id="PolicyNumberFNL" name="PolicyNumberFNL" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="startDate">@InsuredTraveling.Resource.Search_RegistrationDate:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control placeholder" id="DateAdded" placeholder="@dateTimeFormat" />
+                                <div class="input-group-btn">
+                                    <button type="button" id="operatorDateAdded" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                        <p class="caret-position">= <span class="caret"></span></p>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li onclick="$('#operatorDateAdded').html(' = '); $('#operatorDateAdded').val('=');">=</li>
+                                        <li onclick="$('#operatorDateAdded').html(' < '); $('#operatorDateAdded').val('<');">&lt</li>
+                                        <li onclick="$('#operatorDateAdded').html(' > '); $('#operatorDateAdded').val('>');">&gt</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="holderName">@InsuredTraveling.Resource.Search_HolderName:</label>
+                            <input type="search" name="holderName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="holderName" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="holderLastName">@InsuredTraveling.Resource.Search_HolderLastName:</label>
+                            <input type="search" name="holderLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="holderLastName" />
+                        </div>
+                    </div>
+                </div>
+<<<<<<< HEAD
+            </div>
+            <div class="form-inline row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="totalPrice">@InsuredTraveling.Resource.Search_TotalCost:</label>
+                        <div class="input-group-btn">
+                            <input type="search" name="totalPrice" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLtotalcost" id="totalPrice" />
+                            <button type="button" id="totalCostOperator" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                <p class="caret-position">= <span class="caret"></span></p>  
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li onclick="$('#totalCostOperator').html(' = '); $('#totalCostOperator').val('=');">=</li>
+                                <li onclick="$('#totalCostOperator').html(' < '); $('#totalCostOperator').val('<');">&lt</li>
+                                <li onclick="$('#totalCostOperator').html(' > '); $('#totalCostOperator').val('>');">&gt</li>
+                            </ul>
+=======
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="clientName">@InsuredTraveling.Resource.Search_InsuredName:</label>
+                            <input type="search" name="clientName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="clientName" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="clientLastName">@InsuredTraveling.Resource.Search_InsuredLastName:</label>
+                            <input type="search" name="clientLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="clientLastName" />
+>>>>>>> Implement the Search tabs on Search/Index
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="insuredName">@InsuredTraveling.Resource.Search_ClaimantName:</label>
+                            <input type="search" name="insuredName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="insuredName" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="insuredLastName">@InsuredTraveling.Resource.Search_ClaimantLastName: </label>
+                            <input type="search" name="insuredLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="insuredLastName" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-inline row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="totalPrice">@InsuredTraveling.Resource.Search_TotalCost:</label>
+                            <div class="input-group-btn">
+                                <input type="search" name="totalPrice" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLtotalcost" id="totalPrice" />
+                                <button type="button" id="totalCostOperator" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
+                                    <p class="caret-position">= <span class="caret"></span></p>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li onclick="$('#totalCostOperator').html(' = '); $('#totalCostOperator').val('=');">=</li>
+                                    <li onclick="$('#totalCostOperator').html(' < '); $('#totalCostOperator').val('<');">&lt</li>
+                                    <li onclick="$('#totalCostOperator').html(' > '); $('#totalCostOperator').val('>');">&gt</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-1 col-sm-3">
+                        <div class="form-group">
+                            <label class="col-md-12">&nbsp;</label>
+                            <input type="radio" name="typeInsurance" value="healthInsurance" id="healthInsurance" class="radiobtn-position">@InsuredTraveling.Resource.Search_HealthInsurance<br>
+                            <input type="radio" name="typeInsurance" value="luggageInsurance" id="luggageInsurance" class="radiobtn-position">@InsuredTraveling.Resource.Search_LuggageInsurance<br>
+                        </div>
+                    </div>
+                </div>
+<<<<<<< HEAD
+                <div class="col-md-4">
+                    <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowFnolsSearchResultsInExcel()" type="button" style="float:left;" />
+                </div>
+                <div class="col-md-4">
+                    <div class="hover-tooltip">
+                        <button type="button" style="float:right;" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddFNOL" onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+=======
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="Search" onclick="SearchFNOL()" type="button" style="float:left;" />
+                    </div>
+                    <div class="col-md-offset-4 col-md-4">
+                        <div class="hover-tooltip">
+                            <button type="button" style="float:right;" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddFNOL" onclick="@("window.location.href='" + @Url.Action("Index", "FirstNoticeOfLoss") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
+                        </div>
+>>>>>>> Implement the Search tabs on Search/Index
+                    </div>
+                </div>
+                <br />
+            </form>
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableFNOL">
+                <thead>
+                    <tr>
+                        <th>@InsuredTraveling.Resource.Search_SearchTableFNOLNumber</th>
+                        <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableClaimantNameLastName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredHolderRelationship</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTotalCost</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableRegistrationDate</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableHealthInsurance</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableLuggageInsurance</th>
+                        <th></th>
+                        <th></th>
+                        @if (r.IsUser("Claims adjuster"))
+                        {
+                            <th></th>
+                        }
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableArchivedFNOL">
+                <thead>
+                    <tr>
+                        <th>@InsuredTraveling.Resource.Search_SearchTableFNOLNumber</th>
+                        <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableClaimantNameLastName</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredHolderRelationship</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTotalCost</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableRegistrationDate</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableHealthInsurance</th>
+                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableLuggageInsurance</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--Table search result of chat -->
+    <div id="searchChats">
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <input type="search" name="name" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="nameChat" />
+                </div>
+                <div class="form-group">
+                    <input type="search" id="chatId" name="chatId" class="form-control" placeholder="@InsuredTraveling.Resource.Search_Id" />
+                    <br />
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <select class="form-control" id="all">
+                        <option value="all">@InsuredTraveling.Resource.Search_All</option>
+                        <option value="active">@InsuredTraveling.Resource.Search_Active</option>
+                        <option value="discarded">@InsuredTraveling.Resource.Search_Discarded</option>
+                        <option value="noticed">@InsuredTraveling.Resource.Search_Noticed</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+<<<<<<< HEAD
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group">
+                <select class="form-control" id="all">
+                    <option value="all">@InsuredTraveling.Resource.Search_All</option>
+                    <option value="active">@InsuredTraveling.Resource.Search_Active</option>
+                    <option value="discarded">@InsuredTraveling.Resource.Search_Discarded</option>
+                    <option value="noticed">@InsuredTraveling.Resource.Search_Noticed</option>
+                </select>
+=======
+        <br />
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <input id="btnSubmit" class="btn btn-primary btn-material-design-success btn-block" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchChat()" type="button" style="float:left;" />
+>>>>>>> Implement the Search tabs on Search/Index
+            </div>
+        </div>
+        <br />
+        <div class="row" style="width: 100%;">
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableChats">
+                <thead>
+                    <tr>
+                        <th>@InsuredTraveling.Resource.Search_Id</th>
+                        <th>@InsuredTraveling.Resource.Search_ChatWith</th>
+                        <th>@InsuredTraveling.Resource.Search_FNOLChat</th>
+                        <th>@InsuredTraveling.Resource.Search_DiscardedChat</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/jqueryuicss")
+    <script type="text/javascript">
+        var isAdmin = false;
+        $(document).ready(function () {
+            var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
+
+            $('.explain-functionality').tooltip({
+                placement: "right"
+            });
+
+            $("#startDate").datepicker({
+                dateFormat: dateFormatString,
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '-100y:c+nn',
+                maxDate: 'd'
+            });
+
+
+<<<<<<< HEAD
+        $("#RegisterDate").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd',
+            onSelect: function () {
+                
+                $("#operatorStartDate").val("=");
+                $('#operatorStartDate').html(' = '); $('#operatorStartDate').val('=');
+            }
+        });
+
+
+        $("#endDate").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            onSelect: function () {
+                
+                $("#operatorEndDate").val("=");
+                $('#operatorEndDate').html(' = '); $('#operatorEndDate').val('=');
+            }
+            
+        });
+
+        $("#dateI").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd',
+            onSelect: function () {
+                
+                $("#operatorDateI").val("=");
+                $('#operatorDateI').html(' = '); $('#operatorDateI').val('=');
+            }
+        });
+
+        $("#dateS").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd',
+            onSelect: function () {
+                
+                $("#operatorDateS").val("=");
+                $('#operatorDateS').html(' = '); $('#operatorDateS').val('=');
+        }
+        });
+
+        $("#startDate1").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd',
+            onSelect: function () {
+
+                $("#operatorStartDate1").val("=");
+                $('#operatorStartDate1').html(' = '); $('#operatorStartDate1').val('=');
+            }
+        });
+
+        $("#endDate1").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            onSelect: function () {
+
+                $("#operatorEndDate1").val("=");
+                $('#operatorEndDate1').html(' = '); $('#operatorEndDate1').val('=');
+            }
+
+          
+        });
+
+
+        $("#DateAdded").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd',
+            onSelect: function () {
+
+                $("#operatorDateAdded").val("=");
+                $('#operatorDateAdded').html(' = '); $('#operatorDateAdded').val('=');
+        }
+        });
+
+        //$(".hover-tooltip button").tooltip('show');
+        $('#operatorRegisterDate').html(' = ');
+        $('#operatorRegisterDate').val('=');
+        $("#searchClients").hide();
+        $("#searchFNOL").hide();
+        $("#searchChats").hide();
+        $("#searchQuotes").hide();
+        $("#searchUsers").hide();
+        $("#tableClients").DataTable().destroy();
+        $("#tableClients").DataTable();
+        $("#tableRegisteredUsers").DataTable().destroy();
+        $("#tableRegisteredUsers").DataTable();
+        $("#tablePolicies").DataTable().destroy();
+        $("#tablePolicies").DataTable();
+        $("#tableQuotes").DataTable().destroy();
+        $("#tableQuotes").DataTable();
+        $("#tableFNOL").DataTable().destroy();
+        $("#tableFNOL").DataTable();
+        $("#tableFNOLPolicies").css("display", "none");
+        $("#tableArchivedFNOL").css("display", "none");
+        $("#tablePoliciesClients").css("display", "none");
+        $("#tablePoliciesHolders").css("display", "none");
+
+        //Setting the class active-tab, so the user will know which tab is clicked
+        $("#addNewPolicy").removeClass("active-tab");
+        $("#newsTab").removeClass("active-tab");
+        $("#searchTab").addClass("active-tab");
+        $("#fnolTab").removeClass("active-tab");
+        $("#adminTab").removeClass("active-tab");
+        $("#createTab").removeClass("active-tab");
+        $("#signupTab").removeClass("active-tab");
+
+        $.ajax({
+            type: "GET",
+            url: "/Search/IsAdmin",
+            success: function (result) {
+                var result = JSON.parse(result);
+                isAdmin = result.isAdmin;
+            }
+        });
+    });
+
+    $("#ResetPass").click(function () {
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/ForgetPassword/Change",
+            type: "POST",
+            data: { Username: $("#hiddenUsername").val(), Password: $("#UserPassword").val(), NewPassword: $("#UserRepeatPassword").val() },
+            success: function (data) {
+                if ((JSON.parse(data)).message === "OK") {
+                    $("#PassResetMsg").text("@Resource.PasswordResetMessageSuccess");
+                    $("#ResetPass").hide();
+                } else {
+                    $("#PassResetMsg").text("@Resource.PasswordResetMessageFail");
+                }
+=======
+            $("#RegisterDate").datepicker({
+                dateFormat: dateFormatString,
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '-100y:c+nn',
+                maxDate: 'd'
+            });
+
+            $("#endDate").datepicker({
+                dateFormat: dateFormatString,
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '-100y:c+nn',
+                maxDate: 'd'
+            });
+
+            $("#dateI").datepicker({
+                dateFormat: dateFormatString,
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '-100y:c+nn',
+                maxDate: 'd'
+            });
+
+            $("#dateS").datepicker({
+                dateFormat: dateFormatString,
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '-100y:c+nn',
+                maxDate: 'd'
+            });
+
+            $("#startDate1").datepicker({
+                dateFormat: dateFormatString,
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '-100y:c+nn',
+                maxDate: 'd'
+            });
+
+            $("#endDate1").datepicker({
+                dateFormat: dateFormatString,
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '-100y:c+nn',
+                maxDate: 'd'
+            });
+>>>>>>> Implement the Search tabs on Search/Index
+
+            $("#DateAdded").datepicker({
+                dateFormat: dateFormatString,
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '-100y:c+nn',
+                maxDate: 'd'
+            });
+
+            //$(".hover-tooltip button").tooltip('show');
+            $('#operatorRegisterDate').html(' = ');
+            $('#operatorRegisterDate').val('=');
+            $("#searchClients").hide();
+            $("#searchFNOL").hide();
+            $("#searchChats").hide();
+            $("#searchQuotes").hide();
+            $("#searchUsers").hide();
+            $("#tableClients").DataTable().destroy();
+            $("#tableClients").DataTable();
+            $("#tableRegisteredUsers").DataTable().destroy();
+            $("#tableRegisteredUsers").DataTable();
+            $("#tablePolicies").DataTable().destroy();
+            $("#tablePolicies").DataTable();
+            $("#tableQuotes").DataTable().destroy();
+            $("#tableQuotes").DataTable();
+            $("#tableFNOL").DataTable().destroy();
+            $("#tableFNOL").DataTable();
+            $("#tableFNOLPolicies").css("display", "none");
+            $("#tableArchivedFNOL").css("display", "none");
+            $("#tablePoliciesClients").css("display", "none");
+            $("#tablePoliciesHolders").css("display", "none");
+
+            //Setting the class active-tab, so the user will know which tab is clicked
+            $("#addNewPolicy").removeClass("active-tab");
+            $("#newsTab").removeClass("active-tab");
+            $("#searchTab").addClass("active-tab");
+            $("#fnolTab").removeClass("active-tab");
+            $("#adminTab").removeClass("active-tab");
+            $("#createTab").removeClass("active-tab");
+            $("#signupTab").removeClass("active-tab");
+
+            $.ajax({
+                type: "GET",
+                url: "/Search/IsAdmin",
+                success: function (result) {
+                    var result = JSON.parse(result);
+                    isAdmin = result.isAdmin;
+                }
+            });
+        });
+
+        $("#ResetPass").click(function () {
+            $.ajax({
+                url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/ForgetPassword/Change",
+                type: "POST",
+<<<<<<< HEAD
+                dataType: "json",
+                data: { Prefix: request.term },
+                success: function (data) {
+                    response($.map(data,
+                        function (item) {
+                            return { label: item.Name, value: item.Name };
+                        }))
+                }
+            });
+        },
+        messages: {
+            noResults: "", results: ""
+        }
+    });
+
+    function ShowClients() {
+        $("#searchChats").hide();
+        $("#searchPolycies").hide();
+        $("#searchFNOL").hide();
+        $("#searchQuotes").hide();
+        $("#searchUsers").hide();
+        $("#searchClients").show();
+
+        $("#polycies").removeAttr("class");
+        $("#first_notice_of_loss").removeAttr("class");
+        $("#searchChat").removeAttr("class");
+        $("#quotes").removeAttr("class");
+        $("#registeredUsers").removeAttr("class");
+        $("#clients").attr("class", "active");
+
+        $("#tablePoliciesClients").css("display", "none");
+        $("#tablePoliciesHolders").css("display", "none");
+
+    };
+
+    function ShowPolycies() {
+        $("#searchChats").hide();
+        $("#searchFNOL").hide();
+        $("#searchClients").hide();
+        $("#searchQuotes").hide();
+        $("#searchUsers").hide();
+        $("#searchPolycies").show();
+
+        $("#registeredUsers").removeAttr("class");
+        $("#clients").removeAttr("class");
+        $("#first_notice_of_loss").removeAttr("class");
+        $("#searchChat").removeAttr("class");
+        $("#quotes").removeAttr("class");
+        $("#polycies").attr("class", "active");
+
+        $("#tableFNOLPolicies").css("display", "none");
+    };
+
+    function ShowFNOL() {
+        $("#searchChats").hide();
+        $("#searchPolycies").hide();
+        $("#searchClients").hide();
+        $("#searchQuotes").hide();
+        $("#searchUsers").hide();
+        $("#searchFNOL").show();
+
+        $("#registeredUsers").removeAttr("class");
+        $("#polycies").removeAttr("class");
+        $("#clients").removeAttr("class");
+        $("#searchChat").removeAttr("class");
+        $("#quotes").removeAttr("class");
+        $("#first_notice_of_loss").attr("class", "active");
+    };
+
+    function ShowQuotes() {
+        $("#searchChats").hide();
+        $("#searchPolycies").hide();
+        $("#searchClients").hide();
+        $("#searchFNOL").hide();
+        $("#searchUsers").hide();
+        $("#searchQuotes").show();
+
+
+        $("#first_notice_of_loss").removeAttr("class");
+        $("#polycies").removeAttr("class");
+        $("#clients").removeAttr("class");
+        $("#searchChat").removeAttr("class");
+        $("#registeredUsers").removeAttr("class");
+        $("#quotes").attr("class", "active");
+    };
+
+    function ShowChats() {
+        $("#searchClients").hide();
+        $("#searchPolycies").hide();
+        $("#searchFNOL").hide();
+        $("#searchUsers").hide();
+        $("#searchQuotes").hide();
+        $("#searchChats").show();
+
+        $("#polycies").removeAttr("class");
+        $("#clients").removeAttr("class");
+        $("#first_notice_of_loss").removeAttr("class");
+        $("#quotes").removeAttr("class");
+        $("#registeredUsers").removeAttr("class");
+        $("#searchChat").attr("class", "active");
+
+        $("#tablePoliciesClients").css("display", "none");
+        $("#tablePoliciesHolders").css("display", "none");
+        $("#tableFNOLPolicies").css("display", "none");
+        $("#tableArchivedFNOL").css("display", "none");
+        $("#searchChat").attr("class", "active");
+    };
+
+    function ShowUsers() {
+        $("#searchClients").hide();
+        $("#searchPolycies").hide();
+        $("#searchFNOL").hide();
+        $("searchChats").hide();
+        $("#searchQuotes").hide();
+        $("#searchUsers").show();
+        $("#polycies").removeAttr("class");
+        $("#clients").removeAttr("class");
+        $("#first_notice_of_loss").removeAttr("class");
+        $("#quotes").removeAttr("class");
+        $("#searchChat").removeAttr("class");
+        $("#registeredUsers").attr("class", "active");
+    };
+
+
+    function SearchChat() {
+        $('html,body').animate({
+            scrollTop: $("#tableChats").offset().top
+        }, 800);
+        $("#tableChats").DataTable().destroy();
+        console.log("kako se prakja/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&all=" + $("#all option:selected").val());
+        $("#tableChats").DataTable({
+            dom: "Bfrtip",
+            ajax: "/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&filter=" + $("#all option:selected").val(),
+            columns: [
+                { data: "chatId" },
+                { data: "chatWith" },
+                { data: "noticed" },
+                { data: "discarded" },
+                {
+                    data: "chatId",
+                    "render": function (data, type, row, meta) {
+                        if (type === 'display') {
+                            return $('<a>')
+                                .attr('href', 'javascript:;')
+                                .attr('onclick', 'ShowChatDetails("' + row.chatWith + '",' + data + ');')
+                                .attr('class', 'chat')
+                                .attr('id', data)
+                                .text("@InsuredTraveling.Resource.Search_DetailsLink")
+                                .wrap('<div></div>')
+                                .parent()
+                                .html();
+                        } else {
+                            return data;
+                        }
+=======
+                data: { Username: $("#hiddenUsername").val(), Password: $("#UserPassword").val(), NewPassword: $("#UserRepeatPassword").val() },
+                success: function (data) {
+                    if ((JSON.parse(data)).message === "OK") {
+                        $("#PassResetMsg").text("@Resource.PasswordResetMessageSuccess");
+                        $("#ResetPass").hide();
+                    } else {
+                        $("#PassResetMsg").text("@Resource.PasswordResetMessageFail");
+>>>>>>> Implement the Search tabs on Search/Index
+                    }
+
+                },
+                error: function () {
+                    $("#PassResetMsg").text("@Resource.PasswordResetMessageFail")
+                }
+            });
+        });
+    }
+
+<<<<<<< HEAD
+
+    $('#tableChats tbody').on('click', 'tr', function () {
+        console.log($(this));
+        $(this).toggleClass('selected');
+    });
+
+    function ShowChatDetails(chatWith, requestId) {
+        var chatDTO = { Sender: chatWith, RequestId: requestId, Admin: isAdmin };
+        openChatU(chatDTO);
+        getLastTenMessages(requestId);
+    }
+
+    function ShowSearchResultsInExcel() {
+        var policiesTable = $("#tablePolicies").dataTable();
+        var policies = policiesTable.fnGetData();
+
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetPoliciesSearchResultsAsExcelDocument",
+            type: "POST",
+            data: { policies: policies },
+            success: function (data) {
+                console.log(JSON.parse(data).path);
+                var urlString =
+                    "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
+                window.location.href = urlString;
+            }
+        });
+    };
+
+    function ShowQuotesSearchResultsInExcel() {
+
+        var quotesTable = $("#tableQuotes").dataTable();
+        var quotes = quotesTable.fnGetData();
+
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetQuotesSearchResultsAsExcelDocument",
+            type: "POST",
+            data: { quotes: quotes },
+            success: function (data) {
+                var urlString =
+                    "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
+                window.location.href = urlString;
+            }
+        });
+
+    };
+
+    function ShowFnolsSearchResultsInExcel() {
+
+        var fnolsTable = $("#tableFNOL").dataTable();
+        var fnols = fnolsTable.fnGetData();
+
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetFnolsSearchResultsAsExcelDocument",
+            type: "POST",
+            data: { fnols: fnols },
+            success: function (data) {
+                var urlString =
+                    "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
+                window.location.href = urlString;
+            }
+         });
+    
+    };
+
+    function ShowClientsSearchResultsInExcel() {
+
+        var clientsTable = $("#tableClients").dataTable();
+        var clients = clientsTable.fnGetData();
+
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetClientsSearchResultsAsExcelDocument",
+            type: "POST",
+            data: { clients: clients },
+            success: function (data) {
+                var urlString =
+                    "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
+                window.location.href = urlString;
+            }
+    });
+    
+    };
+
+    function ShowRegisteredUsersSearchResultsInExcel() {
+
+        var usersTable = $("#tableRegisteredUsers").dataTable();
+        var users = usersTable.fnGetData();
+
+        $.ajax({
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/GetRegisteredUsersSearchResultsAsExcelDocument",
+            type: "POST",
+            data: { users: users },
+            success: function (data) {
+                var urlString =
+                    "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
+                window.location.href = urlString;
+            }
+    });
+    
+    };
+
+    function SearchPolycies() {
+        $("#tablePolicies").DataTable().destroy();
+        $("#tablePolicies").DataTable({
+            dom: "Bfrtip",
+            ajax: "/Search/GetPolicies?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val(),
+            columns: [
+               { data: "Polisa_Broj" },
+               { data: "InsuredName" },
+               { data: "Country" },
+               { data: "Policy_type" },
+               { data: "Zapocnuva_Na" },
+               { data: "Zavrsuva_Na" },
+               { data: "Datum_Na_Izdavanje" },
+               { data: "Datum_Na_Storniranje" },
+               {
+                   data: "Polisa_Broj",
+                   "render": function (data, type, row, meta) {
+                       if (type === 'display') {
+                           var value = data;
+                           return $('<a>')
+                               .attr('href', '/Policy/PolicyDetails?policyNumber=' + data)
+                               .attr('target', '_blank')
+                               .attr('class', 'details')
+                               .text("@InsuredTraveling.Resource.Search_DetailsLink")
+                               .wrap('<div></div>')
+                               .parent()
+                               .html();
+                       } else {
+                           return data;
+                       }
+                   }
+               },
+               {
+                   data: "Polisa_Id",
+                   "render": function (data, type, row, meta) {
+                       if (type === 'display') {
+                           return $('<a>')
+                               .attr('href', 'javascript:;')
+                               .attr('class', 'loss')
+                               .attr('id', data)
+                               .text("@InsuredTraveling.Resource.Search_FNOLLink")
+                               .wrap('<div></div>')
+                               .parent()
+                               .html();
+                       } else {
+                           return data;
+                       }
+                   }
+               },
+               {
+                   data: "Polisa_Id",
+                   "render": function (data, type, row, meta) {
+                       if (type === 'display') {
+                           return $('<a>')
+                               .attr('href', '/FirstNoticeOfLoss/Index?policyId=' + data)
+                               .attr('class', 'newLoss')
+                               .attr('id', data)
+                               .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
+                                .wrap('<div></div>')
+                                .parent()
+                                .html();
+                       } else {
+                           return data;
+                       }
+                   }
+               }
+            ],
+            select: true
+        });
+
+        $('#tablePolicies tbody').on('click',
+            'td .loss',
+            function () {
+                var $row = $(this).closest('td');
+                var policy_num = $row.children().attr('id');
+                CreateFNOLTablePoliciesByPolicyNumber(policy_num);
+=======
+        $("#ChangeStatus").click(function () {
+            $.ajax({
+                url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ChangeUserStatus?username=" + $("#hiddenUsernameChangeStatus").val(),
+                type: "GET",
+                success: function (data) {
+                    if ((JSON.parse(data)).message === "OK") {
+                        $("#ChangeStatusMsg").text("@Resource.ChangeStatusMessageSuccess");
+                        $("#ChangeStatus").hide();
+                        SearchUsers();
+                    } else {
+                        $("#ChangeStatusMsg").text("@Resource.ChangeStatusMessageFail");
+                    }
+
+                },
+                error: function () {
+                    $("#PassResetMsg").text("@Resource.ChangeStatusMessageFail")
+                }
+            });
+        });
+
+        function ShowModal(username) {
+            $("#modal").modal("show");
+            $("#hiddenUsername").val(username);
+            $("#ResetPass").show();
+        }
+>>>>>>> Implement the Search tabs on Search/Index
+
+        function ShowModalChangeStatus(username) {
+            if (username == "@System.Web.HttpContext.Current.User.Identity.Name") {
+                $("#modalUserNotallowedToChangeItselfStatus").modal("show");
+            } else {
+                $("#ChangeStatus").show();
+                $("#modalChangeStatus").modal("show");
+                $("#hiddenUsernameChangeStatus").val(username);
+                console.log(username);
+            }
+
+<<<<<<< HEAD
+        $('html,body').animate({
+            scrollTop: $("#tablePolicies").offset().top
+        },
+            800);
+    };
+
+    function SearchQuotes() {
+        console.log($("#TypePolicy1").val());
+        $("#tableQuotes").DataTable().destroy();
+        $("#tableQuotes").DataTable({
+            dom: "Bfrtip",
+            ajax: "/Search/GetQuotes?TypePolicy=" +
+                $("#TypePolicy1").val() +
+                "&Country=" +
+                $("#Country1").val() +
+                "&startDate=" +
+                $("#startDate1").val() +
+                "&endDate=" +
+                $("#endDate1").val() +
+                "&operatorStartDate=" +
+                $("#operatorStartDate1").val() +
+                "&operatorEndDate=" +
+                $("#operatorEndDate1").val() +
+                "&PolicyNumber=" +
+                $("#PolicyNumber1").val(),
+            columns: [
+                { data: "Polisa_Broj" },
+                { data: "InsuredName" },
+                { data: "Country" },
+                { data: "Policy_type" },
+                { data: "Zapocnuva_Na" },
+                { data: "Zavrsuva_Na" },
+                {
+                    data: "Polisa_Id",
+                    "render": function (data, type, row, meta) {
+                        if (type === 'display') {
+                            return $('<a>')
+                                .attr('href', '/Policy/Preview?policyId=' + data)
+                                .text("@InsuredTraveling.Resource.Search_QuotePreview")
+                               .wrap('<div></div>')
+                               .parent()
+                               .html();
+                        } else {
+                            return data;
+                        }
+                    }
+                }
+            ],
+            select: true
+=======
+        }
+        function showInsured() {
+            $("#insured").attr("class", "active");
+            $("#holder").removeAttr("class");
+            $("#policiesClients").css("display", "block");
+            $("#policiesHolders").css("display", "none");
+        }
+
+        function showHolders() {
+            $("#holder").attr("class", "active");
+            $("#insured").removeAttr("class");
+            $("#policiesClients").css("display", "none");
+            $("#policiesHolders").css("display", "block");
+        }
+
+        $("#PolicyNumber").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Search/ShowPolicies",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Name, value: item.Name };
+                        }))
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+>>>>>>> Implement the Search tabs on Search/Index
+        });
+
+        $("#PolicyNumberFNL").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Search/ShowPolicies",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data,
+                            function (item) {
+                                return { label: item.Name, value: item.Name };
+                            }))
+                    }
+                });
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+
+        function ShowClients() {
+            $("#searchChats").hide();
+            $("#searchPolycies").hide();
+            $("#searchFNOL").hide();
+            $("#searchQuotes").hide();
+            $("#searchUsers").hide();
+            $("#searchClients").show();
+
+            $("#polycies").removeAttr("class");
+            $("#first_notice_of_loss").removeAttr("class");
+            $("#searchChat").removeAttr("class");
+            $("#quotes").removeAttr("class");
+            $("#registeredUsers").removeAttr("class");
+            $("#clients").attr("class", "active");
+
+            $("#tablePoliciesClients").css("display", "none");
+            $("#tablePoliciesHolders").css("display", "none");
+
+        };
+
+        function ShowPolycies() {
+            $("#searchChats").hide();
+            $("#searchFNOL").hide();
+            $("#searchClients").hide();
+            $("#searchQuotes").hide();
+            $("#searchUsers").hide();
+            $("#searchPolycies").show();
+
+            $("#registeredUsers").removeAttr("class");
+            $("#clients").removeAttr("class");
+            $("#first_notice_of_loss").removeAttr("class");
+            $("#searchChat").removeAttr("class");
+            $("#quotes").removeAttr("class");
+            $("#polycies").attr("class", "active");
+
+            $("#tableFNOLPolicies").css("display", "none");
+        };
+
+        function ShowFNOL() {
+            $("#searchChats").hide();
+            $("#searchPolycies").hide();
+            $("#searchClients").hide();
+            $("#searchQuotes").hide();
+            $("#searchUsers").hide();
+            $("#searchFNOL").show();
+
+            $("#registeredUsers").removeAttr("class");
+            $("#polycies").removeAttr("class");
+            $("#clients").removeAttr("class");
+            $("#searchChat").removeAttr("class");
+            $("#quotes").removeAttr("class");
+            $("#first_notice_of_loss").attr("class", "active");
+        };
+
+        function ShowQuotes() {
+            $("#searchChats").hide();
+            $("#searchPolycies").hide();
+            $("#searchClients").hide();
+            $("#searchFNOL").hide();
+            $("#searchUsers").hide();
+            $("#searchQuotes").show();
+
+
+            $("#first_notice_of_loss").removeAttr("class");
+            $("#polycies").removeAttr("class");
+            $("#clients").removeAttr("class");
+            $("#searchChat").removeAttr("class");
+            $("#registeredUsers").removeAttr("class");
+            $("#quotes").attr("class", "active");
+        };
+
+        function ShowChats() {
+            $("#searchClients").hide();
+            $("#searchPolycies").hide();
+            $("#searchFNOL").hide();
+            $("#searchUsers").hide();
+            $("#searchQuotes").hide();
+            $("#searchChats").show();
+
+            $("#polycies").removeAttr("class");
+            $("#clients").removeAttr("class");
+            $("#first_notice_of_loss").removeAttr("class");
+            $("#quotes").removeAttr("class");
+            $("#registeredUsers").removeAttr("class");
+            $("#searchChat").attr("class", "active");
+
+            $("#tablePoliciesClients").css("display", "none");
+            $("#tablePoliciesHolders").css("display", "none");
+            $("#tableFNOLPolicies").css("display", "none");
+            $("#tableArchivedFNOL").css("display", "none");
+            $("#searchChat").attr("class", "active");
+        };
+
+        function ShowUsers() {
+            $("#searchClients").hide();
+            $("#searchPolycies").hide();
+            $("#searchFNOL").hide();
+            $("searchChats").hide();
+            $("#searchQuotes").hide();
+            $("#searchUsers").show();
+            $("#polycies").removeAttr("class");
+            $("#clients").removeAttr("class");
+            $("#first_notice_of_loss").removeAttr("class");
+            $("#quotes").removeAttr("class");
+            $("#searchChat").removeAttr("class");
+            $("#registeredUsers").attr("class", "active");
+        };
+
+
+        function SearchChat() {
+            $('html,body').animate({
+                scrollTop: $("#tableChats").offset().top
+            }, 800);
+            $("#tableChats").DataTable().destroy();
+            $("#tableChats").DataTable({
+                dom: "Bfrtip",
+                ajax: "/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&filter=" + $("#all option:selected").val(),
+                columns: [
+                    { data: "chatId" },
+                    { data: "chatWith" },
+                    { data: "noticed" },
+                    { data: "discarded" },
+                    {
+                        data: "chatId",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                return $('<a>')
+                                    .attr('href', 'javascript:;')
+                                    .attr('onclick', 'ShowChatDetails("' + row.chatWith + '",' + data + ');')
+                                    .attr('class', 'chat')
+                                    .attr('id', data)
+                                    .text("@InsuredTraveling.Resource.Search_DetailsLink")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    },
+                ],
+                select: true
+            });
+
+
+        }
+        $('#tableChats tbody').on('click', 'tr', function () {
+            console.log($(this));
+            $(this).toggleClass('selected');
+        });
+
+        function ShowChatDetails(chatWith, requestId) {
+            var chatDTO = { Sender: chatWith, RequestId: requestId, Admin: isAdmin };
+            openChatU(chatDTO);
+            getLastTenMessages(requestId);
+        };
+
+        function ShowSearchResultsInExcel() {
+            var urlString = "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowPoliciesSearchResultInExcel?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val();
+            window.location.href = urlString;
+        };
+
+        function SearchPolycies() {
+            $("#tablePolicies").DataTable().destroy();
+            $("#tablePolicies").DataTable({
+                dom: "Bfrtip",
+                ajax: "/Search/GetPolicies?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val(),
+                columns: [
+                   { data: "Polisa_Broj" },
+                   { data: "InsuredName" },
+                   { data: "Country" },
+                   { data: "Policy_type" },
+                   { data: "Zapocnuva_Na" },
+                   { data: "Zavrsuva_Na" },
+                   { data: "Datum_Na_Izdavanje" },
+                   { data: "Datum_Na_Storniranje" },
+                   {
+                       data: "Polisa_Broj",
+                       "render": function (data, type, row, meta) {
+                           if (type === 'display') {
+                               var value = data;
+                               return $('<a>')
+                                   .attr('href', '/Policy/PolicyDetails?policyNumber=' + data)
+                                   .attr('target', '_blank')
+                                   .attr('class', 'details')
+                                   .text("@InsuredTraveling.Resource.Search_DetailsLink")
+                                   .wrap('<div></div>')
+                                   .parent()
+                                   .html();
+                           } else {
+                               return data;
+                           }
+                       }
+                   },
+                   {
+                       data: "Polisa_Id",
+                       "render": function (data, type, row, meta) {
+                           if (type === 'display') {
+                               return $('<a>')
+                                   .attr('href', 'javascript:;')
+                                   .attr('class', 'loss')
+                                   .attr('id', data)
+                                   .text("@InsuredTraveling.Resource.Search_FNOLLink")
+                                   .wrap('<div></div>')
+                                   .parent()
+                                   .html();
+                           } else {
+                               return data;
+                           }
+                       }
+                   },
+                   {
+                       data: "Polisa_Id",
+                       "render": function (data, type, row, meta) {
+                           if (type === 'display') {
+                               return $('<a>')
+                                   .attr('href', '/FirstNoticeOfLoss/Index?policyId=' + data)
+                                   .attr('class', 'newLoss')
+                                   .attr('id', data)
+                                   .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                           } else {
+                               return data;
+                           }
+                       }
+                   }
+                ],
+                select: true
+            });
+
+            $('#tablePolicies tbody').on('click',
+                'td .loss',
+                function () {
+                    var $row = $(this).closest('td');
+                    var policy_num = $row.children().attr('id');
+                    CreateFNOLTablePoliciesByPolicyNumber(policy_num);
+
+                });
+
+            $('html,body').animate({
+                scrollTop: $("#tablePolicies").offset().top
+            },
+                800);
+        };
+
+        function SearchQuotes() {
+            console.log($("#TypePolicy1").val());
+            $("#tableQuotes").DataTable().destroy();
+            $("#tableQuotes").DataTable({
+                dom: "Bfrtip",
+                ajax: "/Search/GetQuotes?TypePolicy=" +
+                    $("#TypePolicy1").val() +
+                    "&Country=" +
+                    $("#Country1").val() +
+                    "&startDate=" +
+                    $("#startDate1").val() +
+                    "&endDate=" +
+                    $("#endDate1").val() +
+                    "&operatorStartDate=" +
+                    $("#operatorStartDate1").val() +
+                    "&operatorEndDate=" +
+                    $("#operatorEndDate1").val() +
+                    "&PolicyNumber=" +
+                    $("#PolicyNumber1").val(),
+                columns: [
+                    { data: "Polisa_Broj" },
+                    { data: "InsuredName" },
+                    { data: "Country" },
+                    { data: "Policy_type" },
+                    { data: "Zapocnuva_Na" },
+                    { data: "Zavrsuva_Na" },
+                    {
+                        data: "Polisa_Id",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                return $('<a>')
+                                    .attr('href', '/Policy/Preview?policyId=' + data)
+                                    .text("@InsuredTraveling.Resource.Search_QuotePreview")
+                                   .wrap('<div></div>')
+                                   .parent()
+                                   .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    }
+                ],
+                select: true
+            });
+
+            $('#tableQuotes tbody').on('click', 'td .loss', function () {
+                var $row = $(this).closest('td');
+            });
+
+            $('html,body').animate({
+                scrollTop: $("#tableQuotes").offset().top
+            }, 800);
+        };
+
+        function SearchUsers() {
+            $("#tableRegisteredUsers").DataTable().destroy();
+            $("#tableRegisteredUsers").DataTable({
+                dom: "Bfrtip",
+                ajax: "/Search/GetRegisteredUsers?roleName=" + $("#RoleName").val() + "&registerDate=" + $("#RegisterDate").val() + "&operatorRegisterDate=" + $("#operatorRegisterDate").val() + "&status=" + $("input[name=status]:checked").val(),
+                columns: [
+                        { data: "Username" },
+                        { data: "FirstName" },
+                        { data: "LastName" },
+                        { data: "Email" },
+                        { data: "RoleName" },
+                        { data: "CreatedOn" },
+                        { data: "ActiveInactive" },
+                        {
+                            data: "Username",
+                            "render": function (data, type, row, meta) {
+                                if (type === 'display') {
+                                    var value = data;
+                                    return $('<a>')
+                                        .attr('href', '#')
+                                        .attr('id', 'UserResetPass')
+                                        .attr('onclick', "ShowModal('" + data + "')")
+                                        .text("@InsuredTraveling.Resource.Search_UserResetPass")
+                                        .wrap('<div></div>')
+                                        .parent()
+                                        .html();
+                                } else {
+                                    return data;
+                                }
+                            }
+                        },
+                        {
+                            data: "Username",
+                            "render": function (data, type, row, meta) {
+                                if (type === 'display') {
+                                    var value = data;
+                                    return $('<a>')
+                                        .attr('href', '#')
+                                        .attr('onclick', "ShowModalChangeStatus('" + data + "')")
+                                        .text("@InsuredTraveling.Resource.Search_UserChangeStatus")
+                                        .wrap('<div></div>')
+                                        .parent()
+                                        .html();
+                                } else {
+                                    return data;
+                                }
+                            }
+                        },
+                        {
+                            data: "ID",
+                            "render": function (data, type, row, meta) {
+                                if (type === 'display') {
+                                    var value = data;
+                                    return $('<a>')
+                                        .attr('href', '/Search/EditUser?id=' + data)
+                                        .attr('target', '_blank')
+                                        .text("@InsuredTraveling.Resource.SearchTable_EditUser")
+                                        .wrap('<div></div>')
+                                        .parent()
+                                        .html();
+                                } else {
+                                    return data;
+                                }
+                            }
+                        }
+                ],
+                select: true
+            });
+            $("#tableRegisteredUsers").css("display", "table");
+        };
+
+        function CreateFNOLTablePoliciesByPolicyNumber(policy_number) {
+            $("#tableFNOLPolicies").DataTable().destroy();
+            $("#tableFNOLPolicies").DataTable({
+                dom: "Bfrtip",
+                ajax: "/Search/GetFNOLByPolicyNumber?number=" + policy_number,
+                columns: [
+                        { data: "FNOLNumber" },
+                        { data: "PolicyNumber" },
+                        { data: "InsuredName" },
+                        { data: "ClaimantPersonName" },
+                        { data: "Claimant_insured_relation" },
+                        { data: "AllCosts" },
+                        { data: "Date" },
+                        { data: "HealthInsurance" },
+                        { data: "LuggageInsurance" },
+                        {
+                            data: "ID",
+                            "render": function (data, type, row, meta) {
+                                if (type === 'display') {
+                                    var value = data;
+                                    return $('<a>')
+                                        .attr('href', '/FirstNoticeOfLoss/View?id=' + data)
+                                        .attr('target', '_blank')
+                                        .attr('class', 'lossDetails')
+                                        .text("@InsuredTraveling.Resource.Search_DetailsLink")
+                                        .wrap('<div></div>')
+                                        .parent()
+                                        .html();
+                                } else {
+                                    return data;
+                                }
+                            }
+                        },
+                ],
+                select: true
+            });
+            $("#tableFNOLPolicies").css("display", "table");
+        };
+
+        function SearchFNOL() {
+            $("#tableFNOL").DataTable().destroy();
+            $("#tableArchivedFNOL").DataTable().destroy();
+            $("#tableArchivedFNOL").css("display", "none");
+            $("#tableFNOL").DataTable({
+                dom: "Bfrtip",
+                ajax: "/Search/GetFNOL?PolicyNumber=" + $("#PolicyNumberFNL").val() + "&FNOLNumber=" + $("#FNOLNumber").val() + "&holderName=" + $("#holderName").val() + "&holderLastName=" + $("#holderLastName").val() + "&clientName=" + $("#clientName").val() + "&clientLastName=" + $("#clientLastName").val() + "&insuredName=" + $("#insuredName").val() + "&insuredLastName=" + $("#insuredLastName").val() + "&totalPrice=" + $("#totalPrice").val() + "&healthInsurance=" + $('#healthInsurance').is(':checked') + "&luggageInsurance=" + $('#luggageInsurance').is(':checked') + "&DateAdded=" + $("#DateAdded").val() + "&operatorDateAdded=" + $("#operatorDateAdded").val() + "&operatorTotalCost=" + $("#totalCostOperator").val(),
+                columns: [
+                        { data: "FNOLNumber" },
+                        { data: "PolicyNumber" },
+                        { data: "InsuredName" },
+                        { data: "ClaimantPersonName" },
+                        { data: "Claimant_insured_relation" },
+                        { data: "AllCosts" },
+                        { data: "Date" },
+                        { data: "HealthInsurance" },
+                        { data: "LuggageInsurance" },
+                        {
+                            data: "ID",
+                            "render": function (data, type, row, meta) {
+                                if (type === 'display') {
+                                    var value = data;
+                                    return $('<a>')
+                                        .attr('href', '/FirstNoticeOfLoss/View?id=' + data)
+                                        .attr('target', '_blank')
+                                        .attr('class', 'lossDetails')
+                                        .text("@InsuredTraveling.Resource.Search_DetailsLink")
+                                        .wrap('<div></div>')
+                                        .parent()
+                                        .html();
+                                } else {
+                                    return data;
+                                }
+                            }
+                        },
+                        {
+                            data: "ID",
+                            "render": function (data, type, row, meta) {
+                                if (type === 'display') {
+                                    return $('<a>')
+                                        .attr('href', 'javascript:;')
+                                        .attr('class', 'archived')
+                                        .attr('id', data)
+                                        .text("@InsuredTraveling.Resource.Search_FNOLArchived")
+                                        .wrap('<div></div>')
+                                        .parent()
+                                        .html();
+                                } else {
+                                    return data;
+                                }
+                            }
+                        }@*,
+                    {
+                        data: "ID",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                return $('<a>')
+                                    .attr('href', 'javascript:;')
+                                    .attr('class', 'archived')
+                                    .attr('id', data)
+                                    .text("@InsuredTraveling.Resource.Search_FNOLArchived")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+
+                    }*@
+                ],
+                select: true
+            });
+
+            $('#tableFNOL tbody').on('click', 'td .archived', function () {
+                var $row = $(this).closest('td');
+                var fnolID = $row.children().attr('id');
+                CreateFNOLArchivedTableByFNOLID(fnolID);
+
+            });
+
+<<<<<<< HEAD
+        $('html,body').animate({
+            scrollTop: $("#tableFNOL").offset().top
+        }, 800);
+    };
+
+    function CreateFNOLArchivedTableByFNOLID(fnolID) {
+        $("#tableArchivedFNOL").DataTable().destroy();
+        $("#tableArchivedFNOL").DataTable({
+            dom: "Bfrtip",
+            ajax: "/Search/GetArchivedFNOL?fnolID=" + fnolID,
+            columns: [
+                    { data: "FNOLNumber" },
+                    { data: "PolicyNumber" },
+                    { data: "InsuredName" },
+                    { data: "ClaimantPersonName" },
+                    { data: "Claimant_insured_relation" },
+                    { data: "AllCosts" },
+                    { data: "Date" },
+                    { data: "HealthInsurance" },
+                    { data: "LuggageInsurance" },
+                    {
+                        data: "ID",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                var value = data;
+                                return $('<a>')
+                                    .attr('href', '/FirstNoticeOfLoss/ViewArchived?id=' + data)
+                                    .attr('target', '_blank')
+                                    .attr('class', 'lossDetails')
+                                    .text("@InsuredTraveling.Resource.Search_DetailsLink")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
+                        }
+                    }
+            ],
+            select: true
+        });
+        $("#tableArchivedFNOL").css("display", "table");
+    };
+
+    function SearchClients() {
+        $("#tableClients").DataTable().destroy();
+        var table = $("#tableClients").DataTable({
+            dom: "Bfrtip",
+            ajax: "/Search/GetUsers?name=" + $("#name").val() + "&lastname=" + $("#lastname").val() + "&embg=" + $("#embg").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() + "&phone=" + $("#phone").val() + "&postal_code=" + $("#postal_code").val() + "&passport=" + $("#passport").val() + "&city=" + $("#city").val(),
+            columns: [
+                        { data: "Name" },
+                        { data: "Lastname" },
+                        { data: "SSN" },
+                        { data: "Address" },
+                        { data: "City" },
+                        { data: "Postal_Code" },
+                        { data: "Phone_Number" },
+                        { data: "Email" },
+                        { data: "Passport_Number_IdNumber" },
+=======
+            $('html,body').animate({
+                scrollTop: $("#tableFNOL").offset().top
+            }, 800);
+        };
+
+        function CreateFNOLArchivedTableByFNOLID(fnolID) {
+            $("#tableArchivedFNOL").DataTable().destroy();
+            $("#tableArchivedFNOL").DataTable({
+                dom: "Bfrtip",
+                ajax: "/Search/GetArchivedFNOL?fnolID=" + fnolID,
+                columns: [
+                        { data: "FNOLNumber" },
+                        { data: "PolicyNumber" },
+                        { data: "InsuredName" },
+                        { data: "ClaimantPersonName" },
+                        { data: "Claimant_insured_relation" },
+                        { data: "AllCosts" },
+                        { data: "Date" },
+                        { data: "HealthInsurance" },
+                        { data: "LuggageInsurance" },
+>>>>>>> Implement the Search tabs on Search/Index
+                        {
+                            data: "ID",
+                            "render": function (data, type, row, meta) {
+                                if (type === 'display') {
+                                    var value = data;
+                                    return $('<a>')
+<<<<<<< HEAD
+                                        .attr('href', 'javascript:;')
+                                        .attr('class', 'clients')
+                                        .attr('id', data)
+                                        .text("@InsuredTraveling.Resource.Search_PolicyLink")
+=======
+                                        .attr('href', '/FirstNoticeOfLoss/ViewArchived?id=' + data)
+                                        .attr('target', '_blank')
+                                        .attr('class', 'lossDetails')
+                                        .text("@InsuredTraveling.Resource.Search_DetailsLink")
+>>>>>>> Implement the Search tabs on Search/Index
+                                        .wrap('<div></div>')
+                                        .parent()
+                                        .html();
+                                } else {
+                                    return data;
+                                }
+                            }
+                        },
+<<<<<<< HEAD
+                        {
+                            data: "SSN",
+                            "render": function (data, type, row, meta) {
+                                if (type === 'display') {
+                                return $('<a>')
+                                    .attr('href', '/Policy?ssn=' + data)
+                                    .attr('target', '_blank')
+                                    .text("@InsuredTraveling.Resource.Policy_CreatePolicy")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                                    } else {
+                                        return data;
+                                    }
+                            }
+                        }
+            ],
+            select: true
+        });
+        $('#tableClients tbody').on('click', 'td .clients', function () {
+            var $row = $(this).closest('td');
+            var insuredId = $row.children().attr('id');
+            CreatePoliciesByInsuredId(insuredId);
+            CreatePoliciesByHolderId(insuredId);
+        });
+=======
+                ],
+                select: true
+            });
+            $("#tableArchivedFNOL").css("display", "table");
+        };
+
+        function SearchClients() {
+            $("#tableClients").DataTable().destroy();
+            var table = $("#tableClients").DataTable({
+                dom: "Bfrtip",
+                ajax: "/Search/GetUsers?name=" + $("#name").val() + "&lastname=" + $("#lastname").val() + "&embg=" + $("#embg").val() + "&email=" + $("#email").val() + "&address=" + $("#address").val() + "&phone=" + $("#phone").val() + "&postal_code=" + $("#postal_code").val() + "&passport=" + $("#passport").val() + "&city=" + $("#city").val(),
+                columns: [
+                            { data: "Name" },
+                            { data: "Lastname" },
+                            { data: "SSN" },
+                            { data: "Address" },
+                            { data: "City" },
+                            { data: "Postal_Code" },
+                            { data: "Phone_Number" },
+                            { data: "Email" },
+                            { data: "Passport_Number_IdNumber" },
+                            {
+                                data: "ID",
+                                "render": function (data, type, row, meta) {
+                                    if (type === 'display') {
+                                        return $('<a>')
+                                             .attr('href', 'javascript:;')
+                                            .attr('class', 'clients')
+                                            .attr('id', data)
+                                            .text("@InsuredTraveling.Resource.Search_PolicyLink")
+                                            .wrap('<div></div>')
+                                            .parent()
+                                            .html();
+                                    } else {
+                                        return data;
+                                    }
+                                }
+                            }
+                ],
+                select: true
+            });
+            $('#tableClients tbody').on('click', 'td .clients', function () {
+                var $row = $(this).closest('td');
+                var insuredId = $row.children().attr('id');
+                CreatePoliciesByInsuredId(insuredId);
+                CreatePoliciesByHolderId(insuredId);
+            });
+>>>>>>> Implement the Search tabs on Search/Index
+
+            $('html,body').animate({
+                scrollTop: $("#tableClients").offset().top
+            }, 800);
+        };
+
+        function CreatePoliciesByInsuredId(insuredId) {
+            $("#tablePoliciesClients").DataTable().destroy();
+            $("#tablePoliciesClients").DataTable({
+                dom: "Bfrtip",
+                ajax: "/Search/CreatePoliciesByInsuredId?insuredId=" + insuredId,
+                columns: [
+                   { data: "Polisa_Broj" },
+                   { data: "Country" },
+                   { data: "Policy_type" },
+                   { data: "Zapocnuva_Na" },
+                   { data: "Zavrsuva_Na" },
+                   { data: "Datum_Na_Izdavanje" },
+                   { data: "Datum_Na_Storniranje" },
+                   {
+                       data: "Polisa_Broj",
+                       "render": function (data, type, row, meta) {
+                           if (type === 'display') {
+                               var value = data;
+                               return $('<a>')
+                                   .attr('href', '/Policy/PolicyDetails?policyNumber=' + data)
+                                   .attr('target', '_blank')
+                                   .attr('class', 'detailsInsured')
+                                   .text("@InsuredTraveling.Resource.Search_DetailsLink")
+                                   .wrap('<div></div>')
+                                   .parent()
+                                   .html();
+                           } else {
+                               return data;
+                           }
+                       }
+                   },
+                        {
+                            data: "Polisa_Id",
+                            "render": function (data, type, row, meta) {
+                                if (type === 'display') {
+                                    return $('<a>')
+                                        .attr('href', '/FirstNoticeOfLoss/Index?policyId=' + data)
+                                        .attr('class', 'newLoss')
+                                        .attr('id', data)
+                                        .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
+                                        .wrap('<div></div>')
+                                        .parent()
+                                        .html();
+                                } else {
+                                    return data;
+                                }
+                            }
+                        }
+                ],
+                select: true
+            });
+            $("#tablePoliciesClients").css("display", "table");
+            $('html,body').animate({
+                scrollTop: $("#tablePoliciesClients").offset().top
+            }, 800);
+
+        };
+
+        function CreatePoliciesByHolderId(holderId) {
+            $("#tablePoliciesHolders").DataTable().destroy();
+            $("#tablePoliciesHolders").DataTable({
+                dom: "Bfrtip",
+                ajax: "/Search/CreatePoliciesByHolderId?holderId=" + holderId,
+                columns: [
+                   { data: "Polisa_Broj" },
+                   { data: "Country" },
+                   { data: "Policy_type" },
+                   { data: "Zapocnuva_Na" },
+                   { data: "Zavrsuva_Na" },
+                   { data: "Datum_Na_Izdavanje" },
+                   { data: "Datum_Na_Storniranje" },
+                   {
+                       data: "Polisa_Broj",
+                       "render": function (data, type, row, meta) {
+                           if (type === 'display') {
+                               var value = data;
+                               return $('<a>')
+                                   .attr('href', '/Policy/PolicyDetails?policyNumber=' + data)
+                                   .attr('target', '_blank')
+                                   .attr('class', 'detailsHolder')
+                                   .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
+                                   .wrap('<div></div>')
+                                   .parent()
+                                   .html();
+                           } else {
+                               return data;
+                           }
+                       }
+                   },
+                ],
+                select: true
+            });
+            $("#tablePoliciesHolders").css("display", "table");
+
+<<<<<<< HEAD
+    };
+=======
+        };
+    </script>
+>>>>>>> Implement the Search tabs on Search/Index
+
+   
+</script>

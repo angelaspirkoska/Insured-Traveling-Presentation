@@ -7,15 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using InsuredTraveling.Models;
-using System.Security.Claims;
 using static InsuredTraveling.Models.AdminPanel;
 using System.Configuration;
 using System.Net.Http;
 using System.Web;
 using Newtonsoft.Json.Linq;
 using System.Net.Mail;
-using System.Net.Mime;
 
 namespace InsuredTraveling
 {

@@ -8,5 +8,6 @@
         public string mdStatus { get; set; }
         public string AuthCode { get; set; }
         public string TransId { get; set; }
+        public int PolicyNumber { get; set; }
     }
 }

@@ -106,7 +106,7 @@ namespace InsuredTraveling.DI
 
         public int GetInsuredIdBySsnAndCreatedBy(string Ssn, string userId)
         {
-            var insured = _db.insureds.Where(x => x.SSN == Ssn && x.Created_By == userId).SingleOrDefault();
+            var insured = _db.insureds.Where(x => x.SSN == Ssn && x.Created_By == userId).FirstOrDefault();
             if (insured != null)
             {
                 return insured.ID;

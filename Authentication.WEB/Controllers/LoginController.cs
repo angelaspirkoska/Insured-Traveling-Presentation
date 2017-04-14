@@ -16,14 +16,15 @@ namespace InsuredTraveling.Controllers
     public class LoginController : Controller
     {
         [HttpPost]
-        public async Task<ActionResult> Index(LoginUser user, bool CaptchaValid)
+        public async Task<ActionResult> Index(LoginUser user/*, bool CaptchaValid*/)
         {
 
-            if (!CaptchaValid)
-            {
-                ModelState.AddModelError("reCaptcha", "recaptchaError");
-                return View(user);
-            }
+            //if (!CaptchaValid)
+            //{
+            //    ModelState.AddModelError("reCaptcha", "recaptchaError");
+            //    return View(user);
+            //}
+
             if (ModelState.IsValid)
             {
                 user.grant_type = "password";
@@ -63,10 +64,15 @@ namespace InsuredTraveling.Controllers
                     {
                         ModelState.AddModelError("loginErr", "usernameOrPasswordError");
                     }
-                }else
+                }
+                else
                 {
                     ModelState.AddModelError("loginErr", "usernameOrPasswordError");
                 }
+            }
+            else
+            {
+                ModelState.AddModelError("loginErr", "usernameOrPasswordEmpty");
             }
             return View();
         }

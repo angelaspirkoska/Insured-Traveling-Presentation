@@ -4,7 +4,7 @@
 @using System.Configuration;
 @{
     ViewBag.Title = InsuredTraveling.Resource.NewPolicy_Title;
-    Layout = "~/Views/Shared/_Layout2.cshtml";
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
 }
 
 <h2>@InsuredTraveling.Resource.Policy_CreatePolicy</h2>
@@ -363,7 +363,7 @@
     </div>
     <div class="row">
         <div class="col-md-3 btns-position">
-            <div class="form-group totalPremium">
+            <div class="form-group totalPremium" style="padding-top: 15px;">
                 @Html.LabelFor(model => model.Total_Premium, htmlAttributes: new { @class = "control-label", @id = "totalPremiumLabel" })
                 <div>
                     <div class="input-group">
@@ -399,13 +399,13 @@
                 <input type="submit" id="printOffers" formmethod="post" formaction="/Policy/RedirectPrintOffer" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
             </div>
         </div>
-        <div id="successMsg" class="col-md-4 col-sm-4">
+        <div id="successMsg" class="col-md-4 col-sm-4" style="display:none;">
             <div class="alert alert-dismissible alert-success">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <span>@Resource.Policy_AddOfferMsg <span style="font-weight:bold;" id="ReturnedQuoteNumber"></span> </span>
             </div>
         </div>
-        <div id="failMsg" class="col-md-4 col-sm-4">
+        <div id="failMsg" class="col-md-4 col-sm-4" style="display:none;">
             <div class="alert alert-dismissible alert-danger">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <span>@Resource.Policy_AddOfferMsgFail!</span>
@@ -465,7 +465,12 @@
         $("#successMsg").hide();
         $("#failMsg").hide();
         $("#Valid_Days").val(10);
-
+        
+        $("#totalPremiumLabel").hide();
+        $("#totalPremium").hide();
+        $("#buyPolicyBtn").hide();
+        $("#AddOffer").hide();
+      
         var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
         var future = new Date();
         $("#Start_Date").val($.datepicker.formatDate(dateFormatString, new Date(future.setDate(future.getDate() + 1))));
@@ -547,19 +552,17 @@
         $("#policy_type option[value='2']").show();
         $("#policy_type option[value='3']").show();
         $("#policy_type option[value='4']").hide();
-
-        $("#btnNovaPolisa").addClass("active-tab");
-        $("#btnNews").removeClass("active-tab");
-        $("#btnSearch").removeClass("active-tab");
-        $("#btnFNOL").removeClass("active-tab");
-        $("#btnAdmin").removeClass("active-tab");
-        $("#dodadiKlient").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
-
         $("#Discount_div").hide();
 
+        //Setting the class active-tab, so the user will know which tab is clicked
 
+        $("#addNewPolicy").addClass("active-tab");
+        $("#newsTab").removeClass("active-tab");
+        $("#searchTab").removeClass("active-tab");
+        $("#fnolTab").removeClass("active-tab");
+        $("#adminTab").removeClass("active-tab");
+        $("#createTab").removeClass("active-tab");
+        $("#signupTab").removeClass("active-tab");        
         $('#AddOffer').on('click', function () {
             $.ajax({
                 type: 'POST',
@@ -721,7 +724,7 @@
                         else {
                             $("#SSN").attr("style", "border: 1px solid #2c3e50;");
                             
-                            $(".loader").css("display", "none");
+                        $(".loader").css("display", "none");
                             console.log(result.PremiumAmount);
 
                             $(".loader").css("display", "none");
@@ -750,7 +753,7 @@
                     $("#errorMessage").text((JSON.parse(result.responseText)).Message);
 
 
-                }
+                }                
 
             });
         }
@@ -854,7 +857,7 @@
             $("#PolicyHolderBirthDate").removeClass("mandatoryField");
             $("#PolicyHolderPassportNumber_ID").removeClass("mandatoryField");
             $("#PolicyHolderEmail").removeClass("mandatoryField");
-            $("#PolicyHolderPhoneNumber").removeClass("mandatoryField"); PolicyHolderCity
+            $("#PolicyHolderPhoneNumber").removeClass("mandatoryField");
             $("#PolicyHolderCity").removeClass("mandatoryField");
         }
         else {
@@ -907,7 +910,7 @@
     });
 
     $("#IsSamePolicyHolderInsuredAdmin").change(function () {
-        if (this.checked) {
+        if ($("#IsSamePolicyHolderInsuredAdmin").is(':checked')){
             if ($("#IsExistentPolicyHolder").is(':checked')) {
                 $.ajax({
                     type: "GET",

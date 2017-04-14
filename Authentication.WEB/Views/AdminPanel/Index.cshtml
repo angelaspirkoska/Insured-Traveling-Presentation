@@ -1,19 +1,19 @@
 ﻿@using InsuredTraveling.Helpers
 @using System.Web.Optimization;
 @model InsuredTraveling.Models.AdminPanelModel
-
-
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
 }
 
-<div class="container">
+<div class="container container-position-for-limitless-admin-panel" >
     <h2 class="page-header"> @InsuredTraveling.Resource.AdminPanel_Title </h2>
     <br />
     <ul class="nav nav-pills" id="adminNavigation">
         <li id="navRoles" class="active"><a data-toggle="pill" href="#home" > @InsuredTraveling.Resource.AdminPanel_Roles </a></li>
         <li  id="navSetup"><a data-toggle="pill" href="#menu1"  id="navSetup"> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </a></li>
         <li  id="navDiscount" ><a data-toggle="pill" href="#DiscountMenu" > @InsuredTraveling.Resource.AdminPanel_Discount </a></li>
+        <li id="navConfigurableRatingEngine"><a data-toggle="pill" href="#configRatingEngine"> @InsuredTraveling.Resource.AdminPanel_ConfigurableRatingEngine </a></li>
     </ul>
 
     <div class="tab-content">
@@ -176,8 +176,6 @@
                 </div>
             </form>
         </div>
-
-
         <div id="DiscountMenu" class="tab-pane fade">
             <h3 class="text-capitalize"> @InsuredTraveling.Resource.AdminPanel_Discount  </h3>
            <table class="table table-striped table-hover ">
@@ -199,7 +197,7 @@
                                 <td>@r.Discount_Coef</td>
                                 <td>@r.Start_Date</td>
                                 <td>@r.End_Date</td>
-                                <td><a href="" ><span class="glyphicon glyphicon-trash"></span></a></td>
+                                <td><a href="/AdminPanel/DeleteDiscount?ID=@r.ID" ><span class="glyphicon glyphicon-trash"></span></a></td>
                             </tr>
                             i++;
                         }
@@ -295,6 +293,21 @@
             </form>
         </div>
 
+        <div id="configRatingEngine">
+            <h2>@InsuredTraveling.Resource.AdminPanel_ConfigurableRatingEngine </h2>
+            <form style="margin-top:40px;" method="post" enctype="multipart/form-data" action="@Url.Action("ConfigureRatingEngine")">
+                <div class="form-group">
+                    <label for="excelConfigFile">@InsuredTraveling.Resource.AdminPanel_ConfigurationDocument </label>
+                    <input type="file" class="form-control-file" id="excelConfigFile"  name="excelConfigFile" aria-describedby="fileHelp">  
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4 col-sm-4"  style="padding-left: 0px;">
+                        <input type="submit" value="Прикачи" class="btn btn-default btn-block" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </div>
 
 </div>
@@ -316,15 +329,15 @@
 
     $(document).ready(function () {
         if(@ViewBag.TabIndex == 1) {
-            $("#btnNovaPolisa").removeClass("active-tab");
-            $("#btnNews").removeClass("active-tab");
-            $("#btnSearch").removeClass("active-tab");
-            $("#btnFNOL").removeClass("active-tab");
-            $("#btnAdmin").addClass("active-tab");
-            $("#dodadiKlient").removeClass("active-tab");
-            $("#btnCreateUser").removeClass("active-tab");
-            $("#btnCreateUser").removeClass("active-tab");
-            $("#DiscountMenu").removeClass("active-tab");
+            //Setting the class active-tab, so the user will know which tab is clicked
+            $("#addNewPolicy").removeClass("active-tab");
+            $("#newsTab").removeClass("active-tab");
+            $("#searchTab").removeClass("active-tab");
+            $("#fnolTab").removeClass("active-tab");
+            $("#adminTab").addClass("active-tab");
+            $("#createTab").removeClass("active-tab");
+            $("#signupTab").removeClass("active-tab");
+            $("#configRatingEngine").removeClass("active-tab");
         }
         ChangeTabsOnPost();
 
@@ -358,13 +371,12 @@
             $("#navDiscount").removeClass("active");
             $("#DiscountMenu").removeClass("in active");
 
-        }else {            
-            
+        }else {                   
         }       
     }
     // temporary workaround 
     $("form").submit(function (e,valid) {
-        if ($("#UsernameMsg").html() != " " ){
+        if ($("#UsernameMsg").html() != " " && $('#navDiscount').hasClass('active') ){
             e.preventDefault();
         }              
     }); 
@@ -386,23 +398,23 @@
     }
 
     function FindName() {
-    
-        $.ajax({
-            type: "POST",
-            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/OkSetup/FindDiscountName",
-            data: jQuery.param({ Discount_Name: $("#Discount_Name").val() })
-        })
+       
+            $.ajax({
+                type: "POST",
+                url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/OkSetup/FindDiscountName",
+                data: jQuery.param({ Discount_Name: $("#Discount_Name").val() })
+            })
 
-    .done(function (result) {
-        $("#UsernameMsg").text(" ");
+        .done(function (result) {
+            $("#UsernameMsg").text(" ");
 
       
         
-    })
-    .fail(function () {
-        $("#UsernameMsg").text("@InsuredTraveling.Resource.AdminPanel_DiscountNameErrorMessage");
+        })
+        .fail(function () {
+            $("#UsernameMsg").text("@InsuredTraveling.Resource.AdminPanel_DiscountNameErrorMessage");
        
-    });
+        });
        
     };
 

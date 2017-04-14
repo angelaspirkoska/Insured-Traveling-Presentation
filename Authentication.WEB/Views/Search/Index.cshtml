@@ -8,6 +8,9 @@
     RoleAuthorize r = new RoleAuthorize();
     var isClaimsAdjuster = r.IsUser("Claims adjuster");
     var isBrokerManager = r.IsUser("Broker manager");
+    // ima problem so js iszgleda, poso se se menuva i ima nepoterbni data tables
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+    var isBroker = r.IsUser("Broker");
     var isAdmin = r.IsUser("Admin");
     var isEndUser = r.IsUser("End user");
     var dateTime = ConfigurationManager.AppSettings["DateFormat"];
@@ -15,24 +18,26 @@
 }
 <br />
 <br />
-<ul class="nav nav-pills">
-    <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
-    <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
-    @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBrokerManager)
-    {
-        <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
-    }
-    @if (isAdmin || isBrokerManager)
-    {
-        <li id="registeredUsers"><a href="#" onclick="ShowUsers()">@InsuredTraveling.Resource.Search_Users</a></li>
-    }
-    <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
+        <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
+        @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBroker)
+        {
+            <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
+        }
+        @if (isAdmin || isBrokerManager)
+        {
+            <li id="registeredUsers"><a href="#" onclick="ShowUsers()">@InsuredTraveling.Resource.Search_Users</a></li>
+        }
+        <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
 
-    @if (isAdmin || isEndUser || isClaimsAdjuster || isBrokerManager)
-    {
-        <li id="searchChat"><a href="#" onclick="ShowChats()">@InsuredTraveling.Resource.Chats</a></li>
-    }
-</ul>
+        @if (isAdmin || isEndUser || isClaimsAdjuster || isBrokerManager)
+        {
+            <li id="searchChat"><a href="#" onclick="ShowChats()">@InsuredTraveling.Resource.Chats</a></li>
+        }
+    </ul>
+</div>
 
 
 <!--Table search result of registered users -->
@@ -51,10 +56,10 @@
                 <div class="form-group">
                     <label for="country">@InsuredTraveling.Resource.RegisterDate:</label>
                     <div class="input-group">
-                        <input type="date" id="RegisterDate" class="form-control placeholder" />
+                        <input type="text" id="RegisterDate" class="form-control" placeholder="@dateTimeFormat" />
                         <div class="input-group-btn">
-                            <button type="button" id="operatorRegisterDate" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
-                                = <span class="caret"></span>
+                            <button type="button" id="operatorRegisterDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                <p class="caret-position">= <span class="caret"></span></p>
                             </button>
                             <ul class="dropdown-menu">
                                 <li onclick="$('#operatorRegisterDate').html(' = '); $('#operatorRegisterDate').val('=');">=</li>
@@ -225,7 +230,7 @@
                         <div class="input-group-btn">
                             <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle explain-functionality"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                All <span class="caret"></span>
+                                <p class="caret-position">= <span class="caret"></span></p>
                             </button>
                             <ul class="dropdown-menu">
                                 <li onclick="$('#operatorStartDate').html(' All '); $('#operatorStartDate').val('All');">All</li>
@@ -245,7 +250,7 @@
                         <div class="input-group-btn">
                             <button type="button" id="operatorEndDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                All <span class="caret"></span>
+                                <p class="caret-position">= <span class="caret"></span></p>
                             </button>
                             <ul class="dropdown-menu">
                                 <li onclick="$('#operatorEndDate').html(' All '); $('#operatorStartDate').val('All');">All</li>
@@ -267,7 +272,7 @@
                         <div class="input-group-btn">
                             <button type="button" id="operatorDateI" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                All <span class="caret"></span>
+                                <p class="caret-position">= <span class="caret"></span></p>
                             </button>
                             <ul class="dropdown-menu">
                                 <li onclick="$('#operatorDateI').html(' All '); $('#operatorStartDate').val('All');">All</li>
@@ -287,7 +292,7 @@
                         <div class="input-group-btn">
                             <button type="button" id="operatorDateS" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                All <span class="caret"></span>
+                                <p class="caret-position">= <span class="caret"></span></p>
                             </button>
                             <ul class="dropdown-menu">
                                 <li onclick="$('#operatorDateS').html(' All '); $('#operatorStartDate').val('All');">All</li>
@@ -401,7 +406,7 @@
                         <div class="input-group-btn">
                             <button type="button" id="operatorStartDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                All <span class="caret"></span>
+                                <p class="caret-position">= <span class="caret"></span></p>
                             </button>
                             <ul class="dropdown-menu">
                                 <li onclick="$('#operatorStartDate1').html(' All '); $('#operatorStartDate1').val('All');">All</li>
@@ -421,7 +426,7 @@
                         <div class="input-group-btn">
                             <button type="button" id="operatorEndDate1" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                All <span class="caret"></span>
+                                <p class="caret-position">= <span class="caret"></span></p>
                             </button>
                             <ul class="dropdown-menu">
                                 <li onclick="$('#operatorEndDate1').html(' All '); $('#operatorEndDate1').val('All');">All</li>
@@ -547,7 +552,7 @@
             <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowClientsSearchResultsInExcel()" type="button" style="float:left;" />
         </div>
         @if (!isClaimsAdjuster)
-        {
+            {
             <div class="col-md-4">
                 <div class="hover-tooltip">
                     <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design" data-toggle="tooltip" style="float: right;" title="@InsuredTraveling.Resource.Search_AddNewClient" onclick="@("window.location.href='" + @Url.Action("Create", "Client") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
@@ -572,13 +577,14 @@
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTableEmail</th>
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTablePassport</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id="searchResultClients"></tbody>
         </table>
     </div>
     <br />
-    <ul class="nav nav-pills">
+    <ul class="nav nav-tabs">
         <li id="insured" class="active"><a onclick="showInsured()" style="cursor:pointer">@InsuredTraveling.Resource.Search_InsuredPolicy</a></li>
         <li id="holder"><a onclick="showHolders()" style="cursor:pointer">@InsuredTraveling.Resource.Search_PolicyPolicyHolder </a></li>
     </ul>
@@ -651,7 +657,7 @@
                             <div class="input-group-btn">
                                 <button type="button" id="operatorDateAdded" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                    All <span class="caret"></span>
+                                    <p class="caret-position">= <span class="caret"></span></p>
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li onclick="$('#operatorDateAdded').html(' All '); $('#operatorDateAdded').val('All');">All</li>
@@ -714,7 +720,7 @@
                             <input type="search" name="totalPrice" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLtotalcost" id="totalPrice" />
                             <button type="button" id="totalCostOperator" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                = <span class="caret"></span>
+                                <p class="caret-position">= <span class="caret"></span></p>
                             </button>
                             <ul class="dropdown-menu">
                                 <li onclick="$('#totalCostOperator').html(' = '); $('#totalCostOperator').val('=');">=</li>
@@ -800,7 +806,7 @@
 </div>
 
 <!--Table search result of chat -->
-<div id="searchChats" class="container">
+<div id="searchChats">
     <br />
     <br />
     <div class="row">
@@ -864,9 +870,18 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
+
+
+        $("#RegisterDate").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
             maxDate: 'd',
             onSelect: function () {
-                
+
                 $("#operatorStartDate").val("=");
                 $('#operatorStartDate').html(' = '); $('#operatorStartDate').val('=');
             }
@@ -879,11 +894,11 @@
             changeYear: true,
             yearRange: '-100y:c+nn',
             onSelect: function () {
-                
+
                 $("#operatorEndDate").val("=");
                 $('#operatorEndDate').html(' = '); $('#operatorEndDate').val('=');
             }
-            
+
         });
 
         $("#dateI").datepicker({
@@ -893,7 +908,7 @@
             yearRange: '-100y:c+nn',
             maxDate: 'd',
             onSelect: function () {
-                
+
                 $("#operatorDateI").val("=");
                 $('#operatorDateI').html(' = '); $('#operatorDateI').val('=');
             }
@@ -906,10 +921,10 @@
             yearRange: '-100y:c+nn',
             maxDate: 'd',
             onSelect: function () {
-                
+
                 $("#operatorDateS").val("=");
                 $('#operatorDateS').html(' = '); $('#operatorDateS').val('=');
-        }
+            }
         });
 
         $("#startDate1").datepicker({
@@ -919,7 +934,6 @@
             yearRange: '-100y:c+nn',
             maxDate: 'd',
             onSelect: function () {
-
                 $("#operatorStartDate1").val("=");
                 $('#operatorStartDate1').html(' = '); $('#operatorStartDate1').val('=');
             }
@@ -931,14 +945,11 @@
             changeYear: true,
             yearRange: '-100y:c+nn',
             onSelect: function () {
-
                 $("#operatorEndDate1").val("=");
                 $('#operatorEndDate1').html(' = '); $('#operatorEndDate1').val('=');
             }
 
-          
         });
-
 
         $("#DateAdded").datepicker({
             dateFormat: dateFormatString,
@@ -950,10 +961,10 @@
 
                 $("#operatorDateAdded").val("=");
                 $('#operatorDateAdded').html(' = '); $('#operatorDateAdded').val('=');
-        }
+            }
         });
 
-        $(".hover-tooltip button").tooltip('show');
+        //$(".hover-tooltip button").tooltip('show');
         $('#operatorRegisterDate').html(' = ');
         $('#operatorRegisterDate').val('=');
         $("#searchClients").hide();
@@ -976,14 +987,14 @@
         $("#tablePoliciesClients").css("display", "none");
         $("#tablePoliciesHolders").css("display", "none");
 
-        $("#btnNovaPolisa").removeClass("active-tab");
-        $("#btnNews").removeClass("active-tab");
-        $("#btnSearch").addClass("active-tab");
-        $("#btnFNOL").removeClass("active-tab");
-        $("#btnAdmin").removeClass("active-tab");
-        $("#dodadiKlient").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
+        //Setting the class active-tab, so the user will know which tab is clicked
+        $("#addNewPolicy").removeClass("active-tab");
+        $("#newsTab").removeClass("active-tab");
+        $("#searchTab").addClass("active-tab");
+        $("#fnolTab").removeClass("active-tab");
+        $("#adminTab").removeClass("active-tab");
+        $("#createTab").removeClass("active-tab");
+        $("#signupTab").removeClass("active-tab");
 
         $.ajax({
             type: "GET",
@@ -1094,9 +1105,9 @@
                 data: { Prefix: request.term },
                 success: function (data) {
                     response($.map(data,
-                        function (item) {
-                            return { label: item.Name, value: item.Name };
-                        }))
+                    function (item) {
+                        return { label: item.Name, value: item.Name };
+                    }))
                 }
             });
         },
@@ -1219,7 +1230,7 @@
             scrollTop: $("#tableChats").offset().top
         }, 800);
         $("#tableChats").DataTable().destroy();
-        console.log("kako se prakja/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&all=" + $("#all option:selected").val());
+        console.log("kako se prakja/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&filter=" + $("#all option:selected").val());
         $("#tableChats").DataTable({
             dom: "Bfrtip",
             ajax: "/Search/GetChats?username=" + $("#nameChat").val() + "&chatId=" + $("#chatId").val() + "&filter=" + $("#all option:selected").val(),
@@ -1312,8 +1323,8 @@
                     "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
                 window.location.href = urlString;
             }
-         });
-    
+        });
+
     };
 
     function ShowClientsSearchResultsInExcel() {
@@ -1330,8 +1341,8 @@
                     "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
                 window.location.href = urlString;
             }
-    });
-    
+        });
+
     };
 
     function ShowRegisteredUsersSearchResultsInExcel() {
@@ -1348,8 +1359,8 @@
                     "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
                 window.location.href = urlString;
             }
-    });
-    
+        });
+
     };
 
     function SearchPolycies() {
@@ -1424,12 +1435,12 @@
 
         $('#tablePolicies tbody').on('click',
             'td .loss',
-            function () {
-                var $row = $(this).closest('td');
-                var policy_num = $row.children().attr('id');
-                CreateFNOLTablePoliciesByPolicyNumber(policy_num);
+        function () {
+            var $row = $(this).closest('td');
+            var policy_num = $row.children().attr('id');
+            CreateFNOLTablePoliciesByPolicyNumber(policy_num);
 
-            });
+        });
 
         $('html,body').animate({
             scrollTop: $("#tablePolicies").offset().top
@@ -1746,7 +1757,7 @@
                             "render": function (data, type, row, meta) {
                                 if (type === 'display') {
                                     return $('<a>')
-                                         .attr('href', 'javascript:;')
+                                    .attr('href', 'javascript:;')
                                         .attr('class', 'clients')
                                         .attr('id', data)
                                         .text("@InsuredTraveling.Resource.Search_PolicyLink")
@@ -1757,7 +1768,23 @@
                                     return data;
                                 }
                             }
+                        },
+                    {
+                        data: "SSN",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                return $('<a>')
+                                    .attr('href', '/Policy?ssn=' + data)
+                                    .attr('target', '_blank')
+                                    .text("@InsuredTraveling.Resource.Policy_CreatePolicy")
+                                    .wrap('<div></div>')
+                                    .parent()
+                                    .html();
+                            } else {
+                                return data;
+                            }
                         }
+                    }
             ],
             select: true
         });
@@ -1869,5 +1896,5 @@
 
     };
 
-   
+
 </script>

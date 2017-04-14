@@ -2,9 +2,55 @@
 @{
     ViewBag.Title = InsuredTraveling.Resource.Home;
     RoleAuthorize r = new RoleAuthorize();
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
 }
 
-    <div class="row">
+
+@if ((r.IsUser("Broker") || r.IsUser("Broker manager")))
+{
+    <div id="searchExpiringPolicy" style="margin-top: 30px;">
+        <div class="row">
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group-sm ">
+                    <label>@InsuredTraveling.Resource.SearchPolicyByExpiringDays:</label>
+                    <input id="DaysBeforeExpiring" type="text" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group" style="margin-top: 25px;">
+                    <input id="btnSubmit" class="btn btn-primary btn-sm btn-material-design-success" style="width: 35%;" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchPoliciesExpiring()" type="button" style="float: left;"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePolicies">
+                <thead>
+                <tr>
+                    <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableTravelCountry</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyIssuanceDate</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableCancellationDate</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="searchResultPolycies"></tbody>
+            </table>
+        </div>
+
+    </div>
+}
+else
+{
+    <div class="row" style="overflow: hidden;">
+
         <div class="container">
             <br>
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -15,78 +61,38 @@
                     <li data-target="#myCarousel" data-slide-to="2"></li>
                     <li data-target="#myCarousel" data-slide-to="3"></li>
                 </ol>
+            </div>
+        </div>
+    </div>
 
                 <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                        <img src="~/Content/img/carIns.png" style="width: 700px; height: auto;" alt="one" width="460" height="345">
-                    </div>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="~/Content/img/carIns.png" style="width: 700px; height: auto;" alt="one" width="460" height="345">
+        </div>
 
-                    <div class="item">
-                        <img src="~/Content/img/familyIns.png" style="width: 700px; height: auto;" alt="two" width="460" height="345">
-                    </div>
+        <div class="item">
+            <img src="~/Content/img/familyIns.png" style="width: 700px; height: auto;" alt="two" width="460" height="345">
+        </div>
 
-                    <div class="item">
-                        <img src="~/Content/img/houseIns.png" style="width: 700px; height: auto;" alt="three" width="460" height="345">
-                    </div>
+        <div class="item">
+            <img src="~/Content/img/houseIns.png" style="width: 700px; height: auto;" alt="three" width="460" height="345">
+        </div>
 
-                    <div class="item">
-                        <img src="~/Content/img/roadtripIns.png" style="width: 700px; height: auto;" alt="four" width="460" height="345">
-                    </div>
-                </div>
+        <div class="item">
+            <img src="~/Content/img/roadtripIns.png" style="width: 700px; height: auto;" alt="four" width="460" height="345">
+        </div>
+    </div>
 
                 <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="icon-arrow-left15 arrows-style" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
                 <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="icon-arrow-right15 arrows-style" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
-            </div>
-        </div>
-    </div>
-@if ((r.IsUser("Broker") || r.IsUser("Broker manager") || r.IsUser("End user")))
-{
-    <div id="searchExpiringPolicy" style="margin-top: 30px;">
-        <div class="row">
-            <div class="col-md-3 col-sm-3">
-                <div class="form-group-sm ">
-                    <label>@InsuredTraveling.Resource.SearchPolicyByExpiringDays:</label>
-                    <input id="DaysBeforeExpiring" type="text" class="form-control" />
-                </div>
-            </div>
-            
-            <div class="col-md-3">
-                <div class="form-group" style="margin-top: 25px;">
-                    <input id="btnSubmit" class="btn btn-primary btn-sm btn-material-design-success" style="width: 35%;" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchPoliciesExpiring()" type="button" style="float: left;" />
-                </div>
-            </div>
-        </div>
-        
-        <div class="row">
-            <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePolicies">
-                <thead>
-                    <tr>
-                        <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
-                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
-                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTravelCountry</th>
-                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
-                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
-                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
-                        <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyIssuanceDate</th>
-                        <th>@InsuredTraveling.Resource.Seacrh_SearchTableCancellationDate</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="searchResultPolycies"></tbody>
-            </table>
-        </div>
-
-    </div>
 }
 
 
@@ -177,10 +183,10 @@
 
             });
 
-        $('html,body').animate({
-            scrollTop: $("#tablePolicies").offset().top
-        },
-            800);
+        //$('html,body').animate({
+        //    scrollTop: $("#tablePolicies").offset().top
+        //},
+        //    800);
     };
 </script>
 

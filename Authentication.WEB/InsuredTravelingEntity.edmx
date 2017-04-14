@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Entities.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Entities.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="additional_charge">
           <Key>
             <PropertyRef Name="ID" />
@@ -1686,30 +1686,34 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="type_insured" EntityType="Self.type_insured" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogins" store:Type="Tables" store:Schema="db_9eb138_travel">
-            <DefiningQuery>SELECT
-`aspnetuserlogins`.`LoginProvider`, 
-`aspnetuserlogins`.`ProviderKey`, 
-`aspnetuserlogins`.`UserId`
-FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
+            <DefiningQuery>
+              SELECT
+              `aspnetuserlogins`.`LoginProvider`,
+              `aspnetuserlogins`.`ProviderKey`,
+              `aspnetuserlogins`.`UserId`
+              FROM `aspnetuserlogins` AS `aspnetuserlogins`
+            </DefiningQuery>
           </EntitySet>
           <EntitySet Name="transaction" EntityType="Self.transaction" store:Type="Tables" store:Schema="db_9eb138_travel">
-            <DefiningQuery>SELECT
-`transaction`.`OrderID`, 
-`transaction`.`TRANID`, 
-`transaction`.`islemtipi`, 
-`transaction`.`merchantID`, 
-`transaction`.`amount`, 
-`transaction`.`sID`, 
-`transaction`.`ACQBIN`, 
-`transaction`.`xid`, 
-`transaction`.`mdStatus`, 
-`transaction`.`ProcReturnCode`, 
-`transaction`.`Response`, 
-`transaction`.`mdErrorMsg`, 
-`transaction`.`ErrMsg`, 
-`transaction`.`HASH`, 
-`transaction`.`Ime_I_ Prezime`
-FROM `transaction` AS `transaction`</DefiningQuery>
+            <DefiningQuery>
+              SELECT
+              `transaction`.`OrderID`,
+              `transaction`.`TRANID`,
+              `transaction`.`islemtipi`,
+              `transaction`.`merchantID`,
+              `transaction`.`amount`,
+              `transaction`.`sID`,
+              `transaction`.`ACQBIN`,
+              `transaction`.`xid`,
+              `transaction`.`mdStatus`,
+              `transaction`.`ProcReturnCode`,
+              `transaction`.`Response`,
+              `transaction`.`mdErrorMsg`,
+              `transaction`.`ErrMsg`,
+              `transaction`.`HASH`,
+              `transaction`.`Ime_I_ Prezime`
+              FROM `transaction` AS `transaction`
+            </DefiningQuery>
           </EntitySet>
           <AssociationSet Name="additional_charge_name_ibfk_1" Association="Self.additional_charge_name_ibfk_1">
             <End Role="languages" EntitySet="languages" />
@@ -2004,7 +2008,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="travel_policy" EntitySet="travel_policy" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2023,7 +2028,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="additional_charge_name" Relationship="Entities.additional_charge_name_ibfk_2" FromRole="additional_charge" ToRole="additional_charge_name" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_additional_charge_created_by" FromRole="additional_charge" ToRole="aspnetuser" />
           <NavigationProperty Name="aspnetuser1" Relationship="Entities.fk_additional_charge_modified_by" FromRole="additional_charge" ToRole="aspnetuser" />
-          </EntityType>
+        </EntityType>
         <EntityType Name="additional_info">
           <Key>
             <PropertyRef Name="ID" />
@@ -2126,8 +2131,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Version" Type="Int32" Nullable="false" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_discount_age_Created_By" FromRole="discount_age" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="Entities.fk_discount_age_Modified_By" FromRole="discount_age" ToRole="aspnetuser" />
-          </EntityType>
+        </EntityType>
         <EntityType Name="discount_country">
           <Key>
             <PropertyRef Name="ID" />
@@ -2145,8 +2149,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="country" Relationship="Self.fk_country_id" FromRole="discount_country" ToRole="countries" />
           <NavigationProperty Name="policy_type" Relationship="Self.fk_policy_type_id" FromRole="discount_country" ToRole="policy_type" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_discount_country_Created_By" FromRole="discount_country" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="Entities.fk_discount_country_Modified_by" FromRole="discount_country" ToRole="aspnetuser" />
-          </EntityType>
+        </EntityType>
         <EntityType Name="discount_days">
           <Key>
             <PropertyRef Name="ID" />
@@ -2163,8 +2166,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="policy_type" Relationship="Self.discount_days_ibfk_1" FromRole="discount_days" ToRole="policy_type" />
           <NavigationProperty Name="travel_duration" Relationship="Self.discount_days_ibfk_2" FromRole="discount_days" ToRole="travel_duration" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_discount_days_Created_By" FromRole="discount_days" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="Entities.fk_discount_days_Modified_by" FromRole="discount_days" ToRole="aspnetuser" />
-          </EntityType>
+        </EntityType>
         <EntityType Name="discount_family">
           <Key>
             <PropertyRef Name="ID" />
@@ -2179,7 +2181,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Version" Type="Int32" Nullable="false" />
           <NavigationProperty Name="policy_type" Relationship="Self.discount_family_ibfk_1" FromRole="discount_family" ToRole="policy_type" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_discount_family_Created_By" FromRole="discount_family" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="Entities.fk_discount_family_Modified_by" FromRole="discount_family" ToRole="aspnetuser" />
         </EntityType>
         <EntityType Name="discount_group">
           <Key>
@@ -2197,8 +2198,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="policy_type" Relationship="Self.discount_group_ibfk_1" FromRole="discount_group" ToRole="policy_type" />
           <NavigationProperty Name="group" Relationship="Self.discount_group_ibfk_2" FromRole="discount_group" ToRole="groups" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_discount_group_Created_By" FromRole="discount_group" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="Entities.fk_discount_group_Modified_by" FromRole="discount_group" ToRole="aspnetuser" />
-          </EntityType>
+        </EntityType>
         <EntityType Name="document">
           <Key>
             <PropertyRef Name="ID" />
@@ -2265,7 +2265,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Modified_Datetime" Type="DateTime" />
           <Property Name="FNOL_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.first_notice_of_loss_ibfk_7" FromRole="first_notice_of_loss" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="Entities.first_notice_of_loss_ibfk_8" FromRole="first_notice_of_loss" ToRole="aspnetuser" />
         </EntityType>
         <EntityType Name="group">
           <Key>
@@ -2332,7 +2331,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Entities.first_notice_of_loss_archive_ibfk_5" FromRole="insured" ToRole="first_notice_of_loss_archive" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_insured_createdby" FromRole="insured" ToRole="aspnetuser" />
           <NavigationProperty Name="aspnetuser1" Relationship="Entities.fk_insured_modifiedby" FromRole="insured" ToRole="aspnetuser" />
-          </EntityType>
+        </EntityType>
         <EntityType Name="invoice">
           <Key>
             <PropertyRef Name="DocumentID" />
@@ -2499,7 +2498,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="discount_days" Relationship="Self.discount_days_ibfk_2" FromRole="travel_duration" ToRole="discount_days" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_travel_duration_Created_by" FromRole="travel_duration" ToRole="aspnetuser" />
           <NavigationProperty Name="aspnetuser1" Relationship="Entities.fk_travel_duration_Modified_by" FromRole="travel_duration" ToRole="aspnetuser" />
-          </EntityType>
+        </EntityType>
         <EntityType Name="travel_insurance_type">
           <Key>
             <PropertyRef Name="ID" />
@@ -3390,7 +3389,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="aspnetuser" EntitySet="aspnetusers" />
             <End Role="broker_employees" EntitySet="broker_employees" />
           </AssociationSet>
-          </EntityContainer>
+        </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
             <PropertyRef Name="ID" />
@@ -3733,30 +3732,19 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Active" Type="SByte" />
           <Property Name="CreatedOn" Type="DateTime" />
           <NavigationProperty Name="additional_charge" Relationship="Entities.fk_additional_charge_created_by" FromRole="aspnetuser" ToRole="additional_charge" />
-          <NavigationProperty Name="additional_charge1" Relationship="Entities.fk_additional_charge_modified_by" FromRole="aspnetuser" ToRole="additional_charge" />
           <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Entities.first_notice_of_loss_archive_ibfk_2" FromRole="aspnetuser" ToRole="first_notice_of_loss_archive" />
           <NavigationProperty Name="first_notice_of_loss" Relationship="Entities.first_notice_of_loss_ibfk_7" FromRole="aspnetuser" ToRole="first_notice_of_loss" />
-          <NavigationProperty Name="first_notice_of_loss1" Relationship="Entities.first_notice_of_loss_ibfk_8" FromRole="aspnetuser" ToRole="first_notice_of_loss" />
           <NavigationProperty Name="discount_age" Relationship="Entities.fk_discount_age_Created_By" FromRole="aspnetuser" ToRole="discount_age" />
-          <NavigationProperty Name="discount_age1" Relationship="Entities.fk_discount_age_Modified_By" FromRole="aspnetuser" ToRole="discount_age" />
           <NavigationProperty Name="discount_country" Relationship="Entities.fk_discount_country_Created_By" FromRole="aspnetuser" ToRole="discount_country" />
-          <NavigationProperty Name="discount_country1" Relationship="Entities.fk_discount_country_Modified_by" FromRole="aspnetuser" ToRole="discount_country" />
           <NavigationProperty Name="discount_days" Relationship="Entities.fk_discount_days_Created_By" FromRole="aspnetuser" ToRole="discount_days" />
-          <NavigationProperty Name="discount_days1" Relationship="Entities.fk_discount_days_Modified_by" FromRole="aspnetuser" ToRole="discount_days" />
           <NavigationProperty Name="discount_family" Relationship="Entities.fk_discount_family_Created_By" FromRole="aspnetuser" ToRole="discount_family" />
-          <NavigationProperty Name="discount_family1" Relationship="Entities.fk_discount_family_Modified_by" FromRole="aspnetuser" ToRole="discount_family" />
           <NavigationProperty Name="discount_group" Relationship="Entities.fk_discount_group_Created_By" FromRole="aspnetuser" ToRole="discount_group" />
-          <NavigationProperty Name="discount_group1" Relationship="Entities.fk_discount_group_Modified_by" FromRole="aspnetuser" ToRole="discount_group" />
           <NavigationProperty Name="insureds" Relationship="Entities.fk_insured_createdby" FromRole="aspnetuser" ToRole="insured" />
-          <NavigationProperty Name="insureds1" Relationship="Entities.fk_insured_modifiedby" FromRole="aspnetuser" ToRole="insured" />
           <NavigationProperty Name="travel_policy" Relationship="Entities.fk_policy_created_by" FromRole="aspnetuser" ToRole="travel_policy" />
-          <NavigationProperty Name="travel_policy1" Relationship="Entities.fk_policy_modified_by" FromRole="aspnetuser" ToRole="travel_policy" />
           <NavigationProperty Name="travel_duration" Relationship="Entities.fk_travel_duration_Created_by" FromRole="aspnetuser" ToRole="travel_duration" />
-          <NavigationProperty Name="travel_duration1" Relationship="Entities.fk_travel_duration_Modified_by" FromRole="aspnetuser" ToRole="travel_duration" />
           <NavigationProperty Name="users" Relationship="Entities.fk_users_aspnetuser" FromRole="aspnetuser" ToRole="user" />
           <NavigationProperty Name="aspnetroles" Relationship="Entities.aspnetuserroles" FromRole="aspnetuser" ToRole="aspnetrole" />
           <NavigationProperty Name="broker_employees" Relationship="Entities.FKBrrokerID" FromRole="aspnetuser" ToRole="broker_employees" />
-          <NavigationProperty Name="broker_employees1" Relationship="Entities.FKEmployeID" FromRole="aspnetuser" ToRole="broker_employees" />
           <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_additional_charge_created_by">
@@ -4084,7 +4072,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -4856,7 +4844,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

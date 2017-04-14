@@ -4,6 +4,8 @@
 @{
     ViewBag.Title = InsuredTraveling.Resource.FNOL_Title;
     var policyNumber = ViewBag.PolicyNumber != null ? Convert.ToInt32(ViewBag.PolicyNumber) : 0;
+    // well-sot ne se otvaraat
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
 }
 @using InsuredTraveling.Filters
 @{
@@ -59,7 +61,7 @@
                 </div>
             </div>
         </div>
-        <h3>@InsuredTraveling.Resource.FNOL_Title</h3>
+        <h2>@InsuredTraveling.Resource.FNOL_Title</h2>
         <div>
             <h5>
                 @InsuredTraveling.Resource.Required:
@@ -68,7 +70,18 @@
         </div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="row">
+    
+     @if(Model != null)
+     {
+         <input id="modelId" value="@Model.PolicyNumber" type="text" hidden/>
+     }
+     else
+     {
+        <input id="modelId" value="0" type="text" hidden />
+     }
+
+
+    <div class="row">
             <div class="col-md-5 col-sm-5">
                 <div class="form-group">
                     <div class="">
@@ -125,11 +138,11 @@
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <div class="form-group">
-                        @Html.CheckBoxFor(model => model.PolicyHolderExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccount", @readonly = true, @style = "margin-top:15px;" })
+                        @Html.CheckBoxFor(model => model.PolicyHolderExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccount", @readonly = true })
                         <label class="control-label">@InsuredTraveling.Resource.FNOL_UsePreviousBankAccount</label>
                     </div>
                     <div class="form-group">
-                        @Html.CheckBoxFor(model => model.PolicyHolderForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccount", @readonly = true, @style = "margin-top:15px;" })
+                        @Html.CheckBoxFor(model => model.PolicyHolderForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccount", @readonly = true })
                         <label class="control-label">@InsuredTraveling.Resource.FNOL_ForeignBankAccount</label>
                     </div>
                     <div class="form-group">
@@ -214,11 +227,11 @@
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <div class="form-group">
-                        @Html.CheckBoxFor(model => model.ClaimantExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccountInsured", @readonly = true, @style = "margin-top:3%;" })
+                        @Html.CheckBoxFor(model => model.ClaimantExistentBankAccount, new { @class = "col-md-1", @id = "ExistentBankAccountInsured", @readonly = true })
                         <label class="control-label">@InsuredTraveling.Resource.FNOL_UsePreviousBankAccount:</label>
                     </div>
                     <div class="form-group">
-                        @Html.CheckBoxFor(model => model.ClaimantForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccountInsured", @readonly = true, @style = "margin-top:3%;" })
+                        @Html.CheckBoxFor(model => model.ClaimantForeignBankAccount, new { @class = "col-md-1", @id = "ForeignBankAccountInsured", @readonly = true })
                         <label class="control-label">@InsuredTraveling.Resource.FNOL_ForeignBankAccount</label>
                     </div>
                     <div class="form-group">
@@ -504,7 +517,7 @@
             <div class="col-md-12 col-sm-12">
                 <div class="form-group">
                     <div class="col-md-4 col-sm-4" style="padding-left: 0px;">
-                        <input type="submit" onclick="validateFNOL()" value="@InsuredTraveling.Resource.FNOL_Add" class="btn btn-default btn-block" />
+                        <input type="submit" value="@InsuredTraveling.Resource.FNOL_Add" class="btn btn-default btn-block" />
                     </div>
 
                 </div>
@@ -580,13 +593,74 @@ else if (ViewBag.insurance == "Luggage Insurance")
         });
     </script>
 }
-
-@Scripts.Render("~/bundles/jqueryui")
+<script src="~/Scripts/jquery-ui.min.js" type="text/javascript" ></script> 
 @Styles.Render("~/Content/jqueryuicss")
+
 <script type="text/javascript">
     var Banks;
     $(document).ready(function () {
+
         var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
+
+        if ($("#modelId").val() != "0") {
+
+            $('#TransactionAccount').prop('readonly', false);
+            $('#insuredTransactionAccount').prop('readonly', false);
+            $('#travelDestination').prop('readonly', false);
+            $('#DepartDateTime').prop('readonly', false);
+            $('#transportationType').prop('readonly', false);
+            $('#travelTimeFrom').prop('readonly', false);
+            $('#ArrivalDateTime').prop('readonly', false);
+            $('#travelTimeTo').prop('readonly', false);
+            $('#TotalCost').prop('readonly', false);
+            $('#invoices').prop('disabled', false);
+            $('#health').prop('disabled', false);
+            $('#luggage').prop('disabled', false);
+            $('#ExistentBankAccount').prop('disabled', false);
+            $('#ForeignBankAccount').prop('disabled', false);
+            $('#ExistentBankAccountInsured').prop('disabled', false);
+            $('#ForeignBankAccountInsured').prop('disabled', false);
+            $('#relationship').prop('readonly', false);
+
+            validateFNOL();
+
+        } else {
+
+            $("#previewPolicy").hide();
+            $('#deponent').prop('readonly', true);
+            $('#deponentInsured').prop('readonly', true);
+            $('#DropDownBankAccountPolicyHolder').hide();
+            $('#DropDownBankAccountInsured').hide();
+            $('#TransactionAccount').prop('readonly', true);
+            $('#insuredTransactionAccount').prop('readonly', true);
+            $('#travelDestination').prop('readonly', true);
+            $('#DepartDateTime').prop('readonly', true);
+            $('#transportationType').prop('readonly', true);
+            $('#travelTimeFrom').prop('readonly', true);
+            $('#ArrivalDateTime').prop('readonly', true);
+            $('#travelTimeTo').prop('readonly', true);
+            $('#TotalCost').prop('readonly', true);
+            $('#invoices').prop('disabled', true);
+            $('#health').prop('disabled', true);
+            $('#luggage').prop('disabled', true);
+            $('#ExistentBankAccount').prop('disabled', true);
+            $('#ForeignBankAccount').prop('disabled', true);
+            $('#ExistentBankAccountInsured').prop('disabled', true);
+            $('#ForeignBankAccountInsured').prop('disabled', true);
+            $('#relationship').prop('readonly', true);
+        }
+
+        //Fill the banks
+        $.ajax({
+            type: "GET",
+            url: "/FirstNoticeOfLoss/GetBanks",
+            success: function (result) {
+                var rez = JSON.parse(result);
+                Banks = rez.banks;
+                console.log(Banks);
+            }
+        });
+
 
         $("#DepartDateTime").datepicker({
             dateFormat: dateFormatString,
@@ -595,7 +669,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 $("#AccidentDateTimeLuggage").datepicker("option", "minDate", selected);
                 $("#AccidentDateTimeHealth").datepicker("option", "minDate", selected);
                 $("#DoctorVisitDateTime").datepicker("option", "minDate", selected);
-            },
+            }
         });
 
         $("#ArrivalDateTime").datepicker({
@@ -605,7 +679,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 $("#AccidentDateTimeLuggage").datepicker("option", "maxDate", selected);
                 $("#AccidentDateTimeHealth").datepicker("option", "maxDate", selected);
                 $("#DoctorVisitDateTime").datepicker("option", "maxDate", selected);
-            },
+            }
         });
 
         $("#AccidentDateTimeHealth").datepicker({
@@ -629,40 +703,17 @@ else if (ViewBag.insurance == "Luggage Insurance")
             onSelect: function (selected) {
                 //$("#DepartDateTime").datepicker("option", "minDate", selected);
                 //$("#ArrivalDateTime").datepicker("option", "maxDate", selected);
-            },
+            }
         });
 
-        $("#previewPolicy").hide();
-        $('#deponent').prop('readonly', true);
-        $('#deponentInsured').prop('readonly', true);
-        $('#DropDownBankAccountPolicyHolder').hide();
-        $('#DropDownBankAccountInsured').hide();
-        $('#TransactionAccount').prop('readonly', true);
-        $('#insuredTransactionAccount').prop('readonly', true);
-        $('#travelDestination').prop('readonly', true);
-        $('#DepartDateTime').prop('readonly', true);
-        $('#transportationType').prop('readonly', true);
-        $('#travelTimeFrom').prop('readonly', true);
-        $('#ArrivalDateTime').prop('readonly', true);
-        $('#travelTimeTo').prop('readonly', true);
-        $('#TotalCost').prop('readonly', true);
-        $('#invoices').prop('disabled', true);
-        $('#health').prop('disabled', true);
-        $('#luggage').prop('disabled', true);
-        $('#ExistentBankAccount').prop('disabled', true);
-        $('#ForeignBankAccount').prop('disabled', true);
-        $('#ExistentBankAccountInsured').prop('disabled', true);
-        $('#ForeignBankAccountInsured').prop('disabled', true);
-        $('#relationship').prop('readonly', true);
-
-        $("#btnNovaPolisa").removeClass("active-tab");
-        $("#btnNews").removeClass("active-tab");
-        $("#btnSearch").removeClass("active-tab");
-        $("#btnFNOL").addClass("active-tab");
-        $("#btnAdmin").removeClass("active-tab");
-        $("#dodadiKlient").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
+        //Setting the class active-tab, so the user will know which tab is clicked
+        $("#addNewPolicy").removeClass("active-tab");
+        $("#newsTab").removeClass("active-tab");
+        $("#searchTab").removeClass("active-tab");
+        $("#fnolTab").addClass("active-tab");
+        $("#adminTab").removeClass("active-tab");
+        $("#createTab").removeClass("active-tab");
+        $("#signupTab").removeClass("active-tab");
 
         $("#DropDownPolicyNumber").change(function () {
             if ($("#DropDownPolicyNumber").val() == "") {
@@ -681,30 +732,36 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 $('#ExistentBankAccount').prop('disabled', true);
                 $('#ForeignBankAccount').prop('disabled', true);
                 $('#relationship').prop('readonly', true);
-            } else {
-                //$('#TransactionAccount').prop('readonly', false);
-                //$('#insuredTransactionAccount').prop('readonly', false);
-                //$('#travelDestination').prop('readonly', false);
-                //$('#DepartDateTime').prop('readonly', false);
-                //$('#transportationType').prop('readonly', false);
-                //$('#travelTimeFrom').prop('readonly', false);
-                //$('#ArrivalDateTime').prop('readonly', false);
-                //$('#travelTimeTo').prop('readonly', false);
-                //$('#TotalCost').prop('readonly', false);
-                //$('#invoices').prop('readonly', false);
-                //$('#health').prop('disabled', false);
-                //$('#luggage').prop('disabled', false);
+
+                $("#PolicyHolderId").attr("value", "");
+                $("#PolicyHolderName").attr("value", "");
+                $("#PolicyHolderName").attr("IdPolicyHolder", "");
+                $("#PolicyHolderPhone").attr("value", "");
+                $("#PolicyHolderSSN").attr("value", "");
+                $("#PolicyHolderAddress").attr("value", "");
+                $("#DepartDateTime").val("");
+                $("#ArrivalDateTime").val("");
+
+                $("#InsuredName").attr("value", "");
+                $("#InsuredAdress").attr("value", "");
+                $("#InsuredPhone").attr("value", "");
+                $("#InsuredSSN").attr("value", "");
+                $("#relationship").attr("isSameUserWithSelectedInsured", "");
+
+                $("#previewPolicy").hide();
             }
         });
 
         $("#SelectForeignBankAccountHolder").on('click', function () {
             $("#ForeignBankAccount").prop("checked", true);
-            $("#TransactionAccount").prop("value", " ");
+            $("#TransactionAccount").prop("value", "");
+            $("#deponent").prop('readonly', false);
         });
 
         $("#SelectForeignBankAccountInsured").on('click', function () {
             $("#ForeignBankAccountInsured").prop("checked", true);
-            $("#insuredTransactionAccount").prop("value", " ");
+            $("#insuredTransactionAccount").prop("value", "");
+            $("#deponentInsured").prop('readonly', false);
         });
 
         $("#TransactionAccount, #insuredTransactionAccount, #TotalCost, #FloatersValue").keydown(function (e) {
@@ -719,7 +776,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
         });
 
         $("#DropDownPolicyNumber").autocomplete({
-            source: function(request,response) {
+            source: function (request, response) {
                 $.ajax({
                     url: "/FirstNoticeOfLoss/ShowPolicies",
                     type: "POST",
@@ -818,8 +875,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $('#DropDownBankAccountPolicyHolder').show();
             $('#TransactionAccount').prop('readonly', true);
             $('#deponent').prop('readonly', true);
-            $("#TransactionAccount").prop("value", " ");
-            $("#deponent").prop("value", " ");
+            $("#TransactionAccount").prop("value", "");
+            $("#deponent").prop("value", "");
             $("#DropDownBankAccountPolicyHolder option:selected").prop("selected", false)
         }
         else {
@@ -844,8 +901,8 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $('#DropDownBankAccountInsured').show();
             $('#insuredTransactionAccount').prop('readonly', true);
             $('#deponentInsured').prop('readonly', true);
-            $("#insuredTransactionAccount").prop("value", " ");
-            $("#deponentInsured").prop("value", " ");
+            $("#insuredTransactionAccount").prop("value", "");
+            $("#deponentInsured").prop("value", "");
             $("#DropDownBankAccountInsured option:selected").prop("selected", false)
         }
         else {
@@ -914,14 +971,15 @@ else if (ViewBag.insurance == "Luggage Insurance")
             $('#deponent').prop('readonly', true);
         }
         else {
-            console.log(Banks);
             if (Banks != null || Banks != undefined) {
                 var bankAccount = $('#TransactionAccount').val();
                 var prefixTillNow = bankAccount.substring(0, 3);
                 var validBank = false;
                 $.each(Banks, function (key, value) {
                     if (value.Prefix == prefixTillNow) {
+                        
                         $('#deponent').attr('value', value.BankName);
+                        $('#deponent').val(value.BankName);
                         validBank = true;
                     }
                 });
@@ -929,7 +987,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     if (($('#ForeignBankAccount').is(':checked')) || ($("#ExistentBankAccount").is(':checked'))) {
 
                     } else {
-                        $('#deponent').attr('value', " ");
+                        $('#deponent').attr('value', "");
                         $("#modalHolder").modal("show");
                     }
 
@@ -950,6 +1008,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                 $.each(Banks, function (key, value) {
                     if (value.Prefix == prefixTillNow) {
                         $('#deponentInsured').attr('value', value.BankName);
+                        $('#deponentInsured').val(value.BankName);
                         validBank = true;
                     }
                 });
@@ -957,7 +1016,7 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     if (($('#ForeignBankAccountInsured').is(':checked')) || ($("#ExistentBankAccountInsured").is(':checked'))) {
 
                     } else {
-                        $('#deponentInsured').attr('value', " ");
+                        $('#deponentInsured').attr('value', "");
                         $("#modalInsured").modal("show");
                     }
 
@@ -1039,7 +1098,6 @@ else if (ViewBag.insurance == "Luggage Insurance")
                     $('#relationship').prop('readonly', false);
 
                    // fill data
-                    Banks = rez.banks;
                     $("#PolicyHolderId").attr("value", rez.policyholder.Id);
                     $("#PolicyHolderName").attr("value", rez.policyholder.FirstName + " " + rez.policyholder.LastName);
                     $("#PolicyHolderName").attr("IdPolicyHolder", rez.policyholder.Id);

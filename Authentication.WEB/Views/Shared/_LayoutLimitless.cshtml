@@ -1,0 +1,376 @@
+﻿@using InsuredTraveling.Filters;
+@using InsuredTraveling.Filters;
+@{
+    RoleAuthorize r = new RoleAuthorize();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title - Insured Travel</title>
+
+    <!-- Global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="~/Content/Limitless-css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/Limitless-css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/Limitless-css/core.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/Limitless-css/components.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/Limitless-css/colors.css" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+
+    <!--Our files-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css" />
+    <link rel="icon" href="/Content/img/profile.png">
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- / Our files-->
+
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <!-- Core JS files -->
+    <script type="text/javascript" src="~/Scripts/Limitless-js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Limitless-js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Limitless-js/core/libraries/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Limitless-js/plugins/loaders/blockui.min.js"></script>
+    <!-- /core JS files -->
+
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/Chat/Chat.js"></script>
+
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="~/Scripts/Limitless-js/plugins/visualization/d3/d3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Limitless-js/plugins/visualization/d3/d3_tooltip.js"></script>
+    <script type="text/javascript" src="~/Scripts/Limitless-js/plugins/forms/styling/switchery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Limitless-js/plugins/forms/styling/uniform.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Limitless-js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+    <script type="text/javascript" src="~/Scripts/Limitless-js/plugins/ui/moment/moment.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Limitless-js/plugins/ui/nicescroll.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Limitless-js/core/app.js"></script>
+    <script type="text/javascript" src="~/Scripts/Limitless-js/pages/layout_fixed_custom.js"></script>
+
+    <!-- /theme JS files -->
+</head>
+
+<body class="navbar-top" onload="prepareSocket()">
+
+    <!-- Main navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Home">
+                <div style="display:inline-block; font-size: 18px;">
+                    <img src="~/Content/img/profile.png" class="logo" alt="logo" />Insured Traveling
+                </div>
+            </a>
+
+            <ul class="nav navbar-nav visible-xs-block">
+                <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+                <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+            </ul>
+        </div>
+
+        <div class="navbar-collapse collapse" id="navbar-mobile">
+            <ul class="nav navbar-nav">
+                <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    @*<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-bubbles4"></i>
+                    <span class="visible-xs-inline-block position-right">Messages</span>
+                    <span class="badge bg-warning-400"></span>
+                </a>*@
+
+                    @*<div class="dropdown-menu dropdown-content width-350">
+                    <div class="dropdown-content-heading">
+                        Messages
+                        <ul class="icons-list">
+                            <li><a href="#"><i class="icon-compose"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <ul class="media-list dropdown-content-body">
+                        <li class="media">
+                            <div class="media-left">
+                                <span class="badge bg-danger-400 media-badge">5</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="dropdown-content-footer">
+                        <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
+                    </div>
+                </div>*@
+                </li>
+                @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                        <ul id="messages" class="dropdown-menu message-dropdown">
+                            <li id="no-messages" style="display: none;">@InsuredTraveling.Resource.Home_NoMsg</li>
+                        </ul>
+
+                    </li>
+                    if (r.IsUser("Admin"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" id="messageRequests" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="icon-esc"></span>
+                            </a>
+                            <ul class="dropdown-menu alert-dropdown" id="ul_alerts"></ul>
+                        </li>
+                    }
+                }
+                @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    <li class="dropdown dropdown-user">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            @if (r.IsUser("Admin"))
+                            {
+                                @InsuredTraveling.Resource.Home_Admin
+                            }
+                            @if (r.IsUser("Broker"))
+                            {
+                                @InsuredTraveling.Resource.Home_Broker
+                            }
+                            @if (r.IsUser("Broker manager"))
+                            {
+                                @InsuredTraveling.Resource.Home_Broker_manager
+                            }
+                            @if (r.IsUser("Claims adjuster"))
+                            {
+                                @InsuredTraveling.Resource.Home_Claims_adjuster 
+                            }
+                    <span>@System.Web.HttpContext.Current.User.Identity.Name</span>
+                    <b class="caret"></b>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#"><i class="icon-user-plus"></i>@InsuredTraveling.Resource.Home_MyProfile</a></li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken">
+                                <i class="icon-switch2"></i> @InsuredTraveling.Resource.LogOut
+                            </a>
+                        </li>
+                    </ul>
+                    </li>
+                }
+                @foreach (var i in InsuredTraveling.App_Start.SiteLanguages.GetAllanguages())
+                {
+                    if (i.CultureName == "en")
+                    {
+                        <a href="@Url.Action("ChangeLanguage", "ChangeLanuage", new { lang = i.CultureName })">
+                            <img src="~/Content/flags/en-US.png" />
+                        </a>
+                    }
+                    if (i.CultureName == "mk")
+                    {
+                        <a href="@Url.Action("ChangeLanguage", "ChangeLanuage", new { lang = i.CultureName })">
+                            <img src="~/Content/flags/mk-MK.png" />
+                        </a>
+                    }
+                }
+            </ul>
+
+        </div>
+    </div>
+    <!-- /main navbar -->
+    <!-- Page container -->
+    <div class="page-container">
+
+        <!-- Page content -->
+        <div class="page-content">
+
+            <!-- Main sidebar -->
+            <div class="sidebar sidebar-main sidebar-fixed">
+                <div class="sidebar-content">
+                    <!-- Main navigation -->
+                    <div class="sidebar-category sidebar-category-visible">
+                        @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                        {
+                            <div class="category-content no-padding">
+                                <ul class="navigation navigation-main navigation-accordion">
+
+                                    <!-- Main -->
+                                    <li class="navigation-header">
+                                        <span>@InsuredTraveling.Resource.MainPage</span> <i class="icon-menu" title="Main pages"></i>
+                                    </li>
+                                    <li>
+                                        <a href="/Policy" id="addNewPolicy">
+                                            <i class="icon-add-to-list"></i>
+                                            <span id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</span>
+                                        </a>
+                                    </li>
+                                    @if (r.IsUser("Admin") || r.IsUser("Broker"))
+                                    {
+                                        <li>
+                                            <a href="/News/Index" id="newsTab">
+                                                <i class="icon-newspaper2"></i>
+                                                <span id="btnNews">@InsuredTraveling.Resource.Home_News</span>
+                                            </a>
+                                        </li>
+                                    }
+                                    <li>
+                                        <a href="/Search/Index" id="searchTab">
+                                            <i class="icon-search4"></i>
+                                            <span id="btnSearch">@InsuredTraveling.Resource.Home_Search</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/FirstNoticeOfLoss/Index" id="fnolTab">
+                                            <i class="icon-file-plus"></i>
+                                            <span id="btnFNOL">@InsuredTraveling.Resource.Home_FirstNoticeOfLoss</span>
+                                        </a>
+                                    </li>
+                                    @if (r.IsUser("Admin"))
+                                    {
+                                        <li>
+                                            <a href="/AdminPanel/Index" id="adminTab">
+                                                <i class="icon-cog2"></i>
+                                                <span id="btnAdmin">@InsuredTraveling.Resource.Home_AdminPanel</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Client/Create" id="createTab">
+                                                <i class="icon-user-plus"></i>
+                                                <span id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/SignUp/CreateUser" id="signupTab">
+                                                <i class="icon-man-woman"></i>
+                                                <span>@InsuredTraveling.Resource.Home_CreateUser</span>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (r.IsUser("Broker"))
+                                    {
+                                        <li>
+                                            <a href="/Client/Create">
+                                                <i class="icon-stack2"></i>
+                                                <span id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</span>
+                                            </a>
+                                        </li>
+                                    }
+
+                                    <!-- /main -->
+
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                    <!-- /main navigation <-->
+                </div>
+            </div>
+            <!-- /main sidebar -->
+            <!-- Main content -->
+            <div class="body-position-for-limitless">
+                @RenderBody()
+            </div>
+            <!-- /page content -->  
+        </div>
+        <!-- /page container -->
+    </div>
+    <div id="chats"></div>
+            <!-- Footer -->
+            <div class="footer text-muted col-md-12" align="center" @*style="margin: 30px;"*@>
+                <a href="#">&copy; @DateTime.Now.Year - Insured Traveling</a>
+            </div>
+        
+            <!-- /footer -->
+        
+      
+    <script type="text/javascript">
+        $(document).ready(function () {
+            localStorage.setItem("username", '@HttpContext.Current.User.Identity.Name');
+            console.log(localStorage.getItem("username"));
+            if (localStorage.getItem("username") != "") {
+            }
+            else {
+            }
+            $("#alerts").click(function () {
+                if ($("#alerts").attr('aria-expanded') === "true") {
+                    $("#alerts_bell").removeClass('red');
+                    $(".label-danger").each(function () {
+                        $(this).removeClass("label label-danger");
+                        $(this).addClass("label label-default");
+                        $(".my_audio").trigger('stop');
+
+                    });
+                }
+            });
+
+        });
+    </script>
+    <script id="chat_template" type="text/x-custom-template">
+        <div id="none" class="chat_position" requestId="none">
+            <div class="portlet portlet-default">
+                <div class="portlet-heading">
+                    <div class="portlet-title">
+                        <h4></h4>
+                    </div>
+                    <div class="portlet-widgets">
+                        <span class="divider"></span>
+                        <a id="discardChat" class="hideable" href="#" style="display: -webkit-inline-box;"><i class="fa fa-minus-square"></i></a>
+                        <a id="createFnol" class="hideable" href="#" style="display: -webkit-inline-box;"><i class="fa fa-plus-square"></i></a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#chat"><i class="fa fa-chevron-down"></i></a>
+                        <a id="close" href="#">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div id="chat" class="panel-collapse collapse in">
+                    <div>
+                        <div class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 195px;">
+                        </div>
+                    </div>
+                    <div class="portlet-footer">
+                        <form role="form">
+                            <textarea class="form-control" id="none" requestid="none" placeholder="Enter message..."></textarea>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="message_template" type="text/x-custom-template">
+        <li class="message-preview">
+            <a href="#" id="none">
+                <div class="media">
+                    @*<span class="pull-left">
+                            <img class="media-object" src="http://placehold.it/50x50" alt="">
+                        </span>*@
+                    <div class="media-body">
+                        <h5 class="media-heading" name="name">
+                            <strong>John Smith</strong>
+                        </h5>
+                        <p class="small text-muted"><i class="fa fa-clock-o"></i> <span class="timestamp"></span> </p>
+                        <p class="message" id="messageId"> </p>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </script>
+    <script>
+        function ShowEngFlag() {
+            $("#choosen-language").text("English");
+            $("#choosen-language-flag").attr({
+                src: "~/Content/flags/en-US.png"
+            });
+        }
+
+        function ShowMkFlag() {
+            $("#choosen-language").text("Macedonian");
+            $("#choosen-language-flag").attr({
+                src: "~/Content/flags/mk-MK.png"
+            });
+        }
+    </script>
+</body>
+</html>

@@ -21,11 +21,14 @@ namespace InsuredTraveling.Controllers
             _us = us;
         }
 
-        public ActionResult Index(string id)
+        public ActionResult Index()
         {
             var genderList = Gender();
             var roles = _rs.GetAll().ToList();
-            aspnetuser userEdit = _us.GetUserById(id);
+            aspnetuser userEdit = _us.GetUserDataByUsername(System.Web.HttpContext.Current.User.Identity.Name);
+
+            if (userEdit == null)
+                return View();
 
             User userEditModel = Mapper.Map<aspnetuser, User>(userEdit);
 

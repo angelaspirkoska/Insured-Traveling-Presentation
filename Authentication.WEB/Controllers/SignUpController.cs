@@ -34,17 +34,17 @@ namespace InsuredTraveling.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Index(User user, bool CaptchaValid)
+        public async Task<ActionResult> Index(User user/*, bool CaptchaValid*/)
         {
             ViewBag.Gender = Gender();
 
-            if(!CaptchaValid)
-            {
-                ModelState.AddModelError("reCaptcha", "recaptchaError");
-                return View(user);
-            }
+            //if(!CaptchaValid)
+            //{
+            //    ModelState.AddModelError("reCaptcha", "recaptchaError");
+            //    return View(user);
+            //}
 
-            if (ModelState.IsValid && CaptchaValid)
+            if (ModelState.IsValid /*&& CaptchaValid*/)
             {
                 user.Role = "End user";
                 user.CreatedBy = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
@@ -80,7 +80,7 @@ namespace InsuredTraveling.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateUser(User user, bool CaptchaValid)
+        public async Task<ActionResult> CreateUser(User user/*, bool CaptchaValid*/)
         {
             ViewBag.Gender = Gender();
             var roles = Roles();
@@ -90,7 +90,7 @@ namespace InsuredTraveling.Controllers
             }
             ViewBag.Roles = roles;
 
-            if (ModelState.IsValid && CaptchaValid)
+            if (ModelState.IsValid /*&& CaptchaValid*/)
             {
                 Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/account/RegisterWeb");
                 HttpClient client = new HttpClient();

@@ -3,6 +3,7 @@
 
 @{
     ViewBag.Title = InsuredTraveling.Resource.Login;
+   
 }
 
 <div class="container-fluid col-md-offset-4 col-md-4 col-sm-3">
@@ -24,6 +25,12 @@
                 {
                     <p>@InsuredTraveling.Resource.Msg_IncorrectUserPass</p>
                 }
+
+                if (modelError.ErrorMessage == "usernameOrPasswordEmpty")
+                {
+                    <p>@InsuredTraveling.Resource.Msg_EmptyUsernameOrPassword</p>
+                }
+
             }
         </div>
     }
@@ -50,9 +57,9 @@
         </div>
     </div>
 
-    <div style="padding: 20px 0px;">
+    @*<div style="padding: 20px 0px;">
         @Html.ReCaptcha()
-    </div>
+    </div>*@
         <div>
             <input class="btn btn-success" value="@InsuredTraveling.Resource.Login" type="submit" style="width: 100%;" >
         </div>

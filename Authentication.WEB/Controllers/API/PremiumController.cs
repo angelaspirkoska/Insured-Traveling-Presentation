@@ -61,6 +61,7 @@ namespace Authentication.WEB.Controllers
 
                     return Json(new { isValid = false, status = "error", message = Resource.Error_EMBG_Val_Advanced });
                 }
+                
             }
 
             if (!policy.isMobile && policy.IsSamePolicyHolderInsured)

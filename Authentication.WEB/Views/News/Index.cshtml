@@ -1,8 +1,10 @@
 ﻿@model IQueryable<InsuredTraveling.news_all>
-
-<div class="container">
-    <div class="row" style="margin-top: 20px;">
-        <h3>@InsuredTraveling.Resource.News_AddTitle</h3>
+@{
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+}
+<div class="container" style="margin-left: 0px;">
+    <div class="row">
+        <h2 class="heading-padding">@InsuredTraveling.Resource.News_AddTitle</h2>
         <hr />
             <div class="col-md-6">
                 <form id="newsForm" method="post" action="@Url.Action("AddNews")" enctype="multipart/form-data">
@@ -65,14 +67,14 @@
 <script>
 
     $(document).ready(function () {
-        $("#btnNovaPolisa").removeClass("active-tab");
-        $("#btnNews").addClass("active-tab");
-        $("#btnSearch").removeClass("active-tab");
-        $("#btnFNOL").removeClass("active-tab");
-        $("#btnAdmin").removeClass("active-tab");
-        $("#dodadiKlient").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
-        $("#btnCreateUser").removeClass("active-tab");
+        //Setting the class active-tab, so the user will know which tab is clicked
+        $("#addNewPolicy").removeClass("active-tab");
+        $("#newsTab").addClass("active-tab");
+        $("#searchTab").removeClass("active-tab");
+        $("#fnolTab").removeClass("active-tab");
+        $("#adminTab").removeClass("active-tab");
+        $("#createTab").removeClass("active-tab");
+        $("#signupTab").removeClass("active-tab");       
     });
 
     function deleteNews(newsId) {

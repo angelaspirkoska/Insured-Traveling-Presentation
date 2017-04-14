@@ -25,6 +25,5 @@ namespace InsuredTraveling
     
         public virtual policy_type policy_type { get; set; }
         public virtual aspnetuser aspnetuser { get; set; }
-        public virtual aspnetuser aspnetuser1 { get; set; }
     }
 }

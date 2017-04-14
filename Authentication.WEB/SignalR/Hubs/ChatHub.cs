@@ -7,30 +7,40 @@ using System.Diagnostics;
 using InsuredTraveling.DTOs;
 using System.Collections.Generic;
 using System.Web;
+using Autofac;
 
 namespace InsuredTraveling.Hubs
 {
-   
-    [SessionExpire]
+    [Authorize]
     public class ChatHub : Hub
     {
         readonly InsuredTravelingEntity _db = new InsuredTravelingEntity();
 
+        private readonly ILifetimeScope _hubLifetimeScope;
         private string _currentUser = string.Empty;
         private bool _isAdmin = false;
 
+        public ChatHub()
+        {
+
+        }
+        public ChatHub(ILifetimeScope lifetimeScope)
+        {
+            _hubLifetimeScope = lifetimeScope.BeginLifetimeScope();
+        }
         public override Task OnDisconnected(bool stopCalled)
         {
             return base.OnDisconnected(stopCalled);
         }
         public override Task OnReconnected()
         {
-            RoleAuthorize roleAuthorize = new RoleAuthorize();
-            if (System.Web.HttpContext.Current !=null)
+            var roleAuthorize = new RoleAuthorize();
+            if (HttpContext.Current != null)
             {
-                _currentUser = System.Web.HttpContext.Current.User.Identity.Name;
+                _currentUser = HttpContext.Current.User.Identity.Name;
                 _isAdmin = roleAuthorize.IsUser("Admin");
-            }else
+            }
+            else
             {
                 _isAdmin = false;
             }
@@ -39,9 +49,9 @@ namespace InsuredTraveling.Hubs
         }
         public override Task OnConnected()
         {
-            RoleAuthorize roleAuthorize = new RoleAuthorize();
-            _currentUser = System.Web.HttpContext.Current.User.Identity.Name;
-            List<LastMessagesDTO> lastMessages = new List<LastMessagesDTO>();
+            var roleAuthorize = new RoleAuthorize();
+            _currentUser = HttpContext.Current.User.Identity.Name;
+            var lastMessages = new List<LastMessagesDTO>();
             _isAdmin = roleAuthorize.IsUser("Admin");
 
             if (_isAdmin)
@@ -57,11 +67,10 @@ namespace InsuredTraveling.Hubs
                 Groups.Add(Context.ConnectionId, _currentUser);
                 lastMessages = GetLastMessages(_currentUser, false);
             }
-            if(!_currentUser.Equals(String.Empty))
+            if (!_currentUser.Equals(String.Empty))
             {
                 Clients.Group(_currentUser).ActiveMessages(lastMessages);
             }
-           
 
             return base.OnConnected();
         }
@@ -151,7 +160,17 @@ namespace InsuredTraveling.Hubs
                 if (string.IsNullOrWhiteSpace(_currentUser))
                     return;
                 else
+                {
                     message.From = _currentUser;
+                    RoleAuthorize r = new RoleAuthorize();
+                 if(r.IsUser("Admin"))
+                    {
+                        message.Admin = false;
+                    }
+                    else message.Admin = true;
+                    
+                }
+                  
             }
             Clients.Group(message.To).ReceiveMessage(message);
 
@@ -257,13 +276,13 @@ namespace InsuredTraveling.Hubs
                 : _db.chat_requests.Where(x => x.Requested_by.Equals(username));
 
             chatsActive = chatsActiveByRole.Where(x => x.Accepted == true && x.discarded == false
-                                           && x.fnol_created == false).OrderByDescending(x => x.ID).Take(5).ToList();
+                                           && x.fnol_created == false).OrderByDescending(x => x.ID).ToList();
 
             List<LastMessagesDTO> lastMessagesDTO = new List<LastMessagesDTO>();
 
             foreach (chat_requests chat in chatsActive)
             {
-                var messageLast = chat.messages.Where(x => x.ConversationID == chat.ID).OrderByDescending(x => x.Timestamp).Select(x => new LastMessagesDTO
+                var messageLast = chat.messages.Where(x => x.ConversationID == chat.ID).OrderByDescending(x => x.Timestamp).Take(5).Select(x => new LastMessagesDTO
                 {
                     From = x.from_username,
                     Message = x.Text,
@@ -294,6 +313,14 @@ namespace InsuredTraveling.Hubs
                 Debug.WriteLine($"Error saving request to db: {ex.ToString()}");
             }
             return result;
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _hubLifetimeScope != null)
+            {
+                _hubLifetimeScope.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

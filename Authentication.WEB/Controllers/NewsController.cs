@@ -34,8 +34,9 @@ namespace Authentication.WEB.Controllers
 
         public ActionResult AddNews(HttpPostedFileBase newsImage, string newsTitle = null, string newsContent = null, bool newsIsNotification = false)
         {
+            IQueryable<news_all> news1 = _ns.GetAllNews();
             if (newsImage == null || newsTitle == null || newsContent == null || newsTitle == "" || newsContent == "")
-                return Json(new { Success = "False", Message = "All fields are required" }, JsonRequestBehavior.AllowGet);
+                return View("Index", news1);
 
             var lastNewsId = _ns.LastNewsId() + 1;
             string fileName = lastNewsId + "_" + newsImage.FileName;
@@ -56,13 +57,16 @@ namespace Authentication.WEB.Controllers
             {
                 _ns.AddNews(news);
                 ViewBag.Success = true;
-                return RedirectToAction("Index", "News");
+                 news1 = _ns.GetAllNews();
+                return View("Index",news1);
             }
             catch
             {
                 // return Json(new { Success = "False", Message = "Database problem" }, JsonRequestBehavior.AllowGet);
                 ViewBag.Success = false;
-                return RedirectToAction("Index", "News");
+                 news1 = _ns.GetAllNews();
+                return View("Index", news1);
+               
             }
         }
 

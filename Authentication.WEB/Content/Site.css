@@ -6,8 +6,19 @@
     margin-bottom:20px;
     height:100vh !important;
 }
-.footer-material-design{
-    padding-top: 1%;
+
+.body-position-for-limitless {
+    margin: 0px 40px 10px 40px;
+}
+.container-position-for-limitless-admin-panel {
+    margin: 35px 40px 10px 0px;
+}
+
+.footer-material-design {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:60px;   /* Height of the footer */
 }
 .btn-circle {
   width: 30px;
@@ -90,9 +101,6 @@
     from {opacity: 0;}
     to {opacity:1 ;}
 }
-
-
-
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -190,6 +198,11 @@ form.cmxform .gray * { color: gray; }
     width: 85% !important;
 }
 
+.active-tab {
+    background-color: #0a826b;
+    border-color: #11866f;
+}
+
 .field-size-holder {
     width: 100% !important;
 }
@@ -236,11 +249,6 @@ form.cmxform .gray * { color: gray; }
     padding: 40px 0px;
 }
 
-.active-tab {
-    background-color: #128f76;
-    border-color: #11866f;
-}
-
 /* Style for the headings in the print version of the policy */
 .policy-print-title {
     color: #746187 !important;
@@ -283,7 +291,7 @@ form.cmxform .gray * { color: gray; }
 }
 
 .heading-padding {
-    margin: 43px 0px 33px 0px !important;
+    margin: 15px 0px 33px 0px !important;
 }
 
 .alert-position {
@@ -301,10 +309,28 @@ form.cmxform .gray * { color: gray; }
 
 .signup-btn-style {
     margin-left: 20px;
-    width: 91%;
+    width: 346px;
     height: 70px;
     font-weight: bold;
 }
+
+.arrows-style {    
+    padding-top: 110%;
+    font-size: 25px;
+}
+
+.ui-datepicker-prev {
+    margin-top: 16px !important;
+}
+
+.ui-datepicker-next {
+    margin-top: 16px !important;
+}
+
+.ui-state-hover .ui-datepicker-next-hover {
+    margin-top: 16px !important;
+}
+
 
 .nav-material-design {
     -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -348,7 +374,7 @@ form.cmxform .gray * { color: gray; }
 }
 
 .logo {
-    width:50px; 
+    width:40px; 
     height:auto;
     margin-right:15px;
 }
@@ -608,7 +634,7 @@ textarea {
 .chat_position {
     width: 260px; 
     position: fixed; 
-    bottom: 45px;
+    bottom: 0px;
     z-index: 1000000; 
 }    
 
@@ -616,6 +642,15 @@ textarea {
     margin-top: 10px !important;
     margin-bottom: 7px;
 } 
+
+/*on Search tab*/
+.explain-functionality {
+    height: 36px;
+}
+
+.caret-position {
+    margin-top: -3px;
+}
 
 .portlet-body .media-body {
     max-width: 231px;

@@ -1,0 +1,277 @@
+﻿@model InsuredTraveling.Models.CreateClientModel
+
+
+@using System.Web.Optimization;
+@using System.Configuration;
+
+@{
+    ViewBag.Title = InsuredTraveling.Resource.Client;
+<<<<<<< HEAD
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+    var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy").ToLower() : dateTime.ToLower();
+=======
+    // ne e dodeden potrebniot jQuery 2.2.1 za date pickerot
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+>>>>>>> Implement sidebar and the other pages
+}
+
+<form method="post" action="@Url.Action("Create")" style="margin-top:30px;">
+    <div class="form-horizontal">
+        <h3>@InsuredTraveling.Resource.Client_Add</h3>
+        <div><h5>@InsuredTraveling.Resource.Required <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:red"></span></h5></div>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @if (ViewBag.SuccessMessage != null)
+        {
+            <div class="row" style="width:35%;">
+                <div class="alert alert-dismissible alert-success" style="margin-top: 27%;margin-left:12px; width:211%">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span>@ViewBag.SuccessMessage</span>
+                </div>
+            </div>
+        }
+        @if(ViewBag.ErrorMessage != null)
+        {
+        <div class="row" style="width:35%;">
+            <div class="alert alert-dismissible alert-danger" style="margin-top: 27%; margin-left:12px; width:211%">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span>@ViewBag.ErrorMessage</span>
+            </div>
+        </div>
+        }
+
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control", } })
+                            @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: -9px;">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "control-label" })
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group date field-size-holder">
+                            <div class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control", @placeholder = dateTimeFormat } })
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "col-md-6 text-danger" })
+                </div>
+                @*<div class="form-group">
+                        <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                        @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "" })<br />
+                        <div style="margin-bottom:10px; padding:0;">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "col-md-6 text-danger" })
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-offset-1 col-md-5">
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <select id="countriesCodes" name="countriesCodes" style="width: 46px;"></select>
+                             </div>
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.Postal_Code, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.Postal_Code, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Postal_Code, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17; margin-right:2px;"></span>
+                    @Html.LabelFor(model => model.Passport_Number_IdNumber, htmlAttributes: new { @class = "" })<br />
+                    <div style="margin-bottom:10px; padding:0;">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                            @Html.EditorFor(model => model.Passport_Number_IdNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Passport_Number_IdNumber, "", new { @class = "col-md-6 text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-5" style="padding:0;">
+                <input type="submit" value="@InsuredTraveling.Resource.Client_AddButton" class="btn btn-default btn-block" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
+<script type="text/javascript" src="~/Scripts/additional-methods.js"></script>
+<!-- macedonian language-->
+<script src="~/Scripts/messages_is.js"></script>
+@Scripts.Render("~/bundles/jqueryui")
+@Styles.Render("~/Content/jqueryuicss")
+<script>
+    $(document).ready(function () {
+        var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
+
+        $("#btnNovaPolisa").removeClass("active-tab");
+        $("#btnNews").removeClass("active-tab");
+        $("#btnSearch").removeClass("active-tab");
+        $("#btnFNOL").removeClass("active-tab");
+        $("#btnAdmin").removeClass("active-tab");
+        $("#dodadiKlient").addClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+        $("#btnCreateUser").removeClass("active-tab");
+
+
+
+        $.ajax({
+            type: "GET",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/countriesCodes.json",
+            dataType: 'json',
+            headers: { 'Access-Control-Allow-Origin': '*' },
+
+        }).done(function (result) {
+
+            $.each(result.countriesCodes, function (index, value) {
+                $('#countriesCodes').append($('<option>', {
+                    value: value.dial_code,
+                    text: value.code + "  " + value.name
+                }));
+            }
+
+            );
+
+            $("#countriesCodes option[value='+389']").prop("selected", true);
+            $("#PhoneNumber").val("+389");
+            if(@ViewBag.PhoneNumber != 0){
+                var TempPhone = "@ViewBag.PhoneNumber";
+                if(@ViewBag.CountryCodes != 0){
+                    $("#countriesCodes option[value='@ViewBag.CountryCodes']").prop("selected", true);
+
+                };
+                $("#PhoneNumber").val("@ViewBag.PhoneNumber");
+            }
+        });
+        $('#countriesCodes').change(function () {
+            $("#PhoneNumber").val($('#countriesCodes').val());
+        });
+
+        $("#DateBirth").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
+
+                PostBackFill();
+        });
+
+    $("#CreateForm").validate({
+        rules: {
+            lang: 'is',
+            EMBG: {
+                required: true,
+                number: true,
+                minlength: 13,
+                maxlength: 13
+            },
+            osigurenik1MaticenBroj: {
+                required: true,
+                number: true,
+                minlength: 13,
+                maxlength: 13
+            }
+        }
+    });
+
+    function PostBackFill() {
+
+        if("@ViewBag.BirthDate" != "01.1.0001 00:00:00"){
+            console.log("@ViewBag.BirthDate");
+            var BirthDate = new Date('@ViewBag.BirthDate.ToUniversalTime().ToString("r")');
+            $('#DateBirth').datepicker('setDate', new Date(BirthDate));
+        }
+        //console.log(@ViewBag.PhoneNumber);
+
+
+    }
+</script>
