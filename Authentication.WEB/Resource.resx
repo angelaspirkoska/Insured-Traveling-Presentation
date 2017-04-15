@@ -1425,4 +1425,10 @@
   <data name="Event_Type" xml:space="preserve">
     <value>Event type</value>
   </data>
+  <data name="AdminPanel_ConfigurableRatingEngine" xml:space="preserve">
+    <value>Configurable Rating Engine</value>
+  </data>
+  <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
+    <value>Excel Document</value>
+  </data>
 </root>

@@ -1419,4 +1419,10 @@
   <data name="Event_Type" xml:space="preserve">
     <value>Тип на настан</value>
   </data>
+  <data name="AdminPanel_ConfigurableRatingEngine" xml:space="preserve">
+    <value>Конфигурабилни рејтин системи</value>
+  </data>
+  <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
+    <value>Ексел документ</value>
+  </data>
 </root>

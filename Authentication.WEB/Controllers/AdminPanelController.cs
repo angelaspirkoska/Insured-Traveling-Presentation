@@ -4,6 +4,11 @@ using System.Web.Mvc;
 using InsuredTraveling.DI;
 using static InsuredTraveling.Models.AdminPanel;
 using InsuredTraveling.Models;
+using System.Web;
+using System.IO;
+using System.Linq;
+using OfficeOpenXml;
+using InsuredTraveling.ViewModels;
 
 namespace InsuredTraveling.Controllers
 {
@@ -226,6 +231,21 @@ namespace InsuredTraveling.Controllers
                 ViewBag.AddOk_SetupMsg = ex.ToString();
             }
 
+            return View("Index");
+        }
+        [HttpPost]
+        [Route("ConfigureRatingEngine")]
+        public ActionResult ConfigureRatingEngine(HttpPostedFileBase excelConfigFile)
+        {
+            if (excelConfigFile != null && excelConfigFile.ContentLength > 0)
+            {
+                var path = @"~/ExcelConfig/config_file.xlsx";
+                path = System.Web.HttpContext.Current.Server.MapPath(path);
+                excelConfigFile.SaveAs(path);
+                ExcelFileViewModel e = new ExcelFileViewModel();
+                e.Path = path;
+                return View("PolicyForm", e);
+            }
             return View("Index");
         }
     }

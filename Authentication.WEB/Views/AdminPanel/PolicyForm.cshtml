@@ -1,0 +1,10 @@
+﻿@model InsuredTraveling.ViewModels.ExcelFileViewModel
+@using InsuredTraveling.FormBuilder
+@{
+    ViewBag.Title = "PolicyForm";
+}
+
+<h2>PolicyForm</h2>
+
+@ExcelReader.ReadExcel(@Model.Path)
+
