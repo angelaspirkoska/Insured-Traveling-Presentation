@@ -2440,6 +2440,7 @@
     <Compile Include="ViewModels\SearchClientsViewModel.cs" />
     <Compile Include="ViewModels\SearchFNOLViewModel.cs" />
     <Compile Include="ViewModels\SearchPolicyViewModel.cs" />
+    <Compile Include="ViewModels\SearchSavaPolicyModel.cs" />
     <Compile Include="ViewModels\ShortFirstNoticeOfLossViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2505,6 +2506,7 @@
     <Folder Include="DocumentsFirstNoticeOfLoss\Invoices\" />
     <Folder Include="DocumentsFirstNoticeOfLoss\LuggageInsurance\" />
     <Folder Include="ExcelSearchResults\Policies\" />
+    <Folder Include="ExcelSearchResults\SavaPolicies\" />
     <Folder Include="News\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ChangeLanuage\" />

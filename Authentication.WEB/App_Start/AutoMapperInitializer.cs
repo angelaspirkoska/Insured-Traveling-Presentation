@@ -14,7 +14,7 @@ namespace InsuredTraveling.App_Start
 
         public static void Initialize()
         {
-            InsuredTravelingEntity2 db = new InsuredTravelingEntity2();
+            var db = new InsuredTravelingEntity2();
 
             Mapper.CreateMap<aspnetuser, SearchRegisteredUser>().AfterMap((src, dst) =>
             {
@@ -194,11 +194,11 @@ namespace InsuredTraveling.App_Start
             Mapper.CreateMap<Policy, travel_policy>().AfterMap((src, dst) =>
             {
                 dst.Created_By = src.Created_By;
-                dst.Date_Created = (src.Date_Created.HasValue) ? src.Date_Created.Value.Date: DateTime.Now;
+                dst.Date_Created = src.Date_Created.HasValue ? src.Date_Created.Value.Date: DateTime.Now;
                 dst.CountryID = src.CountryID;
                 dst.Policy_TypeID = src.Policy_TypeID;
                 dst.Retaining_RiskID = src.Retaining_RiskID;
-                dst.Exchange_RateID = (src.Exchange_RateID.HasValue) ? src.Exchange_RateID.Value : 1;
+                dst.Exchange_RateID = src.Exchange_RateID.HasValue ? src.Exchange_RateID.Value : 1;
                 dst.Start_Date = src.Start_Date;
                 dst.End_Date = src.End_Date;
                 dst.Group_Members = dst.Group_Members.HasValue ? dst.Group_Members.Value : 0;
@@ -424,7 +424,7 @@ namespace InsuredTraveling.App_Start
             Mapper.CreateMap<travel_policy, SearchPolicyViewModel>().AfterMap((src, dst) =>
             {
                 var dateTime = ConfigurationManager.AppSettings["DateFormat"];
-                var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+                var dateTimeFormat = dateTime != null && dateTime.Contains("yy") && !dateTime.Contains("yyyy") ? dateTime.Replace("yy", "yyyy") : dateTime;
                 dst.CountryId = src.CountryID;    
                 dst.InsuredName = src.policy_insured.Count() == 0 ? " " : src.policy_insured.FirstOrDefault().insured.Lastname + " " + src.policy_insured.FirstOrDefault().insured.Name;
                 dst.Polisa_Id = src.ID;
@@ -436,10 +436,25 @@ namespace InsuredTraveling.App_Start
                 dst.Datum_Na_Storniranje = src.Date_Cancellation.HasValue ? src.Date_Cancellation.Value.Date.ToShortDateString().ToString() : "/";
             });
 
+            Mapper.CreateMap<sava_policy, SearchSavaPolicyModel>().AfterMap((src, dst) =>
+            {
+                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                var dateTimeFormat = dateTime != null && dateTime.Contains("yy") && !dateTime.Contains("yyyy") ? dateTime.Replace("yy", "yyyy") : dateTime;
+                dst.PolicyId = src.id.ToString();
+                dst.PolicyNumber = src.policy_number.ToString();
+                dst.Seller = src.id_seller;
+                dst.SSNInsured = src.SSN_insured;
+                dst.SSNHolder = src.SSN_policyHolder;
+                dst.ExpireDate = src.expiry_date.HasValue? src.expiry_date.Value.ToString(dateTimeFormat, new CultureInfo("en-US")) : "/";
+                dst.Premium = src.premium.ToString();
+                dst.Points = src.discount_points.ToString();
+                dst.EmailSeller = src.email_seller;
+            });
+
             Mapper.CreateMap<first_notice_of_loss, SearchFNOLViewModel>().AfterMap((src, dst) =>
             {
                 var dateTime = ConfigurationManager.AppSettings["DateFormat"];
-                var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+                var dateTimeFormat = dateTime != null && dateTime.Contains("yy") && !dateTime.Contains("yyyy") ? dateTime.Replace("yy", "yyyy") : dateTime;
                 dst.ID = src.ID;
                 var policy = src.travel_policy;
                 var healthInsurance = src.additional_info.health_insurance_info;
@@ -452,14 +467,14 @@ namespace InsuredTraveling.App_Start
                 dst.Claimant_insured_relation = src.Relation_claimant_policy_holder;
                 dst.AllCosts = src.Total_cost.ToString();
                 dst.Date = src.additional_info != null ? src.additional_info.Datetime_accident.ToString(dateTimeFormat, new CultureInfo("en-US")) : null;
-                dst.HealthInsurance = healthInsurance != null ? InsuredTraveling.Resource.Yes : InsuredTraveling.Resource.No;
-                dst.LuggageInsurance = luggageInsurance != null ? InsuredTraveling.Resource.Yes : InsuredTraveling.Resource.No;
+                dst.HealthInsurance = healthInsurance != null ? Resource.Yes : Resource.No;
+                dst.LuggageInsurance = luggageInsurance != null ? Resource.Yes : Resource.No;
             });
 
             Mapper.CreateMap<first_notice_of_loss_archive, SearchFNOLViewModel>().AfterMap((src, dst) =>
             {
                 var dateTime = ConfigurationManager.AppSettings["DateFormat"];
-                var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+                var dateTimeFormat = dateTime != null && dateTime.Contains("yy") && !dateTime.Contains("yyyy") ? dateTime.Replace("yy", "yyyy") : dateTime;
 
                 dst.ID = src.ID;
                 var policyId = src.PolicyId;
@@ -474,8 +489,8 @@ namespace InsuredTraveling.App_Start
                 dst.Claimant_insured_relation = src.Relation;
                 dst.AllCosts = src.Total_cost.ToString();
                 dst.Date = src.additional_info != null ? src.additional_info.Datetime_accident.ToString(dateTimeFormat, new CultureInfo("en-US")) : null;
-                dst.HealthInsurance = healthInsurance != null ? InsuredTraveling.Resource.Yes : InsuredTraveling.Resource.No;
-                dst.LuggageInsurance = luggageInsurance != null ? InsuredTraveling.Resource.Yes : InsuredTraveling.Resource.No;
+                dst.HealthInsurance = healthInsurance != null ? Resource.Yes : Resource.No;
+                dst.LuggageInsurance = luggageInsurance != null ? Resource.Yes : Resource.No;
             });
 
             Mapper.CreateMap<insured, SearchClientsViewModel>().AfterMap((src, dst) =>

@@ -2653,6 +2653,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email Seller.
+        /// </summary>
+        public static string Seacrh_SearchTableEmailSeller {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableEmailSeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expire Date.
+        /// </summary>
+        public static string Seacrh_SearchTableExpireDate {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableExpireDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Policy effective date.
         /// </summary>
         public static string Seacrh_SearchTableFrom {
@@ -2734,6 +2752,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Points.
+        /// </summary>
+        public static string Seacrh_SearchTablePoints {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTablePoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Policy issuance date.
         /// </summary>
         public static string Seacrh_SearchTablePolicyIssuanceDate {
@@ -2761,6 +2788,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Premium.
+        /// </summary>
+        public static string Seacrh_SearchTablePremium {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTablePremium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date of FNOL.
         /// </summary>
         public static string Seacrh_SearchTableRegistrationDate {
@@ -2770,11 +2806,38 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Seller.
+        /// </summary>
+        public static string Seacrh_SearchTableSeller {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableSeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SSN.
         /// </summary>
         public static string Seacrh_SearchTableSSN {
             get {
                 return ResourceManager.GetString("Seacrh_SearchTableSSN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Holder SSN.
+        /// </summary>
+        public static string Seacrh_SearchTableSSNHolder {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableSSNHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSN Insured.
+        /// </summary>
+        public static string Seacrh_SearchTableSSNInsured {
+            get {
+                return ResourceManager.GetString("Seacrh_SearchTableSSNInsured", resourceCulture);
             }
         }
         
@@ -3378,6 +3441,24 @@ namespace InsuredTraveling {
         public static string Search_SearchSSN {
             get {
                 return ResourceManager.GetString("Search_SearchSSN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Holder SSN.
+        /// </summary>
+        public static string Search_SearchSSNHolder {
+            get {
+                return ResourceManager.GetString("Search_SearchSSNHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insured SSN.
+        /// </summary>
+        public static string Search_SearchSSNInsured {
+            get {
+                return ResourceManager.GetString("Search_SearchSSNInsured", resourceCulture);
             }
         }
         

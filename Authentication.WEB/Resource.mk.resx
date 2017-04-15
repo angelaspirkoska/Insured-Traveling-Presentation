@@ -1425,4 +1425,31 @@
   <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
     <value>Ексел документ</value>
   </data>
+  <data name="Seacrh_SearchTableEmailSeller" xml:space="preserve">
+    <value>Емаил на продавач</value>
+  </data>
+  <data name="Seacrh_SearchTableExpireDate" xml:space="preserve">
+    <value>Датум на важење до</value>
+  </data>
+  <data name="Seacrh_SearchTablePoints" xml:space="preserve">
+    <value>Поени</value>
+  </data>
+  <data name="Seacrh_SearchTablePremium" xml:space="preserve">
+    <value>Премија</value>
+  </data>
+  <data name="Seacrh_SearchTableSeller" xml:space="preserve">
+    <value>Продавач</value>
+  </data>
+  <data name="Seacrh_SearchTableSSNHolder" xml:space="preserve">
+    <value>ЕМБГ на договорувач</value>
+  </data>
+  <data name="Seacrh_SearchTableSSNInsured" xml:space="preserve">
+    <value>ЕМБГ на осигуреник</value>
+  </data>
+  <data name="Search_SearchSSNHolder" xml:space="preserve">
+    <value>ЕМБГ на договорувач</value>
+  </data>
+  <data name="Search_SearchSSNInsured" xml:space="preserve">
+    <value>ЕМБГ на осигуреник</value>
+  </data>
 </root>

@@ -361,43 +361,8 @@
         <div class="row">
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
-                    <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyType:</label>
-                    <br />
-                    @Html.DropDownListFor(model => model.policy_type, (List<SelectListItem>)ViewBag.TypeOfPolicy, @InsuredTraveling.Resource.Policy_TypeDD, new { @class = "form-control", name = "TypePolicy", id = "TypePolicy" })
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label for="country">@InsuredTraveling.Resource.Search_TravelCountry:</label>
-                    @Html.DropDownListFor(model => model.countries, (List<SelectListItem>)ViewBag.Countries, @InsuredTraveling.Resource.Policy_CountryDD, new { @class = "form-control", name = "Country", id = "Country" })
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
                     <label for="country">@InsuredTraveling.Resource.Search_PolicyNumber:</label>
                     <input class="form-control" type="text" id="PolicyNumber" name="PolicyNumber" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label for="startDate">@InsuredTraveling.Resource.Search_PolicyEffectiveDate:</label>
-                    <div class="input-group">
-                        <input type="text" id="startDate" class="form-control" placeholder="@dateTimeFormat" />
-                        <div class="input-group-btn">
-                            <button type="button" id="operatorStartDate" class="btn btn-default dropdown-toggle explain-functionality"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                <p class="caret-position">= <span class="caret"></span></p>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li onclick="$('#operatorStartDate').html(' All '); $('#operatorStartDate').val('All');">All</li>
-                                <li onclick="$('#operatorStartDate').html(' = '); $('#operatorStartDate').val('=');">=</li>
-                                <li onclick="$('#operatorStartDate').html(' < '); $('#operatorStartDate').val('<');">&lt</li>
-                                <li onclick="$('#operatorStartDate').html(' > '); $('#operatorStartDate').val('>');">&gt</li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4">
@@ -411,7 +376,7 @@
                                 <p class="caret-position">= <span class="caret"></span></p>
                             </button>
                             <ul class="dropdown-menu">
-                                <li onclick="$('#operatorEndDate').html(' All '); $('#operatorStartDate').val('All');">All</li>
+                                <li onclick="$('#operatorEndDate').html(' All '); $('#operatorEndDate').val('All');">All</li>
                                 <li onclick="$('#operatorEndDate').html(' = '); $('#operatorEndDate').val('=');">=</li>
                                 <li onclick="$('#operatorEndDate').html(' < '); $('#operatorEndDate').val('<');">&lt</li>
                                 <li onclick="$('#operatorEndDate').html(' > '); $('#operatorEndDate').val('>');">&gt</li>
@@ -421,55 +386,30 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label for="startDate">@InsuredTraveling.Resource.Search_PolicyIssuanceDate:</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control placeholder" id="dateI" placeholder="@dateTimeFormat" />
-                        <div class="input-group-btn">
-                            <button type="button" id="operatorDateI" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                <p class="caret-position">= <span class="caret"></span></p>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li onclick="$('#operatorDateI').html(' All '); $('#operatorStartDate').val('All');">All</li>
-                                <li onclick="$('#operatorDateI').html(' = '); $('#operatorDateI').val('=');">=</li>
-                                <li onclick="$('#operatorDateI').html(' < '); $('#operatorDateI').val('<');">&lt</li>
-                                <li onclick="$('#operatorDateI').html(' > '); $('#operatorDateI').val('>');">&gt</li>
-                            </ul>
-                        </div>
+        @if (isSavaAdmin)
+        {
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="country">@InsuredTraveling.Resource.Search_SearchSSNInsured:</label>
+                        <input class="form-control" type="text" id="SSNInsured" name="SSNInsured" />
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="country">@InsuredTraveling.Resource.Search_SearchSSNHolder:</label>
+                        <input class="form-control" type="text" id="SSNPolicyHolder" name="SSNHolder" />
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label for="endDate">@InsuredTraveling.Resource.Search_CancellationDate:</label>
-                    <div class="input-group">
-                        <input type="text" id="dateS" class="form-control" placeholder="@dateTimeFormat" />
-                        <div class="input-group-btn">
-                            <button type="button" id="operatorDateS" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="False" title="@InsuredTraveling.Resource.Search_HelpMessage">
-                                <p class="caret-position">= <span class="caret"></span></p>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li onclick="$('#operatorDateS').html(' All '); $('#operatorStartDate').val('All');">All</li>
-                                <li onclick="$('#operatorDateS').html(' = '); $('#operatorDateS').val('=');">=</li>
-                                <li onclick="$('#operatorDateS').html(' < '); $('#operatorDateS').val('<');">&lt</li>
-                                <li onclick="$('#operatorDateS').html(' > '); $('#operatorDateS').val('>');">&gt</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        }
         <br />
         <div class="row">
             <div class="col-md-4">
                 <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchPolycies()" type="button" style="float:left;" />
             </div>
             <div class="col-md-4">
-                <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowSearchResultsInExcel()" type="button" style="float:left;" />
+                <input class="btn btn-primary btn-block btFn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowSearchResultsInExcel()" type="button" style="float:left;" />
             </div>
             @if (!isClaimsAdjuster)
             {
@@ -490,16 +430,13 @@
             <thead>
                 <tr>
                     <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableTravelCountry</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyType</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableFrom</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableTo</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePolicyIssuanceDate</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableCancellationDate</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableSeller</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableSSNHolder</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableSSNInsured</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableExpireDate</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePremium</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableEmailSeller</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTablePoints</th>
                 </tr>
             </thead>
             <tbody id="searchResultPolycies"></tbody>
@@ -507,25 +444,6 @@
     </div>
     <br />
     <br />
-    <div class="row">
-        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableFNOLPolicies">
-            <thead>
-                <tr>
-                    <th>@InsuredTraveling.Resource.Search_SearchTableFNOLNumber</th>
-                    <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredNameLastName</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableClaimantNameLastName</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableInsuredHolderRelationship</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableTotalCost</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableRegistrationDate</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableHealthInsurance</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableLuggageInsurance</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
 </div>
 
 
@@ -1678,79 +1596,18 @@
         $("#tablePolicies").DataTable().destroy();
         $("#tablePolicies").DataTable({
             dom: "Bfrtip",
-            ajax: "/Search/GetPolicies?name=" + $("#namePolicy").val() + "&embg=" + $("#embgPolicy").val() + "&land=" + $("#land").val() + "&address=" + $("#addressPolicy").val() + "&agency=" + $("#agency").val() + "&TypePolicy=" + $("#TypePolicy").val() + "&Country=" + $("#Country").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&dateI=" + $("#dateI").val() + "&dateS=" + $("#dateS").val() + "&operatorStartDate=" + $("#operatorStartDate").val() + "&operatorEndDate=" + $("#operatorEndDate").val() + "&operatorDateI=" + $("#operatorDateI").val() + "&operatorDateS=" + $("#operatorDateS").val() + "&PolicyNumber=" + $("#PolicyNumber").val(),
+            ajax: "/Search/GetPolicies?number=" + $("#PolicyNumber").val() + "&endDate=" + $("#endDate").val() + "&ssnInsured=" + $("#SSNInsured").val() + "&ssnHolder=" + $("#SSNPolicyHolder").val() + "&operatorEndDate=" + $("#operatorEndDate").val(),
             columns: [
-               { data: "Polisa_Broj" },
-               { data: "InsuredName" },
-               { data: "Country" },
-               { data: "Policy_type" },
-               { data: "Zapocnuva_Na" },
-               { data: "Zavrsuva_Na" },
-               { data: "Datum_Na_Izdavanje" },
-               { data: "Datum_Na_Storniranje" },
-               {
-                   data: "Polisa_Broj",
-                   "render": function (data, type, row, meta) {
-                       if (type === 'display') {
-                           var value = data;
-                           return $('<a>')
-                               .attr('href', '/Policy/PolicyDetails?policyNumber=' + data)
-                               .attr('target', '_blank')
-                               .attr('class', 'details')
-                               .text("@InsuredTraveling.Resource.Search_DetailsLink")
-                               .wrap('<div></div>')
-                               .parent()
-                               .html();
-                       } else {
-                           return data;
-                       }
-                   }
-               },
-               {
-                   data: "Polisa_Id",
-                   "render": function (data, type, row, meta) {
-                       if (type === 'display') {
-                           return $('<a>')
-                               .attr('href', 'javascript:;')
-                               .attr('class', 'loss')
-                               .attr('id', data)
-                               .text("@InsuredTraveling.Resource.Search_FNOLLink")
-                               .wrap('<div></div>')
-                               .parent()
-                               .html();
-                       } else {
-                           return data;
-                       }
-                   }
-               },
-               {
-                   data: "Polisa_Id",
-                   "render": function (data, type, row, meta) {
-                       if (type === 'display') {
-                           return $('<a>')
-                               .attr('href', '/FirstNoticeOfLoss/Index?policyId=' + data)
-                               .attr('class', 'newLoss')
-                               .attr('id', data)
-                               .text("@InsuredTraveling.Resource.Search_AddFNOLLink")
-                                .wrap('<div></div>')
-                                .parent()
-                                .html();
-                       } else {
-                           return data;
-                       }
-                   }
-               }
+               { data: "PolicyNumber" },
+               { data: "Seller" },
+               { data: "SSNInsured" },
+               { data: "SSNHolder" },
+               { data: "ExpireDate" },
+               { data: "Premium" },
+               { data: "EmailSeller" },
+               { data: "Points" }
             ],
             select: true
-        });
-
-        $('#tablePolicies tbody').on('click',
-            'td .loss',
-        function () {
-            var $row = $(this).closest('td');
-            var policy_num = $row.children().attr('id');
-            CreateFNOLTablePoliciesByPolicyNumber(policy_num);
-
         });
 
         $('html,body').animate({

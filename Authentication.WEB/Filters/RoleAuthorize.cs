@@ -67,5 +67,14 @@ namespace InsuredTraveling.Filters
 
             return authorize;
         }
+
+        public string UserSsn(string username)
+        {
+            aspnetuser aspnetuser = context.aspnetusers.FirstOrDefault(m => m.UserName == username);
+            if (aspnetuser == null)
+                return null;
+            else
+                return aspnetuser.EMBG.ToString();
+        }
     }
 }

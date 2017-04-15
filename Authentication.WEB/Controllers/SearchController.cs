@@ -38,6 +38,7 @@ namespace InsuredTraveling.Controllers
         private IFirstNoticeOfLossArchiveService _firstNoticeLossArchiveService;
         private IRolesService _rs;
         private IEventsService _es;
+        private readonly ISavaPoliciesService _savaPoliciesService;
 
         public SearchController(IPolicyService ps, 
                                 IFirstNoticeOfLossService fnls, 
@@ -50,7 +51,8 @@ namespace InsuredTraveling.Controllers
                                 IPolicySearchService policySearchService,
                                 IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService,
                                 IRolesService rs,
-                                IEventsService es )
+                                IEventsService es,
+                                ISavaPoliciesService savaPoliciesService)
         {
             _ps = ps;
             _fnls = fnls;
@@ -65,6 +67,7 @@ namespace InsuredTraveling.Controllers
             _roleAuthorize = new RoleAuthorize();
             _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
             _es = es;
+            _savaPoliciesService = savaPoliciesService;
         }
 
         [HttpGet]
@@ -241,95 +244,46 @@ namespace InsuredTraveling.Controllers
 
         [HttpGet]
         [Route("GetPolicies")]
-        public JObject GetPolicies(string name, 
-                                   string embg, 
-                                   string land, 
-                                   string address, 
-                                   int? TypePolicy, 
-                                   int? Country, 
-                                   string agency, 
-                                   string startDate, 
+        public JObject GetPolicies(string number, 
                                    string endDate, 
-                                   string dateI, 
-                                   string dateS, 
-                                   string operatorStartDate, 
-                                   string operatorEndDate, 
-                                   string operatorDateI, 
-                                   string operatorDateS, 
-                                   string PolicyNumber)
+                                   string ssnInsured, 
+                                   string ssnHolder,
+                                   string operatorEndDate)
         {
             var dateTime = ConfigurationManager.AppSettings["DateFormat"];
             var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
 
-            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : DateTime.ParseExact(startDate, dateTimeFormat, CultureInfo.InvariantCulture);
             DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : DateTime.ParseExact(endDate, dateTimeFormat, CultureInfo.InvariantCulture);
-            DateTime dateI1 = String.IsNullOrEmpty(dateI) ? new DateTime() : DateTime.ParseExact(dateI, dateTimeFormat, CultureInfo.InvariantCulture);
-            DateTime dateS2 = String.IsNullOrEmpty(dateS) ? new DateTime() : DateTime.ParseExact(dateS, dateTimeFormat, CultureInfo.InvariantCulture);
 
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUser = _us.GetUserIdByUsername(username);
 
-            List<travel_policy> data = new List<travel_policy>();
+            List<sava_policy> data = new List<sava_policy>();
 
-            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
+            if (_roleAuthorize.IsUser("Sava_admin"))
             {
-                data = _ps.GetPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, PolicyNumber);
+                data = _savaPoliciesService.GetSavaPoliciesAdminForList(number, ssnInsured, ssnHolder);
             }
-            else if(_roleAuthorize.IsUser("End user") || _roleAuthorize.IsUser("Broker"))
+            else if(_roleAuthorize.IsUser("Sava_normal") || _roleAuthorize.IsUser("Sava_Sport_VIP") || _roleAuthorize.IsUser("Sava_Sport_VIP"))
             {
-                data = _ps.GetPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, logUser, PolicyNumber);
+                var userSSN = _roleAuthorize.UserSsn(username);
+                data = _savaPoliciesService.GetSavaPoliciesForList(userSSN, number);
             }
-            else if (_roleAuthorize.IsUser("Broker manager"))
-            {
-                data = _ps.GetBrokerManagerBrokersPoliciesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, logUser, PolicyNumber);
-            }
-            if (!String.IsNullOrEmpty(startDate))
-            {
-                switch (operatorStartDate)
-                {
-                    case "<": data = data.Where(x => x.Start_Date < startDate1).ToList(); break;
-                    case "=": data = data.Where(x => x.Start_Date == startDate1).ToList(); break;
-                    case ">": data = data.Where(x => x.Start_Date > startDate1).ToList(); break;
-                    default: break;
-                }
-            }
+          
             if (!String.IsNullOrEmpty(endDate))
             {
                 switch (operatorEndDate)
                 {
-                    case "<": data = data.Where(x => x.End_Date < endDate1).ToList(); break;
-                    case "=": data = data.Where(x => x.End_Date == endDate1).ToList(); break;
-                    case ">": data = data.Where(x => x.End_Date > endDate1).ToList(); break;
+                    case "<": data = data.Where(x => x.expiry_date < endDate1).ToList(); break;
+                    case "=": data = data.Where(x => x.expiry_date == endDate1).ToList(); break;
+                    case ">": data = data.Where(x => x.expiry_date > endDate1).ToList(); break;
                     default: break;
                 }
             }
-            if (!String.IsNullOrEmpty(dateI))
-            {
-                switch (operatorDateI)
-                {
-                    case "<": data = data.Where(x => x.Date_Created < dateI1).ToList(); break;
-                    case "=": data = data.Where(x => x.Date_Created == dateI1).ToList(); break;
-                    case ">": data = data.Where(x => x.Date_Created > dateI1).ToList(); break;
-                    default: break;
-                }
-            }
-            if (!String.IsNullOrEmpty(dateS))
-            {
-                switch (operatorDateS)
-                {
-                    case "<": data = data.Where(x => x.Date_Cancellation < dateS2).ToList(); break;
-                    case "=": data = data.Where(x => x.Date_Cancellation == dateS2).ToList(); break;
-                    case ">": data = data.Where(x => x.Date_Cancellation > dateS2).ToList(); break;
-                    default: break;
-                }
-            }
-
+          
             var JSONObject = new JObject();
             var dataJSON = new JArray();
-
-            var languageId = SiteLanguages.CurrentLanguageId();
-            var searchModel = data.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
-            searchModel = _policySearchService.GetCountriesName(searchModel, languageId);
+            var searchModel = data.Select(Mapper.Map<sava_policy, SearchSavaPolicyModel>).ToList();
 
             var array = JArray.FromObject(searchModel.ToArray());
             JSONObject.Add("data", array);
@@ -1414,12 +1368,12 @@ namespace InsuredTraveling.Controllers
         {
             if (String.IsNullOrEmpty(path))
                 return null;
-            string dateNow = DateTime.Now.ToShortDateString() + "-" + DateTime.Now.ToShortTimeString();
+            string dateNow = DateTime.UtcNow.ToShortDateString() + "-" + DateTime.UtcNow.ToShortTimeString();
             return File(path, "application/vnd.ms-excel", "SearchResults-" + dateNow + ".xlsx");
         }
 
         [HttpPost]
-        public JObject GetPoliciesSearchResultsAsExcelDocument(List<SearchPolicyViewModel> policies)
+        public JObject GetPoliciesSearchResultsAsExcelDocument(List<SearchSavaPolicyModel> policies)
         {
             if(policies == null || !policies.Any())
             return null;
@@ -1428,14 +1382,14 @@ namespace InsuredTraveling.Controllers
             var logUser = _us.GetUserIdByUsername(username);
 
             string fileName = logUser + Guid.NewGuid().ToString() + ".xlsx";
-            var path = @"~/ExcelSearchResults/Policies/" + fileName;
+            var path = @"~/ExcelSearchResults/SavaPolicies/" + fileName;
             path = System.Web.HttpContext.Current.Server.MapPath(path);
             FileInfo newFile = new FileInfo(path);
             if (newFile.Exists)
             {
                 newFile.Delete();  // ensures we create a new workbook
-                fileName = logUser + DateTime.Now.ToShortDateString() + Guid.NewGuid().ToString();
-                path = @"~/ExcelSearchResults/Policies/" + fileName;
+                fileName = logUser + DateTime.UtcNow.ToShortDateString() + Guid.NewGuid().ToString();
+                path = @"~/ExcelSearchResults/SavaPolicies/" + fileName;
                 newFile = new FileInfo(path);
             }
 
@@ -1444,27 +1398,27 @@ namespace InsuredTraveling.Controllers
                 // add a new worksheet to the empty workbook
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Policies");
                 //Add the headers
-                worksheet.Cells[1, 1].Value = "Policy Number";
-                worksheet.Cells[1, 2].Value = "Insured Name and Last Name";
-                worksheet.Cells[1, 3].Value = "Country";
-                worksheet.Cells[1, 4].Value = "Policy type";
-                worksheet.Cells[1, 5].Value = "Expiry Date";
-                worksheet.Cells[1, 6].Value = "Effective Date";
-                worksheet.Cells[1, 7].Value = "Issuance Date";
-                worksheet.Cells[1, 8].Value = "Cancellation Date";
+                worksheet.Cells[1, 1].Value = InsuredTraveling.Resource.Search_SearchTablePolicyNumber;
+                worksheet.Cells[1, 2].Value = InsuredTraveling.Resource.Seacrh_SearchTableSeller;
+                worksheet.Cells[1, 3].Value = InsuredTraveling.Resource.Seacrh_SearchTableSSNHolder;
+                worksheet.Cells[1, 4].Value = InsuredTraveling.Resource.Seacrh_SearchTableSSNInsured;
+                worksheet.Cells[1, 5].Value = InsuredTraveling.Resource.Seacrh_SearchTableExpireDate;
+                worksheet.Cells[1, 6].Value = InsuredTraveling.Resource.Seacrh_SearchTablePremium;
+                worksheet.Cells[1, 7].Value = InsuredTraveling.Resource.Seacrh_SearchTableEmailSeller;
+                worksheet.Cells[1, 8].Value = InsuredTraveling.Resource.Seacrh_SearchTablePoints;
 
                 int counter = 2;
 
-                foreach (SearchPolicyViewModel policy in policies)
+                foreach (SearchSavaPolicyModel policy in policies)
                 {
-                    worksheet.Cells[counter, 1].Value = policy.Polisa_Broj;
-                    worksheet.Cells[counter, 2].Value = policy.InsuredName;
-                    worksheet.Cells[counter, 3].Value = policy.Country;
-                    worksheet.Cells[counter, 4].Value = policy.Policy_type;
-                    worksheet.Cells[counter, 5].Value = policy.Zapocnuva_Na;
-                    worksheet.Cells[counter, 6].Value = policy.Zavrsuva_Na;
-                    worksheet.Cells[counter, 7].Value = policy.Datum_Na_Izdavanje;
-                    worksheet.Cells[counter, 8].Value = policy.Datum_Na_Storniranje;
+                    worksheet.Cells[counter, 1].Value = policy.PolicyNumber;
+                    worksheet.Cells[counter, 2].Value = policy.Seller;
+                    worksheet.Cells[counter, 3].Value = policy.SSNHolder;
+                    worksheet.Cells[counter, 4].Value = policy.SSNInsured;
+                    worksheet.Cells[counter, 5].Value = policy.ExpireDate;
+                    worksheet.Cells[counter, 6].Value = policy.Premium;
+                    worksheet.Cells[counter, 7].Value = policy.EmailSeller;
+                    worksheet.Cells[counter, 8].Value = policy.Points;
 
                     counter++;
                 }

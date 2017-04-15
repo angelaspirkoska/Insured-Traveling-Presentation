@@ -1431,4 +1431,31 @@
   <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
     <value>Excel Document</value>
   </data>
+  <data name="Seacrh_SearchTableEmailSeller" xml:space="preserve">
+    <value>Email Seller</value>
+  </data>
+  <data name="Seacrh_SearchTableExpireDate" xml:space="preserve">
+    <value>Expire Date</value>
+  </data>
+  <data name="Seacrh_SearchTablePoints" xml:space="preserve">
+    <value>Points</value>
+  </data>
+  <data name="Seacrh_SearchTablePremium" xml:space="preserve">
+    <value>Premium</value>
+  </data>
+  <data name="Seacrh_SearchTableSeller" xml:space="preserve">
+    <value>Seller</value>
+  </data>
+  <data name="Seacrh_SearchTableSSNHolder" xml:space="preserve">
+    <value>Policy Holder SSN</value>
+  </data>
+  <data name="Seacrh_SearchTableSSNInsured" xml:space="preserve">
+    <value>SSN Insured</value>
+  </data>
+  <data name="Search_SearchSSNHolder" xml:space="preserve">
+    <value>Policy Holder SSN</value>
+  </data>
+  <data name="Search_SearchSSNInsured" xml:space="preserve">
+    <value>Insured SSN</value>
+  </data>
 </root>
