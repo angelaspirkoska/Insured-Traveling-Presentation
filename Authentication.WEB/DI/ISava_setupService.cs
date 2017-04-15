@@ -12,5 +12,6 @@ namespace InsuredTraveling.DI
         List<sava_setup> GetAllSavaSetups();
         sava_setup GetLast();
         void DeleteOkSetup(int id);
+        sava_setup GetActiveSavaSetup();
     }
 }

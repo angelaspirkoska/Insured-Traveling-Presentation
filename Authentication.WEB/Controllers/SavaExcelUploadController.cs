@@ -58,7 +58,8 @@ namespace InsuredTraveling.Controllers
             {
                 return View(model);
             }
-            
+            var savaSetup = _savaSetupService.GetActiveSavaSetup();
+            var percentage = savaSetup != null ? savaSetup.points_percentage : 0;
             DataTable dt = GetDataTableFromSpreadsheet(model.MyExcelFile.InputStream, false);
 
             foreach (DataRow dr in dt.Rows)
@@ -77,7 +78,7 @@ namespace InsuredTraveling.Controllers
                 policyModel.expiry_date = startDate1;
                 policyModel.premium = Convert.ToInt32(dr.ItemArray[5]);
                 policyModel.email_seller = (dr.ItemArray[6]).ToString();
-                policyModel.discount_points = Convert.ToInt32(dr.ItemArray[7]);
+                policyModel.discount_points = Convert.ToInt32(Math.Round(policyModel.premium / percentage));
                 model.TableRows.Add(policyModel);
             }
             return View(model);

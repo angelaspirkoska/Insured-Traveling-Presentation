@@ -35,5 +35,10 @@ namespace InsuredTraveling.DI
         {
             return _db.sava_setup.ToArray().Last();
         }
+
+        public sava_setup GetActiveSavaSetup()
+        {
+            return _db.sava_setup.FirstOrDefault(x => x.Active);
+        }
     }
 }
