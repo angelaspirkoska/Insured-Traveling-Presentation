@@ -16,11 +16,14 @@ namespace InsuredTraveling.Controllers
 {
     public class SavaExcelUploadController : Controller
     {
-        private ISavaPoliciesService _sp;
+        private readonly ISavaPoliciesService _sp;
+        private readonly ISava_setupService _savaSetupService;
         
-        public SavaExcelUploadController(ISavaPoliciesService sp)
+        public SavaExcelUploadController(ISavaPoliciesService sp,
+                                         ISava_setupService savaSetupService)
         {
             _sp = sp;
+            _savaSetupService = savaSetupService;
         }
         // GET: SavaExcelUpload
         public ActionResult Index()
@@ -37,11 +40,9 @@ namespace InsuredTraveling.Controllers
             try
             {
                 _sp.AddSavaPolicyList(model);
-
             }
             catch
             {
-
                 ViewBag.Success = false;
             }
             
@@ -57,6 +58,7 @@ namespace InsuredTraveling.Controllers
             {
                 return View(model);
             }
+            
             DataTable dt = GetDataTableFromSpreadsheet(model.MyExcelFile.InputStream, false);
 
             foreach (DataRow dr in dt.Rows)
@@ -151,11 +153,5 @@ namespace InsuredTraveling.Controllers
             ret += "</table>";
             return ret;
         }
-
-
-
-
     }
-
-
 }

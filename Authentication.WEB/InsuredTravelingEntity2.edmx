@@ -670,6 +670,7 @@ warning 6002: The table/view 'def.db_9eb138_sava.aspnetuserlogins' does not have
           <Property Name="version" Type="int" Nullable="false" />
           <Property Name="last_modify_by" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="timestamp" Type="date" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="sava_voucher">
           <Key>
@@ -1532,20 +1533,6 @@ warning 6002: The table/view 'def.db_9eb138_sava.transaction' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_sellerID_aspnetuser">
-          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="sava_policy" Type="Self.sava_policy" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetusers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="sava_policy">
-              <PropertyRef Name="id_seller" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_travel_duration_Created_by">
           <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1" />
           <End Role="travel_duration" Type="Self.travel_duration" Multiplicity="*" />
@@ -2073,10 +2060,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="fk_policy_type_id" Association="Self.fk_policy_type_id">
             <End Role="policy_type" EntitySet="policy_type" />
             <End Role="discount_country" EntitySet="discount_country" />
-          </AssociationSet>
-          <AssociationSet Name="fk_sellerID_aspnetuser" Association="Self.fk_sellerID_aspnetuser">
-            <End Role="aspnetusers" EntitySet="aspnetusers" />
-            <End Role="sava_policy" EntitySet="sava_policy" />
           </AssociationSet>
           <AssociationSet Name="fk_travel_duration_Created_by" Association="Self.fk_travel_duration_Created_by">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
@@ -2910,6 +2893,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="version" Type="Int32" Nullable="false" />
           <Property Name="last_modify_by" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="sava_voucher">
           <Key>
@@ -5054,6 +5038,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="sava_setup">
             <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_setup">
               <MappingFragment StoreEntitySet="sava_setup">
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="email_administrator" ColumnName="email_administrator" />
                 <ScalarProperty Name="points_percentage" ColumnName="points_percentage" />

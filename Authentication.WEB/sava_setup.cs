@@ -21,5 +21,6 @@ namespace InsuredTraveling
         public int version { get; set; }
         public string last_modify_by { get; set; }
         public System.DateTime timestamp { get; set; }
+        public bool Active { get; set; }
     }
 }

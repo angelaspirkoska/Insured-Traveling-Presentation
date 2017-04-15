@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3eba620afc6045a8aa0c6385dd32b437" Name="Diagram1">
+      <Diagram DiagramId="3eba620afc6045a8aa0c6385dd32b437" Name="Diagram1" ZoomLevel="77">
         <EntityTypeShape EntityType="db_9eb138_savaModel.additional_charge" Width="1.5" PointX="5.25" PointY="32.875" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.additional_charge_name" Width="1.5" PointX="7.5" PointY="33.375" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.additional_info" Width="1.5" PointX="11.25" PointY="50.625" IsExpanded="true" />
