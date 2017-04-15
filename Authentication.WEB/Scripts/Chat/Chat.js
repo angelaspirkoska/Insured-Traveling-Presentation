@@ -7,7 +7,7 @@ function prepareSocket() {
         console.log("Terminate socket init");
         return;
     }
-    
+
     connection = $.hubConnection();
 
     //continuously reconnect if disconnected
@@ -23,7 +23,7 @@ function prepareSocket() {
     hProxy.on("RequestId", function (RequestIdDTO) {
         console.log("on RequestId - RequestId: " + RequestIdDTO.RequestId)
     });
-    
+
     connection.start().done(function () {
         console.log("connection started");
     });
@@ -41,20 +41,19 @@ function prepareSocket() {
     });
 
     hProxy.on("MessageRequest", function (MessageRequestsDTO) {
-        console.log("on MessageRequest" + MessageRequestsDTO);
-        var numberRequests = MessageRequestsDTO.RequestNumber;       
+        console.log("on MessageRequest" + MessageRequestsDTO.RequestNumber + MessageRequestsDTO.requestedBy);
+        var numberRequests = MessageRequestsDTO.RequestNumber;
         $("#ul_alerts").empty();
-        if (numberRequests !== 0)
-        {
+        if (numberRequests !== 0) {
             $("#messageRequests span").css("color", "#FF0000");
             $.each(MessageRequestsDTO.Requests, function (i, val) {
                 var requestedBy = this.RequestedBy;
                 var timestamp = this.Timestamp;
-                $("#ul_alerts").prepend("<li><a href='#'><p><label class='label label-default text-center'>" + requestedBy + "</label></p> <p>" + timestamp + "</p><input type='button' value='Accept' onclick='acceptChat(\"" + requestedBy + "\")' class='btn btn-primary acceptChat' text=" + requestedBy + "/></a></li>");       
-           });
+                $("#ul_alerts").prepend("<li><a href='#'><p><label class='label label-default text-center'>" + requestedBy + "</label></p> <p>" + timestamp + "</p><input type='button' value='Accept' onclick='acceptChat(\"" + requestedBy + "\")' class='btn btn-primary acceptChat' text=" + requestedBy + "/></a></li>");
+            });
         }
         else {
-            $("#messageRequests span").css("color", "#FFFFFF"); 
+            $("#messageRequests span").css("color", "#FFFFFF");
         }
 
         if ($("#ul_alerts").children().length === 0)
@@ -66,12 +65,12 @@ function prepareSocket() {
         console.log("on ReceiveMessage " + messageDTO)
         pushMessageToChat(messageDTO);
     });
-    
+
     hProxy.on("ReceiveId", function (adminResponseDTO) {
         var chatDTO = { Sender: adminResponseDTO.EndUser, RequestId: adminResponseDTO.RequestId, Admin: true };
         openChatU(chatDTO);
     });
-    
+
     hProxy.on("Discarded", function (ChatStatusUpdateDTO) {
         var requestId = ChatStatusUpdateDTO.RequestId;
         var message = ChatStatusUpdateDTO.Message;
@@ -86,7 +85,7 @@ function prepareSocket() {
         var requestId = ChatStatusUpdateDTO.RequestId;
         var message = ChatStatusUpdateDTO.Message;
         $("textarea").attr('id', requestId).attr("readonly", true)
-            $("textarea").attr('id', requestId).attr("placeholder", message);        
+        $("textarea").attr('id', requestId).attr("placeholder", message);
     });
 
     hProxy.on("FnolCreated", function (ChatStatusUpdateDTO) {
@@ -94,7 +93,7 @@ function prepareSocket() {
         var message = ChatStatusUpdateDTO.Message;
         var success = ChatStatusUpdateDTO.Success;
         console.log("reqid " + requestId + " dali " + success + " message " + message)
-        if (success === "true") {
+        if (success) {
             $("textarea").attr('id', requestId).attr("readonly", true)
             $("textarea").attr('id', requestId).attr("placeholder", message);
         }
@@ -103,9 +102,9 @@ function prepareSocket() {
     hProxy.on("FnolCreatedMessage", function (ChatStatusUpdateDTO) {
         var requestId = ChatStatusUpdateDTO.RequestId;
         var message = ChatStatusUpdateDTO.Message;
-            $("textarea").attr('id', requestId).attr("readonly", true)
-            $("textarea").attr('id', requestId).attr("placeholder", message);
-    });   
+        $("textarea").attr('id', requestId).attr("readonly", true)
+        $("textarea").attr('id', requestId).attr("placeholder", message);
+    });
 
     hProxy.on("ActiveMessages", function (LastMessagesDTO) {
         console.log("messages");
@@ -122,7 +121,7 @@ function prepareSocket() {
     $("#requestChatBtn").click(function () {
         console.log("requestChatBtn click - invoke SendRequest");
         hProxy.invoke("SendRequest");
-        $("#requestChatBtn").val("Request sent"); 
+        $("#requestChatBtn").val("Request sent");
     });
 
 }
@@ -132,43 +131,42 @@ function acceptChat(requestedBy) {
     hProxy.invoke("AcceptRequest", requestedBy);
 }
 
-function openMessageInChat(requestId, from, admin) {  
+function openMessageInChat(requestId, from, admin) {
     console.log("openMessageInChat - requestId: " + requestId + ", from: " + from + ", admin: " + admin)
     var selection = $("div#" + from);
     var chat = document.getElementById("from");
-            if (!document.getElementById(from)){                
-                var chatDTO;
-                if (admin) {
-                    chatDTO = { Sender: from, RequestId: requestId, Admin: true };
-                }
-                else {
-                    chatDTO = { Sender: from, RequestId: requestId, Admin: false }; 
-                }
-                openChatU(chatDTO);
-                getLastTenMessages(requestId);
+    if (!document.getElementById(from)) {
+        var chatDTO;
+        if (admin) {
+            chatDTO = { Sender: from, RequestId: requestId, Admin: true };
+        }
+        else {
+            chatDTO = { Sender: from, RequestId: requestId, Admin: false };
+        }
+        openChatU(chatDTO);
+        getLastTenMessages(requestId);
+    }
+    else {
+        var $div = $('div[requestId = ' + requestId + ']');
+        if ($div) {
+
+            if (admin) {
+                chatDTO = { Sender: from, RequestId: requestId, Admin: true };
             }
             else {
-                var $div = $('div[requestId = ' + requestId + ']');
-                if ($div) {
-
-                    if (admin) {
-                        chatDTO = { Sender: from, RequestId: requestId, Admin: true };
-                    }
-                    else {
-                        chatDTO = { Sender: from, RequestId: requestId, Admin: false };
-                    }
-                    openChatU(chatDTO);
-                }
+                chatDTO = { Sender: from, RequestId: requestId, Admin: false };
             }
+            openChatU(chatDTO);
+        }
     }
+}
 
-function getLastTenMessages(requestId)
-{
+function getLastTenMessages(requestId) {
     var username = localStorage.getItem("username");
     $.ajax({
         type: "GET",
         url: "/api/chat/lasttenmessagesweb",
-        data: {"requestId": requestId, "username": username},
+        data: { "requestId": requestId, "username": username },
         dataType: "json",
         success: function (result) {
             console.log(result);
@@ -192,32 +190,30 @@ function LoadNextTenMessages(requestId, lastMessageId) {
         data: { "requestId": requestId, "messageId": lastMessageId, "username": localStorage.getItem("username") },
         dataType: "json",
         success: function (result) {
-            if (result.Messages === "End")
-            {
+            if (result.Messages === "End") {
                 console.log("kraj");
-                $("div[requestId="+requestId+"] button[messageId=" + lastMessageId + "]").hide();
+                $("div[requestId=" + requestId + "] button[messageId=" + lastMessageId + "]").hide();
             }
             else {
 
                 var $button = $("div[requestId=" + requestId + "] button[messageId=" + lastMessageId + "]");
                 var lastMessageIdNew = lastMessageId;
 
-                $.each(result.Messages, function (key, value) {                   
+                $.each(result.Messages, function (key, value) {
                     pushOldMessageNext(value, requestId, lastMessageId);
                     lastMessageIdNew = value.Id;
                 });
 
-                $("div[requestId="+requestId+"] button[messageId="+lastMessageId+"]").attr("messageid", lastMessageIdNew);
+                $("div[requestId=" + requestId + "] button[messageId=" + lastMessageId + "]").attr("messageid", lastMessageIdNew);
                 $("div[requestId=" + requestId + "] button[messageId=" + lastMessageIdNew + "]").attr("onclick", "LoadNextTenMessages(" + requestId + "," + lastMessageIdNew + ")");
             }
             console.log(result);
-          
+
         }
     });
 }
 
 function pushOldMessage(messageDTO, ichatwith, requestId) {
-    debugger;
     var PushMessageDTO = { Sender: messageDTO.From, Message: messageDTO.Text, Date: messageDTO.Date + " " + messageDTO.Hour + ":" + messageDTO.Minute };
     var $div = $('div[requestId = ' + requestId + '] .portlet-body');
     var row = generateMessage(PushMessageDTO);
@@ -231,7 +227,7 @@ function pushOldMessage(messageDTO, ichatwith, requestId) {
 
 function pushOldMessageNext(data, requestId, lastMessageId) {
     var $button = $("div[requestId=" + requestId + "] button[messageId=" + lastMessageId + "]");
-    var PushMessageDTO = { Sender: data.From, Message: data.Text, Date: data.Date + " " +data.Hour + ":" + data.Minute };
+    var PushMessageDTO = { Sender: data.From, Message: data.Text, Date: data.Date + " " + data.Hour + ":" + data.Minute };
     var $div = $('div[requestId = ' + requestId + '] .portlet-body');
     var row = generateMessage(PushMessageDTO);
     if (row !== undefined) {
@@ -239,15 +235,13 @@ function pushOldMessageNext(data, requestId, lastMessageId) {
     }
 }
 
-function addShowMoreButton(requestId, lastMessageId)
-{
+function addShowMoreButton(requestId, lastMessageId) {
     var $div = $('div[requestId = ' + requestId + '] .portlet-body');
-    var message = "<div class='row'><div class='col-lg-12'><button type='button' class='btn btn-default' onclick='LoadNextTenMessages("+requestId+","+lastMessageId+")' messageId="+lastMessageId+"> Show more </button> </div></div>";
+    var message = "<div class='row'><div class='col-lg-12'><button type='button' class='btn btn-default' onclick='LoadNextTenMessages(" + requestId + "," + lastMessageId + ")' messageId=" + lastMessageId + "> Show more </button> </div></div>";
     $div.append(message);
 }
 
-function generateMessage(PushMessageDTO)
-{
+function generateMessage(PushMessageDTO) {
     var last = PushMessageDTO.Last;
     var lastSender = PushMessageDTO.LastSender
     var sender = PushMessageDTO.Sender;
@@ -301,12 +295,11 @@ function fillMessages(LastMessagesDTOs) {
         $("#none .media .media-body .media-heading").attr("name", ChatWith);
         $("#none .media .media-body .media-heading strong").html(ChatWith);
         $("#none").attr("id", RequestId);
-        $("#messageId").attr("id", MessageId);   
+        $("#messageId").attr("id", MessageId);
     }
 }
 
 function openChatU(chatDTO) {
-    debugger;
     var sender = chatDTO.Sender;
     var requestId = chatDTO.RequestId;
     var isAdmin = chatDTO.Admin;
@@ -322,10 +315,10 @@ function openChatU(chatDTO) {
     $("div#" + sender + " textarea").focus();
     var children = $("div#" + sender + " .row").children();
     $("div#" + sender + " textarea").attr("id", requestId);
-
+    $("div#" + sender + " #createFnol").hide();
     if (!isAdmin) {
         $("div#" + sender + " #discardChat").hide();
-        $("div#" + sender + " #createFnol").hide();
+       
     }
 
     openChats++;
@@ -375,7 +368,7 @@ function openChatU(chatDTO) {
             return false;
         }
 
-       
+
     });
 }
 
@@ -388,7 +381,7 @@ function pushMessageToChat(messageDTO) {
     if (!$("div#" + sender).length) {
         var chatDTO;
         if (isAdmin) {
-            chatDTO = { Sender: sender, RequestId: requestId, Admin: true };          
+            chatDTO = { Sender: sender, RequestId: requestId, Admin: true };
         }
         else {
             chatDTO = { Sender: sender, RequestId: requestId, Admin: false };
@@ -402,7 +395,7 @@ function pushMessageToChat(messageDTO) {
 
     var last = $("div#" + sender + " .row")[$("div#" + sender + " .row").length - 1];
     var $div = $("div#" + sender + " .portlet-body");
-    var PushMessageDTO = { Last: last, LastSender: sender, Sender: sender, Message: message, Date: date.getHours() + ":" +date.getMinutes() };
+    var PushMessageDTO = { Last: last, LastSender: sender, Sender: sender, Message: message, Date: date.getHours() + ":" + date.getMinutes() };
     var row = generateMessage(PushMessageDTO);
     if (row !== undefined) {
         $div.append(row);

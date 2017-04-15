@@ -38,7 +38,7 @@ namespace InsuredTraveling.Hubs
             if (HttpContext.Current != null)
             {
                 _currentUser = HttpContext.Current.User.Identity.Name;
-                _isAdmin = roleAuthorize.IsUser("Admin");
+                _isAdmin = roleAuthorize.IsUser("Sava_support");
             }
             else
             {
@@ -52,7 +52,7 @@ namespace InsuredTraveling.Hubs
             var roleAuthorize = new RoleAuthorize();
             _currentUser = HttpContext.Current.User.Identity.Name;
             var lastMessages = new List<LastMessagesDTO>();
-            _isAdmin = roleAuthorize.IsUser("Admin");
+            _isAdmin = roleAuthorize.IsUser("Sava_support");
 
             if (_isAdmin)
             {
@@ -114,10 +114,10 @@ namespace InsuredTraveling.Hubs
                 }
                 finally
                 {
-                    Clients.Group("Admins").MessageRequest(GetActiveRequests());
+                   
                 }
             }
-
+            Clients.Group("Admins").MessageRequest(GetActiveRequests());
             BaseRequestIdDTO requestIdDTO = new BaseRequestIdDTO();
             requestIdDTO.RequestId = requestId;
             Clients.Group(username).RequestId(requestIdDTO);
@@ -160,7 +160,17 @@ namespace InsuredTraveling.Hubs
                 if (string.IsNullOrWhiteSpace(_currentUser))
                     return;
                 else
+                {
                     message.From = _currentUser;
+                    RoleAuthorize r = new RoleAuthorize();
+                    if (r.IsUser("Sava_support"))
+                    {
+                        message.Admin = false;
+                    }
+                    else message.Admin = true;
+
+                }
+
             }
             Clients.Group(message.To).ReceiveMessage(message);
 
@@ -183,13 +193,13 @@ namespace InsuredTraveling.Hubs
                 Clients.Group(request.Requested_by).DiscardedMessage(enduserResponse);
                 adminResponse.RequestId = request.ID;
                 adminResponse.Success = true;
-                adminResponse.Message = "You discarded the request. First notice of loss is not created.";
+                adminResponse.Message = "You discarded the request.";
             }
             else
             {
                 adminResponse.RequestId = request.ID;
                 adminResponse.Success = false;
-                adminResponse.Message = "You can't discard this chat. First notice of loss was created.";
+                adminResponse.Message = "You can't discard this chat.";
             }
             Clients.Group(request.Accepted_by).Discarded(adminResponse);
         }
@@ -198,8 +208,9 @@ namespace InsuredTraveling.Hubs
             var request = _db.chat_requests.Where(x => x.ID == requestIdDTO.RequestId).SingleOrDefault();
             StatusUpdateDTO adminResponse = new StatusUpdateDTO();
 
-            if (!request.discarded.Value)
+            if (request.discarded.Value)
             {
+              
                 request.fnol_created = true;
                 SaveDBChanges();
 

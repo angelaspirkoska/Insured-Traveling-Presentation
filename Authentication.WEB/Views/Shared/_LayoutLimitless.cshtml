@@ -117,7 +117,7 @@
                         </ul>
 
                     </li>
-                    if (r.IsUser("Admin"))
+                    if (r.IsUser("Sava_support"))
                     {
                         <li class="dropdown">
                             <a href="#" id="messageRequests" class="dropdown-toggle" data-toggle="dropdown">
@@ -200,6 +200,12 @@
                                     <li class="navigation-header">
                                         <span>@InsuredTraveling.Resource.MainPage</span> <i class="icon-menu" title="Main pages"></i>
                                     </li>
+                                    @if (r.IsUser("Sava_Sport_VIP"))
+                                    {
+                                    <li >
+                                        <input type="submit" id="requestChatBtn" value="@InsuredTraveling.Resource.RequestChat" class="btn btn-primary chat-btn--rotate" />
+                                    </li>
+                                    }
                                     <li>
                                         <a href="/Policy" id="addNewPolicy">
                                             <i class="icon-add-to-list"></i>
