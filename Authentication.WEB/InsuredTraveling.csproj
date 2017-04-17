@@ -86,6 +86,10 @@
       <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
@@ -2078,6 +2082,7 @@
     <Compile Include="Controllers\API\ChatController.cs" />
     <Compile Include="Controllers\API\MobileApiController.cs" />
     <Compile Include="Controllers\API\Ok_SetupController.cs" />
+    <Compile Include="Controllers\API\QRCodeGeneratorController.cs" />
     <Compile Include="Controllers\API\RefreshTokenController.cs" />
     <Compile Include="Controllers\ChangeLanuageController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
@@ -2299,6 +2304,7 @@
     <Compile Include="Models\DiscountCodeValidateModel.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Ok_SetupModel.cs" />
+    <Compile Include="Models\QRCodeSavaPolicy.cs" />
     <Compile Include="Models\SavaExcelModel.cs" />
     <Compile Include="Models\SavaPolicyModel.cs" />
     <Compile Include="Models\Sava_AdminPanelModel.cs" />
@@ -2510,6 +2516,7 @@
     <Folder Include="News\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ChangeLanuage\" />
+    <Folder Include="Views\QRCodeGenerator\" />
     <Folder Include="Views\RefreshToken\" />
   </ItemGroup>
   <ItemGroup>
