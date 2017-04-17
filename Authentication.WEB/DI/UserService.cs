@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -134,9 +135,6 @@ namespace InsuredTraveling.DI
             return a;
         }
 
-
-
-
         public string GetUserIdByUsername(string Username)
         {
             return _db.aspnetusers.Where(x => x.UserName == Username).Select(x => x.Id).FirstOrDefault();
@@ -163,6 +161,26 @@ namespace InsuredTraveling.DI
             var user = _db.aspnetusers.Where(x => x.Id.Equals(id)).FirstOrDefault();
             user.EMBG = ssn;
             _db.SaveChanges();
+        }
+
+        public aspnetuser GetUserBySSN(string ssn)
+        {
+            return _db.aspnetusers.Where(x => x.EMBG.Equals(ssn)).FirstOrDefault();
+        }
+
+        public bool UpdateUserPoints(aspnetuser user)
+        {
+            try
+            {
+                var oldUser = _db.aspnetusers.Where(x => x.Id == user.Id).FirstOrDefault();
+                oldUser.Points = user.Points;
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }

@@ -430,7 +430,6 @@
             <thead>
                 <tr>
                     <th>@InsuredTraveling.Resource.Search_SearchTablePolicyNumber</th>
-                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableSeller</th>
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTableSSNHolder</th>
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTableSSNInsured</th>
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTableExpireDate</th>
@@ -1599,7 +1598,6 @@
             ajax: "/Search/GetPolicies?number=" + $("#PolicyNumber").val() + "&endDate=" + $("#endDate").val() + "&ssnInsured=" + $("#SSNInsured").val() + "&ssnHolder=" + $("#SSNPolicyHolder").val() + "&operatorEndDate=" + $("#operatorEndDate").val(),
             columns: [
                { data: "PolicyNumber" },
-               { data: "Seller" },
                { data: "SSNInsured" },
                { data: "SSNHolder" },
                { data: "ExpireDate" },

@@ -9,8 +9,6 @@ namespace InsuredTraveling.Models
     {
         public int id { get; set; }
         public int policy_number { get; set; }
-
-        public string id_seller { get; set; }
         public string SSN_insured { get; set; }
         public string SSN_policyHolder { get; set; }
         public DateTime expiry_date { get; set; }

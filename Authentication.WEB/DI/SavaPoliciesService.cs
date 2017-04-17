@@ -53,5 +53,19 @@ namespace InsuredTraveling.DI
                        (String.IsNullOrEmpty(ssnHolder)) || x.SSN_policyHolder.Equals(ssnHolder)).ToList();
         }
 
+        public int SaveSavaPolicy(sava_policy policy)
+        {
+            try
+            {
+                _db.sava_policy.Add(policy);
+                _db.SaveChanges();
+                return policy.id;
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }
+        }
+
     }
 }

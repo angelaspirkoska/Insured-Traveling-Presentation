@@ -18,12 +18,15 @@ namespace InsuredTraveling.Controllers
     {
         private readonly ISavaPoliciesService _sp;
         private readonly ISava_setupService _savaSetupService;
+        private readonly IUserService _userService;
         
         public SavaExcelUploadController(ISavaPoliciesService sp,
-                                         ISava_setupService savaSetupService)
+                                         ISava_setupService savaSetupService,
+                                         IUserService userService)
         {
             _sp = sp;
             _savaSetupService = savaSetupService;
+            _userService = userService;
         }
         // GET: SavaExcelUpload
         public ActionResult Index()
@@ -70,25 +73,24 @@ namespace InsuredTraveling.Controllers
 
             ViewBag.IsRepost = 1;
             var savaSetup = _savaSetupService.GetActiveSavaSetup();
-            var percentage = savaSetup != null ? savaSetup.points_percentage : 0;
+            var percentage = savaSetup != null ? savaSetup.points_percentage : 1;
             DataTable dt = GetDataTableFromSpreadsheet(model.MyExcelFile.InputStream, false);
 
             foreach (DataRow dr in dt.Rows)
             {
                 SavaPolicyModel policyModel = new SavaPolicyModel();
                 policyModel.policy_number = Convert.ToInt32(dr.ItemArray[0]);
-                policyModel.id_seller = (dr.ItemArray[1]).ToString();
-                policyModel.SSN_insured = (dr.ItemArray[2]).ToString();
-                policyModel.SSN_policyHolder = (dr.ItemArray[3]).ToString();
-                string tempExpiry = (dr.ItemArray[4]).ToString();
+                policyModel.SSN_insured = (dr.ItemArray[1]).ToString();
+                policyModel.SSN_policyHolder = (dr.ItemArray[2]).ToString();
+                string tempExpiry = (dr.ItemArray[3]).ToString();
 
                 var dateTime = ConfigurationManager.AppSettings["DateFormat"];
                 var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
                 DateTime startDate1 = String.IsNullOrEmpty(tempExpiry) ? new DateTime() : DateTime.ParseExact(tempExpiry, dateTimeFormat, CultureInfo.InvariantCulture);
 
                 policyModel.expiry_date = startDate1;
-                policyModel.premium = Convert.ToInt32(dr.ItemArray[5]);
-                policyModel.email_seller = (dr.ItemArray[6]).ToString();
+                policyModel.premium = Convert.ToInt32(dr.ItemArray[4]);
+                policyModel.email_seller = (dr.ItemArray[5]).ToString();
                 policyModel.discount_points = Convert.ToInt32(Math.Round(policyModel.premium / percentage));
                 model.TableRows.Add(policyModel);
             }

@@ -44,7 +44,6 @@ namespace InsuredTraveling
             this.broker_employees = new HashSet<broker_employees>();
             this.broker_employees1 = new HashSet<broker_employees>();
             this.aspnetroles = new HashSet<aspnetrole>();
-            this.sava_policy = new HashSet<sava_policy>();
         }
     
         public string Id { get; set; }
@@ -134,7 +133,5 @@ namespace InsuredTraveling
         public virtual ICollection<broker_employees> broker_employees1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aspnetrole> aspnetroles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<sava_policy> sava_policy { get; set; }
     }
 }

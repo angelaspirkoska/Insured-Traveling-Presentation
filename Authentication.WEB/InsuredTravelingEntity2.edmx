@@ -651,7 +651,6 @@ warning 6002: The table/view 'def.db_9eb138_sava.aspnetuserlogins' does not have
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="policy_number" Type="int" Nullable="false" />
-          <Property Name="id_seller" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="SSN_insured" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="SSN_policyHolder" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="expiry_date" Type="datetime" Precision="0" />
@@ -2249,7 +2248,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="broker_employees" Relationship="Self.FKBrrokerID" FromRole="aspnetusers" ToRole="broker_employees" />
           <NavigationProperty Name="broker_employees1" Relationship="Self.FKEmployeID" FromRole="aspnetusers" ToRole="broker_employees" />
           <NavigationProperty Name="aspnetroles" Relationship="Self.aspnetuserroles" FromRole="aspnetusers" ToRole="aspnetroles" />
-          <NavigationProperty Name="sava_policy" Relationship="db_9eb138_savaModel.fk_sellerID_aspnetuser" FromRole="aspnetuser" ToRole="sava_policy" />
         </EntityType>
         <EntityType Name="bank_account_info">
           <Key>
@@ -4324,10 +4322,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="aspnetusers" EntitySet="aspnetusers" />
           </AssociationSet>
           <EntitySet Name="sava_policy" EntityType="db_9eb138_savaModel.sava_policy" />
-          <AssociationSet Name="fk_sellerID_aspnetuser" Association="db_9eb138_savaModel.fk_sellerID_aspnetuser">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="sava_policy" EntitySet="sava_policy" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="sava_policy">
           <Key>
@@ -4335,29 +4329,13 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="policy_number" Type="Int32" Nullable="false" />
-          <Property Name="id_seller" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="SSN_insured" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="SSN_policyHolder" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="expiry_date" Type="DateTime" />
           <Property Name="premium" Type="Single" Nullable="false" />
           <Property Name="email_seller" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="discount_points" Type="Single" Nullable="false" />
-          <NavigationProperty Name="aspnetuser" Relationship="db_9eb138_savaModel.fk_sellerID_aspnetuser" FromRole="sava_policy" ToRole="aspnetuser" />
         </EntityType>
-        <Association Name="fk_sellerID_aspnetuser">
-          <End Type="db_9eb138_savaModel.aspnetuser" Role="aspnetuser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="db_9eb138_savaModel.sava_policy" Role="sava_policy" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="sava_policy">
-              <PropertyRef Name="id_seller" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5192,7 +5170,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
                 <ScalarProperty Name="SSN_policyHolder" ColumnName="SSN_policyHolder" />
                 <ScalarProperty Name="SSN_insured" ColumnName="SSN_insured" />
-                <ScalarProperty Name="id_seller" ColumnName="id_seller" />
                 <ScalarProperty Name="policy_number" ColumnName="policy_number" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

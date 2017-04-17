@@ -9,7 +9,6 @@ namespace InsuredTraveling.ViewModels
     {
         public string PolicyId { get; set; }
         public string  PolicyNumber { get; set; }
-        public string Seller { get; set; }
         public string SSNInsured { get; set; }
         public string SSNHolder { get; set; }
         public string ExpireDate { get; set; }
