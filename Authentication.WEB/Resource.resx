@@ -1375,7 +1375,7 @@
     <value>Modified</value>
   </data>
   <data name="SavaAdminPanel_SumToPoints" xml:space="preserve">
-    <value>Percentage of policy premium to points</value>
+    <value>Div number for premium to points ratio</value>
   </data>
   <data name="SavaAdminPanel_VipPoints" xml:space="preserve">
     <value>Number of points for Vip user</value>
@@ -1457,5 +1457,35 @@
   </data>
   <data name="Search_SearchSSNInsured" xml:space="preserve">
     <value>Insured SSN</value>
+  </data>
+  <data name="Sava_ExcelDiscountPoints" xml:space="preserve">
+    <value>Discount points</value>
+  </data>
+  <data name="Sava_ExcelEmailHolder" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Sava_ExcelExpiry_Date" xml:space="preserve">
+    <value>Expiry Date</value>
+  </data>
+  <data name="Sava_ExcelPolicy_Number" xml:space="preserve">
+    <value>Policy Number</value>
+  </data>
+  <data name="Sava_ExcelPremium" xml:space="preserve">
+    <value>Premium</value>
+  </data>
+  <data name="Sava_ExcelSeller_id" xml:space="preserve">
+    <value>Seller id</value>
+  </data>
+  <data name="Sava_ExcelSSN_Holder" xml:space="preserve">
+    <value>SSN Policy Holder</value>
+  </data>
+  <data name="Sava_ExcelSSN_Insured" xml:space="preserve">
+    <value>SSN Insured</value>
+  </data>
+  <data name="Sava_ExcelUpload_Doc" xml:space="preserve">
+    <value>Upload document</value>
+  </data>
+  <data name="Sava_Excel_SavePolicy" xml:space="preserve">
+    <value>Save policies</value>
   </data>
 </root>

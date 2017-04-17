@@ -2563,6 +2563,96 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save policies.
+        /// </summary>
+        public static string Sava_Excel_SavePolicy {
+            get {
+                return ResourceManager.GetString("Sava_Excel_SavePolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discount points.
+        /// </summary>
+        public static string Sava_ExcelDiscountPoints {
+            get {
+                return ResourceManager.GetString("Sava_ExcelDiscountPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-mail.
+        /// </summary>
+        public static string Sava_ExcelEmailHolder {
+            get {
+                return ResourceManager.GetString("Sava_ExcelEmailHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expiry Date.
+        /// </summary>
+        public static string Sava_ExcelExpiry_Date {
+            get {
+                return ResourceManager.GetString("Sava_ExcelExpiry_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Number.
+        /// </summary>
+        public static string Sava_ExcelPolicy_Number {
+            get {
+                return ResourceManager.GetString("Sava_ExcelPolicy_Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Premium.
+        /// </summary>
+        public static string Sava_ExcelPremium {
+            get {
+                return ResourceManager.GetString("Sava_ExcelPremium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seller id.
+        /// </summary>
+        public static string Sava_ExcelSeller_id {
+            get {
+                return ResourceManager.GetString("Sava_ExcelSeller_id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSN Policy Holder.
+        /// </summary>
+        public static string Sava_ExcelSSN_Holder {
+            get {
+                return ResourceManager.GetString("Sava_ExcelSSN_Holder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSN Insured.
+        /// </summary>
+        public static string Sava_ExcelSSN_Insured {
+            get {
+                return ResourceManager.GetString("Sava_ExcelSSN_Insured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload document.
+        /// </summary>
+        public static string Sava_ExcelUpload_Doc {
+            get {
+                return ResourceManager.GetString("Sava_ExcelUpload_Doc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Modified By.
         /// </summary>
         public static string SavaAdminPanel_ModifiedBy {
@@ -2581,7 +2671,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Percentage of policy premium to points.
+        ///   Looks up a localized string similar to Div number for premium to points ratio.
         /// </summary>
         public static string SavaAdminPanel_SumToPoints {
             get {

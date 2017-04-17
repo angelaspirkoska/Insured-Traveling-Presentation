@@ -1369,7 +1369,7 @@
     <value>Последна промена на</value>
   </data>
   <data name="SavaAdminPanel_SumToPoints" xml:space="preserve">
-    <value>Процент од премијата што влегува во поени</value>
+    <value>Број за целобројно делење на премијата што влегува во поени</value>
   </data>
   <data name="SavaAdminPanel_VipPoints" xml:space="preserve">
     <value>Сума со која корисникот станува VIP</value>
@@ -1451,5 +1451,35 @@
   </data>
   <data name="Search_SearchSSNInsured" xml:space="preserve">
     <value>ЕМБГ на осигуреник</value>
+  </data>
+  <data name="Sava_ExcelDiscountPoints" xml:space="preserve">
+    <value>Поени за попуст</value>
+  </data>
+  <data name="Sava_ExcelEmailHolder" xml:space="preserve">
+    <value>Е-маил</value>
+  </data>
+  <data name="Sava_ExcelExpiry_Date" xml:space="preserve">
+    <value>Датум на завршување</value>
+  </data>
+  <data name="Sava_ExcelPolicy_Number" xml:space="preserve">
+    <value>Број на полиса</value>
+  </data>
+  <data name="Sava_ExcelPremium" xml:space="preserve">
+    <value>Премија</value>
+  </data>
+  <data name="Sava_ExcelSeller_id" xml:space="preserve">
+    <value>Продавач</value>
+  </data>
+  <data name="Sava_ExcelSSN_Holder" xml:space="preserve">
+    <value>ЕМБГ на договорувач</value>
+  </data>
+  <data name="Sava_ExcelSSN_Insured" xml:space="preserve">
+    <value>ЕМБГ на осигуреник</value>
+  </data>
+  <data name="Sava_ExcelUpload_Doc" xml:space="preserve">
+    <value>Прикачи документ</value>
+  </data>
+  <data name="Sava_Excel_SavePolicy" xml:space="preserve">
+    <value>Зачувај ги полиси</value>
   </data>
 </root>
