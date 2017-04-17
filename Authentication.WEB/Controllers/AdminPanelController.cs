@@ -20,14 +20,15 @@ namespace InsuredTraveling.Controllers
         private IOkSetupService _okss;
         private IUserService _us;
         private IDiscountService _ds;
+        private IExcelConfigService _exs;
 
-
-        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us, IDiscountService ds)
+        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us, IDiscountService ds, IExcelConfigService exs)
         {
             _rs = rs;
             _okss = okss;
             _us = us;
-            _ds = ds;         
+            _ds = ds;
+            _exs = exs;
         }
 
         [HttpGet]
@@ -187,6 +188,17 @@ namespace InsuredTraveling.Controllers
                 excelConfigFile.SaveAs(path);
                 ExcelFileViewModel e = new ExcelFileViewModel();
                 e.Path = path;
+                excelconfig excelConfig = new excelconfig();
+                excelConfig.DateCreated = DateTime.Now;
+                excelConfig.CreatedBy = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
+                try
+                {
+                    e.Id = _exs.AddExcelConfig(excelConfig);
+                }
+                catch
+                {
+
+                }
                 return View("PolicyForm", e);
             }
             return View("Index");

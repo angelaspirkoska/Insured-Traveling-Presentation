@@ -134,6 +134,8 @@
         <EntityTypeShape EntityType="Entities.broker_employees" Width="1.5" PointX="5.25" PointY="41.375" />
         <AssociationConnector Association="Entities.FKBrrokerID" />
         <AssociationConnector Association="Entities.FKEmployeID" />
+        <EntityTypeShape EntityType="Entities.excelconfig" Width="1.5" PointX="5.25" PointY="21.375" />
+        <AssociationConnector Association="Entities.fk_createdby_aspnetusers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

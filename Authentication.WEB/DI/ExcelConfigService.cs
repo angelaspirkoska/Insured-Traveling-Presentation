@@ -9,7 +9,13 @@ namespace InsuredTraveling.DI
     {
         InsuredTravelingEntity _db = new InsuredTravelingEntity();
 
-        //public int AddExcelConfig( bank)
-        //{
-        //}
+        public int AddExcelConfig(excelconfig excelConfig)
+        {
+            
+            _db.excelconfigs.Add(excelConfig);
+            _db.SaveChanges();
+            return excelConfig.ID;
+        }
+
     }
+}

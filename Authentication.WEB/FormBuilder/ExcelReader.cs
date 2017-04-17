@@ -7,6 +7,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Text;
 using MySql.Data.MySqlClient;
+using InsuredTraveling.ViewModels;
 
 namespace InsuredTraveling.FormBuilder
 {
@@ -14,9 +15,10 @@ namespace InsuredTraveling.FormBuilder
     {
         public static int helperFunctions { get; set; }
         public static int procedures { get; set; }
-        public static IHtmlString ReadExcel(string path)
+        public static IHtmlString ReadExcel(ExcelFileViewModel e)
         {
-            ExcelPackage pck = new ExcelPackage(new FileInfo(path));
+            ExcelPackage pck = new ExcelPackage(new FileInfo(e.Path));
+            
             CreateDatabaseTables();
             var result = CreateForm(pck);
             var functions = DetermineFunction(pck);
@@ -25,6 +27,7 @@ namespace InsuredTraveling.FormBuilder
             var proceduresStrings = GenerateStringProcedures(procedures);
             return result;
         }
+
         public static List<Function> DetermineFunction(ExcelPackage pck)
         {
             ExcelWorksheet worksheet = pck.Workbook.Worksheets["ConfigurationSetup"];

@@ -10,7 +10,6 @@ namespace InsuredTraveling
 {
     public class ServicesRegistration : Module
     {
-
         private string connStr;
         public ServicesRegistration(string connString)
         {
@@ -18,7 +17,6 @@ namespace InsuredTraveling
         }
         protected override void Load(ContainerBuilder builder)
         {
-
             builder.RegisterType<RolesService>().As<IRolesService>().InstancePerRequest();
             builder.RegisterType<OkSetupService>().As<IOkSetupService>().InstancePerRequest();
             builder.RegisterType<InsuredsService>().As<IInsuredsService>().InstancePerRequest();
@@ -42,11 +40,8 @@ namespace InsuredTraveling
             builder.RegisterType<TravelNumberService>().As<ITravelNumberService>().InstancePerRequest();
             builder.RegisterType<ChatService>().As<IChatService>().InstancePerRequest();
             builder.RegisterType<DiscountService>().As<IDiscountService>().InstancePerRequest();
-
+            builder.RegisterType<ExcelConfigService>().As<IExcelConfigService>().InstancePerRequest();       
             base.Load(builder);
-
-
         }
     }
-
 }

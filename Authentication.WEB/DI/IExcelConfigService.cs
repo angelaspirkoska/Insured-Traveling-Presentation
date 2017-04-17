@@ -8,5 +8,6 @@ namespace InsuredTraveling.DI
 {
     public interface IExcelConfigService
     {
+         int AddExcelConfig(excelconfig excelConfig);
     }
 }

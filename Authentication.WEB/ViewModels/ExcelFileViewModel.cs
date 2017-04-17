@@ -8,5 +8,6 @@ namespace InsuredTraveling.ViewModels
     public class ExcelFileViewModel
     {
         public string Path { get; set; }
+        public int Id { get; set; }
     }
 }

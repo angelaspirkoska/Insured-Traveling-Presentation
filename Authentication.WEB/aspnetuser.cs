@@ -31,6 +31,7 @@ namespace InsuredTraveling
             this.users = new HashSet<user>();
             this.aspnetroles = new HashSet<aspnetrole>();
             this.broker_employees = new HashSet<broker_employees>();
+            this.excelconfigs = new HashSet<excelconfig>();
         }
     
         public string Id { get; set; }
@@ -92,5 +93,7 @@ namespace InsuredTraveling
         public virtual ICollection<aspnetrole> aspnetroles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<broker_employees> broker_employees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<excelconfig> excelconfigs { get; set; }
     }
 }
