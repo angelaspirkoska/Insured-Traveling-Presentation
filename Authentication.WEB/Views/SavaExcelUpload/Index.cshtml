@@ -13,15 +13,33 @@
                 <div>
                     
                     @Html.TextBoxFor(x => x.MyExcelFile, new { type = "file" })
-                    @Html.ValidationMessageFor(x => x.MyExcelFile)
+
+                  
+
                 </div>
                 <button class="btn btn-success" type="submit">@Resource.Sava_ExcelUpload_Doc</button>
                 <br /><br />
             }
         
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger" role="alert">
+                <a class="close" data-dismiss="alert">x</a>
+                <p>@Html.ValidationMessageFor(x => x.MyExcelFile)</p>
+            </div>
+        }
+
+        @if (ViewBag.ErrorMessage != "")
+        {
+        <div class="alert alert-danger" role="alert">
+            <a class="close" data-dismiss="alert">x</a>
+            <p>@ViewBag.ErrorMessage</p>
+
+        </div>
+         } 
     </div>
 
-<div class="row" id="dataRow">  
+<div class="row" id="dataRow" style="visibility:hidden">  
     @grid.GetHtml(    
         tableStyle: "webgrid-table table table-bordered table-hover table-striped no-footer dataTable",
         headerStyle: "webgrid-header",
@@ -36,7 +54,7 @@
              grid.Column("id_seller", Resource.Sava_ExcelSeller_id, format: @<text>  <span class="display-mode">   <label id="lblName">@item.id_seller</label> </span> <input type="text" id="Name" value="@item.id_seller" class="edit-mode" /></text>, style: "col2Width"),
              grid.Column("SSN_insured", Resource.Sava_ExcelSSN_Insured, format: @<text> <span class="display-mode"> <label id="lblSSN_insured">@item.SSN_insured</label> </span>  <input type="text" id="SSN_insured" value="@item.SSN_insured" class="edit-mode" /> </text>, style: "col2Width"),
              grid.Column("SSN_policyHolder", Resource.Sava_ExcelSSN_Holder, format: @<text> <span class="display-mode"> <label id="lblSSN_policyHolder">@item.SSN_policyHolder</label> </span>  <input type="text" id="SSN_policyHolder" value="@item.SSN_policyHolder" class="edit-mode" /> </text>, style: "col2Width"),
-             grid.Column("expiry_date", Resource.Sava_ExcelExpiry_Date, format: @<text> <span class="display-mode"> <label id="lblexpiry_date">@item.expiry_date</label> </span>  <input type="text" id="expiry_date" value="@item.expiry_date" class="edit-mode" /> </text>, style: "col2Width"),
+             grid.Column("expiry_date", Resource.Sava_ExcelExpiry_Date, format: @<text> <span class="display-mode"> <label id="lblexpiry_date">@item.expiry_date</label> </span>  <input type="date" id="expiry_date" value="@item.expiry_date" class="edit-mode" /> </text>, style: "col2Width"),
              grid.Column("premium", Resource.Sava_ExcelPremium, format: @<text> <span class="display-mode"> <label id="lblpremium">@item.premium</label> </span>  <input type="text" id="premium" value="@item.premium" class="edit-mode" /> </text>, style: "col2Width"),
              grid.Column("email_seller", Resource.Sava_ExcelEmailHolder, format: @<text> <span class="display-mode"> <label id="lblemail_seller">@item.email_seller</label> </span>  <input type="text" id="email_seller" value="@item.email_seller" class="edit-mode" /> </text>, style: "col2Width"),
              grid.Column("discount_points", Resource.Sava_ExcelDiscountPoints, format: @<text> <span class="display-mode"> <label id="lbldiscount_points">@item.discount_points</label> </span>  <input type="text" id="discount_points" value="@item.discount_points" class="edit-mode" /> </text>, style: "col2Width"),
@@ -48,9 +66,10 @@
                     <button  class="cancel-user edit-mode btn btn-danger btn-sm">@Resource.Search_Cancel</button>
                 </text>, style: "col3Width", canSort: false)
            ))
+    
         
 </div>
-    <div class="row" id="buttonRow">
+    <div class="row" id="buttonRow" style="visibility:hidden">
         <button type="button" class="btn btn-success " id="SaveTable">
             @Resource.Sava_Excel_SavePolicy
         </button>
@@ -65,19 +84,34 @@
 
 <script type="text/javascript">
 
-    $(document).ready({
-    
+    $(document).ready(function(){
+      
+        
+     
     });
 
+    var repost = parseInt( @ViewBag.IsRepost);
+    if (repost != 1) {
+        $("#dataRow").css("visibility", "hidden")
+        $("#SaveTable").css("visibility", "hidden")
+        
+    } else {
+        $("#dataRow").css("visibility", "visible")
+        $("#SaveTable").css("visibility", "visible")
+    }
+    
     function togleMenu (){
         $("body").addClass("sidebar-xs");
     };
+
     $(".save-user").click(function () {
         $("body").removeClass("sidebar-xs");
     });
+
     $(".cancel-user").click(function () {
         $("body").removeClass("sidebar-xs");
     });
+
     $(function () {
         $('.edit-mode').hide();
         $('.edit-user, .cancel-user').on('click', function () {
@@ -144,7 +178,7 @@
                 }
             });
 
-
         });
     });
+
 </script>  

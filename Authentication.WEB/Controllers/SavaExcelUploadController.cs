@@ -30,6 +30,7 @@ namespace InsuredTraveling.Controllers
         {
             var model = new SavaExcelModel();
             ViewBag.IsRepost = 0;
+            ViewBag.ErrorMessage = "";
             return View(model);
         }
 
@@ -52,12 +53,22 @@ namespace InsuredTraveling.Controllers
         [HttpPost]
         public ActionResult Index(SavaExcelModel model)
         {
-            ViewBag.IsRepost = 1;
+            ViewBag.IsRepost = 0;
+            ViewBag.ErrorMessage = "";
+           
             SavaExcelModel SavaExcel = new SavaExcelModel();
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
+            if (!model.MyExcelFile.FileName.EndsWith("xlsx"))
+            {
+                ViewBag.ErrorMessage = Resource.Sava_ExcelFileError;
+                
+                return View(model);
+            }
+
+            ViewBag.IsRepost = 1;
             var savaSetup = _savaSetupService.GetActiveSavaSetup();
             var percentage = savaSetup != null ? savaSetup.points_percentage : 0;
             DataTable dt = GetDataTableFromSpreadsheet(model.MyExcelFile.InputStream, false);

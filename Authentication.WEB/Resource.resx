@@ -1488,4 +1488,7 @@
   <data name="Sava_Excel_SavePolicy" xml:space="preserve">
     <value>Save policies</value>
   </data>
+  <data name="Sava_ExcelFileError" xml:space="preserve">
+    <value>Invalid Excel file. The file must end with ".xlsx".</value>
+  </data>
 </root>

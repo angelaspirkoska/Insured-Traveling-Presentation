@@ -2599,6 +2599,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Excel file. The file must end with &quot;.xlsx&quot;..
+        /// </summary>
+        public static string Sava_ExcelFileError {
+            get {
+                return ResourceManager.GetString("Sava_ExcelFileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Policy Number.
         /// </summary>
         public static string Sava_ExcelPolicy_Number {

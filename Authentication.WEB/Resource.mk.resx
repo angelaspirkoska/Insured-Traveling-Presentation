@@ -1482,4 +1482,7 @@
   <data name="Sava_Excel_SavePolicy" xml:space="preserve">
     <value>Зачувај ги полиси</value>
   </data>
+  <data name="Sava_ExcelFileError" xml:space="preserve">
+    <value>Невалиден ексел документ. Мора да завршува со наставката".xlsx".</value>
+  </data>
 </root>
