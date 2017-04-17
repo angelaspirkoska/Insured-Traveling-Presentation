@@ -6,6 +6,7 @@ using OfficeOpenXml;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Text;
+using MySql.Data.MySqlClient;
 
 namespace InsuredTraveling.FormBuilder
 {
@@ -16,6 +17,7 @@ namespace InsuredTraveling.FormBuilder
         public static IHtmlString ReadExcel(string path)
         {
             ExcelPackage pck = new ExcelPackage(new FileInfo(path));
+            CreateDatabaseTables();
             var result = CreateForm(pck);
             var functions = DetermineFunction(pck);
             var procedures = DetermineProcedure(pck);
@@ -256,6 +258,30 @@ namespace InsuredTraveling.FormBuilder
             var result = formBuilder.ToHtmlString();
 
             return new HtmlString(result);
+        }
+        public static void CreateDatabaseTables()
+        {
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = "server=localhost;user id = root;database=db_9eb138_travel;persistsecurityinfo=True;Convert Zero Datetime=True";
+            try
+            {
+                conn.Open();
+                //MySqlCommand mysqlCommand = new MySqlCommand();
+                var command = "CREATE TABLE a_test_table (empno INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(20), last_name VARCHAR(20), birthdate DATE)";
+                MySqlCommand mysqlCommand = new MySqlCommand();
+                    //new MySql.Data.MySqlClient.MySqlCommand(command, conn);
+                mysqlCommand.CommandText = command;
+                mysqlCommand.Connection = conn;
+                mysqlCommand.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                conn.CloseAsync();
+            }
         }
     }
 
