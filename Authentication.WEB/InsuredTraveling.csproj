@@ -2254,6 +2254,7 @@
     </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="Helpers\ArchiveFirstNoticeOfLossHelper.cs" />
+    <Compile Include="Helpers\SaveSavaPoliciesHelper.cs" />
     <Compile Include="Helpers\UpdateAdditionalInfoHelper.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\SaveInsuredHelper.cs" />

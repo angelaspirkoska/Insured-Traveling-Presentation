@@ -117,7 +117,6 @@ namespace InsuredTraveling.App_Start
 
             Mapper.CreateMap<SavaPolicyModel, sava_policy>().AfterMap((src, dst) =>
             {
-                dst.id_seller = src.id_seller;
                 dst.SSN_insured = src.SSN_insured;
                 dst.SSN_policyHolder = src.SSN_policyHolder;
                 dst.email_seller = src.email_seller;
@@ -125,6 +124,16 @@ namespace InsuredTraveling.App_Start
                 dst.expiry_date = src.expiry_date;
                 dst.email_seller = src.email_seller;
                 dst.premium = src.premium;
+            });
+
+            Mapper.CreateMap<QRCodeSavaPolicy, SavaPolicyModel>().AfterMap((src, dst) =>
+            {
+                dst.SSN_policyHolder = src.SSNHolder;
+                dst.SSN_insured = src.SSNInsured;
+                dst.policy_number = src.PolicyNumber != null ? Convert.ToInt32(src.PolicyNumber) : 0;
+                dst.email_seller = src.EmailSeller;
+                dst.expiry_date = src.ExpireDate != null ? Convert.ToDateTime(src.ExpireDate) : DateTime.UtcNow;
+                dst.premium = src.Premium != null ? Convert.ToInt32(src.Premium) : 0;
             });
 
 
@@ -442,7 +451,6 @@ namespace InsuredTraveling.App_Start
                 var dateTimeFormat = dateTime != null && dateTime.Contains("yy") && !dateTime.Contains("yyyy") ? dateTime.Replace("yy", "yyyy") : dateTime;
                 dst.PolicyId = src.id.ToString();
                 dst.PolicyNumber = src.policy_number.ToString();
-                dst.Seller = src.id_seller;
                 dst.SSNInsured = src.SSN_insured;
                 dst.SSNHolder = src.SSN_policyHolder;
                 dst.ExpireDate = src.expiry_date.HasValue? src.expiry_date.Value.ToString(dateTimeFormat, new CultureInfo("en-US")) : "/";

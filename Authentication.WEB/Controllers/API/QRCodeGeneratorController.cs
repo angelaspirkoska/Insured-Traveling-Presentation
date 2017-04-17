@@ -25,7 +25,7 @@ namespace InsuredTraveling.Controllers.API
         [System.Web.Http.Route("GetQRCodeImage")]
         public IHttpActionResult GetQRCodeImage(QRCodeSavaPolicy model)
         { 
-            string barcodeText = model.PolicyNumber + " " + model.SellerNameLastName + " " + model.EmailSeller + " " + model.SSNInsured + " " +
+            string barcodeText = model.PolicyNumber + " " + model.EmailSeller + " " + model.SSNInsured + " " +
                                  model.SSNHolder + " " + model.ExpireDate + " " + model.Premium;
             QrEncoder qrEncoder = new QrEncoder(ErrorCorrectionLevel.H);
             QrCode qrCode = new QrCode();

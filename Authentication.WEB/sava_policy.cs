@@ -16,14 +16,11 @@ namespace InsuredTraveling
     {
         public int id { get; set; }
         public int policy_number { get; set; }
-        public string id_seller { get; set; }
         public string SSN_insured { get; set; }
         public string SSN_policyHolder { get; set; }
         public Nullable<System.DateTime> expiry_date { get; set; }
         public float premium { get; set; }
         public string email_seller { get; set; }
         public float discount_points { get; set; }
-    
-        public virtual aspnetuser aspnetuser { get; set; }
     }
 }

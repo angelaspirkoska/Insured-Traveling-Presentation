@@ -1399,26 +1399,24 @@ namespace InsuredTraveling.Controllers
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Policies");
                 //Add the headers
                 worksheet.Cells[1, 1].Value = InsuredTraveling.Resource.Search_SearchTablePolicyNumber;
-                worksheet.Cells[1, 2].Value = InsuredTraveling.Resource.Seacrh_SearchTableSeller;
-                worksheet.Cells[1, 3].Value = InsuredTraveling.Resource.Seacrh_SearchTableSSNHolder;
-                worksheet.Cells[1, 4].Value = InsuredTraveling.Resource.Seacrh_SearchTableSSNInsured;
-                worksheet.Cells[1, 5].Value = InsuredTraveling.Resource.Seacrh_SearchTableExpireDate;
-                worksheet.Cells[1, 6].Value = InsuredTraveling.Resource.Seacrh_SearchTablePremium;
-                worksheet.Cells[1, 7].Value = InsuredTraveling.Resource.Seacrh_SearchTableEmailSeller;
-                worksheet.Cells[1, 8].Value = InsuredTraveling.Resource.Seacrh_SearchTablePoints;
+                worksheet.Cells[1, 2].Value = InsuredTraveling.Resource.Seacrh_SearchTableSSNHolder;
+                worksheet.Cells[1, 3].Value = InsuredTraveling.Resource.Seacrh_SearchTableSSNInsured;
+                worksheet.Cells[1, 4].Value = InsuredTraveling.Resource.Seacrh_SearchTableExpireDate;
+                worksheet.Cells[1, 5].Value = InsuredTraveling.Resource.Seacrh_SearchTablePremium;
+                worksheet.Cells[1, 6].Value = InsuredTraveling.Resource.Seacrh_SearchTableEmailSeller;
+                worksheet.Cells[1, 7].Value = InsuredTraveling.Resource.Seacrh_SearchTablePoints;
 
                 int counter = 2;
 
                 foreach (SearchSavaPolicyModel policy in policies)
                 {
                     worksheet.Cells[counter, 1].Value = policy.PolicyNumber;
-                    worksheet.Cells[counter, 2].Value = policy.Seller;
-                    worksheet.Cells[counter, 3].Value = policy.SSNHolder;
-                    worksheet.Cells[counter, 4].Value = policy.SSNInsured;
-                    worksheet.Cells[counter, 5].Value = policy.ExpireDate;
-                    worksheet.Cells[counter, 6].Value = policy.Premium;
-                    worksheet.Cells[counter, 7].Value = policy.EmailSeller;
-                    worksheet.Cells[counter, 8].Value = policy.Points;
+                    worksheet.Cells[counter, 2].Value = policy.SSNHolder;
+                    worksheet.Cells[counter, 3].Value = policy.SSNInsured;
+                    worksheet.Cells[counter, 4].Value = policy.ExpireDate;
+                    worksheet.Cells[counter, 5].Value = policy.Premium;
+                    worksheet.Cells[counter, 6].Value = policy.EmailSeller;
+                    worksheet.Cells[counter, 7].Value = policy.Points;
 
                     counter++;
                 }
