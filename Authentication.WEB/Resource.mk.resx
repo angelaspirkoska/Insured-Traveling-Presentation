@@ -1485,4 +1485,10 @@
   <data name="Sava_ExcelFileError" xml:space="preserve">
     <value>Невалиден ексел документ. Мора да завршува со наставката".xlsx".</value>
   </data>
+  <data name="RegisteredUserExcelTitle" xml:space="preserve">
+    <value>Регистрирани корисници</value>
+  </data>
+  <data name="SearchTable_UserPoints" xml:space="preserve">
+    <value>Поени</value>
+  </data>
 </root>

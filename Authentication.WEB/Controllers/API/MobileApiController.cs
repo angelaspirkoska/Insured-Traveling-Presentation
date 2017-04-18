@@ -665,8 +665,6 @@ namespace InsuredTraveling.Controllers.API
 
         }
 
-
-
         [HttpPost]
         [Route("GetDefaultData")]
         public JObject GetDefaultData()
@@ -946,6 +944,7 @@ namespace InsuredTraveling.Controllers.API
             }
 
         }
+
         public HttpResponseMessage HalkBankPayment(CreditCardInfoModel paymenyModel)
         {
 
@@ -959,8 +958,6 @@ namespace InsuredTraveling.Controllers.API
             HttpResponseMessage responseMessage = client.PostAsync(uri, content).Result;
             return responseMessage;
         }
-
-
     }
 }
 

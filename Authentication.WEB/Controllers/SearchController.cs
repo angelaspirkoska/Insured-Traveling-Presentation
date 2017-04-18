@@ -930,7 +930,7 @@ namespace InsuredTraveling.Controllers
             var dateTime = ConfigurationManager.AppSettings["DateFormat"];
             var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
 
-            DateTime createdDate = String.IsNullOrEmpty(dateCreated) ? DateTime.Now.Date : DateTime.ParseExact(dateCreated, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime createdDate = String.IsNullOrEmpty(dateCreated) ? DateTime.UtcNow.Date : DateTime.ParseExact(dateCreated, dateTimeFormat, CultureInfo.InvariantCulture);
             List<aspnetuser> data = new List<aspnetuser>();
             data = _us.GetAllUsersCreatedTodayForSavaAdmin(createdDate);
             var jsonObject = new JObject();
@@ -1708,16 +1708,17 @@ namespace InsuredTraveling.Controllers
             using (ExcelPackage package = new ExcelPackage(newFile))
             {
                 // add a new worksheet to the empty workbook
-                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Registered users");
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(InsuredTraveling.Resource.RegisteredUserExcelTitle);
                 //Add the headers
-                worksheet.Cells[1, 1].Value = "Username";
-                worksheet.Cells[1, 2].Value = "First Name";
-                worksheet.Cells[1, 3].Value = "Last Name";
-                worksheet.Cells[1, 4].Value = "Email";
-                worksheet.Cells[1, 5].Value = "Role name";
-                worksheet.Cells[1, 6].Value = "Created On";
-                worksheet.Cells[1, 7].Value = "Active/Inactive";
-
+                worksheet.Cells[1, 1].Value = InsuredTraveling.Resource.SearchTable_UserName;
+                worksheet.Cells[1, 2].Value = InsuredTraveling.Resource.SearchTable_FirstName;
+                worksheet.Cells[1, 3].Value = InsuredTraveling.Resource.SearchTable_LastName;
+                worksheet.Cells[1, 4].Value = InsuredTraveling.Resource.SearchTable_Email;
+                worksheet.Cells[1, 5].Value = InsuredTraveling.Resource.SearchTable_RoleName;
+                worksheet.Cells[1, 6].Value = InsuredTraveling.Resource.SearchTable_CreatedOn;
+                worksheet.Cells[1, 7].Value = InsuredTraveling.Resource.SearchTable_ActiveInactiveUser;
+                worksheet.Cells[1, 8].Value = InsuredTraveling.Resource.SearchTable_UserPoints;
+               
                 int counter = 2;
 
                 foreach (SearchRegisteredUser user in users)
@@ -1729,14 +1730,14 @@ namespace InsuredTraveling.Controllers
                     worksheet.Cells[counter, 5].Value = user.RoleName;
                     worksheet.Cells[counter, 6].Value = user.CreatedOn;
                     worksheet.Cells[counter, 7].Value = user.ActiveInactive;
-
+                    worksheet.Cells[counter, 8].Value = user.Points == null ? "0" : user.Points;
                     counter++;
                 }
 
                 worksheet.View.PageLayoutView = true;
 
                 // set some document properties
-                package.Workbook.Properties.Title = "Registered users";
+                package.Workbook.Properties.Title = InsuredTraveling.Resource.RegisteredUserExcelTitle;
                 package.Workbook.Properties.Author = username;
                 package.Workbook.Properties.Comments = "";
 

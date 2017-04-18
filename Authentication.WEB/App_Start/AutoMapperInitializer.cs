@@ -18,15 +18,18 @@ namespace InsuredTraveling.App_Start
 
             Mapper.CreateMap<aspnetuser, SearchRegisteredUser>().AfterMap((src, dst) =>
             {
+                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                var dateTimeFormat = dateTime != null && dateTime.Contains("yy") && !dateTime.Contains("yyyy") ? dateTime.Replace("yy", "yyyy") : dateTime;
                 dst.Username = src.UserName;
                 dst.FirstName = src.FirstName;
                 dst.LastName = src.LastName;
                 dst.Email = src.Email;
                 var role = src.aspnetroles.FirstOrDefault();
                 if (role != null) dst.RoleName = role.Name;
-                if (src.CreatedOn != null) dst.CreatedOn = src.CreatedOn.Value.ToShortDateString();
+                if (src.CreatedOn != null) dst.CreatedOn = src.CreatedOn.Value.ToString(dateTimeFormat, new CultureInfo("en-US"));
                 dst.ActiveInactive = src.Active == 1 ? "Active" : "Inactive";
                 dst.ID = src.Id;
+                dst.Points = !src.Points.HasValue ? "0" :src.Points.ToString();
             });
 
             Mapper.CreateMap<@event, Event>().AfterMap((src, dst) =>

@@ -81,7 +81,6 @@ namespace InsuredTraveling.DI
         {
             if (String.IsNullOrEmpty(role))
             {
-                //List<aspnetrole> savaRoles = _db.aspnetroles.Where(x => x.Name.Contains("Sava")).ToList();
                 return _db.aspnetusers.Where(x => x.aspnetroles.FirstOrDefault().Name.Contains("Sava")).ToList();
             }
 

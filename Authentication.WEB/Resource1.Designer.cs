@@ -2536,6 +2536,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Registered Users.
+        /// </summary>
+        public static string RegisteredUserExcelTitle {
+            get {
+                return ResourceManager.GetString("RegisteredUserExcelTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Need assistance? Request a chat!.
         /// </summary>
         public static string RequestChat {
@@ -3747,6 +3756,15 @@ namespace InsuredTraveling {
         public static string SearchTable_UserName {
             get {
                 return ResourceManager.GetString("SearchTable_UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Points.
+        /// </summary>
+        public static string SearchTable_UserPoints {
+            get {
+                return ResourceManager.GetString("SearchTable_UserPoints", resourceCulture);
             }
         }
         

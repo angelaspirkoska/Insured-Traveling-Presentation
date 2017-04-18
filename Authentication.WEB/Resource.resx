@@ -1491,4 +1491,10 @@
   <data name="Sava_ExcelFileError" xml:space="preserve">
     <value>Invalid Excel file. The file must end with ".xlsx".</value>
   </data>
+  <data name="RegisteredUserExcelTitle" xml:space="preserve">
+    <value>Registered Users</value>
+  </data>
+  <data name="SearchTable_UserPoints" xml:space="preserve">
+    <value>Points</value>
+  </data>
 </root>
