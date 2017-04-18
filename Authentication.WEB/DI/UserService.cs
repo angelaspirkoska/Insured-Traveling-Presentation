@@ -181,5 +181,10 @@ namespace InsuredTraveling.DI
                 return false;
             }
         }
+
+        public aspnetuser GetUserByEmail(string email)
+        {
+            return _db.aspnetusers.FirstOrDefault(x => x.Email.Equals(email));
+        }
     }
 }

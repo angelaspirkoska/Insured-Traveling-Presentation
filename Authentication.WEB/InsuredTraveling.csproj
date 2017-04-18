@@ -2257,6 +2257,7 @@
     <Compile Include="Helper.cs" />
     <Compile Include="Helpers\ArchiveFirstNoticeOfLossHelper.cs" />
     <Compile Include="Helpers\SaveSavaPoliciesHelper.cs" />
+    <Compile Include="Helpers\SendSavaEmailHelper.cs" />
     <Compile Include="Helpers\UpdateAdditionalInfoHelper.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\SaveInsuredHelper.cs" />
@@ -2314,6 +2315,7 @@
     <Compile Include="Models\SavaPolicyModel.cs" />
     <Compile Include="Models\Sava_AdminPanelModel.cs" />
     <Compile Include="Models\SearchRegisteredUser.cs" />
+    <Compile Include="Models\UsePointsModel.cs" />
     <Compile Include="news_all.cs">
       <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
@@ -2519,6 +2521,7 @@
     <Folder Include="ExcelSearchResults\Policies\" />
     <Folder Include="ExcelSearchResults\SavaPolicies\" />
     <Folder Include="News\" />
+    <Folder Include="SavaVaucers\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ChangeLanuage\" />
     <Folder Include="Views\QRCodeGenerator\" />

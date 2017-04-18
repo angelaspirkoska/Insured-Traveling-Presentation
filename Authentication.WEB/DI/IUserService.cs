@@ -26,5 +26,6 @@ namespace InsuredTraveling.DI
         bool ChangeStatus(string username);
         aspnetuser GetUserBySSN(string ssn);
         bool UpdateUserPoints(aspnetuser user);
+        aspnetuser GetUserByEmail(string email);
     }
 }

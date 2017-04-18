@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using InsuredTraveling.DI;
 using InsuredTraveling.Helpers;
 using AutoMapper;
+using System.Globalization;
+using Rotativa;
 
 namespace InsuredTraveling.Controllers.API
 {
@@ -48,6 +50,41 @@ namespace InsuredTraveling.Controllers.API
                 throw new Exception("Internal error: Empty Policy");
             }
            
+        }
+
+        public IHttpActionResult UsePoints(UsePointsModel model)
+        {
+            if (model != null)
+            {
+                var user = _userService.GetUserByEmail(model.UserEmail);
+                if (user != null)
+                {
+                    if (model.Points != null)
+                    {
+                        float points = -1;
+                        float.TryParse(model.Points, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out points);
+                        if (points != -1)
+                        {
+                            if (user.Points >= points)
+                            {
+                                var userPoints = user.Points - points;
+                                return Ok();
+                            }
+                            else
+                                throw new Exception("Internal error: The user have less points");
+                        }
+                        else
+                            throw new Exception("Internal error: The points value is not in the valid format");
+
+                    }
+                    else
+                        throw new Exception("Internal error: The points value is null");
+                }
+                else
+                    throw new Exception("Internal error: User not exist");
+            }
+            else
+                throw new Exception("Internal error: Empty JSON");
         }
     }
 }
