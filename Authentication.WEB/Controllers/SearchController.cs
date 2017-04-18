@@ -856,10 +856,18 @@ namespace InsuredTraveling.Controllers
 
             var languageId = SiteLanguages.CurrentLanguageId();
             var searchModel = data.Select(Mapper.Map<@event, Event>).ToList();
-
+            
             var array = JArray.FromObject(searchModel.ToArray());
             jsonObject.Add("data", array);
             return jsonObject;
+        }
+
+
+        public int getEvetUsers()
+        {
+
+
+            return 0;
         }
 
         [HttpGet]

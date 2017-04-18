@@ -2137,6 +2137,7 @@
     <Compile Include="DI\CountryService.cs" />
     <Compile Include="DI\DiscountService.cs" />
     <Compile Include="DI\EventService.cs" />
+    <Compile Include="DI\EventUserService.cs" />
     <Compile Include="DI\ExchangeRateService.cs" />
     <Compile Include="DI\FirstNoticeOfLossArchiveService.cs" />
     <Compile Include="DI\FranchiseService.cs" />
@@ -2149,6 +2150,7 @@
     <Compile Include="DI\HealthInsuranceService.cs" />
     <Compile Include="DI\IDiscountService.cs" />
     <Compile Include="DI\IEventsService.cs" />
+    <Compile Include="DI\IEventUserService.cs" />
     <Compile Include="DI\IExchangeRateService.cs" />
     <Compile Include="DI\IFirstNoticeOfLossArchiveService.cs" />
     <Compile Include="DI\IFirstNoticeOfLossService.cs" />
@@ -2305,6 +2307,7 @@
     <Compile Include="Models\DiscountModel.cs" />
     <Compile Include="Models\DiscountCodeValidateModel.cs" />
     <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\Event_UserModel.cs" />
     <Compile Include="Models\Ok_SetupModel.cs" />
     <Compile Include="Models\QRCodeSavaPolicy.cs" />
     <Compile Include="Models\SavaExcelModel.cs" />

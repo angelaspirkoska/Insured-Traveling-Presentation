@@ -42,7 +42,13 @@ namespace InsuredTraveling.App_Start
                 dst.EndDate = src.EndDate.Date;
             });
 
-            Mapper.CreateMap<aspnetuser, User>().AfterMap((src, dst) =>
+            Mapper.CreateMap<Event_UserModel, event_users>().AfterMap((src, dst) =>
+            {
+                dst.EventID = src.EventID;
+                dst.UserID = src.UserID;
+            });
+
+               Mapper.CreateMap<aspnetuser, User>().AfterMap((src, dst) =>
             {
                 dst.UserName = src.UserName;
                 dst.FirstName = src.FirstName;

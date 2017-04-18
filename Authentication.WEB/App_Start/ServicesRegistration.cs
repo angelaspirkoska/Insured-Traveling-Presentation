@@ -45,6 +45,7 @@ namespace InsuredTraveling
             builder.RegisterType<Sava_setupService>().As<ISava_setupService>().InstancePerRequest();
             builder.RegisterType<SavaPoliciesService>().As<ISavaPoliciesService>().InstancePerRequest();
             builder.RegisterType<EventService>().As<IEventsService>().InstancePerRequest();
+            builder.RegisterType<EventUserService>().As<IEventUserService>().InstancePerRequest();
             base.Load(builder);
 
 

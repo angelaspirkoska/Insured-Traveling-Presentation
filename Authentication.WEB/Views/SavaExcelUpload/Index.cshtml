@@ -14,8 +14,6 @@
                     
                     @Html.TextBoxFor(x => x.MyExcelFile, new { type = "file" })
 
-                  
-
                 </div>
                 <button class="btn btn-success" type="submit">@Resource.Sava_ExcelUpload_Doc</button>
                 <br /><br />
@@ -34,8 +32,8 @@
         <div class="alert alert-danger" role="alert">
             <a class="close" data-dismiss="alert">x</a>
             <p>@ViewBag.ErrorMessage</p>
-
         </div>
+
          } 
     </div>
 
@@ -51,7 +49,7 @@
         columns:
             grid.Columns(
              grid.Column(Resource.Sava_ExcelPolicy_Number, format: @<text>  <span class="display-mode"> @item.policy_number </span> <label id="UserID" class="edit-mode">@item.policy_number</label> </text>, style: "col1Width"),
-             grid.Column("id_seller", Resource.Sava_ExcelSeller_id, format: @<text>  <span class="display-mode">   <label id="lblName">@item.id_seller</label> </span> <input type="text" id="Name" value="@item.id_seller" class="edit-mode" /></text>, style: "col2Width"),
+             @*grid.Column("id_seller", Resource.Sava_ExcelSeller_id, format: @<text>  <span class="display-mode">   <label id="lblName">@item.id_seller</label> </span> <input type="text" id="Name" value="@item.id_seller" class="edit-mode" /></text>, style: "col2Width"),*@
              grid.Column("SSN_insured", Resource.Sava_ExcelSSN_Insured, format: @<text> <span class="display-mode"> <label id="lblSSN_insured">@item.SSN_insured</label> </span>  <input type="text" id="SSN_insured" value="@item.SSN_insured" class="edit-mode" /> </text>, style: "col2Width"),
              grid.Column("SSN_policyHolder", Resource.Sava_ExcelSSN_Holder, format: @<text> <span class="display-mode"> <label id="lblSSN_policyHolder">@item.SSN_policyHolder</label> </span>  <input type="text" id="SSN_policyHolder" value="@item.SSN_policyHolder" class="edit-mode" /> </text>, style: "col2Width"),
              grid.Column("expiry_date", Resource.Sava_ExcelExpiry_Date, format: @<text> <span class="display-mode"> <label id="lblexpiry_date">@item.expiry_date</label> </span>  <input type="date" id="expiry_date" value="@item.expiry_date" class="edit-mode" /> </text>, style: "col2Width"),
@@ -69,12 +67,14 @@
     
         
 </div>
+
     <div class="row" id="buttonRow" style="visibility:hidden">
         <button type="button" class="btn btn-success " id="SaveTable">
             @Resource.Sava_Excel_SavePolicy
         </button>
     </div>
     </div>
+
 <style>
     tr > td > input {
             width: 130px;
@@ -86,8 +86,6 @@
 
     $(document).ready(function(){
       
-        
-     
     });
 
     var repost = parseInt( @ViewBag.IsRepost);
