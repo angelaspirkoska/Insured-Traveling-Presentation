@@ -39,6 +39,7 @@ namespace InsuredTraveling.Controllers
         private IRolesService _rs;
         private IEventsService _es;
         private readonly ISavaPoliciesService _savaPoliciesService;
+        private IEventUserService _eus;
 
         public SearchController(IPolicyService ps, 
                                 IFirstNoticeOfLossService fnls, 
@@ -52,7 +53,9 @@ namespace InsuredTraveling.Controllers
                                 IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService,
                                 IRolesService rs,
                                 IEventsService es,
-                                ISavaPoliciesService savaPoliciesService)
+                                ISavaPoliciesService savaPoliciesService,
+                                IEventUserService eus
+                                )
         {
             _ps = ps;
             _fnls = fnls;
@@ -68,6 +71,7 @@ namespace InsuredTraveling.Controllers
             _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
             _es = es;
             _savaPoliciesService = savaPoliciesService;
+            _eus = eus;
         }
 
         [HttpGet]
@@ -852,23 +856,35 @@ namespace InsuredTraveling.Controllers
                     default: break;
                 }
             }
-            var jsonObject = new JObject();
 
+            var jsonObject = new JObject();
             var languageId = SiteLanguages.CurrentLanguageId();
             var searchModel = data.Select(Mapper.Map<@event, Event>).ToList();
+
+            foreach(Event oneEvent in searchModel)
+            {
+                oneEvent.PeopleAttending= _eus.CountPeopleAttending(oneEvent.id);
+                
+            }
             
             var array = JArray.FromObject(searchModel.ToArray());
             jsonObject.Add("data", array);
             return jsonObject;
         }
-
-
-        public int getEvetUsers()
+        [HttpGet]
+        [Route("GetEventUsers")]
+        public JObject GetEventUsers(int eventID)
         {
+            var jsonObject = new JObject();
+            List<SearchRegisteredUser> ListUsers = new List<SearchRegisteredUser>();
+            
 
-
-            return 0;
+            ListUsers = _eus.PeoplePerEventAttending(eventID);
+            var array = JArray.FromObject(ListUsers.ToArray());
+            jsonObject.Add("data", array);
+            return jsonObject;
         }
+
 
         [HttpGet]
         [Route("GetRegisteredUsers")]

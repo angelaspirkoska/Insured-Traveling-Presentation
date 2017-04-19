@@ -34,6 +34,7 @@ namespace InsuredTraveling.App_Start
 
             Mapper.CreateMap<@event, Event>().AfterMap((src, dst) =>
             {
+                dst.id = src.ID;
                 dst.Title = src.Title;
                 dst.EventType = src.Type == false ? "event" : "vip event";
                 dst.Location = src.Location;

@@ -7,7 +7,10 @@ namespace InsuredTraveling.Models
 {
     public class Event
     {
+        public int id { get; set; }
         public string CreatedBy { get; set; }
+        //public List<SearchRegisteredUser> ListUsers { get; set; }
+        public int PeopleAttending { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
         public string Organizer { get; set; }

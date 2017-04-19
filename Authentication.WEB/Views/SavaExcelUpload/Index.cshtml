@@ -152,7 +152,7 @@
                 var discount_points = tr.find("#discount_points").val();
                 var myObj = {
                     "policy_number": policy_number,
-                    "id_seller": Name,
+                    //"id_seller": Name,
                     "SSN_insured": SSN_insured,
                     "SSN_policyHolder": SSN_policyHolder,
                     "expiry_date": expiry_date,
@@ -162,17 +162,17 @@
                 };
 
                 list.push(myObj);
-                alert(JSON.stringify(myObj));
+                //alert(JSON.stringify(myObj));
             });
 
-            alert(JSON.stringify(list));
+            //alert(JSON.stringify(list));
             $.ajax({
                 url: '../SavaExcelUpload/SavePolicy',
                 data: JSON.stringify(list),
                 type: 'POST',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    alert(data);
+                    alert("Uspesno");
                 }
             });
 

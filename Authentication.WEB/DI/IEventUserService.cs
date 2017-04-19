@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InsuredTraveling.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace InsuredTraveling.DI
 {
     public interface IEventUserService
     {
-        int CountPeopleAttending(string eventName);
+        int CountPeopleAttending(int eventName);
+        List<SearchRegisteredUser> PeoplePerEventAttending(int eventName);
     }
 }

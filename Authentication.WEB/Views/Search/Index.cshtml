@@ -152,7 +152,7 @@
     <br />
     <br />
     <div class="row">
-        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableEvents">
+        <table style="width: 100%; " class="table table-bordered table-hover table-striped"  id="tableEvents">
             <thead>
                 <tr>
                     <th>@InsuredTraveling.Resource.Event_Title</th>
@@ -164,9 +164,27 @@
                     <th>@InsuredTraveling.Resource.Event_EndDate</th>
                     <th>@InsuredTraveling.Resource.Event_PublishDate</th>
                     <th>@InsuredTraveling.Resource.Event_CreatedBy</th>
+                    <th>@InsuredTraveling.Resource.Event_CreatedBy</th>
+                    <th>@InsuredTraveling.Resource.Event_CreatedBy</th>
                 </tr>
             </thead>
             <tbody id="searchResultEvents"></tbody>
+        </table>
+    </div>
+    <div class="row">
+        <table style="width: 100%;  visibility:hidden" class="table table-bordered table-hover table-striped" id="tableEvenUser">
+            <thead>
+                <tr>
+                    <th>@InsuredTraveling.Resource.SearchTable_UserName</th>
+                    <th>@InsuredTraveling.Resource.SearchTable_FirstName</th>
+                    <th>@InsuredTraveling.Resource.SearchTable_LastName</th>
+                    <th>@InsuredTraveling.Resource.SearchTable_Email</th>
+                    <th>@InsuredTraveling.Resource.SearchTable_RoleName</th>
+                    <th>@InsuredTraveling.Resource.SearchTable_CreatedOn</th>
+                    <th>@InsuredTraveling.Resource.SearchTable_ActiveInactiveUser</th>
+                </tr>
+            </thead>
+            <tbody id="searchResultEventUser"></tbody>
         </table>
     </div>
 </div>
@@ -1091,6 +1109,10 @@
         $("#searchEvents").hide();
         $("#tableEvents").DataTable().destroy();
         $("#tableEvents").DataTable();
+
+        $("#tableEvenUser").DataTable().destroy();
+        $("#tableEvenUser").DataTable();
+
         $("#tableClients").DataTable().destroy();
         $("#tableClients").DataTable();
         $("#tableRegisteredUsers").DataTable().destroy();
@@ -1442,8 +1464,26 @@
                { data: "StartDate" },
                { data: "EndDate" },
                { data: "PublishDate" },
-               { data: "CreatedBy" }
+               { data: "CreatedBy" },
+               { data: "PeopleAttending" },
+                {
+                    data: "Title",
+                    "render": function (data, type, row, meta) {
+                        if (type === 'display') {
+                            return $('<a>')
+                                .attr('href', '#' )                                
+                                .text("@InsuredTraveling.Resource.Policy_CreatePolicy")
+                                .attr("onclick", "SearchEventUsers2(" + row.id + ")")
+                                .wrap('<div></div>')
+                                .parent()
+                                .html();
+                        } else {
+                            return data;
+                        }
+                    }
+                }
             ],
+            
             select: true
         });
 
@@ -1452,6 +1492,33 @@
         },
             800);
     };
+
+    function SearchEventUsers2(strID) {
+        $("#tableEvenUser").DataTable().destroy();
+        $("#tableEvenUser").attr("visibility", "visible");
+        $("#tableEvenUser").DataTable({
+            dom: "Bfrtip",
+            ajax: "/Search/GetEventUsers?eventID=" + strID,
+            columns: [
+               { data: "Username" },
+                    { data: "FirstName" },
+                    { data: "LastName" },
+                    { data: "Email" },
+                    { data: "RoleName" },
+                    { data: "CreatedOn" },
+                    { data: "ActiveInactive" }
+               
+            ],
+            
+            select: true
+        });
+
+        $('html,body').animate({
+            scrollTop: $("#tableEvenUser").offset().top
+        },
+            800);
+    };
+    
 
     function SearchChat() {
         $('html,body').animate({
