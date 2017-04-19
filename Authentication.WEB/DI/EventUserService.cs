@@ -43,7 +43,7 @@ namespace InsuredTraveling.DI
                         if ( event_us.UserID == user.Id ) 
                         {
                             
-                            oneUser.ID = user.Id;
+                            oneUser.ID = user.UserName;
                             oneUser.LastName = user.LastName;
                             oneUser.FirstName = user.FirstName;
                             oneUser.Email = user.Email;

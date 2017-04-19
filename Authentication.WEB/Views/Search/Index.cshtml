@@ -1495,7 +1495,7 @@
 
     function SearchEventUsers2(strID) {
         $("#tableEvenUser").DataTable().destroy();
-        $("#tableEvenUser").attr("visibility", "visible");
+        $("#tableEvenUser").css("visibility", "visible");
         $("#tableEvenUser").DataTable({
             dom: "Bfrtip",
             ajax: "/Search/GetEventUsers?eventID=" + strID,
