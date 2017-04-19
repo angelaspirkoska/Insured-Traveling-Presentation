@@ -1,25 +1,44 @@
 ﻿using InsuredTraveling.Models;
-using Rotativa;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using System.Net.Mail;
+using Authentication.WEB.Services;
 
 namespace InsuredTraveling.Helpers
 {
     public static class SendSavaEmailHelper
     {
-        public static void SendVaucerEmail(UsePointsModel model)
+        public static bool SendVaucerEmail(UsePointsModel model, string userEmail, float? userPoints)
         {
-            //string fullPath = System.Web.Hosting.HostingEnvironment.MapPath("~/SavaVaucers/" + model.UserEmail + "-" + model.Points + ".pdf");
-            var actionResult = new ViewAsPdf("Print", model);
-           // var byteArray = actionResult.();
+            try
+            {
+                var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/EmailHeaderSuccess.png"));
+                inlineLogo.ContentId = Guid.NewGuid().ToString();
 
-            //var fileStream = new FileStream(fullPath, FileMode.Create, FileAccess.Write);
-            //fileStream.Write(byteArray, 0, byteArray.Length);
-            //fileStream.Close();
+                string mailBody = string.Format(@"   
+                     <div style='margin-left:20px'>
+                     <img style='width:700px' src=""cid:{0}"" />
+                     <p> <b> Почитувани, </b></p>                  
+                     <br />
+                 <br /> <br />" + "Искористивте: " + model.Points + " поени. Ви остануваат уште "+ userPoints.ToString()+" поени.</div><br />"
+                , inlineLogo.ContentId);
+
+                var view = AlternateView.CreateAlternateViewFromString(mailBody, null, "text/html");
+                view.LinkedResources.Add(inlineLogo);
+
+                MailService mailService = new MailService(userEmail);
+                mailService.setSubject("Искористени поени");
+
+                mailService.setBodyText(userEmail, true);
+                mailService.AlternativeViews(view);
+
+                mailService.sendMail();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
         }
     }
 }

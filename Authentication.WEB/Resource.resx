@@ -1497,4 +1497,7 @@
   <data name="SearchTable_UserPoints" xml:space="preserve">
     <value>Points</value>
   </data>
+  <data name="WelcomeToSava" xml:space="preserve">
+    <value>Welcome to Sava</value>
+  </data>
 </root>

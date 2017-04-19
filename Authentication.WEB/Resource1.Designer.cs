@@ -4183,6 +4183,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Welcome to Sava.
+        /// </summary>
+        public static string WelcomeToSava {
+            get {
+                return ResourceManager.GetString("WelcomeToSava", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to With no Add-on.
         /// </summary>
         public static string WithNoAddOn {

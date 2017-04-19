@@ -9,7 +9,9 @@ using InsuredTraveling.DI;
 using InsuredTraveling.Helpers;
 using AutoMapper;
 using System.Globalization;
+using Microsoft.Ajax.Utilities;
 using Rotativa;
+using Newtonsoft.Json.Linq;
 
 namespace InsuredTraveling.Controllers.API
 {
@@ -34,16 +36,25 @@ namespace InsuredTraveling.Controllers.API
         {
             if (model != null)
             {
-                var policy = Mapper.Map<QRCodeSavaPolicy, SavaPolicyModel>(model);
-                var policyId = SaveSavaPoliciesHelper.SaveSavaPolicies(_savaPoliciesService, _userService, _savaSetupService, policy);
-                if (policyId != -1)
+                if (String.IsNullOrEmpty(model.PolicyNumber) || String.IsNullOrEmpty(model.EmailSeller) || String.IsNullOrEmpty(model.ExpireDate) || String.IsNullOrEmpty(model.Premium)
+                    || String.IsNullOrEmpty(model.SSNHolder) || String.IsNullOrEmpty(model.SSNInsured))
                 {
-                    return Ok();
+                    throw new Exception("Internal error: Not all parametars are valid");
                 }
                 else
                 {
-                    throw new Exception("Internal error: Not able to save policy");
+                    var policy = Mapper.Map<QRCodeSavaPolicy, SavaPolicyModel>(model);
+                    var policyId = SaveSavaPoliciesHelper.SaveSavaPolicies(_savaPoliciesService, _userService, _savaSetupService, policy);
+                    if (policyId != -1)
+                    {
+                        return Ok();
+                    }
+                    else
+                    {
+                        throw new Exception("Internal error: Not able to save policy");
+                    }
                 }
+               
             }
             else
             {
@@ -52,11 +63,13 @@ namespace InsuredTraveling.Controllers.API
            
         }
 
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("UsePoints")]
         public IHttpActionResult UsePoints(UsePointsModel model)
         {
             if (model != null)
             {
-                var user = _userService.GetUserByEmail(model.UserEmail);
+                var user = _userService.GetUserDataByUsername(model. Username);
                 if (user != null)
                 {
                     if (model.Points != null)
@@ -68,7 +81,14 @@ namespace InsuredTraveling.Controllers.API
                             if (user.Points >= points)
                             {
                                 var userPoints = user.Points - points;
-                                return Ok();
+                                if (SendSavaEmailHelper.SendVaucerEmail(model, user.Email, userPoints))
+                                {
+                                    user.Points = userPoints;
+                                    _userService.UpdateUserPoints(user);
+                                    return Ok();
+                                }
+                                else
+                                    throw new Exception("Internal error: The email is not send");
                             }
                             else
                                 throw new Exception("Internal error: The user have less points");
@@ -85,6 +105,23 @@ namespace InsuredTraveling.Controllers.API
             }
             else
                 throw new Exception("Internal error: Empty JSON");
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("CalulatePoints/{username}")]
+        public JObject CalulatePoints(string username)
+        {
+            if (username != null)
+            {
+                var user = _userService.GetUserDataByUsername(username);
+                JObject data = new JObject();
+                data.Add("Points", user.Points);
+                return data;
+            }
+            else
+            {
+                throw new Exception("Internal error: Empty username");
+            }
         }
     }
 }

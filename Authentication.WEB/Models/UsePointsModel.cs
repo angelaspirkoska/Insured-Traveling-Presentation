@@ -7,7 +7,7 @@ namespace InsuredTraveling.Models
 {
     public class UsePointsModel
     {
-        public string UserEmail { get; set; }
+        public string Username { get; set; }
         public string Points { get; set; }
     }
 }

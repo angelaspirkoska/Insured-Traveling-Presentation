@@ -1491,4 +1491,7 @@
   <data name="SearchTable_UserPoints" xml:space="preserve">
     <value>Поени</value>
   </data>
+  <data name="WelcomeToSava" xml:space="preserve">
+    <value>Почитувани,</value>
+  </data>
 </root>

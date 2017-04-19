@@ -130,7 +130,7 @@ namespace InsuredTraveling.DI
 
         public aspnetuser GetUserDataByUsername(string username)
         {
-            aspnetuser a = _db.aspnetusers.Where(x => x.UserName == username).ToArray().FirstOrDefault();
+            aspnetuser a = _db.aspnetusers.Where(x => x.UserName == username).FirstOrDefault();
             return a;
         }
 
