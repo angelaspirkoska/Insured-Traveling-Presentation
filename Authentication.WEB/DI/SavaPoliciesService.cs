@@ -23,6 +23,7 @@ namespace InsuredTraveling.DI
                 AddSavaPolicy(policy);
             }
         }
+
         public void AddSavaPolicy(SavaPolicyModel sava_policy)
         {
             sava_policy sp = _db.sava_policy.Create();
@@ -30,7 +31,46 @@ namespace InsuredTraveling.DI
             
             _db.sava_policy.Add(sp);
             _db.SaveChanges();
+            
+            //SumDiscountPoints(sava_policy.SSN_policyHolder,sava_policy.discount_points);
         }
+
+        //Dodava poeni vo  aspnetusers 
+        public void SumDiscountPoints(string policyHolder,float DiscountPoints)
+        {
+            try
+            {
+                
+                var tempUser = _db.aspnetusers.Where(x => x.EMBG.Equals(policyHolder)).FirstOrDefault();
+                if (tempUser.Points == null)
+                {
+                    tempUser.Points = 0;
+                    tempUser.Points += DiscountPoints;
+                }
+                else
+                {
+                    tempUser.Points += DiscountPoints;
+                }
+
+                _db.aspnetusers.Attach(tempUser);
+                var entry = _db.Entry(tempUser);
+                entry.Property(e => e.Points).IsModified = true;
+                _db.SaveChanges();
+
+                
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        public float? GetUserPoints(string policyHolder)
+        {
+            var tempUser = _db.aspnetusers.Where(x => x.EMBG.Equals(policyHolder)).FirstOrDefault();
+            return tempUser.Points;
+        }
+      
 
         public List<sava_policy> GetSavaPoliciesForList(string ssn, string policyNumber)
         {
@@ -41,7 +81,7 @@ namespace InsuredTraveling.DI
                         (String.IsNullOrEmpty(policyNumber) || x.policy_number.Equals(number)) &&
                         (String.IsNullOrEmpty(ssn) || x.SSN_policyHolder.Equals(ssn))).ToList();
         }
-
+            
         public List<sava_policy> GetSavaPoliciesAdminForList(string policyNumber, string ssnInsured, string ssnHolder)
         {
             int number = !String.IsNullOrEmpty(policyNumber) ? Convert.ToInt32(policyNumber) : 0;
@@ -52,6 +92,7 @@ namespace InsuredTraveling.DI
                        (String.IsNullOrEmpty(ssnInsured) || x.SSN_insured.Equals(ssnInsured)) &&
                        (String.IsNullOrEmpty(ssnHolder)) || x.SSN_policyHolder.Equals(ssnHolder)).ToList();
         }
+
         public sava_policy GetSavaPolicyIdByPolicyNumber(string id)
         {
             int ID = int.Parse(id);

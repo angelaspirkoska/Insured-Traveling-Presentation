@@ -27,5 +27,7 @@ namespace InsuredTraveling.DI
         aspnetuser GetUserBySSN(string ssn);
         bool UpdateUserPoints(aspnetuser user);
         aspnetuser GetUserByEmail(string email);
+        void UpdatePremiumSum(string policyHolder, float PolicyPremium);
+        float? GetUserSumofPremiums(string policyHolder);
     }
 }

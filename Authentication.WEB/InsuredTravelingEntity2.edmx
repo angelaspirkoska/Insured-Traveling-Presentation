@@ -106,6 +106,7 @@ warning 6002: The table/view 'def.db_9eb138_sava.aspnetuserlogins' does not have
           <Property Name="CreatedBy" Type="varchar" MaxLength="128" />
           <Property Name="Points" Type="float" />
           <Property Name="updated" Type="bool" Nullable="false" />
+          <Property Name="Sum_premium" Type="float" />
         </EntityType>
         <EntityType Name="bank_account_info">
           <Key>
@@ -2248,6 +2249,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="broker_employees" Relationship="Self.FKBrrokerID" FromRole="aspnetusers" ToRole="broker_employees" />
           <NavigationProperty Name="broker_employees1" Relationship="Self.FKEmployeID" FromRole="aspnetusers" ToRole="broker_employees" />
           <NavigationProperty Name="aspnetroles" Relationship="Self.aspnetuserroles" FromRole="aspnetusers" ToRole="aspnetroles" />
+          <Property Name="Sum_premium" Type="Single" />
         </EntityType>
         <EntityType Name="bank_account_info">
           <Key>
@@ -4395,6 +4397,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="aspnetusers">
             <EntityTypeMapping TypeName="db_9eb138_savaModel.aspnetuser">
               <MappingFragment StoreEntitySet="aspnetusers">
+                <ScalarProperty Name="Sum_premium" ColumnName="Sum_premium" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />

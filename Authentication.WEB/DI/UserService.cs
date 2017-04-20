@@ -186,5 +186,28 @@ namespace InsuredTraveling.DI
         {
             return _db.aspnetusers.FirstOrDefault(x => x.Email.Equals(email));
         }
+        public void UpdatePremiumSum(string policyHolder, float PolicyPremium)
+        {
+            var tempUser = _db.aspnetusers.Where(x => x.EMBG.Equals(policyHolder)).FirstOrDefault();
+           if (tempUser.Sum_premium == null)
+            {
+                tempUser.Sum_premium = 0;
+                tempUser.Sum_premium += PolicyPremium;
+            }else
+            {
+                tempUser.Sum_premium += PolicyPremium;
+            }
+            _db.aspnetusers.Attach(tempUser);
+            var entry = _db.Entry(tempUser);
+            entry.Property(e => e.Sum_premium).IsModified = true;
+            _db.SaveChanges();
+
+        }
+        public float? GetUserSumofPremiums(string policyHolder)
+        {
+            var tempUser = _db.aspnetusers.Where(x => x.EMBG.Equals(policyHolder)).FirstOrDefault();
+            return tempUser.Sum_premium;
+
+        }
     }
 }

@@ -27,5 +27,23 @@ namespace InsuredTraveling.DI
 
             return roles;
         }
+
+        public void ChangeUserRole(string userID, string role)
+        {
+            var tempUser = _db.aspnetroles.Where(x => x.Id.Equals(userID)).FirstOrDefault();
+            tempUser.Name = role;
+            _db.aspnetroles.Attach(tempUser);
+            var entry = _db.Entry(tempUser);
+            entry.Property(e => e.Name).IsModified = true;
+            _db.SaveChanges();
+        }
+        public string GetRoleById(string userID)
+        {
+            var tempUser = _db.aspnetroles.Where(x => x.Id.Equals(userID)).FirstOrDefault();
+            var tempa = _db.aspnetusers.Where(x => x.Id.Equals(userID)).FirstOrDefault();
+            
+            return tempUser.Id;
+        }
+
     }
 }

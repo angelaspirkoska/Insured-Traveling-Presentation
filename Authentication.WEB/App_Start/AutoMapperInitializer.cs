@@ -109,6 +109,7 @@ namespace InsuredTraveling.App_Start
                 var firstOrDefault = src.aspnetroles.FirstOrDefault();
                 if (firstOrDefault != null) dst.Role = firstOrDefault.Name;
                 dst.PhoneNumber = src.PhoneNumber;
+                dst.Sum_premium = src.Sum_premium;
             });
 
             Mapper.CreateMap<CreateClientModel , insured>().AfterMap((src, dst) =>

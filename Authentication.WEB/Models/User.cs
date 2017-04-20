@@ -93,6 +93,7 @@ namespace InsuredTraveling.Models
         [Display(Name = "User_Role", ResourceType = typeof(Resource))]
         public string Role { get; set; }
         public string CreatedBy { get; set; }
+        public float? Sum_premium { get; set; }
     }
 
     public class SmsCodeVerify

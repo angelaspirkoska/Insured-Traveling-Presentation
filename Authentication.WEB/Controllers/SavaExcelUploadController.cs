@@ -21,14 +21,17 @@ namespace InsuredTraveling.Controllers
         private readonly ISava_setupService _savaSetupService;
         private readonly IUserService _userService;
         private readonly IPolicyService _ps;
+        private readonly IRolesService _rs;
+
         public SavaExcelUploadController(ISavaPoliciesService sp,
                                          ISava_setupService savaSetupService,
-                                         IUserService userService, IPolicyService ps)
+                                         IUserService userService, IPolicyService ps, IRolesService rs)
         {
             _sp = sp;
             _savaSetupService = savaSetupService;
             _userService = userService;
             _ps = ps;
+            _rs = rs;
         }
         // GET: SavaExcelUpload
         public ActionResult Index()
@@ -45,7 +48,36 @@ namespace InsuredTraveling.Controllers
             ViewBag.Success = true;
             try
             {
-                _sp.AddSavaPolicyList(model);
+                foreach (SavaPolicyModel policy in model)
+                {
+                    
+                    _sp.AddSavaPolicy(policy);
+                    _sp.SumDiscountPoints(policy.SSN_policyHolder, policy.discount_points);
+                    _userService.UpdatePremiumSum(policy.SSN_policyHolder, policy.premium);
+                    var Sava_admin =  _savaSetupService.GetActiveSavaSetup();
+
+                    //float? UserSumPremiums = _userService.GetUserSumofPremiums(policy.SSN_policyHolder);
+                    //if (UserSumPremiums == null)
+                    //{
+                    //    UserSumPremiums = 0;
+                    //}
+                    //var PolicyUser = _userService.GetUserBySSN(policy.SSN_policyHolder);
+                    //string tempUserRole = _rs.GetRoleById(PolicyUser.Id);
+
+                    //if(tempUserRole == "")
+                    //{
+                    //    _rs.ChangeUserRole(PolicyUser.Id, "");
+                    //}
+                    //if (tempUserRole == "")
+                    //{
+                    //    if (Sava_admin.vip_sum <= UserSumPremiums)
+                    //    {
+                    //        _rs.ChangeUserRole(PolicyUser.Id, "");
+                    //    }
+                    //}
+                }
+
+             
             }
             catch
             {
@@ -73,7 +105,6 @@ namespace InsuredTraveling.Controllers
                 {
 
                     JSONObject.Add("Exists", "false");
-
                 }
                 else
                 {
@@ -86,8 +117,7 @@ namespace InsuredTraveling.Controllers
                 JSONObject.Add("Error", "Internal error");
                 throw new Exception("Internal error",ex);
             }
-
-           
+            
             return JSONObject;
         }
 
