@@ -139,10 +139,48 @@
         });
 
         $('#SaveTable').on('click', function () {
+            var valid = true;
+           
+            function checkPolicyID(policyNumber) {
+                var polNum = {
+                    "policy_number": policyNumber,
+                }
+
+                $.ajax({
+                    url: '../SavaExcelUpload/CheckPolicyNumberExist',
+                    data: JSON.stringify(polNum),
+                    type: 'POST',
+                    async: false,
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        var returnedData = JSON.parse(data);
+                        if (returnedData.Exists == "true") {
+                            red(policyNumber);
+                        }
+                        return returnedData;
+                    }
+                });
+            }
+
+            function red(policyNumber) {
+                valid = false;
+                $("tbody tr").each(function (index) {
+                    var tr = $(this);
+                    var policy_number2 = tr.find("#UserID").html();
+                    if ( policyNumber == policy_number2) {
+                        tr.find("#UserID").parent().css("border-color", "red");
+                        tr.find("#UserID").parent().children().css("border-color", "red");
+                        
+                    }
+                }
+            )};
+
             var list = [];
             $("tbody tr").each(function (index) {
                 var tr = $(this);
                 var policy_number = tr.find("#UserID").html();
+                var x = checkPolicyID(policy_number)              
+               
                 var Name = tr.find("#Name").val();
                 var SSN_insured = tr.find("#SSN_insured").val();
                 var SSN_policyHolder = tr.find("#SSN_policyHolder").val();
@@ -164,18 +202,20 @@
                 list.push(myObj);
                 //alert(JSON.stringify(myObj));
             });
-
-            //alert(JSON.stringify(list));
-            $.ajax({
-                url: '../SavaExcelUpload/SavePolicy',
-                data: JSON.stringify(list),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    alert("Uspesno");
-                }
-            });
-
+            if (valid) {
+                alert("polisata e validna");
+                $.ajax({
+                    url: '../SavaExcelUpload/SavePolicy',
+                    data: JSON.stringify(list),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        alert("Uspesno zacuvana polisa");
+                    }
+                });
+            } else {
+                alert("Policy not valid");
+            }
         });
     });
 

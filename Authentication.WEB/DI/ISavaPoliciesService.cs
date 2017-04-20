@@ -14,5 +14,6 @@ namespace InsuredTraveling.DI
         List<sava_policy> GetSavaPoliciesForList(string ssn, string policyNumber);
         List<sava_policy> GetSavaPoliciesAdminForList(string policyNumber, string ssnInsured, string ssnHolder);
         int SaveSavaPolicy(sava_policy policy);
+         sava_policy GetSavaPolicyIdByPolicyNumber(string id);
     }
 }

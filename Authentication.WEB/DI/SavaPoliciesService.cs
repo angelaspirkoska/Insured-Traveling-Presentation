@@ -52,6 +52,11 @@ namespace InsuredTraveling.DI
                        (String.IsNullOrEmpty(ssnInsured) || x.SSN_insured.Equals(ssnInsured)) &&
                        (String.IsNullOrEmpty(ssnHolder)) || x.SSN_policyHolder.Equals(ssnHolder)).ToList();
         }
+        public sava_policy GetSavaPolicyIdByPolicyNumber(string id)
+        {
+            int ID = int.Parse(id);
+            return _db.sava_policy.Where(x => x.policy_number.Equals(ID)).FirstOrDefault();
+        }
 
         public int SaveSavaPolicy(sava_policy policy)
         {

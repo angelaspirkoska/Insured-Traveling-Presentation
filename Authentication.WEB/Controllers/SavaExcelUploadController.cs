@@ -11,6 +11,7 @@ using System.IO;
 using InsuredTraveling.DI;
 using System.Configuration;
 using System.Globalization;
+using Newtonsoft.Json.Linq;
 
 namespace InsuredTraveling.Controllers
 {
@@ -19,14 +20,15 @@ namespace InsuredTraveling.Controllers
         private readonly ISavaPoliciesService _sp;
         private readonly ISava_setupService _savaSetupService;
         private readonly IUserService _userService;
-        
+        private readonly IPolicyService _ps;
         public SavaExcelUploadController(ISavaPoliciesService sp,
                                          ISava_setupService savaSetupService,
-                                         IUserService userService)
+                                         IUserService userService, IPolicyService ps)
         {
             _sp = sp;
             _savaSetupService = savaSetupService;
             _userService = userService;
+            _ps = ps;
         }
         // GET: SavaExcelUpload
         public ActionResult Index()
@@ -52,6 +54,44 @@ namespace InsuredTraveling.Controllers
             
             return View(model);
         }
+       
+        [HttpPost]
+        [Route("CheckPolicyNumberExist")]
+        public JObject CheckPolicyNumberExist(string policy_number)
+        {
+            var JSONObject = new JObject();
+            JSONObject.Add("Error", "");
+            if (policy_number == null || policy_number == "")
+            {
+                JSONObject.Add("Error", "Internal error: Empty Input");
+                throw new Exception("Internal error: Empty Input");
+            }
+            try
+            {
+                var result = _sp.GetSavaPolicyIdByPolicyNumber(policy_number);
+                if (result == null)
+                {
+
+                    JSONObject.Add("Exists", "false");
+
+                }
+                else
+                {
+                    JSONObject.Add("Exists", "true");
+                }
+
+            }
+            catch(Exception ex)
+            {
+                JSONObject.Add("Error", "Internal error");
+                throw new Exception("Internal error",ex);
+            }
+
+           
+            return JSONObject;
+        }
+
+
 
         [HttpPost]
         public ActionResult Index(SavaExcelModel model)
@@ -133,6 +173,9 @@ namespace InsuredTraveling.Controllers
             dt.Rows.RemoveAt(0);
             return dt;
         }
+
+
+
         public static string GetCellValue(SpreadsheetDocument document, Cell cell)
         {
             SharedStringTablePart stringTablePart = document.WorkbookPart.SharedStringTablePart;
