@@ -2084,6 +2084,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ForgetPasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KanbanController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\API\MobilePolicyApiController.cs" />
     <Compile Include="Controllers\API\NewsApiController.cs" />
@@ -2479,6 +2480,7 @@
     <Folder Include="News\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ChangeLanuage\" />
+    <Folder Include="Views\Kanban\" />
     <Folder Include="Views\RefreshToken\" />
   </ItemGroup>
   <ItemGroup>
