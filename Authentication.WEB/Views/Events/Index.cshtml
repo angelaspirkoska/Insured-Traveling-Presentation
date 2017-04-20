@@ -1,0 +1,94 @@
+﻿@model InsuredTraveling.Models.Event
+@using System.Web.Optimization;
+@using System.Configuration;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+}
+@{
+    ViewBag.Title = "Events";
+}
+
+
+@if (ViewBag.Success != null)
+{
+    if (ViewBag.Success == "Success")
+    {
+        <div class="row">
+            <div class="col-md-5 col-sm-5">
+                <div class="alert alert-dismissible alert-danger" style="margin-left:12px; width:211%">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span>Successful!</span>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-5 col-sm-5">
+                <div class="alert alert-dismissible alert-success" style="margin-left:12px; width:211%">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span>Something went wrong!</span>
+                </div>
+            </div>
+        </div>
+    }
+
+}
+
+
+<script src="~/Scripts/jquery-ui.min.js" type="text/javascript"></script>
+@Styles.Render("~/Content/jqueryuicss")
+
+<h2>New Event</h2>
+
+<form id="eventForm" method="post" action="@Url.Action("AddEvent")" enctype="multipart/form-data">
+
+    <label> Title </label>
+    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventTitle" } })
+    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+
+    <label> Description </label>
+    @Html.TextAreaFor(model => model.Description, new { @class = "form-control input-sm", @id = "eventDescription" })
+    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+
+    <label> Organizer </label>
+    @Html.EditorFor(model => model.Organizer, new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventOrganizer" } })
+    @Html.ValidationMessageFor(model => model.Organizer, "", new { @class = "text-danger" })
+
+    <label> Location </label>
+    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventLocation" } })
+    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+
+
+    <label> Start Date </label>
+    @Html.EditorFor(model => model.StartDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventStartTime" } })
+    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+    
+    <label>Start Time:</label>
+    @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control input-sm travelInfo mandatoryField", type = "time", @id = "eventStartTime" } })
+    @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+
+    <label> End Date </label>
+    @Html.EditorFor(model => model.EndDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventEndTime" } })
+    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+
+    <label>End Time:</label>
+    @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control input-sm travelInfo mandatoryField", type = "time", @id = "eventEndTime" } })
+    @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+
+    @Html.LabelFor(model => model.EventType, htmlAttributes: new { @class = "control-label" })
+    <div class="inputs-spacing">
+        @Html.DropDownListFor(model => model.EventType, (List<SelectListItem>)ViewBag.EventTypes, new { @class = "form-control input-sm", id = "EventType"})
+        @Html.ValidationMessageFor(model => model.EventType, "", new { @class = "text-danger" })
+    </div>
+
+    <input type="submit" style="width:100px; margin-left:20px;" value="@InsuredTraveling.Resource.Events_AddEvent" class="btn btn-success">
+</form>
+
+
+
+
+

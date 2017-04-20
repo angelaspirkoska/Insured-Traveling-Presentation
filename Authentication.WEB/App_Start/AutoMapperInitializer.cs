@@ -46,6 +46,45 @@ namespace InsuredTraveling.App_Start
                 dst.EndDate = src.EndDate.Date;
             });
 
+            Mapper.CreateMap<Event, @event>().AfterMap((src, dst) =>
+            {
+                dst.Voucher = false;
+                src.CreatedBy = dst.CreatedBy;
+                src.PublishDate = DateTime.Now;
+                src.Title = dst.Title;
+                src.Description = dst.Description;
+                src.Location = dst.Location;
+                src.StartDate = dst.StartDate;
+                src.EndDate = src.EndDate;
+                src.Organizer = src.Organizer;
+                if (src.EventType.Equals("Normal"))
+                {
+                    dst.Chat = false;
+                    dst.Type = false; 
+                }
+                else if (src.EventType.Equals("VIP"))
+                {
+                    dst.Chat = false;
+                    dst.Type = true;
+                }
+                else if (src.EventType.Equals("VIP Chat"))
+                {
+                    dst.Chat = true;
+                    dst.Type = true;
+                }
+                var dateTime = src.StartDate;
+                var timeSpan = src.StartTime;
+                DateTime d = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
+                d = d.Add(timeSpan);
+                dst.StartDate = d;
+
+                 dateTime = src.EndDate;
+                 timeSpan = src.EndTime;
+                 d = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
+                d = d.Add(timeSpan);
+                dst.EndDate = d;
+            });
+
             Mapper.CreateMap<Event_UserModel, event_users>().AfterMap((src, dst) =>
             {
                 dst.EventID = src.EventID;

@@ -1494,4 +1494,10 @@
   <data name="WelcomeToSava" xml:space="preserve">
     <value>Почитувани,</value>
   </data>
+  <data name="Home_Events" xml:space="preserve">
+    <value>Нов настан</value>
+  </data>
+  <data name="Events_AddEvent" xml:space="preserve">
+    <value>Додај настан</value>
+  </data>
 </root>

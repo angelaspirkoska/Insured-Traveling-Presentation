@@ -219,8 +219,18 @@
                                                 <i class="icon-newspaper2"></i>
                                                 <span id="btnNews">@InsuredTraveling.Resource.Home_News</span>
                                             </a>
-                                        </li>
+                                        </li>         
                                     }
+                                    @if (r.IsUser("Sava_admin")|| r.IsUser("Sava_support"))
+                                    {
+                                    <li>
+                                        <a href="/Events/Index" id="eventsTab">
+                                            <i class="fa fa-tasks"></i>
+                                            <span id="btnEvents">@InsuredTraveling.Resource.Home_Events</span>
+                                        </a>
+                                    </li>
+                                    }
+                                    
                                     <li>
                                         <a href="/Search/Index" id="searchTab">
                                             <i class="icon-search4"></i>

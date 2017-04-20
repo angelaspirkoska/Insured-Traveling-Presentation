@@ -35,5 +35,11 @@ namespace InsuredTraveling.DI
                     .ToList();
         }
 
+        public int AddEvent(@event newEvent)
+        {
+            _db.events.Add(newEvent);
+            _db.SaveChanges();
+            return newEvent.ID;
+        }
     }
 }

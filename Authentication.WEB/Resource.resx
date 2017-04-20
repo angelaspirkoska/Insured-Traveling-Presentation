@@ -1500,4 +1500,10 @@
   <data name="WelcomeToSava" xml:space="preserve">
     <value>Welcome to Sava</value>
   </data>
+  <data name="Home_Events" xml:space="preserve">
+    <value>New Event</value>
+  </data>
+  <data name="Events_AddEvent" xml:space="preserve">
+    <value>Add Event</value>
+  </data>
 </root>

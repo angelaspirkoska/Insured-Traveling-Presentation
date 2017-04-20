@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace InsuredTraveling.Models
 {
@@ -19,5 +20,9 @@ namespace InsuredTraveling.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime PublishDate { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
+        public List<SelectListItem> EventTypes { get; set; }
+        
     }
 }

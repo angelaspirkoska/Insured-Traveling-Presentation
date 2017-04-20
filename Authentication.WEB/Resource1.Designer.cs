@@ -709,6 +709,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Event.
+        /// </summary>
+        public static string Events_AddEvent {
+            get {
+                return ResourceManager.GetString("Events_AddEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Female.
         /// </summary>
         public static string Female {
@@ -1335,6 +1344,15 @@ namespace InsuredTraveling {
         public static string Home_CreateUser {
             get {
                 return ResourceManager.GetString("Home_CreateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Event.
+        /// </summary>
+        public static string Home_Events {
+            get {
+                return ResourceManager.GetString("Home_Events", resourceCulture);
             }
         }
         

@@ -25,7 +25,7 @@ namespace InsuredTraveling.Helpers
                     var dateTime = firstNoticeOfLossViewModel.AccidentDateTimeHealth.Value;
                     var timeSpan = firstNoticeOfLossViewModel.AccidentTimeHealth.Value;
                     DateTime d = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
-                    d.Add(timeSpan);
+                    d = d.Add(timeSpan);
                     additionalInfo.Datetime_accident = d;
                 }
                 var healthInsuranceInfo = new health_insurance_info
