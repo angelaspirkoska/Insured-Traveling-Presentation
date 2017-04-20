@@ -16,7 +16,7 @@
     {
         <div class="row">
             <div class="col-md-5 col-sm-5">
-                <div class="alert alert-dismissible alert-danger" style="margin-left:12px; width:211%">
+                <div class="alert alert-dismissible alert-success" style="margin-left:12px; width:211%">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     <span>Successful!</span>
                 </div>
@@ -27,7 +27,7 @@
     {
         <div class="row">
             <div class="col-md-5 col-sm-5">
-                <div class="alert alert-dismissible alert-success" style="margin-left:12px; width:211%">
+                <div class="alert alert-dismissible alert-danger" style="margin-left:12px; width:211%">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     <span>Something went wrong!</span>
                 </div>
@@ -45,47 +45,82 @@
 
 <form id="eventForm" method="post" action="@Url.Action("AddEvent")" enctype="multipart/form-data">
 
-    <label> Title </label>
-    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventTitle" } })
-    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+    <div class="col-md-6">
+        <div class="form-group">
 
-    <label> Description </label>
-    @Html.TextAreaFor(model => model.Description, new { @class = "form-control input-sm", @id = "eventDescription" })
-    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-
-
-    <label> Organizer </label>
-    @Html.EditorFor(model => model.Organizer, new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventOrganizer" } })
-    @Html.ValidationMessageFor(model => model.Organizer, "", new { @class = "text-danger" })
-
-    <label> Location </label>
-    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventLocation" } })
-    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
-
-
-    <label> Start Date </label>
-    @Html.EditorFor(model => model.StartDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventStartTime" } })
-    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-    
-    <label>Start Time:</label>
-    @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control input-sm travelInfo mandatoryField", type = "time", @id = "eventStartTime" } })
-    @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
-
-    <label> End Date </label>
-    @Html.EditorFor(model => model.EndDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventEndTime" } })
-    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-
-    <label>End Time:</label>
-    @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control input-sm travelInfo mandatoryField", type = "time", @id = "eventEndTime" } })
-    @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
-
-    @Html.LabelFor(model => model.EventType, htmlAttributes: new { @class = "control-label" })
-    <div class="inputs-spacing">
-        @Html.DropDownListFor(model => model.EventType, (List<SelectListItem>)ViewBag.EventTypes, new { @class = "form-control input-sm", id = "EventType"})
-        @Html.ValidationMessageFor(model => model.EventType, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="form-group">
+            <label class="control-label"> Title </label>
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventTitle" } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="form-group">
+            <label class="control-label"> Description </label>
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control input-sm", @id = "eventDescription" })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="form-group">
+            <label class="control-label"> Organizer </label>
+            @Html.EditorFor(model => model.Organizer, new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventOrganizer" } })
+            @Html.ValidationMessageFor(model => model.Organizer, "", new { @class = "text-danger" })
+        </div>
     </div>
 
-    <input type="submit" style="width:100px; margin-left:20px;" value="@InsuredTraveling.Resource.Events_AddEvent" class="btn btn-success">
+    <div class="col-md-7">
+        <div class="form-group">
+            <label class="control-label"> Location </label>
+            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventLocation" } })
+            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="form-group">
+            <label class="control-label"> Start Date </label>
+            @Html.EditorFor(model => model.StartDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventStartTime" } })
+            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="form-group">
+            <label class="control-label"> Start Time:</label>
+            @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control input-sm travelInfo mandatoryField", type = "time", @id = "eventStartTime" } })
+            @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="form-group">
+            <label class="control-label"> End Date </label>
+            @Html.EditorFor(model => model.EndDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventEndTime" } })
+            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="form-group">
+            <label class="control-label"> End Time:</label>
+            @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control input-sm travelInfo mandatoryField", type = "time", @id = "eventEndTime" } })
+            @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="form-group">
+            @Html.LabelFor(model => model.EventType, htmlAttributes: new { @class = "control-label" })
+            <div class="inputs-spacing">
+                @Html.DropDownListFor(model => model.EventType, (List<SelectListItem>)ViewBag.EventTypes, new { @class = "form-control input-sm", id = "EventType" })
+                @Html.ValidationMessageFor(model => model.EventType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="form-group">
+            <input type="submit" style="width:100px; margin-bottom:100px;" value="@InsuredTraveling.Resource.Events_AddEvent" class="btn btn-success">
+        </div>
+    </div>
 </form>
 
 
