@@ -237,12 +237,16 @@
                                             <span id="btnSearch">@InsuredTraveling.Resource.Home_Search</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="/FirstNoticeOfLoss/Index" id="fnolTab">
-                                            <i class="icon-file-plus"></i>
-                                            <span id="btnFNOL">@InsuredTraveling.Resource.Home_FirstNoticeOfLoss</span>
-                                        </a>
-                                    </li>
+                                    @if (r.IsUser("Admin"))
+                                    {
+                                        <li>
+                                            <a href="/FirstNoticeOfLoss/Index" id="fnolTab">
+                                                <i class="icon-file-plus"></i>
+                                                <span id="btnFNOL">@InsuredTraveling.Resource.Home_FirstNoticeOfLoss</span>
+                                            </a>
+                                        </li>
+                                    }
+                                    
                                     @if (r.IsUser("Admin") || r.IsUser("Sava_admin"))
                                     {
                                         <li>
@@ -251,12 +255,15 @@
                                                 <span id="btnAdmin">@InsuredTraveling.Resource.Home_AdminPanel</span>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="/Client/Create" id="createTab">
-                                                <i class="icon-user-plus"></i>
-                                                <span id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</span>
-                                            </a>
-                                        </li>
+                                        if (!r.IsUser("Sava_admin"))
+                                        {
+                                            <li>
+                                                <a href="/Client/Create" id="createTab">
+                                                    <i class="icon-user-plus"></i>
+                                                    <span id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</span>
+                                                </a>
+                                            </li>
+                                        }
                                         <li>
                                             <a href="/SignUp/CreateUser" id="signupTab">
                                                 <i class="icon-man-woman"></i>

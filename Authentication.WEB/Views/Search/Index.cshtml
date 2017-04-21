@@ -27,7 +27,10 @@
         @if (!isSavaAdmin)
         {
             <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
-            <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
+            if (isAdmin)
+            {
+                <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
+            }
         }
         <li id="events"><a href="#" onclick="ShowEvents()">@InsuredTraveling.Resource.Events </a></li>
         @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBroker)
