@@ -168,8 +168,8 @@
                     <th>@InsuredTraveling.Resource.Event_EndDate</th>
                     <th>@InsuredTraveling.Resource.Event_PublishDate</th>
                     <th>@InsuredTraveling.Resource.Event_CreatedBy</th>
-                    <th>@InsuredTraveling.Resource.Event_CreatedBy</th>
-                    <th>@InsuredTraveling.Resource.Event_CreatedBy</th>
+                    <th>@InsuredTraveling.Resource.Sava_NoUsersAttending</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id="searchResultEvents"></tbody>
@@ -1484,7 +1484,7 @@
                         if (type === 'display') {
                             return $('<a>')
                                 .attr('href', '#' )                                
-                                .text("@InsuredTraveling.Resource.Policy_CreatePolicy")
+                                .text("@InsuredTraveling.Resource.Sava_ListPeopleAttending")
                                 .attr("onclick", "SearchEventUsers2(" + row.id + ")")
                                 .wrap('<div></div>')
                                 .parent()

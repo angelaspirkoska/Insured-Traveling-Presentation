@@ -221,7 +221,14 @@
                                                 <i class="icon-newspaper2"></i>
                                                 <span id="btnNews">@InsuredTraveling.Resource.Home_News</span>
                                             </a>
-                                        </li>         
+                                        </li>
+
+                                        <li>
+                                            <a href="/SavaExcelUpload" id="signupTab">
+                                                <i class="icon-user-plus"></i>
+                                                <span>@InsuredTraveling.Resource.Sava_UploadPolicy</span>
+                                            </a>
+                                        </li>
                                     }
                                     @if (r.IsUser("Sava_admin")|| r.IsUser("Sava_support"))
                                     {
@@ -272,6 +279,8 @@
                                                 <span>@InsuredTraveling.Resource.Home_CreateUser</span>
                                             </a>
                                         </li>
+
+                                      
                                     }
                                     @if (r.IsUser("Broker"))
                                     {

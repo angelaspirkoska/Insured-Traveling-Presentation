@@ -1533,4 +1533,13 @@
   <data name="Events_Title" xml:space="preserve">
     <value>Наслов</value>
   </data>
+  <data name="Sava_ListPeopleAttending" xml:space="preserve">
+    <value>Излистај пријавени</value>
+  </data>
+  <data name="Sava_NoUsersAttending" xml:space="preserve">
+    <value>Бр. на пријавени корисници</value>
+  </data>
+  <data name="Sava_UploadPolicy" xml:space="preserve">
+    <value>Додади полиси</value>
+  </data>
 </root>

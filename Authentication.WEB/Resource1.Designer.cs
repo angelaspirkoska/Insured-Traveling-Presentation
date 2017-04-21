@@ -322,7 +322,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have not successfully changed user&apos;s status!.
+        ///   Looks up a localized string similar to You have not successfully changed user`s status!.
         /// </summary>
         public static string ChangeStatusMessageFail {
             get {
@@ -331,7 +331,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have successfully changed user&apos;s status!.
+        ///   Looks up a localized string similar to You have successfully changed user`s status!.
         /// </summary>
         public static string ChangeStatusMessageSuccess {
             get {
@@ -2784,6 +2784,33 @@ namespace InsuredTraveling {
         public static string Sava_ExcelUpload_Doc {
             get {
                 return ResourceManager.GetString("Sava_ExcelUpload_Doc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List Attending.
+        /// </summary>
+        public static string Sava_ListPeopleAttending {
+            get {
+                return ResourceManager.GetString("Sava_ListPeopleAttending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No. of users Attending.
+        /// </summary>
+        public static string Sava_NoUsersAttending {
+            get {
+                return ResourceManager.GetString("Sava_NoUsersAttending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload Policy.
+        /// </summary>
+        public static string Sava_UploadPolicy {
+            get {
+                return ResourceManager.GetString("Sava_UploadPolicy", resourceCulture);
             }
         }
         

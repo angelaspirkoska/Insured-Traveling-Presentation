@@ -13,6 +13,8 @@ using System.Configuration;
 using System.Globalization;
 using Newtonsoft.Json.Linq;
 using InsuredTraveling.Filters;
+using Authentication.WEB.Services;
+using System.Net.Mail;
 
 namespace InsuredTraveling.Controllers
 {
@@ -51,45 +53,69 @@ namespace InsuredTraveling.Controllers
             {
                 foreach (SavaPolicyModel policy in model)
                 {
+                    AuthRepository _repo = new AuthRepository();
+                    RoleAuthorize _roleAuthorize = new RoleAuthorize();
                     
                     _sp.AddSavaPolicy(policy);
                     _sp.SumDiscountPoints(policy.SSN_policyHolder, policy.discount_points);
                     _userService.UpdatePremiumSum(policy.SSN_policyHolder, policy.premium);
                     var Sava_admin =  _savaSetupService.GetActiveSavaSetup();
-
                     float? UserSumPremiums = _userService.GetUserSumofPremiums(policy.SSN_policyHolder);
+                    
                     if (UserSumPremiums == null)
                     {
                         UserSumPremiums = 0;
                     }
                     var PolicyUser = _userService.GetUserBySSN(policy.SSN_policyHolder);
                     
-                    AuthRepository _repo = new AuthRepository();
-                    RoleAuthorize _roleAuthorize = new RoleAuthorize();
-
-                    
                     if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
                     {
+                        string userRole = "Сава+ корисник на Сава осигурување";
+                        SendSavaEmail(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
                         _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport+");
-                        
                     }
-                    if (Sava_admin.vip_sum <= UserSumPremiums)
-                   {
-                        _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport_VIP");
-                   }
+                    if (!_roleAuthorize.IsUser("Sava_Sport_VIP", PolicyUser.UserName))
+                    {
+                        if (Sava_admin.vip_sum <= UserSumPremiums)
+                        {
+                            string userRole = "VIP корисник на Сава осигурување";
+                            SendSavaEmail(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
+                            _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport_VIP");
+                        }
+                    }
                     
                 }
-
              
             }
             catch
             {
                 ViewBag.Success = false;
             }
-            
             return View(model);
         }
        
+        private void SendSavaEmail(string email, string ime, string prezime, string userRole)
+        {
+            
+            var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/EmailHeaderSuccess.png"));
+            inlineLogo.ContentId = Guid.NewGuid().ToString();
+            string mailBody = string.Format(@"   
+                     <div style='margin-left:20px'>
+                     <img style='width:700px' src=""cid:{0}"" />
+                     <p> <b> Почитувани, </b></p>                  
+                     <br />"   + ime + " " + prezime +  
+                 "<br /> <br />" + "Вие станавте " + userRole + "  <br />  <b>Честитки. </b> </div><br />"
+            , inlineLogo.ContentId);
+
+            var view = AlternateView.CreateAlternateViewFromString(mailBody, null, "text/html");
+            view.LinkedResources.Add(inlineLogo);
+            MailService mailService = new MailService(email);
+            mailService.setSubject("Промена на корисничи привилегии");
+            mailService.setBodyText(email, true);
+            mailService.AlternativeViews(view);
+            mailService.sendMail();
+        }
+
         [HttpPost]
         [Route("CheckPolicyNumberExist")]
         public JObject CheckPolicyNumberExist(string policy_number)

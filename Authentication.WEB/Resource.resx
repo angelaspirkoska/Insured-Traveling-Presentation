@@ -1180,10 +1180,10 @@
     <value>Reset user's password</value>
   </data>
   <data name="ChangeStatusMessageFail" xml:space="preserve">
-    <value>You have not successfully changed user's status!</value>
+    <value>You have not successfully changed user`s status!</value>
   </data>
   <data name="ChangeStatusMessageSuccess" xml:space="preserve">
-    <value>You have successfully changed user's status!</value>
+    <value>You have successfully changed user`s status!</value>
   </data>
   <data name="SearchTable_ActiveInactiveUser" xml:space="preserve">
     <value>Active/Inactive</value>
@@ -1538,5 +1538,14 @@
   </data>
   <data name="Events_Title" xml:space="preserve">
     <value>Title</value>
+  </data>
+  <data name="Sava_ListPeopleAttending" xml:space="preserve">
+    <value>List Attending</value>
+  </data>
+  <data name="Sava_NoUsersAttending" xml:space="preserve">
+    <value>No. of users Attending</value>
+  </data>
+  <data name="Sava_UploadPolicy" xml:space="preserve">
+    <value>Upload Policy</value>
   </data>
 </root>
