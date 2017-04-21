@@ -13,7 +13,7 @@ namespace InsuredTraveling.DI
         List<aspnetrole> GetAllRoles();
 
         IQueryable<SelectListItem> GetAll();
-        void ChangeUserRole(string userID, string role);
+        
         string GetRoleById(string userID);
 
 

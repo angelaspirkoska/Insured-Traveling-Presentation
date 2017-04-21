@@ -59,6 +59,39 @@ namespace InsuredTraveling.DI
             return listOfUsersEvent;
         }
 
+        public bool UserIsAttending(string userID, int eventID)
+        {
+            List<event_users> ev = _db.event_users.ToList();
+           
+            foreach (event_users e in ev)
+            {
+                if (e.UserID == userID && e.EventID == eventID)
+                {
+                    return true;
+                }
+            }
+
+            
+            return false;
+        }
+
+        public bool AddUserAttending(string userID, int eventID)
+        {
+            event_users ev1 = new event_users();
+            ev1.EventID = eventID;
+            ev1.UserID = userID;
+            try
+            {
+                _db.event_users.Add(ev1);
+                _db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public List<event_users> GetAllOkSetups()
         {
             return _db.event_users.ToList();

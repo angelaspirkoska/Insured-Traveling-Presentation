@@ -12,6 +12,7 @@ using InsuredTraveling.DI;
 using System.Configuration;
 using System.Globalization;
 using Newtonsoft.Json.Linq;
+using InsuredTraveling.Filters;
 
 namespace InsuredTraveling.Controllers
 {
@@ -56,25 +57,27 @@ namespace InsuredTraveling.Controllers
                     _userService.UpdatePremiumSum(policy.SSN_policyHolder, policy.premium);
                     var Sava_admin =  _savaSetupService.GetActiveSavaSetup();
 
-                    //float? UserSumPremiums = _userService.GetUserSumofPremiums(policy.SSN_policyHolder);
-                    //if (UserSumPremiums == null)
-                    //{
-                    //    UserSumPremiums = 0;
-                    //}
-                    //var PolicyUser = _userService.GetUserBySSN(policy.SSN_policyHolder);
-                    //string tempUserRole = _rs.GetRoleById(PolicyUser.Id);
+                    float? UserSumPremiums = _userService.GetUserSumofPremiums(policy.SSN_policyHolder);
+                    if (UserSumPremiums == null)
+                    {
+                        UserSumPremiums = 0;
+                    }
+                    var PolicyUser = _userService.GetUserBySSN(policy.SSN_policyHolder);
+                    
+                    AuthRepository _repo = new AuthRepository();
+                    RoleAuthorize _roleAuthorize = new RoleAuthorize();
 
-                    //if(tempUserRole == "")
-                    //{
-                    //    _rs.ChangeUserRole(PolicyUser.Id, "");
-                    //}
-                    //if (tempUserRole == "")
-                    //{
-                    //    if (Sava_admin.vip_sum <= UserSumPremiums)
-                    //    {
-                    //        _rs.ChangeUserRole(PolicyUser.Id, "");
-                    //    }
-                    //}
+                    
+                    if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
+                    {
+                        _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport+");
+                        
+                    }
+                    if (Sava_admin.vip_sum <= UserSumPremiums)
+                   {
+                        _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport_VIP");
+                   }
+                    
                 }
 
              

@@ -45,6 +45,7 @@ namespace InsuredTraveling.Controllers.API
         private ISava_setupService _sss;
         private ISavaPoliciesService _sps;
         private IEventsService _es;
+        private IEventUserService _eus;
 
         public MobileApiController()
         {
@@ -70,7 +71,8 @@ namespace InsuredTraveling.Controllers.API
                                    ITravelNumberService tn,
                                    IOkSetupService os,
                                    ISava_setupService sss, ISavaPoliciesService sps,
-                                   IEventsService es)
+                                   IEventsService es,
+                                   IEventUserService eus)
         {
             _ps = ps;
             _us = us;
@@ -93,6 +95,7 @@ namespace InsuredTraveling.Controllers.API
             _sss = sss;
             _sps = sps;
             _es = es;
+            _eus = eus;
         }
 
         [Route("IsUserVerified")]
@@ -138,15 +141,49 @@ namespace InsuredTraveling.Controllers.API
                 userEvent.Add("Organizer", e.Organizer);
                 userEvent.Add("Title", e.Title);
                 userEvent.Add("EventType", e.Type == true? "VipEvent" : "Event");
-                userEvent.Add("EndDate", e.EndDate.ToShortDateString());
-                userEvent.Add("StartDate", e.StartDate.ToShortDateString());
+                userEvent.Add("EndDate", e.EndDate.ToString());
+                userEvent.Add("StartDate", e.StartDate.ToString());
                 userEvent.Add("PublishDate", e.PublishDate.ToString());
                 userEvent.Add("Voucher", e.Voucher.ToString());
                 userEvent.Add("Chat", e.Chat.ToString());
+                //_us.GetUserIdByUsername(username.ID);
+                bool isAttending = _eus.UserIsAttending(_us.GetUserIdByUsername(username.username), e.ID);
+                userEvent.Add("Attending", isAttending.ToString());
+
                 userEvents.Add(userEvent);
             }
 
             data.Add("events", userEvents);
+            return data;
+        }
+
+        [HttpPost]
+        [Route("SetAttending")]
+        public JObject SetAttending(JObject IDjson)
+        {
+            
+            string username = (string)IDjson["username"];
+            string eventId = (string)IDjson["eventId"];
+            JObject data = new JObject();
+
+            string userId = _us.GetUserIdByUsername(username);
+            if (userId != null && eventId != null)
+            {
+                if (_eus.AddUserAttending(userId, int.Parse(eventId)))
+                {
+                    data.Add("Successful", "True");
+                    data.Add("Error message", "");
+                }
+                else
+                {
+                    data.Add("Successful", "False");
+                    data.Add("Error message", "Database write failure ");
+                };
+            }
+            else
+            {
+                throw new Exception("Internal error: Empty userID or eventID");
+            }
             return data;
         }
 

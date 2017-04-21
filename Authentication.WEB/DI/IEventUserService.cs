@@ -11,5 +11,7 @@ namespace InsuredTraveling.DI
     {
         int CountPeopleAttending(int eventName);
         List<SearchRegisteredUser> PeoplePerEventAttending(int eventName);
+        bool UserIsAttending(string userID, int eventID);
+        bool AddUserAttending(string userID, int eventID);
     }
 }
