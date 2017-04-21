@@ -91,7 +91,7 @@ namespace InsuredTraveling.Controllers.API
                                     throw new Exception("Internal error: The email is not send");
                             }
                             else
-                                throw new Exception("Internal error: The user have less points");
+                                throw new Exception("Internal error: The user has less points");
                         }
                         else
                             throw new Exception("Internal error: The points value is not in the valid format");
@@ -101,7 +101,7 @@ namespace InsuredTraveling.Controllers.API
                         throw new Exception("Internal error: The points value is null");
                 }
                 else
-                    throw new Exception("Internal error: User not exist");
+                    throw new Exception("Internal error: User not exists");
             }
             else
                 throw new Exception("Internal error: Empty JSON");

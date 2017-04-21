@@ -18,7 +18,7 @@
             <div class="col-md-5 col-sm-5">
                 <div class="alert alert-dismissible alert-success" style="margin-left:12px; width:211%">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <span>Successful!</span>
+                    <span>@Resource.Events_Successful</span>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="col-md-5 col-sm-5">
                 <div class="alert alert-dismissible alert-danger" style="margin-left:12px; width:211%">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <span>Something went wrong!</span>
+                    <span>@Resource.Events_Failure</span>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
 <script src="~/Scripts/jquery-ui.min.js" type="text/javascript"></script>
 @Styles.Render("~/Content/jqueryuicss")
 
-<h2>New Event</h2>
+<h2>@Resource.Home_Events</h2>
 
 <form id="eventForm" method="post" action="@Url.Action("AddEvent")" enctype="multipart/form-data">
 
@@ -52,21 +52,21 @@
     </div>
     <div class="col-md-7">
         <div class="form-group">
-            <label class="control-label"> Title </label>
+            <label class="control-label"> @Resource.Events_Title <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
             @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventTitle" } })
             @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="col-md-7">
         <div class="form-group">
-            <label class="control-label"> Description </label>
-            @Html.TextAreaFor(model => model.Description, new { @class = "form-control input-sm", @id = "eventDescription" })
+            <label class="control-label"> @Resource.Events_Description <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control input-sm", @id = "eventDescription", @rows = "10"})
             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="col-md-7">
         <div class="form-group">
-            <label class="control-label"> Organizer </label>
+            <label class="control-label"> @Resource.Events_Organizer <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
             @Html.EditorFor(model => model.Organizer, new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventOrganizer" } })
             @Html.ValidationMessageFor(model => model.Organizer, "", new { @class = "text-danger" })
         </div>
@@ -74,42 +74,42 @@
 
     <div class="col-md-7">
         <div class="form-group">
-            <label class="control-label"> Location </label>
+            <label class="control-label"> @Resource.Events_Location <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
             @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventLocation" } })
             @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="col-md-7">
         <div class="form-group">
-            <label class="control-label"> Start Date </label>
+            <label class="control-label"> @Resource.Events_StartDate <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
             @Html.EditorFor(model => model.StartDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventStartTime" } })
             @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="col-md-7">
         <div class="form-group">
-            <label class="control-label"> Start Time:</label>
+            <label class="control-label"> @Resource.Events_StartTime <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
             @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control input-sm travelInfo mandatoryField", type = "time", @id = "eventStartTime" } })
             @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="col-md-7">
         <div class="form-group">
-            <label class="control-label"> End Date </label>
+            <label class="control-label"> @Resource.Events_EndDate <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
             @Html.EditorFor(model => model.EndDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventEndTime" } })
             @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="col-md-7">
         <div class="form-group">
-            <label class="control-label"> End Time:</label>
+            <label class="control-label"> @Resource.Events_StartTime <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
             @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control input-sm travelInfo mandatoryField", type = "time", @id = "eventEndTime" } })
             @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="col-md-7">
         <div class="form-group">
-            @Html.LabelFor(model => model.EventType, htmlAttributes: new { @class = "control-label" })
+            <label class="control-label"> @Resource.Events_EventType <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
             <div class="inputs-spacing">
                 @Html.DropDownListFor(model => model.EventType, (List<SelectListItem>)ViewBag.EventTypes, new { @class = "form-control input-sm", id = "EventType" })
                 @Html.ValidationMessageFor(model => model.EventType, "", new { @class = "text-danger" })

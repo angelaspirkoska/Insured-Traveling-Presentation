@@ -1500,4 +1500,37 @@
   <data name="Events_AddEvent" xml:space="preserve">
     <value>Додај настан</value>
   </data>
+  <data name="Events_Description" xml:space="preserve">
+    <value>Опис</value>
+  </data>
+  <data name="Events_EndDate" xml:space="preserve">
+    <value>Датум на завршување</value>
+  </data>
+  <data name="Events_EndTime" xml:space="preserve">
+    <value>Време на завршување</value>
+  </data>
+  <data name="Events_EventType" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Events_Failure" xml:space="preserve">
+    <value>Настанот не беше додаден!</value>
+  </data>
+  <data name="Events_Location" xml:space="preserve">
+    <value>Локација</value>
+  </data>
+  <data name="Events_Organizer" xml:space="preserve">
+    <value>Организатор</value>
+  </data>
+  <data name="Events_StartDate" xml:space="preserve">
+    <value>Датум на почеток</value>
+  </data>
+  <data name="Events_StartTime" xml:space="preserve">
+    <value>Време на почеток</value>
+  </data>
+  <data name="Events_Successful" xml:space="preserve">
+    <value>Настанот беше успешно додаден!</value>
+  </data>
+  <data name="Events_Title" xml:space="preserve">
+    <value>Наслов</value>
+  </data>
 </root>
