@@ -17,7 +17,9 @@
         @if (rol.IsUser("Sava_admin"))
         {
         <li id="SavaAdminNav" class="active"><a data-toggle="pill" href="#SavaAdmin"> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </a></li>
-        <li id="navConfigurableRatingEngine"><a data-toggle="pill" href="#configRatingEngine"> @InsuredTraveling.Resource.AdminPanel_ConfigurableRatingEngine </a></li>
+        }
+        @if(rol.IsUser("Admin")) {
+            <li id="navConfigurableRatingEngine"><a data-toggle="pill" href="#configRatingEngine"> @InsuredTraveling.Resource.AdminPanel_ConfigurableRatingEngine </a></li>
         }
         else
         {

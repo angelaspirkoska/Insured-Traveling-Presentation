@@ -15,6 +15,7 @@
     var isAdmin = r.IsUser("Admin");
     var isEndUser = r.IsUser("End user");
     var isSavaAdmin = r.IsUser("Sava_admin");
+    var isSavaSupport = r.IsUser("Sava_support");
     var isSavaUser = r.IsUser("Sava_normal") || r.IsUser("Sava_Sport_VIP") || r.IsUser("Sava_Sport_VIP") || r.IsUser("Sava_Sport+");
     var dateTime = ConfigurationManager.AppSettings["DateFormat"];
     var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy").ToLower() : dateTime.ToLower();
@@ -23,16 +24,16 @@
 <br />
 <div class="tabbable">
     <ul class="nav nav-tabs">
-        <li id="polycies" class="active"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
-        @if (!isSavaAdmin)
-        {
-            <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
-            if (isAdmin)
+            @if (isAdmin)
             {
-                <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
+            <li id="polycies"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
+        
+            <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
+            
+            <li id="first_notice_of_loss"><a href="#" onclick="ShowFNOL()">@InsuredTraveling.Resource.Search_FNOL</a></li>
             }
         }
-        <li id="events"><a href="#" onclick="ShowEvents()">@InsuredTraveling.Resource.Events </a></li>
+        <li id="events" class="active"><a href="#" onclick="ShowEvents()">@InsuredTraveling.Resource.Events </a></li>
         @if (isAdmin || isBrokerManager || isClaimsAdjuster || isBroker)
         {
             <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
@@ -1102,6 +1103,8 @@
         });
 
         //$(".hover-tooltip button").tooltip('show');
+
+       // ShowEvents();
         $('#operatorRegisterDate').html(' = ');
         $('#operatorRegisterDate').val('=');
         $("#searchClients").hide();
@@ -1109,9 +1112,14 @@
         $("#searchChats").hide();
         $("#searchQuotes").hide();
         $("#searchUsers").hide();
-        $("#searchEvents").hide();
-        $("#tableEvents").DataTable().destroy();
-        $("#tableEvents").DataTable();
+        $("#searchEvents").show();
+        $("#searchPolycies").hide();
+
+        $("#tablePolicies").DataTable().destroy();
+        $("#tablePolicies").DataTable();
+        
+        //$("#tableEvents").DataTable().destroy();
+        //$("#tableEvents").DataTable();
 
         $("#tableEvenUser").DataTable().destroy();
         $("#tableEvenUser").DataTable();
@@ -1130,11 +1138,12 @@
         $("#tableArchivedFNOL").css("display", "none");
         $("#tablePoliciesClients").css("display", "none");
         $("#tablePoliciesHolders").css("display", "none");
-
+        $("#tablePolicies").css("display", "none");
         //Setting the class active-tab, so the user will know which tab is clicked
         $("#addNewPolicy").removeClass("active-tab");
         $("#newsTab").removeClass("active-tab");
-        $("#searchTab").addClass("active-tab");
+        $("#searchTab").removeClass("active-tab");
+        $("#events").addClass("active-tab");
         $("#fnolTab").removeClass("active-tab");
         $("#adminTab").removeClass("active-tab");
         $("#createTab").removeClass("active-tab");

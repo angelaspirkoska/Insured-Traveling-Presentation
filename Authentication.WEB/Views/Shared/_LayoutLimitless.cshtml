@@ -200,19 +200,21 @@
                                     <li class="navigation-header">
                                         <span>@InsuredTraveling.Resource.MainPage</span> <i class="icon-menu" title="Main pages"></i>
                                     </li>
-                                    @if (r.IsUser("Sava_Sport_VIP"))
+                                    @*@if (r.IsUser("Sava_Sport_VIP"))
                                     {
                                     <li >
                                         <input type="submit" id="requestChatBtn" value="@InsuredTraveling.Resource.RequestChat" class="btn btn-primary chat-btn--rotate" />
                                     </li>
-                                    }
-                                    <li>
-                                        <a href="/Policy" id="addNewPolicy">
-                                            <i class="icon-add-to-list"></i>
-                                            <span id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</span>
-                                        </a>
-                                    </li>
-                                    @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Sava_admin"))
+                                    }*@
+                                    
+                                        @*<li>
+                                            <a href="/Policy" id="addNewPolicy">
+                                                <i class="icon-add-to-list"></i>
+                                                <span id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</span>
+                                            </a>
+                                        </li>*@
+                                                                      
+                                    @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Sava_admin") || r.IsUser("Sava_support"))
                                     {
                                         <li>
                                             <a href="/News/Index" id="newsTab">
