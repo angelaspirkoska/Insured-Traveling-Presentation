@@ -16,7 +16,7 @@ namespace InsuredTraveling.Controllers
 
         public ActionResult Details()
         {
-            //for test commit and push
+            
             return View();
         }
     }
