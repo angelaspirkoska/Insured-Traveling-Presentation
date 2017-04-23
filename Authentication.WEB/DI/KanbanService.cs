@@ -160,12 +160,25 @@ namespace InsuredTraveling.DI
         {
             kanbanticket ticket = GetTicketById(TicketId);
             ticket.AssignedTo = AssignedToId;
+
+            _db.kanbantimekeepers.Add(new kanbantimekeeper
+            {
+                KanbanTicketId = TicketId,
+                AssignedTo = AssignedToId,
+                AssignedDateTime = DateTime.Now
+            });
+
             _db.SaveChanges();
         }
 
         public bool TicketNeedsReminder(int TicketId)
         {
-            return true;
+            int AssignedToId = _db.kanbantickets.Where(x => x.Id == TicketId).FirstOrDefault().AssignedTo;
+
+            int passedDays = (DateTime.Now - _db.kanbantimekeepers.Where(x => x.KanbanTicketId == TicketId &&
+                x.AssignedTo == AssignedToId).FirstOrDefault().AssignedDateTime).Days;
+
+            return passedDays >= 7;
         }
     }
 }
