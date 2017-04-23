@@ -2478,6 +2478,7 @@
     <Content Include="Scripts\Limitless-js\plugins\pickers\pickadate\translations\FORMATTING.md" />
     <Content Include="Scripts\Limitless-js\plugins\pickers\pickadate\translations\NAMING.md" />
     <Content Include="Views\Shared\_LayoutLimitless2.cshtml" />
+    <Content Include="Views\Kanban\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2494,7 +2495,6 @@
     <Folder Include="News\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ChangeLanuage\" />
-    <Folder Include="Views\Kanban\" />
     <Folder Include="Views\RefreshToken\" />
   </ItemGroup>
   <ItemGroup>
