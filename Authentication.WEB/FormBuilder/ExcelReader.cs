@@ -15,19 +15,20 @@ namespace InsuredTraveling.FormBuilder
     {
         public static int helperFunctions { get; set; }
         public static int procedures { get; set; }
+        
         public static IHtmlString ReadExcel(ExcelFileViewModel e)
         {
-            ExcelPackage pck = new ExcelPackage(new FileInfo(e.Path));
-            
-            CreateDatabaseTables();
-            var result = CreateForm(pck);
+            ExcelPackage pck = new ExcelPackage(new FileInfo(e.Path));       
+           
+            var tagInfoExcel = ParseFormElements(pck);
+            CreateDatabaseTables(e.Id, tagInfoExcel);
+            var result = CreateForm(pck, tagInfoExcel);
             var functions = DetermineFunction(pck);
             var procedures = DetermineProcedure(pck);
             var functionsStrings = GenerateStringFunctions(functions);
             var proceduresStrings = GenerateStringProcedures(procedures);
             return result;
         }
-
         public static List<Function> DetermineFunction(ExcelPackage pck)
         {
             ExcelWorksheet worksheet = pck.Workbook.Worksheets["ConfigurationSetup"];
@@ -136,15 +137,25 @@ namespace InsuredTraveling.FormBuilder
             }
             return generatedStringProcedures;
         }
-        public static HtmlString CreateForm(ExcelPackage pck)
-        {
-            ExcelWorksheet worksheet = pck.Workbook.Worksheets["ConfigurationSetup"];
-            ExcelWorksheet worksheetListDetails = pck.Workbook.Worksheets["Lists"];
+        public static HtmlString CreateForm(ExcelPackage pck, List<TagInfo> tagInfoExcel)
+        {          
             var formBuilder = new FormBuilder()
                .SetName("my-form")
                .SetAction("/index")
                .SetMethod("post");
+            foreach (var excelRow in tagInfoExcel)
+            {
+                var wrapper = TagFactory.GenerateWrappedTagFor(excelRow);
+                formBuilder.AddElement(wrapper);
+            }
+            var result = formBuilder.ToHtmlString();
 
+            return new HtmlString(result);
+        }
+        public static List<TagInfo> ParseFormElements(ExcelPackage pck)
+        {
+            ExcelWorksheet worksheet = pck.Workbook.Worksheets["ConfigurationSetup"];
+            ExcelWorksheet worksheetListDetails = pck.Workbook.Worksheets["Lists"];
             List<TagInfo> tagInfoExcel = new List<TagInfo>();
             Dictionary<string, string> attributes;
             List<string> listValues;
@@ -185,10 +196,10 @@ namespace InsuredTraveling.FormBuilder
                     default: continue;
                 }
             }
-          
+
             for (int col = 2; worksheet.Cells[col, 1].Value != null; col++)
             {
-                if (!worksheet.Cells[col,1].Value.ToString().Equals("empty"))
+                if (!worksheet.Cells[col, 1].Value.ToString().Equals("empty"))
                 {
                     attributes = new Dictionary<string, string>();
                     listValues = new List<string>();
@@ -250,27 +261,56 @@ namespace InsuredTraveling.FormBuilder
 
                     tagInfoExcel.Add(tagInfo);
                 }
-              
-            }
 
-            foreach (var excelRow in tagInfoExcel)
-            {
-                var wrapper = TagFactory.GenerateWrappedTagFor(excelRow);
-                formBuilder.AddElement(wrapper);
             }
-            var result = formBuilder.ToHtmlString();
-
-            return new HtmlString(result);
+            return tagInfoExcel;
         }
-        public static void CreateDatabaseTables()
+        public static string GeneratePolicyCommand(int excelID, List<TagInfo> tagInfoExcel) 
+            {
+                StringBuilder newPolicyTable = new StringBuilder();
+                newPolicyTable.Append("CREATE TABLE Policy" + excelID + " ( ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY");
+                foreach(TagInfo tag in tagInfoExcel)
+                {
+                    
+                    if(tag != null && !String.IsNullOrEmpty(tag.Name))
+                    {
+                   
+                    string type = "";
+                    if (tag.Type.Equals("textbox"))
+                    {
+                        type = " VARCHAR(20) ";
+                    }
+                    if(type != "")
+                    {
+                        newPolicyTable.Append(", " + tag.Name.Replace(' ', '_') + " " + type + " ");
+                        string requiredResult;
+                        var required = tag.Attributes.TryGetValue("required", out requiredResult);
+                        if (required && !requiredResult.Equals(""))
+                        {
+                           newPolicyTable.Append("NOT NULL");
+                        }
+                       
+                    }
+                    
+                    }
+                }
+            newPolicyTable.Append(")");
+                return newPolicyTable.ToString();
+
+            } 
+        public static void CreateDatabaseTables(int excelID, List<TagInfo> tagInfoExcel)
         {
             MySqlConnection conn = new MySqlConnection();
             conn.ConnectionString = "server=localhost;user id = root;database=db_9eb138_travel;persistsecurityinfo=True;Convert Zero Datetime=True";
+            var command = GeneratePolicyCommand(excelID, tagInfoExcel);
             try
             {
                 conn.Open();
-                //MySqlCommand mysqlCommand = new MySqlCommand();
-                var command = "CREATE TABLE a_test_table (empno INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(20), last_name VARCHAR(20), birthdate DATE)";
+                //var command = "CREATE TABLE a_test_table (empno INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(20), last_name VARCHAR(20), birthdate DATE)";
+              
+               
+                    
+
                 MySqlCommand mysqlCommand = new MySqlCommand();
                     //new MySql.Data.MySqlClient.MySqlCommand(command, conn);
                 mysqlCommand.CommandText = command;
