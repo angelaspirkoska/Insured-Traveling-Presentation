@@ -21,14 +21,20 @@ namespace InsuredTraveling.Controllers.API
         public readonly ISavaPoliciesService _savaPoliciesService;
         public readonly IUserService _userService;
         private readonly ISava_setupService _savaSetupService;
+        private readonly IEventsService _es;
+        private readonly IEventUserService _eus;
+        private readonly IUserService _us;
 
         public SavaMobileController(ISavaPoliciesService savaPoliciesService,
                                     IUserService userService,
-                                    ISava_setupService savaSetupService)
+                                    ISava_setupService savaSetupService, IEventsService es, IEventUserService eus, IUserService us)
         {
             _savaPoliciesService = savaPoliciesService;
             _userService = userService;
             _savaSetupService= savaSetupService;
+            _es = es;
+            _eus = eus;
+            _us = us;
         }
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("CreatePolicy")]
@@ -106,6 +112,36 @@ namespace InsuredTraveling.Controllers.API
             else
                 throw new Exception("Internal error: Empty JSON");
         }
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("SetAttending")]
+        public JObject SetAttending(JObject IDjson)
+        {
+            
+            string username = (string)IDjson["username"];
+            string eventId = (string)IDjson["eventId"];
+            JObject data = new JObject();
+
+            string userId = _us.GetUserIdByUsername(username);
+            if (userId != null && eventId != null)
+            {
+                if (_eus.AddUserAttending(userId, int.Parse(eventId)))
+                {
+                    data.Add("Successful", "True");
+                    data.Add("Error message", "");
+                }
+                else
+                {
+                    data.Add("Successful", "False");
+                    data.Add("Error message", "Database write failure ");
+                };
+            }
+            else
+            {
+                throw new Exception("Internal error: Empty userID or eventID");
+            }
+            return data;
+        }
+
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("CalulatePoints/{username}")]

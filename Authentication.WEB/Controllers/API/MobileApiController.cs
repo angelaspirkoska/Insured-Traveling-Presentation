@@ -130,11 +130,16 @@ namespace InsuredTraveling.Controllers.API
         {
             var data = new JObject();
             var events = _es.GetEventsForUser(username.username);
-
+            if(events == null)
+            {
+                data.Add("Error", "There are none events for this user");
+                return data;
+            }
             JArray userEvents = new JArray();
             foreach (var e in events)
             {
                 JObject userEvent = new JObject();
+                userEvent.Add("Id", e.ID);
                 userEvent.Add("CreatedBy", e.aspnetuser.UserName);
                 userEvent.Add("Description", e.Description);
                 userEvent.Add("Location", e.Location);
@@ -146,7 +151,6 @@ namespace InsuredTraveling.Controllers.API
                 userEvent.Add("PublishDate", e.PublishDate.ToString());
                 userEvent.Add("Voucher", e.Voucher.ToString());
                 userEvent.Add("Chat", e.Chat.ToString());
-                //_us.GetUserIdByUsername(username.ID);
                 bool isAttending = _eus.UserIsAttending(_us.GetUserIdByUsername(username.username), e.ID);
                 userEvent.Add("Attending", isAttending.ToString());
 
@@ -157,36 +161,7 @@ namespace InsuredTraveling.Controllers.API
             return data;
         }
 
-        [HttpPost]
-        [Route("SetAttending")]
-        public JObject SetAttending(JObject IDjson)
-        {
-            
-            string username = (string)IDjson["username"];
-            string eventId = (string)IDjson["eventId"];
-            JObject data = new JObject();
-
-            string userId = _us.GetUserIdByUsername(username);
-            if (userId != null && eventId != null)
-            {
-                if (_eus.AddUserAttending(userId, int.Parse(eventId)))
-                {
-                    data.Add("Successful", "True");
-                    data.Add("Error message", "");
-                }
-                else
-                {
-                    data.Add("Successful", "False");
-                    data.Add("Error message", "Database write failure ");
-                };
-            }
-            else
-            {
-                throw new Exception("Internal error: Empty userID or eventID");
-            }
-            return data;
-        }
-
+       
         [Route("RetrieveUserInfo")]
         public JObject RetrieveUserInformation(UserDTO username)
         {
