@@ -2147,6 +2147,7 @@
     <Compile Include="DI\IFranchiseService.cs" />
     <Compile Include="DI\IHealthInsuranceService.cs" />
     <Compile Include="DI\IInsuredsService.cs" />
+    <Compile Include="DI\IKanbanService.cs" />
     <Compile Include="DI\ILuggageInsuranceService.cs" />
     <Compile Include="DI\INewsService.cs" />
     <Compile Include="DI\InsuredsService.cs" />
@@ -2159,6 +2160,7 @@
     <Compile Include="DI\ITransactionsService.cs" />
     <Compile Include="DI\ITravelNumberService.cs" />
     <Compile Include="DI\IUserService.cs" />
+    <Compile Include="DI\KanbanService.cs" />
     <Compile Include="DI\LuggageInsuranceService.cs" />
     <Compile Include="DI\NewsService.cs" />
     <Compile Include="DI\OkSetupService.cs" />
@@ -2244,6 +2246,18 @@
     <Compile Include="Helpers\SavePolicyHelper.cs" />
     <Compile Include="Helpers\UpdateBankAccountInfoHelper.cs" />
     <Compile Include="Helpers\UpdateFirstNoticeOfLossHelper.cs" />
+    <Compile Include="kanbanboard.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbanpoollist.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbanticket.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbantimekeeper.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AdminPanelModel.cs" />
     <Compile Include="Models\BrokerSales.cs" />
     <Compile Include="Models\CreditCardInfoModel.cs" />

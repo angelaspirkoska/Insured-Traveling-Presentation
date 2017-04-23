@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Entities.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Entities.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="additional_charge">
           <Key>
             <PropertyRef Name="ID" />
@@ -424,6 +424,46 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
             <PropertyRef Name="DocumentID" />
           </Key>
           <Property Name="DocumentID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kanbanboard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="Color" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="kanbanpoollist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="OrderBy" Type="float" Nullable="false" />
+          <Property Name="KanbanBoardId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kanbanticket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="OrderBy" Type="float" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="AssignedTo" Type="int" Nullable="false" />
+          <Property Name="KanbanPoolListId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kanbantimekeeper">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KanbanTicketId" Type="int" Nullable="false" />
+          <Property Name="AssignedTo" Type="int" Nullable="false" />
+          <Property Name="AssignedDateTime" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="languages">
           <Key>
@@ -1554,6 +1594,48 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="KanbanBoardFK">
+          <End Role="kanbanboard" Type="Self.kanbanboard" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbanpoollist" Type="Self.kanbanpoollist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanboard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanpoollist">
+              <PropertyRef Name="KanbanBoardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KanbanPoolListFK">
+          <End Role="kanbanpoollist" Type="Self.kanbanpoollist" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanpoollist">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="KanbanPoolListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KanbanTicketFK">
+          <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbantimekeeper" Type="Self.kanbantimekeeper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanticket">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbantimekeeper">
+              <PropertyRef Name="KanbanTicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="luggage_insurance_info_ibfk_1">
           <End Role="additional_info" Type="Self.additional_info" Multiplicity="1" />
           <End Role="luggage_insurance_info" Type="Self.luggage_insurance_info" Multiplicity="0..1" />
@@ -1616,6 +1698,48 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="TicketAssignedToFK">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="AssignedTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TicketCreatedByFK">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TimekeeperAssignedToFK">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbantimekeeper" Type="Self.kanbantimekeeper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="kanbantimekeeper">
+              <PropertyRef Name="AssignedTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="travel_policy_ibfk_1">
           <End Role="insured" Type="Self.insured" Multiplicity="1" />
           <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="*" />
@@ -1661,6 +1785,10 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="health_insurance_info" EntityType="Self.health_insurance_info" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="insured" EntityType="Self.insured" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="invoices" EntityType="Self.invoices" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbanboard" EntityType="Self.kanbanboard" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbanpoollist" EntityType="Self.kanbanpoollist" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbanticket" EntityType="Self.kanbanticket" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbantimekeeper" EntityType="Self.kanbantimekeeper" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="languages" EntityType="Self.languages" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="luggage_insurance" EntityType="Self.luggage_insurance" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="luggage_insurance_info" EntityType="Self.luggage_insurance_info" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1686,34 +1814,30 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="type_insured" EntityType="Self.type_insured" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogins" store:Type="Tables" store:Schema="db_9eb138_travel">
-            <DefiningQuery>
-              SELECT
-              `aspnetuserlogins`.`LoginProvider`,
-              `aspnetuserlogins`.`ProviderKey`,
-              `aspnetuserlogins`.`UserId`
-              FROM `aspnetuserlogins` AS `aspnetuserlogins`
-            </DefiningQuery>
+            <DefiningQuery>SELECT
+`aspnetuserlogins`.`LoginProvider`, 
+`aspnetuserlogins`.`ProviderKey`, 
+`aspnetuserlogins`.`UserId`
+FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
           </EntitySet>
           <EntitySet Name="transaction" EntityType="Self.transaction" store:Type="Tables" store:Schema="db_9eb138_travel">
-            <DefiningQuery>
-              SELECT
-              `transaction`.`OrderID`,
-              `transaction`.`TRANID`,
-              `transaction`.`islemtipi`,
-              `transaction`.`merchantID`,
-              `transaction`.`amount`,
-              `transaction`.`sID`,
-              `transaction`.`ACQBIN`,
-              `transaction`.`xid`,
-              `transaction`.`mdStatus`,
-              `transaction`.`ProcReturnCode`,
-              `transaction`.`Response`,
-              `transaction`.`mdErrorMsg`,
-              `transaction`.`ErrMsg`,
-              `transaction`.`HASH`,
-              `transaction`.`Ime_I_ Prezime`
-              FROM `transaction` AS `transaction`
-            </DefiningQuery>
+            <DefiningQuery>SELECT
+`transaction`.`OrderID`, 
+`transaction`.`TRANID`, 
+`transaction`.`islemtipi`, 
+`transaction`.`merchantID`, 
+`transaction`.`amount`, 
+`transaction`.`sID`, 
+`transaction`.`ACQBIN`, 
+`transaction`.`xid`, 
+`transaction`.`mdStatus`, 
+`transaction`.`ProcReturnCode`, 
+`transaction`.`Response`, 
+`transaction`.`mdErrorMsg`, 
+`transaction`.`ErrMsg`, 
+`transaction`.`HASH`, 
+`transaction`.`Ime_I_ Prezime`
+FROM `transaction` AS `transaction`</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="additional_charge_name_ibfk_1" Association="Self.additional_charge_name_ibfk_1">
             <End Role="languages" EntitySet="languages" />
@@ -1983,6 +2107,18 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             <End Role="additional_info" EntitySet="additional_info" />
             <End Role="health_insurance_info" EntitySet="health_insurance_info" />
           </AssociationSet>
+          <AssociationSet Name="KanbanBoardFK" Association="Self.KanbanBoardFK">
+            <End Role="kanbanboard" EntitySet="kanbanboard" />
+            <End Role="kanbanpoollist" EntitySet="kanbanpoollist" />
+          </AssociationSet>
+          <AssociationSet Name="KanbanPoolListFK" Association="Self.KanbanPoolListFK">
+            <End Role="kanbanpoollist" EntitySet="kanbanpoollist" />
+            <End Role="kanbanticket" EntitySet="kanbanticket" />
+          </AssociationSet>
+          <AssociationSet Name="KanbanTicketFK" Association="Self.KanbanTicketFK">
+            <End Role="kanbanticket" EntitySet="kanbanticket" />
+            <End Role="kanbantimekeeper" EntitySet="kanbantimekeeper" />
+          </AssociationSet>
           <AssociationSet Name="luggage_insurance_info_ibfk_1" Association="Self.luggage_insurance_info_ibfk_1">
             <End Role="additional_info" EntitySet="additional_info" />
             <End Role="luggage_insurance_info" EntitySet="luggage_insurance_info" />
@@ -2003,13 +2139,24 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             <End Role="languages" EntitySet="languages" />
             <End Role="retaining_risk_name" EntitySet="retaining_risk_name" />
           </AssociationSet>
+          <AssociationSet Name="TicketAssignedToFK" Association="Self.TicketAssignedToFK">
+            <End Role="users" EntitySet="users" />
+            <End Role="kanbanticket" EntitySet="kanbanticket" />
+          </AssociationSet>
+          <AssociationSet Name="TicketCreatedByFK" Association="Self.TicketCreatedByFK">
+            <End Role="users" EntitySet="users" />
+            <End Role="kanbanticket" EntitySet="kanbanticket" />
+          </AssociationSet>
+          <AssociationSet Name="TimekeeperAssignedToFK" Association="Self.TimekeeperAssignedToFK">
+            <End Role="users" EntitySet="users" />
+            <End Role="kanbantimekeeper" EntitySet="kanbantimekeeper" />
+          </AssociationSet>
           <AssociationSet Name="travel_policy_ibfk_1" Association="Self.travel_policy_ibfk_1">
             <End Role="insured" EntitySet="insured" />
             <End Role="travel_policy" EntitySet="travel_policy" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2582,6 +2729,9 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <Property Name="DateBirth" Type="DateTime" Nullable="false" />
           <Property Name="Gender" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_users_aspnetuser" FromRole="user" ToRole="aspnetuser" />
+          <NavigationProperty Name="kanbantickets" Relationship="Entities.TicketAssignedToFK" FromRole="user" ToRole="kanbanticket" />
+          <NavigationProperty Name="kanbantickets1" Relationship="Entities.TicketCreatedByFK" FromRole="user" ToRole="kanbanticket" />
+          <NavigationProperty Name="kanbantimekeepers" Relationship="Entities.TimekeeperAssignedToFK" FromRole="user" ToRole="kanbantimekeeper" />
         </EntityType>
         <EntityType Name="aspnetuserlogin">
           <Key>
@@ -3389,6 +3539,34 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             <End Role="aspnetuser" EntitySet="aspnetusers" />
             <End Role="broker_employees" EntitySet="broker_employees" />
           </AssociationSet>
+          <EntitySet Name="kanbanboards" EntityType="Entities.kanbanboard" />
+          <EntitySet Name="kanbanpoollists" EntityType="Entities.kanbanpoollist" />
+          <EntitySet Name="kanbantickets" EntityType="Entities.kanbanticket" />
+          <EntitySet Name="kanbantimekeepers" EntityType="Entities.kanbantimekeeper" />
+          <AssociationSet Name="KanbanBoardFK" Association="Entities.KanbanBoardFK">
+            <End Role="kanbanboard" EntitySet="kanbanboards" />
+            <End Role="kanbanpoollist" EntitySet="kanbanpoollists" />
+          </AssociationSet>
+          <AssociationSet Name="KanbanPoolListFK" Association="Entities.KanbanPoolListFK">
+            <End Role="kanbanpoollist" EntitySet="kanbanpoollists" />
+            <End Role="kanbanticket" EntitySet="kanbantickets" />
+          </AssociationSet>
+          <AssociationSet Name="KanbanTicketFK" Association="Entities.KanbanTicketFK">
+            <End Role="kanbanticket" EntitySet="kanbantickets" />
+            <End Role="kanbantimekeeper" EntitySet="kanbantimekeepers" />
+          </AssociationSet>
+          <AssociationSet Name="TicketAssignedToFK" Association="Entities.TicketAssignedToFK">
+            <End Role="user" EntitySet="users" />
+            <End Role="kanbanticket" EntitySet="kanbantickets" />
+          </AssociationSet>
+          <AssociationSet Name="TicketCreatedByFK" Association="Entities.TicketCreatedByFK">
+            <End Role="user" EntitySet="users" />
+            <End Role="kanbanticket" EntitySet="kanbantickets" />
+          </AssociationSet>
+          <AssociationSet Name="TimekeeperAssignedToFK" Association="Entities.TimekeeperAssignedToFK">
+            <End Role="user" EntitySet="users" />
+            <End Role="kanbantimekeeper" EntitySet="kanbantimekeepers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -4069,6 +4247,139 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Principal>
             <Dependent Role="broker_employees">
               <PropertyRef Name="EmployeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="kanbanboard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="kanbanpoollists" Relationship="Entities.KanbanBoardFK" FromRole="kanbanboard" ToRole="kanbanpoollist" />
+        </EntityType>
+        <EntityType Name="kanbanpoollist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrderBy" Type="Single" Nullable="false" />
+          <Property Name="KanbanBoardId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="kanbanboard" Relationship="Entities.KanbanBoardFK" FromRole="kanbanpoollist" ToRole="kanbanboard" />
+          <NavigationProperty Name="kanbantickets" Relationship="Entities.KanbanPoolListFK" FromRole="kanbanpoollist" ToRole="kanbanticket" />
+        </EntityType>
+        <EntityType Name="kanbanticket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrderBy" Type="Single" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="AssignedTo" Type="Int32" Nullable="false" />
+          <Property Name="KanbanPoolListId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="kanbanpoollist" Relationship="Entities.KanbanPoolListFK" FromRole="kanbanticket" ToRole="kanbanpoollist" />
+          <NavigationProperty Name="kanbantimekeepers" Relationship="Entities.KanbanTicketFK" FromRole="kanbanticket" ToRole="kanbantimekeeper" />
+          <NavigationProperty Name="user" Relationship="Entities.TicketAssignedToFK" FromRole="kanbanticket" ToRole="user" />
+          <NavigationProperty Name="user1" Relationship="Entities.TicketCreatedByFK" FromRole="kanbanticket" ToRole="user" />
+        </EntityType>
+        <EntityType Name="kanbantimekeeper">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KanbanTicketId" Type="Int32" Nullable="false" />
+          <Property Name="AssignedTo" Type="Int32" Nullable="false" />
+          <Property Name="AssignedDateTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="kanbanticket" Relationship="Entities.KanbanTicketFK" FromRole="kanbantimekeeper" ToRole="kanbanticket" />
+          <NavigationProperty Name="user" Relationship="Entities.TimekeeperAssignedToFK" FromRole="kanbantimekeeper" ToRole="user" />
+        </EntityType>
+        <Association Name="KanbanBoardFK">
+          <End Type="Entities.kanbanboard" Role="kanbanboard" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbanpoollist" Role="kanbanpoollist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanboard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanpoollist">
+              <PropertyRef Name="KanbanBoardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KanbanPoolListFK">
+          <End Type="Entities.kanbanpoollist" Role="kanbanpoollist" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanpoollist">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="KanbanPoolListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KanbanTicketFK">
+          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbantimekeeper" Role="kanbantimekeeper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanticket">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbantimekeeper">
+              <PropertyRef Name="KanbanTicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TicketAssignedToFK">
+          <End Type="Entities.user" Role="user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="AssignedTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TicketCreatedByFK">
+          <End Type="Entities.user" Role="user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TimekeeperAssignedToFK">
+          <End Type="Entities.user" Role="user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbantimekeeper" Role="kanbantimekeeper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="kanbantimekeeper">
+              <PropertyRef Name="AssignedTo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4841,6 +5152,50 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
                 <ScalarProperty Name="EmployeID" ColumnName="EmployeID" />
                 <ScalarProperty Name="BrokerID" ColumnName="BrokerID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbanboards">
+            <EntityTypeMapping TypeName="Entities.kanbanboard">
+              <MappingFragment StoreEntitySet="kanbanboard">
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbanpoollists">
+            <EntityTypeMapping TypeName="Entities.kanbanpoollist">
+              <MappingFragment StoreEntitySet="kanbanpoollist">
+                <ScalarProperty Name="KanbanBoardId" ColumnName="KanbanBoardId" />
+                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbantickets">
+            <EntityTypeMapping TypeName="Entities.kanbanticket">
+              <MappingFragment StoreEntitySet="kanbanticket">
+                <ScalarProperty Name="KanbanPoolListId" ColumnName="KanbanPoolListId" />
+                <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbantimekeepers">
+            <EntityTypeMapping TypeName="Entities.kanbantimekeeper">
+              <MappingFragment StoreEntitySet="kanbantimekeeper">
+                <ScalarProperty Name="AssignedDateTime" ColumnName="AssignedDateTime" />
+                <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+                <ScalarProperty Name="KanbanTicketId" ColumnName="KanbanTicketId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

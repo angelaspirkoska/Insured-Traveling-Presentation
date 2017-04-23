@@ -134,6 +134,16 @@
         <EntityTypeShape EntityType="Entities.broker_employees" Width="1.5" PointX="5.25" PointY="41.375" />
         <AssociationConnector Association="Entities.FKBrrokerID" />
         <AssociationConnector Association="Entities.FKEmployeID" />
+        <EntityTypeShape EntityType="Entities.kanbanboard" Width="1.5" PointX="3" PointY="73.125" />
+        <EntityTypeShape EntityType="Entities.kanbanpoollist" Width="1.5" PointX="5.25" PointY="73" />
+        <EntityTypeShape EntityType="Entities.kanbanticket" Width="1.5" PointX="7.5" PointY="67.625" />
+        <EntityTypeShape EntityType="Entities.kanbantimekeeper" Width="1.5" PointX="9.75" PointY="68" />
+        <AssociationConnector Association="Entities.KanbanBoardFK" />
+        <AssociationConnector Association="Entities.KanbanPoolListFK" />
+        <AssociationConnector Association="Entities.KanbanTicketFK" />
+        <AssociationConnector Association="Entities.TicketAssignedToFK" />
+        <AssociationConnector Association="Entities.TicketCreatedByFK" />
+        <AssociationConnector Association="Entities.TimekeeperAssignedToFK" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
