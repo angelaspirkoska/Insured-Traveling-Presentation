@@ -20,9 +20,6 @@
         }
         @if(rol.IsUser("Admin")) {
             <li id="navConfigurableRatingEngine"><a data-toggle="pill" href="#configRatingEngine"> @InsuredTraveling.Resource.AdminPanel_ConfigurableRatingEngine </a></li>
-        }
-        else
-        {
         <li id="navRoles" class="active"><a data-toggle="pill" href="#home" > @InsuredTraveling.Resource.AdminPanel_Roles </a></li>
         <li  id="navSetup"><a data-toggle="pill" href="#menu1"  id="navSetup"> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </a></li>
         <li  id="navDiscount" ><a data-toggle="pill" href="#DiscountMenu" > @InsuredTraveling.Resource.AdminPanel_Discount </a></li>
@@ -414,6 +411,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $("#configRatingEngine").hide();
         if(@ViewBag.TabIndex == 1) {
             //Setting the class active-tab, so the user will know which tab is clicked
             $("#addNewPolicy").removeClass("active-tab");

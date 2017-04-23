@@ -38,12 +38,12 @@
         {
             <li id="clients"><a href="#" onclick="ShowClients()">@InsuredTraveling.Resource.Search_Clients</a></li>
         }
-        @if (isAdmin || isBrokerManager || isSavaAdmin)
+        @if (isAdmin || isBrokerManager || isSavaAdmin || isSavaSupport)
         {
             <li id="registeredUsers"><a href="#" onclick="ShowUsers()">@InsuredTraveling.Resource.Search_Users</a></li>
         }
         
-        @if (isAdmin || isEndUser || isClaimsAdjuster || isBrokerManager || isSavaAdmin || isSavaUser)
+        @if (isAdmin || isEndUser || isClaimsAdjuster || isBrokerManager || isSavaAdmin || isSavaUser || isSavaSupport)
         {
             <li id="searchChat"><a href="#" onclick="ShowChats()">@InsuredTraveling.Resource.Chats</a></li>
         }
