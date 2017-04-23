@@ -276,7 +276,7 @@ namespace InsuredTraveling.FormBuilder
                     {
                    
                     string type = "";
-                    if (tag.Type.Equals("textbox"))
+                    if (tag.Type.Equals("textbox") || tag.Type.Equals("alphanumericspacetextbox") || tag.Type.Equals("alphanumerictextbox") || tag.Type.Equals("password"))
                     {
                         type = " VARCHAR(20) ";
                     }
