@@ -82,6 +82,7 @@ else if (r.IsUser("Sava_admin") || r.IsUser("Sava_support"))
                 <th>@InsuredTraveling.Resource.SearchTable_RoleName</th>
                 <th>@InsuredTraveling.Resource.SearchTable_CreatedOn</th>
                 <th>@InsuredTraveling.Resource.SearchTable_ActiveInactiveUser</th>
+                <th>@InsuredTraveling.Resource.SearchTable_UserPoints</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -306,6 +307,7 @@ else
                     { data: "RoleName" },
                     { data: "CreatedOn" },
                     { data: "ActiveInactive" },
+                    {data : "Points"},
                     {
                         data: "Username",
                         "render": function (data, type, row, meta) {

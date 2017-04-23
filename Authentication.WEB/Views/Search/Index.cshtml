@@ -957,6 +957,7 @@
 <script type="text/javascript">
     var isAdmin = false;
     $(document).ready(function () {
+        
         var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
 
         $('.explain-functionality').tooltip({
@@ -1148,7 +1149,7 @@
         $("#adminTab").removeClass("active-tab");
         $("#createTab").removeClass("active-tab");
         $("#signupTab").removeClass("active-tab");
-
+        ShowEvents();
         $.ajax({
             type: "GET",
             url: "/Search/IsAdmin",
