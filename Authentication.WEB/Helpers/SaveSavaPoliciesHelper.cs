@@ -24,7 +24,8 @@ namespace InsuredTraveling.Helpers
 
                 if (returnValue != -1)
                 {
-                    policyHolder.Points = (float)points;
+                    var currentPoints = policyHolder.Points;
+                    policyHolder.Points = (float)points + currentPoints;
                     _userService.UpdateUserPoints(policyHolder);
                 }
                 return returnValue;
