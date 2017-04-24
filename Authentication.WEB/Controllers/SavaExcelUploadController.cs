@@ -75,7 +75,7 @@ namespace InsuredTraveling.Controllers
                         SendSavaEmail(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
                         _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport+");
                     }
-                    if (!_roleAuthorize.IsUser("Sava_Sport_VIP", PolicyUser.UserName))
+                    if (_roleAuthorize.IsUser("Sava_Sport+", PolicyUser.UserName))
                     {
                         if (Sava_admin.vip_sum <= UserSumPremiums)
                         {

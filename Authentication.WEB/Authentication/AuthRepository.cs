@@ -22,11 +22,8 @@ namespace InsuredTraveling
         private AuthContext _ctx;
         private UserManager<ApplicationUser> _userManager;
         private RoleManager<IdentityRole> roleManager;
-        private IUserService _us;
-        public AuthRepository(IUserService us)
-        {
-            _us = us;
-        }
+       
+       
         public AuthRepository()
         {
             _ctx = new AuthContext();
@@ -306,42 +303,39 @@ namespace InsuredTraveling
                     mailService.setBodyText(body, true);
                     mailService.sendMail();
 
-                    List<aspnetuser> sava_admins = _us.GetUsersByRoleName("Sava_admin");
-                    foreach (var sava_admin in sava_admins)
+                    try
                     {
-                        try
-                        {
-                            var inlineLogo =
-                               new LinkedResource(
-                                   System.Web.HttpContext.Current.Server.MapPath(
-                                       "~/Content/img/EmailHeaderWelcome1.png"));
-                            inlineLogo.ContentId = Guid.NewGuid().ToString();
+                        var inlineLogo =
+                           new LinkedResource(
+                               System.Web.HttpContext.Current.Server.MapPath(
+                                   "~/Content/img/EmailHeaderWelcome1.png"));
+                        inlineLogo.ContentId = Guid.NewGuid().ToString();
 
-                            string body2 = string.Format(@"   
+                        string body2 = string.Format(@"   
                             <div style='margin-left:20px'>
                             <p> <b>Welcome to My Sava </b> - the standalone platform for online sales of insurance policies.</p>                  
                             <br /> <br /> To inform you that the following user was registered at MySava : 
                             <br />" + "Username: " + user.UserName +
-                                                         "<br /> " + "SSN: " + user.EMBG +
-                                                         "<br /> " + "Email: " + user.Email +
-                                                         //"<br /> " + "Role: " + user.Role +
-                                                         "<br /> <br />Thanks </div>", inlineLogo.ContentId);
-                            
-                            MailService mailService2 = new MailService(sava_admin.Email, "signup@insuredtraveling.com");
-                            mailService2.setSubject("My Sava - User registered on Sava");
-                            mailService2.setBodyText(body2, true);
+                                                     "<br /> " + "SSN: " + user.EMBG +
+                                                     "<br /> " + "Email: " + user.Email +
+                                                     //"<br /> " + "Role: " + user.Role +
+                                                     "<br /> <br />Thanks </div>", inlineLogo.ContentId);
 
-                            mailService2.sendMail();
-                        }
-                        catch (Exception ex)
-                        {
-                            
-                        }
+                        MailService mailService2 = new MailService("systems4enterprise@gmail.com", "signup@insuredtraveling.com");
+                        mailService2.setSubject("My Sava - User registered on Sava");
+                        mailService2.setBodyText(body2, true);
+
+                        mailService2.sendMail();
+                    }
+                    catch (Exception ex)
+                    {
+
                     }
                 }
+            }
 
             }
-        }
+        
 
         public bool ValidateMail(string ID)
         {
