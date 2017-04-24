@@ -1542,4 +1542,7 @@
   <data name="Sava_UploadPolicy" xml:space="preserve">
     <value>Додади полиси</value>
   </data>
+  <data name="Sava_ExcelTemplateDownload" xml:space="preserve">
+    <value>Спушти темплејт</value>
+  </data>
 </root>

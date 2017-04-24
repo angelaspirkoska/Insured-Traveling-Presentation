@@ -55,20 +55,20 @@ namespace InsuredTraveling.Controllers
                 {
                     AuthRepository _repo = new AuthRepository();
                     RoleAuthorize _roleAuthorize = new RoleAuthorize();
-                    
+
                     _sp.AddSavaPolicy(policy);
                     _sp.SumDiscountPoints(policy.SSN_policyHolder, policy.discount_points);
                     _userService.UpdatePremiumSum(policy.SSN_policyHolder, policy.premium);
                     //var Sava_admin =  _savaSetupService.GetActiveSavaSetup();
                     var Sava_admin = _savaSetupService.GetLast();
                     float? UserSumPremiums = _userService.GetUserSumofPremiums(policy.SSN_policyHolder);
-                    
+
                     if (UserSumPremiums == null)
                     {
                         UserSumPremiums = 0;
                     }
                     var PolicyUser = _userService.GetUserBySSN(policy.SSN_policyHolder);
-                    
+
                     if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
                     {
                         string userRole = "Сава+ корисник на Сава осигурување";
@@ -84,9 +84,9 @@ namespace InsuredTraveling.Controllers
                             _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport_VIP");
                         }
                     }
-                    
+
                 }
-             
+
             }
             catch
             {
@@ -94,17 +94,17 @@ namespace InsuredTraveling.Controllers
             }
             return View(model);
         }
-       
+
         private void SendSavaEmail(string email, string ime, string prezime, string userRole)
         {
-            
+
             var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/EmailHeaderSuccess.png"));
             inlineLogo.ContentId = Guid.NewGuid().ToString();
             string mailBody = string.Format(@"   
                      <div style='margin-left:20px'>
                      <img style='width:700px' src=""cid:{0}"" />
                      <p> <b> Почитувани, </b></p>                  
-                     <br />"   + ime + " " + prezime +  
+                     <br />" + ime + " " + prezime +
                  "<br /> <br />" + "Вие станавте " + userRole + "  <br />  <b>Честитки. </b> </div><br />"
             , inlineLogo.ContentId);
 
@@ -142,15 +142,32 @@ namespace InsuredTraveling.Controllers
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 JSONObject.Add("Error", "Internal error");
-                throw new Exception("Internal error",ex);
+                throw new Exception("Internal error", ex);
             }
-            
+
             return JSONObject;
         }
 
+        public FileResult SavaDocumentDownload()
+        {
+            try
+            {
+
+                string fullpath = Path.Combine(Server.MapPath("~/ExcelSavaTemplate/"), "SavaExcelPolicy_Template02.xlsx");
+                return File(fullpath, "ExcelSavaTemplate/xlsx", "SavaExcelPolicy_Template02.xlsx");
+
+
+
+
+        } 
+            catch (Exception ex)
+            {
+                throw new Exception("");
+            }
+        }
 
 
         [HttpPost]

@@ -1548,4 +1548,7 @@
   <data name="Sava_UploadPolicy" xml:space="preserve">
     <value>Upload Policy</value>
   </data>
+  <data name="Sava_ExcelTemplateDownload" xml:space="preserve">
+    <value>Download template</value>
+  </data>
 </root>

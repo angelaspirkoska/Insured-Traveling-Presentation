@@ -2779,6 +2779,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download template.
+        /// </summary>
+        public static string Sava_ExcelTemplateDownload {
+            get {
+                return ResourceManager.GetString("Sava_ExcelTemplateDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Upload document.
         /// </summary>
         public static string Sava_ExcelUpload_Doc {
