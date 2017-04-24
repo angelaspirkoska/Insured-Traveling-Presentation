@@ -25,10 +25,15 @@ namespace InsuredTraveling
         private IUserService _us;
         public AuthRepository(IUserService us)
         {
+            _us = us;
+        }
+        public AuthRepository()
+        {
             _ctx = new AuthContext();
             _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_ctx));
             roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_ctx));
-            _us = us;
+           
+            
         }
         
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
@@ -312,7 +317,7 @@ namespace InsuredTraveling
                                        "~/Content/img/EmailHeaderWelcome1.png"));
                             inlineLogo.ContentId = Guid.NewGuid().ToString();
 
-                            string body2 = string.Format(@"
+                            string body2 = string.Format(@"   
                             <div style='margin-left:20px'>
                             <p> <b>Welcome to My Sava </b> - the standalone platform for online sales of insurance policies.</p>                  
                             <br /> <br /> To inform you that the following user was registered at MySava : 
@@ -334,6 +339,7 @@ namespace InsuredTraveling
                         }
                     }
                 }
+
             }
         }
 
