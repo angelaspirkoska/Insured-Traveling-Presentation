@@ -59,7 +59,8 @@ namespace InsuredTraveling.Controllers
                     _sp.AddSavaPolicy(policy);
                     _sp.SumDiscountPoints(policy.SSN_policyHolder, policy.discount_points);
                     _userService.UpdatePremiumSum(policy.SSN_policyHolder, policy.premium);
-                    var Sava_admin =  _savaSetupService.GetActiveSavaSetup();
+                    //var Sava_admin =  _savaSetupService.GetActiveSavaSetup();
+                    var Sava_admin = _savaSetupService.GetLast();
                     float? UserSumPremiums = _userService.GetUserSumofPremiums(policy.SSN_policyHolder);
                     
                     if (UserSumPremiums == null)

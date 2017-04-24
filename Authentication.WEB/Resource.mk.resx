@@ -1372,7 +1372,7 @@
     <value>Број за целобројно делење на премијата што влегува во поени</value>
   </data>
   <data name="SavaAdminPanel_VipPoints" xml:space="preserve">
-    <value>Сума со која корисникот станува VIP</value>
+    <value>Сума на премија со која корисникот станува VIP</value>
   </data>
   <data name="SetUser" xml:space="preserve">
     <value>Постави</value>

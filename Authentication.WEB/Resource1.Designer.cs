@@ -2842,7 +2842,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of points for Vip user.
+        ///   Looks up a localized string similar to Number of premium to become Vip user..
         /// </summary>
         public static string SavaAdminPanel_VipPoints {
             get {
