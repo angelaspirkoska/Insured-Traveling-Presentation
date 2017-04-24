@@ -1,7 +1,51 @@
-﻿
+﻿@model kanbanboard
 @{
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+    ViewBag.Title = "Kanban";
 }
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/Kanban/kanban.css" rel="stylesheet" />
+<script src="~/Scripts/Kanban/jquery-ui.js"></script>
+<script src="~/Scripts/Kanban/kanban.js"></script>
 
-<h2>Kanban</h2>
+<div id="surface">
+    <div id="content">
+        <div class="board-wrapper">
+            <div class="board-main-content">
+                <div class="board-header">
+                    <a href="#" class="board-header-name">
+                        <span class="board-header-text">@Model.Name</span>
+                    </a>
+                </div>
+                <div class="board-canvas">
+                    <div id="board" class="fancy-scrollbar sortable">
+
+                        @foreach (var poolList in Model.kanbanpoollists.OrderBy(x => x.OrderBy))
+                        {
+                            @Html.Partial("_PoolList", poolList)
+                        }
+
+                        <div class="list-item-add-hidden list-item-wrapper unsortable">
+                            <form>
+                                <span class="list-item-add-placeholder">Add a list...</span>
+                                <input type="text" class="list-item-add-input list-item-add-input-hidden" />
+                                <div class="list-item-add-controls">
+                                    <input type="submit" value="Save" class="list-item-add-save" />
+                                    <a href="#" class="icon-cancel"></a>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("body").css("background-color", "@Model.Color")
+    })
+</script>
 

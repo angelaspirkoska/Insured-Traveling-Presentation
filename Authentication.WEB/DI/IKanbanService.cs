@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InsuredTraveling.DI
 {
-    interface IKanbanService
+    public interface IKanbanService
     {
         List<kanbanboard> GetAllBoards();
 

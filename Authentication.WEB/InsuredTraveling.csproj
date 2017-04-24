@@ -285,6 +285,8 @@
     <Content Include="Content\img\portfolio\safe.png" />
     <Content Include="Content\img\portfolio\submarine.png" />
     <Content Include="Content\img\profile.png" />
+    <Content Include="Content\Kanban\jquery-ui.css" />
+    <Content Include="Content\Kanban\kanban.css" />
     <Content Include="Content\Limitless-css\bootstrap.css" />
     <Content Include="Content\Limitless-css\colors.css" />
     <Content Include="Content\Limitless-css\components.css" />
@@ -397,6 +399,8 @@
     <Content Include="Scripts\jquery.tablesorter.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\Kanban\jquery-ui.js" />
+    <Content Include="Scripts\Kanban\kanban.js" />
     <Content Include="Scripts\Limitless-js\core\app.js" />
     <Content Include="Scripts\Limitless-js\core\app.min.js" />
     <Content Include="Scripts\Limitless-js\core\libraries\bootstrap.min.js" />
@@ -2479,6 +2483,8 @@
     <Content Include="Scripts\Limitless-js\plugins\pickers\pickadate\translations\NAMING.md" />
     <Content Include="Views\Shared\_LayoutLimitless2.cshtml" />
     <Content Include="Views\Kanban\Index.cshtml" />
+    <Content Include="Views\Kanban\_PoolList.cshtml" />
+    <Content Include="Views\Kanban\_Ticket.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
