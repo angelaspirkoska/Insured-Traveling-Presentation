@@ -2104,6 +2104,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Print Quotes.
+        /// </summary>
+        public static string Policy_PrintQuotes {
+            get {
+                return ResourceManager.GetString("Policy_PrintQuotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total Premium.
         /// </summary>
         public static string Policy_TotalPremium {
@@ -3765,6 +3774,15 @@ namespace InsuredTraveling {
         public static string User_UserName {
             get {
                 return ResourceManager.GetString("User_UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Managment.
+        /// </summary>
+        public static string UserManagment {
+            get {
+                return ResourceManager.GetString("UserManagment", resourceCulture);
             }
         }
         

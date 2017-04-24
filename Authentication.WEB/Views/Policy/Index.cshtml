@@ -396,7 +396,7 @@
 
         <div class="form-group col-md-2 col-sm-2 btns-position">
             <div>
-                <input type="submit" id="printOffers" formmethod="post" formaction="/Policy/RedirectPrintOffer" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
+                <input type="submit" id="printOffers" formmethod="post" formaction="/Policy/RedirectPrintOffer" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintQuotes" />
             </div>
         </div>
         <div id="successMsg" class="col-md-4 col-sm-4" style="display:none;">
@@ -553,6 +553,10 @@
         $("#policy_type option[value='3']").show();
         $("#policy_type option[value='4']").hide();
         $("#Discount_div").hide();
+
+        $('.mandatoryField').tooltip({
+            placement: "right"
+        });
 
         //Setting the class active-tab, so the user will know which tab is clicked
 

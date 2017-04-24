@@ -1362,4 +1362,10 @@
   <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
     <value>Ексел документ</value>
   </data>
+  <data name="Policy_PrintQuotes" xml:space="preserve">
+    <value>Печати понуди</value>
+  </data>
+  <data name="UserManagment" xml:space="preserve">
+    <value>Менаџирање на корисник</value>
+  </data>
 </root>

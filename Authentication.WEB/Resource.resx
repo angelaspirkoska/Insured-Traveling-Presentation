@@ -1368,4 +1368,10 @@
   <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
     <value>Excel Document</value>
   </data>
+  <data name="Policy_PrintQuotes" xml:space="preserve">
+    <value>Print Quotes</value>
+  </data>
+  <data name="UserManagment" xml:space="preserve">
+    <value>User Managment</value>
+  </data>
 </root>
