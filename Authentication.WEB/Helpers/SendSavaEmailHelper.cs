@@ -40,5 +40,34 @@ namespace InsuredTraveling.Helpers
             }
             
         }
+
+        public static bool SendEmailForUserChangeRole(string email, string name, string surname, string userRole)
+        {
+            try
+            {
+                var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/EmailHeaderSuccess.png"));
+                inlineLogo.ContentId = Guid.NewGuid().ToString();
+                string mailBody = string.Format(@"   
+                     <div style='margin-left:20px'>
+                     <img style='width:700px' src=""cid:{0}"" />
+                     <p> <b> Почитувани, </b></p>                  
+                     <br />" + name + " " + surname +
+                     "<br /> <br />" + "Вие станавте " + userRole + "  <br />  <b>Честитки. </b> </div><br />"
+                , inlineLogo.ContentId);
+
+                var view = AlternateView.CreateAlternateViewFromString(mailBody, null, "text/html");
+                view.LinkedResources.Add(inlineLogo);
+                MailService mailService = new MailService(email);
+                mailService.setSubject("Промена на корисничи привилегии");
+                mailService.setBodyText(email, true);
+                mailService.AlternativeViews(view);
+                mailService.sendMail();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

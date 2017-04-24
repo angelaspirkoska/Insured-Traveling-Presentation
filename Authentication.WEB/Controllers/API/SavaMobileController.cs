@@ -12,15 +12,17 @@ using System.Globalization;
 using Microsoft.Ajax.Utilities;
 using Rotativa;
 using Newtonsoft.Json.Linq;
+using InsuredTraveling.Filters;
 
 namespace InsuredTraveling.Controllers.API
 {
     [System.Web.Http.RoutePrefix("api/SavaMobile")]
     public class SavaMobileController : ApiController
     {
-        public readonly ISavaPoliciesService _savaPoliciesService;
-        public readonly IUserService _userService;
+        private readonly ISavaPoliciesService _savaPoliciesService;
+        private readonly IUserService _userService;
         private readonly ISava_setupService _savaSetupService;
+        private readonly RoleAuthorize _roleAuthorize;
 
         public SavaMobileController(ISavaPoliciesService savaPoliciesService,
                                     IUserService userService,
@@ -29,6 +31,7 @@ namespace InsuredTraveling.Controllers.API
             _savaPoliciesService = savaPoliciesService;
             _userService = userService;
             _savaSetupService= savaSetupService;
+            _roleAuthorize = new RoleAuthorize();
         }
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("CreatePolicy")]
@@ -44,7 +47,7 @@ namespace InsuredTraveling.Controllers.API
                 else
                 {
                     var policy = Mapper.Map<QRCodeSavaPolicy, SavaPolicyModel>(model);
-                    var policyId = SaveSavaPoliciesHelper.SaveSavaPolicies(_savaPoliciesService, _userService, _savaSetupService, policy);
+                    var policyId = SaveSavaPoliciesHelper.SaveSavaPolicies(_savaPoliciesService, _userService, _savaSetupService, _roleAuthorize, policy);
                     if (policyId != -1)
                     {
                         return Ok();
