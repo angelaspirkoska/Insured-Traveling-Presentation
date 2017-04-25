@@ -18,6 +18,7 @@ using System.Net.Mail;
 
 namespace InsuredTraveling.Controllers
 {
+    [SessionExpire]
     public class SavaExcelUploadController : Controller
     {
         private readonly ISavaPoliciesService _sp;
