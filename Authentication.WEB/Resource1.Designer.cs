@@ -1951,6 +1951,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use only numbers or Latin letters.
+        /// </summary>
+        public static string Policy_Message {
+            get {
+                return ResourceManager.GetString("Policy_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel change.
         /// </summary>
         public static string Policy_Modal_Date_CancelDate {

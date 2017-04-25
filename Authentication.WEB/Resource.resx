@@ -1374,4 +1374,7 @@
   <data name="UserManagment" xml:space="preserve">
     <value>User Managment</value>
   </data>
+  <data name="Policy_Message" xml:space="preserve">
+    <value>Use only numbers or Latin letters</value>
+  </data>
 </root>

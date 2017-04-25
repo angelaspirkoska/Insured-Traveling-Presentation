@@ -1368,4 +1368,7 @@
   <data name="UserManagment" xml:space="preserve">
     <value>Менаџирање на корисник</value>
   </data>
+  <data name="Policy_Message" xml:space="preserve">
+    <value>Користи само бројки или латински букви</value>
+  </data>
 </root>
