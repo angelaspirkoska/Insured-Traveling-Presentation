@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Web.Security;
 using System.Web.Http.Dispatcher;
 using System.Configuration;
+using InsuredTraveling.Schedulers;
 
 namespace InsuredTraveling
 {
@@ -32,7 +33,7 @@ namespace InsuredTraveling
             AutoMapperInitializer.Initialize();
             ModelBinders.Binders[typeof(DateTime)] = new DateTimeModelBinder(ConfigurationManager.AppSettings["DateFormat"]);
             ModelBinders.Binders[typeof(DateTime?)] = new DateTimeModelBinder(ConfigurationManager.AppSettings["DateFormat"]);
-
+            JobScheduler.Start();
         }
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
