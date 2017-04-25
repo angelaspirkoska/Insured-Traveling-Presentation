@@ -120,6 +120,8 @@ namespace Authentication.WEB.Controllers
             model.TransId = Request.Form.Get("TransId");
             model.AuthCode = Request.Form.Get("AuthCode");
             model.mdStatus = Request.Form.Get("mdStatus");
+            model.Policy_Number = Request.Form.Get("PolicyNumber");
+            model.email = Request.Form.Get("email");
             var policyNumber = Request.Form.Get("PolicyNumber");
             if (model.mdStatus == "1" || model.mdStatus == "2" || model.mdStatus == "3" || model.mdStatus == "4")
             {
