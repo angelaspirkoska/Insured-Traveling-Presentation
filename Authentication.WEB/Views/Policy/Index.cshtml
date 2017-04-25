@@ -7,7 +7,7 @@
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
 }
 
-<h2>@InsuredTraveling.Resource.Policy_CreatePolicy</h2>
+<h2 style="margin-top: 12px; margin-bottom: -10px;">@InsuredTraveling.Resource.Policy_CreatePolicy</h2>
 <form id="policy_form" metod="post">
     <div class="row">
         <div class="loader" style="display:none"></div>
@@ -17,7 +17,7 @@
                 <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
                 <a href="javascript:void(0)" id="PolicyPolicyInformation">@InsuredTraveling.Resource.Policy_PolicyInformation</a>
             </header>
-            <div id="PolicyPolicyInformationContent" style="display:none;">
+            <div id="PolicyPolicyInformationContent" style="display:block;">
                 <div class="form-group">
                     <div class="">
                         <div class="col-md-4">
@@ -240,7 +240,7 @@
             <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
             <a href="javascript:void(0)" id="PolicyData">@InsuredTraveling.Resource.Policy_PolicyData</a>
         </header>
-        <div id="PolicyDataContent" style="display:none;">
+        <div id="PolicyDataContent" style="display:block;">
             <div class="">
                 <div class="col-md-2">
                     <div class="form-inline">
