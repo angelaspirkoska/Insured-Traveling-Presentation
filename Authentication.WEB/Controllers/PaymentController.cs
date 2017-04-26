@@ -128,7 +128,7 @@ namespace Authentication.WEB.Controllers
 
                 string fullPath = System.Web.Hosting.HostingEnvironment.MapPath("~/PolicyPDF/" + model.TransId + model.amount + ".pdf");
 
-                PrintPolicyModel pat = new PrintPolicyModel();
+                PaymentModel pat = new PaymentModel();
                 pat.Pat = _ps.GetPolicyIdByPolicyNumber(policyNumber);
                 _ps.UpdatePaymentStatus(policyNumber);
                 var actionResult = new ViewAsPdf("Print", pat);
