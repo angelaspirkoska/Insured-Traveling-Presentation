@@ -66,15 +66,20 @@ namespace InsuredTraveling.DI
             return _db.kanbanpoollists.Where(x => x.Id == PoolListId).FirstOrDefault();
         }
 
-        public void AddPoolList(string Name, string Description, int BoardId)
+        public kanbanpoollist AddPoolList(string Name, string Description, int BoardId)
         {
-            _db.kanbanpoollists.Add(new kanbanpoollist
+            var highestOrder = _db.kanbanpoollists.Max(x => x.OrderBy);
+
+            var newPoolList = new kanbanpoollist
             {
                 Name = Name,
                 Description = Description,
-                KanbanBoardId = BoardId
-            });
+                KanbanBoardId = BoardId,
+                OrderBy = highestOrder + 1
+            };
+            _db.kanbanpoollists.Add(newPoolList);
             _db.SaveChanges();
+            return newPoolList;
         }
 
         public void UpdatePoolListName(int PoolListId, string Name)
@@ -91,10 +96,17 @@ namespace InsuredTraveling.DI
             _db.SaveChanges();
         }
 
-        public void UpdatePoolListOrder(int PoolListId, float PrevOrder, float NextOrder)
+        public void UpdatePoolListOrder(List<int> order)
         {
-            kanbanpoollist poolList = GetPoolListById(PoolListId);
-            poolList.OrderBy = (PrevOrder + NextOrder) / 2;
+            for (int i = 1; i <= order.Count; i++)
+            {
+                var poolId = order[i - 1];
+                var pool = _db.kanbanpoollists.FirstOrDefault(x => x.Id == poolId);
+                if (pool != null)
+                {
+                    pool.OrderBy = i;
+                }
+            }
             _db.SaveChanges();
         }
 
@@ -149,10 +161,17 @@ namespace InsuredTraveling.DI
             _db.SaveChanges();
         }
 
-        public void UpdateTicketOrder(int TicketId, float PrevOrder, float NextOrder)
+        public void UpdateTicketOrder(List<int> order)
         {
-            kanbanticket ticket = GetTicketById(TicketId);
-            ticket.OrderBy = (PrevOrder + NextOrder) / 2;
+            for (int i = 1; i <= order.Count; i++)
+            {
+                var ticketId = order[i - 1];
+                var ticket = _db.kanbantickets.FirstOrDefault(x => x.Id == ticketId);
+                if (ticket != null)
+                {
+                    ticket.OrderBy = i;
+                }
+            }
             _db.SaveChanges();
         }
 
@@ -179,6 +198,17 @@ namespace InsuredTraveling.DI
                 x.AssignedTo == AssignedToId).FirstOrDefault().AssignedDateTime).Days;
 
             return passedDays >= 7;
+        }
+
+        public void ChangeTicketPool(int ticketId, int newPoolId, List<int> order)
+        {
+            var ticket = _db.kanbantickets.FirstOrDefault(x => x.Id == ticketId);
+            if (ticket != null)
+            {
+                ticket.KanbanPoolListId = newPoolId;
+            }
+            _db.SaveChanges();
+            UpdateTicketOrder(order);
         }
     }
 }

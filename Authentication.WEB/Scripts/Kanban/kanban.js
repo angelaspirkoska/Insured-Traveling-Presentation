@@ -1,31 +1,101 @@
-﻿var dropCount = 0;
-
-function makeDraggableAgain(elem) {
-    elem.draggable({
-        connectToSortable: '.inner-sortable',
-        revert: 'invalid',
-        revertDuration: 200,
-        containment: 'window',
-        scroll: false,
-        appendTo: 'body',
-        helper: 'clone',
-        start: function (event, ui) {
-            dropCount = 0;
-            $(ui.helper).addClass("ui-helper");
-            $(ui.helper).data('dropped', false);
-            $(this).hide();
+﻿function changeTicketPool(ticketId, oldParent, newParent) {
+    var newParentChildren = [];
+    $('*[data-poollist="' + newParent + '"]').children().each(function () {
+        newParentChildren.push($(this).data('ticketid'));
+    });
+    $("#loader").show();
+    $.ajax({
+        url: "/Kanban/ChangeTicketPool",
+        type: "post",
+        data: {
+            ticketId: ticketId,
+            newPoolId: newParent,
+            order: newParentChildren
         },
-        stop: function (event, ui) {
-            var isDropped = ui.helper.data('dropped');
-            $(ui.helper).data('dropped', false);
-            if (isDropped == true) {
-                $(this).remove();
-            } else {
-                $(this).show();
-            }
-            dropCount = 0;
+        success: function () {
+            $("#loader").hide();
+        },
+        error: function () {
+            $("#loader").hide();
         }
     });
+}
+
+function changeTicketOrder(oldParent) {
+    var oldParentChildren = [];
+    $('*[data-poollist="' + oldParent + '"]').children().each(function () {
+        oldParentChildren.push($(this).data('ticketid'));
+    });
+    $("#loader").show();
+    $.ajax({
+        url: "/Kanban/ChangeTicketOrder",
+        type: "post",
+        data: {
+            order: oldParentChildren
+        },
+        success: function () {
+            $("#loader").hide();
+        },
+        error: function () {
+            $("#loader").hide();
+        }
+    });
+}
+
+function rearrangePools() {
+    var pools = [];
+    $('.is-sortable').each(function () {
+        pools.push($(this).find('.inner-sortable').data('poollist'));
+    });
+    $("#loader").show();
+    $.ajax({
+        url: "/Kanban/ChangePoolsOrder",
+        type: "post",
+        data: {
+            order: pools
+        },
+        success: function () {
+            $("#loader").hide();
+        },
+        error: function () {
+            $("#loader").hide();
+        }
+    });
+}
+
+function setInnerSortable() {
+    var oldParent = 0;
+    var newParent = 0;
+
+    var oldPosition = -1;
+    var newPosition = -1;
+
+    var updates = 0;
+
+    $(".inner-sortable").sortable({
+        appendTo: document.body,
+        connectWith: ".inner-sortable",
+        start: function (event, ui) {
+            oldParent = $(this).closest('.inner-sortable').data('poollist');
+            oldPosition = ui.item.index();
+        },
+        update: function (event, ui) {
+            updates++;
+        },
+        receive: function (event, ui) {
+            newParent = $(this).closest('.inner-sortable').data('poollist');
+        },
+        stop: function (event, ui) {
+            if (updates == 1) {
+                changeTicketOrder(oldParent);
+            }
+            if (updates == 2) {
+                changeTicketPool($(ui.item).data('ticketid'), oldParent, newParent);
+            }
+            updates = 0;
+        }
+    });
+
 }
 
 $(function () {
@@ -48,16 +118,21 @@ $(function () {
 
         var name = $(this).find(".list-item-add-input").val();
         if (name.trim() != "") {
+            $("#loader").show();
             $.ajax({
                 type: "post",
-                url: "/Home/AddPoolList",
+                url: "/Kanban/AddPoolList",
                 data: {
-                    boardId: "@Model.Id",
+                    boardId: $('#surface').data('boardid'),
                     name: name
                 },
                 success: function (result) {
                     $(result).insertBefore(".unsortable");
                     $(".icon-cancel").click();
+                    $("#loader").hide();
+                },
+                error: function () {
+                    $("#loader").hide();
                 }
             });
         }
@@ -66,49 +141,12 @@ $(function () {
 
     $(".sortable").sortable({
         handle: '.list-item-header',
-        items: "> .is-sortable"
-    });
-
-    $(".inner-sortable").sortable({
-        revert: '200',
-        update: function () {
-
+        items: "> .is-sortable",
+        update: function (event, ui) {
+            rearrangePools();
         }
     });
 
-    $(".list-item-card").draggable({
-        connectToSortable: '.inner-sortable',
-        revert: 'invalid',
-        revertDuration: 200,
-        containment: 'window',
-        scroll: false,
-        appendTo: 'body',
-        helper: 'clone',
-        start: function (event, ui) {
-            dropCount = 0;
-            $(ui.helper).addClass("ui-helper");
-            $(ui.helper).data('dropped', false);
-            $(this).hide();
-        },
-        stop: function (event, ui) {
-            var isDropped = ui.helper.data('dropped');
-            $(ui.helper).data('dropped', false);
-            if (isDropped == true) {
-                $(this).remove();
-            } else {
-                $(this).show();
-            }
-            dropCount = 0;
-        }
-    });
+    setInnerSortable();
 
-    $(".inner-sortable").droppable({
-        accept: ".list-item-card",
-        drop: function (event, ui) {
-            dropCount++;
-            ui.helper.data('dropped', dropCount == 2);
-            makeDraggableAgain(ui.draggable);
-        }
-    });
-
-})
+});

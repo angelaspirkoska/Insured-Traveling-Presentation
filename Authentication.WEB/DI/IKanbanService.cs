@@ -26,13 +26,15 @@ namespace InsuredTraveling.DI
 
         kanbanpoollist GetPoolListById(int PoolListId);
 
-        void AddPoolList(string Name, string Description, int BoardId);
+        kanbanpoollist AddPoolList(string Name, string Description, int BoardId);
+
+        void ChangeTicketPool(int ticketId, int newPoolId, List<int> order);
 
         void UpdatePoolListName(int PoolListId, string Name);
 
         void UpdatePoolListDescription(int PoolListId, string Description);
 
-        void UpdatePoolListOrder(int PoolListId, float PrevOrder, float NextOrder);
+        void UpdatePoolListOrder(List<int> order);
 
         List<kanbanticket> GetAllTickets();
 
@@ -50,7 +52,7 @@ namespace InsuredTraveling.DI
 
         void UpdateTicketDescription(int TicketId, string Description);
 
-        void UpdateTicketOrder(int TicketId, float PrevOrder, float NextOrder);
+        void UpdateTicketOrder(List<int> order);
 
         void UpdateTicketAssignedTo(int TicketId, int AssignedToId);
 

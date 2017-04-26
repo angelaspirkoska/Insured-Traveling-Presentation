@@ -26,5 +26,26 @@ namespace InsuredTraveling.Controllers
         {
             return View();
         }
+
+        public void ChangeTicketPool(int ticketId, int newPoolId, List<int> order)
+        {
+            _kanbanService.ChangeTicketPool(ticketId, newPoolId, order);
+        }
+
+        public void ChangeTicketOrder(List<int> order)
+        {
+            _kanbanService.UpdateTicketOrder(order);
+        }
+
+        public ActionResult AddPoolList(int boardId, string name)
+        {
+            ViewBag.IsAddingPool = true;
+            return PartialView("_PoolList", _kanbanService.AddPoolList(name, "", boardId));
+        }
+
+        public void ChangePoolsOrder(List<int> order)
+        {
+            _kanbanService.UpdatePoolListOrder(order);
+        }
     }
 }
