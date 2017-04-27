@@ -280,17 +280,54 @@ namespace InsuredTraveling.FormBuilder
                     {
                         type = " VARCHAR(20) ";
                     }
-                    if(type != "")
+                    else if (tag.Type.Equals("email"))
+                    {
+                        type = " VARCHAR(50) ";
+                    }
+                    else if (tag.Type.Equals("textarea"))
+                    {
+                        type = " VARCHAR(1000) ";
+                    }
+                    else if (tag.Type.Equals("file"))
+                    {
+                        type = " VARCHAR(30) ";
+                    }
+                    else if (tag.Type.Equals("number"))
+                    {
+                        type = " INT(10) ";
+                    }
+                    else if (tag.Type.Equals("radio") || tag.Type.Equals("checkbox"))
+                    {
+                        
+                        //da proveru dali ima default!!!
+                        type = " BOOLEAN DEFAULT NULL ";
+                    }
+                    else if (tag.Type.Equals("time"))
+                    {
+                        type = " TIMESTAMP ";
+                    }
+                    else if (tag.Type.Equals("date"))
+                    {
+                        type = " DATE ";
+                    }
+
+                    if (type != "")
                     {
                         newPolicyTable.Append(", " + tag.Name.Replace(' ', '_') + " " + type + " ");
                         string requiredResult;
                         var required = tag.Attributes.TryGetValue("required", out requiredResult);
-                        if (required && !requiredResult.Equals(""))
+                        if ((required && !requiredResult.Equals("")) && !type.Contains("tiny"))
                         {
                            newPolicyTable.Append("NOT NULL");
                         }
+                        
                        
                     }
+
+                    //if(type == " BOOLEAN ")
+                    //{
+                    //    newPolicyTable.Append(" DEFAULT NULL");
+                    //}
                     
                     }
                 }
@@ -307,10 +344,6 @@ namespace InsuredTraveling.FormBuilder
             {
                 conn.Open();
                 //var command = "CREATE TABLE a_test_table (empno INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(20), last_name VARCHAR(20), birthdate DATE)";
-              
-               
-                    
-
                 MySqlCommand mysqlCommand = new MySqlCommand();
                     //new MySql.Data.MySqlClient.MySqlCommand(command, conn);
                 mysqlCommand.CommandText = command;
