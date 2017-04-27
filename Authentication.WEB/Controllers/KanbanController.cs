@@ -27,9 +27,25 @@ namespace InsuredTraveling.Controllers
             return View();
         }
 
+        public void AddTicket(int poolListId, string title, string description)
+        {
+            _kanbanService.AddTicket(title, description, 1, 1, poolListId);
+        }
+
         public void ChangeTicketPool(int ticketId, int newPoolId, List<int> order)
         {
             _kanbanService.ChangeTicketPool(ticketId, newPoolId, order);
+        }
+
+        public ActionResult TicketDetails(int ticketId)
+        {
+            kanbanticket ticket = _kanbanService.GetTicketById(ticketId);
+            return PartialView("_TicketDetails", ticket);
+        }
+
+        public void DeleteTicket(int ticketId)
+        {
+            _kanbanService.RemoveTicket(ticketId);
         }
 
         public void ChangeTicketOrder(List<int> order)
@@ -41,6 +57,11 @@ namespace InsuredTraveling.Controllers
         {
             ViewBag.IsAddingPool = true;
             return PartialView("_PoolList", _kanbanService.AddPoolList(name, "", boardId));
+        }
+
+        public void DeletePoolList(int poolListId)
+        {
+            _kanbanService.RemovePoolList(poolListId);
         }
 
         public void ChangePoolsOrder(List<int> order)

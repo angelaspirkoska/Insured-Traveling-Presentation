@@ -1,0 +1,16 @@
+﻿@model kanbanticket
+
+<div class="row">
+    <div class="col-sm-10">
+        <h4 style="margin-bottom: 0px; margin-top: 3px;">@Model.Name</h4>
+        <h6 style="margin-top: 1px;">in list <span style="text-decoration: underline">@Model.kanbanpoollist.Name</span></h6>
+        <hr />
+        <h4 style="margin-bottom: 0px; margin-top: 3px;">Assigned To:</h4>
+        <h6 style="text-decoration: underline; margin-top: 1px;">@Model.user.FisrtName @Model.user.LastName</h6>
+        <hr />
+        <h6>@Model.Description</h6>
+    </div>
+    <div class="col-sm-2">
+
+    </div>
+</div>

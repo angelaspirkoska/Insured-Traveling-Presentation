@@ -541,3 +541,26 @@ input {
     .icon-cancel:before {
         content: "\e915";
     }
+
+.btn-remove {
+    background-color: transparent;
+    border-color: transparent;
+    color: red;
+    font-weight: bold;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-size: 14px;
+    border-radius: 0px !important;
+}
+
+.btn-add-ticket {
+    border-radius: 0px !important;
+    background: rgba(0,0,0,.12);
+    color: rgba(255,255,255,.7) !important;
+    border: rgba(0,0,0,.12) !important;
+    text-align: left !important;
+}
+
+.btn-add-new {
+    border-radius: 0px !important;
+}

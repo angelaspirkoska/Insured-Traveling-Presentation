@@ -110,6 +110,13 @@ namespace InsuredTraveling.DI
             _db.SaveChanges();
         }
 
+        public void RemovePoolList(int poolListId)
+        {
+            kanbanpoollist poolListForRemove = _db.kanbanpoollists.Where(x => x.Id == poolListId).FirstOrDefault();
+            _db.kanbanpoollists.Remove(poolListForRemove);
+            _db.SaveChanges();
+        }
+
         public List<kanbanticket> GetAllTickets()
         {
             return _db.kanbantickets.ToList();
@@ -135,14 +142,18 @@ namespace InsuredTraveling.DI
             return _db.kanbantickets.Where(x => x.Id == TicketId).FirstOrDefault();
         }
 
-        public void AddTicket(string Name, string Description, int CreatedById, int AssignedToId)
+        public void AddTicket(string Name, string Description, int CreatedById, int AssignedToId, int PoolListId)
         {
+            var highestOrder = _db.kanbantickets.Max(x => x.OrderBy);
+
             _db.kanbantickets.Add(new kanbanticket
             {
                 Name = Name,
                 Description = Description,
+                OrderBy = highestOrder + 1,
                 CreatedBy = CreatedById,
-                AssignedTo = AssignedToId
+                AssignedTo = AssignedToId,
+                KanbanPoolListId = PoolListId
             });
             _db.SaveChanges();
         }
@@ -209,6 +220,13 @@ namespace InsuredTraveling.DI
             }
             _db.SaveChanges();
             UpdateTicketOrder(order);
+        }
+
+        public void RemoveTicket(int ticketId)
+        {
+            kanbanticket ticketForRemove = _db.kanbantickets.Where(x => x.Id == ticketId).FirstOrDefault();
+            _db.kanbantickets.Remove(ticketForRemove);
+            _db.SaveChanges();
         }
     }
 }

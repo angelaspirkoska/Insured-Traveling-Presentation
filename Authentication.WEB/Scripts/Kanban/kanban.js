@@ -1,4 +1,86 @@
-﻿function changeTicketPool(ticketId, oldParent, newParent) {
+﻿function OpenAddTicketModal(poolListId) {
+    $("#addTicketPoolListId").val(poolListId);
+    $("#addNewTicketModal").modal("show");
+}
+
+function ShowTicketDetails(ticketId) {
+    $.ajax({
+        type: "post",
+        url: "/Kanban/TicketDetails",
+        data: {
+            ticketId: ticketId
+        },
+        success: function (result) {
+            $("#ticketDetailsContainer").html(result);
+            $("#ticketDetailsModal").modal("show");
+        },
+        error: function () {
+        }
+    });
+}
+
+function AddNewTicket() {
+    $("#addNewTicketModal").modal("hide");
+    $("#loader").show();
+
+    var poolListId = $("#addTicketPoolListId").val();
+    var title = $("#newTicketTitle").val();
+    var description = $("#newTicketDescription").val();
+
+    $.ajax({
+        url: "/Kanban/AddTicket",
+        type: "post",
+        data: {
+            poolListId: poolListId,
+            title: title,
+            description: description
+        },
+        success: function () {
+            location.reload();
+        },
+        error: function () {
+            $("#loader").hide();
+        }
+    });
+}
+
+function deletePoolList(poolListId) {
+    $("#loader").show();
+    $.ajax({
+        url: "/Kanban/DeletePoolList",
+        type: "post",
+        data: {
+            poolListId: poolListId
+        },
+        success: function () {
+            $("#loader").hide();
+            $("#"+poolListId).remove();
+        },
+        error: function () {
+            $("#loader").hide();
+        }
+    });
+}
+
+function deleteTicket(ticketId) {
+    $("#loader").show();
+    $.ajax({
+        url: "/Kanban/DeleteTicket",
+        type: "post",
+        data: {
+            ticketId: ticketId
+        },
+        success: function () {
+            $("#loader").hide();
+            $('div[data-ticketid="' + ticketId + '"]').remove();
+        },
+        error: function () {
+            $("#loader").hide();
+        }
+    });
+}
+
+function changeTicketPool(ticketId, oldParent, newParent) {
     var newParentChildren = [];
     $('*[data-poollist="' + newParent + '"]').children().each(function () {
         newParentChildren.push($(this).data('ticketid'));
