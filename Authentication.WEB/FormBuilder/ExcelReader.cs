@@ -298,8 +298,6 @@ namespace InsuredTraveling.FormBuilder
                     }
                     else if (tag.Type.Equals("radio") || tag.Type.Equals("checkbox"))
                     {
-                        
-                        //da proveru dali ima default!!!
                         type = " BOOLEAN DEFAULT NULL ";
                     }
                     else if (tag.Type.Equals("time"))
@@ -323,18 +321,38 @@ namespace InsuredTraveling.FormBuilder
                         
                        
                     }
-
-                    //if(type == " BOOLEAN ")
-                    //{
-                    //    newPolicyTable.Append(" DEFAULT NULL");
-                    //}
                     
                     }
                 }
-            newPolicyTable.Append(")");
+                 newPolicyTable.Append(")");
                 return newPolicyTable.ToString();
 
             } 
+        public static string GenerateListCommand(int excelID)
+        {
+            return "CREATE TABLE Lists" + excelID + " ( ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, List_ID INT NOT NULL, List_Name VARCHAR(20) NOT NULL, Parameter_Value VARCHAR(50) NOT NULL)";
+        }
+        public static string PopulateListsCommand(int excelID, List<TagInfo> tagInfoExcel)
+        {
+            StringBuilder commandText = new StringBuilder();
+
+            commandText.Append("INSERT INTO Lists" + excelID + " (List_ID ,List_Name,Parameter_Value) VALUES ");
+            foreach (TagInfo tag in tagInfoExcel)
+            {
+                if (tag.Type.Equals("dropdown"))
+                {
+                    if(tag.ListItems.Count != 0)
+                    {
+                        for(int i = 0; i < tag.ListItems.Count; i++)
+                        {
+                            commandText.Append("('"+ tag.Id +"','"+ tag.Name + "', '"+ tag.ListItems[i] + "'),");             
+                        }
+                    }
+                }
+            }
+            commandText.Length--;
+            return commandText.ToString();
+        }
         public static void CreateDatabaseTables(int excelID, List<TagInfo> tagInfoExcel)
         {
             MySqlConnection conn = new MySqlConnection();
@@ -342,14 +360,29 @@ namespace InsuredTraveling.FormBuilder
             var command = GeneratePolicyCommand(excelID, tagInfoExcel);
             try
             {
-                conn.Open();
-                //var command = "CREATE TABLE a_test_table (empno INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(20), last_name VARCHAR(20), birthdate DATE)";
+                conn.Open();           
                 MySqlCommand mysqlCommand = new MySqlCommand();
-                    //new MySql.Data.MySqlClient.MySqlCommand(command, conn);
                 mysqlCommand.CommandText = command;
                 mysqlCommand.Connection = conn;
                 mysqlCommand.ExecuteNonQuery();
+                try
+                {
+                    mysqlCommand.CommandText = GenerateListCommand(excelID);
+                    mysqlCommand.ExecuteNonQuery();
+                }
+                catch(Exception ex)
+                {
 
+                }
+                try
+                {
+                    mysqlCommand.CommandText = PopulateListsCommand(excelID, tagInfoExcel);
+                    mysqlCommand.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
             catch (Exception ex)
             {
