@@ -1378,7 +1378,7 @@
     <value>Div number for premium to points ratio</value>
   </data>
   <data name="SavaAdminPanel_VipPoints" xml:space="preserve">
-    <value>Number of points for Vip user</value>
+    <value>Number of premium to become Vip user.</value>
   </data>
   <data name="SetUser" xml:space="preserve">
     <value>Set user</value>
@@ -1547,5 +1547,8 @@
   </data>
   <data name="Sava_UploadPolicy" xml:space="preserve">
     <value>Upload Policy</value>
+  </data>
+  <data name="Sava_ExcelTemplateDownload" xml:space="preserve">
+    <value>Download template</value>
   </data>
 </root>

@@ -102,7 +102,7 @@
     </div>
     <div class="col-md-7">
         <div class="form-group">
-            <label class="control-label"> @Resource.Events_StartTime <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
+            <label class="control-label"> @Resource.Events_EndTime <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
             @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control input-sm travelInfo mandatoryField", type = "time", @id = "eventEndTime" } })
             @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
         </div>

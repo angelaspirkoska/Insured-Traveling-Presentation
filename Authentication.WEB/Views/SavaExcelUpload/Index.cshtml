@@ -8,33 +8,39 @@
 <div class="row">
     <div class="row">
         <br /><br />
+        <div class="col-md-5">
             @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div>
-                    
+
                     @Html.TextBoxFor(x => x.MyExcelFile, new { type = "file" })
 
                 </div>
                 <button class="btn btn-success" type="submit">@Resource.Sava_ExcelUpload_Doc</button>
                 <br /><br />
             }
-        
-        @if (!ViewData.ModelState.IsValid)
-        {
-            <div class="alert alert-danger" role="alert">
-                <a class="close" data-dismiss="alert">x</a>
-                <p>@Html.ValidationMessageFor(x => x.MyExcelFile)</p>
-            </div>
-        }
 
-        @if (ViewBag.ErrorMessage != "")
-        {
-        <div class="alert alert-danger" role="alert">
-            <a class="close" data-dismiss="alert">x</a>
-            <p>@ViewBag.ErrorMessage</p>
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger" role="alert">
+                    <a class="close" data-dismiss="alert">x</a>
+                    <p>@Html.ValidationMessageFor(x => x.MyExcelFile)</p>
+                </div>
+            }
+
+            @if (ViewBag.ErrorMessage != "")
+            {
+                <div class="alert alert-danger" role="alert">
+                    <a class="close" data-dismiss="alert">x</a>
+                    <p>@ViewBag.ErrorMessage</p>
+                </div>
+            }
         </div>
+        <div class="col-md-7">
 
-         } 
+            <a class="btn btn-info" href="/SavaExcelUpload/SavaDocumentDownload">@Resource.Sava_ExcelTemplateDownload</a>
+            
+        </div>
     </div>
 
 <div class="row" id="dataRow" style="visibility:hidden">  

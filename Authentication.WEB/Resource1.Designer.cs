@@ -2779,6 +2779,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download template.
+        /// </summary>
+        public static string Sava_ExcelTemplateDownload {
+            get {
+                return ResourceManager.GetString("Sava_ExcelTemplateDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Upload document.
         /// </summary>
         public static string Sava_ExcelUpload_Doc {
@@ -2842,7 +2851,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of points for Vip user.
+        ///   Looks up a localized string similar to Number of premium to become Vip user..
         /// </summary>
         public static string SavaAdminPanel_VipPoints {
             get {

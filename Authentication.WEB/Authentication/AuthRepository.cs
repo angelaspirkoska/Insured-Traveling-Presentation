@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Web;
 using Newtonsoft.Json.Linq;
 using System.Net.Mail;
+using InsuredTraveling.DI;
 
 namespace InsuredTraveling
 {
@@ -21,12 +22,15 @@ namespace InsuredTraveling
         private AuthContext _ctx;
         private UserManager<ApplicationUser> _userManager;
         private RoleManager<IdentityRole> roleManager;
-
+       
+       
         public AuthRepository()
         {
             _ctx = new AuthContext();
             _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_ctx));
             roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_ctx));
+           
+            
         }
         
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
@@ -298,9 +302,40 @@ namespace InsuredTraveling
                     mailService.setSubject("Account Activation Validation");
                     mailService.setBodyText(body, true);
                     mailService.sendMail();
+
+                    try
+                    {
+                        var inlineLogo =
+                           new LinkedResource(
+                               System.Web.HttpContext.Current.Server.MapPath(
+                                   "~/Content/img/EmailHeaderWelcome1.png"));
+                        inlineLogo.ContentId = Guid.NewGuid().ToString();
+
+                        string body2 = string.Format(@"   
+                            <div style='margin-left:20px'>
+                            <p> <b>Welcome to My Sava </b> - the standalone platform for online sales of insurance policies.</p>                  
+                            <br /> <br /> To inform you that the following user was registered at MySava : 
+                            <br />" + "Username: " + user.UserName +
+                                                     "<br /> " + "SSN: " + user.EMBG +
+                                                     "<br /> " + "Email: " + user.Email +
+                                                     //"<br /> " + "Role: " + user.Role +
+                                                     "<br /> <br />Thanks </div>", inlineLogo.ContentId);
+
+                        MailService mailService2 = new MailService("systems4enterprise@gmail.com", "signup@insuredtraveling.com");
+                        mailService2.setSubject("My Sava - User registered on Sava");
+                        mailService2.setBodyText(body2, true);
+
+                        mailService2.sendMail();
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
                 }
-            }            
-        }
+            }
+
+            }
+        
 
         public bool ValidateMail(string ID)
         {
