@@ -15,16 +15,18 @@ namespace InsuredTraveling.FormBuilder
     {
         public static int helperFunctions { get; set; }
         public static int procedures { get; set; }
+        public static List<Dget> dgetFunctions { get; set; }
         
         public static IHtmlString ReadExcel(ExcelFileViewModel e)
         {
-            ExcelPackage pck = new ExcelPackage(new FileInfo(e.Path));       
-           
+            ExcelPackage pck = new ExcelPackage(new FileInfo(e.Path));
+            dgetFunctions = new List<Dget>();
             var tagInfoExcel = ParseFormElements(pck);
-            CreateDatabaseTables(e.Id, tagInfoExcel);
+           
             var result = CreateForm(pck, tagInfoExcel);
             var functions = DetermineFunction(pck);
             var procedures = DetermineProcedure(pck);
+            CreateDatabaseTables(e.Id, tagInfoExcel);
             var functionsStrings = GenerateStringFunctions(functions);
             var proceduresStrings = GenerateStringProcedures(procedures);
             return result;
@@ -45,7 +47,10 @@ namespace InsuredTraveling.FormBuilder
                     if (formula.ToUpper().StartsWith("DGET"))
                     {
                         result = new Dget();
-                        result.Resolver(formula, functionName, pck, worksheet);             
+                        result.Resolver(formula, functionName, pck, worksheet);
+                        Dget newDget = new Dget();
+                        newDget.Resolver(formula, functionName, pck, worksheet);
+                        dgetFunctions.Add(newDget);
                     }
                     else if (formula.ToUpper().StartsWith("IF"))
                     {
@@ -353,6 +358,48 @@ namespace InsuredTraveling.FormBuilder
             commandText.Length--;
             return commandText.ToString();
         }
+
+        public static List<string> CreateDGETCommands(int excelID)
+        {
+            List<string> commands = new List<string>();
+            foreach (Dget function in dgetFunctions)
+            {
+               StringBuilder command = new StringBuilder();
+                StringBuilder insertInto = new StringBuilder();
+                command.Append("CREATE TABLE "+function.Name+"_"+excelID+" (");
+
+                for (int i = 0; i < function.DatabaseRows; i++)
+                {
+                    command.Append(" "+function.Database[i,0].Replace(' ', '_') + " VARCHAR(50),");
+                    insertInto.Append(function.Database[i, 0].Replace(' ', '_') + ",");
+                }
+                command.Length--;
+                insertInto.Length--;
+                command.Append(")");
+                commands.Add(command.ToString());
+                
+                command = new StringBuilder();
+                command.Append("INSERT INTO " + function.Name + excelID +" (" + insertInto.ToString() +") VALUES ");
+                for (int i = 1; i < function.DatabaseColumns; i++)
+                {
+                    command.Append("(");
+                    for (int j = 0; j < function.DatabaseRows; j++)
+                    {
+                      
+                        command.Append("'" + function.Database[j,i] + "',");
+
+                    }
+                    command.Length--;
+                    command.Append("), ");
+                }
+                command.Length--;
+                command.Length--;
+                commands.Add(command.ToString());
+               
+            }
+
+            return commands;
+        }
         public static void CreateDatabaseTables(int excelID, List<TagInfo> tagInfoExcel)
         {
             MySqlConnection conn = new MySqlConnection();
@@ -383,15 +430,28 @@ namespace InsuredTraveling.FormBuilder
                 {
 
                 }
+                var commandsDget = CreateDGETCommands(excelID);
+                foreach (string commandDget in commandsDget)
+                {
+                    try
+                    {
+                        mysqlCommand.CommandText = commandDget;
+                        mysqlCommand.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+               
+                
             }
-            catch (Exception ex)
-            {
-            }
+          
             finally
             {
                 conn.CloseAsync();
             }
         }
+
     }
 
 
