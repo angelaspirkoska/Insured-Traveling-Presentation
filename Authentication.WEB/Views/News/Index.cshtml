@@ -1,5 +1,6 @@
 ﻿@model IQueryable<InsuredTraveling.news_all>
 @{
+    ViewBag.Title = "News";
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
 }
 <div class="container" style="margin-left: 0px;">
@@ -12,9 +13,14 @@
                         <label for="newsTitle">@InsuredTraveling.Resource.News_Title</label>
                         <input type="text" class="form-control" name="newsTitle" id="newsTitle" placeholder="@InsuredTraveling.Resource.News_Title">
                     </div>
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <label for="newsImage">@InsuredTraveling.Resource.News_Image</label>
-                        <input type="file" id="newsImage" name="newsImage" @*accept="image/**@>
+                        <input type="file" id="newsImage" name="newsImage" class="btn btn-success">
+                    </div>*@
+                    <div class="form-group">
+                        <label class="btn btn-success btn-file">
+                            @InsuredTraveling.Resource.News_ChooseImage <input type="file" style="display: none;">
+                        </label>
                     </div>
                     <div class="form-group">
                         <label for="newsContent">@InsuredTraveling.Resource.News_Content</label>
@@ -42,18 +48,15 @@
             foreach (var news in Model)
             {
                 <div class="row" style="margin-left:20px;">
-                    <div class="col-md-1 col-sm-2">
-                       
-                            <img style="width: 84px; height: 86px;" class="media-object" src="@news.ImageLocation" alt="description_image">
-                        
+                    <div class="col-md-2 col-sm-2">
+                       <img style="width: 150px; height: 150px;" class="media-object img-thumbnail img-responsive" src="@news.ImageLocation" alt="description_image">                       
                     </div>
-                    <div class="col-md-11 col-sm-10">
+                    <div class="col-md-10 col-sm-10">
                         <h4 class="media-heading">@news.Title</h4>
                         <p class="media-content">@news.Content</p>
                         @*<div id="buttons" class="col-sm-2">*@
                         <span hidden id="newsId">@news.ID</span>
-                        <button onclick="deleteNews(@news.ID)" id=@news.ID style="width: 50px;" class="btn btn-xs btn-danger btnDeleteNews">@InsuredTraveling.Resource.News_Delete</button>
-
+                        <button onclick="deleteNews(@news.ID)" id=@news.ID class="btn btn-danger pull-right btnDeleteNews" style="padding: 5px 20px;">@InsuredTraveling.Resource.News_Delete</button>
                         @*</div>*@
                     </div>
                 </div>
@@ -62,9 +65,44 @@
         }
     </div>
 </div>
+<style>
+    .btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+</style>
+
 
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script>
+    $(document).on('change', ':file', function() {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+
+    $(document).ready( function() {
+        $(':file').on('fileselect', function(event, numFiles, label) {
+            console.log(numFiles);
+            console.log(label);
+        });
+    });
 
     $(document).ready(function () {
         //Setting the class active-tab, so the user will know which tab is clicked

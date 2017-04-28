@@ -1377,4 +1377,7 @@
   <data name="Policy_Message" xml:space="preserve">
     <value>Use only numbers or Latin letters</value>
   </data>
+  <data name="News_ChooseImage" xml:space="preserve">
+    <value>Choose image</value>
+  </data>
 </root>

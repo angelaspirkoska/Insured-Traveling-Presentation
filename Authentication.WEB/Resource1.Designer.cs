@@ -1447,6 +1447,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose image.
+        /// </summary>
+        public static string News_ChooseImage {
+            get {
+                return ResourceManager.GetString("News_ChooseImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Content.
         /// </summary>
         public static string News_Content {

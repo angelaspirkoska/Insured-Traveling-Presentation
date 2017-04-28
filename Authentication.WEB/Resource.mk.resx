@@ -1371,4 +1371,7 @@
   <data name="Policy_Message" xml:space="preserve">
     <value>Користи само бројки или латински букви</value>
   </data>
+  <data name="News_ChooseImage" xml:space="preserve">
+    <value>Избери слика</value>
+  </data>
 </root>
