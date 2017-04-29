@@ -45,7 +45,7 @@
 .tt-suggestion,
 .tokenfield .token,
 .selectboxit-btn,
-.bootstrap-select .btn-default,
+/*.bootstrap-select .btn-default,*/
 .select2-results__option,
 .select2-selection__choice__remove,
 .dropdown-menu > li > a,
@@ -105,7 +105,8 @@ a.badge,
 .password-indicator-label-absolute,
 .select2-selection--single:not([class*=bg-]),
 .select2-selection--multiple:not([class*=bg-]) .select2-selection__choice,
-.bootstrap-select.btn-group .dropdown-menu > li > a .check-mark {
+/*.bootstrap-select.btn-group .dropdown-menu > li > a .check-mark*/ 
+{
   -webkit-transition: all ease-in-out 0.15s;
   -o-transition: all ease-in-out 0.15s;
   transition: all ease-in-out 0.15s;
@@ -3594,7 +3595,7 @@ li.multiselect-filter .form-control {
 *  Latest update: Aug 20, 2016
 *
 * ---------------------------------------------------------------------------- */
-.bootstrap-select {
+/*.bootstrap-select {
   width: 100%;
 }
 .bootstrap-select > .btn {
@@ -3784,7 +3785,7 @@ li.multiselect-filter .form-control {
 }
 .control-group.error .bootstrap-select .dropdown-toggle {
   border-color: #F44336;
-}
+}*/
 .bs-searchbox,
 .bs-actionsbox {
   padding: 5px 12px;
@@ -3836,7 +3837,7 @@ select.bs-select-hidden,
 select.selectpicker {
   display: none !important;
 }
-.bootstrap-select > select {
+/*.bootstrap-select > select {
   position: absolute!important;
   bottom: 0;
   left: 50%;
@@ -3846,7 +3847,7 @@ select.selectpicker {
   padding: 0!important;
   opacity: 0!important;
   border: none;
-}
+}*/
 /* ------------------------------------------------------------------------------
 *
 *  # Passy

@@ -1,4 +1,7 @@
 ﻿using InsuredTraveling.DI;
+using InsuredTraveling.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +13,12 @@ namespace InsuredTraveling.Controllers
     public class KanbanController : Controller
     {
         private IKanbanService _kanbanService;
+        private IUserService _userService;
 
-        public KanbanController(IKanbanService kanbanService)
+        public KanbanController(IKanbanService kanbanService, IUserService userService)
         {
             _kanbanService = kanbanService;
+            _userService = userService;
         }
 
         // GET: Kanban
@@ -27,9 +32,9 @@ namespace InsuredTraveling.Controllers
             return View();
         }
 
-        public void AddTicket(int poolListId, string title, string description)
+        public ActionResult AddTicket(int poolListId, string title, string description, List<string> users)
         {
-            _kanbanService.AddTicket(title, description, 1, 1, poolListId);
+            return PartialView("_Ticket", _kanbanService.AddTicket(title, description, 1, 1, poolListId, users));
         }
 
         public void ChangeTicketPool(int ticketId, int newPoolId, List<int> order)
@@ -67,6 +72,11 @@ namespace InsuredTraveling.Controllers
         public void ChangePoolsOrder(List<int> order)
         {
             _kanbanService.UpdatePoolListOrder(order);
+        }
+
+        public ActionResult GetUsersDropdown()
+        {
+            return PartialView("_UsersDropdown", _userService.GetAllUsers());
         }
     }
 }

@@ -142,11 +142,10 @@ namespace InsuredTraveling.DI
             return _db.kanbantickets.Where(x => x.Id == TicketId).FirstOrDefault();
         }
 
-        public void AddTicket(string Name, string Description, int CreatedById, int AssignedToId, int PoolListId)
+        public kanbanticket AddTicket(string Name, string Description, int CreatedById, int AssignedToId, int PoolListId, List<string> users)
         {
             var highestOrder = _db.kanbantickets.Max(x => x.OrderBy);
-
-            _db.kanbantickets.Add(new kanbanticket
+            var ticket = new kanbanticket
             {
                 Name = Name,
                 Description = Description,
@@ -154,8 +153,10 @@ namespace InsuredTraveling.DI
                 CreatedBy = CreatedById,
                 AssignedTo = AssignedToId,
                 KanbanPoolListId = PoolListId
-            });
+            };
+            _db.kanbantickets.Add(ticket);
             _db.SaveChanges();
+            return ticket;
         }
 
         public void UpdateTicketName(int TicketId, string Name)

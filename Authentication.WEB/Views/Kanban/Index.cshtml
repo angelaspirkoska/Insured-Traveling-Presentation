@@ -5,7 +5,9 @@
 }
 <link href="~/Content/jquery-ui.css" rel="stylesheet" />
 <link href="~/Content/Kanban/kanban.css" rel="stylesheet" />
+<link href="~/Content/Kanban/bootstrap-select.min.css" rel="stylesheet" />
 <script src="~/Scripts/Kanban/jquery-ui.js"></script>
+<script src="~/Scripts/Kanban/bootstrap-select.min.js"></script>
 <script src="~/Scripts/Kanban/kanban.js"></script>
 
 <div id="surface" data-boardid="@Model.Id">
@@ -64,6 +66,46 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div id="addNewTicketModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add Ticket</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="addTicketPoolListId" value="-1" />
+
+                <div class="form-group">
+                    <label for="newTicketTitle">Title</label>
+                    <input type="text" class="form-control" id="newTicketTitle" placeholder="Title">
+                </div>
+                <div class="form-group">
+                    <label for="newTicketDescription">Description</label>
+                    <textarea class="form-control" id="newTicketDescription" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Assign to users</label>
+                    @Html.Action("GetUsersDropdown")
+                </div>
+                <div class="form-group">
+                    <label for="newTicketFile">File input</label>
+                    <input type="file" id="newTicketFile">
+                    <p class="help-block">The policy that needs to be reviewed.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="button" class="btn btn-block btn-add-new btn-danger" data-dismiss="modal">Close</button>
+                </div>
+                <div class="col-sm-4">
+                    <button onclick="AddNewTicket()" type="button" class="btn btn-block btn-add-new btn-success">Add</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
 
 <script>
     $(function () {

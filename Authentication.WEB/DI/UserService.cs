@@ -139,5 +139,10 @@ namespace InsuredTraveling.DI
             user.EMBG = ssn;
             _db.SaveChanges();
         }
+
+        public List<aspnetuser> GetAllUsers()
+        {
+            return _db.aspnetusers.ToList();
+        }
     }
 }

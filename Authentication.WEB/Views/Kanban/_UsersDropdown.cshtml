@@ -1,0 +1,17 @@
+﻿@model List<aspnetuser>
+
+<select class="selectpicker" data-live-search="true" multiple>
+    @foreach (var user in Model)
+    {
+        <option value="@user.Id">@user.FirstName @user.LastName</option>
+    }
+</select>
+
+<script>
+    $(function () {
+        $('.selectpicker').selectpicker({
+            size: 5
+        });
+
+    });
+</script>

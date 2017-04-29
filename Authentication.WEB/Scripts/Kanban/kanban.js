@@ -26,6 +26,7 @@ function AddNewTicket() {
     var poolListId = $("#addTicketPoolListId").val();
     var title = $("#newTicketTitle").val();
     var description = $("#newTicketDescription").val();
+    var users = $('.selectpicker').selectpicker('val');
 
     $.ajax({
         url: "/Kanban/AddTicket",
@@ -33,10 +34,14 @@ function AddNewTicket() {
         data: {
             poolListId: poolListId,
             title: title,
-            description: description
+            description: description,
+            users: users
         },
-        success: function () {
-            location.reload();
+        success: function (result) {
+            $(".inner-sortable[data-poollist='" + poolListId + "']").append(result);
+            $("#addNewTicketModal input").val("");
+            $("#addNewTicketModal textarea").val("");
+            $("#loader").hide();
         },
         error: function () {
             $("#loader").hide();
@@ -54,7 +59,7 @@ function deletePoolList(poolListId) {
         },
         success: function () {
             $("#loader").hide();
-            $("#"+poolListId).remove();
+            $("#" + poolListId).remove();
         },
         error: function () {
             $("#loader").hide();

@@ -21,5 +21,6 @@ namespace InsuredTraveling.DI
         List<aspnetuser> GetUsersByRoleName(string Role);
         void UpdateSsnById(string id, string ssn);
         bool ChangeStatus(string username);
+        List<aspnetuser> GetAllUsers();
     }
 }

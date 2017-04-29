@@ -564,3 +564,25 @@ input {
 .btn-add-new {
     border-radius: 0px !important;
 }
+
+.bootstrap-select {
+    display: block !important;
+    width: 100% !important;
+}
+
+    .bootstrap-select > .dropdown-toggle.bs-placeholder, .bootstrap-select > .dropdown-toggle.bs-placeholder:active, .bootstrap-select > .dropdown-toggle.bs-placeholder:focus, .bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
+        color: inherit !important;
+    }
+
+    .bootstrap-select.btn-group .dropdown-toggle .caret {
+        top: 37% !important;
+    }
+
+    .bootstrap-select button, .bootstrap-select input:hover,
+    .bootstrap-select button:active,
+    .bootstrap-select button:focus {
+        background: white !important;
+        border-color: grey !important;
+        color: inherit !important;
+        float: none !important;
+    }

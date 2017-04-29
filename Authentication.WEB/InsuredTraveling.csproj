@@ -297,6 +297,7 @@
     <Content Include="Content\img\portfolio\safe.png" />
     <Content Include="Content\img\portfolio\submarine.png" />
     <Content Include="Content\img\profile.png" />
+    <Content Include="Content\Kanban\bootstrap-select.min.css" />
     <Content Include="Content\Kanban\jquery-ui.css" />
     <Content Include="Content\Kanban\kanban.css" />
     <Content Include="Content\Limitless-css\bootstrap.css" />
@@ -416,6 +417,7 @@
     <Content Include="Scripts\jquery.tablesorter.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\Kanban\bootstrap-select.min.js" />
     <Content Include="Scripts\Kanban\jquery-ui.js" />
     <Content Include="Scripts\Kanban\kanban.js" />
     <Content Include="Scripts\Limitless-js\core\app.js" />
@@ -2505,6 +2507,7 @@
     <Content Include="Views\Kanban\_PoolList.cshtml" />
     <Content Include="Views\Kanban\_Ticket.cshtml" />
     <Content Include="Views\Kanban\_TicketDetails.cshtml" />
+    <Content Include="Views\Kanban\_UsersDropdown.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
