@@ -53,12 +53,10 @@
     <script type="text/javascript" src="~/Scripts/Limitless-js/plugins/ui/nicescroll.min.js"></script>
     <script type="text/javascript" src="~/Scripts/Limitless-js/core/app.js"></script>
     <script type="text/javascript" src="~/Scripts/Limitless-js/pages/layout_fixed_custom.js"></script>
-
     <!-- /theme JS files -->
 </head>
 
 <body class="navbar-top" onload="prepareSocket()">
-
     <!-- Main navbar -->
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
@@ -67,13 +65,11 @@
                     <img src="~/Content/img/profile.png" class="logo" alt="logo" />Insured Traveling
                 </div>
             </a>
-
             <ul class="nav navbar-nav visible-xs-block">
                 <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
                 <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
             </ul>
         </div>
-
         <div class="navbar-collapse collapse" id="navbar-mobile">
             <ul class="nav navbar-nav">
                 <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
@@ -81,32 +77,6 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    @*<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="icon-bubbles4"></i>
-                    <span class="visible-xs-inline-block position-right">Messages</span>
-                    <span class="badge bg-warning-400"></span>
-                </a>*@
-
-                    @*<div class="dropdown-menu dropdown-content width-350">
-                    <div class="dropdown-content-heading">
-                        Messages
-                        <ul class="icons-list">
-                            <li><a href="#"><i class="icon-compose"></i></a></li>
-                        </ul>
-                    </div>
-
-                    <ul class="media-list dropdown-content-body">
-                        <li class="media">
-                            <div class="media-left">
-                                <span class="badge bg-danger-400 media-badge">5</span>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <div class="dropdown-content-footer">
-                        <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
-                    </div>
-                </div>*@
                 </li>
                 @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                 {
@@ -115,7 +85,6 @@
                         <ul id="messages" class="dropdown-menu message-dropdown">
                             <li id="no-messages" style="display: none;">@InsuredTraveling.Resource.Home_NoMsg</li>
                         </ul>
-
                     </li>
                     if (r.IsUser("Sava_support"))
                     {
@@ -147,10 +116,14 @@
                             {
                                 @InsuredTraveling.Resource.Home_Claims_adjuster 
                             }
+                        </a>
                     <span>@System.Web.HttpContext.Current.User.Identity.Name</span>
                     <b class="caret"></b>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#"><i class="icon-user-plus"></i>@InsuredTraveling.Resource.Home_MyProfile</a></li>
+                        <li>
+                            <a href="#"><i class="icon-user-plus"></i>@InsuredTraveling.Resource.Home_MyProfile
+                            </a>
+                        </li>
                         <li class="divider"></li>
                         <li>
                             <a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken">
@@ -158,34 +131,31 @@
                             </a>
                         </li>
                     </ul>
-                    </li>
+                   </li>
                 }
-                @foreach (var i in InsuredTraveling.App_Start.SiteLanguages.GetAllanguages())
-                {
-                    if (i.CultureName == "en")
+                <li>
+                    @foreach (var i in InsuredTraveling.App_Start.SiteLanguages.GetAllanguages())
                     {
-                        <a href="@Url.Action("ChangeLanguage", "ChangeLanuage", new { lang = i.CultureName })">
-                            <img src="~/Content/flags/en-US.png" />
-                        </a>
+                        if (i.CultureName == "en")
+                        {
+                            <a href="@Url.Action("ChangeLanguage", "ChangeLanuage", new { lang = i.CultureName })">
+                                <img src="~/Content/flags/en-US.png" />
+                            </a>
+                        }
+                        if (i.CultureName == "mk")
+                        {
+                            <a href="@Url.Action("ChangeLanguage", "ChangeLanuage", new { lang = i.CultureName })">
+                                <img src="~/Content/flags/mk-MK.png" />
+                            </a>
+                        }
                     }
-                    if (i.CultureName == "mk")
-                    {
-                        <a href="@Url.Action("ChangeLanguage", "ChangeLanuage", new { lang = i.CultureName })">
-                            <img src="~/Content/flags/mk-MK.png" />
-                        </a>
-                    }
-                }
+                </li>
+                
             </ul>
-
         </div>
     </div>
-    <!-- /main navbar -->
-    <!-- Page container -->
     <div class="page-container">
-
-        <!-- Page content -->
         <div class="page-content">
-
             <!-- Main sidebar -->
             <div class="sidebar sidebar-main sidebar-fixed">
                 <div class="sidebar-content">
@@ -195,24 +165,9 @@
                         {
                             <div class="category-content no-padding">
                                 <ul class="navigation navigation-main navigation-accordion">
-
-                                    <!-- Main -->
                                     <li class="navigation-header">
                                         <span>@InsuredTraveling.Resource.MainPage</span> <i class="icon-menu" title="Main pages"></i>
                                     </li>
-                                    @*@if (r.IsUser("Sava_Sport_VIP"))
-                                    {
-                                    <li >
-                                        <input type="submit" id="requestChatBtn" value="@InsuredTraveling.Resource.RequestChat" class="btn btn-primary chat-btn--rotate" />
-                                    </li>
-                                    }*@
-                                    
-                                        @*<li>
-                                            <a href="/Policy" id="addNewPolicy">
-                                                <i class="icon-add-to-list"></i>
-                                                <span id="btnNovaPolisa">@InsuredTraveling.Resource.Home_NewPolicy</span>
-                                            </a>
-                                        </li>*@
                                                                       
                                     @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Sava_admin") || r.IsUser("Sava_support"))
                                     {
@@ -278,9 +233,7 @@
                                                 <i class="icon-man-woman"></i>
                                                 <span>@InsuredTraveling.Resource.Home_CreateUser</span>
                                             </a>
-                                        </li>
-
-                                      
+                                        </li>                                      
                                     }
                                     @if (r.IsUser("Broker"))
                                     {
@@ -291,34 +244,21 @@
                                             </a>
                                         </li>
                                     }
-
-                                    <!-- /main -->
-
                                 </ul>
                             </div>
                         }
                     </div>
-                    <!-- /main navigation <-->
                 </div>
             </div>
-            <!-- /main sidebar -->
-            <!-- Main content -->
             <div class="body-position-for-limitless">
                 @RenderBody()
-            </div>
-            <!-- /page content -->  
+            </div> 
         </div>
-        <!-- /page container -->
     </div>
     <div id="chats"></div>
-            <!-- Footer -->
-            <div class="footer text-muted col-md-12" align="center" @*style="margin: 30px;"*@>
-                <a href="#">&copy; @DateTime.Now.Year - Insured Traveling</a>
-            </div>
-        
-            <!-- /footer -->
-        
-      
+    <div class="footer text-muted col-md-12" align="center">
+        <a href="#">&copy; @DateTime.Now.Year - Insured Traveling</a>
+    </div> 
     <script type="text/javascript">
         $(document).ready(function () {
             localStorage.setItem("username", '@HttpContext.Current.User.Identity.Name');
@@ -391,7 +331,7 @@
             </a>
         </li>
     </script>
-    <script>
+    <script type="text/javascript">
         function ShowEngFlag() {
             $("#choosen-language").text("English");
             $("#choosen-language-flag").attr({
