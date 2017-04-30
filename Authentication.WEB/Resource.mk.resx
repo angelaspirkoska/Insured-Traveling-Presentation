@@ -1362,4 +1362,7 @@
   <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
     <value>Ексел документ</value>
   </data>
+  <data name="Home_Kanban" xml:space="preserve">
+    <value>Канбан</value>
+  </data>
 </root>

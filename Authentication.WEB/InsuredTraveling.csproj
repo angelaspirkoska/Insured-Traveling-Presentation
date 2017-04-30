@@ -2272,10 +2272,22 @@
     <Compile Include="kanbanboard.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="kanbancomponent.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="kanbanpoollist.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="kanbanticket.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbanticketcomponent.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbantickettype.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbantickettypecomponent.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="kanbantimekeeper.cs">
@@ -2508,6 +2520,8 @@
     <Content Include="Views\Kanban\_Ticket.cshtml" />
     <Content Include="Views\Kanban\_TicketDetails.cshtml" />
     <Content Include="Views\Kanban\_UsersDropdown.cshtml" />
+    <Content Include="Views\Kanban\_AddTicket.cshtml" />
+    <Content Include="Views\Kanban\_TicketTypesDropdown.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1258,6 +1258,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kanban Board.
+        /// </summary>
+        public static string Home_Kanban {
+            get {
+                return ResourceManager.GetString("Home_Kanban", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Profile.
         /// </summary>
         public static string Home_MyProfile {

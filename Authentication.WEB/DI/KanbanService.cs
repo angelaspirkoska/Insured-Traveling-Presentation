@@ -142,6 +142,12 @@ namespace InsuredTraveling.DI
             return _db.kanbantickets.Where(x => x.Id == TicketId).FirstOrDefault();
         }
 
+        public List<kanbantickettypecomponent> GetComponentsForTicketType(int ticketTypeId)
+        {
+            kanbantickettype ticketType = _db.kanbantickettypes.Where(x => x.ID == ticketTypeId).FirstOrDefault();
+            return ticketType.kanbantickettypecomponents.ToList();
+        }
+
         public kanbanticket AddTicket(string Name, string Description, int CreatedById, int AssignedToId, int PoolListId, List<string> users)
         {
             var highestOrder = _db.kanbantickets.Max(x => x.OrderBy);
@@ -228,6 +234,11 @@ namespace InsuredTraveling.DI
             kanbanticket ticketForRemove = _db.kanbantickets.Where(x => x.Id == ticketId).FirstOrDefault();
             _db.kanbantickets.Remove(ticketForRemove);
             _db.SaveChanges();
+        }
+
+        public List<kanbantickettype> GetAllTicketTypes()
+        {
+            return _db.kanbantickettypes.ToList();
         }
     }
 }

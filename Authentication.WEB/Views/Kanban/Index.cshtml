@@ -90,6 +90,13 @@
                     @Html.Action("GetUsersDropdown")
                 </div>
                 <div class="form-group">
+                    <label>Ticket Type</label>
+                    @Html.Action("GetTicketTypesDropdown")
+                </div>
+                <div id="ticketTypeComponents">
+
+                </div>
+                <div class="form-group">
                     <label for="newTicketFile">File input</label>
                     <input type="file" id="newTicketFile">
                     <p class="help-block">The policy that needs to be reviewed.</p>

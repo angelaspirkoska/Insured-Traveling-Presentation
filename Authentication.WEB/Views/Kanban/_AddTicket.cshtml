@@ -1,0 +1,20 @@
+﻿@model List<kanbantickettypecomponent>
+
+@foreach (var item in Model)
+{
+    <div class="form-group">
+        <label for="@item.Name.Replace(" ", "_")">@item.Name</label>
+        @if (item.kanbancomponent.Type.ToLower() == "textarea")
+        {
+            <textarea class="form-control" id="@item.Name.Replace(" ", "_")" rows="5"></textarea>
+        }
+        else if (item.kanbancomponent.Type.ToLower() == "text")
+        {
+            <input type="text" class="form-control" id="@item.Name.Replace(" ", "_")">
+        }
+        else if (item.kanbancomponent.Type.ToLower() == "number")
+        {
+            <input type="number" class="form-control" id="@item.Name.Replace(" ", "_")">
+        }
+    </div>
+}

@@ -144,6 +144,15 @@
         <AssociationConnector Association="Entities.TicketAssignedToFK" />
         <AssociationConnector Association="Entities.TicketCreatedByFK" />
         <AssociationConnector Association="Entities.TimekeeperAssignedToFK" />
+        <EntityTypeShape EntityType="Entities.kanbancomponent" Width="1.5" PointX="14.375" PointY="2.5" />
+        <EntityTypeShape EntityType="Entities.kanbanticketcomponent" Width="1.5" PointX="16.625" PointY="38.875" />
+        <EntityTypeShape EntityType="Entities.kanbantickettype" Width="1.5" PointX="2.25" PointY="68.625" />
+        <EntityTypeShape EntityType="Entities.kanbantickettypecomponent" Width="1.5" PointX="16.625" PointY="35.5" />
+        <AssociationConnector Association="Entities.ComponentFK2" />
+        <AssociationConnector Association="Entities.ComponentId" />
+        <AssociationConnector Association="Entities.TicketFK" />
+        <AssociationConnector Association="Entities.TicketTypeFK" />
+        <AssociationConnector Association="Entities.TicketTypeFK2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -32,6 +32,12 @@ namespace InsuredTraveling.Controllers
             return View();
         }
 
+        public ActionResult AddTicketPartial(int ticketTypeId)
+        {
+            List<kanbantickettypecomponent> list = _kanbanService.GetComponentsForTicketType(ticketTypeId);
+            return PartialView("_AddTicket", list);
+        }
+
         public ActionResult AddTicket(int poolListId, string title, string description, List<string> users)
         {
             return PartialView("_Ticket", _kanbanService.AddTicket(title, description, 1, 1, poolListId, users));
@@ -77,6 +83,11 @@ namespace InsuredTraveling.Controllers
         public ActionResult GetUsersDropdown()
         {
             return PartialView("_UsersDropdown", _userService.GetAllUsers());
+        }
+
+        public ActionResult GetTicketTypesDropdown()
+        {
+            return PartialView("_TicketTypesDropdown", _kanbanService.GetAllTicketTypes());
         }
     }
 }

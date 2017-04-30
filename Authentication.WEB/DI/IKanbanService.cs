@@ -61,5 +61,9 @@ namespace InsuredTraveling.DI
         bool TicketNeedsReminder(int TicketId);
 
         void RemoveTicket(int ticketId);
+
+        List<kanbantickettypecomponent> GetComponentsForTicketType(int ticketTypeId);
+
+        List<kanbantickettype> GetAllTicketTypes();
     }
 }

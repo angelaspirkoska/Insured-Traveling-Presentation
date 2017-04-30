@@ -1368,4 +1368,7 @@
   <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
     <value>Excel Document</value>
   </data>
+  <data name="Home_Kanban" xml:space="preserve">
+    <value>Kanban Board</value>
+  </data>
 </root>

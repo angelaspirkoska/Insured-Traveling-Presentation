@@ -434,6 +434,14 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="Color" Type="varchar" MaxLength="10" />
         </EntityType>
+        <EntityType Name="kanbancomponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="kanbanpoollist">
           <Key>
             <PropertyRef Name="Id" />
@@ -451,10 +459,37 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="TicketTypeId" Type="int" />
           <Property Name="OrderBy" Type="float" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="AssignedTo" Type="int" Nullable="false" />
           <Property Name="KanbanPoolListId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kanbanticketcomponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TicketId" Type="int" />
+          <Property Name="ComponentId" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kanbantickettype">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kanbantickettypecomponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TicketTypeId" Type="int" />
+          <Property Name="ComponentId" Type="int" />
         </EntityType>
         <EntityType Name="kanbantimekeeper">
           <Key>
@@ -819,6 +854,30 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Principal>
             <Dependent Role="bank_account_info">
               <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComponentFK2">
+          <End Role="kanbancomponent" Type="Self.kanbancomponent" Multiplicity="0..1" />
+          <End Role="kanbanticketcomponent" Type="Self.kanbanticketcomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbancomponent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketcomponent">
+              <PropertyRef Name="ComponentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComponentId">
+          <End Role="kanbancomponent" Type="Self.kanbancomponent" Multiplicity="0..1" />
+          <End Role="kanbantickettypecomponent" Type="Self.kanbantickettypecomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbancomponent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbantickettypecomponent">
+              <PropertyRef Name="ComponentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1608,20 +1667,6 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="KanbanPoolListFK">
-          <End Role="kanbanpoollist" Type="Self.kanbanpoollist" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="kanbanpoollist">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="kanbanticket">
-              <PropertyRef Name="KanbanPoolListId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="KanbanTicketFK">
           <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1698,31 +1743,39 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="TicketAssignedToFK">
-          <End Role="users" Type="Self.users" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="*" />
+        <Association Name="TicketFK">
+          <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="0..1" />
+          <End Role="kanbanticketcomponent" Type="Self.kanbanticketcomponent" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="ID" />
+            <Principal Role="kanbanticket">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="kanbanticket">
-              <PropertyRef Name="AssignedTo" />
+            <Dependent Role="kanbanticketcomponent">
+              <PropertyRef Name="TicketId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="TicketCreatedByFK">
-          <End Role="users" Type="Self.users" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="TicketTypeFK">
+          <End Role="kanbantickettype" Type="Self.kanbantickettype" Multiplicity="0..1" />
           <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="users">
+            <Principal Role="kanbantickettype">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="kanbanticket">
-              <PropertyRef Name="CreatedBy" />
+              <PropertyRef Name="TicketTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TicketTypeFK2">
+          <End Role="kanbantickettype" Type="Self.kanbantickettype" Multiplicity="0..1" />
+          <End Role="kanbantickettypecomponent" Type="Self.kanbantickettypecomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbantickettype">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="kanbantickettypecomponent">
+              <PropertyRef Name="TicketTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1786,8 +1839,12 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="insured" EntityType="Self.insured" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="invoices" EntityType="Self.invoices" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="kanbanboard" EntityType="Self.kanbanboard" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbancomponent" EntityType="Self.kanbancomponent" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="kanbanpoollist" EntityType="Self.kanbanpoollist" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="kanbanticket" EntityType="Self.kanbanticket" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbanticketcomponent" EntityType="Self.kanbanticketcomponent" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbantickettype" EntityType="Self.kanbantickettype" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbantickettypecomponent" EntityType="Self.kanbantickettypecomponent" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="kanbantimekeeper" EntityType="Self.kanbantimekeeper" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="languages" EntityType="Self.languages" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="luggage_insurance" EntityType="Self.luggage_insurance" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1854,6 +1911,14 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="bank_account_info_ibfk_2" Association="Self.bank_account_info_ibfk_2">
             <End Role="banks" EntitySet="banks" />
             <End Role="bank_account_info" EntitySet="bank_account_info" />
+          </AssociationSet>
+          <AssociationSet Name="ComponentFK2" Association="Self.ComponentFK2">
+            <End Role="kanbancomponent" EntitySet="kanbancomponent" />
+            <End Role="kanbanticketcomponent" EntitySet="kanbanticketcomponent" />
+          </AssociationSet>
+          <AssociationSet Name="ComponentId" Association="Self.ComponentId">
+            <End Role="kanbancomponent" EntitySet="kanbancomponent" />
+            <End Role="kanbantickettypecomponent" EntitySet="kanbantickettypecomponent" />
           </AssociationSet>
           <AssociationSet Name="countries_name_ibfk_1" Association="Self.countries_name_ibfk_1">
             <End Role="countries" EntitySet="countries" />
@@ -2111,10 +2176,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="kanbanboard" EntitySet="kanbanboard" />
             <End Role="kanbanpoollist" EntitySet="kanbanpoollist" />
           </AssociationSet>
-          <AssociationSet Name="KanbanPoolListFK" Association="Self.KanbanPoolListFK">
-            <End Role="kanbanpoollist" EntitySet="kanbanpoollist" />
-            <End Role="kanbanticket" EntitySet="kanbanticket" />
-          </AssociationSet>
           <AssociationSet Name="KanbanTicketFK" Association="Self.KanbanTicketFK">
             <End Role="kanbanticket" EntitySet="kanbanticket" />
             <End Role="kanbantimekeeper" EntitySet="kanbantimekeeper" />
@@ -2139,13 +2200,17 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="languages" EntitySet="languages" />
             <End Role="retaining_risk_name" EntitySet="retaining_risk_name" />
           </AssociationSet>
-          <AssociationSet Name="TicketAssignedToFK" Association="Self.TicketAssignedToFK">
-            <End Role="users" EntitySet="users" />
+          <AssociationSet Name="TicketFK" Association="Self.TicketFK">
+            <End Role="kanbanticket" EntitySet="kanbanticket" />
+            <End Role="kanbanticketcomponent" EntitySet="kanbanticketcomponent" />
+          </AssociationSet>
+          <AssociationSet Name="TicketTypeFK" Association="Self.TicketTypeFK">
+            <End Role="kanbantickettype" EntitySet="kanbantickettype" />
             <End Role="kanbanticket" EntitySet="kanbanticket" />
           </AssociationSet>
-          <AssociationSet Name="TicketCreatedByFK" Association="Self.TicketCreatedByFK">
-            <End Role="users" EntitySet="users" />
-            <End Role="kanbanticket" EntitySet="kanbanticket" />
+          <AssociationSet Name="TicketTypeFK2" Association="Self.TicketTypeFK2">
+            <End Role="kanbantickettype" EntitySet="kanbantickettype" />
+            <End Role="kanbantickettypecomponent" EntitySet="kanbantickettypecomponent" />
           </AssociationSet>
           <AssociationSet Name="TimekeeperAssignedToFK" Association="Self.TimekeeperAssignedToFK">
             <End Role="users" EntitySet="users" />
@@ -3567,6 +3632,30 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="user" EntitySet="users" />
             <End Role="kanbantimekeeper" EntitySet="kanbantimekeepers" />
           </AssociationSet>
+          <EntitySet Name="kanbancomponents" EntityType="Entities.kanbancomponent" />
+          <EntitySet Name="kanbanticketcomponents" EntityType="Entities.kanbanticketcomponent" />
+          <EntitySet Name="kanbantickettypes" EntityType="Entities.kanbantickettype" />
+          <EntitySet Name="kanbantickettypecomponents" EntityType="Entities.kanbantickettypecomponent" />
+          <AssociationSet Name="ComponentFK2" Association="Entities.ComponentFK2">
+            <End Role="kanbancomponent" EntitySet="kanbancomponents" />
+            <End Role="kanbanticketcomponent" EntitySet="kanbanticketcomponents" />
+          </AssociationSet>
+          <AssociationSet Name="ComponentId" Association="Entities.ComponentId">
+            <End Role="kanbancomponent" EntitySet="kanbancomponents" />
+            <End Role="kanbantickettypecomponent" EntitySet="kanbantickettypecomponents" />
+          </AssociationSet>
+          <AssociationSet Name="TicketFK" Association="Entities.TicketFK">
+            <End Role="kanbanticket" EntitySet="kanbantickets" />
+            <End Role="kanbanticketcomponent" EntitySet="kanbanticketcomponents" />
+          </AssociationSet>
+          <AssociationSet Name="TicketTypeFK" Association="Entities.TicketTypeFK">
+            <End Role="kanbantickettype" EntitySet="kanbantickettypes" />
+            <End Role="kanbanticket" EntitySet="kanbantickets" />
+          </AssociationSet>
+          <AssociationSet Name="TicketTypeFK2" Association="Entities.TicketTypeFK2">
+            <End Role="kanbantickettype" EntitySet="kanbantickettypes" />
+            <End Role="kanbantickettypecomponent" EntitySet="kanbantickettypecomponents" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -4287,6 +4376,9 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="kanbantimekeepers" Relationship="Entities.KanbanTicketFK" FromRole="kanbanticket" ToRole="kanbantimekeeper" />
           <NavigationProperty Name="user" Relationship="Entities.TicketAssignedToFK" FromRole="kanbanticket" ToRole="user" />
           <NavigationProperty Name="user1" Relationship="Entities.TicketCreatedByFK" FromRole="kanbanticket" ToRole="user" />
+          <Property Name="TicketTypeId" Type="Int32" />
+          <NavigationProperty Name="kanbanticketcomponents" Relationship="Entities.TicketFK" FromRole="kanbanticket" ToRole="kanbanticketcomponent" />
+          <NavigationProperty Name="kanbantickettype" Relationship="Entities.TicketTypeFK" FromRole="kanbanticket" ToRole="kanbantickettype" />
         </EntityType>
         <EntityType Name="kanbantimekeeper">
           <Key>
@@ -4380,6 +4472,108 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="kanbantimekeeper">
               <PropertyRef Name="AssignedTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="kanbancomponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="kanbanticketcomponents" Relationship="Entities.ComponentFK2" FromRole="kanbancomponent" ToRole="kanbanticketcomponent" />
+          <NavigationProperty Name="kanbantickettypecomponents" Relationship="Entities.ComponentId" FromRole="kanbancomponent" ToRole="kanbantickettypecomponent" />
+        </EntityType>
+        <EntityType Name="kanbanticketcomponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TicketId" Type="Int32" />
+          <Property Name="ComponentId" Type="Int32" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="kanbancomponent" Relationship="Entities.ComponentFK2" FromRole="kanbanticketcomponent" ToRole="kanbancomponent" />
+          <NavigationProperty Name="kanbanticket" Relationship="Entities.TicketFK" FromRole="kanbanticketcomponent" ToRole="kanbanticket" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="kanbantickettype">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="kanbantickets" Relationship="Entities.TicketTypeFK" FromRole="kanbantickettype" ToRole="kanbanticket" />
+          <NavigationProperty Name="kanbantickettypecomponents" Relationship="Entities.TicketTypeFK2" FromRole="kanbantickettype" ToRole="kanbantickettypecomponent" />
+        </EntityType>
+        <EntityType Name="kanbantickettypecomponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TicketTypeId" Type="Int32" />
+          <Property Name="ComponentId" Type="Int32" />
+          <NavigationProperty Name="kanbancomponent" Relationship="Entities.ComponentId" FromRole="kanbantickettypecomponent" ToRole="kanbancomponent" />
+          <NavigationProperty Name="kanbantickettype" Relationship="Entities.TicketTypeFK2" FromRole="kanbantickettypecomponent" ToRole="kanbantickettype" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="ComponentFK2">
+          <End Type="Entities.kanbancomponent" Role="kanbancomponent" Multiplicity="0..1" />
+          <End Type="Entities.kanbanticketcomponent" Role="kanbanticketcomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbancomponent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketcomponent">
+              <PropertyRef Name="ComponentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComponentId">
+          <End Type="Entities.kanbancomponent" Role="kanbancomponent" Multiplicity="0..1" />
+          <End Type="Entities.kanbantickettypecomponent" Role="kanbantickettypecomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbancomponent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbantickettypecomponent">
+              <PropertyRef Name="ComponentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TicketFK">
+          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="0..1" />
+          <End Type="Entities.kanbanticketcomponent" Role="kanbanticketcomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanticket">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketcomponent">
+              <PropertyRef Name="TicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TicketTypeFK">
+          <End Type="Entities.kanbantickettype" Role="kanbantickettype" Multiplicity="0..1" />
+          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbantickettype">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="TicketTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TicketTypeFK2">
+          <End Type="Entities.kanbantickettype" Role="kanbantickettype" Multiplicity="0..1" />
+          <End Type="Entities.kanbantickettypecomponent" Role="kanbantickettypecomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbantickettype">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="kanbantickettypecomponent">
+              <PropertyRef Name="TicketTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5179,6 +5373,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="kanbantickets">
             <EntityTypeMapping TypeName="Entities.kanbanticket">
               <MappingFragment StoreEntitySet="kanbanticket">
+                <ScalarProperty Name="TicketTypeId" ColumnName="TicketTypeId" />
                 <ScalarProperty Name="KanbanPoolListId" ColumnName="KanbanPoolListId" />
                 <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -5195,6 +5390,44 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="AssignedDateTime" ColumnName="AssignedDateTime" />
                 <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
                 <ScalarProperty Name="KanbanTicketId" ColumnName="KanbanTicketId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbancomponents">
+            <EntityTypeMapping TypeName="Entities.kanbancomponent">
+              <MappingFragment StoreEntitySet="kanbancomponent">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbanticketcomponents">
+            <EntityTypeMapping TypeName="Entities.kanbanticketcomponent">
+              <MappingFragment StoreEntitySet="kanbanticketcomponent">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
+                <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbantickettypes">
+            <EntityTypeMapping TypeName="Entities.kanbantickettype">
+              <MappingFragment StoreEntitySet="kanbantickettype">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbantickettypecomponents">
+            <EntityTypeMapping TypeName="Entities.kanbantickettypecomponent">
+              <MappingFragment StoreEntitySet="kanbantickettypecomponent">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
+                <ScalarProperty Name="TicketTypeId" ColumnName="TicketTypeId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -15,31 +15,33 @@ namespace InsuredTraveling
 using System;
     using System.Collections.Generic;
     
-public partial class kanbanboard
+public partial class kanbantickettype
 {
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public kanbanboard()
+    public kanbantickettype()
     {
 
-        this.kanbanpoollists = new HashSet<kanbanpoollist>();
+        this.kanbantickets = new HashSet<kanbanticket>();
+
+        this.kanbantickettypecomponents = new HashSet<kanbantickettypecomponent>();
 
     }
 
 
-    public int Id { get; set; }
+    public int ID { get; set; }
 
     public string Name { get; set; }
-
-    public string Description { get; set; }
-
-    public string Color { get; set; }
 
 
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<kanbanpoollist> kanbanpoollists { get; set; }
+    public virtual ICollection<kanbanticket> kanbantickets { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<kanbantickettypecomponent> kanbantickettypecomponents { get; set; }
 
 }
 

@@ -1,0 +1,30 @@
+﻿@model List<kanbantickettype>
+
+<select id="ticketTypeSelect" class="form-control">
+    <option value="-1">Select a type</option>
+    @foreach (var ticketType in Model)
+    {
+        <option value="@ticketType.ID">@ticketType.Name</option>
+    }
+</select>
+
+<script>
+    $("#ticketTypeSelect").change(function () {
+        $("#loader").show();
+        var ticketTypeId = $(this).val();
+        $.ajax({
+            url: "/Kanban/AddTicketPartial",
+            type: "post",
+            data: {
+                ticketTypeId: ticketTypeId
+            },
+            success: function (result) {
+                $("#ticketTypeComponents").html(result);
+                $("#loader").hide();
+            },
+            error: function () {
+                $("#loader").hide();
+            }
+        });
+    });
+</script>

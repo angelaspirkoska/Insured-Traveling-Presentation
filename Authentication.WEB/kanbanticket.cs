@@ -24,6 +24,8 @@ public partial class kanbanticket
 
         this.kanbantimekeepers = new HashSet<kanbantimekeeper>();
 
+        this.kanbanticketcomponents = new HashSet<kanbanticketcomponent>();
+
     }
 
 
@@ -41,6 +43,8 @@ public partial class kanbanticket
 
     public int KanbanPoolListId { get; set; }
 
+    public Nullable<int> TicketTypeId { get; set; }
+
 
 
     public virtual kanbanpoollist kanbanpoollist { get; set; }
@@ -52,6 +56,12 @@ public partial class kanbanticket
     public virtual user user { get; set; }
 
     public virtual user user1 { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<kanbanticketcomponent> kanbanticketcomponents { get; set; }
+
+    public virtual kanbantickettype kanbantickettype { get; set; }
 
 }
 
