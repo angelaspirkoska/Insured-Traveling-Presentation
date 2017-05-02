@@ -174,6 +174,7 @@ namespace InsuredTraveling.DI
                     AssignedDateTime = DateTime.Now
                 });
             }
+            _db.SaveChanges();
             return ticket;
         }
 
