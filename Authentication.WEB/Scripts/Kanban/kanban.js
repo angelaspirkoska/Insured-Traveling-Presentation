@@ -4,6 +4,7 @@
 }
 
 function ShowTicketDetails(ticketId) {
+    $("#loader").show();
     $.ajax({
         type: "post",
         url: "/Kanban/TicketDetails",
@@ -13,8 +14,10 @@ function ShowTicketDetails(ticketId) {
         success: function (result) {
             $("#ticketDetailsContainer").html(result);
             $("#ticketDetailsModal").modal("show");
+            $("#loader").hide();
         },
         error: function () {
+            $("#loader").hide();
         }
     });
 }
