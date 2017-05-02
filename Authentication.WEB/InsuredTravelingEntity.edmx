@@ -497,7 +497,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KanbanTicketId" Type="int" Nullable="false" />
-          <Property Name="AssignedTo" Type="int" Nullable="false" />
+          <Property Name="AssignedToId" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="AssignedDateTime" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="languages">
@@ -830,6 +830,20 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Principal>
             <Dependent Role="additional_charge_name">
               <PropertyRef Name="additional_charge_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AssignedToFK">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbantimekeeper" Type="Self.kanbantimekeeper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbantimekeeper">
+              <PropertyRef Name="AssignedToId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1779,20 +1793,6 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="TimekeeperAssignedToFK">
-          <End Role="users" Type="Self.users" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="kanbantimekeeper" Type="Self.kanbantimekeeper" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="kanbantimekeeper">
-              <PropertyRef Name="AssignedTo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="travel_policy_ibfk_1">
           <End Role="insured" Type="Self.insured" Multiplicity="1" />
           <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="*" />
@@ -1903,6 +1903,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="additional_charge_name_ibfk_2" Association="Self.additional_charge_name_ibfk_2">
             <End Role="additional_charge" EntitySet="additional_charge" />
             <End Role="additional_charge_name" EntitySet="additional_charge_name" />
+          </AssociationSet>
+          <AssociationSet Name="AssignedToFK" Association="Self.AssignedToFK">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="kanbantimekeeper" EntitySet="kanbantimekeeper" />
           </AssociationSet>
           <AssociationSet Name="bank_account_info_ibfk_1" Association="Self.bank_account_info_ibfk_1">
             <End Role="insured" EntitySet="insured" />
@@ -2211,10 +2215,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="TicketTypeFK2" Association="Self.TicketTypeFK2">
             <End Role="kanbantickettype" EntitySet="kanbantickettype" />
             <End Role="kanbantickettypecomponent" EntitySet="kanbantickettypecomponent" />
-          </AssociationSet>
-          <AssociationSet Name="TimekeeperAssignedToFK" Association="Self.TimekeeperAssignedToFK">
-            <End Role="users" EntitySet="users" />
-            <End Role="kanbantimekeeper" EntitySet="kanbantimekeeper" />
           </AssociationSet>
           <AssociationSet Name="travel_policy_ibfk_1" Association="Self.travel_policy_ibfk_1">
             <End Role="insured" EntitySet="insured" />
@@ -2796,7 +2796,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_users_aspnetuser" FromRole="user" ToRole="aspnetuser" />
           <NavigationProperty Name="kanbantickets" Relationship="Entities.TicketAssignedToFK" FromRole="user" ToRole="kanbanticket" />
           <NavigationProperty Name="kanbantickets1" Relationship="Entities.TicketCreatedByFK" FromRole="user" ToRole="kanbanticket" />
-          <NavigationProperty Name="kanbantimekeepers" Relationship="Entities.TimekeeperAssignedToFK" FromRole="user" ToRole="kanbantimekeeper" />
         </EntityType>
         <EntityType Name="aspnetuserlogin">
           <Key>
@@ -3607,7 +3606,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="kanbanboards" EntityType="Entities.kanbanboard" />
           <EntitySet Name="kanbanpoollists" EntityType="Entities.kanbanpoollist" />
           <EntitySet Name="kanbantickets" EntityType="Entities.kanbanticket" />
-          <EntitySet Name="kanbantimekeepers" EntityType="Entities.kanbantimekeeper" />
           <AssociationSet Name="KanbanBoardFK" Association="Entities.KanbanBoardFK">
             <End Role="kanbanboard" EntitySet="kanbanboards" />
             <End Role="kanbanpoollist" EntitySet="kanbanpoollists" />
@@ -3616,10 +3614,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="kanbanpoollist" EntitySet="kanbanpoollists" />
             <End Role="kanbanticket" EntitySet="kanbantickets" />
           </AssociationSet>
-          <AssociationSet Name="KanbanTicketFK" Association="Entities.KanbanTicketFK">
-            <End Role="kanbanticket" EntitySet="kanbantickets" />
-            <End Role="kanbantimekeeper" EntitySet="kanbantimekeepers" />
-          </AssociationSet>
           <AssociationSet Name="TicketAssignedToFK" Association="Entities.TicketAssignedToFK">
             <End Role="user" EntitySet="users" />
             <End Role="kanbanticket" EntitySet="kanbantickets" />
@@ -3627,10 +3621,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="TicketCreatedByFK" Association="Entities.TicketCreatedByFK">
             <End Role="user" EntitySet="users" />
             <End Role="kanbanticket" EntitySet="kanbantickets" />
-          </AssociationSet>
-          <AssociationSet Name="TimekeeperAssignedToFK" Association="Entities.TimekeeperAssignedToFK">
-            <End Role="user" EntitySet="users" />
-            <End Role="kanbantimekeeper" EntitySet="kanbantimekeepers" />
           </AssociationSet>
           <EntitySet Name="kanbancomponents" EntityType="Entities.kanbancomponent" />
           <EntitySet Name="kanbanticketcomponents" EntityType="Entities.kanbanticketcomponent" />
@@ -3655,6 +3645,15 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="TicketTypeFK2" Association="Entities.TicketTypeFK2">
             <End Role="kanbantickettype" EntitySet="kanbantickettypes" />
             <End Role="kanbantickettypecomponent" EntitySet="kanbantickettypecomponents" />
+          </AssociationSet>
+          <EntitySet Name="kanbantimekeepers" EntityType="Entities.kanbantimekeeper" />
+          <AssociationSet Name="KanbanTicketFK" Association="Entities.KanbanTicketFK">
+            <End Role="kanbanticket" EntitySet="kanbantickets" />
+            <End Role="kanbantimekeeper" EntitySet="kanbantimekeepers" />
+          </AssociationSet>
+          <AssociationSet Name="AssignedToFK" Association="Entities.AssignedToFK">
+            <End Role="aspnetuser" EntitySet="aspnetusers" />
+            <End Role="kanbantimekeeper" EntitySet="kanbantimekeepers" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
@@ -4013,6 +4012,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="aspnetroles" Relationship="Entities.aspnetuserroles" FromRole="aspnetuser" ToRole="aspnetrole" />
           <NavigationProperty Name="broker_employees" Relationship="Entities.FKBrrokerID" FromRole="aspnetuser" ToRole="broker_employees" />
           <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="kanbantimekeepers" Relationship="Entities.AssignedToFK" FromRole="aspnetuser" ToRole="kanbantimekeeper" />
         </EntityType>
         <Association Name="fk_additional_charge_created_by">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
@@ -4373,23 +4373,12 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="AssignedTo" Type="Int32" Nullable="false" />
           <Property Name="KanbanPoolListId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="kanbanpoollist" Relationship="Entities.KanbanPoolListFK" FromRole="kanbanticket" ToRole="kanbanpoollist" />
-          <NavigationProperty Name="kanbantimekeepers" Relationship="Entities.KanbanTicketFK" FromRole="kanbanticket" ToRole="kanbantimekeeper" />
           <NavigationProperty Name="user" Relationship="Entities.TicketAssignedToFK" FromRole="kanbanticket" ToRole="user" />
           <NavigationProperty Name="user1" Relationship="Entities.TicketCreatedByFK" FromRole="kanbanticket" ToRole="user" />
           <Property Name="TicketTypeId" Type="Int32" />
           <NavigationProperty Name="kanbanticketcomponents" Relationship="Entities.TicketFK" FromRole="kanbanticket" ToRole="kanbanticketcomponent" />
           <NavigationProperty Name="kanbantickettype" Relationship="Entities.TicketTypeFK" FromRole="kanbanticket" ToRole="kanbantickettype" />
-        </EntityType>
-        <EntityType Name="kanbantimekeeper">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="KanbanTicketId" Type="Int32" Nullable="false" />
-          <Property Name="AssignedTo" Type="Int32" Nullable="false" />
-          <Property Name="AssignedDateTime" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="kanbanticket" Relationship="Entities.KanbanTicketFK" FromRole="kanbantimekeeper" ToRole="kanbanticket" />
-          <NavigationProperty Name="user" Relationship="Entities.TimekeeperAssignedToFK" FromRole="kanbantimekeeper" ToRole="user" />
+          <NavigationProperty Name="kanbantimekeepers" Relationship="Entities.KanbanTicketFK" FromRole="kanbanticket" ToRole="kanbantimekeeper" />
         </EntityType>
         <Association Name="KanbanBoardFK">
           <End Type="Entities.kanbanboard" Role="kanbanboard" Multiplicity="1">
@@ -4419,20 +4408,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="KanbanTicketFK">
-          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Entities.kanbantimekeeper" Role="kanbantimekeeper" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="kanbanticket">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="kanbantimekeeper">
-              <PropertyRef Name="KanbanTicketId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="TicketAssignedToFK">
           <End Type="Entities.user" Role="user" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -4458,20 +4433,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="kanbanticket">
               <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="TimekeeperAssignedToFK">
-          <End Type="Entities.user" Role="user" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Entities.kanbantimekeeper" Role="kanbantimekeeper" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="user">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="kanbantimekeeper">
-              <PropertyRef Name="AssignedTo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4574,6 +4535,45 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="kanbantickettypecomponent">
               <PropertyRef Name="TicketTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="kanbantimekeeper">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KanbanTicketId" Type="Int32" Nullable="false" />
+          <Property Name="AssignedDateTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="kanbanticket" Relationship="Entities.KanbanTicketFK" FromRole="kanbantimekeeper" ToRole="kanbanticket" />
+          <Property Name="AssignedToId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Entities.AssignedToFK" FromRole="kanbantimekeeper" ToRole="aspnetuser" />
+        </EntityType>
+        <Association Name="KanbanTicketFK">
+          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbantimekeeper" Role="kanbantimekeeper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanticket">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbantimekeeper">
+              <PropertyRef Name="KanbanTicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AssignedToFK">
+          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbantimekeeper" Role="kanbantimekeeper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetuser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbantimekeeper">
+              <PropertyRef Name="AssignedToId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5384,16 +5384,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="kanbantimekeepers">
-            <EntityTypeMapping TypeName="Entities.kanbantimekeeper">
-              <MappingFragment StoreEntitySet="kanbantimekeeper">
-                <ScalarProperty Name="AssignedDateTime" ColumnName="AssignedDateTime" />
-                <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
-                <ScalarProperty Name="KanbanTicketId" ColumnName="KanbanTicketId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="kanbancomponents">
             <EntityTypeMapping TypeName="Entities.kanbancomponent">
               <MappingFragment StoreEntitySet="kanbancomponent">
@@ -5428,6 +5418,16 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
                 <ScalarProperty Name="TicketTypeId" ColumnName="TicketTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbantimekeepers">
+            <EntityTypeMapping TypeName="Entities.kanbantimekeeper">
+              <MappingFragment StoreEntitySet="kanbantimekeeper">
+                <ScalarProperty Name="AssignedToId" ColumnName="AssignedToId" />
+                <ScalarProperty Name="AssignedDateTime" ColumnName="AssignedDateTime" />
+                <ScalarProperty Name="KanbanTicketId" ColumnName="KanbanTicketId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

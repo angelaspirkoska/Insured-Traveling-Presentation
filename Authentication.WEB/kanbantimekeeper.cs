@@ -22,15 +22,15 @@ public partial class kanbantimekeeper
 
     public int KanbanTicketId { get; set; }
 
-    public int AssignedTo { get; set; }
-
     public System.DateTime AssignedDateTime { get; set; }
+
+    public string AssignedToId { get; set; }
 
 
 
     public virtual kanbanticket kanbanticket { get; set; }
 
-    public virtual user user { get; set; }
+    public virtual aspnetuser aspnetuser { get; set; }
 
 }
 

@@ -26,8 +26,6 @@ public partial class user
 
         this.kanbantickets1 = new HashSet<kanbanticket>();
 
-        this.kanbantimekeepers = new HashSet<kanbantimekeeper>();
-
     }
 
 
@@ -68,10 +66,6 @@ public partial class user
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<kanbanticket> kanbantickets1 { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<kanbantimekeeper> kanbantimekeepers { get; set; }
 
 }
 

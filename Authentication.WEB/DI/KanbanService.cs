@@ -150,7 +150,9 @@ namespace InsuredTraveling.DI
 
         public kanbanticket AddTicket(string Name, string Description, int CreatedById, int AssignedToId, int PoolListId, List<string> users)
         {
-            var highestOrder = _db.kanbantickets.Max(x => x.OrderBy);
+            float highestOrder = 0;
+            if (_db.kanbantickets.Count() > 0)
+                highestOrder = _db.kanbantickets.Max(x => x.OrderBy);
             var ticket = new kanbanticket
             {
                 Name = Name,
@@ -162,6 +164,16 @@ namespace InsuredTraveling.DI
             };
             _db.kanbantickets.Add(ticket);
             _db.SaveChanges();
+
+            foreach (var user in users)
+            {
+                _db.kanbantimekeepers.Add(new kanbantimekeeper
+                {
+                    AssignedToId = user,
+                    KanbanTicketId = ticket.Id,
+                    AssignedDateTime = DateTime.Now
+                });
+            }
             return ticket;
         }
 
@@ -195,27 +207,12 @@ namespace InsuredTraveling.DI
 
         public void UpdateTicketAssignedTo(int TicketId, int AssignedToId)
         {
-            kanbanticket ticket = GetTicketById(TicketId);
-            ticket.AssignedTo = AssignedToId;
-
-            _db.kanbantimekeepers.Add(new kanbantimekeeper
-            {
-                KanbanTicketId = TicketId,
-                AssignedTo = AssignedToId,
-                AssignedDateTime = DateTime.Now
-            });
-
-            _db.SaveChanges();
+            
         }
 
         public bool TicketNeedsReminder(int TicketId)
         {
-            int AssignedToId = _db.kanbantickets.Where(x => x.Id == TicketId).FirstOrDefault().AssignedTo;
-
-            int passedDays = (DateTime.Now - _db.kanbantimekeepers.Where(x => x.KanbanTicketId == TicketId &&
-                x.AssignedTo == AssignedToId).FirstOrDefault().AssignedDateTime).Days;
-
-            return passedDays >= 7;
+            return true;
         }
 
         public void ChangeTicketPool(int ticketId, int newPoolId, List<int> order)
