@@ -194,14 +194,24 @@ namespace InsuredTraveling.Controllers
             var percentage = savaSetup != null ? savaSetup.points_percentage : 1;
             DataTable dt = GetDataTableFromSpreadsheet(model.MyExcelFile.InputStream, false);
 
+            // Note to self: Dodadi validacija na EMBG, pravilen format za stringovi i slicni validacii.
             foreach (DataRow dr in dt.Rows)
             {
                 SavaPolicyModel policyModel = new SavaPolicyModel();
-                
-                policyModel.policy_number = Convert.ToInt32(dr.ItemArray[0]);
-                policyModel.SSN_insured = (dr.ItemArray[2]).ToString();
-                policyModel.SSN_policyHolder = (dr.ItemArray[3]).ToString();
-                string tempExpiry = (dr.ItemArray[4]).ToString();
+
+                var policy_number = dr.ItemArray[0].ToString();
+                var SSN_insured = dr.ItemArray[1].ToString();
+                var SSN_policyHolder = dr.ItemArray[2].ToString();
+                var expiry_date = dr.ItemArray[3].ToString();
+                var premium = dr.ItemArray[4].ToString();
+                var discount_points = dr.ItemArray[5].ToString();
+
+                if (policy_number != "" && SSN_insured != "" && SSN_policyHolder != "" && expiry_date != "" && premium != "" && discount_points != "")
+                {
+                policyModel.policy_number = Convert.ToInt32(dr.ItemArray[0]);              
+                policyModel.SSN_insured = (dr.ItemArray[1]).ToString();
+                policyModel.SSN_policyHolder = (dr.ItemArray[2]).ToString();
+                string tempExpiry = (dr.ItemArray[3]).ToString();
 
 
                 var dateTime = ConfigurationManager.AppSettings["DateFormat"];
@@ -209,10 +219,11 @@ namespace InsuredTraveling.Controllers
                 DateTime startDate1 = String.IsNullOrEmpty(tempExpiry) ? new DateTime() : DateTime.ParseExact(tempExpiry, dateTimeFormat, CultureInfo.InvariantCulture);
 
                 policyModel.expiry_date = startDate1;
-                policyModel.premium = Convert.ToInt32(dr.ItemArray[5]);
-                policyModel.email_seller = (dr.ItemArray[6]).ToString();
+                policyModel.premium = Convert.ToInt32(dr.ItemArray[4]);
+                policyModel.email_seller = (dr.ItemArray[5]).ToString();
                 policyModel.discount_points = Convert.ToInt32(Math.Round(policyModel.premium / percentage));
                 model.TableRows.Add(policyModel);
+                }
             }
             return View(model);
         }
@@ -240,7 +251,10 @@ namespace InsuredTraveling.Controllers
 
                     for (int i = 0; i < row.Descendants<Cell>().Count(); i++)
                     {
-                        tempRow[i] = GetCellValue(sDoc, row.Descendants<Cell>().ElementAt(i));
+                        if (row.Descendants<Cell>().ElementAt(i).CellValue != null)
+                        {
+                            tempRow[i] = GetCellValue(sDoc, row.Descendants<Cell>().ElementAt(i));
+                        }
                     }
                     
                     dt.Rows.Add(tempRow);
@@ -259,7 +273,7 @@ namespace InsuredTraveling.Controllers
             SharedStringTablePart stringTablePart = document.WorkbookPart.SharedStringTablePart;
             string value = cell.CellValue.InnerXml;
 
-            if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString)
+            if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString && cell.DataType.Value != null)
             {
                 return stringTablePart.SharedStringTable.ChildElements[Int32.Parse(value)].InnerText;
             }
