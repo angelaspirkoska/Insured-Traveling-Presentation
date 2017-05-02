@@ -22,8 +22,9 @@ namespace InsuredTraveling.Controllers
         }
 
         // GET: Kanban
-        public ActionResult Index()
+        public ActionResult Index(int Mode = 0)
         {
+            ViewBag.Mode = Mode;
             return View(_kanbanService.GetAllBoards().FirstOrDefault());
         }
 

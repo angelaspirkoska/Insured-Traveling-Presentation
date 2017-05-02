@@ -132,9 +132,15 @@ namespace InsuredTraveling.DI
             return _db.kanbantickets.Where(x => x.CreatedBy == CreatebById).ToList();
         }
 
-        public List<kanbanticket> GetTicketsByAssignedTo(int AssignedToId)
+        public List<kanbanticket> GetTicketsByAssignedTo(string AssignedToId = null)
         {
-            return _db.kanbantickets.Where(x => x.AssignedTo == AssignedToId).ToList();
+            List<kanbanticket> tickets = new List<kanbanticket>();
+            foreach (var timekeeper in _db.kanbantimekeepers)
+            {
+                if (timekeeper.AssignedToId == AssignedToId || AssignedToId == null)
+                    tickets.Add(timekeeper.kanbanticket);
+            }
+            return tickets;
         }
 
         public kanbanticket GetTicketById(int TicketId)

@@ -19,7 +19,15 @@
             <div class="board-main-content">
                 <div class="board-header">
                     <a href="#" class="board-header-name">
-                        <span class="board-header-text">@Model.Name</span>
+                        <span class="board-header-text">Board: @Model.Name</span>
+                    </a>
+                </div>
+                <div>
+                    <a style="cursor: pointer" href="@Url.Action("Index", "Kanban")" class="board-header-name">
+                        <span style="text-decoration: underline" class="board-header-text">All Tickets</span>
+                    </a>
+                    <a style="cursor: pointer" href="@Url.Action("Index", "Kanban", new { Mode = 1 })" class="board-header-name">
+                        <span style="text-decoration: underline" class="board-header-text">My Tickets</span>
                     </a>
                 </div>
                 <div class="board-canvas">

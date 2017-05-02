@@ -44,7 +44,7 @@ namespace InsuredTraveling.DI
 
         List<kanbanticket> GetTicketsByCreator(int CreatebById);
 
-        List<kanbanticket> GetTicketsByAssignedTo(int AssignedToId);
+        List<kanbanticket> GetTicketsByAssignedTo(string AssignedToId);
 
         kanbanticket GetTicketById(int TicketId);
 

@@ -1,14 +1,40 @@
 ﻿@model kanbanticket
 
-<div class="list-item-card" data-ticketid="@Model.Id">
-    <div class="list-item-card-details">
-        <div class="row">
-            <div onclick="ShowTicketDetails(@Model.Id)" class="col-sm-10">
-                <a href="#" class="list-item-card-title">@Model.Name</a>
+
+@if (ViewBag.Mode == 1)
+{
+    foreach (var timekeeper in Model.kanbantimekeepers)
+    {
+        if (timekeeper.aspnetuser.UserName == HttpContext.Current.User.Identity.Name)
+        {
+            <div class="list-item-card" data-ticketid="@Model.Id">
+                <div class="list-item-card-details">
+                    <div class="row">
+                        <div onclick="ShowTicketDetails(@Model.Id)" class="col-sm-10">
+                            <a href="#" class="list-item-card-title">@Model.Name</a>
+                        </div>
+                        <div class="col-sm-2">
+                            <button onclick="deleteTicket(@Model.Id)" class="btn btn-sm btn-danger btn-remove">X</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-2">
-                <button onclick="deleteTicket(@Model.Id)" class="btn btn-sm btn-danger btn-remove">X</button>
+            break;
+        }
+    }
+}
+else
+{
+    <div class="list-item-card" data-ticketid="@Model.Id">
+        <div class="list-item-card-details">
+            <div class="row">
+                <div onclick="ShowTicketDetails(@Model.Id)" class="col-sm-10">
+                    <a href="#" class="list-item-card-title">@Model.Name</a>
+                </div>
+                <div class="col-sm-2">
+                    <button onclick="deleteTicket(@Model.Id)" class="btn btn-sm btn-danger btn-remove">X</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
