@@ -56,7 +56,7 @@ namespace InsuredTraveling.Controllers
                 {
                     AuthRepository _repo = new AuthRepository();
                     RoleAuthorize _roleAuthorize = new RoleAuthorize();
-
+                    policy.email_seller = " ";
                     _sp.AddSavaPolicy(policy);
                     _sp.SumDiscountPoints(policy.SSN_policyHolder, policy.discount_points);
                     _userService.UpdatePremiumSum(policy.SSN_policyHolder, policy.premium);
@@ -89,7 +89,7 @@ namespace InsuredTraveling.Controllers
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
                 ViewBag.Success = false;
             }
@@ -151,25 +151,79 @@ namespace InsuredTraveling.Controllers
 
             return JSONObject;
         }
+        [HttpPost]
+        [Route("CheckSSN")]
+        public JObject CheckSSN(string SSN, string SSN_Holder)
+        {
+
+            var JSONObject = new JObject();
+            JSONObject.Add("Error", "");
+            if (SSN == null || SSN == "" || SSN_Holder == null || SSN_Holder == "")
+            {
+                JSONObject.Add("Error", "Internal error: Empty Input");
+                throw new Exception("Internal error: Empty Input");
+            }
+            try
+            {
+                ValidationService ValService = new ValidationService();
+
+                bool SSN_result = ValService.validateSSN_Advanced(SSN);
+                bool SSN_Holder_result = ValService.validateSSN_Advanced(SSN_Holder);
+                string subSSN = "";
+                string subSSN_Holder = "";
+
+                if (SSN.Length == 13)
+                {
+                    subSSN = SSN.Substring(7, 5);
+                }
+
+                if (SSN_Holder.Length == 13)
+                {
+                    subSSN_Holder = SSN_Holder.Substring(7, 5);
+                }
+
+                if (SSN_result || subSSN == "00000")
+                {
+
+                    JSONObject.Add("SSN", "true");
+                }
+                else
+                {
+                    JSONObject.Add("SSN", "false");
+                }
+
+                if (SSN_Holder_result || subSSN_Holder == "00000" )
+                {
+                    JSONObject.Add("SSN_Holder", "true");
+                }else
+                {
+                    JSONObject.Add("SSN_Holder", "false");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                JSONObject.Add("Error", "Internal error");
+                throw new Exception("Internal error", ex);
+            }
+
+            return JSONObject;
+        }
 
         public FileResult SavaDocumentDownload()
         {
             try
             {
 
-                string fullpath = Path.Combine(Server.MapPath("~/ExcelSavaTemplate/"), "SavaExcelPolicy_Template02.xlsx");
+                string fullpath = Path.Combine(Server.MapPath("~/ExcelSavaTemplate/"), "SAVA_Policy_Template_Final.xlsx");
                 return File(fullpath, "ExcelSavaTemplate/xlsx", "SavaExcelPolicy_Template02.xlsx");
-
-
-
-
-        } 
+            } 
             catch (Exception ex)
             {
                 throw new Exception("");
             }
         }
-
+        
 
         [HttpPost]
         public ActionResult Index(SavaExcelModel model)
@@ -193,40 +247,63 @@ namespace InsuredTraveling.Controllers
             var savaSetup = _savaSetupService.GetActiveSavaSetup();
             var percentage = savaSetup != null ? savaSetup.points_percentage : 1;
             DataTable dt = GetDataTableFromSpreadsheet(model.MyExcelFile.InputStream, false);
-
-            // Note to self: Dodadi validacija na EMBG, pravilen format za stringovi i slicni validacii.
-            foreach (DataRow dr in dt.Rows)
+            
+            try
             {
-                SavaPolicyModel policyModel = new SavaPolicyModel();
-
-                var policy_number = dr.ItemArray[0].ToString();
-                var SSN_insured = dr.ItemArray[1].ToString();
-                var SSN_policyHolder = dr.ItemArray[2].ToString();
-                var expiry_date = dr.ItemArray[3].ToString();
-                var premium = dr.ItemArray[4].ToString();
-                var discount_points = dr.ItemArray[5].ToString();
-
-                if (policy_number != "" && SSN_insured != "" && SSN_policyHolder != "" && expiry_date != "" && premium != "" && discount_points != "")
+                foreach (DataRow dr in dt.Rows)
                 {
-                policyModel.policy_number = Convert.ToInt32(dr.ItemArray[0]);              
-                policyModel.SSN_insured = (dr.ItemArray[1]).ToString();
-                policyModel.SSN_policyHolder = (dr.ItemArray[2]).ToString();
-                string tempExpiry = (dr.ItemArray[3]).ToString();
+                    SavaPolicyModel policyModel = new SavaPolicyModel();
 
+                    var policy_number = dr.ItemArray[0].ToString();
+                    var SSN_insured = dr.ItemArray[1].ToString();
+                    var SSN_policyHolder = dr.ItemArray[2].ToString();
+                    var expiry_date = dr.ItemArray[3].ToString();
+                    var premium = dr.ItemArray[4].ToString();
+                    //var discount_points = dr.ItemArray[5].ToString();
 
-                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
-                var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
-                DateTime startDate1 = String.IsNullOrEmpty(tempExpiry) ? new DateTime() : DateTime.ParseExact(tempExpiry, dateTimeFormat, CultureInfo.InvariantCulture);
+                    if (policy_number != "" && SSN_insured != "" && SSN_policyHolder != "" && expiry_date != "" && premium != "")
+                    {
+                        
+                        policyModel.policy_number = Convert.ToInt32(dr.ItemArray[0]);
+                        policyModel.SSN_insured = (dr.ItemArray[1]).ToString();
+                        policyModel.SSN_policyHolder = (dr.ItemArray[2]).ToString();
+                        string tempExpiry = (dr.ItemArray[3]).ToString();
 
-                policyModel.expiry_date = startDate1;
-                policyModel.premium = Convert.ToInt32(dr.ItemArray[4]);
-                policyModel.email_seller = (dr.ItemArray[5]).ToString();
-                policyModel.discount_points = Convert.ToInt32(Math.Round(policyModel.premium / percentage));
-                model.TableRows.Add(policyModel);
+                        try
+                        {
+                            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+                            DateTime startDate1 = String.IsNullOrEmpty(tempExpiry) ? new DateTime() : DateTime.ParseExact(tempExpiry, dateTimeFormat, CultureInfo.InvariantCulture);
+
+                            policyModel.expiry_date = startDate1;
+                        }
+                        catch (Exception ex)
+                        {
+                            ViewBag.ErrorMessage += " Невалиден датум ";
+                            
+                        }
+
+                        try
+                        {
+                            policyModel.premium = Convert.ToInt32(dr.ItemArray[4]);
+                        }
+                        catch (Exception ex)
+                        {
+                            ViewBag.ErrorMessage += " Невалидна премија ";
+                        }
+                        
+                        policyModel.discount_points = Convert.ToInt32(Math.Round(policyModel.premium / percentage));
+                        model.TableRows.Add(policyModel);
+                    }
                 }
+            }
+            catch ( Exception ex)
+            {
+                ViewBag.ErrorMessage += " невалидна полиса";
             }
             return View(model);
         }
+
         public static DataTable GetDataTableFromSpreadsheet(Stream MyExcelStream, bool ReadOnly)
         {
             DataTable dt = new DataTable();
