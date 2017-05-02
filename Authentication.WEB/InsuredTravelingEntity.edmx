@@ -481,6 +481,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Color" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="kanbantickettypecomponent">
           <Key>
@@ -4466,6 +4467,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="kanbantickets" Relationship="Entities.TicketTypeFK" FromRole="kanbantickettype" ToRole="kanbanticket" />
           <NavigationProperty Name="kanbantickettypecomponents" Relationship="Entities.TicketTypeFK2" FromRole="kanbantickettype" ToRole="kanbantickettypecomponent" />
+          <Property Name="Color" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="kanbantickettypecomponent">
           <Key>
@@ -5407,6 +5409,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="kanbantickettypes">
             <EntityTypeMapping TypeName="Entities.kanbantickettype">
               <MappingFragment StoreEntitySet="kanbantickettype">
+                <ScalarProperty Name="Color" ColumnName="Color" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

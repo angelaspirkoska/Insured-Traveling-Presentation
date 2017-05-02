@@ -14,11 +14,14 @@ namespace InsuredTraveling.Controllers
     {
         private IKanbanService _kanbanService;
         private IUserService _userService;
+        private IPolicyTypeService _policyTypeService;
 
-        public KanbanController(IKanbanService kanbanService, IUserService userService)
+        public KanbanController(IKanbanService kanbanService, IUserService userService, 
+            IPolicyTypeService policyTypeService)
         {
             _kanbanService = kanbanService;
             _userService = userService;
+            _policyTypeService = policyTypeService;
         }
 
         // GET: Kanban
@@ -39,9 +42,10 @@ namespace InsuredTraveling.Controllers
             return PartialView("_AddTicket", list);
         }
 
-        public ActionResult AddTicket(int poolListId, string title, string description, List<string> users)
+        public ActionResult AddTicket(int poolListId, string title, string description, int ticketTypeId, List<string> users)
         {
-            return PartialView("_Ticket", _kanbanService.AddTicket(title, description, 1, 1, poolListId, users));
+            var ticket = _kanbanService.AddTicket(title, description, 1, 1, poolListId, ticketTypeId, users);
+            return PartialView("_Ticket", ticket);
         }
 
         public void ChangeTicketPool(int ticketId, int newPoolId, List<int> order)
@@ -89,6 +93,11 @@ namespace InsuredTraveling.Controllers
         public ActionResult GetTicketTypesDropdown()
         {
             return PartialView("_TicketTypesDropdown", _kanbanService.GetAllTicketTypes());
+        }
+
+        public ActionResult GetPolicyTypesDropdown()
+        {
+            return PartialView("_PolicyTypesDropdown", _policyTypeService.GetAllPolicyType());
         }
     }
 }

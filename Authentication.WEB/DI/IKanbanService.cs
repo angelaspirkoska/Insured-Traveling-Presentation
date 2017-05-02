@@ -48,7 +48,7 @@ namespace InsuredTraveling.DI
 
         kanbanticket GetTicketById(int TicketId);
 
-        kanbanticket AddTicket(string name, string description, int createdById, int assignedToId, int poolListId, List<string> users);
+        kanbanticket AddTicket(string name, string description, int createdById, int assignedToId, int poolListId, int ticketTypeId, List<string> users);
 
         void UpdateTicketName(int TicketId, string Name);
 

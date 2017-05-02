@@ -1,4 +1,5 @@
-﻿function OpenAddTicketModal(poolListId) {
+﻿
+function OpenAddTicketModal(poolListId) {
     $("#addTicketPoolListId").val(poolListId);
     $("#addNewTicketModal").modal("show");
 }
@@ -29,6 +30,7 @@ function AddNewTicket() {
     var poolListId = $("#addTicketPoolListId").val();
     var title = $("#newTicketTitle").val();
     var description = $("#newTicketDescription").val();
+    var ticketTypeId = $("#ticketTypeSelect").val();
     var users = $('.selectpicker').selectpicker('val');
 
     $.ajax({
@@ -38,6 +40,7 @@ function AddNewTicket() {
             poolListId: poolListId,
             title: title,
             description: description,
+            ticketTypeId: ticketTypeId,
             users: users
         },
         success: function (result) {

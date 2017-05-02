@@ -6,7 +6,7 @@
         <label for="@item.Name.Replace(" ", "_")">@item.Name</label>
         @if (item.kanbancomponent.Type.ToLower() == "textarea")
         {
-            <textarea class="form-control" id="@item.Name.Replace(" ", "_")" rows="5"></textarea>
+            <textarea class="form-control" id="@item.Name.Replace(" ", "_")" rows="2"></textarea>
         }
         else if (item.kanbancomponent.Type.ToLower() == "text")
         {
@@ -15,6 +15,34 @@
         else if (item.kanbancomponent.Type.ToLower() == "number")
         {
             <input type="number" class="form-control" id="@item.Name.Replace(" ", "_")">
+        }
+        else if (item.kanbancomponent.Type.ToLower() == "policytype")
+        {
+            <div>
+                @Html.Action("GetPolicyTypesDropdown", "Kanban")
+            </div>
+        }
+        else if (item.kanbancomponent.Type.ToLower() == "client")
+        {
+            <select id="@item.Name.Replace(" ", "_")" class="form-control">
+                <option value="-1">Select a client</option>
+                <option value="1">Петре Петров</option>
+                <option value="2">Клиент 2</option>
+                <option value="3">Климент Наумоски</option>
+            </select>
+        }
+        else if (item.kanbancomponent.Type.ToLower() == "meetingresult")
+        {
+            <select id="@item.Name.Replace(" ", "_")" class="form-control">
+                <option value="-1">Select a type</option>
+                <option value="1">Добиена понуда</option>
+                <option value="2">Склучен договор</option>
+                <option value="3">Подобра понуда</option>
+            </select>
+        }
+        else if (item.kanbancomponent.Type.ToLower() == "datetime")
+        {
+            <input type="datetime-local" class="form-control" id="@item.Name.Replace(" ", "_")">
         }
     </div>
 }
