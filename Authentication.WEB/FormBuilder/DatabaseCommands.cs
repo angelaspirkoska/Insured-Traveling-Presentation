@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web;
+using System.Data;
+
 
 namespace InsuredTraveling.FormBuilder
 {
@@ -136,6 +137,30 @@ namespace InsuredTraveling.FormBuilder
             {
                 conn.Open();
                 MySqlCommand mysqlCommand = new MySqlCommand();
+                mysqlCommand.Connection = conn;
+                try
+                {
+                    mysqlCommand.CommandText = "get_users_by_state";
+                    mysqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    mysqlCommand.Parameters.AddWithValue("@item_type", "Taxi");
+                    mysqlCommand.Parameters["@item_type"].Direction = ParameterDirection.Input;
+
+                    mysqlCommand.Parameters.AddWithValue("@ccRange", "greater then 3000");
+                    mysqlCommand.Parameters["@ccRange"].Direction = ParameterDirection.Input;
+
+                    mysqlCommand.Parameters.AddWithValue("@Rates", MySqlDbType.VarChar);
+                    mysqlCommand.Parameters["@Rates"].Direction = ParameterDirection.Output;
+
+                    mysqlCommand.ExecuteNonQuery();
+
+                    var m = mysqlCommand.Parameters["@Rates"].Value;
+                }
+                catch (Exception ex)
+                {
+
+                }
+                mysqlCommand = new MySqlCommand();
                 mysqlCommand.CommandText = command;
                 mysqlCommand.Connection = conn;
                 mysqlCommand.ExecuteNonQuery();
