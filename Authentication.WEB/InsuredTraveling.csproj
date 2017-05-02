@@ -377,7 +377,7 @@
     <Content Include="ExcelConfig\config_file - Copy %282%29.xlsx" />
     <Content Include="ExcelConfig\config_file - Copy.xlsx" />
     <Content Include="ExcelConfig\config_file.xlsx" />
-    <Content Include="ExcelSavaTemplate\SavaExcelPolicy_Template02.xlsx" />
+    <Content Include="ExcelSavaTemplate\SAVA_Policy_Template_Final.xlsx" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\Slobodanka.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
