@@ -5,6 +5,8 @@
         <h4 style="margin-bottom: 0px; margin-top: 3px;">@Model.Name</h4>
         <h6 style="margin-top: 1px;">in list <span style="text-decoration: underline">@Model.kanbanpoollist.Name</span></h6>
         <hr />
+        <h6 style="margin-top: 1px;">of type <span style="text-decoration: underline">@Model.kanbantickettype.Name</span></h6>
+        <hr />
         <h4 style="margin-bottom: 0px; margin-top: 3px;">Assigned To:</h4>
         @foreach (var user in Model.kanbantimekeepers)
         {
