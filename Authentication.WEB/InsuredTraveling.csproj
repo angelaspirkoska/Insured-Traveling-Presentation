@@ -370,8 +370,6 @@
     <Content Include="Content\Limitless-css\icons\summernote\summernote.eot" />
     <Content Include="Content\Limitless-css\icons\summernote\summernote.ttf" />
     <Content Include="Content\Limitless-css\icons\summernote\summernote.woff" />
-    <Content Include="ExcelConfig\config_file - Copy %282%29.xlsx" />
-    <Content Include="ExcelConfig\config_file - Copy.xlsx" />
     <Content Include="ExcelConfig\config_file.xlsx" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\Slobodanka.pubxml" />

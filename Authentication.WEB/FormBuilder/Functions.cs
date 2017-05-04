@@ -254,7 +254,7 @@ namespace InsuredTraveling.FormBuilder
                     OperandRight = "0";
                     var location = Location.GetLocation(formula, current);
                     var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
-                    OperandLeft = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+                    OperandLeft = worksheet.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
                 }
                 return;
             }
@@ -266,7 +266,7 @@ namespace InsuredTraveling.FormBuilder
             {
                 var location = Location.GetLocation(operands[0], current);
                 var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
-                OperandLeft = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+                OperandLeft = worksheet.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
             }
             else
             {
@@ -277,7 +277,7 @@ namespace InsuredTraveling.FormBuilder
             {
                 var location = Location.GetLocation(operands[1], current);
                 var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
-                OperandRight = worksheet.Cells[location.Column - 1, location.Row].Value.ToString();
+                OperandRight = worksheet.Cells[location.Column - 1, location.Row].Value.ToString().Replace(' ', '_');
             }
             else
             {
@@ -298,7 +298,7 @@ namespace InsuredTraveling.FormBuilder
                     OperandRight = "0";
                     var location = Location.GetLocation(formula, current);
                     var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
-                    OperandLeft = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+                    OperandLeft = worksheet.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
                 }
                 return;
             }
@@ -315,7 +315,7 @@ namespace InsuredTraveling.FormBuilder
                 }
                 else
                 {
-                    OperandLeft = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                    OperandLeft = current.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
                 }
             }
             else
@@ -333,7 +333,7 @@ namespace InsuredTraveling.FormBuilder
                 }
                 else
                 {
-                    OperandRight = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                    OperandRight = current.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
                 }
             }
             else
@@ -364,7 +364,7 @@ namespace InsuredTraveling.FormBuilder
             {
                 var location = Location.GetLocation(formulaSplitted[1].TrimEnd().TrimStart(), current);
                 var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
-                IfTrue = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+                IfTrue = worksheet.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
             }
             else
             {
@@ -375,7 +375,7 @@ namespace InsuredTraveling.FormBuilder
             {
                 var location = Location.GetLocation(formulaSplitted[2].TrimEnd().TrimStart(), current);
                 var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
-                IfFalse = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+                IfFalse = worksheet.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
             }
             else
             {
@@ -402,7 +402,7 @@ namespace InsuredTraveling.FormBuilder
                 }
                 else
                 {
-                    IfTrue = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                    IfTrue = current.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
                 }
             }
             else
@@ -421,7 +421,7 @@ namespace InsuredTraveling.FormBuilder
                 }
                 else
                 {
-                    IfFalse = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                    IfFalse = current.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
                 }
             }
             else
@@ -460,7 +460,7 @@ namespace InsuredTraveling.FormBuilder
             {
                 var location = Location.GetLocation(formulaSplitted[0].TrimEnd().TrimStart(), current);
                 var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
-                Number = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+                Number = worksheet.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
             }
             else
             {
@@ -474,7 +474,7 @@ namespace InsuredTraveling.FormBuilder
                 {
                     var location = Location.GetLocation(formulaSplitted[1].TrimEnd().TrimStart(), current);
                     var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
-                    RoundTo = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+                    RoundTo = worksheet.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
                 }
                 else
                 {
@@ -508,7 +508,7 @@ namespace InsuredTraveling.FormBuilder
                 }
                 else
                 {
-                    Number = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                    Number = current.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
                 }
             }
             else
@@ -528,7 +528,7 @@ namespace InsuredTraveling.FormBuilder
                     }
                     else
                     {
-                        RoundTo = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                        RoundTo = current.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
                     }
                 }
                 else
@@ -561,7 +561,7 @@ namespace InsuredTraveling.FormBuilder
             {
                 var location = Location.GetLocation(formulaSplitted[0].TrimEnd().TrimStart(), current);
                 var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
-                LeftOperand = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+                LeftOperand = worksheet.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
             }
             else
             {
@@ -573,7 +573,7 @@ namespace InsuredTraveling.FormBuilder
             {
                 var location = Location.GetLocation(formulaSplitted[1].TrimEnd().TrimStart(), current);
                 var worksheet = pck.Workbook.Worksheets[location.WorksheetName];
-                RightOperand = worksheet.Cells[location.Column, location.Row - 1].Value.ToString();
+                RightOperand = worksheet.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
             }
             else
             {
@@ -596,7 +596,7 @@ namespace InsuredTraveling.FormBuilder
                 }
                 else
                 {
-                    LeftOperand = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                    LeftOperand = current.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
                 }
             }
             else
@@ -615,7 +615,7 @@ namespace InsuredTraveling.FormBuilder
                 }
                 else
                 {
-                    RightOperand = current.Cells[location.Column, location.Row - 1].Value.ToString();
+                    RightOperand = current.Cells[location.Column, location.Row - 1].Value.ToString().Replace(' ', '_');
                 }
             }
             else

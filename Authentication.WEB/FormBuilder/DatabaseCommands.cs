@@ -13,7 +13,7 @@ namespace InsuredTraveling.FormBuilder
         public static string GeneratePolicyCommand(int excelID, List<TagInfo> tagInfoExcel)
         {
             StringBuilder newPolicyTable = new StringBuilder();
-            newPolicyTable.Append("CREATE TABLE Policy" + excelID + " ( ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY");
+            newPolicyTable.Append("CREATE TABLE Policy_" + excelID + " ( ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY");
             foreach (TagInfo tag in tagInfoExcel)
             {
                 if (tag != null && !String.IsNullOrEmpty(tag.Name))
@@ -69,7 +69,7 @@ namespace InsuredTraveling.FormBuilder
         }
         public static string GenerateListCommand(int excelID)
         {
-            return "CREATE TABLE Lists" + excelID + " ( ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, List_ID INT NOT NULL, List_Name VARCHAR(20) NOT NULL, Parameter_Value VARCHAR(50) NOT NULL)";
+            return "CREATE TABLE Lists_" + excelID + " ( ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, List_ID INT NOT NULL, List_Name VARCHAR(20) NOT NULL, Parameter_Value VARCHAR(50) NOT NULL)";
         }
         public static string PopulateListsCommand(int excelID, List<TagInfo> tagInfoExcel)
         {
@@ -91,7 +91,7 @@ namespace InsuredTraveling.FormBuilder
             commandText.Length--;
             return commandText.ToString();
         }
-        public static List<string> CreateDGETCommands(int excelID, List<Dget> dgetFunctions)
+        public static List<string> GenerateDGETCommands(int excelID, List<Dget> dgetFunctions)
         {
             List<string> commands = new List<string>();
             foreach (Dget function in dgetFunctions)
@@ -107,11 +107,11 @@ namespace InsuredTraveling.FormBuilder
                 }
                 command.Length--;
                 insertInto.Length--;
-                command.Append(")");
+                command.Append(") ");
                 commands.Add(command.ToString());
 
                 command = new StringBuilder();
-                command.Append("INSERT INTO " + function.Name + excelID + " (" + insertInto.ToString() + ") VALUES ");
+                command.Append("INSERT INTO " + function.Name + "_" + excelID + " (" + insertInto.ToString() + ") VALUES ");
                 for (int i = 1; i < function.DatabaseColumns; i++)
                 {
                     command.Append("(");
@@ -125,41 +125,106 @@ namespace InsuredTraveling.FormBuilder
                 command.Length--;
                 command.Length--;
                 commands.Add(command.ToString());
-            }
+
+                command = new StringBuilder();
+                var tempCommand = new StringBuilder();
+
+                command.Append("CREATE DEFINER=`root`@`localhost` PROCEDURE `" + function.Name + "_" + excelID + "` (");
+                for(int i = 0; i < function.ParametersNameAndInputValueRows; i++)
+                {
+                    if(function.ParametersNameAndInputValue[i, 0].Equals(function.PropertyValueName)){
+                        command.Append(" OUT `");
+                        command.Append(function.ParametersNameAndInputValue[i, 0].Replace(' ', '_') + "` VARCHAR(50), ");
+                    }
+                    else
+                    {
+                        command.Append(" IN `");
+                        command.Append(function.ParametersNameAndInputValue[i, 0].Replace(' ', '_') + "` VARCHAR(50), ");
+                    }
+                    
+                    //Da ne e null
+                    if(function.ParametersNameAndInputValue[i, 1] != null)
+                    {
+                        tempCommand.Append(function.ParametersNameAndInputValue[i, 0].Replace(' ', '_') + "='\","+ function.ParametersNameAndInputValue[i, 0].Replace(' ', '_') + ",\"' AND ");
+                    }
+                   
+                }
+                tempCommand.Length = tempCommand.Length - 4;
+
+                command.Length--;
+                command.Length--;
+                command.Append(") NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN SET @c2 = ''; SET @sql = CONCAT(\"SELECT " +function.PropertyValueName.Replace(' ', '_'));
+                command.Append(" INTO @c2 FROM "+ function.Name + "_" + excelID +" WHERE " + tempCommand.ToString());
+
+                command.Append("\"); PREPARE stmt FROM @sql; EXECUTE stmt; SET "+ function.PropertyValueName.Replace(' ', '_') + " = @c2; END");
+
+                commands.Add(command.ToString());
+
+            }      
             return commands;
         }
-        public static void CreateDatabaseTables(int excelID, List<TagInfo> tagInfoExcel, List<Dget> dgetFunctions)
+
+        public static string GenerateMasterProcedure(int excelID, List<Function> procedures)
+        {
+            //StringBuilder masterProcedure = new StringBuilder();
+            //StringBuilder masterParameters = new StringBuilder();
+            //masterProcedure.Append("");
+            //foreach(Function procedure in procedures)
+            //{
+            //    if (procedure.ToString().ToLower().StartsWith("if") || procedure.ToString().ToLower().StartsWith("exact") || procedure.ToString().ToLower().StartsWith("round") || procedure.ToString().ToLower().StartsWith("dget"))
+            //    {
+                   
+            //    }
+            //    else
+            //    {
+
+            //        MathOperation newOperation = (MathOperation)procedure;
+            //        masterProcedure.Append("( call ");
+            //        if(newOperation.Operation == "+"){
+            //            masterProcedure.Append("Addition");
+            //        }
+            //        masterParameters.Append(procedure.Name+"_OperandLeft_"+excelID);
+            //        masterParameters.Append(procedure.Name + "_OperandRight_" + excelID);
+            //        if (newOperation.OperandLeft.StartsWith("Procedure"))
+            //        {
+            //            var procedureName = newOperation.OperandLeft.Replace("Procedure", "");
+            //        }
+            //    }
+            //}
+            return null;
+        }
+        public static void CreateDatabaseTables(int excelID, List<TagInfo> tagInfoExcel, List<Dget> dgetFunctions, List<Function> procedures)
         {
             MySqlConnection conn = new MySqlConnection();
-            conn.ConnectionString = "server=localhost;user id = root;database=db_9eb138_travel;persistsecurityinfo=True;Convert Zero Datetime=True";
+            conn.ConnectionString = "server=localhost;user id = root;database=db_9eb138_travel;Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
             var command = DatabaseCommands.GeneratePolicyCommand(excelID, tagInfoExcel);
             try
             {
                 conn.Open();
                 MySqlCommand mysqlCommand = new MySqlCommand();
                 mysqlCommand.Connection = conn;
-                try
-                {
-                    mysqlCommand.CommandText = "get_users_by_state";
-                    mysqlCommand.CommandType = CommandType.StoredProcedure;
+                //try
+                //{
+                //    mysqlCommand.CommandText = "get_users_by_state";
+                //    mysqlCommand.CommandType = CommandType.StoredProcedure;
 
-                    mysqlCommand.Parameters.AddWithValue("@item_type", "Taxi");
-                    mysqlCommand.Parameters["@item_type"].Direction = ParameterDirection.Input;
+                //    mysqlCommand.Parameters.AddWithValue("@item_type", "Taxi");
+                //    mysqlCommand.Parameters["@item_type"].Direction = ParameterDirection.Input;
 
-                    mysqlCommand.Parameters.AddWithValue("@ccRange", "greater then 3000");
-                    mysqlCommand.Parameters["@ccRange"].Direction = ParameterDirection.Input;
+                //    mysqlCommand.Parameters.AddWithValue("@ccRange", "greater then 3000");
+                //    mysqlCommand.Parameters["@ccRange"].Direction = ParameterDirection.Input;
 
-                    mysqlCommand.Parameters.AddWithValue("@Rates", MySqlDbType.VarChar);
-                    mysqlCommand.Parameters["@Rates"].Direction = ParameterDirection.Output;
+                //    mysqlCommand.Parameters.AddWithValue("@Rates", MySqlDbType.VarChar);
+                //    mysqlCommand.Parameters["@Rates"].Direction = ParameterDirection.Output;
 
-                    mysqlCommand.ExecuteNonQuery();
+                //    mysqlCommand.ExecuteNonQuery();
 
-                    var m = mysqlCommand.Parameters["@Rates"].Value;
-                }
-                catch (Exception ex)
-                {
+                //    var m = mysqlCommand.Parameters["@Rates"].Value;
+                //}
+                //catch (Exception ex)
+                //{
 
-                }
+                //}
                 mysqlCommand = new MySqlCommand();
                 mysqlCommand.CommandText = command;
                 mysqlCommand.Connection = conn;
@@ -182,26 +247,25 @@ namespace InsuredTraveling.FormBuilder
                 {
 
                 }
-                var commandsDget = DatabaseCommands.CreateDGETCommands(excelID, dgetFunctions);
-                foreach (string commandDget in commandsDget)
+                var commandsDget = DatabaseCommands.GenerateDGETCommands(excelID, dgetFunctions);
+                for (int i =0; i < commandsDget.Count; i++)
                 {
                     try
                     {
-                        mysqlCommand.CommandText = commandDget;
+                        mysqlCommand.CommandText = commandsDget[i];
                         mysqlCommand.ExecuteNonQuery();
                     }
                     catch (Exception ex)
                     {
                     }
                 }
-
-
             }
 
             finally
             {
                 conn.CloseAsync();
             }
+            var test = GenerateMasterProcedure(excelID, procedures);
         }
     }
 }

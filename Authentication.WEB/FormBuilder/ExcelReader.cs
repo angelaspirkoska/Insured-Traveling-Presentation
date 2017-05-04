@@ -23,7 +23,7 @@ namespace InsuredTraveling.FormBuilder
             var result = CreateForm(pck, tagInfoExcel);
             var functions = DetermineFunction(pck);
             var procedures = DetermineProcedure(pck);
-            DatabaseCommands.CreateDatabaseTables(e.Id, tagInfoExcel, dgetFunctions);
+            DatabaseCommands.CreateDatabaseTables(e.Id, tagInfoExcel, dgetFunctions, procedures);
             var functionsStrings = GenerateStringFunctions(functions);
             var proceduresStrings = GenerateStringProcedures(procedures);
             return result;
@@ -77,6 +77,7 @@ namespace InsuredTraveling.FormBuilder
             ExcelWorksheet worksheet = pck.Workbook.Worksheets["ConfigurationSetup"];
             List<Function> proceduresList = new List<Function>();
             int row = 1;
+            int procedureSequence = 0;
             string functionName = worksheet.Cells[row, procedures - 1].Value.ToString();
             for (row = 2; worksheet.Cells[row, procedures].Value != null; row++)
             {
@@ -84,6 +85,7 @@ namespace InsuredTraveling.FormBuilder
                 if (!worksheet.Cells[row, procedures].Value.ToString().Equals("empty"))
                 {
                     var formula = worksheet.Cells[row, procedures].Formula;
+                    procedureSequence++;
                     if (formula.ToUpper().StartsWith("DGET"))
                     {
                         result = new Dget();
