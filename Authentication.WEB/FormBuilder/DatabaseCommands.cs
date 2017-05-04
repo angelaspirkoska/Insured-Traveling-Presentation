@@ -166,31 +166,32 @@ namespace InsuredTraveling.FormBuilder
 
         public static string GenerateMasterProcedure(int excelID, List<Function> procedures)
         {
-            //StringBuilder masterProcedure = new StringBuilder();
-            //StringBuilder masterParameters = new StringBuilder();
-            //masterProcedure.Append("");
-            //foreach(Function procedure in procedures)
-            //{
-            //    if (procedure.ToString().ToLower().StartsWith("if") || procedure.ToString().ToLower().StartsWith("exact") || procedure.ToString().ToLower().StartsWith("round") || procedure.ToString().ToLower().StartsWith("dget"))
-            //    {
-                   
-            //    }
-            //    else
-            //    {
+            StringBuilder masterProcedure = new StringBuilder();
+            StringBuilder masterParameters = new StringBuilder();
+            masterProcedure.Append("");
+            foreach (Function procedure in procedures)
+            {
+                if (procedure.ToString().ToLower().StartsWith("if") || procedure.ToString().ToLower().StartsWith("exact") || procedure.ToString().ToLower().StartsWith("round") || procedure.ToString().ToLower().StartsWith("dget"))
+                {
 
-            //        MathOperation newOperation = (MathOperation)procedure;
-            //        masterProcedure.Append("( call ");
-            //        if(newOperation.Operation == "+"){
-            //            masterProcedure.Append("Addition");
-            //        }
-            //        masterParameters.Append(procedure.Name+"_OperandLeft_"+excelID);
-            //        masterParameters.Append(procedure.Name + "_OperandRight_" + excelID);
-            //        if (newOperation.OperandLeft.StartsWith("Procedure"))
-            //        {
-            //            var procedureName = newOperation.OperandLeft.Replace("Procedure", "");
-            //        }
-            //    }
-            //}
+                }
+                else
+                {
+
+                    MathOperation newOperation = (MathOperation)procedure;
+                    masterProcedure.Append("( call ");
+                    if (newOperation.Operation == "*")
+                    {
+                        masterProcedure.Append("Multiplication(");
+                    }
+                    masterParameters.Append(" IN `Procedure" + procedure.Name + "_OperandLeft_" + excelID + "` FLOAT, ");
+                    masterParameters.Append(" IN `Procedure" + procedure.Name + "_OperandRight_" + excelID + "` FLOAT, ");
+                    if (newOperation.OperandLeft.StartsWith("Procedure"))
+                    {
+                        var procedureName = newOperation.OperandLeft.Replace("Procedure", "");
+                    }
+                }
+            }
             return null;
         }
         public static void CreateDatabaseTables(int excelID, List<TagInfo> tagInfoExcel, List<Dget> dgetFunctions, List<Function> procedures)
