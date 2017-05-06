@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace InsuredTraveling.DI
 {
@@ -48,7 +49,7 @@ namespace InsuredTraveling.DI
 
         kanbanticket GetTicketById(int TicketId);
 
-        kanbanticket AddTicket(string name, string description, int createdById, int assignedToId, int poolListId, int ticketTypeId, List<string> users);
+        kanbanticket AddTicket(FormCollection collection, string createdBy);
 
         void UpdateTicketName(int TicketId, string Name);
 

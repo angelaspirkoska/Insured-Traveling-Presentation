@@ -1,5 +1,4 @@
-﻿
-function OpenAddTicketModal(poolListId) {
+﻿function OpenAddTicketModal(poolListId) {
     $("#addTicketPoolListId").val(poolListId);
     $("#addNewTicketModal").modal("show");
 }
@@ -24,25 +23,14 @@ function ShowTicketDetails(ticketId) {
 }
 
 function AddNewTicket() {
+
     $("#addNewTicketModal").modal("hide");
     $("#loader").show();
-
-    var poolListId = $("#addTicketPoolListId").val();
-    var title = $("#newTicketTitle").val();
-    var description = $("#newTicketDescription").val();
-    var ticketTypeId = $("#ticketTypeSelect").val();
-    var users = $('.selectpicker').selectpicker('val');
 
     $.ajax({
         url: "/Kanban/AddTicket",
         type: "post",
-        data: {
-            poolListId: poolListId,
-            title: title,
-            description: description,
-            ticketTypeId: ticketTypeId,
-            users: users
-        },
+        data: $("#addNewTicketModal form").serialize(),
         success: function (result) {
             $(".inner-sortable[data-poollist='" + poolListId + "']").append(result);
             $("#addNewTicketModal input").val("");
@@ -207,7 +195,7 @@ $(function () {
         $(".list-item-add-placeholder").show();
     });
 
-    $("form").submit(function () {
+    $("#new-list-form").submit(function () {
 
         var name = $(this).find(".list-item-add-input").val();
         if (name.trim() != "") {

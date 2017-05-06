@@ -12,28 +12,28 @@
 namespace InsuredTraveling
 {
 
-using System;
+    using System;
     using System.Collections.Generic;
-    
-public partial class kanbanticketcomponent
-{
 
-    public int Id { get; set; }
+    public partial class kanbanticketcomponent
+    {
 
-    public Nullable<int> TicketId { get; set; }
+        public int Id { get; set; }
 
-    public Nullable<int> ComponentId { get; set; }
+        public Nullable<int> TicketId { get; set; }
 
-    public string Value { get; set; }
+        public Nullable<int> ComponentId { get; set; }
 
-    public string Name { get; set; }
+        public string Value { get; set; }
+
+        public string Name { get; set; }
 
 
 
-    public virtual kanbancomponent kanbancomponent { get; set; }
+        public virtual kanbancomponent kanbancomponent { get; set; }
 
-    public virtual kanbanticket kanbanticket { get; set; }
+        public virtual kanbanticket kanbanticket { get; set; }
 
-}
+    }
 
 }

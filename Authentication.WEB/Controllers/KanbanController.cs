@@ -16,7 +16,7 @@ namespace InsuredTraveling.Controllers
         private IUserService _userService;
         private IPolicyTypeService _policyTypeService;
 
-        public KanbanController(IKanbanService kanbanService, IUserService userService, 
+        public KanbanController(IKanbanService kanbanService, IUserService userService,
             IPolicyTypeService policyTypeService)
         {
             _kanbanService = kanbanService;
@@ -42,9 +42,10 @@ namespace InsuredTraveling.Controllers
             return PartialView("_AddTicket", list);
         }
 
-        public ActionResult AddTicket(int poolListId, string title, string description, int ticketTypeId, List<string> users)
+        [HttpPost]
+        public ActionResult AddTicket(FormCollection collection)
         {
-            var ticket = _kanbanService.AddTicket(title, description, 1, 1, poolListId, ticketTypeId, users);
+            var ticket = _kanbanService.AddTicket(collection, _userService.GetUserIdByUsername(User.Identity.Name));
             return PartialView("_Ticket", ticket);
         }
 

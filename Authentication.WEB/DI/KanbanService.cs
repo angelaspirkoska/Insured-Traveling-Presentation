@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.Web.Mvc;
 
 namespace InsuredTraveling.DI
 {
@@ -155,35 +156,49 @@ namespace InsuredTraveling.DI
             return ticketType.kanbantickettypecomponents.ToList();
         }
 
-        public kanbanticket AddTicket(string Name, string Description, int CreatedById, int AssignedToId, int PoolListId, int ticketTypeId, List<string> users)
+        public kanbanticket AddTicket(FormCollection collection, string createdyBy)
         {
             float highestOrder = 0;
             if (_db.kanbantickets.Count() > 0)
                 highestOrder = _db.kanbantickets.Max(x => x.OrderBy);
+
             var ticket = new kanbanticket
             {
-                Name = Name,
-                Description = Description,
+                Name = collection["ticketName"],
+                Description = collection["ticketDescription"],
                 OrderBy = highestOrder + 1,
-                CreatedBy = CreatedById,
-                AssignedTo = AssignedToId,
-                TicketTypeId = ticketTypeId,
-                KanbanPoolListId = PoolListId
+                CreatedBy = 1, //createdBy
+                AssignedTo = 1, //remove it
+                TicketTypeId = int.Parse(collection["ticketType"]),
+                KanbanPoolListId = int.Parse(collection["poolListId"])
             };
             _db.kanbantickets.Add(ticket);
             _db.SaveChanges();
 
-            foreach (var user in users)
+            foreach (var userId in collection["assignedUsers"].Split(',').ToList())
             {
                 _db.kanbantimekeepers.Add(new kanbantimekeeper
                 {
-                    AssignedToId = user,
+                    AssignedToId = userId,
                     KanbanTicketId = ticket.Id,
                     AssignedDateTime = DateTime.Now
                 });
             }
+
+            foreach (var ticketTypeComponent in GetComponentsForTicketType(ticket.TicketTypeId.Value))
+            {
+                _db.kanbanticketcomponents.Add(new kanbanticketcomponent
+                {
+                    ComponentId = ticketTypeComponent.ComponentId,
+                    TicketId = ticket.Id,
+                    Value = collection[ticketTypeComponent.Name.Replace(" ", "_")],
+                    Name = ticketTypeComponent.Name.Replace(" ", "_")
+                });
+            }
+
             _db.SaveChanges();
-            return _db.kanbantickets.Include(c => c.kanbantickettype).Where(x => x.Id == ticket.Id).FirstOrDefault();
+
+            return _db.kanbantickets.Include(c => c.kanbantickettype).Include(x => x.kanbanticketcomponents).Where(x => x.Id == ticket.Id).FirstOrDefault();
         }
 
         public void UpdateTicketName(int TicketId, string Name)
@@ -216,7 +231,7 @@ namespace InsuredTraveling.DI
 
         public void UpdateTicketAssignedTo(int TicketId, int AssignedToId)
         {
-            
+
         }
 
         public bool TicketNeedsReminder(int TicketId)

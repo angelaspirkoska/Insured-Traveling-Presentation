@@ -39,7 +39,7 @@
                         }
 
                         <div class="list-item-add-hidden list-item-wrapper unsortable">
-                            <form>
+                            <form id="new-list-form">
                                 <span class="list-item-add-placeholder">Add a list...</span>
                                 <input type="text" class="list-item-add-input list-item-add-input-hidden" />
                                 <div class="list-item-add-controls">
@@ -82,29 +82,31 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Add Ticket</h4>
             </div>
-            <div class="modal-body">
-                <input type="hidden" id="addTicketPoolListId" value="-1" />
+            <form>
+                <div class="modal-body">
+                    <input type="hidden" name="poolListId" id="addTicketPoolListId" value="-1" />
 
-                <div class="form-group">
-                    <label for="newTicketTitle">Title</label>
-                    <input type="text" class="form-control" id="newTicketTitle" placeholder="Title">
-                </div>
-                <div class="form-group">
-                    <label for="newTicketDescription">Description</label>
-                    <textarea class="form-control" id="newTicketDescription" rows="2"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Assign to users</label>
-                    @Html.Action("GetUsersDropdown")
-                </div>
-                <div class="form-group">
-                    <label>Ticket Type</label>
-                    @Html.Action("GetTicketTypesDropdown")
-                </div>
-                <div id="ticketTypeComponents">
+                    <div class="form-group">
+                        <label for="newTicketTitle">Title</label>
+                        <input type="text" class="form-control" id="newTicketTitle" name="ticketName" placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                        <label for="newTicketDescription">Description</label>
+                        <textarea class="form-control" name="ticketDescription" id="newTicketDescription" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Assign to users</label>
+                        @Html.Action("GetUsersDropdown")
+                    </div>
+                    <div class="form-group">
+                        <label>Ticket Type</label>
+                        @Html.Action("GetTicketTypesDropdown")
+                    </div>
+                    <div id="ticketTypeComponents">
 
+                    </div>
                 </div>
-            </div>
+            </form>
             <div class="modal-footer">
                 <div class="col-sm-offset-4 col-sm-4">
                     <button type="button" class="btn btn-block btn-add-new btn-danger" data-dismiss="modal">Close</button>

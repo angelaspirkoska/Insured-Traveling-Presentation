@@ -6,15 +6,15 @@
         <label for="@item.Name.Replace(" ", "_")">@item.Name</label>
         @if (item.kanbancomponent.Type.ToLower() == "textarea")
         {
-            <textarea class="form-control" id="@item.Name.Replace(" ", "_")" rows="2"></textarea>
+            <textarea class="form-control" id="@item.Name.Replace(" ", "_")" name="@item.Name.Replace(" ", "_")" rows="2"></textarea>
         }
         else if (item.kanbancomponent.Type.ToLower() == "text")
         {
-            <input type="text" class="form-control" id="@item.Name.Replace(" ", "_")">
+            <input type="text" class="form-control" name="@item.Name.Replace(" ", "_")" id="@item.Name.Replace(" ", "_")">
         }
         else if (item.kanbancomponent.Type.ToLower() == "number")
         {
-            <input type="number" class="form-control" id="@item.Name.Replace(" ", "_")">
+            <input type="number" name="@item.Name.Replace(" ", "_")" class="form-control" id="@item.Name.Replace(" ", "_")">
         }
         else if (item.kanbancomponent.Type.ToLower() == "policytype")
         {
@@ -24,7 +24,7 @@
         }
         else if (item.kanbancomponent.Type.ToLower() == "client")
         {
-            <select id="@item.Name.Replace(" ", "_")" class="form-control">
+            <select name="@item.Name.Replace(" ", "_")" id="@item.Name.Replace(" ", "_")" class="form-control">
                 <option value="-1">Select a client</option>
                 <option value="1">Петре Петров</option>
                 <option value="2">Клиент 2</option>
@@ -33,7 +33,7 @@
         }
         else if (item.kanbancomponent.Type.ToLower() == "meetingresult")
         {
-            <select id="@item.Name.Replace(" ", "_")" class="form-control">
+            <select name="@item.Name.Replace(" ", "_")" id="@item.Name.Replace(" ", "_")" class="form-control">
                 <option value="-1">Select a type</option>
                 <option value="1">Добиена понуда</option>
                 <option value="2">Склучен договор</option>
@@ -42,7 +42,7 @@
         }
         else if (item.kanbancomponent.Type.ToLower() == "datetime")
         {
-            <input type="datetime-local" class="form-control" id="@item.Name.Replace(" ", "_")">
+            <input name="@item.Name.Replace(" ", "_")" type="datetime-local" class="form-control" id="@item.Name.Replace(" ", "_")">
         }
     </div>
 }

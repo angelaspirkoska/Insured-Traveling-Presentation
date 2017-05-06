@@ -1,7 +1,7 @@
 ﻿@model List<policy_type>
 
-<select id="policyTypeSelect" class="form-control">
-    <option value="-1">Select a type</option>
+<select name="policyType" id="policyTypeSelect" class="form-control">
+    <option value="-1">-- Select policy type --</option>
     @foreach (var policyType in Model)
     {
         <option value="@policyType.ID">@policyType.type</option>

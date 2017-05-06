@@ -1,7 +1,7 @@
 ﻿@model List<kanbantickettype>
 
-<select id="ticketTypeSelect" class="form-control">
-    <option value="-1">Select a type</option>
+<select name="ticketType" id="ticketTypeSelect" class="form-control">
+    <option value="-1">-- Select ticket type --</option>
     @foreach (var ticketType in Model)
     {
         <option value="@ticketType.ID">@ticketType.Name</option>

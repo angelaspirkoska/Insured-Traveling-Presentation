@@ -12,57 +12,57 @@
 namespace InsuredTraveling
 {
 
-using System;
+    using System;
     using System.Collections.Generic;
-    
-public partial class kanbanticket
-{
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public kanbanticket()
+    public partial class kanbanticket
     {
 
-        this.kanbanticketcomponents = new HashSet<kanbanticketcomponent>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public kanbanticket()
+        {
 
-        this.kanbantimekeepers = new HashSet<kanbantimekeeper>();
+            this.kanbanticketcomponents = new HashSet<kanbanticketcomponent>();
+
+            this.kanbantimekeepers = new HashSet<kanbantimekeeper>();
+
+        }
+
+
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public float OrderBy { get; set; }
+
+        public int CreatedBy { get; set; }
+
+        public int AssignedTo { get; set; }
+
+        public int KanbanPoolListId { get; set; }
+
+        public Nullable<int> TicketTypeId { get; set; }
+
+
+
+        public virtual kanbanpoollist kanbanpoollist { get; set; }
+
+        public virtual user user { get; set; }
+
+        public virtual user user1 { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+        public virtual ICollection<kanbanticketcomponent> kanbanticketcomponents { get; set; }
+
+        public virtual kanbantickettype kanbantickettype { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+        public virtual ICollection<kanbantimekeeper> kanbantimekeepers { get; set; }
 
     }
-
-
-    public int Id { get; set; }
-
-    public string Name { get; set; }
-
-    public string Description { get; set; }
-
-    public float OrderBy { get; set; }
-
-    public int CreatedBy { get; set; }
-
-    public int AssignedTo { get; set; }
-
-    public int KanbanPoolListId { get; set; }
-
-    public Nullable<int> TicketTypeId { get; set; }
-
-
-
-    public virtual kanbanpoollist kanbanpoollist { get; set; }
-
-    public virtual user user { get; set; }
-
-    public virtual user user1 { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<kanbanticketcomponent> kanbanticketcomponents { get; set; }
-
-    public virtual kanbantickettype kanbantickettype { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<kanbantimekeeper> kanbantimekeepers { get; set; }
-
-}
 
 }

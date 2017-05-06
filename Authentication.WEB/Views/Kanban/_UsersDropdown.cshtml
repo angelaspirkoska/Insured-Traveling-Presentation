@@ -1,6 +1,6 @@
 ﻿@model List<aspnetuser>
 
-<select class="selectpicker" data-live-search="true" multiple>
+<select class="selectpicker" name="assignedUsers" data-live-search="true" multiple>
     @foreach (var user in Model)
     {
         <option value="@user.Id">@user.FirstName @user.LastName</option>
