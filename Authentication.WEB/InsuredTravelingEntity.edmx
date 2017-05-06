@@ -51,7 +51,7 @@
           <Property Name="ClaimValue" Type="longtext" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'def.db_9eb138_config.aspnetuserlogins' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="aspnetuserlogins">
           <Key>
             <PropertyRef Name="LoginProvider" />
@@ -629,7 +629,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="name" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'def.db_9eb138_config.transaction' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="transaction">
           <Key>
             <PropertyRef Name="OrderID" />
@@ -1651,71 +1651,71 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="EntitiesStoreContainer">
-          <EntitySet Name="additional_charge" EntityType="Self.additional_charge" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="additional_charge_name" EntityType="Self.additional_charge_name" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="additional_info" EntityType="Self.additional_info" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="aspnetroles" EntityType="Self.aspnetroles" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaims" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="aspnetuserroles" EntityType="Self.aspnetuserroles" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="aspnetusers" EntityType="Self.aspnetusers" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="bank_account_info" EntityType="Self.bank_account_info" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="bank_prefix" EntityType="Self.bank_prefix" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="banks" EntityType="Self.banks" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="broker_employees" EntityType="Self.broker_employees" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="chat_requests" EntityType="Self.chat_requests" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="clients" EntityType="Self.clients" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="company" EntityType="Self.company" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="countries" EntityType="Self.countries" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="countries_name" EntityType="Self.countries_name" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="discount_age" EntityType="Self.discount_age" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="discount_codes" EntityType="Self.discount_codes" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="discount_country" EntityType="Self.discount_country" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="discount_days" EntityType="Self.discount_days" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="discount_family" EntityType="Self.discount_family" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="discount_group" EntityType="Self.discount_group" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="documents" EntityType="Self.documents" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="documents_first_notice_of_loss" EntityType="Self.documents_first_notice_of_loss" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="excelconfig" EntityType="Self.excelconfig" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="exchange_rate" EntityType="Self.exchange_rate" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="first_notice_of_loss" EntityType="Self.first_notice_of_loss" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="first_notice_of_loss_archive" EntityType="Self.first_notice_of_loss_archive" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="groups" EntityType="Self.groups" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="health_insurance" EntityType="Self.health_insurance" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="health_insurance_info" EntityType="Self.health_insurance_info" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="insured" EntityType="Self.insured" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="invoices" EntityType="Self.invoices" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="languages" EntityType="Self.languages" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="luggage_insurance" EntityType="Self.luggage_insurance" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="luggage_insurance_info" EntityType="Self.luggage_insurance_info" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="message" EntityType="Self.message" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="min_premium" EntityType="Self.min_premium" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="news_all" EntityType="Self.news_all" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="ok_setup" EntityType="Self.ok_setup" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="p_referent" EntityType="Self.p_referent" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="p_stapki" EntityType="Self.p_stapki" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="payment_status" EntityType="Self.payment_status" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="policy_additional_charge" EntityType="Self.policy_additional_charge" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="policy_insured" EntityType="Self.policy_insured" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="policy_status" EntityType="Self.policy_status" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="policy_type" EntityType="Self.policy_type" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="policy_type_name" EntityType="Self.policy_type_name" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="refreshtokens" EntityType="Self.refreshtokens" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="retaining_risk" EntityType="Self.retaining_risk" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="retaining_risk_name" EntityType="Self.retaining_risk_name" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="travel_duration" EntityType="Self.travel_duration" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="travel_insurance_type" EntityType="Self.travel_insurance_type" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="travel_number" EntityType="Self.travel_number" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="travel_policy" EntityType="Self.travel_policy" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="type_insured" EntityType="Self.type_insured" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="users" EntityType="Self.users" Schema="db_9eb138_travel" store:Type="Tables" />
-          <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogins" store:Type="Tables" store:Schema="db_9eb138_travel">
+          <EntitySet Name="additional_charge" EntityType="Self.additional_charge" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="additional_charge_name" EntityType="Self.additional_charge_name" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="additional_info" EntityType="Self.additional_info" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="aspnetroles" EntityType="Self.aspnetroles" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaims" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="aspnetuserroles" EntityType="Self.aspnetuserroles" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="aspnetusers" EntityType="Self.aspnetusers" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="bank_account_info" EntityType="Self.bank_account_info" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="bank_prefix" EntityType="Self.bank_prefix" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="banks" EntityType="Self.banks" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="broker_employees" EntityType="Self.broker_employees" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="chat_requests" EntityType="Self.chat_requests" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="clients" EntityType="Self.clients" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="company" EntityType="Self.company" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="countries" EntityType="Self.countries" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="countries_name" EntityType="Self.countries_name" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="discount_age" EntityType="Self.discount_age" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="discount_codes" EntityType="Self.discount_codes" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="discount_country" EntityType="Self.discount_country" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="discount_days" EntityType="Self.discount_days" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="discount_family" EntityType="Self.discount_family" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="discount_group" EntityType="Self.discount_group" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="documents" EntityType="Self.documents" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="documents_first_notice_of_loss" EntityType="Self.documents_first_notice_of_loss" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="excelconfig" EntityType="Self.excelconfig" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="exchange_rate" EntityType="Self.exchange_rate" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="first_notice_of_loss" EntityType="Self.first_notice_of_loss" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="first_notice_of_loss_archive" EntityType="Self.first_notice_of_loss_archive" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="groups" EntityType="Self.groups" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="health_insurance" EntityType="Self.health_insurance" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="health_insurance_info" EntityType="Self.health_insurance_info" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="insured" EntityType="Self.insured" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="invoices" EntityType="Self.invoices" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="languages" EntityType="Self.languages" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="luggage_insurance" EntityType="Self.luggage_insurance" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="luggage_insurance_info" EntityType="Self.luggage_insurance_info" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="message" EntityType="Self.message" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="min_premium" EntityType="Self.min_premium" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="news_all" EntityType="Self.news_all" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="ok_setup" EntityType="Self.ok_setup" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="p_referent" EntityType="Self.p_referent" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="p_stapki" EntityType="Self.p_stapki" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="payment_status" EntityType="Self.payment_status" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="policy_additional_charge" EntityType="Self.policy_additional_charge" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="policy_insured" EntityType="Self.policy_insured" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="policy_status" EntityType="Self.policy_status" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="policy_type" EntityType="Self.policy_type" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="policy_type_name" EntityType="Self.policy_type_name" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="refreshtokens" EntityType="Self.refreshtokens" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="retaining_risk" EntityType="Self.retaining_risk" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="retaining_risk_name" EntityType="Self.retaining_risk_name" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="travel_duration" EntityType="Self.travel_duration" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="travel_insurance_type" EntityType="Self.travel_insurance_type" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="travel_number" EntityType="Self.travel_number" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="travel_policy" EntityType="Self.travel_policy" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="type_insured" EntityType="Self.type_insured" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogins" store:Type="Tables" store:Schema="db_9eb138_config">
             <DefiningQuery>SELECT
 `aspnetuserlogins`.`LoginProvider`, 
 `aspnetuserlogins`.`ProviderKey`, 
 `aspnetuserlogins`.`UserId`
 FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="transaction" EntityType="Self.transaction" store:Type="Tables" store:Schema="db_9eb138_travel">
+          <EntitySet Name="transaction" EntityType="Self.transaction" store:Type="Tables" store:Schema="db_9eb138_config">
             <DefiningQuery>SELECT
 `transaction`.`OrderID`, 
 `transaction`.`TRANID`, 
