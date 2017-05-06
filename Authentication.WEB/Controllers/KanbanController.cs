@@ -86,8 +86,9 @@ namespace InsuredTraveling.Controllers
             _kanbanService.UpdatePoolListOrder(order);
         }
 
-        public ActionResult GetUsersDropdown()
+        public ActionResult GetUsersDropdown(string role = "")
         {
+            ViewBag.Role = role;
             return PartialView("_UsersDropdown", _userService.GetAllUsers());
         }
 

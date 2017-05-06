@@ -26,6 +26,7 @@ function AddNewTicket() {
 
     $("#addNewTicketModal").modal("hide");
     $("#loader").show();
+    var poolListId = $("#addNewTicketModal form #addTicketPoolListId").val();
 
     $.ajax({
         url: "/Kanban/AddTicket",

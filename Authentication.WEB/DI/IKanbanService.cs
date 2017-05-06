@@ -43,7 +43,7 @@ namespace InsuredTraveling.DI
 
         List<kanbanticket> GetTicketsForPoolList(int PoolListId);
 
-        List<kanbanticket> GetTicketsByCreator(int CreatebById);
+        List<kanbanticket> GetTicketsByCreator(string createbById);
 
         List<kanbanticket> GetTicketsByAssignedTo(string AssignedToId);
 

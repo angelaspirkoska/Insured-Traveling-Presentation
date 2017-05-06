@@ -129,15 +129,15 @@ namespace InsuredTraveling.DI
             return _db.kanbantickets.Where(x => x.KanbanPoolListId == PoolListId).ToList();
         }
 
-        public List<kanbanticket> GetTicketsByCreator(int CreatebById)
+        public List<kanbanticket> GetTicketsByCreator(string createbById)
         {
-            return _db.kanbantickets.Where(x => x.CreatedBy == CreatebById).ToList();
+            return _db.kanbantickets.Where(x => x.CreatedById == createbById).ToList();
         }
 
         public List<kanbanticket> GetTicketsByAssignedTo(string AssignedToId = null)
         {
             List<kanbanticket> tickets = new List<kanbanticket>();
-            foreach (var timekeeper in _db.kanbantimekeepers)
+            foreach (var timekeeper in _db.kanbanticketassignedtoes)
             {
                 if (timekeeper.AssignedToId == AssignedToId || AssignedToId == null)
                     tickets.Add(timekeeper.kanbanticket);
@@ -167,21 +167,31 @@ namespace InsuredTraveling.DI
                 Name = collection["ticketName"],
                 Description = collection["ticketDescription"],
                 OrderBy = highestOrder + 1,
-                CreatedBy = 1, //createdBy
-                AssignedTo = 1, //remove it
+                CreatedById = createdyBy,
                 TicketTypeId = int.Parse(collection["ticketType"]),
                 KanbanPoolListId = int.Parse(collection["poolListId"])
             };
+
             _db.kanbantickets.Add(ticket);
             _db.SaveChanges();
 
-            foreach (var userId in collection["assignedUsers"].Split(',').ToList())
+            foreach (var userId in collection["assignees"].Split(',').ToList())
             {
-                _db.kanbantimekeepers.Add(new kanbantimekeeper
+                _db.kanbanticketassignedtoes.Add(new kanbanticketassignedto
                 {
                     AssignedToId = userId,
                     KanbanTicketId = ticket.Id,
                     AssignedDateTime = DateTime.Now
+                });
+            }
+
+            foreach (var userId in collection["watchers"].Split(',').ToList())
+            {
+                _db.kanbanticketwatchers.Add(new kanbanticketwatcher
+                {
+                    AssignedDateTime = DateTime.Now,
+                    KanbanTicketId = ticket.Id,
+                    WatcherId = userId
                 });
             }
 

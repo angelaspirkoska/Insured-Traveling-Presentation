@@ -96,7 +96,11 @@
                     </div>
                     <div class="form-group">
                         <label>Assign to users</label>
-                        @Html.Action("GetUsersDropdown")
+                        @Html.Action("GetUsersDropdown", new { role = "assignees" })
+                    </div>
+                    <div class="form-group">
+                        <label>Add ticket watchers</label>
+                        @Html.Action("GetUsersDropdown", new { role = "watchers" })
                     </div>
                     <div class="form-group">
                         <label>Ticket Type</label>

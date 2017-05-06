@@ -3,7 +3,7 @@
 
 @if (ViewBag.Mode == 1)
 {
-    foreach (var timekeeper in Model.kanbantimekeepers)
+    foreach (var timekeeper in Model.kanbanticketassignedtoes)
     {
         if (timekeeper.aspnetuser.UserName == HttpContext.Current.User.Identity.Name)
         {
