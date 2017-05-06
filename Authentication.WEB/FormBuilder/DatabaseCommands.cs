@@ -171,7 +171,8 @@ namespace InsuredTraveling.FormBuilder
             masterProcedure.Append("");
             foreach (Function procedure in procedures)
             {
-                if (procedure.ToString().ToLower().StartsWith("if") || procedure.ToString().ToLower().StartsWith("exact") || procedure.ToString().ToLower().StartsWith("round") || procedure.ToString().ToLower().StartsWith("dget"))
+                var ifNesto = procedure.ToString().ToLower().StartsWith("(if");
+                if (procedure.ToString().ToLower().StartsWith("(if") || procedure.ToString().ToLower().StartsWith("(exact") || procedure.ToString().ToLower().StartsWith("(round") || procedure.ToString().ToLower().StartsWith("(dget"))
                 {
 
                 }
@@ -179,16 +180,24 @@ namespace InsuredTraveling.FormBuilder
                 {
 
                     MathOperation newOperation = (MathOperation)procedure;
+                    var operandLeft = " IN `Procedure" + procedure.Name + "_OperandLeft" + "` FLOAT, ";
+                    var operandRight = " IN `Procedure" + procedure.Name + "_OperandRight" + "` FLOAT, ";
+                    masterParameters.Append(operandLeft);
+                    masterParameters.Append(operandRight);
+
+                    masterProcedure.Append("SET @Procedure" + procedure.Name +"_Output = ''; ");
                     masterProcedure.Append("( call ");
                     if (newOperation.Operation == "*")
                     {
                         masterProcedure.Append("Multiplication(");
                     }
-                    masterParameters.Append(" IN `Procedure" + procedure.Name + "_OperandLeft_" + excelID + "` FLOAT, ");
-                    masterParameters.Append(" IN `Procedure" + procedure.Name + "_OperandRight_" + excelID + "` FLOAT, ");
+
+                    masterProcedure.Append("Procedure" + procedure.Name + "_OperandLeft, " + "Procedure" + procedure.Name + "_OperandRight, " + "@Procedure" + procedure.Name +"_Output); ");
+
                     if (newOperation.OperandLeft.StartsWith("Procedure"))
                     {
                         var procedureName = newOperation.OperandLeft.Replace("Procedure", "");
+                        var inputFromPreviousOutput = "@Procedure" + procedureName + "_Output";
                     }
                 }
             }
@@ -204,28 +213,28 @@ namespace InsuredTraveling.FormBuilder
                 conn.Open();
                 MySqlCommand mysqlCommand = new MySqlCommand();
                 mysqlCommand.Connection = conn;
-                //try
-                //{
-                //    mysqlCommand.CommandText = "get_users_by_state";
-                //    mysqlCommand.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    mysqlCommand.CommandText = "get_users_by_state";
+                    mysqlCommand.CommandType = CommandType.StoredProcedure;
 
-                //    mysqlCommand.Parameters.AddWithValue("@item_type", "Taxi");
-                //    mysqlCommand.Parameters["@item_type"].Direction = ParameterDirection.Input;
+                    mysqlCommand.Parameters.AddWithValue("@item_type", "Taxi");
+                    mysqlCommand.Parameters["@item_type"].Direction = ParameterDirection.Input;
 
-                //    mysqlCommand.Parameters.AddWithValue("@ccRange", "greater then 3000");
-                //    mysqlCommand.Parameters["@ccRange"].Direction = ParameterDirection.Input;
+                    mysqlCommand.Parameters.AddWithValue("@ccRange", "greater then 3000");
+                    mysqlCommand.Parameters["@ccRange"].Direction = ParameterDirection.Input;
 
-                //    mysqlCommand.Parameters.AddWithValue("@Rates", MySqlDbType.VarChar);
-                //    mysqlCommand.Parameters["@Rates"].Direction = ParameterDirection.Output;
+                    mysqlCommand.Parameters.AddWithValue("@Rates", MySqlDbType.VarChar);
+                    mysqlCommand.Parameters["@Rates"].Direction = ParameterDirection.Output;
 
-                //    mysqlCommand.ExecuteNonQuery();
+                    mysqlCommand.ExecuteNonQuery();
 
-                //    var m = mysqlCommand.Parameters["@Rates"].Value;
-                //}
-                //catch (Exception ex)
-                //{
+                    var m = mysqlCommand.Parameters["@Rates"].Value;
+                }
+                catch (Exception ex)
+                {
 
-                //}
+                }
                 mysqlCommand = new MySqlCommand();
                 mysqlCommand.CommandText = command;
                 mysqlCommand.Connection = conn;
