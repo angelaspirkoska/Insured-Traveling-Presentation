@@ -12,39 +12,39 @@
 namespace InsuredTraveling
 {
 
-    using System;
+using System;
     using System.Collections.Generic;
+    
+public partial class kanbancomponent
+{
 
-    public partial class kanbancomponent
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public kanbancomponent()
     {
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public kanbancomponent()
-        {
+        this.kanbanticketcomponents = new HashSet<kanbanticketcomponent>();
 
-            this.kanbanticketcomponents = new HashSet<kanbanticketcomponent>();
-
-            this.kanbantickettypecomponents = new HashSet<kanbantickettypecomponent>();
-
-        }
-
-
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Type { get; set; }
-
-
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-        public virtual ICollection<kanbanticketcomponent> kanbanticketcomponents { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-        public virtual ICollection<kanbantickettypecomponent> kanbantickettypecomponents { get; set; }
+        this.kanbantickettypecomponents = new HashSet<kanbantickettypecomponent>();
 
     }
+
+
+    public int Id { get; set; }
+
+    public string Name { get; set; }
+
+    public string Type { get; set; }
+
+
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<kanbanticketcomponent> kanbanticketcomponents { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<kanbantickettypecomponent> kanbantickettypecomponents { get; set; }
+
+}
 
 }

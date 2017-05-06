@@ -31,6 +31,11 @@ namespace InsuredTraveling.Controllers
             return View(_kanbanService.GetAllBoards().FirstOrDefault());
         }
 
+        public ActionResult Admin()
+        {
+            return View(_kanbanService.GetAllTicketTypes());
+        }
+
         public ActionResult Details()
         {
             return View();
@@ -100,6 +105,11 @@ namespace InsuredTraveling.Controllers
         public ActionResult GetPolicyTypesDropdown()
         {
             return PartialView("_PolicyTypesDropdown", _policyTypeService.GetAllPolicyType());
+        }
+
+        public ActionResult GetComponentsDropdown()
+        {
+            return PartialView("_ComponentsDropdown", _kanbanService.GetAllComponents());
         }
     }
 }

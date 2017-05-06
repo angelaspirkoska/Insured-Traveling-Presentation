@@ -18,17 +18,6 @@ using System;
 public partial class user
 {
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public user()
-    {
-
-        this.kanbantickets = new HashSet<kanbanticket>();
-
-        this.kanbantickets1 = new HashSet<kanbanticket>();
-
-    }
-
-
     public int ID { get; set; }
 
     public string FisrtName { get; set; }
@@ -58,14 +47,6 @@ public partial class user
 
 
     public virtual aspnetuser aspnetuser { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<kanbanticket> kanbantickets { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<kanbanticket> kanbantickets1 { get; set; }
 
 }
 

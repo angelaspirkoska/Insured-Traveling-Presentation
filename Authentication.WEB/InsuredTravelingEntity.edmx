@@ -1770,6 +1770,20 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="PoolListFK">
+          <End Role="kanbanpoollist" Type="Self.kanbanpoollist" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanpoollist">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="KanbanPoolListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="retaining_risk_name_ibfk_1">
           <End Role="retaining_risk" Type="Self.retaining_risk" Multiplicity="1" />
           <End Role="retaining_risk_name" Type="Self.retaining_risk_name" Multiplicity="*" />
@@ -2255,6 +2269,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="policy_insured_ibfk_1" Association="Self.policy_insured_ibfk_1">
             <End Role="insured" EntitySet="insured" />
             <End Role="policy_insured" EntitySet="policy_insured" />
+          </AssociationSet>
+          <AssociationSet Name="PoolListFK" Association="Self.PoolListFK">
+            <End Role="kanbanpoollist" EntitySet="kanbanpoollist" />
+            <End Role="kanbanticket" EntitySet="kanbanticket" />
           </AssociationSet>
           <AssociationSet Name="retaining_risk_name_ibfk_1" Association="Self.retaining_risk_name_ibfk_1">
             <End Role="retaining_risk" EntitySet="retaining_risk" />
@@ -3718,6 +3736,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="kanbantickettype" EntitySet="kanbantickettypes" />
             <End Role="kanbanticket" EntitySet="kanbantickets" />
           </AssociationSet>
+          <AssociationSet Name="PoolListFK" Association="Entities.PoolListFK">
+            <End Role="kanbanpoollist" EntitySet="kanbanpoollists" />
+            <End Role="kanbanticket" EntitySet="kanbantickets" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -4424,6 +4446,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="OrderBy" Type="Single" Nullable="false" />
           <Property Name="KanbanBoardId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="kanbanboard" Relationship="Entities.KanbanBoardFK" FromRole="kanbanpoollist" ToRole="kanbanboard" />
+          <NavigationProperty Name="kanbantickets" Relationship="Entities.PoolListFK" FromRole="kanbanpoollist" ToRole="kanbanticket" />
         </EntityType>
         <Association Name="KanbanBoardFK">
           <End Type="Entities.kanbanboard" Role="kanbanboard" Multiplicity="1">
@@ -4584,6 +4607,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="kanbanticketwatchers" Relationship="Entities.KanbanTicketFK2" FromRole="kanbanticket" ToRole="kanbanticketwatcher" />
           <NavigationProperty Name="kanbanticketcomponents" Relationship="Entities.TicketFK" FromRole="kanbanticket" ToRole="kanbanticketcomponent" />
           <NavigationProperty Name="kanbantickettype" Relationship="Entities.TicketTypeFK" FromRole="kanbanticket" ToRole="kanbantickettype" />
+          <NavigationProperty Name="kanbanpoollist" Relationship="Entities.PoolListFK" FromRole="kanbanticket" ToRole="kanbanpoollist" />
         </EntityType>
         <Association Name="CreatedByFK">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1">
@@ -4648,6 +4672,20 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="kanbanticket">
               <PropertyRef Name="TicketTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PoolListFK">
+          <End Type="Entities.kanbanpoollist" Role="kanbanpoollist" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanpoollist">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="KanbanPoolListId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

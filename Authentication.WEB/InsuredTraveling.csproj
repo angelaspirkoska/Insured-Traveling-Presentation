@@ -420,6 +420,7 @@
     <Content Include="Scripts\Kanban\bootstrap-select.min.js" />
     <Content Include="Scripts\Kanban\jquery-ui.js" />
     <Content Include="Scripts\Kanban\kanban.js" />
+    <Content Include="Scripts\Kanban\kanban_admin.js" />
     <Content Include="Scripts\Limitless-js\core\app.js" />
     <Content Include="Scripts\Limitless-js\core\app.min.js" />
     <Content Include="Scripts\Limitless-js\core\libraries\bootstrap.min.js" />
@@ -2526,6 +2527,8 @@
     <Content Include="Views\Kanban\_AddTicket.cshtml" />
     <Content Include="Views\Kanban\_TicketTypesDropdown.cshtml" />
     <Content Include="Views\Kanban\_PolicyTypesDropdown.cshtml" />
+    <Content Include="Views\Kanban\Admin.cshtml" />
+    <Content Include="Views\Kanban\_ComponentsDropdown.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

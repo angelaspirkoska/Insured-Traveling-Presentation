@@ -18,9 +18,14 @@
         <div class="board-wrapper">
             <div class="board-main-content">
                 <div class="board-header">
-                    <a href="#" class="board-header-name">
-                        <span class="board-header-text">Board: @Model.Name</span>
-                    </a>
+                    <div class="col-sm-3">
+                        <a href="#" class="board-header-name">
+                            <span class="board-header-text">Board: @Model.Name</span>
+                        </a>
+                    </div>
+                    <div class="col-sm-offset-6 col-sm-3">
+                        <button style="border-radius: 0px;" onclick="location.href='@Url.Action("Admin", "Kanban")'" class="btn btn-sm btn-info btn-block">Configure ticket types</button>
+                    </div>
                 </div>
                 <div>
                     <a style="cursor: pointer" href="@Url.Action("Index", "Kanban")" class="board-header-name">
@@ -127,5 +132,24 @@
     $(function () {
         $("body").css("background-color", "@Model.Color")
     })
+
+    $("#ticketTypeSelect").change(function () {
+        $("#loader").show();
+        var ticketTypeId = $(this).val();
+        $.ajax({
+            url: "/Kanban/AddTicketPartial",
+            type: "post",
+            data: {
+                ticketTypeId: ticketTypeId
+            },
+            success: function (result) {
+                $("#ticketTypeComponents").html(result);
+                $("#loader").hide();
+            },
+            error: function () {
+                $("#loader").hide();
+            }
+        });
+    });
 </script>
 

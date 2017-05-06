@@ -154,6 +154,7 @@
         <AssociationConnector Association="Entities.KanbanTicketFK2" />
         <AssociationConnector Association="Entities.TicketFK" />
         <AssociationConnector Association="Entities.TicketTypeFK" />
+        <AssociationConnector Association="Entities.PoolListFK" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

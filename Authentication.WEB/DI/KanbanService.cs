@@ -271,5 +271,10 @@ namespace InsuredTraveling.DI
         {
             return _db.kanbantickettypes.ToList();
         }
+
+        public List<kanbancomponent> GetAllComponents()
+        {
+            return _db.kanbancomponents.ToList();
+        }
     }
 }

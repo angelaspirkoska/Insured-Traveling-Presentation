@@ -12,39 +12,39 @@
 namespace InsuredTraveling
 {
 
-    using System;
+using System;
     using System.Collections.Generic;
+    
+public partial class kanbantickettype
+{
 
-    public partial class kanbantickettype
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public kanbantickettype()
     {
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public kanbantickettype()
-        {
+        this.kanbantickettypecomponents = new HashSet<kanbantickettypecomponent>();
 
-            this.kanbantickets = new HashSet<kanbanticket>();
-
-            this.kanbantickettypecomponents = new HashSet<kanbantickettypecomponent>();
-
-        }
-
-
-        public int ID { get; set; }
-
-        public string Name { get; set; }
-
-        public string Color { get; set; }
-
-
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-        public virtual ICollection<kanbanticket> kanbantickets { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-        public virtual ICollection<kanbantickettypecomponent> kanbantickettypecomponents { get; set; }
+        this.kanbantickets = new HashSet<kanbanticket>();
 
     }
+
+
+    public int ID { get; set; }
+
+    public string Name { get; set; }
+
+    public string Color { get; set; }
+
+
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<kanbantickettypecomponent> kanbantickettypecomponents { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<kanbanticket> kanbantickets { get; set; }
+
+}
 
 }

@@ -1,0 +1,10 @@
+﻿@model List<kanbancomponent>
+
+<select name="componentType" id="componentType" class="form-control">
+    <option value="-1">-- Select component --</option>
+    @foreach (var component in Model)
+    {
+        <option value="@component.Id">@component.Type</option>
+    }
+</select>
+
