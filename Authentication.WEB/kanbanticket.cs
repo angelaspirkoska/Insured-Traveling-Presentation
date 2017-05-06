@@ -22,9 +22,11 @@ public partial class kanbanticket
     public kanbanticket()
     {
 
-        this.kanbanticketcomponents = new HashSet<kanbanticketcomponent>();
+        this.kanbanticketassignedtoes = new HashSet<kanbanticketassignedto>();
 
-        this.kanbantimekeepers = new HashSet<kanbantimekeeper>();
+        this.kanbanticketwatchers = new HashSet<kanbanticketwatcher>();
+
+        this.kanbanticketcomponents = new HashSet<kanbanticketcomponent>();
 
     }
 
@@ -35,33 +37,31 @@ public partial class kanbanticket
 
     public string Description { get; set; }
 
+    public Nullable<int> TicketTypeId { get; set; }
+
+    public string CreatedById { get; set; }
+
     public float OrderBy { get; set; }
-
-    public int CreatedBy { get; set; }
-
-    public int AssignedTo { get; set; }
 
     public int KanbanPoolListId { get; set; }
 
-    public Nullable<int> TicketTypeId { get; set; }
 
 
+    public virtual aspnetuser aspnetuser { get; set; }
 
-    public virtual kanbanpoollist kanbanpoollist { get; set; }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual user user { get; set; }
+    public virtual ICollection<kanbanticketassignedto> kanbanticketassignedtoes { get; set; }
 
-    public virtual user user1 { get; set; }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<kanbanticketwatcher> kanbanticketwatchers { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<kanbanticketcomponent> kanbanticketcomponents { get; set; }
 
     public virtual kanbantickettype kanbantickettype { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<kanbantimekeeper> kanbantimekeepers { get; set; }
 
 }
 

@@ -15,22 +15,22 @@ namespace InsuredTraveling
 using System;
     using System.Collections.Generic;
     
-public partial class kanbantimekeeper
+public partial class kanbanticketassignedto
 {
 
     public int Id { get; set; }
 
     public int KanbanTicketId { get; set; }
 
-    public System.DateTime AssignedDateTime { get; set; }
-
     public string AssignedToId { get; set; }
 
+    public System.DateTime AssignedDateTime { get; set; }
 
 
-    public virtual kanbanticket kanbanticket { get; set; }
 
     public virtual aspnetuser aspnetuser { get; set; }
+
+    public virtual kanbanticket kanbanticket { get; set; }
 
 }
 

@@ -130,13 +130,13 @@ namespace InsuredTraveling.DI
 
         public List<kanbanticket> GetTicketsByCreator(int CreatebById)
         {
-            return _db.kanbantickets.Where(x => x.CreatedBy == CreatebById).ToList();
+            return _db.kanbantickets.ToList();
         }
 
         public List<kanbanticket> GetTicketsByAssignedTo(string AssignedToId = null)
         {
             List<kanbanticket> tickets = new List<kanbanticket>();
-            foreach (var timekeeper in _db.kanbantimekeepers)
+            foreach (var timekeeper in _db.kanbanticketassignedtoes)
             {
                 if (timekeeper.AssignedToId == AssignedToId || AssignedToId == null)
                     tickets.Add(timekeeper.kanbanticket);
@@ -165,8 +165,6 @@ namespace InsuredTraveling.DI
                 Name = Name,
                 Description = Description,
                 OrderBy = highestOrder + 1,
-                CreatedBy = CreatedById,
-                AssignedTo = AssignedToId,
                 TicketTypeId = ticketTypeId,
                 KanbanPoolListId = PoolListId
             };
@@ -175,7 +173,7 @@ namespace InsuredTraveling.DI
 
             foreach (var user in users)
             {
-                _db.kanbantimekeepers.Add(new kanbantimekeeper
+                _db.kanbanticketassignedtoes.Add(new kanbanticketassignedto
                 {
                     AssignedToId = user,
                     KanbanTicketId = ticket.Id,

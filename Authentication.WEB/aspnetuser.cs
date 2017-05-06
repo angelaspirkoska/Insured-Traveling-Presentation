@@ -50,7 +50,11 @@ public partial class aspnetuser
 
         this.broker_employees = new HashSet<broker_employees>();
 
-        this.kanbantimekeepers = new HashSet<kanbantimekeeper>();
+        this.kanbanticketwatchers = new HashSet<kanbanticketwatcher>();
+
+        this.kanbanticketassignedtoes = new HashSet<kanbanticketassignedto>();
+
+        this.kanbantickets = new HashSet<kanbanticket>();
 
     }
 
@@ -175,7 +179,15 @@ public partial class aspnetuser
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<kanbantimekeeper> kanbantimekeepers { get; set; }
+    public virtual ICollection<kanbanticketwatcher> kanbanticketwatchers { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<kanbanticketassignedto> kanbanticketassignedtoes { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<kanbanticket> kanbantickets { get; set; }
 
 }
 

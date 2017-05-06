@@ -2281,6 +2281,9 @@
     <Compile Include="kanbanticket.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="kanbanticketassignedto.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="kanbanticketcomponent.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -2290,7 +2293,7 @@
     <Compile Include="kanbantickettypecomponent.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="kanbantimekeeper.cs">
+    <Compile Include="kanbanticketwatcher.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminPanelModel.cs" />
