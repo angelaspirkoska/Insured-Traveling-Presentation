@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="98e5219c4ee54651afe193f34e768c8b" Name="Diagram1" ZoomLevel="60">
+      <Diagram DiagramId="98e5219c4ee54651afe193f34e768c8b" Name="Diagram1" ZoomLevel="10">
         <EntityTypeShape EntityType="Entities.additional_charge" Width="1.5" PointX="5.25" PointY="24.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.additional_info" Width="1.5" PointX="9" PointY="40" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.aspnetrole" Width="1.5" PointX="0.75" PointY="31.375" IsExpanded="true" />
@@ -136,23 +136,24 @@
         <AssociationConnector Association="Entities.FKEmployeID" />
         <EntityTypeShape EntityType="Entities.kanbanboard" Width="1.5" PointX="3" PointY="73.125" />
         <EntityTypeShape EntityType="Entities.kanbanpoollist" Width="1.5" PointX="5.25" PointY="73" />
-        <EntityTypeShape EntityType="Entities.kanbanticket" Width="1.5" PointX="7.5" PointY="67.625" />
         <AssociationConnector Association="Entities.KanbanBoardFK" />
-        <AssociationConnector Association="Entities.KanbanPoolListFK" />
-        <AssociationConnector Association="Entities.TicketAssignedToFK" />
-        <AssociationConnector Association="Entities.TicketCreatedByFK" />
         <EntityTypeShape EntityType="Entities.kanbancomponent" Width="1.5" PointX="14.375" PointY="2.5" />
         <EntityTypeShape EntityType="Entities.kanbanticketcomponent" Width="1.5" PointX="16.625" PointY="38.875" />
         <EntityTypeShape EntityType="Entities.kanbantickettype" Width="1.5" PointX="2.25" PointY="68.625" />
         <EntityTypeShape EntityType="Entities.kanbantickettypecomponent" Width="1.5" PointX="16.625" PointY="35.5" />
         <AssociationConnector Association="Entities.ComponentFK2" />
         <AssociationConnector Association="Entities.ComponentId" />
+        <AssociationConnector Association="Entities.TicketTypeFK2" />
+        <EntityTypeShape EntityType="Entities.kanbanticketwatcher" Width="1.5" PointX="9.75" PointY="51.125" />
+        <AssociationConnector Association="Entities.WatcherFK" />
+        <EntityTypeShape EntityType="Entities.kanbanticketassignedto" Width="1.5" PointX="9.75" PointY="44.25" />
+        <AssociationConnector Association="Entities.AssignedToFK1" />
+        <EntityTypeShape EntityType="Entities.kanbanticket" Width="1.5" PointX="5.25" PointY="47" />
+        <AssociationConnector Association="Entities.CreatedByFK" />
+        <AssociationConnector Association="Entities.KanbanTicketFK" />
+        <AssociationConnector Association="Entities.KanbanTicketFK2" />
         <AssociationConnector Association="Entities.TicketFK" />
         <AssociationConnector Association="Entities.TicketTypeFK" />
-        <AssociationConnector Association="Entities.TicketTypeFK2" />
-        <EntityTypeShape EntityType="Entities.kanbantimekeeper" Width="1.5" PointX="9.75" PointY="68.625" />
-        <AssociationConnector Association="Entities.KanbanTicketFK" />
-        <AssociationConnector Association="Entities.AssignedToFK" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

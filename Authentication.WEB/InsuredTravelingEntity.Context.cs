@@ -150,8 +150,6 @@ public partial class InsuredTravelingEntity : DbContext
 
     public virtual DbSet<kanbanpoollist> kanbanpoollists { get; set; }
 
-    public virtual DbSet<kanbanticket> kanbantickets { get; set; }
-
     public virtual DbSet<kanbancomponent> kanbancomponents { get; set; }
 
     public virtual DbSet<kanbanticketcomponent> kanbanticketcomponents { get; set; }
@@ -160,7 +158,11 @@ public partial class InsuredTravelingEntity : DbContext
 
     public virtual DbSet<kanbantickettypecomponent> kanbantickettypecomponents { get; set; }
 
-    public virtual DbSet<kanbantimekeeper> kanbantimekeepers { get; set; }
+    public virtual DbSet<kanbanticketwatcher> kanbanticketwatchers { get; set; }
+
+    public virtual DbSet<kanbanticketassignedto> kanbanticketassignedtoes { get; set; }
+
+    public virtual DbSet<kanbanticket> kanbantickets { get; set; }
 
 }
 
