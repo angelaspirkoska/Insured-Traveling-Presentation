@@ -1,0 +1,69 @@
+﻿@model List<kanbantickettype>
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+}
+
+<div id="loader" style="position:absolute; top:0; bottom:0; right:0; left:0; background:rgba(0,0,0,0.5); z-index:10; display:none;">
+    <svg width='70px' height='70px' style="position:absolute; top:40%; left:50%;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-default"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><rect x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#cec9c9' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite' /></rect><rect x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#cec9c9' transform='rotate(30 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.08333333333333333s' repeatCount='indefinite' /></rect><rect x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#cec9c9' transform='rotate(60 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.16666666666666666s' repeatCount='indefinite' /></rect><rect x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#cec9c9' transform='rotate(90 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite' /></rect><rect x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#cec9c9' transform='rotate(120 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.3333333333333333s' repeatCount='indefinite' /></rect><rect x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#cec9c9' transform='rotate(150 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.4166666666666667s' repeatCount='indefinite' /></rect><rect x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#cec9c9' transform='rotate(180 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite' /></rect><rect x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#cec9c9' transform='rotate(210 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5833333333333334s' repeatCount='indefinite' /></rect><rect x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#cec9c9' transform='rotate(240 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.6666666666666666s' repeatCount='indefinite' /></rect><rect x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#cec9c9' transform='rotate(270 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite' /></rect><rect x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#cec9c9' transform='rotate(300 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.8333333333333334s' repeatCount='indefinite' /></rect><rect x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#cec9c9' transform='rotate(330 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.9166666666666666s' repeatCount='indefinite' /></rect></svg>
+</div>
+
+<h2>Configure ticket types</h2>
+
+@Html.Action("GetTicketTypesDropdown")
+<br />
+<hr />
+<div id="configureTicketTypeContainer">
+    <button id="btnAddNewComponent" class="col-sm-3 btn btn-sm btn-info">Add new component</button>
+</div>
+
+<div id="addNewComponentModal" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add new component for ticket</h4>
+            </div>
+            <div style="padding:20px;" class="form-group">
+                <label>Component type</label>
+                @Html.Action("GetComponentsDropdown")
+                <br />
+                <label>Name</label>
+                <input id="newComponentName" type="text" class="form-control" />
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-offset-6 col-sm-3">
+                    <button type="button" class="btn btn-sm btn-block btn-add-new btn-danger" data-dismiss="modal">Close</button>
+                </div>
+                <div class="col-sm-3">
+                    <button id="btnAddNewComponentSubmit" type="button" class="btn btn-sm btn-block btn-add-new btn-success" data-dismiss="modal">Submit</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    $("#btnAddNewComponent").click(function () {
+        $("#addNewComponentModal").modal("show");
+    });
+
+    $("#ticketTypeSelect").change(function () {
+        $("#loader").show();
+        var ticketTypeId = $(this).val();
+        $.ajax({
+            url: "/Kanban/AddTicketPartial",
+            type: "post",
+            data: {
+                ticketTypeId: ticketTypeId
+            },
+            success: function (result) {
+                $("#configureTicketTypeContainer").html(result);
+                $("#loader").hide();
+            },
+            error: function () {
+                $("#loader").hide();
+            }
+        });
+    });
+</script>
