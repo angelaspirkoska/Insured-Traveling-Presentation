@@ -211,6 +211,10 @@ namespace InsuredTraveling.FormBuilder
                     {
                         attributes.Add("required", "true");
                     }
+                    if (worksheet.Cells[col, ratingIndicatorIndex].Value.ToString() == "1")
+                    {
+                        attributes.Add("ratingIndicatorIndex", "true");
+                    }
 
                     if (worksheet.Cells[col, fieldSizeIndex].Value != null)
                     {

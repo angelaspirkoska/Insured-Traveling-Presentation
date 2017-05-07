@@ -166,47 +166,47 @@ namespace InsuredTraveling.FormBuilder
 
         public static string GenerateMasterProcedure(int excelID, List<Function> procedures)
         {
-            StringBuilder masterProcedure = new StringBuilder();
-            StringBuilder masterParameters = new StringBuilder();
-            masterProcedure.Append("");
-            foreach (Function procedure in procedures)
-            {
-                var ifNesto = procedure.ToString().ToLower().StartsWith("(if");
-                if (procedure.ToString().ToLower().StartsWith("(if") || procedure.ToString().ToLower().StartsWith("(exact") || procedure.ToString().ToLower().StartsWith("(round") || procedure.ToString().ToLower().StartsWith("(dget"))
-                {
+            //StringBuilder masterProcedure = new StringBuilder();
+            //StringBuilder masterParameters = new StringBuilder();
+            //masterProcedure.Append("");
+            //foreach (Function procedure in procedures)
+            //{
+            //    var ifNesto = procedure.ToString().ToLower().StartsWith("(if");
+            //    if (procedure.ToString().ToLower().StartsWith("(if") || procedure.ToString().ToLower().StartsWith("(exact") || procedure.ToString().ToLower().StartsWith("(round") || procedure.ToString().ToLower().StartsWith("(dget"))
+            //    {
 
-                }
-                else
-                {
+            //    }
+            //    else
+            //    {
 
-                    MathOperation newOperation = (MathOperation)procedure;
-                    var operandLeft = " IN `Procedure" + procedure.Name + "_OperandLeft" + "` FLOAT, ";
-                    var operandRight = " IN `Procedure" + procedure.Name + "_OperandRight" + "` FLOAT, ";
-                    masterParameters.Append(operandLeft);
-                    masterParameters.Append(operandRight);
+            //        MathOperation newOperation = (MathOperation)procedure;
+            //        var operandLeft = " IN `Procedure" + procedure.Name + "_OperandLeft" + "` FLOAT, ";
+            //        var operandRight = " IN `Procedure" + procedure.Name + "_OperandRight" + "` FLOAT, ";
+            //        masterParameters.Append(operandLeft);
+            //        masterParameters.Append(operandRight);
 
-                    masterProcedure.Append("SET @Procedure" + procedure.Name +"_Output = ''; ");
-                    masterProcedure.Append("( call ");
-                    if (newOperation.Operation == "*")
-                    {
-                        masterProcedure.Append("Multiplication(");
-                    }
+            //        masterProcedure.Append("SET @Procedure" + procedure.Name +"_Output = ''; ");
+            //        masterProcedure.Append("( call ");
+            //        if (newOperation.Operation == "*")
+            //        {
+            //            masterProcedure.Append("Multiplication(");
+            //        }
 
-                    masterProcedure.Append("Procedure" + procedure.Name + "_OperandLeft, " + "Procedure" + procedure.Name + "_OperandRight, " + "@Procedure" + procedure.Name +"_Output); ");
+            //        masterProcedure.Append("Procedure" + procedure.Name + "_OperandLeft, " + "Procedure" + procedure.Name + "_OperandRight, " + "@Procedure" + procedure.Name +"_Output); ");
 
-                    if (newOperation.OperandLeft.StartsWith("Procedure"))
-                    {
-                        var procedureName = newOperation.OperandLeft.Replace("Procedure", "");
-                        var inputFromPreviousOutput = "@Procedure" + procedureName + "_Output";
-                    }
-                }
-            }
+            //        if (newOperation.OperandLeft.StartsWith("Procedure"))
+            //        {
+            //            var procedureName = newOperation.OperandLeft.Replace("Procedure", "");
+            //            var inputFromPreviousOutput = "@Procedure" + procedureName + "_Output";
+            //        }
+            //    }
+            //}
             return null;
         }
         public static void CreateDatabaseTables(int excelID, List<TagInfo> tagInfoExcel, List<Dget> dgetFunctions, List<Function> procedures)
         {
             MySqlConnection conn = new MySqlConnection();
-            conn.ConnectionString = "server=localhost;user id = 9eb138_config;database=db_9eb138_config;Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
             var command = DatabaseCommands.GeneratePolicyCommand(excelID, tagInfoExcel);
             try
             {
@@ -275,7 +275,7 @@ namespace InsuredTraveling.FormBuilder
             {
                 conn.CloseAsync();
             }
-            var test = GenerateMasterProcedure(excelID, procedures);
+            //var test = GenerateMasterProcedure(excelID, procedures);
         }
     }
 }

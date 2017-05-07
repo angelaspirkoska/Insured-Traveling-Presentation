@@ -147,6 +147,18 @@ namespace InsuredTraveling.FormBuilder
                 _tag.Attr("maxlength", result);
             }
 
+            string isRequired;
+            tryGetValue = attributes.TryGetValue("ratingIndicatorIndex", out isRequired);
+
+            if (tryGetValue && isRequired.Equals("true"))
+            {
+                _tag.Attr("ratingIndicator", "true");
+            }
+            else
+            {
+                _tag.Attr("ratingIndicator", "false");
+            }
+
             return _tag;
         }
     }
@@ -169,8 +181,20 @@ namespace InsuredTraveling.FormBuilder
             {
                 tempSelectTag.SelectByValue(defaultValue);
             }
-                
-                _tag = tempSelectTag;
+
+            string isRequired;
+            tryGetValue = tagInfo.Attributes.TryGetValue("ratingIndicatorIndex", out isRequired);
+
+            if (tryGetValue && isRequired.Equals("true"))
+            {
+                _tag.Attr("ratingIndicator", "true");
+            }
+            else
+            {
+                _tag.Attr("ratingIndicator", "false");
+            }
+
+            _tag = tempSelectTag;
         }
         public override HtmlTag AddValidationAttributes(Dictionary<string, string> attributes)
         {
@@ -194,8 +218,19 @@ namespace InsuredTraveling.FormBuilder
             {
                 _tag.Attr("required");
             }
+            string isRequired;
+            tryGetValue = attributes.TryGetValue("ratingIndicatorIndex", out isRequired);
 
-            
+            if (tryGetValue && isRequired.Equals("true"))
+            {
+                _tag.Attr("ratingIndicator", "true");
+            }
+            else
+            {
+                _tag.Attr("ratingIndicator", "false");
+            }
+
+
             tryGetValue = attributes.TryGetValue("field_size", out result);
 
 
