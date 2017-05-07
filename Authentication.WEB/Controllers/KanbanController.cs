@@ -1,7 +1,10 @@
 ﻿using InsuredTraveling.DI;
 using InsuredTraveling.Models;
+using InsuredTraveling.SignalR.Hubs;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;

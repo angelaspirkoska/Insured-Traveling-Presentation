@@ -175,25 +175,33 @@ namespace InsuredTraveling.DI
             _db.kanbantickets.Add(ticket);
             _db.SaveChanges();
 
-            foreach (var userId in collection["assignees"].Split(',').ToList())
-            {
-                _db.kanbanticketassignedtoes.Add(new kanbanticketassignedto
+            if (collection["assignees"] != null)
+                foreach (var userId in collection["assignees"].Split(',').ToList())
                 {
-                    AssignedToId = userId,
-                    KanbanTicketId = ticket.Id,
-                    AssignedDateTime = DateTime.Now
-                });
-            }
+                    _db.kanbanticketassignedtoes.Add(new kanbanticketassignedto
+                    {
+                        AssignedToId = userId,
+                        KanbanTicketId = ticket.Id,
+                        AssignedDateTime = DateTime.Now
+                    });
+                }
 
-            foreach (var userId in collection["watchers"].Split(',').ToList())
-            {
-                _db.kanbanticketwatchers.Add(new kanbanticketwatcher
+            if (collection["watchers"] != null)
+                foreach (var userId in collection["watchers"].Split(',').ToList())
                 {
-                    AssignedDateTime = DateTime.Now,
-                    KanbanTicketId = ticket.Id,
-                    WatcherId = userId
-                });
-            }
+                    _db.kanbanticketwatchers.Add(new kanbanticketwatcher
+                    {
+                        AssignedDateTime = DateTime.Now,
+                        KanbanTicketId = ticket.Id,
+                        WatcherId = userId
+                    });
+                }
+            _db.kanbanticketwatchers.Add(new kanbanticketwatcher
+            {
+                AssignedDateTime = DateTime.Now,
+                KanbanTicketId = ticket.Id,
+                WatcherId = createdyBy
+            });
 
             foreach (var ticketTypeComponent in GetComponentsForTicketType(ticket.TicketTypeId.Value))
             {

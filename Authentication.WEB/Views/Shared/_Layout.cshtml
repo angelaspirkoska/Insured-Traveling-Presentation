@@ -9,7 +9,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Insured Travel</title>
-
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css" />
@@ -17,17 +16,13 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
-
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/jquery-3.1.1.js"></script>
-
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
-
     @*<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>*@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
     <script src="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
-
 </head>
 <body onload="prepareSocket() ">
     <div class="navbar navbar-inverse navbar-fixed-top nav-material-design" role="navigation">
@@ -41,7 +36,6 @@
                         <img src="~/Content/img/profile.png" class="logo" alt="logo" />Insured Traveling
                     </div>
                 </a>
-
             </div>
             <div class="collapse navbar-collapse" id="myNavbar" data-collapse="!navbarExpanded">
                 <div class="nav navbar-nav navbar-right" style="float:right;">
@@ -67,13 +61,12 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
                             <ul id="messages" class="dropdown-menu message-dropdown">
-
                                 @*<li class="message-footer">
                                         <a href="#">Read All New Messages</a>
                                     </li>*@
                                 <li id="no-messages" style="display: none;">@InsuredTraveling.Resource.Home_NoMsg</li>
                             </ul>
-                            
+
                         </li>
                         if (r.IsUser("Admin"))
                         {
@@ -92,26 +85,25 @@
                     }
                     else if (@HttpContext.Current.Request.Url.AbsolutePath == "/Login")
                     {
-                        <li><a></a></li>                        
+                        <li><a></a></li>
                         <li></li>
-                        
+
                         <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp" id="signup"> @InsuredTraveling.Resource.SignUp</a></li>
 
                     }
-                    else if(@HttpContext.Current.Request.Url.AbsolutePath == "/SignUp")
-                            {
+                    else if (@HttpContext.Current.Request.Url.AbsolutePath == "/SignUp")
+                    {
 
                         <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login"> @InsuredTraveling.Resource.Login</a></li>
 
 
-                      
+
                     }
                     else
                     {
                         <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Login" id="login"> @InsuredTraveling.Resource.Login</a></li>
                         <li><a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/SignUp" id="signup"> @InsuredTraveling.Resource.SignUp</a></li>
                     }
-
                 </ul>
             </div>
         </div>
@@ -120,7 +112,6 @@
     {
         <input type="hidden" value="@System.Web.HttpContext.Current.User.Identity.Name" id="userName" />
     }
-
     @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
     {
         <div class="container">
@@ -163,18 +154,15 @@
     @*<footer class="text-center" style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: white; z-index: 10000">*@
     <footer class="container-fluid footer-material-design">
         <p class="container" style="color:#ffffff">&copy; @DateTime.Now.Year - Insured Traveling</p>
-
     </footer>
-
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
     <script src="~/signalr/hubs"></script>
     <script src="~/Scripts/Chat/Chat.js"></script>
-
     <script type="text/javascript">
         $(document).ready(function () {
             localStorage.setItem("username", $("#userName").val());
-            console.log(localStorage.getItem("username"));     
+            console.log(localStorage.getItem("username"));
 
             // If there are no messages in the chat
             if ($("#messages").children().length === 1)
@@ -249,5 +237,7 @@
             </a>
         </li>
     </script>
+    @RenderSection("scripts", false)
 </body>
+
 </html>

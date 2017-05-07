@@ -421,6 +421,7 @@
     <Content Include="Scripts\Kanban\jquery-ui.js" />
     <Content Include="Scripts\Kanban\kanban.js" />
     <Content Include="Scripts\Kanban\kanban_admin.js" />
+    <Content Include="Scripts\Kanban\notifications.js" />
     <Content Include="Scripts\Limitless-js\core\app.js" />
     <Content Include="Scripts\Limitless-js\core\app.min.js" />
     <Content Include="Scripts\Limitless-js\core\libraries\bootstrap.min.js" />
@@ -2312,6 +2313,7 @@
     </Compile>
     <Compile Include="Schedulers\EmailJob.cs" />
     <Compile Include="Schedulers\JobScheduler.cs" />
+    <Compile Include="SignalR\Hubs\NotificationsHub.cs" />
     <Compile Include="SignalR\PipelineModules\LoggingPipelineModule.cs" />
     <Compile Include="SignalR\Hubs\ChatHub.cs" />
     <Compile Include="SignalR\PipelineModules\ExceptionPipelineModule.cs" />
