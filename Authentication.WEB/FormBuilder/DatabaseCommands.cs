@@ -206,7 +206,7 @@ namespace InsuredTraveling.FormBuilder
         public static void CreateDatabaseTables(int excelID, List<TagInfo> tagInfoExcel, List<Dget> dgetFunctions, List<Function> procedures)
         {
             MySqlConnection conn = new MySqlConnection();
-            conn.ConnectionString = "server=localhost;user id = root;database=db_9eb138_travel;Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            conn.ConnectionString = "server=localhost;user id = 9eb138_config;database=db_9eb138_config;Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
             var command = DatabaseCommands.GeneratePolicyCommand(excelID, tagInfoExcel);
             try
             {

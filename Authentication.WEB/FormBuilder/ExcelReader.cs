@@ -204,7 +204,7 @@ namespace InsuredTraveling.FormBuilder
 
                     if (worksheet.Cells[col, nameCaptionIndex].Value != null)
                     {
-                        attributes.Add("name", worksheet.Cells[col, nameCaptionIndex].Value.ToString());
+                        attributes.Add("name", worksheet.Cells[col, nameCaptionIndex].Value.ToString().Replace(' ', '_'));
                     }
 
                     if (worksheet.Cells[col, requiredIndex].Value.ToString() == "1")
