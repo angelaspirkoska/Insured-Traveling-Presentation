@@ -43,7 +43,7 @@ namespace InsuredTraveling
             builder.RegisterType<ChatService>().As<IChatService>().InstancePerRequest();
             builder.RegisterType<DiscountService>().As<IDiscountService>().InstancePerRequest();
             builder.RegisterType<KanbanService>().As<IKanbanService>().InstancePerRequest();
-
+            builder.RegisterType<NotificationService>().As<INotificationService>().InstancePerRequest();
             base.Load(builder);
 
 

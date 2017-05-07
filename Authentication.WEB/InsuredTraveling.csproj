@@ -2175,6 +2175,7 @@
     <Compile Include="DI\IKanbanService.cs" />
     <Compile Include="DI\ILuggageInsuranceService.cs" />
     <Compile Include="DI\INewsService.cs" />
+    <Compile Include="DI\INotificationService.cs" />
     <Compile Include="DI\InsuredsService.cs" />
     <Compile Include="DI\IOkSetupService.cs" />
     <Compile Include="DI\IPolicyInsuredService.cs" />
@@ -2188,6 +2189,7 @@
     <Compile Include="DI\KanbanService.cs" />
     <Compile Include="DI\LuggageInsuranceService.cs" />
     <Compile Include="DI\NewsService.cs" />
+    <Compile Include="DI\NotificationService.cs" />
     <Compile Include="DI\OkSetupService.cs" />
     <Compile Include="DI\PolicyInsuredService.cs" />
     <Compile Include="DI\PolicySearchService.cs" />

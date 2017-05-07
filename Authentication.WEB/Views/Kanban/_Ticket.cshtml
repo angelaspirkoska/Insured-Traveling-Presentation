@@ -1,5 +1,7 @@
 ﻿@model kanbanticket
 
+<input type="hidden" value="@ViewBag.AssigneesNotification" id="assignees-notification" />
+<input type="hidden" value="@ViewBag.WatchersNotification" id="watchers-notification" />
 
 @if (ViewBag.Mode == 1)
 {

@@ -18,13 +18,15 @@ namespace InsuredTraveling.Controllers
         private IKanbanService _kanbanService;
         private IUserService _userService;
         private IPolicyTypeService _policyTypeService;
+        private INotificationService _notificationService;
 
         public KanbanController(IKanbanService kanbanService, IUserService userService,
-            IPolicyTypeService policyTypeService)
+            IPolicyTypeService policyTypeService, INotificationService notificationService)
         {
             _kanbanService = kanbanService;
             _userService = userService;
             _policyTypeService = policyTypeService;
+            _notificationService = notificationService;
         }
 
         // GET: Kanban
@@ -54,6 +56,26 @@ namespace InsuredTraveling.Controllers
         public ActionResult AddTicket(FormCollection collection)
         {
             var ticket = _kanbanService.AddTicket(collection, _userService.GetUserIdByUsername(User.Identity.Name));
+
+            //notifications for assignees
+            var assigneesNotification = _notificationService.AddNotification("New ticket created!", "You've been assigned to newly created ticket: " + ticket.Name + ".");
+            if (collection["assignees"] != null)
+                foreach (var userId in collection["assignees"].Split(',').ToList())
+                {
+                    _notificationService.AddUserNotification(assigneesNotification.Id, userId);
+                }
+
+            //notifications for watchers
+            var watchersNotification = _notificationService.AddNotification("New ticket created!", "You've been assigned to newly created ticket: " + ticket.Name + ", as watcher!");
+            if (collection["watchers"] != null)
+                foreach (var userId in collection["watchers"].Split(',').ToList())
+                {
+                    _notificationService.AddUserNotification(watchersNotification.Id, userId);
+                }
+
+            ViewBag.AssigneesNotification = assigneesNotification.Id;
+            ViewBag.WatchersNotification = watchersNotification.Id;
+
             return PartialView("_Ticket", ticket);
         }
 

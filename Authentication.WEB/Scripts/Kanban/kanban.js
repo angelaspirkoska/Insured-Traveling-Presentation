@@ -36,6 +36,7 @@ function AddNewTicket() {
             $(".inner-sortable[data-poollist='" + poolListId + "']").append(result);
             $("#addNewTicketModal input").val("");
             $("#addNewTicketModal textarea").val("");
+            sendNotifications();
             $("#loader").hide();
         },
         error: function () {
