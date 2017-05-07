@@ -56,6 +56,8 @@ public partial class aspnetuser
 
         this.kanbantickets = new HashSet<kanbanticket>();
 
+        this.notificationusers = new HashSet<notificationuser>();
+
     }
 
 
@@ -188,6 +190,10 @@ public partial class aspnetuser
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<kanbanticket> kanbantickets { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<notificationuser> notificationusers { get; set; }
 
 }
 

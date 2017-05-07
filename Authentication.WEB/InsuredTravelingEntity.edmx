@@ -582,6 +582,24 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="GroupID" Type="text" />
           <Property Name="UserID" Type="varchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Content" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsOpened" Type="bool" Nullable="false" />
+        </EntityType>
+        <EntityType Name="notificationuser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NotificationId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
         <EntityType Name="ok_setup">
           <Key>
             <PropertyRef Name="id" />
@@ -1756,6 +1774,20 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="NotificationFK">
+          <End Role="notification" Type="Self.notification" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="notificationuser" Type="Self.notificationuser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="notification">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="notificationuser">
+              <PropertyRef Name="NotificationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="policy_insured_ibfk_1">
           <End Role="insured" Type="Self.insured" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1856,6 +1888,20 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="UserFK">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="notificationuser" Type="Self.notificationuser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="notificationuser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="WatcherFK">
           <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1918,6 +1964,8 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="message" EntityType="Self.message" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="min_premium" EntityType="Self.min_premium" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="news_all" EntityType="Self.news_all" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="notification" EntityType="Self.notification" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="notificationuser" EntityType="Self.notificationuser" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="ok_setup" EntityType="Self.ok_setup" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="p_referent" EntityType="Self.p_referent" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="p_stapki" EntityType="Self.p_stapki" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -2266,6 +2314,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="policy_type" EntitySet="policy_type" />
             <End Role="min_premium" EntitySet="min_premium" />
           </AssociationSet>
+          <AssociationSet Name="NotificationFK" Association="Self.NotificationFK">
+            <End Role="notification" EntitySet="notification" />
+            <End Role="notificationuser" EntitySet="notificationuser" />
+          </AssociationSet>
           <AssociationSet Name="policy_insured_ibfk_1" Association="Self.policy_insured_ibfk_1">
             <End Role="insured" EntitySet="insured" />
             <End Role="policy_insured" EntitySet="policy_insured" />
@@ -2297,6 +2349,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="travel_policy_ibfk_1" Association="Self.travel_policy_ibfk_1">
             <End Role="insured" EntitySet="insured" />
             <End Role="travel_policy" EntitySet="travel_policy" />
+          </AssociationSet>
+          <AssociationSet Name="UserFK" Association="Self.UserFK">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="notificationuser" EntitySet="notificationuser" />
           </AssociationSet>
           <AssociationSet Name="WatcherFK" Association="Self.WatcherFK">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
@@ -3740,6 +3796,16 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="kanbanpoollist" EntitySet="kanbanpoollists" />
             <End Role="kanbanticket" EntitySet="kanbantickets" />
           </AssociationSet>
+          <EntitySet Name="notifications" EntityType="Entities.notification" />
+          <EntitySet Name="notificationusers" EntityType="Entities.notificationuser" />
+          <AssociationSet Name="UserFK" Association="Entities.UserFK">
+            <End Role="aspnetuser" EntitySet="aspnetusers" />
+            <End Role="notificationuser" EntitySet="notificationusers" />
+          </AssociationSet>
+          <AssociationSet Name="NotificationFK" Association="Entities.NotificationFK">
+            <End Role="notification" EntitySet="notifications" />
+            <End Role="notificationuser" EntitySet="notificationusers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -4100,6 +4166,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="kanbanticketwatchers" Relationship="Entities.WatcherFK" FromRole="aspnetuser" ToRole="kanbanticketwatcher" />
           <NavigationProperty Name="kanbanticketassignedtoes" Relationship="Entities.AssignedToFK1" FromRole="aspnetuser" ToRole="kanbanticketassignedto" />
           <NavigationProperty Name="kanbantickets" Relationship="Entities.CreatedByFK" FromRole="aspnetuser" ToRole="kanbanticket" />
+          <NavigationProperty Name="notificationusers" Relationship="Entities.UserFK" FromRole="aspnetuser" ToRole="notificationuser" />
         </EntityType>
         <Association Name="fk_additional_charge_created_by">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
@@ -4686,6 +4753,55 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="kanbanticket">
               <PropertyRef Name="KanbanPoolListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsOpened" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="notificationusers" Relationship="Entities.NotificationFK" FromRole="notification" ToRole="notificationuser" />
+        </EntityType>
+        <EntityType Name="notificationuser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NotificationId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Entities.UserFK" FromRole="notificationuser" ToRole="aspnetuser" />
+          <NavigationProperty Name="notification" Relationship="Entities.NotificationFK" FromRole="notificationuser" ToRole="notification" />
+        </EntityType>
+        <Association Name="UserFK">
+          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.notificationuser" Role="notificationuser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetuser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="notificationuser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NotificationFK">
+          <End Type="Entities.notification" Role="notification" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.notificationuser" Role="notificationuser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="notification">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="notificationuser">
+              <PropertyRef Name="NotificationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5550,6 +5666,26 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="TicketTypeId" ColumnName="TicketTypeId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notifications">
+            <EntityTypeMapping TypeName="Entities.notification">
+              <MappingFragment StoreEntitySet="notification">
+                <ScalarProperty Name="IsOpened" ColumnName="IsOpened" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notificationusers">
+            <EntityTypeMapping TypeName="Entities.notificationuser">
+              <MappingFragment StoreEntitySet="notificationuser">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

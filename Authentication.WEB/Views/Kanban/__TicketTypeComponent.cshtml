@@ -1,0 +1,46 @@
+﻿@model kanbantickettypecomponent
+
+<div class="form-group">
+    <label for="@Model.Name.Replace(" ", "_")">@Model.Name</label>
+    @if (Model.kanbancomponent.Type.ToLower() == "textarea")
+    {
+        <textarea class="form-control" id="@Model.Name.Replace(" ", "_")" name="@Model.Name.Replace(" ", "_")" rows="2"></textarea>
+    }
+    else if (Model.kanbancomponent.Type.ToLower() == "text")
+    {
+        <input type="text" class="form-control" name="@Model.Name.Replace(" ", "_")" id="@Model.Name.Replace(" ", "_")">
+    }
+    else if (Model.kanbancomponent.Type.ToLower() == "number")
+    {
+        <input type="number" name="@Model.Name.Replace(" ", "_")" class="form-control" id="@Model.Name.Replace(" ", "_")">
+    }
+    else if (Model.kanbancomponent.Type.ToLower() == "policytype")
+    {
+        <div>
+            @Html.Action("GetPolicyTypesDropdown", "Kanban")
+        </div>
+    }
+    else if (Model.kanbancomponent.Type.ToLower() == "client")
+    {
+        <select name="@Model.Name.Replace(" ", "_")" id="@Model.Name.Replace(" ", "_")" class="form-control">
+            <option value="-1">Select a client</option>
+            <option value="1">Петре Петров</option>
+            <option value="2">Клиент 2</option>
+            <option value="3">Климент Наумоски</option>
+        </select>
+    }
+    else if (Model.kanbancomponent.Type.ToLower() == "meetingresult")
+    {
+        <select name="@Model.Name.Replace(" ", "_")" id="@Model.Name.Replace(" ", "_")" class="form-control">
+            <option value="-1">Select a type</option>
+            <option value="1">Добиена понуда</option>
+            <option value="2">Склучен договор</option>
+            <option value="3">Подобра понуда</option>
+        </select>
+    }
+    else if (Model.kanbancomponent.Type.ToLower() == "datetime")
+    {
+        <input name="@Model.Name.Replace(" ", "_")" type="datetime-local" class="form-control" id="@Model.Name.Replace(" ", "_")">
+    }
+</div>
+
