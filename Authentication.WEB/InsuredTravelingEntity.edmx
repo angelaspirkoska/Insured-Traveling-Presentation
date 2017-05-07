@@ -590,7 +590,6 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Content" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IsOpened" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="notificationuser">
           <Key>
@@ -599,6 +598,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NotificationId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="IsOpened" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="ok_setup">
           <Key>
@@ -4776,6 +4776,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.UserFK" FromRole="notificationuser" ToRole="aspnetuser" />
           <NavigationProperty Name="notification" Relationship="Entities.NotificationFK" FromRole="notificationuser" ToRole="notification" />
+          <Property Name="IsOpened" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="UserFK">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1">
@@ -5673,7 +5674,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="notifications">
             <EntityTypeMapping TypeName="Entities.notification">
               <MappingFragment StoreEntitySet="notification">
-                <ScalarProperty Name="IsOpened" ColumnName="IsOpened" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -5684,6 +5684,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="notificationusers">
             <EntityTypeMapping TypeName="Entities.notificationuser">
               <MappingFragment StoreEntitySet="notificationuser">
+                <ScalarProperty Name="IsOpened" ColumnName="IsOpened" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

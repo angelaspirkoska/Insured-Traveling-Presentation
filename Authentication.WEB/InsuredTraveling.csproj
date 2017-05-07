@@ -2535,7 +2535,7 @@
     <Content Include="Views\Kanban\_PolicyTypesDropdown.cshtml" />
     <Content Include="Views\Kanban\Admin.cshtml" />
     <Content Include="Views\Kanban\_ComponentsDropdown.cshtml" />
-    <Content Include="Views\Kanban\__TicketTypeComponent.cshtml" />
+    <Content Include="Views\Kanban\_TicketTypeComponent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
