@@ -1,29 +1,15 @@
-﻿var connection;
+﻿function sendNotifications() {
 
-function sendNotifications() {
+    var connectionProxy = $.connection.notificationsHub;
 
-    connection = $.connection.notificationsHub;
-
-    connection.client.showNotification = function (notification) {
-        console.log(notification);
+    connectionProxy.client.showNotification = function (notification) {
+        $("#notifications li").append(notification);
+        $(".fa-bell-o").css("color", "red");
     };
 
-    $.connection.hub.start().done(function () { console.log("notification hub connected."); });
-
-    $.connection.hub.disconnected(function () {
-        setTimeout(function () {
-            $.connection.hub.start();
-        }, 5000); // Restart connection after 5 seconds.
+    $.connection.hub.start().done(function () {
+        connectionProxy.server.addNotification($("#assignees-notification").val());
+        connectionProxy.server.addNotification($("#watchers-notification").val());
     });
-
-    var assigneesNotification = $("#assignees-notification").val();
-    var watchersNotification = $("#watchers-notification").val();
-    //connection.server.showNotification(assigneesNotification);
-    //connection.server.showNotification(watchersNotification);
-    console.log(assigneesNotification);
-    console.log(connection);
-
-    connection.server.addNotification(assigneesNotification);
-    connection.server.addNotification(watchersNotification);
 
 }

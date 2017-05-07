@@ -1,8 +1,5 @@
 ﻿@model kanbanticket
 
-<input type="hidden" value="@ViewBag.AssigneesNotification" id="assignees-notification" />
-<input type="hidden" value="@ViewBag.WatchersNotification" id="watchers-notification" />
-
 @if (ViewBag.Mode == 1)
 {
     foreach (var timekeeper in Model.kanbanticketassignedtoes)
@@ -40,3 +37,10 @@ else
         </div>
     </div>
 }
+
+<script>
+    $(function () {
+        $("#assignees-notification").val("@ViewBag.AssigneesNotification");
+        $("#watchers-notification").val("@ViewBag.WatchersNotification");
+    });
+</script>

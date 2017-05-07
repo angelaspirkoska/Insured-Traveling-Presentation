@@ -19,7 +19,6 @@
     <link href="~/Content/Limitless-css/components.css" rel="stylesheet" type="text/css">
     <link href="~/Content/Limitless-css/colors.css" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
-
     <!--Our files-->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css" />
     <link rel="icon" href="/Content/img/profile.png">
@@ -82,31 +81,31 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     @*<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="icon-bubbles4"></i>
-                    <span class="visible-xs-inline-block position-right">Messages</span>
-                    <span class="badge bg-warning-400"></span>
-                </a>*@
+                            <i class="icon-bubbles4"></i>
+                            <span class="visible-xs-inline-block position-right">Messages</span>
+                            <span class="badge bg-warning-400"></span>
+                        </a>*@
 
                     @*<div class="dropdown-menu dropdown-content width-350">
-                    <div class="dropdown-content-heading">
-                        Messages
-                        <ul class="icons-list">
-                            <li><a href="#"><i class="icon-compose"></i></a></li>
-                        </ul>
-                    </div>
-
-                    <ul class="media-list dropdown-content-body">
-                        <li class="media">
-                            <div class="media-left">
-                                <span class="badge bg-danger-400 media-badge">5</span>
+                            <div class="dropdown-content-heading">
+                                Messages
+                                <ul class="icons-list">
+                                    <li><a href="#"><i class="icon-compose"></i></a></li>
+                                </ul>
                             </div>
-                        </li>
-                    </ul>
 
-                    <div class="dropdown-content-footer">
-                        <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
-                    </div>
-                </div>*@
+                            <ul class="media-list dropdown-content-body">
+                                <li class="media">
+                                    <div class="media-left">
+                                        <span class="badge bg-danger-400 media-badge">5</span>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <div class="dropdown-content-footer">
+                                <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
+                            </div>
+                        </div>*@
                 </li>
                 @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                 {
@@ -114,6 +113,13 @@
                         <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
                         <ul id="messages" class="dropdown-menu message-dropdown">
                             <li id="no-messages" style="display: none;">@InsuredTraveling.Resource.Home_NoMsg</li>
+                        </ul>
+
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="fa fa-bell-o" aria-hidden="true"></i> <b class="caret"></b></a>
+                        <ul style="padding-left: 10px;padding-right: 10px; width: 230px; padding-bottom: 25px;" id="notifications" class="dropdown-menu notification-dropdown">
+                            <li></li>
                         </ul>
 
                     </li>
@@ -145,19 +151,19 @@
                             }
                             @if (r.IsUser("Claims adjuster"))
                             {
-                                @InsuredTraveling.Resource.Home_Claims_adjuster 
+                                @InsuredTraveling.Resource.Home_Claims_adjuster
                             }
-                    <span>@System.Web.HttpContext.Current.User.Identity.Name</span>
-                    <b class="caret"></b>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#"><i class="icon-user-plus"></i>@InsuredTraveling.Resource.Home_MyProfile</a></li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken">
-                                <i class="icon-switch2"></i> @InsuredTraveling.Resource.LogOut
-                            </a>
-                        </li>
-                    </ul>
+                            <span>@System.Web.HttpContext.Current.User.Identity.Name</span>
+                            <b class="caret"></b>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#"><i class="icon-user-plus"></i>@InsuredTraveling.Resource.Home_MyProfile</a></li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken">
+                                        <i class="icon-switch2"></i> @InsuredTraveling.Resource.LogOut
+                                    </a>
+                                </li>
+                            </ul>
                     </li>
                 }
                 @foreach (var i in InsuredTraveling.App_Start.SiteLanguages.GetAllanguages())
@@ -278,19 +284,19 @@
             <div class="body-position-for-limitless">
                 @RenderBody()
             </div>
-            <!-- /page content -->  
+            <!-- /page content -->
         </div>
         <!-- /page container -->
     </div>
     <div id="chats"></div>
-            <!-- Footer -->
-            <div class="footer text-muted col-md-12" align="center" @*style="margin: 30px;"*@>
-                <a href="#">&copy; @DateTime.Now.Year - Insured Traveling</a>
-            </div>
-        
-            <!-- /footer -->
-        
-      
+    <!-- Footer -->
+    <div class="footer text-muted col-md-12" align="center" @*style="margin: 30px;"*@>
+        <a href="#">&copy; @DateTime.Now.Year - Insured Traveling</a>
+    </div>
+
+    <!-- /footer -->
+
+
     <script type="text/javascript">
         $(document).ready(function () {
             localStorage.setItem("username", '@HttpContext.Current.User.Identity.Name');

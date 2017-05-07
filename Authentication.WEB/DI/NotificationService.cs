@@ -15,7 +15,8 @@ namespace InsuredTraveling.DI
             {
                 CreatedDate = DateTime.Now,
                 Title = title,
-                Content = content
+                Content = content,
+                URL = "/Kanban/Index"
             };
             _db.notifications.Add(notification);
             _db.SaveChanges();
@@ -28,7 +29,8 @@ namespace InsuredTraveling.DI
             var notificationuser = new notificationuser
             {
                 UserId = userId,
-                NotificationId = notificationId
+                NotificationId = notificationId,
+                IsOpened = false
             };
             _db.notificationusers.Add(notificationuser);
             _db.SaveChanges();
