@@ -35,7 +35,7 @@ public partial class notification
 
     public System.DateTime CreatedDate { get; set; }
 
-    public bool IsOpened { get; set; }
+    public string URL { get; set; }
 
 
 

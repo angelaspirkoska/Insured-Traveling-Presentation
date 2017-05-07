@@ -24,6 +24,8 @@ public partial class notificationuser
 
     public string UserId { get; set; }
 
+    public bool IsOpened { get; set; }
+
 
 
     public virtual aspnetuser aspnetuser { get; set; }

@@ -2,18 +2,42 @@
 
 <div class="row">
     <div class="col-sm-10">
-        <h4 style="margin-bottom: 0px; margin-top: 3px;">@Model.Name</h4>
-        <h6 style="margin-top: 1px;">in list <span style="text-decoration: underline">@Model.kanbanpoollist.Name</span></h6>
+        <div class="row">
+            <div class="col-sm-6">
+                <h4 style="margin-bottom: 0px; margin-top: 3px;">@Model.Name</h4>
+                <h6 style="margin-top: 1px;">in list <span style="text-decoration: underline">@Model.kanbanpoollist.Name</span></h6>
+            </div>
+            <div class="col-sm-6">
+                <h6 style="margin-top: 1px;">of type <span style="text-decoration: underline">@Model.kanbantickettype.Name</span></h6>
+            </div>
+        </div>
         <hr />
-        <h6 style="margin-top: 1px;">of type <span style="text-decoration: underline">@Model.kanbantickettype.Name</span></h6>
+        <div class="row">
+            <div class="col-sm-6">
+                <h4 style="margin-bottom: 0px; margin-top: 3px;">Assigned To:</h4>
+                @foreach (var user in Model.kanbanticketassignedtoes)
+                {
+                    <h6 style="text-decoration: underline; margin-top: 1px;">@user.aspnetuser.FirstName @user.aspnetuser.LastName</h6>
+                }
+            </div>
+            <div class="col-sm-6">
+                <h4 style="margin-bottom: 0px; margin-top: 3px;">Watchers:</h4>
+                @foreach (var user in Model.kanbanticketwatchers)
+                {
+                    <h6 style="text-decoration: underline; margin-top: 1px;">@user.aspnetuser.FirstName @user.aspnetuser.LastName</h6>
+                }
+            </div>
+        </div>
         <hr />
-        <h4 style="margin-bottom: 0px; margin-top: 3px;">Assigned To:</h4>
-        @foreach (var user in Model.kanbanticketassignedtoes)
-        {
-            <h6 style="text-decoration: underline; margin-top: 1px;">@user.aspnetuser.FirstName @user.aspnetuser.LastName</h6>
-        }
-        <hr />
-        <h6>@Model.Description</h6>
+        <div class="row">
+            <div class="col-sm-12">
+                @foreach (var item in Model.kanbanticketcomponents)
+                {
+                    <h4 style="margin-bottom: 0px; margin-top: 3px;">@item.Name</h4>
+                    <h6 style="margin-top: 1px;">@item.Value</h6>
+                }
+            </div>
+        </div>
     </div>
     <div class="col-sm-2">
 

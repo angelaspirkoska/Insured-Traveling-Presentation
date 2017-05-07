@@ -295,7 +295,8 @@ namespace InsuredTraveling.DI
             };
             _db.kanbantickettypecomponents.Add(newTicketTypeComponent);
             _db.SaveChanges();
-            return newTicketTypeComponent;
+            return _db.kanbantickettypecomponents.Where(x => x.Id == newTicketTypeComponent.Id)
+                .Include(x => x.kanbancomponent).FirstOrDefault();
         }
     }
 }
