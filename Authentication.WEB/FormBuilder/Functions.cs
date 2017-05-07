@@ -467,7 +467,7 @@ namespace InsuredTraveling.FormBuilder
                 Number = formulaSplitted[0].TrimEnd().TrimStart();
             }
 
-            if (RoundTo == "")
+            if (String.IsNullOrEmpty(RoundTo))
             {
                 match = regex.Match(formulaSplitted[1].TrimEnd().TrimStart());
                 if (match.Success && !formulaSplitted[1].Contains('.'))
@@ -625,7 +625,7 @@ namespace InsuredTraveling.FormBuilder
         }
         public override string ToString()
         {
-            return "(" + LeftOperand + " EXACT " + RightOperand + ")";
+            return "EXACT(" + LeftOperand + "," + RightOperand + ")";
         }
     }
 }

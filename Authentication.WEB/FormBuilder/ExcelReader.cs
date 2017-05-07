@@ -23,7 +23,7 @@ namespace InsuredTraveling.FormBuilder
             var result = CreateForm(pck, tagInfoExcel);
             var functions = DetermineFunction(pck);
             var procedures = DetermineProcedure(pck);
-            DatabaseCommands.CreateDatabaseTables(e.Id, tagInfoExcel, dgetFunctions, procedures);
+            DatabaseCommands.CreateDatabaseTables(e.Id, tagInfoExcel, dgetFunctions, procedures, functions);
             var functionsStrings = GenerateStringFunctions(functions);
             var proceduresStrings = GenerateStringProcedures(procedures);
             return result;
