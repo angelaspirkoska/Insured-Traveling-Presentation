@@ -81,6 +81,13 @@ namespace InsuredTraveling.Controllers
             return PartialView("_PoolList", _kanbanService.AddPoolList(name, "", boardId));
         }
 
+        public ActionResult AddTicketTypeComponent(int ticketTypeId, int componentType, string componentName)
+        {
+            var component = _kanbanService.AddTicketTypeComponent(
+                ticketTypeId, componentType, componentName);
+            return PartialView("_TicketTypeComponent", component);
+        }
+
         public void DeletePoolList(int poolListId)
         {
             _kanbanService.RemovePoolList(poolListId);

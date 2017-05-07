@@ -155,6 +155,10 @@
         <AssociationConnector Association="Entities.TicketFK" />
         <AssociationConnector Association="Entities.TicketTypeFK" />
         <AssociationConnector Association="Entities.PoolListFK" />
+        <EntityTypeShape EntityType="Entities.notification" Width="1.5" PointX="3" PointY="21.625" />
+        <EntityTypeShape EntityType="Entities.notificationuser" Width="1.5" PointX="5.25" PointY="21.75" />
+        <AssociationConnector Association="Entities.UserFK" />
+        <AssociationConnector Association="Entities.NotificationFK" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

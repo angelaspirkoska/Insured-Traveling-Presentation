@@ -276,5 +276,18 @@ namespace InsuredTraveling.DI
         {
             return _db.kanbancomponents.ToList();
         }
+
+        public kanbantickettypecomponent AddTicketTypeComponent(int ticketTypeId, int componentType, string componentName)
+        {
+            var newTicketTypeComponent = new kanbantickettypecomponent
+            {
+                TicketTypeId = ticketTypeId,
+                ComponentId = componentType,
+                Name = componentName
+            };
+            _db.kanbantickettypecomponents.Add(newTicketTypeComponent);
+            _db.SaveChanges();
+            return newTicketTypeComponent;
+        }
     }
 }

@@ -2304,6 +2304,12 @@
     <Compile Include="Models\DiscountCodeValidateModel.cs" />
     <Compile Include="Models\Ok_SetupModel.cs" />
     <Compile Include="Models\SearchRegisteredUser.cs" />
+    <Compile Include="notification.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="notificationuser.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2529,6 +2535,7 @@
     <Content Include="Views\Kanban\_PolicyTypesDropdown.cshtml" />
     <Content Include="Views\Kanban\Admin.cshtml" />
     <Content Include="Views\Kanban\_ComponentsDropdown.cshtml" />
+    <Content Include="Views\Kanban\__TicketTypeComponent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

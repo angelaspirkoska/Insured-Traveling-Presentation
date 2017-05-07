@@ -13,9 +13,12 @@
 @Html.Action("GetTicketTypesDropdown")
 <br />
 <hr />
-<div id="configureTicketTypeContainer">
+<div class="row">
     <button id="btnAddNewComponent" class="col-sm-3 btn btn-sm btn-info">Add new component</button>
 </div>
+<div class="row" id="configureTicketTypeContainer">
+</div>
+<hr />
 
 <div id="addNewComponentModal" class="modal fade" role="dialog">
     <div class="modal-dialog" role="document">
@@ -59,6 +62,29 @@
             },
             success: function (result) {
                 $("#configureTicketTypeContainer").html(result);
+                $("#loader").hide();
+            },
+            error: function () {
+                $("#loader").hide();
+            }
+        });
+    });
+
+    $("#btnAddNewComponentSubmit").click(function () {
+        $("#loader").show();
+        var componentType = $("#componentType").val();
+        var componentName = $("#newComponentName").val();
+        var ticketTypeId = $("#ticketTypeSelect").val();
+        $.ajax({
+            url: "/Kanban/AddTicketTypeComponent",
+            type: "post",
+            data: {
+                ticketTypeId: ticketTypeId,
+                componentType: componentType,
+                componentName: componentName
+            },
+            success: function (result) {
+                $("#configureTicketTypeContainer").append(result);
                 $("#loader").hide();
             },
             error: function () {

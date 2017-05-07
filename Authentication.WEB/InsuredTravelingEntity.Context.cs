@@ -164,6 +164,10 @@ public partial class InsuredTravelingEntity : DbContext
 
     public virtual DbSet<kanbanticket> kanbantickets { get; set; }
 
+    public virtual DbSet<notification> notifications { get; set; }
+
+    public virtual DbSet<notificationuser> notificationusers { get; set; }
+
 }
 
 }
