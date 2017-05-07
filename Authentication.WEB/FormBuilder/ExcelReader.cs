@@ -20,7 +20,7 @@ namespace InsuredTraveling.FormBuilder
             ExcelPackage pck = new ExcelPackage(new FileInfo(e.Path));
             dgetFunctions = new List<Dget>();
             var tagInfoExcel = ParseFormElements(pck);         
-            var result = CreateForm(pck, tagInfoExcel);
+            var result = CreateForm(pck, tagInfoExcel, e.Id);
             var functions = DetermineFunction(pck);
             var procedures = DetermineProcedure(pck);
             DatabaseCommands.CreateDatabaseTables(e.Id, tagInfoExcel, dgetFunctions, procedures, functions);
@@ -135,7 +135,7 @@ namespace InsuredTraveling.FormBuilder
             }
             return generatedStringProcedures;
         }
-        public static HtmlString CreateForm(ExcelPackage pck, List<TagInfo> tagInfoExcel)
+        public static HtmlString CreateForm(ExcelPackage pck, List<TagInfo> tagInfoExcel, int excelId)
         {          
             var formBuilder = new FormBuilder()
                .SetName("my-form")
@@ -146,6 +146,7 @@ namespace InsuredTraveling.FormBuilder
                 var wrapper = TagFactory.GenerateWrappedTagFor(excelRow);
                 formBuilder.AddElement(wrapper);
             }
+
             var result = formBuilder.ToHtmlString();
 
             return new HtmlString(result);
@@ -254,7 +255,7 @@ namespace InsuredTraveling.FormBuilder
                         new TagInfo
                         {
                             Id = worksheet.Cells[col, itemIdIndex].Value.ToString(),
-                            Name = worksheet.Cells[col, nameCaptionIndex].Value.ToString(),
+                            Name = worksheet.Cells[col, nameCaptionIndex].Value.ToString().Replace(' ', '_'),
                             Type = worksheet.Cells[col, fieldTypeIndex].Value.ToString(),
                             Attributes = attributes,
                             ListItems = listValues,

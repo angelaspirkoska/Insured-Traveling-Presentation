@@ -203,5 +203,11 @@ namespace InsuredTraveling.Controllers
             }
             return View("Index");
         }
+
+        [HttpPost]
+        public ActionResult PolicyForm(int? excelId, FormCollection formCollection)
+        {
+            return View();
+        }
     }
 }

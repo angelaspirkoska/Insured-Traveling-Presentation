@@ -167,10 +167,12 @@ namespace InsuredTraveling.FormBuilder
     {
         public SelectTag(TagInfo tagInfo) : base("select", tagInfo)
         {
-            HtmlTags.SelectTag tempSelectTag = new HtmlTags.SelectTag();
 
+            HtmlTags.SelectTag tempSelectTag = new HtmlTags.SelectTag();
+            tempSelectTag.Id(tagInfo.Id).Name(tagInfo.Name);
+            
             foreach(string option in tagInfo.ListItems)
-            {
+            {           
                 tempSelectTag.Option(option, option);
             }
 
@@ -187,11 +189,11 @@ namespace InsuredTraveling.FormBuilder
 
             if (tryGetValue && isRequired.Equals("true"))
             {
-                _tag.Attr("ratingIndicator", "true");
+                tempSelectTag.Attr("ratingIndicator", "true");
             }
             else
             {
-                _tag.Attr("ratingIndicator", "false");
+                tempSelectTag.Attr("ratingIndicator", "false");
             }
 
             _tag = tempSelectTag;
@@ -362,6 +364,7 @@ namespace InsuredTraveling.FormBuilder
         public SubmitButton(TagInfo tagInfo) : base(tagInfo)
         {
             _tag.Attr("type", "submit").Value("Calculate");
+            _tag.Attr("formaction", "/AdminPanel/PolicyForm?excelId=" + tagInfo.Id);
         }
 
     }
@@ -431,6 +434,5 @@ namespace InsuredTraveling.FormBuilder
             
         }
 
-
-    }
+       }
 }
