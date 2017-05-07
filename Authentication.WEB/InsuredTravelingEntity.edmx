@@ -590,6 +590,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Content" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="notificationuser">
           <Key>
@@ -4764,8 +4765,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Content" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IsOpened" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="notificationusers" Relationship="Entities.NotificationFK" FromRole="notification" ToRole="notificationuser" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="notificationuser">
           <Key>
@@ -5674,6 +5675,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="notifications">
             <EntityTypeMapping TypeName="Entities.notification">
               <MappingFragment StoreEntitySet="notification">
+                <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
