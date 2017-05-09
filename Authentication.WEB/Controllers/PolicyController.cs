@@ -56,6 +56,7 @@ namespace Authentication.WEB.Controllers
         [SessionExpire]
         public async Task<ActionResult> Index(string ssn)
         {
+
             if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                 Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
 
