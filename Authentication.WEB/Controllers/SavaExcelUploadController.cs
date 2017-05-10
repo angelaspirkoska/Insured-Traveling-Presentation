@@ -216,7 +216,7 @@ namespace InsuredTraveling.Controllers
             {
 
                 string fullpath = Path.Combine(Server.MapPath("~/ExcelSavaTemplate/"), "SAVA_Policy_Template_Final.xlsx");
-                return File(fullpath, "ExcelSavaTemplate/xlsx", "SavaExcelPolicy_Template02.xlsx");
+                return File(fullpath, "ExcelSavaTemplate/xlsx", "SavaExcelPolicy_Template.xlsx");
             } 
             catch (Exception ex)
             {

@@ -22,6 +22,8 @@ namespace InsuredTraveling.Models
         [Display(Name = "AdminPanel_DiscountEndDate", ResourceType = typeof(Resource))]
         public DateTime End_Date { get; set; }
 
+
+        public Sava_AdminPanelModel SavaAdmin { get; set; }
         //public string Name { get; set; }
         //public int Id { get; set; }
         //public string UserID { get; set; }

@@ -142,7 +142,7 @@
                 <input  class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchEvents()" type="button" style="float:left;" />
             </div>
             <div class="col-md-4">
-                <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowRegisteredUsersSearchResultsInExcel()" type="button" style="float:left;" />
+                <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowEventsSearchResultsInExcel()" type="button" style="float:left;" />
             </div>
             <div class="col-md-4">
                 <div class="hover-tooltip">
@@ -1666,6 +1666,24 @@
             success: function (data) {
                 var urlString =
                     "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
+                window.location.href = urlString;
+            }
+        });
+
+    };
+
+    function ShowEventsSearchResultsInExcel() {
+
+        var usersTable = $("#tableEvents").dataTable();
+        var users = usersTable.fnGetData();
+
+        $.ajax({
+            url: "http://localhost:19655/Search/GetEventsResultsAsExcelDocument",
+            type: "POST",
+            data: { events: users },
+            success: function (data) {
+                var urlString =
+                    "http://localhost:19655/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
                 window.location.href = urlString;
             }
         });

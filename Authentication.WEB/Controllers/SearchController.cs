@@ -1774,6 +1774,87 @@ namespace InsuredTraveling.Controllers
             return jsonPath;
             //return File(path, "application/vnd.ms-excel", "PoliciesSearchResults.xlsx");
         }
+        [HttpPost]
+        public JObject GetEventsResultsAsExcelDocument(List<Event> events)
+        {
+            if (events == null || !events.Any())
+                return null;
+
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            var logUser = _us.GetUserIdByUsername(username);
+
+            string fileName = logUser + Guid.NewGuid().ToString() + ".xlsx";
+            var path = @"~/ExcelSearchResults/RegisteredUsers/" + fileName;
+            path = System.Web.HttpContext.Current.Server.MapPath(path);
+            FileInfo newFile = new FileInfo(path);
+            if (newFile.Exists)
+            {
+                newFile.Delete();  // ensures we create a new workbook
+                fileName = logUser + DateTime.Now.ToShortDateString() + Guid.NewGuid().ToString();
+                path = @"~/ExcelSearchResults/RegisteredUsers/" + fileName;
+                newFile = new FileInfo(path);
+            }
+
+            using (ExcelPackage package = new ExcelPackage(newFile))
+            {
+                // add a new worksheet to the empty workbook
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(InsuredTraveling.Resource.RegisteredUserExcelTitle);
+                //Add the headers
+                worksheet.Cells[1, 1].Value = InsuredTraveling.Resource.Events_Title;
+                worksheet.Cells[1, 2].Value = InsuredTraveling.Resource.Events_Description;
+                worksheet.Cells[1, 3].Value = InsuredTraveling.Resource.Events_Location;
+                worksheet.Cells[1, 4].Value = InsuredTraveling.Resource.Events_Organizer;
+                worksheet.Cells[1, 5].Value = InsuredTraveling.Resource.Events_EventType;
+                worksheet.Cells[1, 6].Value = InsuredTraveling.Resource.Events_StartDate;
+                worksheet.Cells[1, 7].Value = InsuredTraveling.Resource.Events_EndDate;
+                worksheet.Cells[1, 8].Value = InsuredTraveling.Resource.Events_EndTime;
+                worksheet.Cells[1, 9].Value = InsuredTraveling.Resource.Event_PublishDate;
+                worksheet.Cells[1, 10].Value = InsuredTraveling.Resource.Event_CreatedBy;
+                worksheet.Cells[1, 10].Value = InsuredTraveling.Resource.Sava_ListPeopleAttending;
+
+                int counter = 2;
+
+                foreach (Event e in events)
+                {
+                    worksheet.Cells[counter, 1].Value = e.Title;
+                    worksheet.Cells[counter, 2].Value = e.Description;
+                    worksheet.Cells[counter, 3].Value = e.Location;
+                    worksheet.Cells[counter, 4].Value = e.Organizer;
+                    worksheet.Cells[counter, 5].Value = e.EventType;
+                    worksheet.Cells[counter, 6].Value = e.StartDate.ToString();
+
+                    worksheet.Cells[counter, 7].Value = e.EndDate.ToString();
+                    worksheet.Cells[counter, 8].Value = e.EndTime.ToString();
+                    worksheet.Cells[counter, 9].Value = e.PublishDate.ToString();
+                    worksheet.Cells[counter, 10].Value = e.CreatedBy;
+                    worksheet.Cells[counter, 11].Value = e.PeopleAttending;
+                    counter++;
+                }
+
+                worksheet.View.PageLayoutView = true;
+
+                // set some document properties
+                package.Workbook.Properties.Title = InsuredTraveling.Resource.RegisteredUserExcelTitle;
+                package.Workbook.Properties.Author = username;
+                package.Workbook.Properties.Comments = "";
+
+                // set some extended property values
+                package.Workbook.Properties.Company = " ";
+
+                // set some custom property values
+                package.Workbook.Properties.SetCustomPropertyValue("Checked by", username);
+                package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "EPPlus");
+                // save our new workbook and we are done!
+                package.Save();
+
+            }
+
+            JObject jsonPath = new JObject();
+            jsonPath.Add("path", path);
+
+            return jsonPath;
+            //return File(path, "application/vnd.ms-excel", "PoliciesSearchResults.xlsx");
+        }
 
         private async Task<List<SelectListItem>> GetTypeOfPolicy()
         {

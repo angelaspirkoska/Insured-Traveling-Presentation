@@ -2509,6 +2509,7 @@
     <Content Include="Views\AdminPanel\PolicyForm.cshtml" />
     <Content Include="Views\Search\EditUser.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

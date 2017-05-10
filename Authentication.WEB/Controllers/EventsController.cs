@@ -8,6 +8,8 @@ using InsuredTraveling.Filters;
 using InsuredTraveling.Models;
 using System.Threading.Tasks;
 using AutoMapper;
+using System.Configuration;
+using System.Globalization;
 
 namespace InsuredTraveling.Controllers
 {
@@ -35,6 +37,11 @@ namespace InsuredTraveling.Controllers
             ViewBag.EventTypes = GetTypeOfEvent();
             if (ModelState.IsValid)
             {
+                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+                newEvent.EndDate = String.IsNullOrEmpty(newEvent.EndDate.ToString()) ? new DateTime() : DateTime.ParseExact(newEvent.EndDate.ToString(), dateTimeFormat, CultureInfo.InvariantCulture);
+                newEvent.StartDate = String.IsNullOrEmpty(newEvent.StartDate.ToString()) ? new DateTime() : DateTime.ParseExact(newEvent.StartDate.ToString(), dateTimeFormat, CultureInfo.InvariantCulture);
+
                 newEvent.CreatedBy = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
                 var mappedEvent = Mapper.Map<Event, @event>(newEvent);
                 try

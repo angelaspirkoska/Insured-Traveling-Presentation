@@ -122,7 +122,7 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '-100y:c+nn',
-            maxDate: 'd',
+            minDate: 'd',
             onSelect: function (selected) {
                 $("#eventEndTime").datepicker("option", "minDate", selected);
 
@@ -134,7 +134,7 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '-100y:c+nn',
-            maxDate: 'd',
+            
             onSelect: function (selected) {
                 $("#eventStartTime").datepicker("option", "maxDate", selected);
             }

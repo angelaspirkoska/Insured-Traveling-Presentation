@@ -65,22 +65,28 @@
                 </tbody>
             </table>
             <button class="btn btn-primary" onclick="AddOK_SetupRecord()"> @InsuredTraveling.Resource.AdminPanel_AddRecordBtn </button>
-            <form id="addOK_setupForm" class="form-padding" hidden method="post" action="@Url.Action("AddSavaOKSetup")">
-                <div class="form-horizontal">
+            <form id="addOK_setupForm" class="form-padding"  method="post" action="@Url.Action("AddSavaOKSetup")">
+                <div class="form-horizontal row">
                     <h4> @InsuredTraveling.Resource.AdminPanel_RequiredFields *</h4>
                  
-                    <div class="form-group">
-                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.SavaAdminPanel_SumToPoints * :</label>
-                        <div class="col-md-6" style="margin-bottom:10px">
-                            <input type="number" class="form-control" name="points_percentage" required />
-                        </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label col-md-4"> @InsuredTraveling.Resource.SavaAdminPanel_SumToPoints * :</label>
+                        @*<div class="col-md-6" style="margin-bottom:10px">
+                            <input type="number" class="form-control" name="points_percentage" required number min="0"/>
+                            @Html.LabelFor(x => x.SavaAdmin.points_percentage)*@
+                            @Html.TextBoxFor(x => x.SavaAdmin.points_percentage, new { htmlAttributes = new { @class = "form-control col-md-8" } } )
+                            @Html.ValidationMessageFor(x => x.SavaAdmin.points_percentage , "", new { @class = "col-md-6 text-danger" }  )
+                        @*</div>*@
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2"> @InsuredTraveling.Resource.SavaAdminPanel_VipPoints *:</label>
-                        <div class="col-md-6" style="margin-bottom:10px">
-                            <input type="number" class="form-control" name="vip_sum" required />
-                        </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label col-md-4"> @InsuredTraveling.Resource.SavaAdminPanel_VipPoints *:</label>
+                        @*<div class="col-md-6" style="margin-bottom:10px">
+                            <input type="number" class="form-control" name="vip_sum" required />*@
+                           
+                            @Html.TextBoxFor(x => x.SavaAdmin.vip_sum , new { htmlAttributes = new { @class = "form-control col-md-8" } })
+                            @Html.ValidationMessageFor(x => x.SavaAdmin.vip_sum , "", new { @class = "col-md-6 text-danger" })
+                        @*</div>*@
                     </div>
 
 
@@ -423,7 +429,7 @@
             $("#signupTab").removeClass("active-tab");
         }
         ChangeTabsOnPost();
-
+       
     });
     
     function ChangeTabsOnPost() {
@@ -489,9 +495,9 @@
     }
 
     function AddOK_SetupRecord() {
-        $("#menu1").removeAttr('class');
-        $("#menu1").attr("class", "tab-pane fade in active");
-        $("#addOK_setupForm").toggle();
+        //$("#menu1").removeAttr('class');
+        //$("#menu1").attr("class", "tab-pane fade in active");
+        //$("#addOK_setupForm").toggle();
 
     }
 
