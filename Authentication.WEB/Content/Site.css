@@ -128,7 +128,8 @@ textarea {
 }
 
 input[type='text'], textarea, select, #lblAlert { 
-	border: solid 1px #dce4ec;
+	border: 1.5px solid #3ca082;
+    border-radius: 4px;
 }
 input[type='text'].focus, textarea.focus, select.focus { 
 	border-color: #000 !important; 
@@ -142,6 +143,16 @@ input[type='text'].inactive, textarea.inactive, select.inactive, option.inactive
 }
 input[type='text'].required, textarea.required { 
 	background: url(required-input.png) right 5px no-repeat;
+}
+
+.form-control {
+    border: 1.5px solid #3ca082;
+    border-radius: 4px;
+}
+
+.input-group-addon {
+    border: 1.5px solid #3ca082;
+    border-radius: 4px;
 }
 
 form.cmxform label.error, label.error {

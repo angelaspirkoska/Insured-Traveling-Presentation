@@ -205,5 +205,34 @@ namespace Authentication.WEB.Services
 
             return roundedPremium;
         }
+
+        public double? totalPremiumSava(Policy policy, int policyPackageType, int policyTypeSava)
+        {
+            //osnovna premija
+            var basePremiumByDay = 0.5;
+            if (policyPackageType == 2)
+                basePremiumByDay = 0.7;
+            if (policyPackageType == 3)
+                basePremiumByDay = 1;
+            var premium = basePremiumByDay * policy.Valid_Days * 1.2;
+
+            //doplatoci
+            var age = DateTime.Now.Year - policy.BirthDate.Year;
+            if (policy.BirthDate > DateTime.Now.AddYears(-age))
+                age--;
+            if (age >= 65 && age <= 70)
+                premium *= 2;
+
+            //popusti
+            if (policyTypeSava == 2 || policyTypeSava == 3)
+                premium = premium - 0.15 * premium;
+            if (policyTypeSava == 4 || policyTypeSava == 5)
+                premium = premium - 0.2 * premium;
+
+            if (premium < 2)
+                premium = 2;
+
+            return premium;
+        }
     }
 }

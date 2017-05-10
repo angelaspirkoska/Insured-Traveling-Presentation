@@ -95,7 +95,7 @@ namespace Authentication.WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Index(Policy policy)
+        public async Task<JsonResult> Index(Policy policy, int policyPackageType, int policyTypeSava)
         {
             string username = System.Web.HttpContext.Current.User.Identity.Name;
 
@@ -139,7 +139,7 @@ namespace Authentication.WEB.Controllers
             {
                 RatingEngineService ratingEngineService = new RatingEngineService();
                 Premium Premium = new Premium();
-                Premium.PremiumAmount = (int)ratingEngineService.totalPremium(policy);
+                Premium.PremiumAmount = (int)ratingEngineService.totalPremiumSava(policy, policyPackageType, policyTypeSava);
                 if (_roleAuthorize.IsUser("Broker manager", username))
                 {
                     if (Premium.PremiumAmount > 10000)
