@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using System.Web.Mvc;
 
 
 namespace InsuredTraveling.FormBuilder
@@ -543,6 +544,42 @@ namespace InsuredTraveling.FormBuilder
                 return ouput;
             }
             return parameter;
+        }
+
+        public static string CalculatePremium(int excelId, FormCollection formCollection)
+        {
+            string result = "No value";
+            MySqlConnection conn = new MySqlConnection();
+            MySqlCommand mysqlCommand = new MySqlCommand();
+            mysqlCommand.Connection = conn;
+            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+
+            try
+            {
+                mysqlCommand.CommandText = "Master_" + excelId;
+                mysqlCommand.CommandType = CommandType.StoredProcedure;
+
+                foreach (string key in formCollection.Keys)
+                {
+                    mysqlCommand.Parameters.AddWithValue("@"+key, formCollection[key]);
+                    mysqlCommand.Parameters["@"+key].Direction = ParameterDirection.Input;
+                }
+                mysqlCommand.Parameters.AddWithValue("@result", MySqlDbType.VarChar);
+                mysqlCommand.Parameters["@result"].Direction = ParameterDirection.Output;
+
+                mysqlCommand.ExecuteNonQuery();
+
+                result = mysqlCommand.Parameters["@result"].Value.ToString();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return result;
         }
     }
 }

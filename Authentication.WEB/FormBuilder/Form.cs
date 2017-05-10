@@ -94,7 +94,7 @@ namespace InsuredTraveling.FormBuilder
             var hasName = tagInfo.Attributes.TryGetValue("name", out innerHtml);
             if (hasName)
             {
-                _tag.Text(innerHtml);
+                _tag.Text(innerHtml.Replace('_',' '));
                 
             }
                
@@ -113,7 +113,7 @@ namespace InsuredTraveling.FormBuilder
             string innerHtml;
             var hasName = tagInfo.Attributes.TryGetValue("name", out innerHtml);
             if (hasName)
-                _tag.Text(innerHtml);
+                _tag.Text(innerHtml.Replace('_', ' '));
         }
         public override HtmlTag AddValidationAttributes(Dictionary<string, string> attributes)
         {

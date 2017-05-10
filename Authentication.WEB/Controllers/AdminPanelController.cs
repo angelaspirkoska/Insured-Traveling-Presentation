@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using OfficeOpenXml;
 using InsuredTraveling.ViewModels;
+using InsuredTraveling.FormBuilder;
 
 namespace InsuredTraveling.Controllers
 {
@@ -207,7 +208,12 @@ namespace InsuredTraveling.Controllers
         [HttpPost]
         public ActionResult PolicyForm(int? excelId, FormCollection formCollection)
         {
-            return View();
+            if (excelId.HasValue)
+            {
+                ViewBag.CalculatedPremium = DatabaseCommands.CalculatePremium((int)excelId, formCollection);
+                return View("PolicyPremium");
+            }
+            return new HttpStatusCodeResult(500, "Something went wrong");
         }
     }
 }

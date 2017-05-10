@@ -2469,6 +2469,7 @@
     <Content Include="Scripts\Limitless-js\plugins\pickers\pickadate\translations\NAMING.md" />
     <Content Include="Views\Shared\_LayoutLimitless2.cshtml" />
     <Content Include="Views\AdminPanel\PolicyForm.cshtml" />
+    <Content Include="Views\AdminPanel\PolicyPremium.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
