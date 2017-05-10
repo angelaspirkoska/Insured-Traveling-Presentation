@@ -75,7 +75,7 @@ namespace InsuredTraveling.FormBuilder
         public static string PopulateListsCommand(int excelID, List<TagInfo> tagInfoExcel)
         {
             StringBuilder commandText = new StringBuilder();
-            commandText.Append("INSERT INTO Lists" + excelID + " (List_ID ,List_Name,Parameter_Value) VALUES ");
+            commandText.Append("INSERT INTO Lists_" + excelID + " (List_ID ,List_Name,Parameter_Value) VALUES ");
             foreach (TagInfo tag in tagInfoExcel)
             {
                 if (tag.Type.Equals("dropdown"))
@@ -130,7 +130,7 @@ namespace InsuredTraveling.FormBuilder
                 command = new StringBuilder();
                 var tempCommand = new StringBuilder();
 
-                command.Append("CREATE DEFINER=`root`@`localhost` PROCEDURE `" + function.Name + "_" + excelID + "` (");
+                command.Append("CREATE DEFINER=`9eb138_config`@`%` PROCEDURE `" + function.Name + "_" + excelID + "` (");
                 for (int i = 0; i < function.ParametersNameAndInputValueRows; i++)
                 {
                     if (function.ParametersNameAndInputValue[i, 0].Equals(function.PropertyValueName))
@@ -167,56 +167,100 @@ namespace InsuredTraveling.FormBuilder
         }
         public static void CreateDatabaseTables(int excelID, List<TagInfo> tagInfoExcel, List<Dget> dgetFunctions, List<Function> procedures, List<Function> functions)
         {
+            ExecutePolicyCommand(excelID, tagInfoExcel);
+            ExecuteListCommand(excelID);
+            ExecutePopulateListCommand(excelID, tagInfoExcel);
+            ExecuteDGETCommand(excelID, dgetFunctions);
+            GenerateMasterProcedure(excelID, procedures, functions, tagInfoExcel);
+        }
+
+        public static bool ExecutePolicyCommand(int excelID, List<TagInfo> tagInfoExcel)
+        {
             MySqlConnection conn = new MySqlConnection();
             conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
-            var command = DatabaseCommands.GeneratePolicyCommand(excelID, tagInfoExcel);
             try
             {
                 conn.Open();
-                MySqlCommand mysqlCommand = new MySqlCommand();
-                mysqlCommand.Connection = conn;
-               
-                mysqlCommand = new MySqlCommand();
-                mysqlCommand.CommandText = command;
-                mysqlCommand.Connection = conn;
-                mysqlCommand.ExecuteNonQuery();
-                try
-                {
-                    mysqlCommand.CommandText = DatabaseCommands.GenerateListCommand(excelID);
-                    mysqlCommand.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
+                MySqlCommand policyCommand = new MySqlCommand();
+                policyCommand.Connection = conn;
+                policyCommand.CommandText = DatabaseCommands.GeneratePolicyCommand(excelID, tagInfoExcel);
+                policyCommand.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
 
-                }
-                try
-                {
-                    mysqlCommand.CommandText = DatabaseCommands.PopulateListsCommand(excelID, tagInfoExcel);
-                    mysqlCommand.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
+        public static bool ExecuteListCommand(int excelID)
+        {
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            try
+            {
+                conn.Open();
+                MySqlCommand listCommand = new MySqlCommand();
+                listCommand.Connection = conn;
+                listCommand.CommandText = DatabaseCommands.GenerateListCommand(excelID);
+                listCommand.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
 
-                }
+        public static bool ExecutePopulateListCommand(int excelID, List<TagInfo> tagInfoExcel)
+        {
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            try
+            {
+                conn.Open();
+                MySqlCommand populateListCommand = new MySqlCommand();
+                populateListCommand.Connection = conn;
+                populateListCommand.CommandText = DatabaseCommands.PopulateListsCommand(excelID, tagInfoExcel);
+                populateListCommand.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
+
+        public static bool ExecuteDGETCommand(int excelID, List<Dget> dgetFunctions)
+        {
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            try
+            {
+                conn.Open();
+                MySqlCommand dgetCommand = new MySqlCommand();
+                dgetCommand.Connection = conn;
                 var commandsDget = DatabaseCommands.GenerateDGETCommands(excelID, dgetFunctions);
                 for (int i = 0; i < commandsDget.Count; i++)
                 {
-                    try
-                    {
-                        mysqlCommand.CommandText = commandsDget[i];
-                        mysqlCommand.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-                }
-            }
 
-            finally
-            {
-                conn.CloseAsync();
+                    dgetCommand.CommandText = commandsDget[i];
+                    dgetCommand.ExecuteNonQuery();
+                }
+                conn.Close();
+                return true;
             }
-            var test = GenerateMasterProcedure(excelID, procedures, functions, tagInfoExcel);
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
         }
         public static bool GenerateMasterProcedure(int excelID, List<Function> procedures, List<Function> functions, List<TagInfo> variables)
         {
@@ -235,8 +279,7 @@ namespace InsuredTraveling.FormBuilder
                 masterProcedure.Append("OUT `result` VARCHAR(50)");
                 masterProcedure.Append(")");
                 masterProcedure.Append("BEGIN");
-                 masterProcedure = GenerateMasterHelpingFunc(excelID, functions, masterProcedure);
-                //masterProcedure.Append(masterHelpFunct);
+                masterProcedure = GenerateMasterHelpingFunc(excelID, functions, masterProcedure);
                 var masterMidResult = GenerateMidResultFuc(excelID, procedures);
                 masterProcedure.Append(masterMidResult);
                 masterProcedure.Append("END");
@@ -248,11 +291,13 @@ namespace InsuredTraveling.FormBuilder
 
                     mysqlCommand.CommandText = masterProcedure.ToString();
                     mysqlCommand.ExecuteNonQuery();
+                    conn.Close();
                     return true;
                 }
             }
             catch (Exception ex)
             {
+                conn.Close();
                 return false;;
             }
             return false;
