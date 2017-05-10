@@ -435,16 +435,19 @@ namespace InsuredTraveling.FormBuilder
 
         public static StringBuilder GenerateMidResultFuc(int excelID, List<Function> procedures)
         {
+            var lastProcedure = procedures.Last();
             var masterProcedure = new StringBuilder();
             try
             {
                 foreach (var procedure in procedures)
                 {
+                    string outputParametar = " @OuputProcedure" + procedure.Name;
+                    masterProcedure.Append(" SET @OuputProcedure" + procedure.Name + "='';");
+                    
                     var procValue = procedure.ToString().ToLower();
                     if (procValue.StartsWith("(if"))
                     {
                         IfCondition castProcedure = (IfCondition)procedure;
-                        masterProcedure.Append(" SET @OuputProcedure" + procedure.Name + "='';");
                         castProcedure.Condition.OperandLeft = ChangeParameterIfProcedure(castProcedure.Condition.OperandLeft);
                         castProcedure.Condition.OperandRight = ChangeParameterIfProcedure(castProcedure.Condition.OperandRight);
                         castProcedure.IfFalse = ChangeParameterIfProcedure(castProcedure.IfFalse);
@@ -454,27 +457,27 @@ namespace InsuredTraveling.FormBuilder
                         {
                             case "=":
                                 {
-                                    masterProcedure.Append(" CALL IfEquals(@OuputProcedure" + procedure.Name + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfTrue + ", " + castProcedure.IfFalse + "); ");
+                                    masterProcedure.Append(" CALL IfEquals(" + outputParametar + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfTrue + ", " + castProcedure.IfFalse + "); ");
                                     break;
                                 }
                             case ">":
                                 {
-                                    masterProcedure.Append(" CALL IfBigger(@OuputProcedure" + procedure.Name + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfTrue + ", " + castProcedure.IfFalse + "); ");
+                                    masterProcedure.Append(" CALL IfBigger(" + outputParametar + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfTrue + ", " + castProcedure.IfFalse + "); ");
                                     break;
                                 }
                             case "<":
                                 {
-                                    masterProcedure.Append(" CALL IfSmaller(@OuputProcedure" + procedure.Name + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfTrue + ", " + castProcedure.IfFalse + "); ");
+                                    masterProcedure.Append(" CALL IfSmaller(" + outputParametar + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfTrue + ", " + castProcedure.IfFalse + "); ");
                                     break;
                                 }
                             case ">=":
                                 {
-                                    masterProcedure.Append(" CALL IfBiggerAndEqual(@OuputProcedure" + procedure.Name + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfTrue + ", " + castProcedure.IfFalse + "); ");
+                                    masterProcedure.Append(" CALL IfBiggerAndEqual(" + outputParametar + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfTrue + ", " + castProcedure.IfFalse + "); ");
                                     break;
                                 }
                             case "<=":
                                 {
-                                    masterProcedure.Append(" CALL IfSmallerAndEqual(@OuputProcedure" + procedure.Name + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfTrue + ", " + castProcedure.IfFalse + "); ");
+                                    masterProcedure.Append(" CALL IfSmallerAndEqual(" + outputParametar + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfTrue + ", " + castProcedure.IfFalse + "); ");
                                     break;
                                 }
                         }
@@ -484,72 +487,75 @@ namespace InsuredTraveling.FormBuilder
                         Round castProcedure = (Round)procedure;
                         castProcedure.Number = ChangeParameterIfProcedure(castProcedure.Number);
                         castProcedure.RoundTo = ChangeParameterIfProcedure(castProcedure.RoundTo);
-                        masterProcedure.Append(" SET @OuputProcedure" + procedure.Name + "='';");
-                        masterProcedure.Append(" CALL Round(" + castProcedure.Number + ", " + "@OuputProcedure" + procedure.Name + ", " + castProcedure.RoundTo + "); ");
+                        masterProcedure.Append(" CALL Round(" + castProcedure.Number + ", " + outputParametar + ", " + castProcedure.RoundTo + "); ");
                     }
                     else if (procValue.StartsWith("exact"))
                     {
                         Exact castProcedure = (Exact)procedure;
                         castProcedure.LeftOperand = ChangeParameterIfProcedure(castProcedure.LeftOperand);
                         castProcedure.RightOperand = ChangeParameterIfProcedure(castProcedure.RightOperand);
-                        masterProcedure.Append(" SET @OuputProcedure" + procedure.Name + "='';");
-                        masterProcedure.Append(" CALL Exact(" + castProcedure.LeftOperand + ", " + "@OuputProcedure" + procedure.Name + ", " + castProcedure.RightOperand + "); ");
+                        masterProcedure.Append(" CALL Exact(" + castProcedure.LeftOperand + ", " + outputParametar + ", " + castProcedure.RightOperand + "); ");
                     }
                     else
                     {
                         MathOperation castProcedure = (MathOperation)procedure;
-                        masterProcedure.Append(" SET @OuputProcedure" + procedure.Name + "='';");
                         castProcedure.OperandLeft = ChangeParameterIfProcedure(castProcedure.OperandLeft);
                         castProcedure.OperandRight = ChangeParameterIfProcedure(castProcedure.OperandRight);
                         switch (castProcedure.Operation)
                         {
                             case "*":
                                 {
-                                    masterProcedure.Append(" CALL Multiplication(" + castProcedure.OperandRight + ", " + castProcedure.OperandLeft + "," + "@OuputProcedure" + castProcedure.Name + "); ");
+                                    masterProcedure.Append(" CALL Multiplication(" + castProcedure.OperandRight + ", " + castProcedure.OperandLeft + "," + outputParametar + "); ");
                                     break;
                                 }
                             case "/":
                                 {
-                                    masterProcedure.Append(" CALL Division(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + "@OuputProcedure" + castProcedure.Name + "); ");
+                                    masterProcedure.Append(" CALL Division(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + outputParametar + "); ");
                                     break;
                                 }
                             case "+":
                                 {
-                                    masterProcedure.Append(" CALL Addition(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + "@OuputProcedure" + castProcedure.Name + "); ");
+                                    masterProcedure.Append(" CALL Addition(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + outputParametar + "); ");
                                     break;
                                 }
                             case "-":
                                 {
-                                    masterProcedure.Append(" CALL Substraction(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + "@OuputProcedure" + castProcedure.Name + "); ");
+                                    masterProcedure.Append(" CALL Substraction(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + outputParametar + "); ");
                                     break;
                                 }
                             case ">":
                                 {
-                                    masterProcedure.Append(" CALL CompareBigger(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + "@OuputProcedure" + castProcedure.Name + "); ");
+                                    masterProcedure.Append(" CALL CompareBigger(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + outputParametar + "); ");
                                     break;
                                 }
                             case ">=":
                                 {
-                                    masterProcedure.Append(" CALL CompareBiggerAndEqual(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + "@OuputProcedure" + castProcedure.Name + "); ");
+                                    masterProcedure.Append(" CALL CompareBiggerAndEqual(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + outputParametar + "); ");
                                     break;
                                 }
                             case "=":
                                 {
-                                    masterProcedure.Append(" CALL CompareEqual(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + "@OuputProcedure" + castProcedure.Name + "); ");
+                                    masterProcedure.Append(" CALL CompareEqual(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + outputParametar + "); ");
                                     break;
                                 }
                             case "<":
                                 {
-                                    masterProcedure.Append(" CALL CompareSmaller(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + "@OuputProcedure" + castProcedure.Name + "); ");
+                                    masterProcedure.Append(" CALL CompareSmaller(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + outputParametar + "); ");
                                     break;
                                 }
                             case "<=":
                                 {
-                                    masterProcedure.Append(" CALL CompareSmallerAndEqual(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + "@OuputProcedure" + castProcedure.Name + "); ");
+                                    masterProcedure.Append(" CALL CompareSmallerAndEqual(" + castProcedure.OperandLeft + ", " + castProcedure.OperandRight + "," + outputParametar + "); ");
                                     break;
                                 }
                         }
                     }
+
+                    if(procedure == lastProcedure)
+                    {
+                        masterProcedure.Append(" SET result=" + outputParametar + ";");
+                    }
+                  
                 }
                 return masterProcedure;
             }
@@ -564,7 +570,7 @@ namespace InsuredTraveling.FormBuilder
             string ouput = null;
             if (parameter.ToLower().StartsWith("procedure"))
             {
-                var procedurNum = parameter.Last();
+                var procedurNum = parameter.ToLower().Replace("procedure", string.Empty);
                 ouput = "@OutputProcedure" + procedurNum;
                 return ouput;
             }
@@ -596,7 +602,7 @@ namespace InsuredTraveling.FormBuilder
 
                 result = mysqlCommand.Parameters["@result"].Value.ToString();
             }
-            catch
+            catch(Exception e)
             {
 
             }
