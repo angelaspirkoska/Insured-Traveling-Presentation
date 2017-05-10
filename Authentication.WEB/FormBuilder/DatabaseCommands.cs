@@ -175,28 +175,7 @@ namespace InsuredTraveling.FormBuilder
                 conn.Open();
                 MySqlCommand mysqlCommand = new MySqlCommand();
                 mysqlCommand.Connection = conn;
-                try
-                {
-                    mysqlCommand.CommandText = "get_users_by_state";
-                    mysqlCommand.CommandType = CommandType.StoredProcedure;
-
-                    mysqlCommand.Parameters.AddWithValue("@item_type", "Taxi");
-                    mysqlCommand.Parameters["@item_type"].Direction = ParameterDirection.Input;
-
-                    mysqlCommand.Parameters.AddWithValue("@ccRange", "greater then 3000");
-                    mysqlCommand.Parameters["@ccRange"].Direction = ParameterDirection.Input;
-
-                    mysqlCommand.Parameters.AddWithValue("@Rates", MySqlDbType.VarChar);
-                    mysqlCommand.Parameters["@Rates"].Direction = ParameterDirection.Output;
-
-                    mysqlCommand.ExecuteNonQuery();
-
-                    var m = mysqlCommand.Parameters["@Rates"].Value;
-                }
-                catch (Exception ex)
-                {
-
-                }
+               
                 mysqlCommand = new MySqlCommand();
                 mysqlCommand.CommandText = command;
                 mysqlCommand.Connection = conn;
@@ -250,13 +229,14 @@ namespace InsuredTraveling.FormBuilder
                 masterProcedure.Append("(");
                 foreach(var variable in variables)
                 {
+                    if(!variable.Type.Equals("label") && !variable.Type.Equals("header") && !String.IsNullOrEmpty(variable.Type))
                     masterProcedure.Append("IN "+ "`" + variable .Name + "`" +" VARCHAR(50),");
                 }
                 masterProcedure.Append("OUT `result` VARCHAR(50)");
                 masterProcedure.Append(")");
                 masterProcedure.Append("BEGIN");
-                var masterHelpFunct = GenerateMasterHelpingFunc(excelID, functions, masterProcedure);
-                masterProcedure.Append(masterHelpFunct);
+                 masterProcedure = GenerateMasterHelpingFunc(excelID, functions, masterProcedure);
+                //masterProcedure.Append(masterHelpFunct);
                 var masterMidResult = GenerateMidResultFuc(excelID, procedures);
                 masterProcedure.Append(masterMidResult);
                 masterProcedure.Append("END");
