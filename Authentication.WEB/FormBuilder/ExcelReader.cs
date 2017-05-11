@@ -19,7 +19,7 @@ namespace InsuredTraveling.FormBuilder
         {
             ExcelPackage pck = new ExcelPackage(new FileInfo(e.Path));
             dgetFunctions = new List<Dget>();
-            var tagInfoExcel = ParseFormElements(pck);         
+            var tagInfoExcel = ParseFormElements(pck, e.Id);         
             var result = CreateForm(pck, tagInfoExcel, e.Id);
             var functions = DetermineFunction(pck);
             var procedures = DetermineProcedure(pck);
@@ -142,7 +142,7 @@ namespace InsuredTraveling.FormBuilder
                .SetAction("/index")
                .SetMethod("post");
             foreach (var excelRow in tagInfoExcel)
-            {
+            {           
                 var wrapper = TagFactory.GenerateWrappedTagFor(excelRow);
                 formBuilder.AddElement(wrapper);
             }
@@ -151,7 +151,7 @@ namespace InsuredTraveling.FormBuilder
 
             return new HtmlString(result);
         }
-        public static List<TagInfo> ParseFormElements(ExcelPackage pck)
+        public static List<TagInfo> ParseFormElements(ExcelPackage pck, int excelId)
         {
             ExcelWorksheet worksheet = pck.Workbook.Worksheets["ConfigurationSetup"];
             ExcelWorksheet worksheetListDetails = pck.Workbook.Worksheets["Lists"];
@@ -260,7 +260,10 @@ namespace InsuredTraveling.FormBuilder
                             Attributes = attributes,
                             ListItems = listValues,
                         };
-
+                    if (tagInfo.Type.Equals("submit"))
+                    {
+                        tagInfo.Id = excelId.ToString();
+                    }
                     tagInfoExcel.Add(tagInfo);
                 }
             }

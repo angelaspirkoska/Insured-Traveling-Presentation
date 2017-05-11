@@ -584,7 +584,7 @@ namespace InsuredTraveling.FormBuilder
             MySqlCommand mysqlCommand = new MySqlCommand();
             mysqlCommand.Connection = conn;
             conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
-
+            conn.Open();
             try
             {
                 mysqlCommand.CommandText = "Master_" + excelId;

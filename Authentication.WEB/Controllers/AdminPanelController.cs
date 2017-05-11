@@ -196,9 +196,9 @@ namespace InsuredTraveling.Controllers
                 {
                     e.Id = _exs.AddExcelConfig(excelConfig);
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    return View();
                 }
                 return View("PolicyForm", e);
             }

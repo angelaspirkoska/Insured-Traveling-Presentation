@@ -363,6 +363,7 @@ namespace InsuredTraveling.FormBuilder
     {
         public SubmitButton(TagInfo tagInfo) : base(tagInfo)
         {
+            _tag.RemoveAttr("id");
             _tag.Attr("type", "submit").Value("Calculate");
             _tag.Attr("formaction", "/AdminPanel/PolicyForm?excelId=" + tagInfo.Id);
         }

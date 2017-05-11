@@ -71,10 +71,6 @@ namespace InsuredTraveling.FormBuilder
         public int DatabaseColumns { get; set; }
         public int ParametersNameAndInputValueRows { get; set; }
         public int ParametersNameAndInputValueColumns { get; set; }
-        public void PopulateDatabase()
-        {
-            //TODO 
-        }
         public override void Resolver(string formula, string formulaName, ExcelPackage pck, ExcelWorksheet current)
         {
             Regex regex = new Regex(@".+\((.+)\)");
