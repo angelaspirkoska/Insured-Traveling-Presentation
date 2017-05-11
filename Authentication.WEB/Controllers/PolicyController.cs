@@ -311,6 +311,12 @@ namespace Authentication.WEB.Controllers
             return RedirectToAction("PolicyDetails", new { policyNumber = pNumber });
         }
 
+        [HttpPost]
+        public ActionResult RedirectPrintOfferSava(Policy policy)
+        {
+            return View("PolicyPrintSava", policy);
+        }
+
         public ActionResult PrintPolicy(string id)
         {
             PaymentModel pat = new PaymentModel();

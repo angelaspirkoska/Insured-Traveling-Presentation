@@ -6,371 +6,28 @@
     ViewBag.Title = InsuredTraveling.Resource.NewPolicy_Title;
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
 }
-<h2>@InsuredTraveling.Resource.Policy_CreatePolicy</h2>
-<form id="policy_form" metod="post">
-    <div class="col-sm-3" style="margin-left: 0px; padding-left: 0px;">
-        <div class="loader" style="display:none"></div>
-        <div class="form-horizontal">
-            <header style="display: none;" class="well">
-                <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                <a href="javascript:void(0)" id="PolicyPolicyInformation">@InsuredTraveling.Resource.Policy_PolicyInformation</a>
-            </header>
-            <div class="form-group" id="PolicyPolicyInformationContent">
-                <div style="display: none;" class="col-md-4">
-                    @Html.LabelFor(model => model.CountryID, htmlAttributes: new { @class = "control-label" })
-                    <div class="inputs-spacing">
-                        @Html.DropDownListFor(model => model.CountryID, (List<SelectListItem>)ViewBag.Countries, new { @class = "form-control input-sm", id = "CountryID", onchange = "ChangeType()" })
-                        @Html.ValidationMessageFor(model => model.CountryID, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div style="display: none;" class="col-md-4">
-                    @Html.LabelFor(model => model.Retaining_RiskID, htmlAttributes: new { @class = "control-label" })
-                    <div class="inputs-spacing">
-                        @Html.DropDownListFor(model => model.Retaining_RiskID, (List<SelectListItem>)ViewBag.Franchise, new { @class = "form-control input-sm" })
-                        @Html.ValidationMessageFor(model => model.Retaining_RiskID, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <label class="control-label" for="policyPackageType">Package</label>
-                    <div class="inputs-spacing">
-                        <select id="policyPackageType" name="policyPackageType" class="form-control">
-                            <option value="1">Gold</option>
-                            <option value="2">Platinum</option>
-                            <option value="3">VIP</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <label class="control-label" for="policyTypeSava">Policy Type</label>
-                    <div class="inputs-spacing">
-                        <select id="policyTypeSava" name="policyTypeSava" class="form-control">
-                            <option value="1">Individual</option>
-                            <option value="2">Family</option>
-                            <option value="3">Student</option>
-                            <option value="4">Business</option>
-                            <option value="5">Group</option>
-                        </select>
-                    </div>
-                </div>
-                <div style="display: none;" class="col-md-12">
-                    @Html.LabelFor(model => model.Policy_TypeID, htmlAttributes: new { @class = "control-label" })
-                    <div class="inputs-spacing">
-                        @Html.DropDownListFor(model => model.Policy_TypeID, (List<SelectListItem>)ViewBag.TypeOfPolicy, new { @class = "form-control input-sm", id = "policy_type" })
-                        @Html.ValidationMessageFor(model => model.Policy_TypeID, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <input type="hidden" id="todayDate" name="todayDate" value="@ViewBag.Date">
-                <div class="col-md-12">
-                    @Html.LabelFor(model => model.Start_Date, htmlAttributes: new { @class = "control-label" })
-                    <div class="inputs-spacing">
-                        @Html.EditorFor(model => model.Start_Date, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField policyInfo" } })
-                        @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <input type="hidden" id="inTenDays" name="inTenDays" value="@ViewBag.DateAfterTenDays">
-                    @Html.LabelFor(model => model.End_Date, htmlAttributes: new { @class = "control-label" })
-                    <div class="inputs-spacing">
-                        @Html.EditorFor(model => model.End_Date, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField policyInfo" } })
-                        @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField policyInfo", @style = "position: static;", @min = "1", @max = "10" } })
-                        <span class="input-group-addon">@InsuredTraveling.Resource.Policy_Days</span>
-                    </div>
-                    @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-8 col-sm-offset-1">
-        @{
-            RoleAuthorize r = new RoleAuthorize();
-        }
-        @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Broker manager"))
-        {
-            <div class="row">
-                <header class="well" id="HolderInformation">
-                    <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                    <a href="javascript:void(0)" id="HolderInformation">@InsuredTraveling.Resource.Policy_HolderInformation</a>
-                </header>
-                <div id="HolderInformationContent" style="display:none;">
-                    <div class="form-group col-md-5">
-                        <div class="inputs-spacing">
-                            @Html.CheckBoxFor(model => model.IsExistentPolicyHolder, new { @class = "col-md-1", @style = "" }) @InsuredTraveling.Resource.Policy_ExistingUser
-                        </div>
-                        <div class="hideWhenSelect">
-                            @Html.LabelFor(model => model.PolicyHolderName, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderName, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PolicyHolderLastName, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderLastName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo", } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderLastName, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PolicyHolderAddress, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderAddress, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderAddress, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PolicyHolderCity, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderCity, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderCity, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PolicyHolderPostalCode, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderPostalCode, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderPostalCode, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-5 top-padding">
-                        @Html.LabelFor(model => model.PolicyHolderSSN, htmlAttributes: new { @class = "control-label" })
-                        <div class="inputs-spacing">
-                            @Html.EditorFor(model => model.PolicyHolderSSN, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
-                            @Html.ValidationMessageFor(model => model.PolicyHolderSSN, "", new { @class = "text-danger", id = "ErrorPolicyHolderSSN" })
-                        </div>
-                        <div class="hideWhenSelect">
-                            @Html.LabelFor(model => model.PolicyHolderBirthDate, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderBirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  placeholder mandatoryField holderInfo" } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderBirthDate, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PolicyHolderPassportNumber_ID, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderPassportNumber_ID, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderPassportNumber_ID, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PolicyHolderEmail, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderEmail, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo" } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderEmail, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PolicyHolderPhoneNumber, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PolicyHolderPhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField holderInfo", } })
-                                @Html.ValidationMessageFor(model => model.PolicyHolderPhoneNumber, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        @*Insured information*@
-        <div class="row">
-            <header class="well" id="InsuredInformation">
-                <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                <a href="javascript:void(0)" id="InsuredInformation">
-                    @InsuredTraveling.Resource.Policy_InsuredInformation
-                </a>
-                @if (r.IsUser("End user"))
-            {
-                    @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "checkbox-policyholder", @ariahidden = "false" })
-                    <p class="checkbox-label">
-                        @InsuredTraveling.Resource.Policy_IamInsured
-                    </p>
-                }
-                @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Broker manager"))
-            {
-                    @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "checkbox-policyholder", @ariahidden = "false", @id = "IsSamePolicyHolderInsuredAdmin" })
-                    <p class="checkbox-label">
-                        @InsuredTraveling.Resource.Policy_HolderSameInsured
-                    </p>
-                }
-            </header>
-            <div id="InsuredInformationContent" style="display:none;">
-                <div id="hideWhenSamePerson">
-                    <div class="form-inline">
-                        <div class="form-group col-sm-6">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
-                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo", } })
-                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo", } })
-                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo", } })
-                                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size", } })
-                                @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
-                                @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.BirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  mandatoryField insuredData field-size" } })
-                                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PassportNumber_ID, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PassportNumber_ID, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
-                                @Html.ValidationMessageFor(model => model.PassportNumber_ID, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField insuredData field-size insuredInfo" } })
-                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @* Policy data *@
-        <div style="display: none" class="row">
-            <header class="well" id="PolicyData">
-                <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                <a href="javascript:void(0)" id="PolicyData">@InsuredTraveling.Resource.Policy_PolicyData</a>
-            </header>
-            <div id="PolicyDataContent" style="display:none;">
-                <div class="">
-                    <div class="col-md-2">
-                        <div class="form-inline">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Travel_Insurance_TypeID, htmlAttributes: new { @class = "control-label" })
-                                <div class="checkbox-container">
-                                    <label class="radio-inline ">
-                                        <input type="radio" checked="checked" name="Travel_Insurance_TypeID" , value="1" id="single_type" class="checkbox-position" />
-                                        @*@Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "1", id = "single_type" })*@
-                                        <label for="radio1" checked="checked">@InsuredTraveling.Resource.Policy_PolicySingle</label>
-                                    </label>
-                                    <br />
-                                    <label class="radio-inline hideItem">
-                                        <input type="radio" name="Travel_Insurance_TypeID" , value="2" id="family_type" class="checkbox-position" />
-                                        @*@Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "2", id = "family_type" })*@
-                                        <label for="radio1">@InsuredTraveling.Resource.Policy_PolicyFamily</label>
-                                    </label>
-                                    <br />
-                                    <label class="radio-inline hideItem">
-                                        <input type="radio" name="Travel_Insurance_TypeID" , value="3" id="group_type" class="checkbox-position" />
-                                        @*@Html.RadioButtonFor(model => model.Travel_Insurance_TypeID, "true", new { @value = "3", id = "group_type" })*@
-                                        <label for="radio1">@InsuredTraveling.Resource.Policy_PolicyGroup</label>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-horizontal" id="family" hidden>
-                        @for (int i = 0; i < 6; i++)
-                        {
-                            <div class="form-inline col-md-offset-3" style="margin-top:20px;">
-                                <div class="form-group col-md-4 col-sm-4">
-                                    <div><label>@InsuredTraveling.Resource.Policy_InsuredName:</label></div>
-                                    @Html.EditorFor(model => model.insureds[i].Name, new { htmlAttributes = new { @class = "form-control input-sm", } })
-                                </div>
-                                <div class="form-group col-md-4 col-sm-4">
-                                    <div><label>@InsuredTraveling.Resource.Policy_InsuredLastName:</label></div>
-                                    @Html.EditorFor(model => model.insureds[i].Lastname, new { htmlAttributes = new { @class = "form-control input-sm", } })
-                                </div>
-                                <div class="form-group col-md-4 col-sm-4">
-                                    <div><label>@InsuredTraveling.Resource.Policy_InsuredSSN:</label></div>
-                                    @Html.EditorFor(model => model.insureds[i].SSN, new { htmlAttributes = new { @class = "form-control input-sm", } })
-                                </div>
-                            </div>
-                            <br />
-                        }
-                    </div>
-                    <div class="form-horizontal" id="group" hidden>
-                        <div class="form-group col-md-2 col-sm-2">
-                            @Html.LabelFor(model => model.Group_Members, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.Group_Members, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                                @Html.ValidationMessageFor(model => model.Group_Members, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.Group_Total_Premium, htmlAttributes: new { @class = "control-label" })
-                            <div class="inputs-spacing">
-                                @Html.EditorFor(model => model.Group_Total_Premium, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                                @Html.ValidationMessageFor(model => model.Group_Total_Premium, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-horizontal">
-                        <div class="col-md-4">
-                            <div><label>@InsuredTraveling.Resource.Policy_AddOn</label></div>
-                            @for (int k = 1; k < 3; k++)
-                            {
-                                var i = k - 1;
-                                var val = k + 1;
-                                var addid = "additional_charges_" + i + "__ID";
-                                <input id="@addid" type="checkbox" value="@val" name="additional_charges[@i].ID" style="width:4%;" class="" /> <label>@ViewBag.additional_charges[k].Text</label> <br />
-                            }
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Travel_NumberID, htmlAttributes: new { @class = "control-label" })
-                            <div class="checkbox-container">
-                                <label class="radio-inline">
-                                    <input type="radio" name="Travel_NumberID" checked="checked" value="1" class="numberTrips checkbox-position" />
-                                    @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "1", @text = "Едно патување" })*@
-                                    <label for="radio1" checked="checked">@InsuredTraveling.Resource.Policy_OneTrip</label>
-                                </label>
-                                <br />
-                                <label style="display: none;" class="radio-inline">
-                                    <input type="radio" name="Travel_NumberID" value="2" class="numberTrips checkbox-position" />
-                                    @*@Html.RadioButtonFor(model => model.Travel_NumberID, "true", new { @value = "2", @text = "Повеќе патувања" })*@
-                                    <label for="radio1">@InsuredTraveling.Resource.Policy_MoreTrip</label>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 btns-position">
-                <div class="form-inline">
-                    <div class="form-group">
-                        <input type="button" target="" id="calculateTotalPremium" value="@InsuredTraveling.Resource.Policy_CalculatePremium" class="btn btn-default btn-block" onclick="CalculateTotalPremium()" />
-                    </div>
-                </div>
-            </div>
+<link href="~/Content/savaCss/freelancer.min.css" rel="stylesheet" />
+<link href="~/Content/savaCss/style.css" rel="stylesheet" />
 
-            <div style="display: none;" class="col-md-4">
-                <div class="form-group">
-                    <label class="control-label col-md-5" for="DiscountCode">@InsuredTraveling.Resource.PolicyDiscountCode</label>
-                    <input class="col-md-1" onclick="DiscountChange()" type="checkbox" id="DiscountCheck">
-                    <div id="Discount_div" class="inputs-spacing col-md-6">
-                        <input class="form-control input-sm insuredData field-size insuredInfo text-box" id="DiscountCode" name="DiscountCode" onblur="DiscountCodeVal()" type="text" value="">
-                        <span id="discErrorMessage" class="field-validation-valid text-danger" data-valmsg-for="DiscountCode" data-valmsg-replace="true"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="col-md-12">
+    <div class="form-group text-left">
+        <h1>ПАТНИЧКО ОСИГУРУВАЊЕ GOLD</h1>
     </div>
+</div>
+
+<div class="loader" style="display:none"></div>
+
+<form id="policy_form" metod="post">
+    <div class="col-md-4">
+        @Html.Partial("_PolicyBasicInfo", Model)
+    </div>
+
+    <div class="col-md-8">
+        @Html.Partial("_PolicyDetails", Model)
+    </div>
+
     <div class="row">
-        <div class="col-md-4 btns-position">
+        <div class="col-md-4 col-md-offset-4">
             <div class="form-group totalPremium" style="padding-top: 15px;">
                 @Html.LabelFor(model => model.Total_Premium, htmlAttributes: new { @class = "control-label", @id = "totalPremiumLabel" })
                 <div>
@@ -383,41 +40,50 @@
                 <label id="errorMessage" style="color:red"></label>
             </div>
         </div>
-        <div class="col-md-4">
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
             <p id="locationError"></p>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-md-4 col-sm-4 btns-position">
+        <div class="col-md-4 col-md-offset-4">
             <!-- So JS se dodavaat formaction="/Payment/Index"
             formmethod="post" -->
             <input type="submit" value="@InsuredTraveling.Resource.Policy_BuyPolicy" class="btn btn-success hideMe btn-padding btn-block customButton" id="buyPolicyBtn" formmethod="post" formaction="/Payment/Index" />
         </div>
     </div>
+
     <br />
+
     <div class="row">
-        <div class="form-group col-md-2 btns-position">
-            <input type="button" id="AddOffer" value="@InsuredTraveling.Resource.Policy_AddOffer" class="btn btn-default btn-block hideMe" />
-        </div>
-        <div class="form-group col-md-2 btns-position">
-            <input type="submit" id="printOffers" formmethod="post" formaction="/Policy/RedirectPrintOffer" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
-        </div>
-        <div id="successMsg" class="col-md-4" style="display:none;">
-            <div class="alert alert-dismissible alert-success">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <span>@Resource.Policy_AddOfferMsg <span style="font-weight:bold;" id="ReturnedQuoteNumber"></span> </span>
+        <div class="col-md-4 col-md-offset-4">
+            <div class="form-group col-md-6 btns-position">
+                <input type="button" id="AddOffer" value="@InsuredTraveling.Resource.Policy_AddOffer" class="btn btn-default btn-block hideMe" />
             </div>
-        </div>
-        <div id="failMsg" class="col-md-4" style="display:none;">
-            <div class="alert alert-dismissible alert-danger">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <span>@Resource.Policy_AddOfferMsgFail!</span>
+            <div class="form-group col-md-6 btns-position">
+                <input type="submit" id="printOffers" formmethod="post" formaction="/Policy/RedirectPrintOfferSava" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
+            </div>
+            <div id="successMsg" class="col-md-6" style="display:none;">
+                <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span>@Resource.Policy_AddOfferMsg <span style="font-weight:bold;" id="ReturnedQuoteNumber"></span> </span>
+                </div>
+            </div>
+            <div id="failMsg" class="col-md-6" style="display:none;">
+                <div class="alert alert-dismissible alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span>@Resource.Policy_AddOfferMsgFail!</span>
+                </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modal" role="dialog">
+
+    @*<div class="modal fade" id="modal" role="dialog">
         <div class="modal-dialog" style="margin-top:13%;">
-            <!-- Modal content-->
+             Modal content
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -431,11 +97,13 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
+
 </form>
-<div class="modal fade" id="modalHolder" role="dialog">
+
+@*<div class="modal fade" id="modalHolder" role="dialog">
     <div class="modal-dialog" style="margin-top:13%;">
-        <!-- Modal content-->
+         Modal content
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -449,7 +117,9 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
+
+
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/additional-methods.js"></script>
 <!-- macedonian language-->

@@ -1,0 +1,82 @@
+﻿@model InsuredTraveling.Models.Policy
+@using InsuredTraveling.Filters;
+@using System.Web.Optimization;
+@using System.Configuration;
+
+@{
+    ViewBag.Title = "PolicyPrintSava";
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+}
+
+<div class="container" id="">
+    <div class="col-md-12">
+        <div class="form-group text-left">
+            <h4>Детали</h4>
+        </div>
+        <div class="panel">
+            <div class="panel-body">
+                <form id="category" method="post" class="">
+                    <div id="div-info" class="col-md-12 text-left">
+                        <div class="form-group">
+                            <p>
+                                <strong>Патничко осигурување</strong><br><b>Патничко осигурување GOLD</b><br>вид:<b>Индивидуално</b>, лица:<b>1</b>, <br>период на осигурување, двата датуми вклучени:<b><br>петок, 12 мај 2017 — недела, 14 мај 2017</b> (денови:<b>3</b>)<br>&nbsp;<br>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                <strong>Договорувач на полисата</strong><br>1. <b>@Model.PolicyHolderName @Model.PolicyHolderLastName</b><br>адресса: @Model.PolicyHolderAddress,  @Model.PolicyHolderPostalCode @Model.PolicyHolderCity<br>ЕМБГ: @Model.PolicyHolderSSN<br>број на пасош: @Model.PolicyHolderPassportNumber_ID<br>роден/а на: @Model.PolicyHolderBirthDate, возраст при патување: 27г.<br>осигуреникот ќе биде вклучен во спортски активности<br>&nbsp;<br>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                <strong>Осигурени лица</strong><br>@Model.Name @Model.LastName<br>адресса: @Model.Address, @Model.PostalCode  @Model.City<br>ЕМБГ: @Model.SSN<br>број на пасош: @Model.PassportNumber_ID<br>роден/а на: @Model.BirthDate<br><b>контакт:</b> @Model.Email @Model.PhoneNumber<br>&nbsp;<br>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p><strong>Промо акција</strong><br>141,00&nbsp;ден</p>
+                        </div>
+                        <hr>
+                    </div>
+
+                    <div class="col-md-12 text-left">
+                        <div class="form-group">
+                            <p>
+                                <strong>
+                                    <a href="https://mk.sava.insure/media/store/mk-mk/doc/webshop/travel/Osigurani-rizici.pdf" target="_blank">
+                                        <i class="fa fa-file-o" aria-hidden="true"></i> Осигурани ризици
+                                    </a><br>
+                                    <a href="https://mk.sava.insure/media/store/mk-mk/doc/webshop/travel/Uslovi-za-patnicko-osiguruvanje-2016.pdf" target="_blank">
+                                        <i class="fa fa-file-o" aria-hidden="true"></i> Услови за патничко осигурување 2016
+                                    </a>
+                                </strong>
+                            </p>
+                            <label for="cb-terms">
+                                <input type="checkbox" value="1" name="accept-terms" id="cb-terms" data-fv-notempty="true" data-fv-notempty-message="вие мора да ги прифати условите">
+                                <b>Ги прифаќам понудата и условите за осигурување</b>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <a href="presmetajforma.html" role="button" class="btn btn-lg btn-default" id="btn-back">
+                                <i class="fa fa-chevron-left"></i> Назад
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <a role="button" class="btn btn-lg btn-primary" id="btn-buy">
+                                <i class="fa fa-lg fa-cart-plus"></i> Купи
+                                <i class="fa fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-12 text-left">
+            <small class="muted"> <small>Осигурувачот има право телефонски да го исконтактира корисникот во текот на постапката за изработка на потврдата (полисата).</small> </small>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,80 @@
+﻿@model InsuredTraveling.Models.Policy
+@using InsuredTraveling.Filters;
+@using System.Web.Optimization;
+@using System.Configuration;
+
+<div class="col-md-12 form-group">
+    <div class="col-md-4">
+        <strong>Осигурано лице #1</strong>
+    </div>
+    <div class="col-md-8">
+        @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "checkbox-policyholder", @ariahidden = "false" })
+        <p class="checkbox-label">
+            @InsuredTraveling.Resource.Policy_HolderSameInsured
+        </p>
+     </div>
+</div>
+<div class="col-md-12 form-group">
+    <label class="col-md-12 text-left">име и презиме</label>
+    <div class="col-md-5">
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "име", @class = "form-control input-sm mandatoryField insuredData insuredInfo" } })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { placeholder = "презиме", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
+        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="col-md-12 form-group">
+    <label class="col-md-12 text-left">ЕМБГ и број на пасош</label>
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { placeholder = "ЕМБГ", @class = "form-control input-sm mandatoryField insuredData insuredInfo" } })
+        @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-md-5">
+        @Html.EditorFor(model => model.PassportNumber_ID, new { htmlAttributes = new { placeholder = "Број на пасош", @class = "form-control input-sm mandatoryField insuredData insuredInfo" } })
+        @Html.ValidationMessageFor(model => model.PassportNumber_ID, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="col-md-12 form-group">
+    <label class="col-md-12 text-left">датум на раѓање</label>
+    <div class="col-md-5">
+        <div class="input-group">
+            @Html.EditorFor(model => model.BirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  mandatoryField insuredData" } })
+            <span class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+            </span>
+            @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <!-- ОВАА ЛАБЕЛА ТРЕБА ДА ЈА ПРИКАЖИ ВОЗРАСТА НА ОСИГУРАНОТО ЛИЦЕ -->
+    <!-- ПРЕСМЕТАНО ОД ПОЛЕТО "датум на раѓање" -->
+    <div class="col-sm-7">
+        <label id="lbl-pers-bdate-1"></label>
+    </div>
+</div>
+<div class="col-md-12 form-group">
+    <label class="col-md-12 text-left">адреса</label>
+    <div class="col-md-6">
+        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { placeholder = "улица", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
+        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-md-3">
+        @Html.EditorFor(model => model.City, new { htmlAttributes = new { placeholder = "град", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
+        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-md-3">
+        @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { placeholder = "поштенски број", @class = "form-control input-sm mandatoryField insuredData", } })
+        @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="col-md-12 form-group">
+    <label class="col-md-12 text-left">спортски активности</label>
+    <div class="col-md-12">
+        <select name="category" class="form-control" name="pers-sport-1" title="Одбери">
+            <option value="0">осигуреникот нема да биде вклучен во спортски активности</option>
+            <option value="1">осигуреникот ќе биде вклучен во спортски активности</option>
+        </select>
+        <hr>
+    </div>
+</div>

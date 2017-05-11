@@ -1,0 +1,88 @@
+﻿@model InsuredTraveling.Models.Policy
+@using InsuredTraveling.Filters;
+@using System.Web.Optimization;
+@using System.Configuration;
+
+<div class="form-group text-left">
+    <h4>Вид</h4>
+</div>
+<div class="panel">
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="control-label pull-left">Пакет</label>
+            <div class="selectContainer">
+                <select id="policyPackageType" name="policyPackageType" class="form-control" title="Одбери">
+                    <option value="1">Gold</option>
+                    <option value="2">Platinum</option>
+                    <option value="3">VIP</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label pull-left">Вид</label>
+            <div class="selectContainer">
+                <select id="policyTypeSava" name="policyTypeSava" class="form-control" title="Одбери">
+                    <option value="1">Индивидуално</option>
+                    <option value="2">Фамилијарно</option>
+                    <option value="3">Студент</option>
+                    <option value="4">Business</option>
+                    <option value="5">Групно</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label pull-left">Број на лица</label>
+            <div class="selectContainer">
+                <select id="insuredNumber" name="insuredNumber" class="form-control" title="Одбери">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <label class="control-label pull-left">Период на престој во странство</label><br><br>
+            <div class="form-group">
+                <div class="input-group">
+                    @Html.EditorFor(model => model.Start_Date, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField policyInfo" } })
+                    @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    @Html.EditorFor(model => model.End_Date, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField policyInfo" } })
+                    @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
+                <div class="input-group">
+                    @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField policyInfo", @style = "position: static;", @min = "1", @max = "10" } })
+                    <span class="input-group-addon">@InsuredTraveling.Resource.Policy_Days</span>
+                </div>
+                @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="">
+            <div class="form-group">
+                <a href="" role="button" class="btn btn-lg btn-primary" id="btn-calculate">
+                    Пресметај
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

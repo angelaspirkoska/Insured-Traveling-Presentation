@@ -1,0 +1,102 @@
+﻿@model InsuredTraveling.Models.Policy
+@using InsuredTraveling.Filters;
+@using System.Web.Optimization;
+@using System.Configuration;
+
+<div class="col-md-12 form-horizontal form-group">
+    <div class="col-md-8 text-left">
+        <input style="width: 25px;" type="checkbox" name="isProfessionalDriver" value="" id="isProfessionalDriver" />
+        <span style="font-weight: bold" class="checkbox-label">
+            професионални возачи
+        </span>
+    </div>
+    <div class="col-md-4">
+        <select class="form-control" name="pers-lica-1" title="Одбери">
+            <option value="1">Лице 1</option>
+            <option value="2">Лице 2</option>
+            <option value="3">Лице 3</option>
+        </select>
+    </div>
+</div>
+<div class="col-md-12 form-horizontal form-group">
+    <div class="col-md-8 text-left">
+        <input style="width: 25px;" type="checkbox" name="isAbroadStudent" value="" id="isAbroadStudent" />
+        <span style="font-weight: bold" class="checkbox-label">
+            студенти во странство
+        </span>
+    </div>
+    <div class="col-md-4">
+        <select class="form-control" name="pers-lica-1" title="Одбери">
+            <option value="1">Лице 1</option>
+            <option value="2">Лице 2</option>
+            <option value="3">Лице 3</option>
+        </select>
+    </div>
+</div>
+<div class="col-md-12"><hr></div>
+<!-- ДОПОЛНИТЕЛНИ ПРОДУКТИ -->
+<div class="col-md-12 form-group">
+    <div class="col-md-12 text-left">
+        <strong>Дополнителни продукти</strong>
+    </div>
+</div>
+<!-- НЕЗГОДИ -->
+<div class="col-md-12 form-horizontal form-group">
+    <div class="col-md-6 text-left">
+        <input style="width: 25px;" type="checkbox" name="extraNezgoda" value="" id="extraNezgoda" />
+        <span style="font-weight: bold" class="checkbox-label">
+            незгода
+        </span>
+    </div>
+    <div class="col-md-6">
+        <p class="col-md-12 text-right">Важи за сите лица</p>
+    </div>
+</div>
+<!-- ДОМАШНА АСИСТЕНЦИЈА -->
+<div class="col-md-12 form-horizontal form-group">
+    <div class="col-md-8 text-left">
+        <input style="width: 25px;" type="checkbox" name="extraDomasnaAsistencija" value="" id="extraDomasnaAsistencija" />
+        <span style="font-weight: bold" class="checkbox-label">
+            домашна асистенција
+        </span>
+    </div>
+    <div class="col-md-4">
+        <select class="form-control" name="pers-lica-1" title="Одбери">
+            <option value="1">Лице 1</option>
+            <option value="2">Лице 2</option>
+            <option value="3">Лице 3</option>
+        </select>
+    </div>
+</div>
+<!-- АВТО АСИСТЕНЦИЈА -->
+<div class="col-md-12 form-horizontal form-group">
+    <div class="col-md-8 text-left">
+        <input style="width: 25px;" type="checkbox" name="extraAvtoAsistencija" value="" id="extraAvtoAsistencija" />
+        <span style="font-weight: bold" class="checkbox-label">
+            авто асистенција
+        </span>
+    </div>
+    <div class="col-md-4">
+        <select class="form-control" name="pers-lica-1" title="Одбери">
+            <option value="1">Лице 1</option>
+            <option value="2">Лице 2</option>
+            <option value="3">Лице 3</option>
+        </select>
+    </div>
+</div>
+<div id="avtoAsistencijaContainer">
+    <div class="col-md-12 form-group">
+        <div class="col-md-4 text-left">
+            <label for="brend-vozilo" class="text-left">бренд на возило</label>
+            <input type="text" id="brend-vozilo" class="form-control" name="brend-vozilo">
+        </div>
+        <div class="col-md-3">
+            <label for="model" class="text-left">модел</label>
+            <input type="text" id="model" class="form-control" name="model">
+        </div>
+        <div class="col-md-5">
+            <label for="reg-tab" class="text-left">регистарски таблички</label>
+            <input type="text" id="reg-tab" class="form-control" name="reg-tab">
+        </div>
+    </div>
+</div>

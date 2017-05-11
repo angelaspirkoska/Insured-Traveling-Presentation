@@ -296,6 +296,9 @@
     <Content Include="Content\Limitless-css\icons\icomoon\styles.css" />
     <Content Include="Content\loader.css" />
     <Content Include="Content\loader\page-loader.gif" />
+    <Content Include="Content\savaCss\freelancer.css" />
+    <Content Include="Content\savaCss\freelancer.min.css" />
+    <Content Include="Content\savaCss\style.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Errors\401.aspx" />
     <Content Include="Errors\401.html" />
@@ -2464,6 +2467,12 @@
     <Content Include="Scripts\Limitless-js\plugins\pickers\pickadate\translations\FORMATTING.md" />
     <Content Include="Scripts\Limitless-js\plugins\pickers\pickadate\translations\NAMING.md" />
     <Content Include="Views\Shared\_LayoutLimitless2.cshtml" />
+    <Content Include="Views\Policy\_PolicyBasicInfo.cshtml" />
+    <Content Include="Views\Policy\_PolicyDetails.cshtml" />
+    <Content Include="Views\Policy\_PolicyInsured.cshtml" />
+    <Content Include="Views\Policy\_PolicyHolder.cshtml" />
+    <Content Include="Views\Policy\_PolicyExtraData.cshtml" />
+    <Content Include="Views\Policy\PolicyPrintSava.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

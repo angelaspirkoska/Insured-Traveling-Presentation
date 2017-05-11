@@ -232,7 +232,7 @@ namespace Authentication.WEB.Services
             if (premium < 2)
                 premium = 2;
 
-            return premium;
+            return premium*61.5;
         }
     }
 }

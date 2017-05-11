@@ -85,9 +85,9 @@ namespace InsuredTraveling.Helpers
                         updateInsuredData.Lastname = p.PolicyHolderLastName;
                         updateInsuredData.SSN = p.PolicyHolderSSN;
 
-                        updateInsuredData.Email = p.PolicyHolderEmail;
+                        updateInsuredData.Email = p.Email;
                         updateInsuredData.DateBirth = p.PolicyHolderBirthDate ?? DateTime.UtcNow;
-                        updateInsuredData.Phone_Number = p.PolicyHolderPhoneNumber;
+                        updateInsuredData.Phone_Number = p.PhoneNumber;
 
                         updateInsuredData.Passport_Number_IdNumber = p.PolicyHolderPassportNumber_ID;
 

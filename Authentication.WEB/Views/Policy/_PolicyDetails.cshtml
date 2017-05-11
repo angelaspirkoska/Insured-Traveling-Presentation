@@ -1,0 +1,84 @@
+﻿@model InsuredTraveling.Models.Policy
+@using InsuredTraveling.Filters;
+@using System.Web.Optimization;
+@using System.Configuration;
+
+<div class="form-group text-left">
+    <h4>Детали</h4>
+</div>
+<div class="panel">
+    <div class="panel-body">
+        <div class="col-md-12 text-left">
+            <label id="info-span">
+                <b>Патничко осигурување GOLD</b><br>
+                вид: <b>Индивидуално</b>, лица: <b>1</b>, <br>
+                период на осигурување, двата датуми вклучени: <b>
+                    <br>
+                    петок, 12 мај 2017 — недела, 14 мај 2017
+                </b> (денови: <b>3</b>)
+            </label>
+            <hr>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="well bg-warning">
+                    <strong>
+                        При пополнување на податоците користете латиничен фонт
+                    </strong>
+                </div>
+            </div>
+        </div>
+
+        <div id="HolderInformationContent">
+            @Html.Partial("_PolicyHolder", Model)
+        </div>
+
+        <div id="InsuredInformationContent">
+            @Html.Partial("_PolicyInsured", Model)
+        </div>
+
+        <div id="PolicyDataContent">
+            @Html.Partial("_PolicyExtraData", Model)
+        </div>
+
+        <div class="col-md-12"><hr></div>
+        <!-- КОНТАКТ -->
+        <div class="col-md-12 form-group">
+            <div class="col-md-12 text-left">
+                <strong>Контакт</strong>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "е-маил", @class = "form-control input-sm mandatoryField insuredData insuredInfo" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { placeholder = "телефон", @class = "form-control input-sm mandatoryField insuredData insuredInfo" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="well bg-warning text-left">
+                    <strong>
+                        Ве молиме внесете точна е-маил адреса,<br>
+                        бидејќи таму ќе ви биде испратена купената полиса.
+                    </strong>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <button onclick="CalculateTotalPremium()" type="button" class="btn btn-lg btn-primary" id="calculateTotalPremium">
+                    <i class="fa fa-lg fa-cart-plus"></i> Погледај ја понудата и купи
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 text-left">
+    <small class="muted"> <small>Осигурувачот има право телефонски да го исконтактира корисникот во текот на постапката за изработка на потврдата (полисата).</small> </small>
+</div>
