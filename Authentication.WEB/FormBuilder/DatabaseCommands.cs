@@ -317,7 +317,12 @@ namespace InsuredTraveling.FormBuilder
                         StringBuilder parameters = new StringBuilder();
                         for (int i = 0; i < castFunction.DatabaseRows; i++)
                         {
-                            parameters.Append(castFunction.Database[i, 0].Replace(' ', '_') + ", ");
+                            if(castFunction.Database[i, 0] != castFunction.PropertyValueName)
+                            {
+                                var parametar = castFunction.Database[i, 0].Replace(' ', '_') + ", ";
+                                parameters.Append(ChangeParameterIfFunction(parametar));
+                            }
+                               
                         }
                         parameters.Length = parameters.Length - 2;
 
@@ -329,6 +334,10 @@ namespace InsuredTraveling.FormBuilder
                     {
                         IfCondition castFunction = (IfCondition)function;
                         masterProcedure.Append(" SET @Ouput" + function.Name + "='';");
+                        castFunction.Condition.OperandLeft = ChangeParameterIfFunction(castFunction.Condition.OperandLeft);
+                        castFunction.Condition.OperandRight = ChangeParameterIfFunction(castFunction.Condition.OperandRight);
+                        castFunction.IfTrue = ChangeParameterIfFunction(castFunction.IfTrue);
+                        castFunction.IfFalse = ChangeParameterIfFunction(castFunction.IfFalse);
                         switch (castFunction.Condition.Operation)
                         {
                             case "=":
@@ -362,18 +371,24 @@ namespace InsuredTraveling.FormBuilder
                     {
                         Round castFunction = (Round)function;
                         masterProcedure.Append(" SET @Ouput" + function.Name + "='';");
+                        castFunction.Number = ChangeParameterIfFunction(castFunction.Number);
+                        castFunction.RoundTo = ChangeParameterIfFunction(castFunction.RoundTo);
                         masterProcedure.Append(" CALL Round(" + castFunction.Number + ", @OuputRound, " + castFunction.RoundTo + "); ");
                     }
                     else if (funcValue.StartsWith("exact"))
                     {
                         Exact castFunction = (Exact)function;
                         masterProcedure.Append(" SET @Ouput" + function.Name + "='';");
+                        castFunction.LeftOperand = ChangeParameterIfFunction(castFunction.LeftOperand);
+                        castFunction.RightOperand = ChangeParameterIfFunction(castFunction.RightOperand);
                         masterProcedure.Append(" CALL Exact(" + castFunction.LeftOperand + ", @OuputExact, " + castFunction.RightOperand + "); ");
                     }
                     else
                     {
                         MathOperation castFunction = (MathOperation)function;
                         masterProcedure.Append(" SET @Ouput" + function.Name + "='';");
+                        castFunction.OperandRight = ChangeParameterIfFunction(castFunction.OperandRight);
+                        castFunction.OperandLeft = ChangeParameterIfFunction(castFunction.OperandLeft);
                         switch (castFunction.Operation)
                         {
                             case "*":
@@ -567,13 +582,36 @@ namespace InsuredTraveling.FormBuilder
 
         public static string ChangeParameterIfProcedure(string parameter)
         {
-            string ouput = null;
-            if (parameter.ToLower().StartsWith("procedure"))
+            string output = null;
+            if(parameter != null)
             {
-                var procedurNum = parameter.ToLower().Replace("procedure", string.Empty);
-                ouput = "@OutputProcedure" + procedurNum;
-                return ouput;
+                if (parameter.ToLower().StartsWith("procedure"))
+                {
+                    var procedurNum = parameter.ToLower().Replace("procedure", string.Empty);
+                    output = "@OutputProcedure" + procedurNum;
+                    return output;
+                }
+                if (parameter.ToLower().StartsWith("c"))
+                {
+                    output = "@Output" + parameter;
+                    return output;
+                }
             }
+            
+            return parameter;
+        }
+        public static string ChangeParameterIfFunction(string parameter)
+        {
+            string output = null;
+            if(parameter != null)
+            {
+                if (parameter.ToLower().StartsWith("c"))
+                {
+                    output = "@Output" + parameter;
+                    return output;
+                }
+            }
+           
             return parameter;
         }
 
