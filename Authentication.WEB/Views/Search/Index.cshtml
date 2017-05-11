@@ -1678,12 +1678,12 @@
         var users = usersTable.fnGetData();
 
         $.ajax({
-            url: "http://localhost:19655/Search/GetEventsResultsAsExcelDocument",
+            url: "/Search/GetEventsResultsAsExcelDocument",
             type: "POST",
             data: { events: users },
             success: function (data) {
                 var urlString =
-                    "http://localhost:19655/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
+                    "/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
                 window.location.href = urlString;
             }
         });
