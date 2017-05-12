@@ -58,8 +58,8 @@ namespace InsuredTraveling.Models
         [Display(Name = "User_InsuranceCompany", ResourceType = typeof(Resource))]
         public string InsuranceCompany = "Sava";
 
-        [RegularExpression("^\\+[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Error_Phone_Numeric")]
-        [Display(Name = "User_PhoneNumber", ResourceType = typeof(Resource))]
+        //[RegularExpression("^\\+[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Error_Phone_Numeric")]
+        //[Display(Name = "User_PhoneNumber", ResourceType = typeof(Resource))]
         public override string PhoneNumber { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
@@ -72,8 +72,8 @@ namespace InsuredTraveling.Models
         [Display(Name = "User_PostalCode", ResourceType = typeof(Resource))]
         public string PostalCode { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
-        [Display(Name = "User_PassportNumber", ResourceType = typeof(Resource))]
+        //[Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        //[Display(Name = "User_PassportNumber", ResourceType = typeof(Resource))]
         public string PassportNumber { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]

@@ -17,5 +17,6 @@ namespace InsuredTraveling.DI
         sava_policy GetSavaPolicyIdByPolicyNumber(string id);
         void SumDiscountPoints(string policyHolder, float DiscountPoints);
         float? GetUserPoints(string policyHolder);
+        List<sava_policy> GetSavaPoliciesForInsuredList(string ssnInsured, string policyNumber);
     }
 }

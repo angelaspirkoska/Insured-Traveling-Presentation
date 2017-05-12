@@ -163,5 +163,62 @@ namespace InsuredTraveling.Controllers.API
                 throw new Exception("Internal error: Empty username");
             }
         }
+
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("AddPolicyPoints")]
+        public JObject AddPolicyPoints(JObject IDjson)
+        {
+
+            JObject data = new JObject();
+            string PolicyNumber = (string)IDjson["PolicyNumber"];
+            string SSN = (string)IDjson["SSN"];
+            if (PolicyNumber != null && PolicyNumber != "" && PolicyNumber != " " && SSN != null && SSN != " ")
+            {
+                // Ako postoi polisa so toj broj cekor 4
+                if (_savaPoliciesService.GetSavaPolicyIdByPolicyNumber(PolicyNumber) != null) {
+
+                    // Dali postoi
+                    if (_savaPoliciesService.GetSavaPoliciesForList(SSN, PolicyNumber).Count() != 0)
+                    {
+                        var x = _savaPoliciesService.GetSavaPoliciesForList(SSN, PolicyNumber);
+                        data.Add("Message", "Sucessfully added points");
+                        data.Add("Status", "valid");
+                        
+                        return data;
+                    }
+                    else if (_savaPoliciesService.GetSavaPoliciesForInsuredList(SSN, PolicyNumber).Count() != 0)
+                    {
+                        
+                        data.Add("Message", "User and policy exist, but the user is insured, not policy holder");
+                        data.Add("Status", "false");
+
+                        return data;
+                    }
+                    else
+                    {
+                        data.Add("Message", "User and policy does not match.!");
+                        data.Add("Status", "false");
+
+                        return data;
+                    }
+
+                } else
+                {
+                   
+                    data.Add("Message", "Policy does not exist yet, try again later");
+                    data.Add("Status", "false");
+
+                    return data;
+                }
+
+            }
+
+
+            {
+                throw new Exception("Internal error: Empty Fields");
+            }
+
+        }
     }
 }

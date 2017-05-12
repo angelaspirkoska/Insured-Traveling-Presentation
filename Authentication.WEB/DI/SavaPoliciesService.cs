@@ -79,9 +79,19 @@ namespace InsuredTraveling.DI
                 _db.sava_policy.Where(
                     x =>
                         (String.IsNullOrEmpty(policyNumber) || x.policy_number.Equals(number)) &&
-                        (String.IsNullOrEmpty(ssn) || x.SSN_policyHolder.Equals(ssn))).ToList();
+                        (String.IsNullOrEmpty(ssn) || x.SSN_policyHolder.Equals(ssn)) ).ToList();
         }
-            
+
+        public List<sava_policy> GetSavaPoliciesForInsuredList(string ssnInsured, string policyNumber)
+        {
+            int number = !String.IsNullOrEmpty(policyNumber) ? Convert.ToInt32(policyNumber) : 0;
+            return
+                _db.sava_policy.Where(
+                    x =>
+                        (String.IsNullOrEmpty(policyNumber) || x.policy_number.Equals(number) ) &&
+                        (String.IsNullOrEmpty(ssnInsured) || x.SSN_insured.Equals(ssnInsured))).ToList();
+        }
+
         public List<sava_policy> GetSavaPoliciesAdminForList(string policyNumber, string ssnInsured, string ssnHolder)
         {
             int number = !String.IsNullOrEmpty(policyNumber) ? Convert.ToInt32(policyNumber) : 0;
