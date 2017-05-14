@@ -11,14 +11,16 @@ namespace InsuredTraveling.FormBuilder
 {
     public static class DatabaseCommands
     {
+        
         public static string GeneratePolicyCommand(int excelID, List<TagInfo> tagInfoExcel)
         {
             StringBuilder newPolicyTable = new StringBuilder();
             newPolicyTable.Append("CREATE TABLE Policy_" + excelID + " ( ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY");
             foreach (TagInfo tag in tagInfoExcel)
             {
-                if (tag != null && !String.IsNullOrEmpty(tag.Name))
+                if (tag != null && !String.IsNullOrEmpty(tag.Name) && !tag.Type.Equals("label") && !tag.Type.Equals("header"))
                 {
+
                     string type = "";
                     if (tag.Type.Equals("textbox") || tag.Type.Equals("alphanumericspacetextbox") || tag.Type.Equals("alphanumerictextbox") || tag.Type.Equals("password"))
                     {
@@ -71,6 +73,33 @@ namespace InsuredTraveling.FormBuilder
         public static string GenerateListCommand(int excelID)
         {
             return "CREATE TABLE Lists_" + excelID + " ( ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, List_ID INT NOT NULL, List_Name VARCHAR(20) NOT NULL, Parameter_Value VARCHAR(50) NOT NULL)";
+        }
+        public static string PopulateTableNames(int excelId, List<TagInfo> tagInfoExcel)
+        {
+            StringBuilder commandText = new StringBuilder();
+            commandText.Append("INSERT INTO form_elements (ExcelID ,Name, Required) VALUES ");
+            foreach (TagInfo tag in tagInfoExcel)
+            {
+                if (tag != null && !String.IsNullOrEmpty(tag.Name) && !tag.Type.Equals("label") && !tag.Type.Equals("header"))
+                {
+                    string result = "";
+                    commandText.Append("('"+excelId+"','" + tag.Name +"', ");
+                    var tryGetValue = tag.Attributes.TryGetValue("required", out result);
+                    
+                    if (tryGetValue && result.Equals("true"))
+                    {
+                        commandText.Append("1");
+                    }
+                    else
+                    {
+                        commandText.Append("0");
+                    }
+                    commandText.Append( "), ");                 
+                }
+            }
+            commandText.Length--;
+            commandText.Length--;
+            return commandText.ToString();
         }
         public static string PopulateListsCommand(int excelID, List<TagInfo> tagInfoExcel)
         {
@@ -167,6 +196,7 @@ namespace InsuredTraveling.FormBuilder
         }
         public static void CreateDatabaseTables(int excelID, List<TagInfo> tagInfoExcel, List<Dget> dgetFunctions, List<Function> procedures, List<Function> functions)
         {
+            ExecutePopulateFormNames(excelID, tagInfoExcel);
             ExecutePolicyCommand(excelID, tagInfoExcel);
             ExecuteListCommand(excelID);
             ExecutePopulateListCommand(excelID, tagInfoExcel);
@@ -184,6 +214,27 @@ namespace InsuredTraveling.FormBuilder
                 MySqlCommand policyCommand = new MySqlCommand();
                 policyCommand.Connection = conn;
                 policyCommand.CommandText = DatabaseCommands.GeneratePolicyCommand(excelID, tagInfoExcel);
+                policyCommand.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
+
+        public static bool ExecutePopulateFormNames(int excelID, List<TagInfo> tagInfoExcel)
+        {
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            try
+            {
+                conn.Open();
+                MySqlCommand policyCommand = new MySqlCommand();
+                policyCommand.Connection = conn;
+                policyCommand.CommandText = DatabaseCommands.PopulateTableNames(excelID, tagInfoExcel);
                 policyCommand.ExecuteNonQuery();
                 conn.Close();
                 return true;
@@ -634,7 +685,7 @@ namespace InsuredTraveling.FormBuilder
             return parameter;
         }
 
-        public static string CalculatePremium(int excelId, FormCollection formCollection)
+        public static string CalculatePremium(int excelId, FormCollection formCollection, List<form_elements> formElements)
         {
             string result = "No value";
             MySqlConnection conn = new MySqlConnection();
@@ -647,11 +698,25 @@ namespace InsuredTraveling.FormBuilder
                 mysqlCommand.CommandText = "Master_" + excelId;
                 mysqlCommand.CommandType = CommandType.StoredProcedure;
 
-                foreach (string key in formCollection.Keys)
+                foreach(form_elements formElement in formElements)
                 {
-                    mysqlCommand.Parameters.AddWithValue("@"+key, formCollection[key]);
-                    mysqlCommand.Parameters["@"+key].Direction = ParameterDirection.Input;
+                    if (formCollection.AllKeys.Contains(formElement.Name))
+                    {
+                        mysqlCommand.Parameters.AddWithValue("@" + formElement.Name, formCollection.GetValue(formElement.Name));
+                        mysqlCommand.Parameters["@" + formElement.Name].Direction = ParameterDirection.Input;
+                    }
+                    else
+                    {
+                        mysqlCommand.Parameters.AddWithValue("@" + formElement.Name, "");
+                        mysqlCommand.Parameters["@" + formElement.Name].Direction = ParameterDirection.Input;
+                    }        
                 }
+
+                //foreach (string key in formCollection.Keys)
+                //{
+                //    mysqlCommand.Parameters.AddWithValue("@"+key, formCollection[key]);
+                //    mysqlCommand.Parameters["@"+key].Direction = ParameterDirection.Input;
+                //}
                 mysqlCommand.Parameters.AddWithValue("@result", MySqlDbType.VarChar);
                 mysqlCommand.Parameters["@result"].Direction = ParameterDirection.Output;
 

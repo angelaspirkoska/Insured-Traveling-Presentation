@@ -10,6 +10,7 @@ using System.Linq;
 using OfficeOpenXml;
 using InsuredTraveling.ViewModels;
 using InsuredTraveling.FormBuilder;
+using System.Collections.Generic;
 
 namespace InsuredTraveling.Controllers
 {
@@ -22,14 +23,16 @@ namespace InsuredTraveling.Controllers
         private IUserService _us;
         private IDiscountService _ds;
         private IExcelConfigService _exs;
+        private IFormElementsService _fes;
 
-        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us, IDiscountService ds, IExcelConfigService exs)
+        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us, IDiscountService ds, IExcelConfigService exs, IFormElementsService fes)
         {
             _rs = rs;
             _okss = okss;
             _us = us;
             _ds = ds;
             _exs = exs;
+            _fes = fes;
         }
 
         [HttpGet]
@@ -210,7 +213,8 @@ namespace InsuredTraveling.Controllers
         {
             if (excelId.HasValue)
             {
-                ViewBag.CalculatedPremium = DatabaseCommands.CalculatePremium((int)excelId, formCollection);
+                List<form_elements> formElements = _fes.GetAll((int)excelId);
+                ViewBag.CalculatedPremium = DatabaseCommands.CalculatePremium((int)excelId, formCollection, formElements);
                 return View("PolicyPremium");
             }
             return new HttpStatusCodeResult(500, "Something went wrong");

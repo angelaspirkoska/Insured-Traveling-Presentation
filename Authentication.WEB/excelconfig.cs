@@ -14,6 +14,12 @@ namespace InsuredTraveling
     
     public partial class excelconfig
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public excelconfig()
+        {
+            this.form_elements = new HashSet<form_elements>();
+        }
+    
         public int ID { get; set; }
         public System.DateTime DateCreated { get; set; }
         public string CreatedBy { get; set; }
@@ -21,5 +27,7 @@ namespace InsuredTraveling
         public Nullable<System.DateTime> ValidDateEnd { get; set; }
     
         public virtual aspnetuser aspnetuser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<form_elements> form_elements { get; set; }
     }
 }

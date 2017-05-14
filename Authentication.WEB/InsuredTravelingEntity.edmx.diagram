@@ -136,6 +136,8 @@
         <AssociationConnector Association="Entities.FKEmployeID" />
         <EntityTypeShape EntityType="Entities.excelconfig" Width="1.5" PointX="5.25" PointY="21.375" />
         <AssociationConnector Association="Entities.fk_createdby_aspnetusers" />
+        <EntityTypeShape EntityType="Entities.form_elements" Width="1.5" PointX="7.5" PointY="19.625" />
+        <AssociationConnector Association="Entities.fk_formelement_excelconfig" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

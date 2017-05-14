@@ -2130,6 +2130,8 @@
     <Compile Include="DI\ExcelConfigService.cs" />
     <Compile Include="DI\ExchangeRateService.cs" />
     <Compile Include="DI\FirstNoticeOfLossArchiveService.cs" />
+    <Compile Include="DI\FormElementsService.cs" />
+    <Compile Include="DI\IFormElementsService.cs" />
     <Compile Include="DI\FranchiseService.cs" />
     <Compile Include="DI\IAdditionalChargesService.cs" />
     <Compile Include="DI\IAdditionalInfoService.cs" />
@@ -2226,6 +2228,9 @@
     <Compile Include="FormBuilder\Form.cs" />
     <Compile Include="FormBuilder\FormBuilder.cs" />
     <Compile Include="FormBuilder\Functions.cs" />
+    <Compile Include="form_elements.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

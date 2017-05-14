@@ -374,6 +374,15 @@ warning 6002: The table/view 'def.db_9eb138_config.aspnetuserlogins' does not ha
           <Property Name="Modified_Datetime" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="FNOL_Number" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="form_elements">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExcelID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Required" Type="bool" Nullable="false" />
+        </EntityType>
         <EntityType Name="groups">
           <Key>
             <PropertyRef Name="ID" />
@@ -1168,18 +1177,6 @@ warning 6002: The table/view 'def.db_9eb138_config.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_createdby_aspnetusers">
-          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1" />
-          <End Role="excelconfig" Type="Self.excelconfig" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetusers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="excelconfig">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_discount_age_Created_By">
           <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1" />
           <End Role="discount_age" Type="Self.discount_age" Multiplicity="*" />
@@ -1297,6 +1294,18 @@ warning 6002: The table/view 'def.db_9eb138_config.transaction' does not have a 
             </Principal>
             <Dependent Role="discount_group">
               <PropertyRef Name="Modified_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_formelement_excelconfig">
+          <End Role="excelconfig" Type="Self.excelconfig" Multiplicity="1" />
+          <End Role="form_elements" Type="Self.form_elements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="excelconfig">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="form_elements">
+              <PropertyRef Name="ExcelID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1679,6 +1688,7 @@ warning 6002: The table/view 'def.db_9eb138_config.transaction' does not have a 
           <EntitySet Name="exchange_rate" EntityType="Self.exchange_rate" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="first_notice_of_loss" EntityType="Self.first_notice_of_loss" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="first_notice_of_loss_archive" EntityType="Self.first_notice_of_loss_archive" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="form_elements" EntityType="Self.form_elements" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="groups" EntityType="Self.groups" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="health_insurance" EntityType="Self.health_insurance" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="health_insurance_info" EntityType="Self.health_insurance_info" Schema="db_9eb138_config" store:Type="Tables" />
@@ -1874,10 +1884,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="countries" EntitySet="countries" />
             <End Role="discount_country" EntitySet="discount_country" />
           </AssociationSet>
-          <AssociationSet Name="fk_createdby_aspnetusers" Association="Self.fk_createdby_aspnetusers">
-            <End Role="aspnetusers" EntitySet="aspnetusers" />
-            <End Role="excelconfig" EntitySet="excelconfig" />
-          </AssociationSet>
           <AssociationSet Name="fk_discount_age_Created_By" Association="Self.fk_discount_age_Created_By">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="discount_age" EntitySet="discount_age" />
@@ -1917,6 +1923,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="fk_discount_group_Modified_by" Association="Self.fk_discount_group_Modified_by">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="discount_group" EntitySet="discount_group" />
+          </AssociationSet>
+          <AssociationSet Name="fk_formelement_excelconfig" Association="Self.fk_formelement_excelconfig">
+            <End Role="excelconfig" EntitySet="excelconfig" />
+            <End Role="form_elements" EntitySet="form_elements" />
           </AssociationSet>
           <AssociationSet Name="fk_insured_createdby" Association="Self.fk_insured_createdby">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
@@ -3416,6 +3426,11 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="aspnetuser" EntitySet="aspnetusers" />
             <End Role="excelconfig" EntitySet="excelconfigs" />
           </AssociationSet>
+          <EntitySet Name="form_elements" EntityType="Entities.form_elements" />
+          <AssociationSet Name="fk_formelement_excelconfig" Association="Entities.fk_formelement_excelconfig">
+            <End Role="excelconfig" EntitySet="excelconfigs" />
+            <End Role="form_elements" EntitySet="form_elements" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -4110,6 +4125,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="ValidDateStart" Type="DateTime" />
           <Property Name="ValidDateEnd" Type="DateTime" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_createdby_aspnetusers" FromRole="excelconfig" ToRole="aspnetuser" />
+          <NavigationProperty Name="form_elements" Relationship="Entities.fk_formelement_excelconfig" FromRole="excelconfig" ToRole="form_elements" />
         </EntityType>
         <Association Name="fk_createdby_aspnetusers">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
@@ -4120,6 +4136,28 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="excelconfig">
               <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="form_elements">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExcelID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Required" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="excelconfig" Relationship="Entities.fk_formelement_excelconfig" FromRole="form_elements" ToRole="excelconfig" />
+        </EntityType>
+        <Association Name="fk_formelement_excelconfig">
+          <End Type="Entities.excelconfig" Role="excelconfig" Multiplicity="1" />
+          <End Type="Entities.form_elements" Role="form_elements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="excelconfig">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="form_elements">
+              <PropertyRef Name="ExcelID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4902,6 +4940,16 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="ValidDateStart" ColumnName="ValidDateStart" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="form_elements">
+            <EntityTypeMapping TypeName="Entities.form_elements">
+              <MappingFragment StoreEntitySet="form_elements">
+                <ScalarProperty Name="Required" ColumnName="Required" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ExcelID" ColumnName="ExcelID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

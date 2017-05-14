@@ -40,7 +40,8 @@ namespace InsuredTraveling
             builder.RegisterType<TravelNumberService>().As<ITravelNumberService>().InstancePerRequest();
             builder.RegisterType<ChatService>().As<IChatService>().InstancePerRequest();
             builder.RegisterType<DiscountService>().As<IDiscountService>().InstancePerRequest();
-            builder.RegisterType<ExcelConfigService>().As<IExcelConfigService>().InstancePerRequest();       
+            builder.RegisterType<ExcelConfigService>().As<IExcelConfigService>().InstancePerRequest();
+            builder.RegisterType<FormElementsService>().As<IFormElementsService>().InstancePerRequest();
             base.Load(builder);
         }
     }
