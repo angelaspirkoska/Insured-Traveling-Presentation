@@ -312,7 +312,8 @@ namespace InsuredTraveling.FormBuilder
                     if (inputParameter.Type.ToLower().Contains("radio") || inputParameter.Type.ToLower().Contains("checkbox"))
                     {
                         inputParametesDefaultValue.Append(" IF " + inputParameter.Name + "= '' THEN ");
-                        inputParametesDefaultValue.Append("SET " + inputParameter.Name + " = 'false'; END IF; ");
+                        inputParametesDefaultValue.Append
+                                ("SET " + inputParameter.Name + " = 'no'; ELSE SET " + inputParameter.Name + "= 'yes'; END IF; ");
                     }          
             }
             return inputParametesDefaultValue;
