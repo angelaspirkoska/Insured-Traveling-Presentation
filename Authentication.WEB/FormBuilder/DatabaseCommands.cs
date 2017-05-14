@@ -278,7 +278,8 @@ namespace InsuredTraveling.FormBuilder
                 }
                 masterProcedure.Append("OUT `result` VARCHAR(50)");
                 masterProcedure.Append(")");
-                masterProcedure.Append("BEGIN");
+                masterProcedure.Append("BEGIN ");
+                masterProcedure.Append(ButtonsDefaultValue(variables));
                 masterProcedure = GenerateMasterHelpingFunc(excelID, functions, masterProcedure);
                 var masterMidResult = GenerateMidResultFuc(excelID, procedures);
                 masterProcedure.Append(masterMidResult);
@@ -301,6 +302,20 @@ namespace InsuredTraveling.FormBuilder
                 return false;;
             }
             return false;
+        }
+
+        public static StringBuilder ButtonsDefaultValue(List<TagInfo> inputParameters)
+        {
+            StringBuilder inputParametesDefaultValue = new StringBuilder();
+            foreach( TagInfo inputParameter in inputParameters)
+            {
+                    if (inputParameter.Type.ToLower().Contains("radio") || inputParameter.Type.ToLower().Contains("checkbox"))
+                    {
+                        inputParametesDefaultValue.Append(" IF " + inputParameter.Name + "= '' THEN ");
+                        inputParametesDefaultValue.Append("SET " + inputParameter.Name + " = 'false'; END IF; ");
+                    }          
+            }
+            return inputParametesDefaultValue;
         }
 
         public static StringBuilder GenerateMasterHelpingFunc(int excelID, List<Function> functions, StringBuilder masterProcedure)

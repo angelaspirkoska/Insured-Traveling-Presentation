@@ -375,10 +375,8 @@ namespace InsuredTraveling.FormBuilder
         public string Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
-        public string[] Classes { get; set; }
         public Dictionary<string, string> Attributes { get; set; }
         public List<string> ListItems { get; set; }
-
         public TagInfo()
         {
             Attributes = new Dictionary<string, string>();
