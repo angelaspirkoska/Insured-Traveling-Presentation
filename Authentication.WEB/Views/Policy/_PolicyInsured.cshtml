@@ -12,7 +12,7 @@
         <p class="checkbox-label">
             @InsuredTraveling.Resource.Policy_HolderSameInsured
         </p>
-     </div>
+    </div>
 </div>
 <div class="col-md-12 form-group">
     <label class="col-md-12 text-left">име и презиме</label>
@@ -28,7 +28,7 @@
 <div class="col-md-12 form-group">
     <label class="col-md-12 text-left">ЕМБГ и број на пасош</label>
     <div class="col-md-7">
-        @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { placeholder = "ЕМБГ", @class = "form-control input-sm mandatoryField insuredData insuredInfo" } })
+        @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { placeholder = "ЕМБГ", @class = "form-control input-sm mandatoryField insuredData insuredInfo", @id = "insured-embg" } })
         @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
     </div>
     <div class="col-md-5">
@@ -40,7 +40,8 @@
     <label class="col-md-12 text-left">датум на раѓање</label>
     <div class="col-md-5">
         <div class="input-group">
-            @Html.EditorFor(model => model.BirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  mandatoryField insuredData" } })
+            @*@Html.EditorFor(model => model.BirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  mandatoryField insuredData" } })*@
+            <input type="text" id="insured-birthday" class="form-control" />
             <span class="input-group-addon">
                 <i class="fa fa-calendar"></i>
             </span>
@@ -78,3 +79,35 @@
         <hr>
     </div>
 </div>
+
+<script>
+    $(function () {
+
+        $("#insured-embg").focusout(function () {
+            var embg = $(this).val();
+            if ($.isNumeric(embg) && embg.length == 13) {
+                var day = embg.substring(0, 2);
+                var month = embg.substring(2, 4);
+                var year = "1" + embg.substring(4, 7);
+                var birthday = moment(day + "." + month + "." + year, "DD.MM.YYYY");
+                $("#insured-birthday").daterangepicker({
+                    singleDatePicker: true,
+                    locale: {
+                        format: 'DD.MMM.YYYY'
+                    },
+                    startDate: birthday
+                });
+            } else {
+                $(this).val("");
+            }
+        });
+
+        $("#insured-birthday").daterangepicker({
+            singleDatePicker: true,
+            locale: {
+                format: 'DD.MMM.YYYY'
+            }
+        });
+
+    })
+</script>
