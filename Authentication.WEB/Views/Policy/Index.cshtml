@@ -140,49 +140,49 @@
 
         var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
         var future = new Date();
-        $("#Start_Date").val($.datepicker.formatDate(dateFormatString, new Date(future.setDate(future.getDate() + 1))));
-        $("#End_Date").val($.datepicker.formatDate(dateFormatString, new Date(future.setDate(future.getDate() + 9))));
+        //$("#Start_Date").val($.datepicker.formatDate(dateFormatString, new Date(future.setDate(future.getDate() + 1))));
+        //$("#End_Date").val($.datepicker.formatDate(dateFormatString, new Date(future.setDate(future.getDate() + 9))));
         var DateToday = new Date();
 
-        $("#Start_Date").datepicker({
-            dateFormat: dateFormatString,
-            "minDate": DateToday,
-            onSelect: function (selected) {
-                $("#End_Date").datepicker("option", "minDate", selected);
-                var startDateParts = $("#Start_Date").val().split("/");
-                var endDateParts = $("#End_Date").val().split("/");
-                var startDate = new Date(startDateParts[2], startDateParts[1] - 1, startDateParts[0]);
-                var endDate = new Date(endDateParts[2], endDateParts[1] - 1, endDateParts[0]);
-                if (startDate != null && endDate != null) {
-                    c = 24 * 60 * 60 * 1000;
-                    var validDays = Math.round(((endDate - startDate) / c) + 1);
-                    $("#Valid_Days").attr({
-                        "max": validDays
-                    });
-                    $("#Valid_Days").val(validDays);
-                }
-            }
-        });
+        //$("#Start_Date").datepicker({
+        //    dateFormat: dateFormatString,
+        //    "minDate": DateToday,
+        //    onSelect: function (selected) {
+        //        $("#End_Date").datepicker("option", "minDate", selected);
+        //        var startDateParts = $("#Start_Date").val().split("/");
+        //        var endDateParts = $("#End_Date").val().split("/");
+        //        var startDate = new Date(startDateParts[2], startDateParts[1] - 1, startDateParts[0]);
+        //        var endDate = new Date(endDateParts[2], endDateParts[1] - 1, endDateParts[0]);
+        //        if (startDate != null && endDate != null) {
+        //            c = 24 * 60 * 60 * 1000;
+        //            var validDays = Math.round(((endDate - startDate) / c) + 1);
+        //            $("#Valid_Days").attr({
+        //                "max": validDays
+        //            });
+        //            $("#Valid_Days").val(validDays);
+        //        }
+        //    }
+        //});
 
-        $("#End_Date").datepicker({
-            dateFormat: dateFormatString,
-            "minDate": DateToday,
-            onSelect: function (selected) {
-                $("#Start_Date").datepicker("option", "maxDate", selected);
-                var startDateParts = $("#Start_Date").val().split("/");
-                var endDateParts = $("#End_Date").val().split("/");
-                var startDate = new Date(startDateParts[2], startDateParts[1] - 1, startDateParts[0]);
-                var endDate = new Date(endDateParts[2], endDateParts[1] - 1, endDateParts[0]);
-                if (startDate != null && endDate != null) {
-                    c = 24 * 60 * 60 * 1000;
-                    var validDays = Math.round(((endDate - startDate) / c) + 1);
-                    $("#Valid_Days").attr({
-                        "max": validDays
-                    });
-                    $("#Valid_Days").val(validDays);
-                }
-            }
-        });
+        //$("#End_Date").datepicker({
+        //    dateFormat: dateFormatString,
+        //    "minDate": DateToday,
+        //    onSelect: function (selected) {
+        //        $("#Start_Date").datepicker("option", "maxDate", selected);
+        //        var startDateParts = $("#Start_Date").val().split("/");
+        //        var endDateParts = $("#End_Date").val().split("/");
+        //        var startDate = new Date(startDateParts[2], startDateParts[1] - 1, startDateParts[0]);
+        //        var endDate = new Date(endDateParts[2], endDateParts[1] - 1, endDateParts[0]);
+        //        if (startDate != null && endDate != null) {
+        //            c = 24 * 60 * 60 * 1000;
+        //            var validDays = Math.round(((endDate - startDate) / c) + 1);
+        //            $("#Valid_Days").attr({
+        //                "max": validDays
+        //            });
+        //            $("#Valid_Days").val(validDays);
+        //        }
+        //    }
+        //});
 
         $("#BirthDate").datepicker({
             dateFormat: dateFormatString,
