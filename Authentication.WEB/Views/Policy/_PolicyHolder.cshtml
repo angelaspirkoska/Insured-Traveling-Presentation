@@ -74,11 +74,11 @@
                 var day = embg.substring(0, 2);
                 var month = embg.substring(2, 4);
                 var year = "1" + embg.substring(4, 7);
-                var birthday = moment(day + "." + month + "." + year, "DD.MM.YYYY");
+                var birthday = moment(day + "." + month + "." + year, "DD/MM/YYYY");
                 $("#holder-birthday").daterangepicker({
                     singleDatePicker: true,
                     locale: {
-                        format: 'DD.MMM.YYYY'
+                        format: 'DD/MM/YYYY'
                     },
                     startDate: birthday
                 });
@@ -90,7 +90,7 @@
         $("#holder-birthday").daterangepicker({
             singleDatePicker: true,
             locale: {
-                format: 'DD.MMM.YYYY'
+                format: 'DD/MM/YYYY'
             }
         });
 

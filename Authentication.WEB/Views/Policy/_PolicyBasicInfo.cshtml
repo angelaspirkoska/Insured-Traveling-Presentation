@@ -64,12 +64,10 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
                 <div class="input-group">
-                    @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { disabled="disabled", @class = "form-control input-sm mandatoryField policyInfo", @style = "position: static;", @min = "1", @max = "10" } })
+                    @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { disabled = "disabled", @class = "form-control input-sm mandatoryField policyInfo", @style = "position: static;", @min = "1", @max = "10" } })
                     <span class="input-group-addon">@InsuredTraveling.Resource.Policy_Days</span>
                 </div>
                 @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
-            </div>
-        </div>
             </div>
         </div>
     </div>
@@ -86,9 +84,9 @@
 
         $('#policy-daterange').on('apply.daterangepicker', function (ev, picker) {
             var startDate = picker.startDate;
-            $("#start-date").val(startDate.format("DD.MMM.YYYY"));
+            $("#start-date").val(startDate.format("DD/MM/YYYY"));
             var endDate = picker.endDate;
-            $("#end-date").val(endDate.format("DD.MMM.YYYY"));
+            $("#end-date").val(endDate.format("DD/MM/YYYY"));
             var dateDiff = endDate.diff(startDate, 'days');
             $("#Valid_Days").val(dateDiff);
         });

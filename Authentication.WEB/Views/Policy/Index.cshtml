@@ -18,12 +18,14 @@
 <div class="loader" style="display:none"></div>
 
 <form id="policy_form" metod="post">
-    <div class="col-md-4">
-        @Html.Partial("_PolicyBasicInfo", Model)
-    </div>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.Partial("_PolicyBasicInfo", Model)
+        </div>
 
-    <div class="col-md-8">
-        @Html.Partial("_PolicyDetails", Model)
+        <div class="col-md-8">
+            @Html.Partial("_PolicyDetails", Model)
+        </div>
     </div>
 
     <div class="row">
