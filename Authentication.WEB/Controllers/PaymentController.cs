@@ -64,6 +64,12 @@ namespace Authentication.WEB.Controllers
         [HttpPost]
         public ActionResult Index(Policy p)
         {
+            //for model validate sake
+            p.Travel_NumberID = 1;
+            p.Policy_TypeID = 1;
+            p.Travel_Insurance_TypeID = 1;
+            p.Retaining_RiskID = 1;
+
             ViewBag.IsPaid = false;
             PaymentModel model = new PaymentModel();
 

@@ -23,32 +23,32 @@
 }
 
 .btn-circle {
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    padding: 6px 0;
-    font-size: 12px;
-    line-height: 1.428571429;
-    border-radius: 15px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
 }
 
-    .btn-circle.btn-lg {
-        width: 50px;
-        height: 50px;
-        padding: 10px 16px;
-        font-size: 18px;
-        line-height: 1.33;
-        border-radius: 25px;
-    }
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
 
-    .btn-circle.btn-xl {
-        width: 70px;
-        height: 70px;
-        padding: 10px 16px;
-        font-size: 24px;
-        line-height: 1.33;
-        border-radius: 35px;
-    }
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
 
 .popup {
     position: relative;
@@ -60,46 +60,46 @@
     user-select: none;
 }
 
-    /* The actual popup */
-    .popup .popuptext {
-        visibility: hidden;
-        width: 160px;
-        background-color: #555;
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 8px 0;
-        position: absolute;
-        z-index: 1;
-        bottom: 125%;
-        left: 50%;
-        margin-left: -80px;
-    }
+/* The actual popup */
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
 
-        /* Popup arrow */
-        .popup .popuptext::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #555 transparent transparent transparent;
-        }
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
 
-    /* Toggle this class - hide and show the popup */
-    .popup .show {
-        visibility: visible;
-        -webkit-animation: fadeIn 1s;
-        animation: fadeIn 1s;
-    }
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
 
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
     from {
         opacity: 0;
-    }
+}
 
     to {
         opacity: 1;
@@ -109,7 +109,7 @@
 @keyframes fadeIn {
     from {
         opacity: 0;
-    }
+}
 
     to {
         opacity: 1;
@@ -132,7 +132,7 @@
 input,
 select,
 textarea {
-    width: 280px;
+     width: 280px;
 }
 
 /*CSS text form create*/
@@ -141,41 +141,27 @@ textarea {
     margin-top: 0px;
 }
 
-input[type='text'], textarea, select, #lblAlert {
-    border: 1.5px solid #3ca082;
-    border-radius: 4px;
+input[type='text'].focus, textarea.focus, select.focus { 
+	border-color: #000 !important; 
 }
 
-    input[type='text'].focus, textarea.focus, select.focus {
-        border-color: #000 !important;
-    }
-
-    input[type='text'].invalid, textarea.invalid, select.invalid, #lblAlert {
-        border-color: red;
-    }
-
-    input[type='text'].inactive, textarea.inactive, select.inactive, option.inactive {
-        color: #999;
-        font-style: italic;
-    }
-
-    input[type='text'].required, textarea.required {
-        background: url(required-input.png) right 5px no-repeat;
-    }
-
-.form-control {
-    border: 1.5px solid #3ca082;
-    border-radius: 4px;
+input[type='text'].invalid, textarea.invalid, select.invalid, #lblAlert { 
+	border-color: red;
 }
 
-.input-group-addon {
-    border: 1.5px solid #3ca082;
-    border-radius: 4px;
+input[type='text'].inactive, textarea.inactive, select.inactive, option.inactive { 
+	color: #999;
+	font-style: italic;
 }
+
+input[type='text'].required, textarea.required { 
+	background: url(required-input.png) right 5px no-repeat;
+}
+
 
 form.cmxform label.error, label.error {
-    /* remove the next line when you have trouble in IE6 with labels in list */
-    color: red;
+	/* remove the next line when you have trouble in IE6 with labels in list */
+	color: red;
     font-style: italic;
 }
 
@@ -321,19 +307,19 @@ form.cmxform .gray * {
 
 .chat-btn--rotate {
     transform: rotate(-90deg);
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    -webkit-transform: rotate(-90deg); 
+    -moz-transform: rotate(-90deg); 
+	-o-transform: rotate(-90deg); 
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     border: none;
     background-color: #149c82;
-    display: block;
+    display: block; 
     text-align: center;
     font-weight: bold;
-    /* height: 15px; */
+    /* height: 15px; */ 
     width: 245px;
     padding: 15px 10px;
-    text-decoration: none;
+    text-decoration: none; 				
 }
 
 .heading-padding {
@@ -360,7 +346,7 @@ form.cmxform .gray * {
     font-weight: bold;
 }
 
-.arrows-style {
+.arrows-style {    
     padding-top: 110%;
     font-size: 25px;
 }
@@ -455,11 +441,11 @@ form.cmxform .gray * {
     widows: auto;
 }
 
-    .carousel-inner > .item > img,
-    .carousel-inner > .item > a > img {
-        width: 100%;
-        margin: auto;
-    }
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+      width: 100%;
+      margin: auto;
+  }
 
 /*Home page background video css*/
 /*video {
@@ -498,7 +484,7 @@ form.cmxform .gray * {
     position: absolute;
     left: 0;
     top: 0;
-    /*   width:100vw; */
+/*   width:100vw; */
 }
 
 .inner-container {
@@ -513,10 +499,10 @@ form.cmxform .gray * {
 .bgvid.inner {
     top: 0;
     left: 0;
-    filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");
+  filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");
     -webkit-filter: blur(2px);
-    -ms-filter: blur(2px);
-    -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  -o-filter: blur(2px);
     filter: blur(2px);
 }
 /*end of background video*/
@@ -536,74 +522,74 @@ form.cmxform .gray * {
 }
 
 .hideMe {
-    width: 160px;
+        width: 160px;
 }
 
 .portlet {
     border: 1px solid;
 }
 
-    .portlet .portlet-heading {
-        padding: 0 15px;
-    }
+.portlet .portlet-heading {
+    padding: 0 15px;
+}
 
-        .portlet .portlet-heading h4 {
-            padding: 1px 0;
-            font-size: 16px;
-        }
+.portlet .portlet-heading h4 {
+    padding: 1px 0;
+    font-size: 16px;
+}
 
-        .portlet .portlet-heading a {
-            color: #fff;
-        }
+.portlet .portlet-heading a {
+    color: #fff;
+}
 
-            .portlet .portlet-heading a:hover,
-            .portlet .portlet-heading a:active,
-            .portlet .portlet-heading a:focus {
-                outline: none;
-            }
+.portlet .portlet-heading a:hover,
+.portlet .portlet-heading a:active,
+.portlet .portlet-heading a:focus {
+    outline: none;
+}
 
-    .portlet .portlet-widgets .dropdown-menu a {
-        color: #333;
-    }
+.portlet .portlet-widgets .dropdown-menu a {
+    color: #333;
+}
 
-    .portlet .portlet-widgets ul.dropdown-menu {
-        min-width: 0;
-    }
+.portlet .portlet-widgets ul.dropdown-menu {
+    min-width: 0;
+}
 
-    .portlet .portlet-heading .portlet-title {
-        float: left;
-    }
+.portlet .portlet-heading .portlet-title {
+    float: left;
+}
 
-        .portlet .portlet-heading .portlet-title h4 {
-            margin: 10px 0;
-        }
+.portlet .portlet-heading .portlet-title h4 {
+    margin: 10px 0;
+}
 
-    .portlet .portlet-heading .portlet-widgets {
-        float: right;
-        margin: 8px 0;
-    }
+.portlet .portlet-heading .portlet-widgets {
+    float: right;
+    margin: 8px 0;
+}
 
-        .portlet .portlet-heading .portlet-widgets .tabbed-portlets {
-            display: inline;
-        }
+.portlet .portlet-heading .portlet-widgets .tabbed-portlets {
+    display: inline;
+}
 
-        .portlet .portlet-heading .portlet-widgets .divider {
-            margin: 0 5px;
-        }
+.portlet .portlet-heading .portlet-widgets .divider {
+    margin: 0 5px;
+}
 
-    .portlet .portlet-body {
-        padding: 15px;
-        background: #fff;
-    }
+.portlet .portlet-body {
+    padding: 15px;
+    background: #fff;
+}
 
-    .portlet .portlet-footer {
-        padding: 10px 15px;
-        background: #e0e7e8;
-    }
+.portlet .portlet-footer {
+    padding: 10px 15px;
+    background: #e0e7e8;
+}
 
-        .portlet .portlet-footer ul {
-            margin: 0;
-        }
+.portlet .portlet-footer ul {
+    margin: 0;
+}
 
 .portlet-green,
 .portlet-green > .portlet-heading {
@@ -611,9 +597,9 @@ form.cmxform .gray * {
 }
 
     .portlet-green > .portlet-heading {
-        color: #fff;
-        background-color: #16a085;
-    }
+    color: #fff;
+    background-color: #16a085;
+}
 
 .portlet-orange,
 .portlet-orange > .portlet-heading {
@@ -621,9 +607,9 @@ form.cmxform .gray * {
 }
 
     .portlet-orange > .portlet-heading {
-        color: #fff;
-        background-color: #f39c12;
-    }
+    color: #fff;
+    background-color: #f39c12;
+}
 
 .portlet-blue,
 .portlet-blue > .portlet-heading {
@@ -631,9 +617,9 @@ form.cmxform .gray * {
 }
 
     .portlet-blue > .portlet-heading {
-        color: #fff;
-        background-color: #2980b9;
-    }
+    color: #fff;
+    background-color: #2980b9;
+}
 
 .portlet-red,
 .portlet-red > .portlet-heading {
@@ -641,9 +627,9 @@ form.cmxform .gray * {
 }
 
     .portlet-red > .portlet-heading {
-        color: #fff;
-        background-color: #e74c3c;
-    }
+    color: #fff;
+    background-color: #e74c3c;
+}
 
 .portlet-purple,
 .portlet-purple > .portlet-heading {
@@ -651,9 +637,9 @@ form.cmxform .gray * {
 }
 
     .portlet-purple > .portlet-heading {
-        color: #fff;
-        background-color: #8e44ad;
-    }
+    color: #fff;
+    background-color: #8e44ad;
+}
 
 .portlet-default,
 .portlet-dark-blue,
@@ -664,9 +650,9 @@ form.cmxform .gray * {
 
     .portlet-default > .portlet-heading,
     .portlet-dark-blue > .portlet-heading {
-        color: #fff;
-        background-color: #34495e;
-    }
+    color: #fff;
+    background-color: #34495e;
+}
 
 .portlet-basic,
 .portlet-basic > .portlet-heading {
@@ -674,26 +660,26 @@ form.cmxform .gray * {
 }
 
     .portlet-basic > .portlet-heading {
-        border-bottom: 1px solid #333;
-        color: #333;
-        background-color: #fff;
-    }
+    border-bottom: 1px solid #333;
+    color: #333;
+    background-color: #fff;
+}    
 
 textarea {
     resize: none;
-}
+}    
 
 .chat_position {
-    width: 260px;
-    position: fixed;
+    width: 260px; 
+    position: fixed; 
     bottom: 0px;
-    z-index: 1000000;
-}
+    z-index: 1000000; 
+}    
 
 .portlet-body hr {
     margin-top: 10px !important;
     margin-bottom: 7px;
-}
+} 
 
 /*on Search tab*/
 .explain-functionality {

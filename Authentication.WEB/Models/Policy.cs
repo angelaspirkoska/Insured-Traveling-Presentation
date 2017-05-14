@@ -26,7 +26,7 @@ namespace InsuredTraveling.Models
 
         [Required]
         [Display(Name = "Policy_TravelCountry", ResourceType = typeof(Resource))]
-        public int CountryID { get; set; }
+        public int? CountryID { get; set; }
 
         [Required]
         [Display(Name = "Policy_PolicyType", ResourceType = typeof(Resource))]

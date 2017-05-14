@@ -11,19 +11,21 @@
 
 <div class="col-md-12">
     <div class="form-group text-left">
-        <h1>ПАТНИЧКО ОСИГУРУВАЊЕ GOLD</h1>
+        <h1>ПАТНИЧКО ОСИГУРУВАЊЕ <span id="mainTitlePackage">GOLD</span></h1>
     </div>
 </div>
 
 <div class="loader" style="display:none"></div>
 
 <form id="policy_form" metod="post">
-    <div class="col-md-4">
-        @Html.Partial("_PolicyBasicInfo", Model)
-    </div>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.Partial("_PolicyBasicInfo", Model)
+        </div>
 
-    <div class="col-md-8">
-        @Html.Partial("_PolicyDetails", Model)
+        <div class="col-md-8">
+            @Html.Partial("_PolicyDetails", Model)
+        </div>
     </div>
 
     <div class="row">
