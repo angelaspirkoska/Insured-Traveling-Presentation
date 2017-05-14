@@ -489,7 +489,7 @@ namespace InsuredTraveling.FormBuilder
                         {
                             case "=":
                                 {
-                                    masterProcedure.Append(" CALL IfEquals(" + outputParametar + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfTrue + ", " + castProcedure.IfFalse + "); ");
+                                    masterProcedure.Append(" CALL IfEquals(" + outputParametar + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfFalse + ", " + castProcedure.IfTrue + "); ");
                                     break;
                                 }
                             case ">":
@@ -499,17 +499,17 @@ namespace InsuredTraveling.FormBuilder
                                 }
                             case "<":
                                 {
-                                    masterProcedure.Append(" CALL IfSmaller(" + outputParametar + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfTrue + ", " + castProcedure.IfFalse + "); ");
+                                    masterProcedure.Append(" CALL IfSmaller(" + outputParametar + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfFalse + ", " + castProcedure.IfTrue + "); ");
                                     break;
                                 }
                             case ">=":
                                 {
-                                    masterProcedure.Append(" CALL IfBiggerAndEqual(" + outputParametar + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfTrue + ", " + castProcedure.IfFalse + "); ");
+                                    masterProcedure.Append(" CALL IfBiggerAndEqual(" + outputParametar + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfFalse + ", " + castProcedure.IfTrue + "); ");
                                     break;
                                 }
                             case "<=":
                                 {
-                                    masterProcedure.Append(" CALL IfSmallerAndEqual(" + outputParametar + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfTrue + ", " + castProcedure.IfFalse + "); ");
+                                    masterProcedure.Append(" CALL IfSmallerAndEqual(" + outputParametar + ", " + castProcedure.Condition.OperandLeft + ", " + castProcedure.Condition.OperandRight + ", " + castProcedure.IfFalse + ", " + castProcedure.IfTrue + "); ");
                                     break;
                                 }
                         }
