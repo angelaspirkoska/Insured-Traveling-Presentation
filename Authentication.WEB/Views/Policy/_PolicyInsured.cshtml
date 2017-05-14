@@ -3,6 +3,14 @@
 @using System.Web.Optimization;
 @using System.Configuration;
 
+@{
+    var dateFormat = ConfigurationManager.AppSettings["DateFormat"].ToUpper();
+    if (dateFormat.Count(x => x == 'Y') == 2)
+    {
+        dateFormat = dateFormat.Replace("YY", "YYYY");
+    }
+}
+
 <div class="col-md-12 form-group">
     <div class="col-md-4">
         <strong>Осигурано лице #1</strong>
@@ -41,7 +49,7 @@
     <div class="col-md-5">
         <div class="input-group">
             @*@Html.EditorFor(model => model.BirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  mandatoryField insuredData" } })*@
-            <input type="text" id="insured-birthday" class="form-control" />
+            <input type="text" id="insured-birthday" name="BirthDate" class="form-control" />
             <span class="input-group-addon">
                 <i class="fa fa-calendar"></i>
             </span>
@@ -89,11 +97,11 @@
                 var day = embg.substring(0, 2);
                 var month = embg.substring(2, 4);
                 var year = "1" + embg.substring(4, 7);
-                var birthday = moment(day + "." + month + "." + year, "DD.MM.YYYY");
+                var birthday = moment(day + "." + month + "." + year, '@dateFormat');
                 $("#insured-birthday").daterangepicker({
                     singleDatePicker: true,
                     locale: {
-                        format: 'DD.MMM.YYYY'
+                        format: '@dateFormat'
                     },
                     startDate: birthday
                 });
@@ -105,7 +113,7 @@
         $("#insured-birthday").daterangepicker({
             singleDatePicker: true,
             locale: {
-                format: 'DD.MMM.YYYY'
+                format: '@dateFormat'
             }
         });
 

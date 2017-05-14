@@ -3,6 +3,14 @@
 @using System.Web.Optimization;
 @using System.Configuration;
 
+@{
+    var dateFormat = ConfigurationManager.AppSettings["DateFormat"].ToUpper();
+    if (dateFormat.Count(x => x == 'Y') == 2)
+    {
+        dateFormat = dateFormat.Replace("YY", "YYYY");
+    }
+}
+
 <div class="col-md-12 form-group">
     <div class="col-md-12 text-left">
         <strong>Податоци за договорувачот</strong>
@@ -74,11 +82,11 @@
                 var day = embg.substring(0, 2);
                 var month = embg.substring(2, 4);
                 var year = "1" + embg.substring(4, 7);
-                var birthday = moment(day + "." + month + "." + year, "DD.MM.YYYY");
+                var birthday = moment(day + "." + month + "." + year, '@dateFormat');
                 $("#holder-birthday").daterangepicker({
                     singleDatePicker: true,
                     locale: {
-                        format: 'DD.MMM.YYYY'
+                        format: '@dateFormat'
                     },
                     startDate: birthday
                 });
@@ -90,7 +98,7 @@
         $("#holder-birthday").daterangepicker({
             singleDatePicker: true,
             locale: {
-                format: 'DD.MMM.YYYY'
+                format: '@dateFormat'
             }
         });
 

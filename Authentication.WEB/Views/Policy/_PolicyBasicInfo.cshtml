@@ -3,6 +3,14 @@
 @using System.Web.Optimization;
 @using System.Configuration;
 
+@{
+    var dateFormat = ConfigurationManager.AppSettings["DateFormat"].ToUpper();
+    if (dateFormat.Count(x => x == 'Y') == 2)
+    {
+        dateFormat = dateFormat.Replace("YY", "YYYY");
+    }
+}
+
 <div class="form-group text-left">
     <h4>Вид</h4>
 </div>
@@ -87,14 +95,17 @@
         var today = moment();
 
         $("#policy-daterange").daterangepicker({
-            minDate: today
+            minDate: today,
+            locale: {
+                format: '@dateFormat'
+            }
         });
 
         $('#policy-daterange').on('apply.daterangepicker', function (ev, picker) {
             var startDate = picker.startDate;
-            $("#start-date").val(startDate.format("DD.MMM.YYYY"));
+            $("#start-date").val(startDate.format('@dateFormat'));
             var endDate = picker.endDate;
-            $("#end-date").val(endDate.format("DD.MMM.YYYY"));
+            $("#end-date").val(endDate.format('@dateFormat'));
             var dateDiff = endDate.diff(startDate, 'days');
             $("#Valid_Days").val(dateDiff);
         });
