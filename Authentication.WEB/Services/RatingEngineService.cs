@@ -9,7 +9,7 @@ namespace Authentication.WEB.Services
     class RatingEngineService
     {
         private InsuredTravelingEntity entities = new InsuredTravelingEntity();
-        public double? discountCountry(int countryID, int policy_typeID, int franchiseID)
+        public double? discountCountry(int? countryID, int policy_typeID, int franchiseID)
         {
             double? discount = (entities.discount_country.Where(x => x.CountryID == countryID &&
                                                         x.Policy_typeID == policy_typeID && x.Franchise == franchiseID.ToString()).First()).Percentage;
@@ -32,7 +32,7 @@ namespace Authentication.WEB.Services
             return discount;
         }
 
-        public double? DiscountFranchise(int countryID, int policy_typeID, int franchiseID)
+        public double? DiscountFranchise(int? countryID, int policy_typeID, int franchiseID)
         {
             double? discount = (entities.discount_country.Where(x => x.CountryID == countryID &&
                 x.Policy_typeID == policy_typeID && x.Franchise.Equals(franchiseID.ToString())).First()).Discount_franchise;

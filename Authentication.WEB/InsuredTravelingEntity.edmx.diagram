@@ -44,7 +44,6 @@
         <EntityTypeShape EntityType="Entities.travel_duration" Width="1.5" PointX="5.25" PointY="63.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.travel_insurance_type" Width="1.5" PointX="13.25" PointY="42" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.travel_number" Width="1.5" PointX="13.25" PointY="44.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.travel_policy" Width="4.375" PointX="15.5" PointY="23" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.type_insured" Width="1.5" PointX="8" PointY="22.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.user" Width="1.5" PointX="5.25" PointY="67" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.aspnetuserlogin" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
@@ -59,7 +58,6 @@
         <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_4" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.fk_bank" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.fk_country_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_travel_policy_country" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.fk_policy_type_id" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.discount_days_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.discount_days_ibfk_2" ManuallyRouted="false" />
@@ -70,19 +68,11 @@
         <AssociationConnector Association="Entities.fk_invoice_docs" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.documents_first_notice_of_loss_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_6" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.fk_loss_id" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.fk_luggage_loss_id" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.fk_insured_type" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.policy_insured_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.travel_policy_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.min_premium_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_policy_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_policy_insured_polcy_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_travel_policy_policy_type" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_travel_policy_retaining_risk" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_policy_insurance_type" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.fk_policy_travel_number" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Entities.payment_status" Width="1.5" PointX="5.375" PointY="8.75" />
         <EntityTypeShape EntityType="Entities.language" Width="1.5" PointX="7.375" PointY="8.75" />
         <EntityTypeShape EntityType="Entities.additional_charge_name" Width="1.5" PointX="9.75" PointY="8.75" />
@@ -101,7 +91,6 @@
         <EntityTypeShape EntityType="Entities.first_notice_of_loss_archive" Width="4.625" PointX="13.5" PointY="50.625" IsExpanded="true" />
         <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_1" />
         <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_4" />
-        <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_3" />
         <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_5" />
         <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_6" />
         <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_7" />
@@ -124,8 +113,6 @@
         <AssociationConnector Association="Entities.fk_discount_group_Modified_by" />
         <AssociationConnector Association="Entities.fk_insured_createdby" />
         <AssociationConnector Association="Entities.fk_insured_modifiedby" />
-        <AssociationConnector Association="Entities.fk_policy_created_by" />
-        <AssociationConnector Association="Entities.fk_policy_modified_by" />
         <AssociationConnector Association="Entities.fk_travel_duration_Created_by" />
         <AssociationConnector Association="Entities.fk_travel_duration_Modified_by" />
         <AssociationConnector Association="Entities.fk_users_aspnetuser" />
@@ -134,6 +121,19 @@
         <EntityTypeShape EntityType="Entities.broker_employees" Width="1.5" PointX="5.25" PointY="41.375" />
         <AssociationConnector Association="Entities.FKBrrokerID" />
         <AssociationConnector Association="Entities.FKEmployeID" />
+        <EntityTypeShape EntityType="Entities.travel_policy" Width="1.5" PointX="16.5" PointY="23.125" />
+        <AssociationConnector Association="Entities.fk_policy_created_by" />
+        <AssociationConnector Association="Entities.fk_policy_modified_by" />
+        <AssociationConnector Association="Entities.fk_travel_policy_country" />
+        <AssociationConnector Association="Entities.first_notice_of_loss_ibfk_6" />
+        <AssociationConnector Association="Entities.first_notice_of_loss_archive_ibfk_3" />
+        <AssociationConnector Association="Entities.travel_policy_ibfk_1" />
+        <AssociationConnector Association="Entities.fk_policy_id" />
+        <AssociationConnector Association="Entities.fk_policy_insured_polcy_id" />
+        <AssociationConnector Association="Entities.fk_travel_policy_policy_type" />
+        <AssociationConnector Association="Entities.fk_travel_policy_retaining_risk" />
+        <AssociationConnector Association="Entities.fk_policy_insurance_type" />
+        <AssociationConnector Association="Entities.fk_policy_travel_number" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

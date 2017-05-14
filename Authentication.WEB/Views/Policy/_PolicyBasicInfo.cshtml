@@ -70,19 +70,36 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
                 <div class="input-group">
-                    @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @class = "form-control input-sm mandatoryField policyInfo", @style = "position: static;", @min = "1", @max = "10" } })
+                    @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { disabled="disabled", @class = "form-control input-sm mandatoryField policyInfo", @style = "position: static;", @min = "1", @max = "10" } })
                     <span class="input-group-addon">@InsuredTraveling.Resource.Policy_Days</span>
                 </div>
                 @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="">
-            <div class="form-group">
-                <a href="" role="button" class="btn btn-lg btn-primary" id="btn-calculate">
-                    Пресметај
-                    <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-        </div>
     </div>
 </div>
+
+<script>
+    $("#policyPackageType").change(function () {
+        $("#mainTitlePackage").html($("#policyPackageType option:selected").html());
+        $("#detailsTitlePackage").html($("#policyPackageType option:selected").html());
+    });
+
+    $("#policyTypeSava").change(function () {
+        $("#detailsTitlePolicyType").html($("#policyTypeSava option:selected").html());
+    });
+
+    $("#insuredNumber").change(function () {
+        $("#detailsTitleInsuredNumber").html($("#insuredNumber option:selected").html());
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Content("~/Policy/GetInsuredPartial")',
+            success: function (result) {
+                $("#InsuredInformationContent").html("");
+                for (var i = 0; i < $("#insuredNumber").val() ; i++) {
+                    $("#InsuredInformationContent").append(result);
+                }
+            }
+        });
+    });
+</script>

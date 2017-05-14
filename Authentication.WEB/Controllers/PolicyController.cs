@@ -94,6 +94,12 @@ namespace Authentication.WEB.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult GetInsuredPartial()
+        {
+            return PartialView("_PolicyInsured");
+        }
+
         [HttpPost]
         public async Task<JsonResult> Index(Policy policy, int policyPackageType, int policyTypeSava)
         {
@@ -135,8 +141,8 @@ namespace Authentication.WEB.Controllers
                 ModelState.Remove("PolicyHolderSSN");
             }
 
-            if (ModelState.IsValid && policy != null)
-            {
+            //if (ModelState.IsValid && policy != null)
+            //{
                 RatingEngineService ratingEngineService = new RatingEngineService();
                 Premium Premium = new Premium();
                 Premium.PremiumAmount = (int)ratingEngineService.totalPremiumSava(policy, policyPackageType, policyTypeSava);
@@ -156,11 +162,11 @@ namespace Authentication.WEB.Controllers
                 }
 
                 return Json(new { isValid = true, status = "ok", PremiumAmount = Premium.PremiumAmount });
-            }
-            else
-            {
-                return Json(new { isValid = false, status = "error", message = InsuredTraveling.Resource.EnterAllData });
-            }
+            //}
+            //else
+            //{
+            //    return Json(new { isValid = false, status = "error", message = InsuredTraveling.Resource.EnterAllData });
+            //}
         }
 
         public async Task<ActionResult> Preview(int policyId)
