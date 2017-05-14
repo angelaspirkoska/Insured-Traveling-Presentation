@@ -84,7 +84,7 @@
         </select>
     </div>
 </div>
-<div id="avtoAsistencijaContainer">
+<div hidden id="avtoAsistencijaContainer">
     <div class="col-md-12 form-group">
         <div class="col-md-4 text-left">
             <label for="brend-vozilo" class="text-left">бренд на возило</label>
@@ -100,3 +100,13 @@
         </div>
     </div>
 </div>
+
+<script>
+    $("#extraAvtoAsistencija").change(function () {
+        if ($(this).is(":checked")) {
+            $("#avtoAsistencijaContainer").show();
+        } else {
+            $("#avtoAsistencijaContainer").hide();
+        }
+    });
+</script>

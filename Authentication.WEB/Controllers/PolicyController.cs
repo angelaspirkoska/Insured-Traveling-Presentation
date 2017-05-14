@@ -101,7 +101,9 @@ namespace Authentication.WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Index(Policy policy, int policyPackageType, int policyTypeSava)
+        public async Task<JsonResult> Index(Policy policy, int policyPackageType, int policyTypeSava,
+            bool isProfessionalDriver = false, bool isAbroadStudent = false, bool extraNezgoda = false,
+            bool extraDomasnaAsistencija = false, bool extraAvtoAsistencija = false)
         {
             string username = System.Web.HttpContext.Current.User.Identity.Name;
 
