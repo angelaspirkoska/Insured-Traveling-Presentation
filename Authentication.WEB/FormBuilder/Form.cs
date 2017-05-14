@@ -37,7 +37,7 @@ namespace InsuredTraveling.FormBuilder
 
 
 
-    public abstract class BaseTag : ITagGenerator
+    public abstract class   BaseTag : ITagGenerator
     {
         protected HtmlTag _tag;
         protected TagInfo _fieldInfo;
@@ -259,7 +259,7 @@ namespace InsuredTraveling.FormBuilder
 
             if (tryGetValue)
             {
-                _tag.Attr("value", defaultValue);
+                _tag.Attr("checked");
             }
             return _tag;
         }
@@ -339,7 +339,7 @@ namespace InsuredTraveling.FormBuilder
 
             if (tryGetValue)
             {
-                _tag.Attr("value", defaultValue);
+                _tag.Attr("checked");
             }
             return _tag;
         }
