@@ -299,7 +299,28 @@
     <Content Include="Content\savaCss\freelancer.css" />
     <Content Include="Content\savaCss\freelancer.min.css" />
     <Content Include="Content\savaCss\style.css" />
+    <Content Include="Content\SavaTemplate\css\bootstrap.css" />
+    <Content Include="Content\SavaTemplate\css\bootstrap.min.css" />
+    <Content Include="Content\SavaTemplate\css\freelancer.css" />
+    <Content Include="Content\SavaTemplate\css\freelancer.min.css" />
+    <Content Include="Content\SavaTemplate\css\style.css" />
+    <Content Include="Content\SavaTemplate\img\logo-mk-mk.png" />
+    <Content Include="Content\SavaTemplate\img\slidr_163_bg.jpg" />
+    <Content Include="Content\SavaTemplate\img\slidr_5_bg.jpg" />
+    <Content Include="Content\SavaTemplate\img\slidr_672_bg.jpg" />
+    <Content Include="Content\SavaTemplate\img\slidr_6_bg.jpg" />
+    <Content Include="Content\SavaTemplate\img\slidr_767_bg.jpg" />
+    <Content Include="Content\SavaTemplate\js\bootstrap.js" />
+    <Content Include="Content\SavaTemplate\js\bootstrap.min.js" />
+    <Content Include="Content\SavaTemplate\js\contact_me.js" />
+    <Content Include="Content\SavaTemplate\js\freelancer.js" />
+    <Content Include="Content\SavaTemplate\js\freelancer.min.js" />
+    <Content Include="Content\SavaTemplate\js\jqBootstrapValidation.js" />
+    <Content Include="Content\SavaTemplate\js\jquery.js" />
+    <Content Include="Content\SavaTemplate\js\jquery.min.js" />
+    <Content Include="Content\SavaTemplate\js\script.js" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Errors\401.aspx" />
     <Content Include="Errors\401.html" />
     <Content Include="Errors\404.aspx" />
@@ -312,6 +333,7 @@
     <Content Include="HalkbankPaymentPlugin\HalkbankPayment.HalkbankSmartPayment.dll" />
     <Content Include="HalkbankPaymentPlugin\HalkbankPayment.HalkbankSmartPaymentTrue.dll" />
     <Content Include="index.html" />
+    <Content Include="index_old.html" />
     <Content Include="InsuredTravelingEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>InsuredTravelingEntity.edmx</DependentUpon>
@@ -2015,6 +2037,7 @@
     <Content Include="Scripts\messages_is.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\script.js" />
     <Content Include="Scripts\Search\Search.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
