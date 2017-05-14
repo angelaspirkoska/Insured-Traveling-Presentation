@@ -69,6 +69,7 @@ namespace Authentication.WEB.Controllers
             p.Policy_TypeID = 1;
             p.Travel_Insurance_TypeID = 1;
             p.Retaining_RiskID = 1;
+            p.Created_By = "Aleks";
 
             ViewBag.IsPaid = false;
             PaymentModel model = new PaymentModel();
