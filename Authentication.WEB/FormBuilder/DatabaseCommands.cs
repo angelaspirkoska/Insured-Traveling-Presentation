@@ -307,6 +307,8 @@ namespace InsuredTraveling.FormBuilder
         {
             try
             {
+                var fuctName = new List<string>();
+                fuctName = functions.Select(x => x.Name).ToList();
                 foreach (var function in functions)
                 {
                     var funcValue = function.ToString().ToLower();
@@ -320,49 +322,49 @@ namespace InsuredTraveling.FormBuilder
                             if(castFunction.Database[i, 0] != castFunction.PropertyValueName)
                             {
                                 var parametar = castFunction.Database[i, 0].Replace(' ', '_') + ", ";
-                                parameters.Append(ChangeParameterIfFunction(parametar));
+                                parameters.Append(ChangeParameterIfFunction(parametar, fuctName));
                             }
                                
                         }
                         parameters.Length = parameters.Length - 2;
 
-                        masterProcedure.Append(" SET @Ouput" + function.Name + "='';");
-                        masterProcedure.Append(" CALL " + function.Name + "_" + excelID + "(" + parameters + ", @Ouput" + function.Name + "); ");
+                        masterProcedure.Append(" SET @Output" + function.Name + "='';");
+                        masterProcedure.Append(" CALL " + function.Name + "_" + excelID + "(" + parameters + ", @Output" + function.Name + "); ");
 
                     }
                     else if (funcValue.StartsWith("(if"))
                     {
                         IfCondition castFunction = (IfCondition)function;
-                        masterProcedure.Append(" SET @Ouput" + function.Name + "='';");
-                        castFunction.Condition.OperandLeft = ChangeParameterIfFunction(castFunction.Condition.OperandLeft);
-                        castFunction.Condition.OperandRight = ChangeParameterIfFunction(castFunction.Condition.OperandRight);
-                        castFunction.IfTrue = ChangeParameterIfFunction(castFunction.IfTrue);
-                        castFunction.IfFalse = ChangeParameterIfFunction(castFunction.IfFalse);
+                        masterProcedure.Append(" SET @Output" + function.Name + "='';");
+                        castFunction.Condition.OperandLeft = ChangeParameterIfFunction(castFunction.Condition.OperandLeft, fuctName);
+                        castFunction.Condition.OperandRight = ChangeParameterIfFunction(castFunction.Condition.OperandRight, fuctName);
+                        castFunction.IfTrue = ChangeParameterIfFunction(castFunction.IfTrue, fuctName);
+                        castFunction.IfFalse = ChangeParameterIfFunction(castFunction.IfFalse, fuctName);
                         switch (castFunction.Condition.Operation)
                         {
                             case "=":
                                 {
-                                    masterProcedure.Append(" CALL IfEquals(@Ouput" + function.Name + ", " + castFunction.Condition.OperandLeft + ", " + castFunction.Condition.OperandRight + ", " + castFunction.IfTrue + ", " + castFunction.IfFalse + "); ");
+                                    masterProcedure.Append(" CALL IfEquals(@Output" + function.Name + ", " + castFunction.Condition.OperandLeft + ", " + castFunction.Condition.OperandRight + ", " + castFunction.IfFalse + ", " + castFunction.IfTrue + "); ");
                                     break;
                                 }
                             case ">":
                                 {
-                                    masterProcedure.Append(" CALL IfBigger(@Ouput" + function.Name + ", " + castFunction.Condition.OperandLeft + ", " + castFunction.Condition.OperandRight + ", " + castFunction.IfTrue + ", " + castFunction.IfFalse + "); ");
+                                    masterProcedure.Append(" CALL IfBigger(@Output" + function.Name + ", " + castFunction.Condition.OperandLeft + ", " + castFunction.Condition.OperandRight + ", " + castFunction.IfTrue + ", " + castFunction.IfFalse + "); ");
                                     break;
                                 }
                             case "<":
                                 {
-                                    masterProcedure.Append(" CALL IfSmaller(@Ouput" + function.Name + ", " + castFunction.Condition.OperandLeft + ", " + castFunction.Condition.OperandRight + ", " + castFunction.IfTrue + ", " + castFunction.IfFalse + "); ");
+                                    masterProcedure.Append(" CALL IfSmaller(@Output" + function.Name + ", " + castFunction.Condition.OperandLeft + ", " + castFunction.Condition.OperandRight + ", " + castFunction.IfFalse + ", " + castFunction.IfTrue + "); ");
                                     break;
                                 }
                             case ">=":
                                 {
-                                    masterProcedure.Append(" CALL IfBiggerAndEqual@Ouput" + function.Name + ", " + castFunction.Condition.OperandLeft + ", " + castFunction.Condition.OperandRight + ", " + castFunction.IfTrue + ", " + castFunction.IfFalse + "); ");
+                                    masterProcedure.Append(" CALL IfBiggerAndEqual@Output" + function.Name + ", " + castFunction.Condition.OperandLeft + ", " + castFunction.Condition.OperandRight + ", " + castFunction.IfFalse + ", " + castFunction.IfTrue + "); ");
                                     break;
                                 }
                             case "<=":
                                 {
-                                    masterProcedure.Append(" CALL IfSmallerAndEqual(@Ouput" + function.Name + ", " + castFunction.Condition.OperandLeft + ", " + castFunction.Condition.OperandRight + ", " + castFunction.IfTrue + ", " + castFunction.IfFalse + "); ");
+                                    masterProcedure.Append(" CALL IfSmallerAndEqual(@Output" + function.Name + ", " + castFunction.Condition.OperandLeft + ", " + castFunction.Condition.OperandRight + ", " + castFunction.IfFalse + ", " + castFunction.IfTrue + "); ");
                                     break;
                                 }
                         }
@@ -370,70 +372,70 @@ namespace InsuredTraveling.FormBuilder
                     else if (funcValue.StartsWith("round"))
                     {
                         Round castFunction = (Round)function;
-                        masterProcedure.Append(" SET @Ouput" + function.Name + "='';");
-                        castFunction.Number = ChangeParameterIfFunction(castFunction.Number);
-                        castFunction.RoundTo = ChangeParameterIfFunction(castFunction.RoundTo);
-                        masterProcedure.Append(" CALL Round(" + castFunction.Number + ", @OuputRound, " + castFunction.RoundTo + "); ");
+                        masterProcedure.Append(" SET @Output" + function.Name + "='';");
+                        castFunction.Number = ChangeParameterIfFunction(castFunction.Number, fuctName);
+                        castFunction.RoundTo = ChangeParameterIfFunction(castFunction.RoundTo, fuctName);
+                        masterProcedure.Append(" CALL Round(" + castFunction.Number + ", @OutputRound, " + castFunction.RoundTo + "); ");
                     }
                     else if (funcValue.StartsWith("exact"))
                     {
                         Exact castFunction = (Exact)function;
-                        masterProcedure.Append(" SET @Ouput" + function.Name + "='';");
-                        castFunction.LeftOperand = ChangeParameterIfFunction(castFunction.LeftOperand);
-                        castFunction.RightOperand = ChangeParameterIfFunction(castFunction.RightOperand);
-                        masterProcedure.Append(" CALL Exact(" + castFunction.LeftOperand + ", @OuputExact, " + castFunction.RightOperand + "); ");
+                        masterProcedure.Append(" SET @Output" + function.Name + "='';");
+                        castFunction.LeftOperand = ChangeParameterIfFunction(castFunction.LeftOperand, fuctName);
+                        castFunction.RightOperand = ChangeParameterIfFunction(castFunction.RightOperand, fuctName);
+                        masterProcedure.Append(" CALL Exact(" + castFunction.LeftOperand + ", @OutputExact, " + castFunction.RightOperand + "); ");
                     }
                     else
                     {
                         MathOperation castFunction = (MathOperation)function;
-                        masterProcedure.Append(" SET @Ouput" + function.Name + "='';");
-                        castFunction.OperandRight = ChangeParameterIfFunction(castFunction.OperandRight);
-                        castFunction.OperandLeft = ChangeParameterIfFunction(castFunction.OperandLeft);
+                        masterProcedure.Append(" SET @Output" + function.Name + "='';");
+                        castFunction.OperandRight = ChangeParameterIfFunction(castFunction.OperandRight, fuctName);
+                        castFunction.OperandLeft = ChangeParameterIfFunction(castFunction.OperandLeft, fuctName);
                         switch (castFunction.Operation)
                         {
                             case "*":
                                 {
-                                    masterProcedure.Append(" CALL Multiplication(" + castFunction.OperandRight + ", " + castFunction.OperandLeft + "," + "@Ouput" + function.Name + "); ");
+                                    masterProcedure.Append(" CALL Multiplication(" + castFunction.OperandRight + ", " + castFunction.OperandLeft + "," + "@Output" + function.Name + "); ");
                                     break;
                                 }
                             case "/":
                                 {
-                                    masterProcedure.Append(" CALL Division(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Ouput" + function.Name + "); ");
+                                    masterProcedure.Append(" CALL Division(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Output" + function.Name + "); ");
                                     break;
                                 }
                             case "+":
                                 {
-                                    masterProcedure.Append(" CALL Addition(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Ouput" + function.Name + "); ");
+                                    masterProcedure.Append(" CALL Addition(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Output" + function.Name + "); ");
                                     break;
                                 }
                             case "-":
                                 {
-                                    masterProcedure.Append(" CALL Substraction(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Ouput" + function.Name + "); ");
+                                    masterProcedure.Append(" CALL Substraction(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Output" + function.Name + "); ");
                                     break;
                                 }
                             case ">":
                                 {
-                                    masterProcedure.Append(" CALL CompareBigger(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Ouput" + function.Name + "); ");
+                                    masterProcedure.Append(" CALL CompareBigger(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Output" + function.Name + "); ");
                                     break;
                                 }
                             case ">=":
                                 {
-                                    masterProcedure.Append(" CALL CompareBiggerAndEqual(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Ouput" + function.Name + "); ");
+                                    masterProcedure.Append(" CALL CompareBiggerAndEqual(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Output" + function.Name + "); ");
                                     break;
                                 }
                             case "=":
                                 {
-                                    masterProcedure.Append(" CALL CompareEqual(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Ouput" + function.Name + "); ");
+                                    masterProcedure.Append(" CALL CompareEqual(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Output" + function.Name + "); ");
                                     break;
                                 }
                             case "<":
                                 {
-                                    masterProcedure.Append(" CALL CompareSmaller(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Ouput" + function.Name + "); ");
+                                    masterProcedure.Append(" CALL CompareSmaller(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Output" + function.Name + "); ");
                                     break;
                                 }
                             case "<=":
                                 {
-                                    masterProcedure.Append(" CALL CompareSmallerAndEqual(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Ouput" + function.Name + "); ");
+                                    masterProcedure.Append(" CALL CompareSmallerAndEqual(" + castFunction.OperandLeft + ", " + castFunction.OperandRight + "," + "@Output" + function.Name + "); ");
                                     break;
                                 }
                         }
@@ -456,8 +458,8 @@ namespace InsuredTraveling.FormBuilder
             {
                 foreach (var procedure in procedures)
                 {
-                    string outputParametar = " @OuputProcedure" + procedure.Name;
-                    masterProcedure.Append(" SET @OuputProcedure" + procedure.Name + "='';");
+                    string outputParametar = " @OutputProcedure" + procedure.Name;
+                    masterProcedure.Append(" SET @OutputProcedure" + procedure.Name + "='';");
                     
                     var procValue = procedure.ToString().ToLower();
                     if (procValue.StartsWith("(if"))
@@ -600,12 +602,13 @@ namespace InsuredTraveling.FormBuilder
             
             return parameter;
         }
-        public static string ChangeParameterIfFunction(string parameter)
+        public static string ChangeParameterIfFunction(string parameter, List<string> fuctName)
         {
             string output = null;
             if(parameter != null)
             {
-                if (parameter.ToLower().StartsWith("c"))
+                var contains = fuctName.Contains(parameter);
+                if (contains)
                 {
                     output = "@Output" + parameter;
                     return output;
