@@ -9,6 +9,9 @@
     {
         dateFormat = dateFormat.Replace("YY", "YYYY");
     }
+    var policyTypeSava = ViewBag.Category ?? 1;
+    var insuredNumber = ViewBag.PersonsNum ?? 1;
+    var validDays = ViewBag.Days ?? 1;
 }
 
 <div class="form-group text-left">
@@ -72,7 +75,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
                 <div class="input-group">
-                    @Html.EditorFor(model => model.Valid_Days, new { htmlAttributes = new { @disabled="disabled", @class = "form-control input-sm mandatoryField policyInfo", @style = "position: static;", @min = "1", @max = "10" } })
+                    <input type="text" name="Valid_Days" id="Valid_Days" class="form-control input-sm mandatoryField policyInfo" style="position:static;" disabled />
                     <span class="input-group-addon">@InsuredTraveling.Resource.Policy_Days</span>
                 </div>
                 @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
@@ -84,13 +87,17 @@
 <script>
     $(function () {
 
-        var today = moment();
+        $("#policyTypeSava").val('@policyTypeSava');
+        $("#insuredNumber").val('@insuredNumber');
+        $("#Valid_Days").val(@validDays);
 
         $("#policy-daterange").daterangepicker({
-            minDate: today,
+            minDate: moment(),
             locale: {
                 format: '@dateFormat'
-            }
+            },
+            startDate: moment(),
+            endDate: moment().add(@validDays, 'days')
         });
 
         $('#policy-daterange').on('apply.daterangepicker', function (ev, picker) {

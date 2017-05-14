@@ -1,212 +1,258 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>InsuredTraveling.com</title>
-
+    <title>САВА Осигурување</title>
     <!-- Bootstrap Core CSS -->
-    <link href="/Content/bootstrap.css" rel="stylesheet">
-
+    <link href="/Content/SavaTemplate/css/bootstrap.css" rel="stylesheet">
     <!-- Theme CSS -->
-    <link href="/Content/freelancer.css" rel="stylesheet">
-
+    <link href="/Content/SavaTemplate/css/freelancer.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/Content/SavaTemplate/css/style.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="/Content/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
-    <link rel="icon" href="/Content/img/profile.png">
-
+    <!-- Icon -->
+    <link rel="icon" href="/Content/SavaTemplate/img/logo-mk-mk.png">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+        <![endif]-->
 </head>
-
 <body id="page-top" class="index">
-
+    <div id="skipnav"><a href="#maincontent">Skip to main content</a></div>
     <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand" href="#page-top">InsuredTraveling.com</a>
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Logo -->
+                <div class="col-md-4 navbar-brand pull-left">
+                    <a class="text-center" href="index.html"><img class="img-responsive" alt="Сава Осигурување" src="/Content/SavaTemplate/img/logo-mk-mk.png"></a>
+                </div>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="col-md-4 navbar-header">
+                    <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span><i class="fa fa-bars"></i>
+                    </button>
+                </div>
+                <!--**************************************************-->
+                <div class="col-md-4 navbar-collapse collapse pull-left" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 1px; vertical-align: middle;">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li class="dropdown xs-expand" style="margin-top:6px;">
+                            <a href="#" class="dropdown-toggle nav-a-border" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"
+                               data-parent="#bs-example-navbar-collapse-1"><i class="fa fa-bars" aria-hidden="true"></i>Осигурување</a>
+                            <ul class="dropdown-menu my-dropdown-big" style="height: 542px; overflow-y: auto;">
+                                <li>
+                                    <a href="#" data-toggle="dropdown"><i class="fa fa-car" aria-hidden="true"></i>МојАвтомобил</a>
+                                    <ul class="dropdown-menu so-dropdown-submenu" id="n-m-sub1">
+                                        <li><a href="#">АО и АО+</a></li>
+                                        <li><a href="#">Автомобилска асистенција</a></li>
+                                        <li><a href="#">Каско</a></li>
+                                        <li><a href="#">Зелен картон</a></li>
+                                        <li><a href="#">Гранично</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" data-toggle="dropdown"><i class="fa fa-home" aria-hidden="true"></i>МојДом</a>
+                                    <ul class="dropdown-menu so-dropdown-submenu" id="n-m-sub2">
+                                        <li><a href="#">Домаќинско</a></li>
+                                        <li><a href="#">Домашна асистенција</a></li>
+                                        <li><a href="#">Земјотрес</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#"><i class="fa fa-suitcase" aria-hidden="true"></i>МоеПатување</a></li>
+                                <li><a href="#"><i class="fa fa-umbrella" aria-hidden="true"></i>Осигурување од незгода</a></li>
+                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i>МоеЗдравје</a></li>
+                                <li>
+                                    <a href="#" data-toggle="dropdown"><i class="fa fa-industry" aria-hidden="true"></i>Осигурување на фирми</a>
+                                    <ul class="dropdown-menu so-dropdown-submenu" id="n-m-sub6">
+                                        <li><a href="#">Имот</a></li>
+                                        <li><a href="#">Транспорт</a></li>
+                                        <li><a href="#">Осигурување од одговорност</a></li>
+                                        <li><a href="#">Осигурување на возила</a></li>
+                                        <li><a href="#">Осигурување од незгода</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#"><i class="fa fa-envira" aria-hidden="true"></i>Земјоделско</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#"><i class="fa fa-map-marker" aria-hidden="true" style="font-size: 20px;"></i> Мрежа</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i><span class="nav-lbl"> <strong> 0800 80 000</strong></span></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-university" aria-hidden="true"></i><span class="nav-lbl"> За нас</span></a>
+                            <ul class="dropdown-menu" id="nav-so-menu">
+                                <li><a href="#">Новини</a></li>
+                                <li><a href="#">Соопштенија за јавноста</a></li>
+                                <li><a href="#">Профил на компанијата</a></li>
+                                <li><a href="#">Општествено одговорна компанија</a></li>
+                                <li><a href="#">Контактирајте нé</a></li>
+                                <li><a href="#">Документи</a></li>
+                                <li><a href="#">Мрежа</a></li>
+                                <li><a href="#">Услови за осигурување</a></li>
+                                <li><a href="#">Sava Station</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Пријави на штети</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i><span class="nav-lbl"> <strong> Логин</strong></span></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search" aria-hidden="true"></i><span class="nav-lbl"> Барај</span></a>
+                            <ul class="dropdown-menu my-dropdown-search">
+                                <li>
+                                    <form class="form-inline" role="form" action="" method="get" id="frm-search">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" name="q" class="form-control" autofocus="">
+                                                <span class="input-group-btn">
+                                                    <button type="submit" class="btn btn-primary"> <i class="fa fa-search" aria-hidden="true"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!--**************************************************-->
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <!-- /.navbar-collapse -->
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#about">Our solution</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#portfolio">News</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#contact">Contact</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="/Login">Sign in</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
     </nav>
-
     <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="row">
+    <header class="header">
+        <div class="container" id="maincontent" tabindex="-1">
+            <div class="row" style="background: rgba(0,0,0,0.5); border-radius: 5px;">
                 <div class="col-lg-12">
-                    <img class="img-responsive" src="/Content/img/profile.png" height="360px" width="360px" alt="">
-                    <div class="intro-text">
-                        <span class="name">InsuredTraveling</span>
-                        <hr class="star-light">
-                        <span class="skills">Android application for buying insurance policies.</span>
+                    <div class="form-group">
+                        <h2>Мое патување</h2>
+                        <h4>Патувањата по светот често знаат да бидат непредвидливи.</h4>
+                        <form method="get" action="/Policy/Index" class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <label class="control-label pull-left">Вид</label>
+                                    <select name="category" class="form-control input-lg" title="Одбери">
+                                        <option value="1">Индивидуално</option>
+                                        <option value="2">Фамилијарно</option>
+                                        <option value="3">Студент</option>
+                                        <option value="4">Business</option>
+                                        <option value="5">Групно</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label pull-left">Број на лица</label>
+                                    <select name="personsnum" class="form-control input-lg" title="Одбери">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label pull-left">Период на престој во странство</label>
+                                    <select name="days" class="form-control input-lg" title="Одбери">
+                                        <option value="3">3</option>
+                                        <option value="8">8</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label">&nbsp;</label>
+                                    <button type="submit" class="btn btn-lg btn-primary" id="btn-calculate">
+                                        Пресметај
+                                        <i class="fa fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
+                    <!-- <div class="col-md-12" style="margin: 0;padding: 0;">
+                      <img class="img-responsive" src="img/slidr_163_bg.jpg" alt="" style="margin: 0;padding: 0;">
+                    </div>
+                    <div class="form-inline" style="width: 710px;">
+                      <div class="col-md-4" style="margin: 0;padding: 0;">
+                        <img class="img-responsive" src="img/slidr_6_bg.jpg" alt="">
+                      </div>
+                      <div class="col-md-4" style="margin: 0;padding: 0;">
+                        <img class="img-responsive" src="img/slidr_672_bg.jpg" alt="">
+                      </div>
+                      <div class="col-md-4" style="margin: 0;padding: 0;">
+                      <img class="img-responsive" src="img/slidr_767_bg.jpg" alt="">
+                      </div>
+                    </div> -->
+                    <!--SLIDER HERE-->
+
                 </div>
             </div>
         </div>
     </header>
-
     <!-- About Section -->
-    <section class="success" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Our solution</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-lg-offset-2">
-                    <p>TravellingInsured is project which is a standalone platform for online sales of insurance policies which includes both mobile apps and web administration panel. The mobile app is friendly and allows users to buy insurance on the go. The administrative panel allows administration of the sales, but also drilling down reports and administration of the sales.</p>
-                </div>
-                <div class="col-lg-4">
-                    <p>To make it easier for our clients to buy and manage insurance policies. </p>
-                    <p>The application is offering the insurance companies the opportunity to get to know their clients more deeply and to build better marketing campaigns.</p>
-                </div>
-            </div>
+    <!-- <section class="grey" id="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2>About</h2>
+            <hr class="star-light">
+          </div>
         </div>
-    </section>
-
-     <!-- Portfolio Grid Section -->
-    <section id="portfolio">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>News</h2>
-                    <hr class="star-light">
-                </div>
-            </div>
-            <div class="row">
-                 <div class="col-md-4">
-                    <h3>Application announcement</h3>
-                    <p>Our InsuredTraveling 1.0 application is coming out on the 22nd of August, 2016! Stay tuned for more info soon. </p> <a href="#" class="btn btn-lg btn-outline"> <i class="fa fa-plus"></i> More... </a>
-                
-                </div>
-                <div class="col-md-4">
-                    <h3>News #2</h3>
-                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur, ipsum eget faucibus porta, erat ante mollis ex, ut congue libero lorem blandit nisi. Suspendisse mattis suscipit turpis, quis viverra tortor gravida a. Donec eget leo erat. Vestibulum lacinia rutrum orci nec luctus. Cras ut augue condimentum, porta felis non, ullamcorper justo. </p>
-                    <a href="#" class="btn btn-lg btn-outline"> <i class="fa fa-plus"></i> More... </a>
-
-                </div>
-                <div class="col-md-4">
-                    <h3>News #3</h3>
-                    <p>Morbi sit amet condimentum purus, ac tempus ex. Aliquam orci arcu, sollicitudin et nisl pretium, pellentesque bibendum turpis. Vivamus in commodo est. Nullam vestibulum volutpat ipsum, ut tincidunt enim pharetra et. Integer finibus malesuada nisl, ut pharetra neque auctor vitae. Nulla et commodo magna.</p>
-                    <a href="#" class="btn btn-lg btn-outline"> <i class="fa fa-plus"> </i> More... </a>
-
-                </div>
-            </div>
+        <div class="row">
+          <div class="col-lg-4 col-lg-offset-2">
+            <p>Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy customization.</p>
+          </div>
+          <div class="col-lg-4">
+            <p>Whether you're a student looking to showcase your work, a professional looking to attract clients, or a graphic artist looking to share your projects, this template is the perfect starting point!</p>
+          </div>
+          <div class="col-lg-8 col-lg-offset-2 text-center">
+            <a href="#" class="btn btn-lg btn-outline">
+              <i class="fa fa-download"></i> Download Theme
+            </a>
+          </div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Contact Us</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-lg-offset-2 text-right">
-    
-                    <div class="contactList">
-                        <p> phone: +38925296046 </p>
-                        <br/>
-                        <p>mobile phone: +38977916316 </p>
-                        <br/>
-                        <p> email: contact@optimalreinsurance.com </p>
-                        <br/>
-                        <p> 6th Street, #228, Bardovci, Skopje, Macedonia </p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div id="map">
-                        <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="450" height="300" src="https://maps.google.com/maps?hl=en&q=Le château de la Poire, Bardovtsi&ie=UTF8&t=m&z=14&iwloc=B&output=embed">
-                            <div>
-                                <small><a href="http://embedgooglemaps.com"></a></small>
-                            </div>
-                            <div>
-                                <small><a href="http://embedgooglemaps.com">embed google map</a></small>
-                            </div>
-                            <div>
-                                <small><a href="http://googlemapsgenerator.com">google maps html code</a></small>
-                            </div>
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+      </div>
+    </section> -->
     <!-- Footer -->
     <footer class="text-center">
         <div class="footer-above">
             <div class="container">
                 <div class="row">
                     <div class="footer-col col-md-4">
-                        <h3>Location</h3>
-                        <p>6th Street, #228, Bardovci
-                            <br>Skopje, Macedonia</p>
+                        <p class="text-left">
+                            <strong>Сава Осигуривање а.д.</strong><br>
+                            <a href="">Профил на компанијата</a><br>
+                            <a href="">Контактирајте нé</a><br>
+                            <a href="">Мрежа</a><br>
+                            <a href="">Sava Station</a><br>
+                        </p>
                     </div>
                     <div class="footer-col col-md-4">
-                        <h3>Follow us</h3>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="https://www.facebook.com/systems4enterprise/?fref=ts" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.linkedin.com/company/systems-for-enterprise" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.instagram.com/s4e.foodcorner/" class="btn-social btn-outline"><i class="fa fa-fw fa-instagram"></i></a>
-                            </li>
-                        </ul>
+                        <p class="text-left">
+                            <strong>Социјалните мрежи </strong><br>
+                            <a href="#" class="btn-social btn-outline"><span class="sr-only">Facebook</span><i class="fa fa-fw fa-facebook"></i></a>
+                        </p>
                     </div>
                     <div class="footer-col col-md-4">
-                        <h3>About S4E</h3>
-                        <p>Visit our <a href="http://systems4enterprise.com/" class="website-link"> website </a> for more info.</p>
+                        <p class="text-left">
+                            <strong>24/7 Контакт центар на бесплатниот број:</strong><br>
+                            <a href="http://startbootstrap.com"><i class="fa fa-phone" aria-hidden="true"></i><strong> 0800 80 000</strong></a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -215,260 +261,25 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        Copyright &copy; S4E
+                        Copyright &copy; Systems 4 Enterprise
                     </div>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-    <div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
-        <a class="btn btn-primary" href="#page-top">
-            <i class="fa fa-chevron-up"></i>
-        </a>
-    </div>
-
-    <!-- Portfolio Modals -->
-    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="/Content/img/portfolio/cabin.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="/Content/img/portfolio/cake.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="/Content/img/portfolio/circus.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="/Content/img/portfolio/game.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="/Content/img/portfolio/safe.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="/Content/img/portfolio/submarine.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- jQuery -->
-    <script src="/Scripts/jquery-3.1.1.min.js"></script>
-
+    <script src="/Content/SavaTemplate/js/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="/Scripts/bootstrap.min.js"></script>
-
+    <script src="/Content/SavaTemplate/js/bootstrap.min.js"></script>
     <!-- Plugin JavaScript -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-
     <!-- Contact Form JavaScript -->
-    <script src="/Scripts/jqBootstrapValidation.js"></script>
-    <script src="/Scripts/contact_me.js"></script>
-
+    <script src="/Content/SavaTemplate/js/jqBootstrapValidation.js"></script>
+    <script src="/Content/SavaTemplate/js/contact_me.js"></script>
     <!-- Theme JavaScript -->
-    <script src="/Scripts/freelancer.min.js"></script>
-
+    <script src="/Content/SavaTemplate/js/freelancer.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="/Content/SavaTemplate/js/script.js"></script>
 </body>
-
 </html>

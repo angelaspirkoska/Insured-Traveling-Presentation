@@ -3,7 +3,7 @@
 @using System.Web.Optimization;
 @using System.Configuration;
 
-@{ 
+@{
     RoleAuthorize r = new RoleAuthorize();
 }
 
@@ -17,9 +17,9 @@
                 <b>Патничко осигурување <span id="detailsTitlePackage">GOLD</span></b><br>
                 вид: <b><span id="detailsTitlePolicyType">Индивидуално</span></b>, лица: <b><span id="detailsTitleInsuredNumber">1</span></b>, <br>
                 @*период на осигурување, двата датуми вклучени: <b>
-                    <br>
-                    <span id="detailtTitleStartDate"></span>-<span id="detailtTitleEndDate"></span>
-                </b>*@
+                        <br>
+                        <span id="detailtTitleStartDate"></span>-<span id="detailtTitleEndDate"></span>
+                    </b>*@
             </label>
             <hr>
         </div>
@@ -33,9 +33,12 @@
             </div>
         </div>
 
-        <div id="HolderInformationContent">
-            @Html.Partial("_PolicyHolder", Model)
-        </div>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div id="HolderInformationContent">
+                @Html.Partial("_PolicyHolder", Model)
+            </div>
+        }
 
         <div id="InsuredInformationContent">
             @Html.Partial("_PolicyInsured", Model)

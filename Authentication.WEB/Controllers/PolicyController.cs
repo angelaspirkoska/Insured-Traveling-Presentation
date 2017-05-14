@@ -54,11 +54,11 @@ namespace Authentication.WEB.Controllers
         }
         [HttpGet]
         [SessionExpire]
-        public async Task<ActionResult> Index(string ssn)
+        public async Task<ActionResult> Index(string ssn, int category = 1, int personsnum = 1, int days = 10)
         {
 
-            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
+            //if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            //    Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
 
             Policy p = new Policy();
 
@@ -74,6 +74,10 @@ namespace Authentication.WEB.Controllers
             ViewBag.Franchise = franchises.Result;
             ViewBag.additional_charges = additional_charges.Result;
             ViewBag.DisableDefault = false;
+
+            ViewBag.Category = category;
+            ViewBag.PersonsNum = personsnum;
+            ViewBag.Days = days;
 
             if (!String.IsNullOrEmpty(ssn))
             {
@@ -129,7 +133,7 @@ namespace Authentication.WEB.Controllers
                 policy.PolicyHolderPhoneNumber = policy.PhoneNumber;
             }
             else
-            { 
+            {
                 ModelState.Remove("PolicyHolderName");
                 ModelState.Remove("PolicyHolderLastName");
                 ModelState.Remove("PolicyHolderEmail");
@@ -143,25 +147,25 @@ namespace Authentication.WEB.Controllers
 
             //if (ModelState.IsValid && policy != null)
             //{
-                RatingEngineService ratingEngineService = new RatingEngineService();
-                Premium Premium = new Premium();
-                Premium.PremiumAmount = (int)ratingEngineService.totalPremiumSava(policy, policyPackageType, policyTypeSava);
-                if (_roleAuthorize.IsUser("Broker manager", username))
+            RatingEngineService ratingEngineService = new RatingEngineService();
+            Premium Premium = new Premium();
+            Premium.PremiumAmount = (int)ratingEngineService.totalPremiumSava(policy, policyPackageType, policyTypeSava);
+            if (_roleAuthorize.IsUser("Broker manager", username))
+            {
+                if (Premium.PremiumAmount > 10000)
                 {
-                    if (Premium.PremiumAmount > 10000)
-                    {
-                        return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded", PremiumAmount = Premium.PremiumAmount });
-                    }
+                    return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded", PremiumAmount = Premium.PremiumAmount });
                 }
-                else if (_roleAuthorize.IsUser("Broker", username))
+            }
+            else if (_roleAuthorize.IsUser("Broker", username))
+            {
+                if (Premium.PremiumAmount > 10000)
                 {
-                    if (Premium.PremiumAmount > 10000)
-                    {
-                        return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded", PremiumAmount = Premium.PremiumAmount });
-                    }
+                    return Json(new { isValid = false, status = "error", message = "ThePremiumIsExceeded", PremiumAmount = Premium.PremiumAmount });
                 }
+            }
 
-                return Json(new { isValid = true, status = "ok", PremiumAmount = Premium.PremiumAmount });
+            return Json(new { isValid = true, status = "ok", PremiumAmount = Premium.PremiumAmount });
             //}
             //else
             //{
@@ -232,7 +236,7 @@ namespace Authentication.WEB.Controllers
             ViewBag.Doplatok2 = 0;
             if (additionalCharges.Count >= 1 && additionalCharges[0] != null)
             {
-               if(additionalCharges[0].ID == 2 )
+                if (additionalCharges[0].ID == 2)
                     ViewBag.Doplatok1 = 1;
             }
             if (additionalCharges.Count >= 2 && additionalCharges[1] != null)
@@ -247,7 +251,7 @@ namespace Authentication.WEB.Controllers
         public async System.Threading.Tasks.Task<ActionResult> CreatePolicy(Policy policy)
         {
             ValidationService validationService = new ValidationService();
-            RatingEngineService ratingEngineService = new RatingEngineService();      
+            RatingEngineService ratingEngineService = new RatingEngineService();
             travel_policy polisaEntity = new travel_policy();
 
             Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/api/premium/calculate");
@@ -261,7 +265,7 @@ namespace Authentication.WEB.Controllers
             string responseBody = await responseMessage.Content.ReadAsStringAsync();
             dynamic data = JObject.Parse(responseBody);
             int premium = data.PremiumAmount;
-   
+
             bool valid = validationService.masterValidate(polisaEntity);
             double? vkupnaPremija = ratingEngineService.totalPremium(policy);
             policy.Total_Premium = vkupnaPremija;
@@ -276,7 +280,8 @@ namespace Authentication.WEB.Controllers
                 {
                     tempID = 0;
                 }
-                else {
+                else
+                {
                     string ID_trim = ID_Company.Substring(0, 4);
                     string ID_trim2 = ID_Company.Substring(5);
                     tempID = int.Parse(ID_trim2) + 1;
@@ -289,7 +294,7 @@ namespace Authentication.WEB.Controllers
                 polisaEntity.Valid_Days = policy.Valid_Days;
                 polisaEntity.Travel_Insurance_TypeID = policy.Travel_Insurance_TypeID;
                 polisaEntity.Travel_NumberID = policy.Travel_NumberID;
-                polisaEntity.Exchange_RateID = (policy.Exchange_RateID.HasValue)? policy.Exchange_RateID.Value : 1;
+                polisaEntity.Exchange_RateID = (policy.Exchange_RateID.HasValue) ? policy.Exchange_RateID.Value : 1;
                 var result = _ps.AddPolicy(polisaEntity);
             }
 
@@ -299,7 +304,7 @@ namespace Authentication.WEB.Controllers
         public async System.Threading.Tasks.Task<ActionResult> CreateQuote(Policy policy)
         {
             var result = SavePolicyHelper.SavePolicy(policy, _ps, _us, _iss, _pis, _acs);
-            var quoteNumber= _ps.GetPolicyById(result).Policy_Number;
+            var quoteNumber = _ps.GetPolicyById(result).Policy_Number;
             if (result != 0)
             {
                 return Json(new { success = true, responseText = quoteNumber, numberQuote = quoteNumber }, JsonRequestBehavior.AllowGet);
@@ -327,7 +332,7 @@ namespace Authentication.WEB.Controllers
         {
             PaymentModel pat = new PaymentModel();
             pat.Pat = _ps.GetPolicyIdByPolicyNumber(id);
-            
+
             pat.mainInsured = _pis.GetAllInsuredByPolicyIdAndInsuredCreatedBy(pat.Pat.ID, pat.Pat.Created_By).First();
             var additionalCharges = _acs.GetAdditionalChargesByPolicyId(pat.Pat.ID);
 
@@ -369,23 +374,23 @@ namespace Authentication.WEB.Controllers
         }
 
         private async Task<List<SelectListItem>> GetTypeOfPolicy()
-        {           
+        {
             return await _pts.GetAll().ToListAsync();
         }
 
         private async Task<List<SelectListItem>> GetTypeOfCountry()
-        {           
+        {
             return await _cs.GetAll().ToListAsync();
         }
 
         private async Task<List<SelectListItem>> GetTypeOfFranchise()
         {
-      
+
             return await _fs.GetAll().ToListAsync();
         }
 
         private async Task<List<SelectListItem>> GetTypeOfAdditionalCharges()
-        {     
+        {
             return await _acs.GetAll().ToListAsync();
         }
 
@@ -429,20 +434,20 @@ namespace Authentication.WEB.Controllers
                 insuredData.Add("City", loggedUserData.City);
                 insuredData.Add("PostalCode", loggedUserData.Postal_Code);
                 insuredData.Add("Ssn", loggedUserData.SSN);
-               
+
                 insuredData.Add("DateBirth", loggedUserData.DateBirth.ToString(dateTimeFormat, new CultureInfo("en-US")));
                 insuredData.Add("PassportID", loggedUserData.Passport_Number_IdNumber);
                 insuredData.Add("Email", loggedUserData.Email);
                 insuredData.Add("PhoneNumber", loggedUserData.Phone_Number);
 
-                Result.Add("InsuredData",insuredData);
+                Result.Add("InsuredData", insuredData);
             }
             else
             {
                 Result.Add("response", "Not authenticated user");
             }
 
-            return Result;           
+            return Result;
         }
 
         public JObject GetExistentInsuredUserData(string ssn)
@@ -456,17 +461,19 @@ namespace Authentication.WEB.Controllers
             {
                 InsuredUser = _iss.GetInsuredBySsn(ssn);
 
-            }else if(_roleAuthorize.IsUser("Broker"))
+            }
+            else if (_roleAuthorize.IsUser("Broker"))
             {
                 InsuredUser = _iss.GetInsuredBySsnAndCreatedBy(ssn, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name));
 
-            }else if (_roleAuthorize.IsUser("Broker manager"))
+            }
+            else if (_roleAuthorize.IsUser("Broker manager"))
             {
                 InsuredUser = _iss.GetBrokerManagerInsuredBySsnAndCreatedBy(ssn, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name));
             }
             JObject insuredData = new JObject();
 
-            if(InsuredUser != null)
+            if (InsuredUser != null)
             {
                 insuredData.Add("FirstName", InsuredUser.Name);
                 insuredData.Add("Name", InsuredUser.Lastname);
@@ -482,7 +489,8 @@ namespace Authentication.WEB.Controllers
 
                 Result.Add("InsuredData", insuredData);
                 return Result;
-            }else
+            }
+            else
             {
                 Result.Add("response", "User with that SSN not found");
                 return Result;
