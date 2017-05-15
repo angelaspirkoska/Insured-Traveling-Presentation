@@ -174,6 +174,7 @@ namespace InsuredTraveling.App_Start
                 dst.expiry_date = src.expiry_date;
                 dst.email_seller = src.email_seller;
                 dst.premium = src.premium;
+                dst.expiry_date = src.date_created;
             });
 
             Mapper.CreateMap<QRCodeSavaPolicy, SavaPolicyModel>().AfterMap((src, dst) =>

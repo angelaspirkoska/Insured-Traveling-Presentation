@@ -29,7 +29,7 @@ namespace InsuredTraveling.Helpers
                     var currentPoints = policyHolder.Points;
                     policyHolder.Points = (float)points + currentPoints;
                     _userService.UpdateUserPoints(policyHolder);
-                    _userService.UpdatePremiumSum(model.SSN_policyHolder, policy.premium);
+                    _userService.UpdatePremiumSum(model.SSN_policyHolder, policy.premium, policy.expiry_date );
                 }
                 ChangeUserRole(_savaSetupService, _userService, _roleAuthorize, policyHolder);
                 return returnValue;

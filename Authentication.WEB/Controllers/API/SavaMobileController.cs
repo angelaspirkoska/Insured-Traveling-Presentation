@@ -13,6 +13,8 @@ using Microsoft.Ajax.Utilities;
 using Rotativa;
 using Newtonsoft.Json.Linq;
 using InsuredTraveling.Filters;
+using System.Net.Mail;
+using Authentication.WEB.Services;
 
 namespace InsuredTraveling.Controllers.API
 {
@@ -181,6 +183,18 @@ namespace InsuredTraveling.Controllers.API
                     // Dali postoi
                     if (_savaPoliciesService.GetSavaPoliciesForList(SSN, PolicyNumber).Count() != 0)
                     {
+
+                        AuthRepository _repo = new AuthRepository();
+                        var PolicyUser = _userService.GetUserBySSN(SSN);
+
+                        if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
+                        {
+                            string userRole = "Сава+ корисник на Сава осигурување";
+                            
+                            _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport+");
+                            SendSavaEmail(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
+                        }
+
                         var x = _savaPoliciesService.GetSavaPoliciesForList(SSN, PolicyNumber);
                         data.Add("Message", "Sucessfully added points");
                         data.Add("Status", "valid");
@@ -219,6 +233,28 @@ namespace InsuredTraveling.Controllers.API
                 throw new Exception("Internal error: Empty Fields");
             }
 
+        }
+
+        private void SendSavaEmail(string email, string ime, string prezime, string userRole)
+        {
+
+            var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/EmailHeaderSuccess.png"));
+            inlineLogo.ContentId = Guid.NewGuid().ToString();
+            string mailBody = string.Format(@"   
+                     <div style='margin-left:20px'>
+                     <img style='width:700px' src=""cid:{0}"" />
+                     <p> <b> Почитувани, </b></p>                  
+                     <br />" + ime + " " + prezime +
+                 "<br /> <br />" + "Вие станавте " + userRole + "  <br />  <b>Честитки. </b> </div><br />"
+            , inlineLogo.ContentId);
+
+            var view = AlternateView.CreateAlternateViewFromString(mailBody, null, "text/html");
+            view.LinkedResources.Add(inlineLogo);
+            MailService mailService = new MailService(email);
+            mailService.setSubject("Промена на корисничи привилегии");
+            mailService.setBodyText(email, true);
+            mailService.AlternativeViews(view);
+            mailService.sendMail();
         }
     }
 }

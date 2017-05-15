@@ -58,10 +58,11 @@ namespace InsuredTraveling.Controllers
                     RoleAuthorize _roleAuthorize = new RoleAuthorize();
                     policy.email_seller = " ";
                     _sp.AddSavaPolicy(policy);
-                    _sp.SumDiscountPoints(policy.SSN_policyHolder, policy.discount_points);
-                    _userService.UpdatePremiumSum(policy.SSN_policyHolder, policy.premium);
+                    _sp.SumDiscountPoints(policy.SSN_policyHolder, policy.discount_points,policy.date_created);
+                    _userService.UpdatePremiumSum(policy.SSN_policyHolder, policy.premium, policy.date_created);
                     //var Sava_admin =  _savaSetupService.GetActiveSavaSetup();
                     var Sava_admin = _savaSetupService.GetLast();
+
                     float? UserSumPremiums = _userService.GetUserSumofPremiums(policy.SSN_policyHolder);
 
                     if (UserSumPremiums == null)
@@ -70,12 +71,13 @@ namespace InsuredTraveling.Controllers
                     }
                     var PolicyUser = _userService.GetUserBySSN(policy.SSN_policyHolder);
 
-                    if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
-                    {
-                        string userRole = "Сава+ корисник на Сава осигурување";
-                        SendSavaEmail(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
-                        _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport+");
-                    }
+                    //if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
+                    //{
+                    //    string userRole = "Сава+ корисник на Сава осигурување";
+                    //    SendSavaEmail(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
+                    //    _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport+");
+                    //}
+
                     if (_roleAuthorize.IsUser("Sava_Sport+", PolicyUser.UserName))
                     {
                         if (Sava_admin.vip_sum <= UserSumPremiums)
@@ -257,18 +259,34 @@ namespace InsuredTraveling.Controllers
                     var policy_number = dr.ItemArray[0].ToString();
                     var SSN_insured = dr.ItemArray[1].ToString();
                     var SSN_policyHolder = dr.ItemArray[2].ToString();
-                    var expiry_date = dr.ItemArray[3].ToString();
-                    var premium = dr.ItemArray[4].ToString();
+                    var dateCreated = dr.ItemArray[3].ToString();
+                    var expiry_date = dr.ItemArray[4].ToString();
+                    var premium = dr.ItemArray[5].ToString();
                     //var discount_points = dr.ItemArray[5].ToString();
 
-                    if (policy_number != "" && SSN_insured != "" && SSN_policyHolder != "" && expiry_date != "" && premium != "")
+                    if (policy_number != "" && SSN_insured != "" && SSN_policyHolder != "" && expiry_date != "" && premium != "" && dateCreated != "")
                     {
                         
                         policyModel.policy_number = Convert.ToInt32(dr.ItemArray[0]);
                         policyModel.SSN_insured = (dr.ItemArray[1]).ToString();
                         policyModel.SSN_policyHolder = (dr.ItemArray[2]).ToString();
-                        string tempExpiry = (dr.ItemArray[3]).ToString();
+                        string tempDateCreated = (dr.ItemArray[3]).ToString();
 
+                        try
+                        {
+                            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+                            DateTime startDate1 = String.IsNullOrEmpty(tempDateCreated) ? new DateTime() : DateTime.ParseExact(tempDateCreated, dateTimeFormat, CultureInfo.InvariantCulture);
+
+                            policyModel.date_created = startDate1;
+                        }
+                        catch (Exception ex)
+                        {
+                            ViewBag.ErrorMessage += " Невалиден датум на почеток.";
+
+                        }
+
+                        string tempExpiry = (dr.ItemArray[4]).ToString();
                         try
                         {
                             var dateTime = ConfigurationManager.AppSettings["DateFormat"];
@@ -279,13 +297,13 @@ namespace InsuredTraveling.Controllers
                         }
                         catch (Exception ex)
                         {
-                            ViewBag.ErrorMessage += " Невалиден датум ";
+                            ViewBag.ErrorMessage += " Невалиден датум на истекување.";
                             
                         }
 
                         try
                         {
-                            policyModel.premium = Convert.ToInt32(dr.ItemArray[4]);
+                            policyModel.premium = Convert.ToInt32(dr.ItemArray[5]);
                         }
                         catch (Exception ex)
                         {

@@ -36,28 +36,30 @@ namespace InsuredTraveling.DI
         }
 
         //Dodava poeni vo  aspnetusers 
-        public void SumDiscountPoints(string policyHolder,float DiscountPoints)
+        public void SumDiscountPoints(string policyHolder,float DiscountPoints, DateTime datePolicyCreated)
         {
             try
             {
                 
                 var tempUser = _db.aspnetusers.Where(x => x.EMBG.Equals(policyHolder)).FirstOrDefault();
-                if (tempUser.Points == null)
+                if (datePolicyCreated >= tempUser.CreatedOn)
                 {
-                    tempUser.Points = 0;
-                    tempUser.Points += DiscountPoints;
-                }
-                else
-                {
-                    tempUser.Points += DiscountPoints;
-                }
+                    if (tempUser.Points == null)
+                    {
+                        tempUser.Points = 0;
+                        tempUser.Points += DiscountPoints;
+                    }
+                    else
+                    {
+                        tempUser.Points += DiscountPoints;
+                    }
 
-                _db.aspnetusers.Attach(tempUser);
-                var entry = _db.Entry(tempUser);
-                entry.Property(e => e.Points).IsModified = true;
-                _db.SaveChanges();
+                    _db.aspnetusers.Attach(tempUser);
+                    var entry = _db.Entry(tempUser);
+                    entry.Property(e => e.Points).IsModified = true;
+                    _db.SaveChanges();
 
-                
+                }
             }
             catch (Exception ex)
             {

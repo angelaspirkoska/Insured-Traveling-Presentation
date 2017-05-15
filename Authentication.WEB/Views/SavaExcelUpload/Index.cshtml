@@ -62,6 +62,7 @@
              @*grid.Column("id_seller", Resource.Sava_ExcelSeller_id, format: @<text>  <span class="display-mode">   <label id="lblName">@item.id_seller</label> </span> <input type="text" id="Name" value="@item.id_seller" class="edit-mode" /></text>, style: "col2Width"),*@
              grid.Column("SSN_insured", Resource.Sava_ExcelSSN_Insured, format: @<text> <span class="display-mode"> <label id="lblSSN_insured">@item.SSN_insured</label> </span>  <input type="text" id="SSN_insured" value="@item.SSN_insured" class="edit-mode" /> </text>, style: "col2Width"),
              grid.Column("SSN_policyHolder", Resource.Sava_ExcelSSN_Holder, format: @<text> <span class="display-mode"> <label id="lblSSN_policyHolder">@item.SSN_policyHolder</label> </span>  <input type="text" id="SSN_policyHolder" value="@item.SSN_policyHolder" class="edit-mode" /> </text>, style: "col2Width"),
+                grid.Column("expiry_date", Resource.Sava_ExcelExpiry_Date, format: @<text> <span class="display-mode"> <label id="lbldate_created">@item.date_created</label> </span>  <input type="text" id="date_created" value="@item.date_created" class="edit-mode" /> </text>, style: "col2Width"),
              grid.Column("expiry_date", Resource.Sava_ExcelExpiry_Date, format: @<text> <span class="display-mode"> <label id="lblexpiry_date">@item.expiry_date</label> </span>  <input type="text" id="expiry_date" value="@item.expiry_date" class="edit-mode" /> </text>, style: "col2Width"),
              grid.Column("premium", Resource.Sava_ExcelPremium, format: @<text> <span class="display-mode"> <label id="lblpremium">@item.premium</label> </span>  <input type="text" id="premium" value="@item.premium" class="edit-mode" /> </text>, style: "col2Width"),
              @*grid.Column("email_seller", Resource.Sava_ExcelEmailHolder, format: @<text> <span class="display-mode"> <label id="lblemail_seller">@item.email_seller</label> </span>  <input type="text" id="email_seller" value="@item.email_seller" class="edit-mode" /> </text>, style: "col2Width"),*@
@@ -143,6 +144,7 @@
             var Name = tr.find("#Name").val();
             var SSN_insured = tr.find("#SSN_insured").val();
             var SSN_policyHolder = tr.find("#SSN_policyHolder").val();
+            var date_created = tr.find("#date_created").val();
             var expiry_date = tr.find("#expiry_date").val();
             var premium = tr.find("#premium").val();
             var email_seller = tr.find("#email_seller").val();
@@ -151,6 +153,7 @@
             tr.find("#lblName").text(Name);
             tr.find("#lblSSN_insured").text(SSN_insured);
             tr.find("#lblSSN_policyHolder").text(SSN_policyHolder);
+            tr.find("#lbldate_created").text(date_created);
             tr.find("#lblexpiry_date").text(expiry_date);
             tr.find("#lblpremium").text(premium);
             tr.find("#lblemail_seller").text(email_seller);
