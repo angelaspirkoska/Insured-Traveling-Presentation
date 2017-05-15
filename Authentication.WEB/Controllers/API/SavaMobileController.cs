@@ -32,8 +32,10 @@ namespace InsuredTraveling.Controllers.API
 
         public SavaMobileController(ISavaPoliciesService savaPoliciesService,
                                     IUserService userService,
-                                    ISava_setupService savaSetupService, IEventsService es, IEventUserService eus, IUserService us)
+                                    ISava_setupService savaSetupService, IEventsService es, IEventUserService eus, IUserService us,
+                                    IRolesService rs)
         {
+            
             _savaPoliciesService = savaPoliciesService;
             _userService = userService;
             _savaSetupService= savaSetupService;
@@ -81,7 +83,7 @@ namespace InsuredTraveling.Controllers.API
         {
             if (model != null)
             {
-                var user = _userService.GetUserDataByUsername(model. Username);
+                var user = _userService.GetUserDataByUsername(model.Username);
                 if (user != null)
                 {
                     if (model.Points != null)
@@ -93,14 +95,23 @@ namespace InsuredTraveling.Controllers.API
                             if (user.Points >= points)
                             {
                                 var userPoints = user.Points - points;
-                                if (SendSavaEmailHelper.SendVaucerEmail(model, user.Email, userPoints))
+
+                                
+                                if (SendSavaEmailHelper.SendVaucerEmail(model, user.Email, userPoints) )
                                 {
-                                    user.Points = userPoints;
-                                    _userService.UpdateUserPoints(user);
-                                    return Ok();
+                                    if (SendSavaEmailHelper.SendVaucerEmailToSeller(model, user, userPoints,"atanasovski46@gmail.com"))
+                                    {
+                                        user.Points = userPoints;
+                                        _userService.UpdateUserPoints(user);
+                                        return Ok();
+
+                                    }else
+                                    {
+                                        throw new Exception("Internal error: The seller email is not send");
+                                    }
                                 }
                                 else
-                                    throw new Exception("Internal error: The email is not send");
+                                    throw new Exception("Internal error: The user email is not send");
                             }
                             else
                                 throw new Exception("Internal error: The user has less points");
@@ -118,6 +129,15 @@ namespace InsuredTraveling.Controllers.API
             else
                 throw new Exception("Internal error: Empty JSON");
         }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("UsePoints1")]
+        public IHttpActionResult UsePoints1()
+        {
+            
+            throw new Exception("Internal error: Empty JSON");
+        }
+
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("SetAttending")]
         public JObject SetAttending(JObject IDjson)
@@ -155,10 +175,22 @@ namespace InsuredTraveling.Controllers.API
         {
             if (username != null)
             {
-                var user = _userService.GetUserDataByUsername(username);
-                JObject data = new JObject();
-                data.Add("Points", user.Points);
-                return data;
+                if (_roleAuthorize.IsUser("Sava_Sport+", username) || _roleAuthorize.IsUser("Sava_Sport_VIP", username))
+                {
+                    var user = _userService.GetUserDataByUsername(username);
+                    JObject data = new JObject();
+                    data.Add("Points", user.Points);
+                    return data;
+                }else
+                {
+                    JObject data = new JObject();
+                   
+                    data.Add("Points", 0);
+                    data.Add("Message", "Internal error: User is not verified.");
+                    return data;
+                    
+                }
+
             }
             else
             {
@@ -175,59 +207,72 @@ namespace InsuredTraveling.Controllers.API
             JObject data = new JObject();
             string PolicyNumber = (string)IDjson["PolicyNumber"];
             string SSN = (string)IDjson["SSN"];
+            AuthRepository _repo = new AuthRepository();
+            var PolicyUser = _userService.GetUserBySSN(SSN);
+
             if (PolicyNumber != null && PolicyNumber != "" && PolicyNumber != " " && SSN != null && SSN != " ")
             {
-                // Ako postoi polisa so toj broj cekor 4
-                if (_savaPoliciesService.GetSavaPolicyIdByPolicyNumber(PolicyNumber) != null) {
 
-                    // Dali postoi
-                    if (_savaPoliciesService.GetSavaPoliciesForList(SSN, PolicyNumber).Count() != 0)
-                    {
-
-                        AuthRepository _repo = new AuthRepository();
-                        var PolicyUser = _userService.GetUserBySSN(SSN);
-
-                        if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
-                        {
-                            string userRole = "Сава+ корисник на Сава осигурување";
-                            
-                            _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport+");
-                            SendSavaEmail(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
-                        }
-
-                        var x = _savaPoliciesService.GetSavaPoliciesForList(SSN, PolicyNumber);
-                        data.Add("Message", "Sucessfully added points");
-                        data.Add("Status", "valid");
-                        
-                        return data;
-                    }
-                    else if (_savaPoliciesService.GetSavaPoliciesForInsuredList(SSN, PolicyNumber).Count() != 0)
-                    {
-                        
-                        data.Add("Message", "User and policy exist, but the user is insured, not policy holder");
-                        data.Add("Status", "false");
-
-                        return data;
-                    }
-                    else
-                    {
-                        data.Add("Message", "User and policy does not match.!");
-                        data.Add("Status", "false");
-
-                        return data;
-                    }
-
-                } else
+                if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName) )
                 {
-                   
-                    data.Add("Message", "Policy does not exist yet, try again later");
+                    data.Add("Message", "You are already Sava Sport + user. You can use your discount points.");
                     data.Add("Status", "false");
 
                     return data;
                 }
+                else
+                {
 
+                    // Ako postoi polisa so toj broj cekor 4
+                    if (_savaPoliciesService.GetSavaPolicyIdByPolicyNumber(PolicyNumber) != null)
+                    {
+
+                        // Dali postoi
+                        if (_savaPoliciesService.GetSavaPoliciesForList(SSN, PolicyNumber).Count() != 0)
+                        {
+                            
+                            if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
+                            {
+                                string userRole = "Сава+ корисник на Сава осигурување";
+
+                                _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport+");
+                                SendSavaEmail(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
+                            }
+
+
+                            data.Add("Message", "Sucessfully chaged user role, User is now Sava Sport +");
+                            data.Add("Status", "valid");
+
+                            return data;
+                        }
+                        else if (_savaPoliciesService.GetSavaPoliciesForInsuredList(SSN, PolicyNumber).Count() != 0)
+                        {
+
+                            data.Add("Message", "User and policy exist, but the user is insured, not policy holder");
+                            data.Add("Status", "false");
+
+                            return data;
+                        }
+                        else
+                        {
+                            data.Add("Message", "User and policy does not match.!");
+                            data.Add("Status", "false");
+
+                            return data;
+                        }
+
+                    }
+                    else
+                    {
+
+                        data.Add("Message", "Policy does not exist yet, try again later");
+                        data.Add("Status", "false");
+
+                        return data;
+                    }
+
+                }
             }
-
 
             {
                 throw new Exception("Internal error: Empty Fields");

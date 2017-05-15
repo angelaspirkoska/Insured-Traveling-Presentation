@@ -176,12 +176,12 @@ namespace InsuredTraveling.Controllers
 
                 if (SSN.Length == 13)
                 {
-                    subSSN = SSN.Substring(7, 5);
+                    subSSN = SSN.Substring(8, 5);
                 }
 
                 if (SSN_Holder.Length == 13)
                 {
-                    subSSN_Holder = SSN_Holder.Substring(7, 5);
+                    subSSN_Holder = SSN_Holder.Substring(8, 5);
                 }
 
                 if (SSN_result || subSSN == "00000")

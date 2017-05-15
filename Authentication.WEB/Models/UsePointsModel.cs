@@ -9,5 +9,6 @@ namespace InsuredTraveling.Models
     {
         public string Username { get; set; }
         public string Points { get; set; }
+        public string IDSeller { get; set; }
     }
 }
