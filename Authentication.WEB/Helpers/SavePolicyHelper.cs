@@ -165,6 +165,32 @@ namespace InsuredTraveling.Helpers
                         finally { }
                     }
 
+                } else
+                {
+                    var newInsured = _iss.Create();
+
+                    newInsured.Name = p.PolicyHolderName;
+                    newInsured.Lastname = p.PolicyHolderLastName;
+                    newInsured.SSN = p.PolicyHolderSSN;
+
+                    newInsured.Email = p.PolicyHolderEmail;
+                    newInsured.DateBirth = p.PolicyHolderBirthDate ?? DateTime.UtcNow;
+                    newInsured.Phone_Number = p.PolicyHolderPhoneNumber;
+
+                    newInsured.Passport_Number_IdNumber = p.PolicyHolderPassportNumber_ID;
+
+                    newInsured.City = p.PolicyHolderCity;
+                    newInsured.Postal_Code = p.PolicyHolderPostalCode;
+                    newInsured.Address = p.PolicyHolderAddress;
+
+                    newInsured.Date_Created = DateTime.Now;
+                    newInsured.Created_By = policy.Created_By;
+                    try
+                    {
+                        var Id = _iss.AddInsured(newInsured);
+                        policy.Policy_HolderID = Id;
+                    }
+                    finally { }
                 }
 
                 

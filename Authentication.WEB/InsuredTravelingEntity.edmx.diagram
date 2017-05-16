@@ -134,7 +134,7 @@
         <AssociationConnector Association="Entities.fk_travel_policy_retaining_risk" />
         <AssociationConnector Association="Entities.fk_policy_insurance_type" />
         <AssociationConnector Association="Entities.fk_policy_travel_number" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -702,7 +702,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <Property Name="Group_Total_Premium" Type="double" />
           <Property Name="Discount" Type="int" />
           <Property Name="Total_Premium" Type="double" />
-          <Property Name="Created_By" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Created_By" Type="varchar" MaxLength="128" />
           <Property Name="Date_Created" Type="date" Nullable="false" />
           <Property Name="Date_Modified" Type="datetime" Precision="0" />
           <Property Name="Modified_By" Type="varchar" MaxLength="128" />
@@ -1355,7 +1355,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_policy_created_by">
-          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1" />
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="0..1" />
           <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="aspnetusers">
@@ -3233,7 +3233,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="travel_number" EntitySet="travel_number" />
             <End Role="travel_policy" EntitySet="travel_policy" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
             <PropertyRef Name="ID" />
@@ -3579,7 +3579,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="travel_policy" Relationship="Entities.fk_policy_created_by" FromRole="aspnetuser" ToRole="travel_policy" />
           <NavigationProperty Name="travel_policy1" Relationship="Entities.fk_policy_modified_by" FromRole="aspnetuser" ToRole="travel_policy" />
-        </EntityType>
+          </EntityType>
         <Association Name="fk_additional_charge_created_by">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
           <End Type="Entities.additional_charge" Role="additional_charge" Multiplicity="*" />
@@ -3903,7 +3903,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Group_Total_Premium" Type="Double" />
           <Property Name="Discount" Type="Int32" />
           <Property Name="Total_Premium" Type="Double" />
-          <Property Name="Created_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Date_Created" Type="DateTime" Nullable="false" />
           <Property Name="Date_Modified" Type="DateTime" />
           <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
@@ -3923,7 +3923,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="travel_number" Relationship="Entities.fk_policy_travel_number" FromRole="travel_policy" ToRole="travel_number" />
         </EntityType>
         <Association Name="fk_policy_created_by">
-          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
+          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="0..1" />
           <End Type="Entities.travel_policy" Role="travel_policy" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="aspnetuser">
@@ -4070,7 +4070,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>

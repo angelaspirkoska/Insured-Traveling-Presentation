@@ -75,7 +75,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Valid_Days, htmlAttributes: new { @class = "control-label" })
                 <div class="input-group">
-                    <input type="text" name="Valid_Days" id="Valid_Days" class="form-control input-sm mandatoryField policyInfo" style="position:static;" disabled />
+                    <input type="text" name="Valid_Days" id="Valid_Days" class="form-control input-sm mandatoryField policyInfo" style="position:static;" />
                     <span class="input-group-addon">@InsuredTraveling.Resource.Policy_Days</span>
                 </div>
                 @Html.ValidationMessageFor(model => model.Valid_Days, "", new { @class = "text-danger" })
