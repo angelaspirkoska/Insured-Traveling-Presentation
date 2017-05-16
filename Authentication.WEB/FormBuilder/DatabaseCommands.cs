@@ -330,10 +330,10 @@ namespace InsuredTraveling.FormBuilder
                 masterProcedure.Append("OUT `result` VARCHAR(50)");
                 masterProcedure.Append(")");
                 masterProcedure.Append("BEGIN ");
-                masterProcedure.Append(ButtonsDefaultValue(variables));
+                //masterProcedure.Append(ButtonsDefaultValue(variables));
                 masterProcedure = GenerateMasterHelpingFunc(excelID, functions, masterProcedure);
                 var masterMidResult = GenerateMidResultFuc(excelID, procedures);
-                masterProcedure.Append(masterMidResult);
+               masterProcedure.Append(masterMidResult);
                 masterProcedure.Append("END");
                 if (masterProcedure.Length > 0)
                 {
@@ -362,7 +362,7 @@ namespace InsuredTraveling.FormBuilder
             {
                     if (inputParameter.Type.ToLower().Contains("radio") || inputParameter.Type.ToLower().Contains("checkbox"))
                     {
-                        inputParametesDefaultValue.Append(" IF " + inputParameter.Name + "= '' THEN ");
+                        inputParametesDefaultValue.Append(" IF " + inputParameter.Name + "= '0' THEN ");
                         inputParametesDefaultValue.Append
                                 ("SET " + inputParameter.Name + " = 'no'; ELSE SET " + inputParameter.Name + "= 'yes'; END IF; ");
                     }          
@@ -692,7 +692,11 @@ namespace InsuredTraveling.FormBuilder
             MySqlCommand mysqlCommand = new MySqlCommand();
             mysqlCommand.Connection = conn;
             conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
-            conn.Open();
+            if (!conn.Ping())
+            {
+                conn.Open();
+            }
+            //conn.Open();
             try
             {
                 mysqlCommand.CommandText = "Master_" + excelId;
@@ -700,23 +704,36 @@ namespace InsuredTraveling.FormBuilder
 
                 foreach(form_elements formElement in formElements)
                 {
-                    if (formCollection.AllKeys.Contains(formElement.Name))
+                    if (formElement.Name.Equals("Left_hand_drive") || formElement.Name.Equals("Own_goods") || formElement.Name.Equals("General_Cartage") || formElement.Name.Equals("SGU_Faculty") || formElement.Name.Equals("Levy"))
                     {
-                        mysqlCommand.Parameters.AddWithValue("@" + formElement.Name, formCollection.GetValue(formElement.Name));
+                        mysqlCommand.Parameters.AddWithValue("@" + formElement.Name, "yes");
                         mysqlCommand.Parameters["@" + formElement.Name].Direction = ParameterDirection.Input;
                     }
                     else
                     {
-                        mysqlCommand.Parameters.AddWithValue("@" + formElement.Name, "");
-                        mysqlCommand.Parameters["@" + formElement.Name].Direction = ParameterDirection.Input;
-                    }        
-                }
+                        if (formCollection.AllKeys.Contains(formElement.Name))
+                        {
 
-                //foreach (string key in formCollection.Keys)
-                //{
-                //    mysqlCommand.Parameters.AddWithValue("@"+key, formCollection[key]);
-                //    mysqlCommand.Parameters["@"+key].Direction = ParameterDirection.Input;
-                //}
+                            if (formCollection.GetValue(formElement.Name) == null || formCollection.GetValue(formElement.Name).AttemptedValue == "")
+                            {
+                                mysqlCommand.Parameters.AddWithValue("@" + formElement.Name, "0");
+                                mysqlCommand.Parameters["@" + formElement.Name].Direction = ParameterDirection.Input;
+                            }
+                            else
+                            {
+                                mysqlCommand.Parameters.AddWithValue("@" + formElement.Name, formCollection.GetValue(formElement.Name));
+                                mysqlCommand.Parameters["@" + formElement.Name].Direction = ParameterDirection.Input;
+                            }
+
+                        }
+                        else
+                        {
+                            mysqlCommand.Parameters.AddWithValue("@" + formElement.Name, "0");
+                            mysqlCommand.Parameters["@" + formElement.Name].Direction = ParameterDirection.Input;
+                        }
+                    }
+                    
+                }
                 mysqlCommand.Parameters.AddWithValue("@result", MySqlDbType.VarChar);
                 mysqlCommand.Parameters["@result"].Direction = ParameterDirection.Output;
 
