@@ -2169,6 +2169,7 @@
     <Compile Include="DI\IPolicyTypeService.cs" />
     <Compile Include="DI\IRolesService.cs" />
     <Compile Include="DI\ISavaPoliciesService.cs" />
+    <Compile Include="DI\ISavaVoucherService.cs" />
     <Compile Include="DI\ITransactionsService.cs" />
     <Compile Include="DI\ITravelNumberService.cs" />
     <Compile Include="DI\IUserService.cs" />
@@ -2182,6 +2183,7 @@
     <Compile Include="DI\RolesService.cs" />
     <Compile Include="DI\ISava_setupService.cs" />
     <Compile Include="DI\SavaPoliciesService.cs" />
+    <Compile Include="DI\SavaVoucherService.cs" />
     <Compile Include="DI\Sava_setupService.cs" />
     <Compile Include="DI\TransactionsService.cs" />
     <Compile Include="DI\TravelNumberService.cs" />
@@ -2315,6 +2317,7 @@
     <Compile Include="Models\QRCodeSavaPolicy.cs" />
     <Compile Include="Models\SavaExcelModel.cs" />
     <Compile Include="Models\SavaPolicyModel.cs" />
+    <Compile Include="Models\SavaVoucherModel.cs" />
     <Compile Include="Models\Sava_AdminPanelModel.cs" />
     <Compile Include="Models\SearchRegisteredUser.cs" />
     <Compile Include="Models\UsePointsModel.cs" />

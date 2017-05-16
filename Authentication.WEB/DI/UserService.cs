@@ -144,6 +144,12 @@ namespace InsuredTraveling.DI
             return _db.aspnetusers.Where(x => x.UserName == username).Select(x => x.EMBG).SingleOrDefault();
            
         }
+        // Seller ID in sava is kept in passport field in database
+        public string GetUserEmailBySellerID(string sellerID)
+        {
+
+            return _db.aspnetusers.Where(x => x.PassportNumber == sellerID).Select(x => x.Email).SingleOrDefault();
+        }
 
         public bool IsSameLoggedUserAndInsured(string UsernameLoggedUser, int SelectedInsuredId)
         {

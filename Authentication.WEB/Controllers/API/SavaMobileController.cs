@@ -28,12 +28,13 @@ namespace InsuredTraveling.Controllers.API
         private readonly RoleAuthorize _roleAuthorize;
         private readonly IEventUserService _eus;
         private readonly IUserService _us;
-        
+        private readonly ISavaVoucherService _svs;
 
         public SavaMobileController(ISavaPoliciesService savaPoliciesService,
                                     IUserService userService,
                                     ISava_setupService savaSetupService, IEventsService es, IEventUserService eus, IUserService us,
-                                    IRolesService rs)
+                                    IRolesService rs,
+                                    ISavaVoucherService svs)
         {
             
             _savaPoliciesService = savaPoliciesService;
@@ -43,6 +44,7 @@ namespace InsuredTraveling.Controllers.API
             _roleAuthorize = new RoleAuthorize();
             _eus = eus;
             _us = us;
+            _svs = svs;
         }
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("CreatePolicy")]
@@ -83,7 +85,11 @@ namespace InsuredTraveling.Controllers.API
         {
             if (model != null)
             {
-                var user = _userService.GetUserDataByUsername(model.Username);
+               
+                    var user = _userService.GetUserDataByUsername(model.Username);
+                    string SellerEmail = _us.GetUserEmailBySellerID(model.IDSeller);
+              
+
                 if (user != null)
                 {
                     if (model.Points != null)
@@ -96,13 +102,20 @@ namespace InsuredTraveling.Controllers.API
                             {
                                 var userPoints = user.Points - points;
 
-                                
-                                if (SendSavaEmailHelper.SendVaucerEmail(model, user.Email, userPoints) )
+                                SavaVoucherModel SavaVoucher = new SavaVoucherModel();
+                                SavaVoucher.id_policyHolder = user.EMBG;
+                                SavaVoucher.points_used = points;
+                                SavaVoucher.id_seller = model.IDSeller;
+                                SavaVoucher.timestamp = DateTime.Now;
+
+                                if (SendSavaEmailHelper.SendVaucerEmail(model, user.Email, userPoints, SellerEmail) )
                                 {
-                                    if (SendSavaEmailHelper.SendVaucerEmailToSeller(model, user, userPoints,"atanasovski46@gmail.com"))
+                                    if (SendSavaEmailHelper.SendVaucerEmailToSeller(model, user, userPoints, SellerEmail))
                                     {
-                                        user.Points = userPoints;
+                                      user.Points = userPoints;
                                         _userService.UpdateUserPoints(user);
+                                        _svs.AddSavaVoucher(SavaVoucher);
+
                                         return Ok();
 
                                     }else
@@ -236,7 +249,8 @@ namespace InsuredTraveling.Controllers.API
                                 string userRole = "Сава+ корисник на Сава осигурување";
 
                                 _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport+");
-                                SendSavaEmail(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
+                                
+                                SendSavaEmailHelper.SendEmailForUserChangeRole(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
                             }
 
 
@@ -280,26 +294,6 @@ namespace InsuredTraveling.Controllers.API
 
         }
 
-        private void SendSavaEmail(string email, string ime, string prezime, string userRole)
-        {
-
-            var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/EmailHeaderSuccess.png"));
-            inlineLogo.ContentId = Guid.NewGuid().ToString();
-            string mailBody = string.Format(@"   
-                     <div style='margin-left:20px'>
-                     <img style='width:700px' src=""cid:{0}"" />
-                     <p> <b> Почитувани, </b></p>                  
-                     <br />" + ime + " " + prezime +
-                 "<br /> <br />" + "Вие станавте " + userRole + "  <br />  <b>Честитки. </b> </div><br />"
-            , inlineLogo.ContentId);
-
-            var view = AlternateView.CreateAlternateViewFromString(mailBody, null, "text/html");
-            view.LinkedResources.Add(inlineLogo);
-            MailService mailService = new MailService(email);
-            mailService.setSubject("Промена на корисничи привилегии");
-            mailService.setBodyText(email, true);
-            mailService.AlternativeViews(view);
-            mailService.sendMail();
-        }
+     
     }
 }

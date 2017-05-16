@@ -77,7 +77,6 @@ namespace InsuredTraveling
         public virtual DbSet<retaining_risk> retaining_risk { get; set; }
         public virtual DbSet<retaining_risk_name> retaining_risk_name { get; set; }
         public virtual DbSet<sava_setup> sava_setup { get; set; }
-        public virtual DbSet<sava_voucher> sava_voucher { get; set; }
         public virtual DbSet<travel_duration> travel_duration { get; set; }
         public virtual DbSet<travel_insurance_type> travel_insurance_type { get; set; }
         public virtual DbSet<travel_number> travel_number { get; set; }
@@ -87,5 +86,6 @@ namespace InsuredTraveling
         public virtual DbSet<aspnetuserlogin> aspnetuserlogins { get; set; }
         public virtual DbSet<transaction> transactions { get; set; }
         public virtual DbSet<sava_policy> sava_policy { get; set; }
+        public virtual DbSet<sava_voucher> sava_voucher { get; set; }
     }
 }

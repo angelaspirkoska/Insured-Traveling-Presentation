@@ -16,7 +16,9 @@ namespace InsuredTraveling
     {
         public int id { get; set; }
         public string voucher_code { get; set; }
-        public int id_policyHolder { get; set; }
-        public int points_used { get; set; }
+        public string id_policyHolder { get; set; }
+        public float points_used { get; set; }
+        public string id_seller { get; set; }
+        public System.DateTime timestamp { get; set; }
     }
 }

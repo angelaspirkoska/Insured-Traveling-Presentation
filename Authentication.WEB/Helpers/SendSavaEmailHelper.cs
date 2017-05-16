@@ -7,7 +7,7 @@ namespace InsuredTraveling.Helpers
 {
     public static class SendSavaEmailHelper
     {
-        public static bool SendVaucerEmail(UsePointsModel model, string userEmail, float? userPoints)
+        public static bool SendVaucerEmail(UsePointsModel model, string userEmail, float? userPoints, string sellerEmail)
         {
             try
             {
@@ -19,7 +19,8 @@ namespace InsuredTraveling.Helpers
                      <img style='width:700px' src=""cid:{0}"" />
                      <p> <b> Почитувани, </b></p>                  
                      <br />
-                 <br /> <br />" + "Искористивте: " + model.Points + " поени. Ви остануваат уште "+ userPoints.ToString()+" поени.</div><br />"
+                 <br /> <br />" + "Искористивте: " + model.Points + " поени кај Сава брокерот со број: " + model.IDSeller + " Ви остануваат уште "+ userPoints.ToString()+" поени.</div><br />"
+                 
                 , inlineLogo.ContentId);
 
                 var view = AlternateView.CreateAlternateViewFromString(mailBody, null, "text/html");
@@ -54,14 +55,14 @@ namespace InsuredTraveling.Helpers
                      <p> <b> Почитувани, </b></p>                  
                      <br />
                       Корисникот " + user.FirstName + " " + user.LastName + " со корисничко име " + model.Username + " " +
-                 "<br /> <br />" + "искористи: " + model.Points + " поени. Ви остануваат уште " + userPoints.ToString() + " поени.</div><br />"
+                 "<br /> <br />" + "искористи: " + model.Points + " поени. На корисникот му остануваат уште " + userPoints.ToString() + " поени.</div><br />"
                 , inlineLogo.ContentId);
 
                 var view = AlternateView.CreateAlternateViewFromString(mailBody, null, "text/html");
                 view.LinkedResources.Add(inlineLogo);
 
                 MailService mailService = new MailService(sellerEmail);
-                mailService.setSubject("Искористени поени");
+                mailService.setSubject("Искористени поени од корисник: " + model.Username);
 
                 mailService.setBodyText(sellerEmail, true);
                 mailService.AlternativeViews(view);

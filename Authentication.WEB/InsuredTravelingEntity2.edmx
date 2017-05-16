@@ -678,9 +678,11 @@ warning 6002: The table/view 'def.db_9eb138_sava.aspnetuserlogins' does not have
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="voucher_code" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="id_policyHolder" Type="int" Nullable="false" />
-          <Property Name="points_used" Type="int" Nullable="false" />
+          <Property Name="voucher_code" Type="varchar" MaxLength="100" />
+          <Property Name="id_policyHolder" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="points_used" Type="float" Nullable="false" />
+          <Property Name="id_seller" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'def.db_9eb138_sava.transaction' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2896,15 +2898,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="timestamp" Type="DateTime" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="sava_voucher">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="voucher_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="id_policyHolder" Type="Int32" Nullable="false" />
-          <Property Name="points_used" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="travel_duration">
           <Key>
             <PropertyRef Name="ID" />
@@ -4015,7 +4008,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="retaining_risk" EntityType="Self.retaining_risk" />
           <EntitySet Name="retaining_risk_name" EntityType="Self.retaining_risk_name" />
           <EntitySet Name="sava_setup" EntityType="Self.sava_setup" />
-          <EntitySet Name="sava_voucher" EntityType="Self.sava_voucher" />
           <EntitySet Name="travel_duration" EntityType="Self.travel_duration" />
           <EntitySet Name="travel_insurance_type" EntityType="Self.travel_insurance_type" />
           <EntitySet Name="travel_number" EntityType="Self.travel_number" />
@@ -4325,6 +4317,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="aspnetusers" EntitySet="aspnetusers" />
           </AssociationSet>
           <EntitySet Name="sava_policy" EntityType="db_9eb138_savaModel.sava_policy" />
+          <EntitySet Name="sava_voucher" EntityType="db_9eb138_savaModel.sava_voucher" />
         </EntityContainer>
         <EntityType Name="sava_policy">
           <Key>
@@ -4339,6 +4332,17 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="email_seller" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="discount_points" Type="Single" Nullable="false" />
           <Property Name="date_created" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="sava_voucher">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="voucher_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="id_policyHolder" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="points_used" Type="Single" Nullable="false" />
+          <Property Name="id_seller" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5032,16 +5036,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sava_voucher">
-            <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_voucher">
-              <MappingFragment StoreEntitySet="sava_voucher">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="voucher_code" ColumnName="voucher_code" />
-                <ScalarProperty Name="id_policyHolder" ColumnName="id_policyHolder" />
-                <ScalarProperty Name="points_used" ColumnName="points_used" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="travel_duration">
             <EntityTypeMapping TypeName="db_9eb138_savaModel.travel_duration">
               <MappingFragment StoreEntitySet="travel_duration">
@@ -5177,6 +5171,18 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="SSN_policyHolder" ColumnName="SSN_policyHolder" />
                 <ScalarProperty Name="SSN_insured" ColumnName="SSN_insured" />
                 <ScalarProperty Name="policy_number" ColumnName="policy_number" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sava_voucher">
+            <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_voucher">
+              <MappingFragment StoreEntitySet="sava_voucher">
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="id_seller" ColumnName="id_seller" />
+                <ScalarProperty Name="points_used" ColumnName="points_used" />
+                <ScalarProperty Name="id_policyHolder" ColumnName="id_policyHolder" />
+                <ScalarProperty Name="voucher_code" ColumnName="voucher_code" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

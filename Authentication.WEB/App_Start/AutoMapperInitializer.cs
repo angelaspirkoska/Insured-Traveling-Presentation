@@ -165,6 +165,17 @@ namespace InsuredTraveling.App_Start
 
             });
 
+            Mapper.CreateMap<SavaVoucherModel, sava_voucher>().AfterMap((src, dst) =>
+            {
+                dst.voucher_code = src.voucher_code;
+                dst.id_policyHolder = src.id_policyHolder;
+                dst.points_used = src.points_used;
+                dst.id_seller = src.id_seller;
+                dst.timestamp = src.timestamp;
+
+
+            });
+
             Mapper.CreateMap<SavaPolicyModel, sava_policy>().AfterMap((src, dst) =>
             {
                 dst.SSN_insured = src.SSN_insured;
