@@ -324,6 +324,8 @@
       <LastGenOutput>InsuredTravelingEntity2.cs</LastGenOutput>
     </Content>
     <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="SavaAdPictures\DHL.png" />
+    <Content Include="SavaAdPictures\emc_logo.png" />
     <Content Include="Scripts\additional-methods.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -2168,6 +2170,7 @@
     <Compile Include="DI\IPolicyService.cs" />
     <Compile Include="DI\IPolicyTypeService.cs" />
     <Compile Include="DI\IRolesService.cs" />
+    <Compile Include="DI\ISavaAdPicService.cs" />
     <Compile Include="DI\ISavaPoliciesService.cs" />
     <Compile Include="DI\ISavaVoucherService.cs" />
     <Compile Include="DI\ITransactionsService.cs" />
@@ -2182,6 +2185,7 @@
     <Compile Include="DI\PolicyTypeService.cs" />
     <Compile Include="DI\RolesService.cs" />
     <Compile Include="DI\ISava_setupService.cs" />
+    <Compile Include="DI\SavaAdPicService.cs" />
     <Compile Include="DI\SavaPoliciesService.cs" />
     <Compile Include="DI\SavaVoucherService.cs" />
     <Compile Include="DI\Sava_setupService.cs" />
@@ -2366,6 +2370,9 @@
     <Compile Include="retaining_risk_name.cs">
       <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
+    <Compile Include="sava_ad_pictures.cs">
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
+    </Compile>
     <Compile Include="sava_policy.cs">
       <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
@@ -2455,6 +2462,7 @@
     <Compile Include="ViewModels\JsonWrapperPolicyFirstNoticeOfLossViewModel.cs" />
     <Compile Include="ViewModels\PolicyAutoCompleteViewModel.cs" />
     <Compile Include="ViewModels\Request.cs" />
+    <Compile Include="Models\SavaAdPicturesModel.cs" />
     <Compile Include="ViewModels\SearchClientsViewModel.cs" />
     <Compile Include="ViewModels\SearchFNOLViewModel.cs" />
     <Compile Include="ViewModels\SearchPolicyViewModel.cs" />

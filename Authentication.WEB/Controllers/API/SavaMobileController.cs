@@ -15,6 +15,7 @@ using Newtonsoft.Json.Linq;
 using InsuredTraveling.Filters;
 using System.Net.Mail;
 using Authentication.WEB.Services;
+using InsuredTraveling.ViewModels;
 
 namespace InsuredTraveling.Controllers.API
 {
@@ -29,12 +30,14 @@ namespace InsuredTraveling.Controllers.API
         private readonly IEventUserService _eus;
         private readonly IUserService _us;
         private readonly ISavaVoucherService _svs;
+        private readonly ISavaAdPicService _savaAdService;
 
         public SavaMobileController(ISavaPoliciesService savaPoliciesService,
                                     IUserService userService,
                                     ISava_setupService savaSetupService, IEventsService es, IEventUserService eus, IUserService us,
                                     IRolesService rs,
-                                    ISavaVoucherService svs)
+                                    ISavaVoucherService svs,
+                                    ISavaAdPicService savaAdService)
         {
             
             _savaPoliciesService = savaPoliciesService;
@@ -45,6 +48,7 @@ namespace InsuredTraveling.Controllers.API
             _eus = eus;
             _us = us;
             _svs = svs;
+            _savaAdService = savaAdService;
         }
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("CreatePolicy")]
@@ -70,7 +74,6 @@ namespace InsuredTraveling.Controllers.API
                         throw new Exception("Internal error: Not able to save policy");
                     }
                 }
-               
             }
             else
             {
@@ -89,7 +92,6 @@ namespace InsuredTraveling.Controllers.API
                     var user = _userService.GetUserDataByUsername(model.Username);
                     string SellerEmail = _us.GetUserEmailBySellerID(model.IDSeller);
               
-
                 if (user != null)
                 {
                     if (model.Points != null)
@@ -211,6 +213,29 @@ namespace InsuredTraveling.Controllers.API
             }
         }
 
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("GetAdPicture")]
+        public JObject GetAdPicture()
+        {
+            SavaAdPicturesModel PicModel = new SavaAdPicturesModel();
+            var listPictures = _savaAdService.GetAdPictures();
+
+            Random rnd1 = new Random();
+            int randNum = rnd1.Next(1, listPictures.Count());
+
+            
+            PicModel.ImageLocation = listPictures[randNum].ImageLocation;
+            PicModel.ImageLocation = System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"].ToString() + "/SavaAdPictures/" + listPictures[randNum].ImageLocation;
+            PicModel.Title = listPictures[randNum].Title;
+            
+
+
+            var adInfo = new JObject();
+            adInfo.Add("PictureLocation", PicModel.ImageLocation);
+            adInfo.Add("Title", PicModel.Title);
+            return adInfo;
+        }
+
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("AddPolicyPoints")]
@@ -239,8 +264,7 @@ namespace InsuredTraveling.Controllers.API
                     // Ako postoi polisa so toj broj cekor 4
                     if (_savaPoliciesService.GetSavaPolicyIdByPolicyNumber(PolicyNumber) != null)
                     {
-
-                        // Dali postoi
+                      
                         if (_savaPoliciesService.GetSavaPoliciesForList(SSN, PolicyNumber).Count() != 0)
                         {
                             

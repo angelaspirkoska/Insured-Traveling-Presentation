@@ -153,6 +153,14 @@ namespace InsuredTraveling.App_Start
                 dst.End_Date = src.End_Date;
            
             });
+            Mapper.CreateMap<SavaAdPicturesModel, sava_ad_pictures>().AfterMap((src, dst) =>
+            {
+                dst.ImageLocation = src.ImageLocation;
+                dst.Text = src.Text;
+                dst.Title = src.Title;
+                dst.DateCreated = src.DateCreated;
+
+            });
 
             Mapper.CreateMap<Sava_AdminPanelModel, sava_setup>().AfterMap((src, dst) =>
             {

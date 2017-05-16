@@ -646,6 +646,16 @@ warning 6002: The table/view 'def.db_9eb138_sava.aspnetuserlogins' does not have
           <Property Name="language_id" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="sava_ad_pictures">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="500" />
+          <Property Name="ImageLocation" Type="varchar" MaxLength="100" />
+          <Property Name="Text" Type="varchar" MaxLength="3000" />
+          <Property Name="DateCreated" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
         <EntityType Name="sava_policy">
           <Key>
             <PropertyRef Name="id" />
@@ -1789,6 +1799,7 @@ warning 6002: The table/view 'def.db_9eb138_sava.transaction' does not have a pr
           <EntitySet Name="refreshtokens" EntityType="Self.refreshtokens" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="retaining_risk" EntityType="Self.retaining_risk" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="retaining_risk_name" EntityType="Self.retaining_risk_name" Schema="db_9eb138_sava" store:Type="Tables" />
+          <EntitySet Name="sava_ad_pictures" EntityType="Self.sava_ad_pictures" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="sava_policy" EntityType="Self.sava_policy" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="sava_setup" EntityType="Self.sava_setup" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="sava_voucher" EntityType="Self.sava_voucher" Schema="db_9eb138_sava" store:Type="Tables" />
@@ -4318,6 +4329,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           </AssociationSet>
           <EntitySet Name="sava_policy" EntityType="db_9eb138_savaModel.sava_policy" />
           <EntitySet Name="sava_voucher" EntityType="db_9eb138_savaModel.sava_voucher" />
+          <EntitySet Name="sava_ad_pictures" EntityType="db_9eb138_savaModel.sava_ad_pictures" />
         </EntityContainer>
         <EntityType Name="sava_policy">
           <Key>
@@ -4343,6 +4355,16 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="points_used" Type="Single" Nullable="false" />
           <Property Name="id_seller" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="timestamp" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sava_ad_pictures">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ImageLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Text" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5183,6 +5205,17 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="points_used" ColumnName="points_used" />
                 <ScalarProperty Name="id_policyHolder" ColumnName="id_policyHolder" />
                 <ScalarProperty Name="voucher_code" ColumnName="voucher_code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sava_ad_pictures">
+            <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_ad_pictures">
+              <MappingFragment StoreEntitySet="sava_ad_pictures">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ImageLocation" ColumnName="ImageLocation" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
