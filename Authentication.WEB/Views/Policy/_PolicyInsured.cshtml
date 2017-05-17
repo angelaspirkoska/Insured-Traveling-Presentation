@@ -16,10 +16,12 @@
         <strong>Осигурано лице #1</strong>
     </div>
     <div class="col-md-8">
-        @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "checkbox-policyholder", @ariahidden = "false" })
-        <p class="checkbox-label">
-            @InsuredTraveling.Resource.Policy_HolderSameInsured
-        </p>
+        <div class="checkbox">
+            <label style="padding-left:0;">
+                <input type="checkbox" name="IsSamePolicyHolderInsured" style="width:auto; margin-left:-15px;" id="IsSamePolicyHolderInsured" />
+                @InsuredTraveling.Resource.Policy_HolderSameInsured
+            </label>
+        </div>
     </div>
 </div>
 <div class="col-md-12 form-group">

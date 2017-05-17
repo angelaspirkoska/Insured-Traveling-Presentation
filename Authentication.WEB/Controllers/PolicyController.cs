@@ -24,7 +24,7 @@ using Authentication.WEB.Models;
 namespace Authentication.WEB.Controllers
 {
 
-    [SessionExpire]
+    //[SessionExpire]
     public class PolicyController : Controller
     {
         private IPolicyService _ps;
@@ -53,7 +53,7 @@ namespace Authentication.WEB.Controllers
             _os = os;
         }
         [HttpGet]
-        [SessionExpire]
+        //[SessionExpire]
         public async Task<ActionResult> Index(string ssn, int category = 1, int personsnum = 1, int days = 10)
         {
 
@@ -106,9 +106,11 @@ namespace Authentication.WEB.Controllers
 
         [HttpPost]
         public async Task<JsonResult> Index(Policy policy, int policyPackageType, int policyTypeSava,
-            bool isProfessionalDriver = false, bool isAbroadStudent = false, bool extraNezgoda = false,
-            bool extraDomasnaAsistencija = false, bool extraAvtoAsistencija = false)
+            string isProfessionalDriver = null, string isAbroadStudent = null, string extraNezgoda = null,
+            string extraDomasnaAsistencija = null, string extraAvtoAsistencija = null)
         {
+            //isProfessionalDriver (and after) has value "on" if checked, and null if not
+
             string username = System.Web.HttpContext.Current.User.Identity.Name;
 
             ok_setup Last_Entry = _os.GetLast();
@@ -399,7 +401,7 @@ namespace Authentication.WEB.Controllers
 
         [HttpGet]
         [SessionExpire]
-        public async Task<JObject> GetExistentLoggedInUserData()
+        public JObject GetExistentLoggedInUserData()
         {
             var Result = new JObject();
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
