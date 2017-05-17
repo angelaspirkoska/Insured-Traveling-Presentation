@@ -581,6 +581,17 @@ warning 6002: The table/view 'def.db_9eb138_sava.aspnetuserlogins' does not have
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Payed" Type="bool" Nullable="false" />
         </EntityType>
+        <EntityType Name="points_requests">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_user" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ssn" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="policy_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="flag" Type="bool" />
+        </EntityType>
         <EntityType Name="policy_additional_charge">
           <Key>
             <PropertyRef Name="ID" />
@@ -654,7 +665,7 @@ warning 6002: The table/view 'def.db_9eb138_sava.aspnetuserlogins' does not have
           <Property Name="Title" Type="varchar" MaxLength="500" />
           <Property Name="ImageLocation" Type="varchar" MaxLength="100" />
           <Property Name="Text" Type="varchar" MaxLength="3000" />
-          <Property Name="DateCreated" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="sava_policy">
           <Key>
@@ -1791,6 +1802,7 @@ warning 6002: The table/view 'def.db_9eb138_sava.transaction' does not have a pr
           <EntitySet Name="p_referent" EntityType="Self.p_referent" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="p_stapki" EntityType="Self.p_stapki" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="payment_status" EntityType="Self.payment_status" Schema="db_9eb138_sava" store:Type="Tables" />
+          <EntitySet Name="points_requests" EntityType="Self.points_requests" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="policy_additional_charge" EntityType="Self.policy_additional_charge" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="policy_insured" EntityType="Self.policy_insured" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="policy_status" EntityType="Self.policy_status" Schema="db_9eb138_sava" store:Type="Tables" />
@@ -4330,6 +4342,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="sava_policy" EntityType="db_9eb138_savaModel.sava_policy" />
           <EntitySet Name="sava_voucher" EntityType="db_9eb138_savaModel.sava_voucher" />
           <EntitySet Name="sava_ad_pictures" EntityType="db_9eb138_savaModel.sava_ad_pictures" />
+          <EntitySet Name="points_requests" EntityType="db_9eb138_savaModel.points_requests" />
         </EntityContainer>
         <EntityType Name="sava_policy">
           <Key>
@@ -4365,6 +4378,17 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="ImageLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Text" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="points_requests">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_user" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ssn" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="policy_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="flag" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5216,6 +5240,18 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="ImageLocation" ColumnName="ImageLocation" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="points_requests">
+            <EntityTypeMapping TypeName="db_9eb138_savaModel.points_requests">
+              <MappingFragment StoreEntitySet="points_requests">
+                <ScalarProperty Name="flag" ColumnName="flag" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="policy_id" ColumnName="policy_id" />
+                <ScalarProperty Name="ssn" ColumnName="ssn" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -88,5 +88,6 @@ namespace InsuredTraveling
         public virtual DbSet<sava_policy> sava_policy { get; set; }
         public virtual DbSet<sava_voucher> sava_voucher { get; set; }
         public virtual DbSet<sava_ad_pictures> sava_ad_pictures { get; set; }
+        public virtual DbSet<points_requests> points_requests { get; set; }
     }
 }

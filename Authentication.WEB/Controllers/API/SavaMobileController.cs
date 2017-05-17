@@ -31,13 +31,15 @@ namespace InsuredTraveling.Controllers.API
         private readonly IUserService _us;
         private readonly ISavaVoucherService _svs;
         private readonly ISavaAdPicService _savaAdService;
+        private readonly IPointsRequestService _prs;
 
         public SavaMobileController(ISavaPoliciesService savaPoliciesService,
                                     IUserService userService,
                                     ISava_setupService savaSetupService, IEventsService es, IEventUserService eus, IUserService us,
                                     IRolesService rs,
                                     ISavaVoucherService svs,
-                                    ISavaAdPicService savaAdService)
+                                    ISavaAdPicService savaAdService,
+                                    IPointsRequestService prs)
         {
             
             _savaPoliciesService = savaPoliciesService;
@@ -49,6 +51,7 @@ namespace InsuredTraveling.Controllers.API
             _us = us;
             _svs = svs;
             _savaAdService = savaAdService;
+            _prs = prs;
         }
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("CreatePolicy")]
@@ -250,65 +253,83 @@ namespace InsuredTraveling.Controllers.API
 
             if (PolicyNumber != null && PolicyNumber != "" && PolicyNumber != " " && SSN != null && SSN != " ")
             {
-
-                if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName) )
+                if (PolicyUser == null)
                 {
-                    data.Add("Message", "You are already Sava Sport + user. You can use your discount points.");
+                    data.Add("Message", "User with this SSN does not exist.");
                     data.Add("Status", "false");
 
                     return data;
                 }
                 else
                 {
+                    PointsRequestModel p_request = new PointsRequestModel();
+                    p_request.id_user = PolicyUser.Id;
+                    p_request.policy_id = PolicyNumber;
+                    p_request.ssn = PolicyNumber;
+                    p_request.DateCreated = DateTime.Now;
+                    _prs.AddPoints_Request(p_request);
 
-                    // Ako postoi polisa so toj broj cekor 4
-                    if (_savaPoliciesService.GetSavaPolicyIdByPolicyNumber(PolicyNumber) != null)
+                    if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
                     {
-                      
-                        if (_savaPoliciesService.GetSavaPoliciesForList(SSN, PolicyNumber).Count() != 0)
-                        {
-                            
-                            if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
-                            {
-                                string userRole = "Сава+ корисник на Сава осигурување";
-
-                                _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport+");
-                                
-                                SendSavaEmailHelper.SendEmailForUserChangeRole(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
-                            }
-
-
-                            data.Add("Message", "Sucessfully chaged user role, User is now Sava Sport +");
-                            data.Add("Status", "valid");
-
-                            return data;
-                        }
-                        else if (_savaPoliciesService.GetSavaPoliciesForInsuredList(SSN, PolicyNumber).Count() != 0)
-                        {
-
-                            data.Add("Message", "User and policy exist, but the user is insured, not policy holder");
-                            data.Add("Status", "false");
-
-                            return data;
-                        }
-                        else
-                        {
-                            data.Add("Message", "User and policy does not match.!");
-                            data.Add("Status", "false");
-
-                            return data;
-                        }
-
-                    }
-                    else
-                    {
-
-                        data.Add("Message", "Policy does not exist yet, try again later");
+                        data.Add("Message", "You are already Sava Sport + user. You can use your discount points.");
                         data.Add("Status", "false");
 
                         return data;
                     }
+                    else
+                    {
 
+                        // Ako postoi polisa so toj broj cekor 4
+                        if (_savaPoliciesService.GetSavaPolicyIdByPolicyNumber(PolicyNumber) != null)
+                        {
+
+                            if (_savaPoliciesService.GetSavaPoliciesForList(SSN, PolicyNumber).Count() != 0)
+                            {
+
+                                if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
+                                {
+                                    string userRole = "Сава+ корисник на Сава осигурување";
+
+                                    _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport+");
+
+                                    _prs.ChangeFlagStatus(true);
+
+                                    SendSavaEmailHelper.SendEmailForUserChangeRole(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
+                                }
+
+
+                                data.Add("Message", "Sucessfully chaged user role, User is now Sava Sport +");
+                                data.Add("Status", "valid");
+
+                                return data;
+                            }
+                            else if (_savaPoliciesService.GetSavaPoliciesForInsuredList(SSN, PolicyNumber).Count() != 0)
+                            {
+
+                                data.Add("Message", "User and policy exist, but the user is insured, not policy holder");
+                                data.Add("Status", "false");
+
+                                return data;
+                            }
+                            else
+                            {
+                                data.Add("Message", "User and policy does not match.!");
+                                data.Add("Status", "false");
+
+                                return data;
+                            }
+
+                        }
+                        else
+                        {
+
+                            data.Add("Message", "Policy does not exist yet, try again later");
+                            data.Add("Status", "false");
+
+                            return data;
+                        }
+
+                    }
                 }
             }
 

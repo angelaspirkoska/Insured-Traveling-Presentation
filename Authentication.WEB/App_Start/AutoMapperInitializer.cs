@@ -161,6 +161,16 @@ namespace InsuredTraveling.App_Start
                 dst.DateCreated = src.DateCreated;
 
             });
+            Mapper.CreateMap<PointsRequestModel, points_requests>().AfterMap((src, dst) =>
+            {
+                dst.id_user = src.id_user;
+                dst.policy_id = src.policy_id;
+                dst.ssn = src.ssn;
+                dst.timestamp = src.DateCreated;
+
+            });
+
+
 
             Mapper.CreateMap<Sava_AdminPanelModel, sava_setup>().AfterMap((src, dst) =>
             {

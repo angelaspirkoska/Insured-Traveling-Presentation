@@ -2165,6 +2165,7 @@
     <Compile Include="DI\INewsService.cs" />
     <Compile Include="DI\InsuredsService.cs" />
     <Compile Include="DI\IOkSetupService.cs" />
+    <Compile Include="DI\IPointsRequestService.cs" />
     <Compile Include="DI\IPolicyInsuredService.cs" />
     <Compile Include="DI\IPolicySearchService.cs" />
     <Compile Include="DI\IPolicyService.cs" />
@@ -2179,6 +2180,7 @@
     <Compile Include="DI\LuggageInsuranceService.cs" />
     <Compile Include="DI\NewsService.cs" />
     <Compile Include="DI\OkSetupService.cs" />
+    <Compile Include="DI\PointsRequestService.cs" />
     <Compile Include="DI\PolicyInsuredService.cs" />
     <Compile Include="DI\PolicySearchService.cs" />
     <Compile Include="DI\PolicyService.cs" />
@@ -2318,6 +2320,7 @@
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Event_UserModel.cs" />
     <Compile Include="Models\Ok_SetupModel.cs" />
+    <Compile Include="Models\PointsRequestModel.cs" />
     <Compile Include="Models\QRCodeSavaPolicy.cs" />
     <Compile Include="Models\SavaExcelModel.cs" />
     <Compile Include="Models\SavaPolicyModel.cs" />
@@ -2332,6 +2335,9 @@
       <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="payment_status.cs">
+      <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="points_requests.cs">
       <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
     <Compile Include="policy_additional_charge.cs">
