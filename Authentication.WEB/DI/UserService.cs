@@ -195,21 +195,24 @@ namespace InsuredTraveling.DI
         public void UpdatePremiumSum(string policyHolder, float PolicyPremium, DateTime? datePolicyCreated)
         {
             var tempUser = _db.aspnetusers.Where(x => x.EMBG.Equals(policyHolder)).FirstOrDefault();
-            if (datePolicyCreated >= tempUser.CreatedOn)
+            if (tempUser != null)
             {
-                if (tempUser.Sum_premium == null)
+                if (datePolicyCreated >= tempUser.CreatedOn)
                 {
-                    tempUser.Sum_premium = 0;
-                    tempUser.Sum_premium += PolicyPremium;
+                    if (tempUser.Sum_premium == null)
+                    {
+                        tempUser.Sum_premium = 0;
+                        tempUser.Sum_premium += PolicyPremium;
+                    }
+                    else
+                    {
+                        tempUser.Sum_premium += PolicyPremium;
+                    }
+                    _db.aspnetusers.Attach(tempUser);
+                    var entry = _db.Entry(tempUser);
+                    entry.Property(e => e.Sum_premium).IsModified = true;
+                    _db.SaveChanges();
                 }
-                else
-                {
-                    tempUser.Sum_premium += PolicyPremium;
-                }
-                _db.aspnetusers.Attach(tempUser);
-                var entry = _db.Entry(tempUser);
-                entry.Property(e => e.Sum_premium).IsModified = true;
-                _db.SaveChanges();
             }
         }
         public float? GetUserSumofPremiums(string policyHolder)

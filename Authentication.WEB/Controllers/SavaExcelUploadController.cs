@@ -174,42 +174,67 @@ namespace InsuredTraveling.Controllers
                 string subSSN = "";
                 string subSSN_Holder = "";
 
-                if (SSN.Length == 13)
-                {
-                    subSSN = SSN.Substring(8, 5);
-                }
+               
+               
+                    if (SSN.Length == 13)
+                    {
+                        subSSN = SSN.Substring(8, 5);
+                    }
 
-                if (SSN_Holder.Length == 13)
-                {
-                    subSSN_Holder = SSN_Holder.Substring(8, 5);
-                }
+                    if (SSN_Holder.Length == 13)
+                    {
+                        subSSN_Holder = SSN_Holder.Substring(8, 5);
+                    }
 
-                if (SSN_result || subSSN == "00000")
-                {
+                    if (SSN_result || subSSN == "00000")
+                    {
 
-                    JSONObject.Add("SSN", "true");
-                }
-                else
-                {
-                    JSONObject.Add("SSN", "false");
-                }
+                        JSONObject.Add("SSN", "true");
+                     
+                    }
+                    else
+                    {
+                        JSONObject.Add("SSN", "false");
+                       
+                    }
 
-                if (SSN_Holder_result || subSSN_Holder == "00000" )
-                {
-                    JSONObject.Add("SSN_Holder", "true");
-                }else
-                {
-                    JSONObject.Add("SSN_Holder", "false");
-                }
+                    if (SSN_Holder_result || subSSN_Holder == "00000")
+                    {
+                        JSONObject.Add("SSN_Holder", "true");
+                       
+                    }
+                    else
+                    {
+                        JSONObject.Add("SSN_Holder", "false");
+                        
+                    }
 
+                if (!CheckIfPolicyHolderExist(SSN_Holder))
+                {
+                    
+                    JSONObject.Add("Error2", "1");
+
+                    
+                }
             }
             catch (Exception ex)
             {
                 JSONObject.Add("Error", "Internal error");
                 throw new Exception("Internal error", ex);
             }
-
+        
+        
             return JSONObject;
+
+        }
+
+        public bool CheckIfPolicyHolderExist(string SSN_Holder)
+        {
+            if (_userService.GetUserBySSN(SSN_Holder) == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         public FileResult SavaDocumentDownload()

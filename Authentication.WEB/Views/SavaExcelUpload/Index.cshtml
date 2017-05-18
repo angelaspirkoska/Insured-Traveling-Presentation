@@ -62,7 +62,7 @@
              @*grid.Column("id_seller", Resource.Sava_ExcelSeller_id, format: @<text>  <span class="display-mode">   <label id="lblName">@item.id_seller</label> </span> <input type="text" id="Name" value="@item.id_seller" class="edit-mode" /></text>, style: "col2Width"),*@
              grid.Column("SSN_insured", Resource.Sava_ExcelSSN_Insured, format: @<text> <span class="display-mode"> <label id="lblSSN_insured">@item.SSN_insured</label> </span>  <input type="text" id="SSN_insured" value="@item.SSN_insured" class="edit-mode" /> </text>, style: "col2Width"),
              grid.Column("SSN_policyHolder", Resource.Sava_ExcelSSN_Holder, format: @<text> <span class="display-mode"> <label id="lblSSN_policyHolder">@item.SSN_policyHolder</label> </span>  <input type="text" id="SSN_policyHolder" value="@item.SSN_policyHolder" class="edit-mode" /> </text>, style: "col2Width"),
-                grid.Column("expiry_date", Resource.Sava_ExcelExpiry_Date, format: @<text> <span class="display-mode"> <label id="lbldate_created">@item.date_created</label> </span>  <input type="text" id="date_created" value="@item.date_created" class="edit-mode" /> </text>, style: "col2Width"),
+             grid.Column("date_created", Resource.Sava_ExcelPolicyDate, format: @<text> <span class="display-mode"> <label id="lbldate_created">@item.date_created</label> </span>  <input type="text" id="date_created" value="@item.date_created" class="edit-mode" /> </text>, style: "col2Width"),
              grid.Column("expiry_date", Resource.Sava_ExcelExpiry_Date, format: @<text> <span class="display-mode"> <label id="lblexpiry_date">@item.expiry_date</label> </span>  <input type="text" id="expiry_date" value="@item.expiry_date" class="edit-mode" /> </text>, style: "col2Width"),
              grid.Column("premium", Resource.Sava_ExcelPremium, format: @<text> <span class="display-mode"> <label id="lblpremium">@item.premium</label> </span>  <input type="text" id="premium" value="@item.premium" class="edit-mode" /> </text>, style: "col2Width"),
              @*grid.Column("email_seller", Resource.Sava_ExcelEmailHolder, format: @<text> <span class="display-mode"> <label id="lblemail_seller">@item.email_seller</label> </span>  <input type="text" id="email_seller" value="@item.email_seller" class="edit-mode" /> </text>, style: "col2Width"),*@
@@ -107,6 +107,14 @@
             yearRange: '-100y:c+nn',
 
         });
+
+        $("#date_created").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+
+        });
     });
 
     var repost = parseInt( @ViewBag.IsRepost);
@@ -135,7 +143,10 @@
         $('.edit-mode').hide();
         $('.edit-user, .cancel-user').on('click', function () {
             var tr = $(this).parents('tr:first');
+
             tr.find('.edit-mode, .display-mode').toggle();
+            var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
+          
         });
 
         $('.save-user').on('click', function () {
@@ -178,12 +189,17 @@
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
                         var returnedData = JSON.parse(data);
+                        if (returnedData.Error2 == 1) {
+                            red4(SSN_policyHolder);
+                            alert("Korisnik so takva polisa ne postoi");
+                        }
                         if (returnedData.SSN != "true") {
                             red2(SSN_insured);
                         }
                         if (returnedData.SSN_Holder != "true") {
                             red3(SSN_policyHolder);
                         }
+                       
                         return returnedData;
                     }
                 });
@@ -205,7 +221,7 @@
                         var returnedData = JSON.parse(data);
                         if (returnedData.Exists == "true") {
                             red(policyNumber);
-                        }
+                        }else
                         return returnedData;
                     }
                 });
@@ -230,6 +246,7 @@
                     var tr = $(this);
                     var policy_number2 = tr.find("#SSN_insured").val();
                     if (SSN == policy_number2) {
+                        
                         tr.find("#SSN_insured").parent().css("border-color", "red");
                         tr.find("#SSN_insured").parent().children().css("border-color", "red");
 
@@ -250,6 +267,19 @@
                 }
             )
             };
+            function red4(SSN_Holder) {
+                valid = false;
+                $("tbody tr").each(function (index) {
+                    var tr = $(this);
+                    var policy_number2 = tr.find("#SSN_policyHolder").val();
+                    if (SSN_Holder == policy_number2) {
+                        tr.find("#SSN_policyHolder").parent().css("border-color", "blue");
+                        tr.find("#SSN_policyHolder").parent().children().css("border-color", "blue");
+
+                    }
+                }
+            )
+            };
 
             var list = [];
             $("tbody tr").each(function (index) {
@@ -262,6 +292,7 @@
                 var SSN_insured = tr.find("#SSN_insured").val();
                 var SSN_policyHolder = tr.find("#SSN_policyHolder").val();
                 checkSSN(SSN_insured, SSN_policyHolder);
+                var date_created = tr.find("#date_created").val();
                 var expiry_date = tr.find("#expiry_date").val();
                 var premium = tr.find("#premium").val();
                 var email_seller = tr.find("#email_seller").val();
@@ -270,7 +301,9 @@
                     "policy_number": policy_number,
                     //"id_seller": Name,
                     "SSN_insured": SSN_insured,
+                    
                     "SSN_policyHolder": SSN_policyHolder,
+                    "date_created": date_created,
                     "expiry_date": expiry_date,
                     "premium": premium,
                     //"email_seller": email_seller,

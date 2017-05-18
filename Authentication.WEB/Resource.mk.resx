@@ -1480,7 +1480,7 @@
     <value>Прикачи документ</value>
   </data>
   <data name="Sava_Excel_SavePolicy" xml:space="preserve">
-    <value>Зачувај ги полиси</value>
+    <value>Зачувај ги полисите</value>
   </data>
   <data name="Sava_ExcelFileError" xml:space="preserve">
     <value>Невалиден ексел документ. Мора да завршува со наставката".xlsx".</value>
@@ -1544,5 +1544,8 @@
   </data>
   <data name="Sava_ExcelTemplateDownload" xml:space="preserve">
     <value>Спушти темплејт</value>
+  </data>
+  <data name="Sava_ExcelPolicyDate" xml:space="preserve">
+    <value>Датум на купување на полиса</value>
   </data>
 </root>

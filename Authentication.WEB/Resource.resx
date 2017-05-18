@@ -1551,4 +1551,7 @@
   <data name="Sava_ExcelTemplateDownload" xml:space="preserve">
     <value>Download template</value>
   </data>
+  <data name="Sava_ExcelPolicyDate" xml:space="preserve">
+    <value>Date of issue</value>
+  </data>
 </root>

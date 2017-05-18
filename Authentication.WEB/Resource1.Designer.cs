@@ -2743,6 +2743,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date of issue.
+        /// </summary>
+        public static string Sava_ExcelPolicyDate {
+            get {
+                return ResourceManager.GetString("Sava_ExcelPolicyDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Premium.
         /// </summary>
         public static string Sava_ExcelPremium {
