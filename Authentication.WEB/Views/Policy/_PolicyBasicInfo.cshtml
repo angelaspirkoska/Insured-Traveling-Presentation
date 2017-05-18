@@ -61,15 +61,58 @@
         <div>
             <label class="control-label pull-left">Период на престој во странство</label><br><br>
             <div class="form-group">
-                <div class="input-group">
-                    @*@Html.EditorFor(model => model.Start_Date, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField policyInfo" } })*@
-                    <input type="hidden" id="start-date" name="Start_Date" />
-                    <input type="hidden" id="end-date" name="End_Date" />
-                    <input type="text" class="form-control" id="policy-daterange" />
-                    @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
-                    <span class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                    </span>
+                <label class="radio-inline">
+                    <input type="radio" checked name="durationType" value="0" />
+                    Познат Термин
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="durationType" value="1" />
+                    Отворен Период
+                </label>
+            </div>
+            <div id="knownDurationContainer">
+                <div class="form-group">
+                    <div class="input-group">
+                        @*@Html.EditorFor(model => model.Start_Date, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm placeholder mandatoryField policyInfo" } })*@
+                        <input type="hidden" id="start-date" name="Start_Date" />
+                        <input type="hidden" id="end-date" name="End_Date" />
+                        <input type="text" class="form-control" id="policy-daterange" />
+                        @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div hidden id="openDurationContainer">
+                <div class="form-group">
+                    <label class="control-label pull-left">Период</label>
+                    <select id="openDurationPicker" name="openDurationPicker" class="form-control" title="Одбери">
+                        <option value="6">6 месеци</option>
+                        <option value="12">12 месеци</option>
+                    </select>
+                </div>
+                <div id="openPeriodSix">
+                    <div class="form-group">
+                        <label class="control-label pull-left">Термини</label>
+                        <select id="openPeriodSixDays" class="form-control" title="Одбери">
+                            <option value="0">Одбери</option>
+                            <option value="30">30</option>
+                            <option value="60">60</option>
+                            <option value="90">90</option>
+                        </select>
+                    </div>
+                </div>
+                <div hidden id="openPeriodTwelve">
+                    <div class="form-group">
+                        <label class="control-label pull-left">Термини</label>
+                        <select id="openPeriodTwelveDays" class="form-control">
+                            <option value="0">Одбери</option>
+                            <option value="60">60</option>
+                            <option value="90">90</option>
+                            <option value="120">120</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -86,6 +129,22 @@
 
 <script>
     $(function () {
+
+        $("#policyPackageType").on("change", function() {
+            var selectedType = $('#policyPackageType').find(":selected").text();
+            $("#mainTitlePackage").html(selectedType);
+            $("#detailsTitlePackage").html(selectedType);
+        });
+
+        $("#policyTypeSava").on("change", function(){
+            var selectedType = $('#policyTypeSava').find(":selected").text();
+            $("#detailsTitlePolicyType").html(selectedType);
+        });
+
+        $("#insuredNumber").on("change", function(){
+            var insuredNumber = $('#insuredNumber').find(":selected").text();
+            $("#detailsTitleInsuredNumber").html(insuredNumber);
+        });
 
         $("#policyTypeSava").val('@policyTypeSava');
         $("#insuredNumber").val('@insuredNumber');
@@ -109,7 +168,33 @@
             $("#Valid_Days").val(dateDiff);
         });
 
+        $("#openPeriodSixDays").on("change", function(){
+            $("#Valid_Days").val($(this).val());
+        });
 
+        $("#openPeriodTwelveDays").on("change", function(){
+            $("#Valid_Days").val($(this).val());
+        });
+
+        $("#openDurationPicker").on("change", function(){
+            if($(this).val() == 6) {
+                $("#openPeriodSix").show();
+                $("#openPeriodTwelve").hide();
+            } else {
+                $("#openPeriodTwelve").show();
+                $("#openPeriodSix").hide();
+            }
+        });
+
+        $("input[name='durationType']").on("change", function(){    
+            if($(this).val() == 0) {
+                $("#knownDurationContainer").show();
+                $("#openDurationContainer").hide();
+            } else {
+                $("#openDurationContainer").show();
+                $("#knownDurationContainer").hide();
+            }
+        });
 
     })
 </script>

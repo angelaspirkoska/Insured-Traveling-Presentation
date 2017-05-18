@@ -206,15 +206,86 @@ namespace Authentication.WEB.Services
             return roundedPremium;
         }
 
-        public double? totalPremiumSava(Policy policy, int policyPackageType, int policyTypeSava)
+        public double? totalPremiumSava(Policy policy, int policyPackageType, int policyTypeSava, 
+            int durationType, int openDurationDays, string isProfessionalDriver, string isAbroadStudent, string extraNezgoda, 
+            string extraDomasnaAsistencija, string extraAvtoAsistencija, int savaFransiza)
         {
             //osnovna premija
-            var basePremiumByDay = 0.5;
-            if (policyPackageType == 2)
-                basePremiumByDay = 0.7;
-            if (policyPackageType == 3)
-                basePremiumByDay = 1;
-            var premium = basePremiumByDay * policy.Valid_Days * 1.2;
+
+            var basePremiumByDay = 0.0;
+            var premium = 0.0;
+            if(durationType == 0)
+            {
+                if (policyPackageType == 1)
+                    basePremiumByDay = 0.5;
+                if (policyPackageType == 2)
+                    basePremiumByDay = 0.7;
+                if (policyPackageType == 3)
+                    basePremiumByDay = 1;
+                premium = basePremiumByDay * policy.Valid_Days * 1.2;
+            } else
+            {
+                if(openDurationDays == 6)
+                {
+                    if (policyPackageType == 1)
+                    {
+                        if (policy.Valid_Days == 30)
+                            premium = 18;
+                        if (policy.Valid_Days == 60)
+                            premium = 36;
+                        if (policy.Valid_Days == 90)
+                            premium = 54;
+                    }
+                    if (policyPackageType == 2)
+                    {
+                        if (policy.Valid_Days == 30)
+                            premium = 25;
+                        if (policy.Valid_Days == 60)
+                            premium = 50;
+                        if (policy.Valid_Days == 90)
+                            premium = 76;
+                    }
+                    if (policyPackageType == 3)
+                    {
+                        if (policy.Valid_Days == 30)
+                            premium = 36;
+                        if (policy.Valid_Days == 60)
+                            premium = 72;
+                        if (policy.Valid_Days == 90)
+                            premium = 108;
+                    }
+                }
+                if(openDurationDays == 12)
+                {
+                    if (policyPackageType == 1)
+                    {
+                        if (policy.Valid_Days == 60)
+                            premium = 36;
+                        if (policy.Valid_Days == 90)
+                            premium = 54;
+                        if (policy.Valid_Days == 120)
+                            premium = 72;
+                    }
+                    if (policyPackageType == 2)
+                    {
+                        if (policy.Valid_Days == 60)
+                            premium = 50;
+                        if (policy.Valid_Days == 90)
+                            premium = 76;
+                        if (policy.Valid_Days == 120)
+                            premium = 101;
+                    }
+                    if (policyPackageType == 3)
+                    {
+                        if (policy.Valid_Days == 60)
+                            premium = 72;
+                        if (policy.Valid_Days == 90)
+                            premium = 108;
+                        if (policy.Valid_Days == 120)
+                            premium = 144;
+                    }
+                }
+            }
 
             //doplatoci
             var age = DateTime.Now.Year - policy.BirthDate.Year;
@@ -223,16 +294,66 @@ namespace Authentication.WEB.Services
             if (age >= 65 && age <= 70)
                 premium *= 2;
 
+            if (isAbroadStudent == "on")
+                premium *= 1.5;
+            if (isProfessionalDriver == "on")
+                premium *= 2;
+
             //popusti
             if (policyTypeSava == 2 || policyTypeSava == 3)
                 premium = premium - 0.15 * premium;
             if (policyTypeSava == 4 || policyTypeSava == 5)
                 premium = premium - 0.2 * premium;
+            
+            //popust fransiza
+            if(savaFransiza == 2)
+            {
+                premium = premium - 0.20 * premium;
+                premium += 150;
+            }
+            else if(savaFransiza == 3)
+            {
+                premium = premium - 0.30 * premium;
+                premium += 200;
+            }
 
             if (premium < 2)
                 premium = 2;
 
-            return premium*61.5;
+            //extra nezgoda, avto...
+            var premiumNezgoda = 0.0;
+            //ovde treba po broj na lica
+            if (extraNezgoda == "on")
+                premiumNezgoda = 2 * policy.Valid_Days;
+
+            var premiumAvto = 0.0;
+            var premiumDomasna = 0.0;
+            //ovde treba po broj na lica
+            if (extraAvtoAsistencija == "on")
+            {
+                if (policy.Valid_Days < 8)
+                {
+                    premiumAvto = 3.3 * 61.5;
+                    premiumDomasna = 203;
+                }
+                else if (policy.Valid_Days < 15)
+                {
+                    premiumAvto = 4.1 * 61.5;
+                    premiumDomasna = 252;
+                }
+                else if (policy.Valid_Days < 30)
+                {
+                    premiumAvto = 4.9 * 61.5;
+                    premiumDomasna = 301;
+                }
+                else
+                {
+                    premiumAvto = 11 * 61.5;
+                    premiumDomasna = 661;
+                }
+            }
+
+            return premium * 61.5 + premiumNezgoda + premiumAvto + premiumDomasna;
         }
     }
 }

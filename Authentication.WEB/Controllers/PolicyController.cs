@@ -105,7 +105,8 @@ namespace Authentication.WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Index(Policy policy, int policyPackageType, int policyTypeSava,
+        public async Task<JsonResult> Index(Policy policy, int policyPackageType, int policyTypeSava, 
+            int durationType, int openDurationPicker, int savaFransiza,
             string isProfessionalDriver = null, string isAbroadStudent = null, string extraNezgoda = null,
             string extraDomasnaAsistencija = null, string extraAvtoAsistencija = null)
         {
@@ -153,7 +154,9 @@ namespace Authentication.WEB.Controllers
             //{
             RatingEngineService ratingEngineService = new RatingEngineService();
             Premium Premium = new Premium();
-            Premium.PremiumAmount = (int)ratingEngineService.totalPremiumSava(policy, policyPackageType, policyTypeSava);
+            Premium.PremiumAmount = (int)ratingEngineService.totalPremiumSava(policy, policyPackageType, 
+                policyTypeSava, durationType, openDurationPicker, isProfessionalDriver, isAbroadStudent, extraNezgoda, extraDomasnaAsistencija,
+                extraAvtoAsistencija, savaFransiza);
             if (_roleAuthorize.IsUser("Broker manager", username))
             {
                 if (Premium.PremiumAmount > 10000)
