@@ -70,6 +70,14 @@
       <HintPath>..\packages\ClosedXML.0.86.0\lib\net40\ClosedXML.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
       <Private>True</Private>
@@ -170,6 +178,10 @@
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Quartz, Version=2.5.0.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Quartz.2.5.0\lib\net40\Quartz.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -380,6 +392,9 @@
     <Content Include="ExcelConfig\config_file - Copy.xlsx" />
     <Content Include="ExcelConfig\config_file.xlsx" />
     <Content Include="ExcelSavaTemplate\SAVA_Policy_Template_Final.xlsx" />
+    <None Include="job_scheduling_data_2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\Slobodanka.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
@@ -2388,6 +2403,8 @@
     <Compile Include="sava_voucher.cs">
       <DependentUpon>InsuredTravelingEntity2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Schedulers\EmailJob.cs" />
+    <Compile Include="Schedulers\JobScheduler.cs" />
     <Compile Include="SignalR\PipelineModules\LoggingPipelineModule.cs" />
     <Compile Include="SignalR\Hubs\ChatHub.cs" />
     <Compile Include="SignalR\PipelineModules\ExceptionPipelineModule.cs" />
