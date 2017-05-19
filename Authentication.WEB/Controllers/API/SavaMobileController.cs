@@ -224,7 +224,8 @@ namespace InsuredTraveling.Controllers.API
             var listPictures = _savaAdService.GetAdPictures();
 
             Random rnd1 = new Random();
-            int randNum = rnd1.Next(1, listPictures.Count());
+            int br = listPictures.Count();
+            int randNum = rnd1.Next(0, br);
 
             
             PicModel.ImageLocation = listPictures[randNum].ImageLocation;
@@ -249,10 +250,11 @@ namespace InsuredTraveling.Controllers.API
             string PolicyNumber = (string)IDjson["PolicyNumber"];
             string SSN = (string)IDjson["SSN"];
             AuthRepository _repo = new AuthRepository();
-            var PolicyUser = _userService.GetUserBySSN(SSN);
+            
 
             if (PolicyNumber != null && PolicyNumber != "" && PolicyNumber != " " && SSN != null && SSN != " ")
             {
+                var PolicyUser = _userService.GetUserBySSN(SSN);
                 if (PolicyUser == null)
                 {
                     data.Add("Message", "User with this SSN does not exist.");
@@ -265,11 +267,11 @@ namespace InsuredTraveling.Controllers.API
                     PointsRequestModel p_request = new PointsRequestModel();
                     p_request.id_user = PolicyUser.Id;
                     p_request.policy_id = PolicyNumber;
-                    p_request.ssn = PolicyNumber;
+                    p_request.ssn = SSN;
                     p_request.DateCreated = DateTime.Now;
                     _prs.AddPoints_Request(p_request);
 
-                    if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
+                    if (_roleAuthorize.IsUser("Sava_Sport+", PolicyUser.UserName))
                     {
                         data.Add("Message", "You are already Sava Sport + user. You can use your discount points.");
                         data.Add("Status", "false");
