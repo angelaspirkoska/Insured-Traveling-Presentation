@@ -126,8 +126,35 @@
         </div>
     </div>
 </div>
+<div id="insu-sum" class="well bg-primary follow-scroll" style="display: block; top: 440px;">
+    <b>Патничко осигурување промо акција од <br><span>117,00&nbsp;ден</span></b>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
 <script>
+
+    (function($) {
+        var element = $('.follow-scroll'),
+            originalY = element.offset().top;
+    
+        // Space between element and top of screen (when scrolling)
+        var topMargin = 120;
+    
+        // Should probably be set in CSS; but here just for emphasis
+        element.css('position', 'relative');
+    
+        $(window).on('scroll', function(event) {
+            var scrollTop = $(window).scrollTop();
+        
+            element.stop(false, false).animate({
+                top: scrollTop < originalY
+                        ? 0
+                        : scrollTop - originalY + topMargin
+            }, 300);
+        });
+    })(jQuery);
+
     $(function () {
 
         $("#policyPackageType").on("change", function() {
@@ -138,12 +165,29 @@
 
         $("#policyTypeSava").on("change", function(){
             var selectedType = $('#policyTypeSava').find(":selected").text();
+            var selectedTypeValue = $('#policyTypeSava').find(":selected").val();
             $("#detailsTitlePolicyType").html(selectedType);
+            if(selectedTypeValue == 2 || selectedTypeValue == 5) {
+                $('#insuredNumber option[value=3]').prop('selected', true);
+                $('#insuredNumber').trigger("change");
+
+                $("#modalAlertTitle").html("Внимание");
+                $("#modalAlertContent").html("Бројот на осигурани лица е променет во 3");
+                $("#modalAlert").modal("show");
+            }
         });
 
         $("#insuredNumber").on("change", function(){
-            var insuredNumber = $('#insuredNumber').find(":selected").text();
+            var insuredNumber = $('#insuredNumber').find(":selected").val();
             $("#detailsTitleInsuredNumber").html(insuredNumber);
+            if(insuredNumber == 1) {
+                $('#policyTypeSava option[value=1]').prop('selected', true);
+                $('#policyTypeSava').trigger("change");
+
+                $("#modalAlertTitle").html("Внимание");
+                $("#modalAlertContent").html("Типот на осигурување е променет во Индивидуално");
+                $("#modalAlert").modal("show");
+            }
         });
 
         $("#policyTypeSava").val('@policyTypeSava');
@@ -186,7 +230,7 @@
             }
         });
 
-        $("input[name='durationType']").on("change", function(){    
+        $("input[name='durationType']").on("change", function(){
             if($(this).val() == 0) {
                 $("#knownDurationContainer").show();
                 $("#openDurationContainer").hide();

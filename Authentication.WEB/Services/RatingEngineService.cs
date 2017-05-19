@@ -222,7 +222,7 @@ namespace Authentication.WEB.Services
                     basePremiumByDay = 0.7;
                 if (policyPackageType == 3)
                     basePremiumByDay = 1;
-                premium = basePremiumByDay * policy.Valid_Days * 1.2;
+                premium = basePremiumByDay * policy.Valid_Days;
             } else
             {
                 if(openDurationDays == 6)
@@ -309,12 +309,10 @@ namespace Authentication.WEB.Services
             if(savaFransiza == 2)
             {
                 premium = premium - 0.20 * premium;
-                premium += 150;
             }
             else if(savaFransiza == 3)
             {
                 premium = premium - 0.30 * premium;
-                premium += 200;
             }
 
             if (premium < 2)

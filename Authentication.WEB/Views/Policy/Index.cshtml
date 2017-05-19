@@ -62,19 +62,19 @@
 
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <div class="form-group col-md-6 btns-position">
+            @*<div class="form-group col-md-6 btns-position">
                 <input type="button" id="AddOffer" value="@InsuredTraveling.Resource.Policy_AddOffer" class="btn btn-default btn-block hideMe" />
-            </div>
-            <div class="form-group col-md-6 btns-position">
+            </div>*@
+            <div class="form-group col-md-12 btns-position">
                 <input type="submit" id="printOffers" formmethod="post" formaction="/Policy/RedirectPrintOfferSava" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
             </div>
-            <div id="successMsg" class="col-md-6" style="display:none;">
+            @*<div id="successMsg" class="col-md-6" style="display:none;">
                 <div class="alert alert-dismissible alert-success">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     <span>@Resource.Policy_AddOfferMsg <span style="font-weight:bold;" id="ReturnedQuoteNumber"></span> </span>
                 </div>
-            </div>
-            <div id="failMsg" class="col-md-6" style="display:none;">
+            </div>*@
+            <div id="failMsg" class="col-md-12" style="display:none;">
                 <div class="alert alert-dismissible alert-danger">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     <span>@Resource.Policy_AddOfferMsgFail!</span>
@@ -120,6 +120,23 @@
             </div>
         </div>
     </div>*@
+
+<div class="modal fade" id="modalAlert" role="dialog">
+    <div class="modal-dialog" style="margin-top:13%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="modalAlertTitle" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p id="modalAlertContent"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="col-sm-3 btn btn-block btn-success" data-dismiss="modal">ОК</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script src="~/Scripts/jquery.validate.js"></script>
@@ -283,6 +300,8 @@
     $(".input-sm, .text-box").keypress(function (event) {
         var ew = event.which;
         console.log(ew);
+        if (ew == 13)
+            return true;
         if (ew == 32)
             return true;
         if (46 <= ew && ew <= 57)
@@ -291,6 +310,9 @@
             return true;
         if (97 <= ew && ew <= 122)
             return true;
+        $("#modalAlertTitle").html("Внимание");
+        $("#modalAlertContent").html("Ве молиме користете само латинични букви за пополнување на полињата");
+        $("#modalAlert").modal("show");
         return false;
     });
 
