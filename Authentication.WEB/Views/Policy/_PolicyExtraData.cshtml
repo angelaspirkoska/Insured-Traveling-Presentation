@@ -104,11 +104,8 @@
 <div class="col-md-12 form-horizontal form-group">
     <div class="col-md-12">
         <label>Франшиза</label>
-        <select class="form-control" name="savaFransiza" title="Одбери">
-            <option value="1">Без Франшиза</option>
-            <option value="2">150 ЕУР</option>
-            <option value="3">200 ЕУР</option>
-        </select>
+        @Html.DropDownListFor(model => model.Retaining_RiskID, (List<SelectListItem>)ViewBag.Franchise, new { @class = "form-control input-sm" })
+        @Html.ValidationMessageFor(model => model.Retaining_RiskID, "", new { @class = "text-danger" })
     </div>
 </div>
 

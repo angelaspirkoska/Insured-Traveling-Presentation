@@ -208,7 +208,7 @@ namespace Authentication.WEB.Services
 
         public double? totalPremiumSava(Policy policy, int policyPackageType, int policyTypeSava, 
             int durationType, int openDurationDays, string isProfessionalDriver, string isAbroadStudent, string extraNezgoda, 
-            string extraDomasnaAsistencija, string extraAvtoAsistencija, int savaFransiza)
+            string extraDomasnaAsistencija, string extraAvtoAsistencija)
         {
             //osnovna premija
 
@@ -306,11 +306,11 @@ namespace Authentication.WEB.Services
                 premium = premium - 0.2 * premium;
             
             //popust fransiza
-            if(savaFransiza == 2)
+            if(policy.Retaining_RiskID == 2)
             {
                 premium = premium - 0.20 * premium;
             }
-            else if(savaFransiza == 3)
+            else if(policy.Retaining_RiskID == 3)
             {
                 premium = premium - 0.30 * premium;
             }

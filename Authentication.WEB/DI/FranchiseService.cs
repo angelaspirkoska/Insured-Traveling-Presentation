@@ -16,12 +16,12 @@ namespace InsuredTraveling.DI
         {
             var languageId = SiteLanguages.CurrentLanguageId();
 
-            var franchise = _db.retaining_risk_name.Where(x => x.language_id == languageId).Select(p => new SelectListItem
-            {
-                Text = p.name,
-                Value = p.retaining_risk_id.ToString()
-            });
-
+            var franchise = _db.retaining_risk_name.Where(x => x.language_id == languageId).
+                Select(p => new SelectListItem
+                {
+                    Text = p.name,
+                    Value = p.retaining_risk_id.ToString()
+                }).OrderBy(x => x.Value);
             return franchise;
         }
 
