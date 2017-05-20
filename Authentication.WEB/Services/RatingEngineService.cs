@@ -208,7 +208,7 @@ namespace Authentication.WEB.Services
 
         public double? totalPremiumSava(Policy policy, int policyPackageType, int policyTypeSava, 
             int durationType, int openDurationDays, string isProfessionalDriver, string isAbroadStudent, string extraNezgoda, 
-            string extraDomasnaAsistencija, string extraAvtoAsistencija)
+            string extraDomasnaAsistencija, string extraAvtoAsistencija, int numOfInsureds)
         {
             //osnovna premija
 
@@ -286,6 +286,9 @@ namespace Authentication.WEB.Services
                     }
                 }
             }
+
+            //po broj na lica
+            premium *= numOfInsureds;
 
             //doplatoci
             var age = DateTime.Now.Year - policy.BirthDate.Year;

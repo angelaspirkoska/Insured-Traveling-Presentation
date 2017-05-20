@@ -79,6 +79,9 @@ namespace Authentication.WEB.Controllers
             ViewBag.PersonsNum = personsnum;
             ViewBag.Days = days;
 
+            //extra insured people
+            ViewBag.InsuredNumber = 0;
+
             if (!String.IsNullOrEmpty(ssn))
             {
                 insured insured = _iss.GetInsuredBySsn(ssn);
@@ -99,8 +102,9 @@ namespace Authentication.WEB.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetInsuredPartial()
+        public ActionResult GetInsuredPartial(int numInsured)
         {
+            ViewBag.InsuredNumber = numInsured - 1;
             return PartialView("_PolicyInsured");
         }
 
@@ -155,7 +159,7 @@ namespace Authentication.WEB.Controllers
             Premium Premium = new Premium();
             Premium.PremiumAmount = (int)ratingEngineService.totalPremiumSava(policy, policyPackageType, 
                 policyTypeSava, durationType, openDurationPicker, isProfessionalDriver, isAbroadStudent, extraNezgoda, extraDomasnaAsistencija,
-                extraAvtoAsistencija);
+                extraAvtoAsistencija, policy.insureds.Count + 1);
             if (_roleAuthorize.IsUser("Broker manager", username))
             {
                 if (Premium.PremiumAmount > 10000)

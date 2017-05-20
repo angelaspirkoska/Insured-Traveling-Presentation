@@ -90,6 +90,76 @@
     </div>
 </div>
 
+@for (int i = 0; i < ViewBag.InsuredNumber; i++)
+{
+    <div class="col-md-12 form-group">
+        <label class="col-md-12 text-left">име и презиме</label>
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.insureds[i].Name, new { htmlAttributes = new { placeholder = "име", @class = "form-control input-sm mandatoryField insuredData insuredInfo" } })
+            @Html.ValidationMessageFor(model => model.insureds[i].Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-7">
+            @Html.EditorFor(model => model.insureds[i].Lastname, new { htmlAttributes = new { placeholder = "презиме", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
+            @Html.ValidationMessageFor(model => model.insureds[i].Lastname, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <label class="col-md-12 text-left">ЕМБГ и број на пасош</label>
+        <div class="col-md-7">
+            @Html.EditorFor(model => model.insureds[i].SSN, new { htmlAttributes = new { placeholder = "ЕМБГ", @class = "form-control input-sm mandatoryField insuredData insuredInfo", @id = "insured-embg" } })
+            @Html.ValidationMessageFor(model => model.insureds[i].SSN, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.insureds[i].Passport_Number_IdNumber, new { htmlAttributes = new { placeholder = "Број на пасош", @class = "form-control input-sm mandatoryField insuredData insuredInfo" } })
+            @Html.ValidationMessageFor(model => model.insureds[i].Passport_Number_IdNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <label class="col-md-12 text-left">датум на раѓање</label>
+        <div class="col-md-5">
+            <div class="input-group">
+                @*@Html.EditorFor(model => model.BirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  mandatoryField insuredData" } })*@
+                <input type="text" id="insured-birthday" name="BirthDate" class="form-control" />
+                <span class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </span>
+                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- ОВАА ЛАБЕЛА ТРЕБА ДА ЈА ПРИКАЖИ ВОЗРАСТА НА ОСИГУРАНОТО ЛИЦЕ -->
+        <!-- ПРЕСМЕТАНО ОД ПОЛЕТО "датум на раѓање" -->
+        <div class="col-sm-7">
+            <label id="lbl-pers-bdate-1"></label>
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <label class="col-md-12 text-left">адреса</label>
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.insureds[i].Address, new { htmlAttributes = new { placeholder = "улица", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
+            @Html.ValidationMessageFor(model => model.insureds[i].Address, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.insureds[i].City, new { htmlAttributes = new { placeholder = "град", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
+            @Html.ValidationMessageFor(model => model.insureds[i].City, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.insureds[i].Postal_Code, new { htmlAttributes = new { placeholder = "поштенски број", @class = "form-control input-sm mandatoryField insuredData", } })
+            @Html.ValidationMessageFor(model => model.insureds[i].Postal_Code, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    //ova treba da se dodade vo insured ko pole
+    <div class="col-md-12 form-group">
+        <label class="col-md-12 text-left">спортски активности</label>
+        <div class="col-md-12">
+            <select class="form-control" name="pers-sport-1" title="Одбери">
+                <option value="0">осигуреникот нема да биде вклучен во спортски активности</option>
+                <option value="1">осигуреникот ќе биде вклучен во спортски активности</option>
+            </select>
+            <hr>
+        </div>
+    </div>
+}
+
 <script>
     $(function () {
 

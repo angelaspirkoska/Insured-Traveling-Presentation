@@ -251,7 +251,7 @@
         $('#AddOffer').on('click', function () {
             $.ajax({
                 type: 'POST',
-                url: '@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Policy/CreateQuote',
+                url: '@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Policy/GetInsuredPartial',
                 data: $('#policy_form').serialize(),
                 success: function (result) {
                     console.log(result.numberQuote);
