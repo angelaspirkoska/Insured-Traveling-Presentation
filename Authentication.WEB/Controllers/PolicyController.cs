@@ -113,7 +113,7 @@ namespace Authentication.WEB.Controllers
 
         [HttpPost]
         public async Task<JsonResult> Index(Policy policy, int policyPackageType, int policyTypeSava, 
-            int durationType, int openDurationPicker, string isProfessionalDriver = null, string isAbroadStudent = null, string extraNezgoda = null,
+            int durationType, int openDurationPicker, int persSport, string isProfessionalDriver = null, string isAbroadStudent = null, string extraNezgoda = null,
             string extraDomasnaAsistencija = null, string extraAvtoAsistencija = null)
         {
             //isProfessionalDriver (and after) has value "on" if checked, and null if not
@@ -164,7 +164,7 @@ namespace Authentication.WEB.Controllers
             if (policy.insureds != null)
                 insuredsCount = policy.insureds.Count + 1;
             Premium.PremiumAmount = (int)ratingEngineService.totalPremiumSava(policy, policyPackageType, 
-                policyTypeSava, durationType, openDurationPicker, isProfessionalDriver, isAbroadStudent, extraNezgoda, extraDomasnaAsistencija,
+                policyTypeSava, durationType, openDurationPicker, persSport, isProfessionalDriver, isAbroadStudent, extraNezgoda, extraDomasnaAsistencija,
                 extraAvtoAsistencija, insuredsCount);
             if (_roleAuthorize.IsUser("Broker manager", username))
             {

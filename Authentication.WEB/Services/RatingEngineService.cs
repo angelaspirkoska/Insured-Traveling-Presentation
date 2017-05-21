@@ -207,7 +207,7 @@ namespace Authentication.WEB.Services
         }
 
         public double? totalPremiumSava(Policy policy, int policyPackageType, int policyTypeSava, 
-            int durationType, int openDurationDays, string isProfessionalDriver, string isAbroadStudent, string extraNezgoda, 
+            int durationType, int openDurationDays, int persSport, string isProfessionalDriver, string isAbroadStudent, string extraNezgoda, 
             string extraDomasnaAsistencija, string extraAvtoAsistencija, int numOfInsureds)
         {
             //osnovna premija
@@ -302,6 +302,9 @@ namespace Authentication.WEB.Services
             if (isProfessionalDriver == "on")
                 premium *= 2;
 
+            if (persSport == 1)
+                premium *= 1.6;
+
             //popusti
             if (policyTypeSava == 2 || policyTypeSava == 3)
                 premium = premium - 0.15 * premium;
@@ -354,7 +357,7 @@ namespace Authentication.WEB.Services
             if (premium < 2)
                 premium = 2;
 
-            return premium * 61.5 + premiumNezgoda + premiumAvto + premiumDomasna;
+            return Math.Ceiling(premium * 61.5) + premiumNezgoda + premiumAvto + premiumDomasna;
         }
     }
 }
