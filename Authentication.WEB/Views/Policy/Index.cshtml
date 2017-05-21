@@ -63,17 +63,15 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             @*<div class="form-group col-md-6 btns-position">
-                <input type="button" id="AddOffer" value="@InsuredTraveling.Resource.Policy_AddOffer" class="btn btn-default btn-block hideMe" />
-            </div>*@
-            <div class="form-group col-md-12 btns-position">
-                <input type="submit" id="printOffers" formmethod="post" formaction="/Policy/RedirectPrintOfferSava" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
-            </div>
+                    <input type="button" id="AddOffer" value="@InsuredTraveling.Resource.Policy_AddOffer" class="btn btn-default btn-block hideMe" />
+                </div>*@
+            <input type="submit" id="printOffers" formmethod="post" formaction="/Policy/RedirectPrintOfferSava" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
             @*<div id="successMsg" class="col-md-6" style="display:none;">
-                <div class="alert alert-dismissible alert-success">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <span>@Resource.Policy_AddOfferMsg <span style="font-weight:bold;" id="ReturnedQuoteNumber"></span> </span>
-                </div>
-            </div>*@
+                    <div class="alert alert-dismissible alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <span>@Resource.Policy_AddOfferMsg <span style="font-weight:bold;" id="ReturnedQuoteNumber"></span> </span>
+                    </div>
+                </div>*@
             <div id="failMsg" class="col-md-12" style="display:none;">
                 <div class="alert alert-dismissible alert-danger">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -297,7 +295,7 @@
         $(".hideMe").hide();
     })
 
-    $(".input-sm, .text-box").keypress(function (event) {
+    $(document).on("keypress", ".input-sm, .text-box", function (e) {
         var ew = event.which;
         console.log(ew);
         if (ew == 13)
@@ -688,7 +686,7 @@
         if ($("#IsSamePolicyHolderInsured").is(":checked")) {
 
             $("#Name").val($("#PolicyHolderName").val());
-            $("#LastName").val($("#PolicyHolderLastName").val()); 
+            $("#LastName").val($("#PolicyHolderLastName").val());
             $("#Address").val($("#PolicyHolderAddress").val());
             $("#City").val($("#PolicyHolderCity").val());
             $("#PostalCode").val($("#PolicyHolderPostalCode").val());

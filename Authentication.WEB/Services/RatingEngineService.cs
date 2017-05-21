@@ -318,9 +318,6 @@ namespace Authentication.WEB.Services
                 premium = premium - 0.30 * premium;
             }
 
-            if (premium < 2)
-                premium = 2;
-
             //extra nezgoda, avto...
             var premiumNezgoda = 0.0;
             //ovde treba po broj na lica
@@ -353,6 +350,9 @@ namespace Authentication.WEB.Services
                     premiumDomasna = 661;
                 }
             }
+
+            if (premium < 2)
+                premium = 2;
 
             return premium * 61.5 + premiumNezgoda + premiumAvto + premiumDomasna;
         }

@@ -61,14 +61,20 @@
         <div>
             <label class="control-label pull-left">Период на престој во странство</label><br><br>
             <div class="form-group">
-                <label class="radio-inline">
-                    <input type="radio" checked name="durationType" value="0" />
-                    Познат Термин
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="durationType" value="1" />
-                    Отворен Период
-                </label>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label class="radio-inline" style="padding-left: 5px;">
+                            <input type="radio" checked name="durationType" value="0" />
+                            Познат Термин
+                        </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="radio-inline" style="padding-left: 5px;">
+                            <input type="radio" name="durationType" value="1" />
+                            Отворен Период
+                        </label>
+                    </div>
+                </div>
             </div>
             <div id="knownDurationContainer">
                 <div class="form-group">
@@ -196,7 +202,7 @@
                 },
                 success: function(result){
                     $("#InsuredInformationContent").html(result);
-            }});
+                }});
         });
 
         $("#policyTypeSava").val('@policyTypeSava');
@@ -243,10 +249,25 @@
             if($(this).val() == 0) {
                 $("#knownDurationContainer").show();
                 $("#openDurationContainer").hide();
+
+                var startDate = moment($("#start-date").val(), "DD-MM-YYYY");
+                var endDate = moment($("#end-date").val(), "DD-MM-YYYY");
+                if($("#start-date").val() == "") {
+                    $("#Valid_Days").val(3);
+                } else {
+                    var dateDiff = endDate.diff(startDate, 'days');
+                    $("#Valid_Days").val(dateDiff);
+                }
+
+                $("#Valid_Days").attr("readonly", false);
             } else {
                 $("#openDurationContainer").show();
                 $("#knownDurationContainer").hide();
+
+                $("#Valid_Days").attr("readonly", true);
             }
+
+            
         });
 
     })

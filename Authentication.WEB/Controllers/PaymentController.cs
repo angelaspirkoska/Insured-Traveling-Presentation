@@ -18,7 +18,6 @@ namespace Authentication.WEB.Controllers
 {
 
     [RoutePrefix("Payment")]
-    [SessionExpire]
     public class PaymentController : Controller
     {
         private IUserService _us;
