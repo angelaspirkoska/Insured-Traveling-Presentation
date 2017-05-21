@@ -80,7 +80,7 @@ namespace Authentication.WEB.Controllers
             ViewBag.Days = days;
 
             //extra insured people
-            ViewBag.InsuredNumber = 0;
+            //ViewBag.InsuredNumber = 0;
 
             if (!String.IsNullOrEmpty(ssn))
             {
@@ -96,6 +96,9 @@ namespace Authentication.WEB.Controllers
                 p.PolicyHolderPostalCode = insured.Postal_Code;
                 p.PolicyHolderSSN = insured.SSN;
                 p.PolicyHolderPassportNumber_ID = insured.Passport_Number_IdNumber;
+
+                p.insureds = new List<insured>();
+                p.insureds.Add(new insured());
                 return View(p);
             }
             return View();
@@ -157,9 +160,12 @@ namespace Authentication.WEB.Controllers
             //{
             RatingEngineService ratingEngineService = new RatingEngineService();
             Premium Premium = new Premium();
+            var insuredsCount = 1;
+            if (policy.insureds != null)
+                insuredsCount = policy.insureds.Count + 1;
             Premium.PremiumAmount = (int)ratingEngineService.totalPremiumSava(policy, policyPackageType, 
                 policyTypeSava, durationType, openDurationPicker, isProfessionalDriver, isAbroadStudent, extraNezgoda, extraDomasnaAsistencija,
-                extraAvtoAsistencija, policy.insureds.Count + 1);
+                extraAvtoAsistencija, insuredsCount);
             if (_roleAuthorize.IsUser("Broker manager", username))
             {
                 if (Premium.PremiumAmount > 10000)
