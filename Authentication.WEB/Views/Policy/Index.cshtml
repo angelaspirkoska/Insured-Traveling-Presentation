@@ -136,6 +136,8 @@
     </div>
 </div>
 
+<input hidden id="TotalPremium2" />
+
 
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/additional-methods.js"></script>
@@ -396,7 +398,8 @@
                     //This code is for AdvancedSSN validation in premium controler & if Premium Amount exceeded
                     if (result.status != null && result.isValid == false) {
                         if (result.message == "ThePremiumIsExceeded") {
-                            $("#totalPremium").val(result.PremiumAmount);
+                            $("#totalPremium").attr("value", result.PremiumAmount)
+                            $("#TotalPremium2").attr("value", result.PremiumAmount);
                             $("#totalPremium").show();
                             $("#errorMessage").text("@Resource.PolicyThePremiumIsExceededMsg");
                             $(".loader").css("display", "none");
@@ -417,7 +420,9 @@
 
                         $(".loader").css("display", "none");
 
-                        $("#totalPremium").val(result.PremiumAmount);
+                        $("#totalPremium").attr("value", result.PremiumAmount)
+                        $("#TotalPremium2").attr("value", result.PremiumAmount);
+
                         $("#totalPremium").show();
                         $("#totalPremiumLabel").show();
                         $(".hideMe").show();
