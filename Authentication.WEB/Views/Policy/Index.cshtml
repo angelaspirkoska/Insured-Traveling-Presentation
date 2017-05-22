@@ -653,8 +653,8 @@
     @if(User.Identity.IsAuthenticated)
     {
         <text>
-    $("#IsSamePolicyHolderInsured").change(function () {
-        if ($("#IsSamePolicyHolderInsured").is(":checked")) {
+    $("body").on("change", "#IsSamePolicyHolderInsured", function () {
+        if ($(this).is(":checked")) {
             $.ajax({
                 type: "GET",
                 url: "/Policy/GetExistentLoggedInUserData",
@@ -687,8 +687,8 @@
     else
     {
         <text>
-    $("#IsSamePolicyHolderInsured").change(function () {
-        if ($("#IsSamePolicyHolderInsured").is(":checked")) {
+    $("body").on("change", "#IsSamePolicyHolderInsured", function () {
+        if ($(this).is(":checked")) {
 
             $("#Name").val($("#PolicyHolderName").val());
             $("#LastName").val($("#PolicyHolderLastName").val());
