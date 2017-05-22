@@ -180,6 +180,13 @@
                 $("#modalAlertTitle").html("Внимание");
                 $("#modalAlertContent").html("Бројот на осигурани лица е променет во 3");
                 $("#modalAlert").modal("show");
+            } else if($('#insuredNumber').val() > 1) {
+                $('#insuredNumber option[value=1]').prop('selected', true);
+                $('#insuredNumber').trigger("change");
+
+                $("#modalAlertTitle").html("Внимание");
+                $("#modalAlertContent").html("Бројот на осигурани лица е променет во 1");
+                $("#modalAlert").modal("show");
             }
         });
 
@@ -187,12 +194,17 @@
             var insuredNumber = $('#insuredNumber').find(":selected").val();
             $("#detailsTitleInsuredNumber").html(insuredNumber);
             if(insuredNumber == 1) {
-                $('#policyTypeSava option[value=1]').prop('selected', true);
-                $('#policyTypeSava').trigger("change");
 
-                $("#modalAlertTitle").html("Внимание");
-                $("#modalAlertContent").html("Типот на осигурување е променет во Индивидуално");
-                $("#modalAlert").modal("show");
+                var chosenType = $('#policyTypeSava').val();
+
+                if(chosenType == 2 || chosenType == 5) {
+                    $('#policyTypeSava option[value=1]').prop('selected', true);
+                    $('#policyTypeSava').trigger("change");
+
+                    $("#modalAlertTitle").html("Внимание");
+                    $("#modalAlertContent").html("Типот на осигурување е променет во Индивидуално");
+                    $("#modalAlert").modal("show");
+                }
             }
 
             $.ajax({
