@@ -210,7 +210,7 @@ namespace InsuredTraveling.App_Start
             {
                 dst.SSN_policyHolder = src.SSNHolder;
                 dst.SSN_insured = src.SSNInsured;
-                dst.policy_number = src.PolicyNumber != null ? Convert.ToInt32(src.PolicyNumber) : 0;
+                dst.policy_number = src.PolicyNumber;
                 dst.email_seller = src.EmailSeller;
                 dst.expiry_date = src.ExpireDate != null ? Convert.ToDateTime(src.ExpireDate) : DateTime.UtcNow;
                 dst.premium = src.Premium != null ? Convert.ToInt32(src.Premium) : 0;

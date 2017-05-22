@@ -292,7 +292,7 @@ namespace InsuredTraveling.Controllers
                     if (policy_number != "" && SSN_insured != "" && SSN_policyHolder != "" && expiry_date != "" && premium != "" && dateCreated != "")
                     {
                         
-                        policyModel.policy_number = Convert.ToInt32(dr.ItemArray[0]);
+                        policyModel.policy_number = (dr.ItemArray[0].ToString());
                         policyModel.SSN_insured = (dr.ItemArray[1]).ToString();
                         policyModel.SSN_policyHolder = (dr.ItemArray[2]).ToString();
                         string tempDateCreated = (dr.ItemArray[3]).ToString();

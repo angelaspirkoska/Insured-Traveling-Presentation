@@ -672,11 +672,11 @@ warning 6002: The table/view 'def.db_9eb138_sava.aspnetuserlogins' does not have
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="policy_number" Type="int" Nullable="false" />
+          <Property Name="policy_number" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="SSN_insured" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="SSN_policyHolder" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="date_created" Type="datetime" Precision="0" />
-          <Property Name="expiry_date" Type="datetime" Precision="0" />
+          <Property Name="date_created" Type="date" />
+          <Property Name="expiry_date" Type="date" />
           <Property Name="premium" Type="float" Nullable="false" />
           <Property Name="email_seller" Type="varchar" MaxLength="128" />
           <Property Name="discount_points" Type="float" />
@@ -4339,25 +4339,11 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="aspnetroles" EntitySet="aspnetroles" />
             <End Role="aspnetusers" EntitySet="aspnetusers" />
           </AssociationSet>
-          <EntitySet Name="sava_policy" EntityType="db_9eb138_savaModel.sava_policy" />
           <EntitySet Name="sava_voucher" EntityType="db_9eb138_savaModel.sava_voucher" />
           <EntitySet Name="sava_ad_pictures" EntityType="db_9eb138_savaModel.sava_ad_pictures" />
           <EntitySet Name="points_requests" EntityType="db_9eb138_savaModel.points_requests" />
+          <EntitySet Name="sava_policy" EntityType="db_9eb138_savaModel.sava_policy" />
         </EntityContainer>
-        <EntityType Name="sava_policy">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="policy_number" Type="Int32" Nullable="false" />
-          <Property Name="SSN_insured" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SSN_policyHolder" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="expiry_date" Type="DateTime" />
-          <Property Name="premium" Type="Single" Nullable="false" />
-          <Property Name="email_seller" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="discount_points" Type="Single" Nullable="false" />
-          <Property Name="date_created" Type="DateTime" />
-        </EntityType>
         <EntityType Name="sava_voucher">
           <Key>
             <PropertyRef Name="id" />
@@ -4389,6 +4375,20 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="policy_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="timestamp" Type="DateTime" Nullable="false" />
           <Property Name="flag" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="sava_policy">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="policy_number" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SSN_insured" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="SSN_policyHolder" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="date_created" Type="DateTime" />
+          <Property Name="expiry_date" Type="DateTime" />
+          <Property Name="premium" Type="Single" Nullable="false" />
+          <Property Name="email_seller" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="discount_points" Type="Single" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5206,21 +5206,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="sava_policy">
-            <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_policy">
-              <MappingFragment StoreEntitySet="sava_policy">
-                <ScalarProperty Name="date_created" ColumnName="date_created" />
-                <ScalarProperty Name="discount_points" ColumnName="discount_points" />
-                <ScalarProperty Name="email_seller" ColumnName="email_seller" />
-                <ScalarProperty Name="premium" ColumnName="premium" />
-                <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
-                <ScalarProperty Name="SSN_policyHolder" ColumnName="SSN_policyHolder" />
-                <ScalarProperty Name="SSN_insured" ColumnName="SSN_insured" />
-                <ScalarProperty Name="policy_number" ColumnName="policy_number" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sava_voucher">
             <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_voucher">
               <MappingFragment StoreEntitySet="sava_voucher">
@@ -5252,6 +5237,21 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="policy_id" ColumnName="policy_id" />
                 <ScalarProperty Name="ssn" ColumnName="ssn" />
                 <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sava_policy">
+            <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_policy">
+              <MappingFragment StoreEntitySet="sava_policy">
+                <ScalarProperty Name="discount_points" ColumnName="discount_points" />
+                <ScalarProperty Name="email_seller" ColumnName="email_seller" />
+                <ScalarProperty Name="premium" ColumnName="premium" />
+                <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="SSN_policyHolder" ColumnName="SSN_policyHolder" />
+                <ScalarProperty Name="SSN_insured" ColumnName="SSN_insured" />
+                <ScalarProperty Name="policy_number" ColumnName="policy_number" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

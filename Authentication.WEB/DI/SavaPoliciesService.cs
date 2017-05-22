@@ -107,8 +107,8 @@ namespace InsuredTraveling.DI
 
         public sava_policy GetSavaPolicyIdByPolicyNumber(string id)
         {
-            int ID = int.Parse(id);
-            return _db.sava_policy.Where(x => x.policy_number.Equals(ID)).FirstOrDefault();
+            
+            return _db.sava_policy.Where(x => x.policy_number.Equals(id)).FirstOrDefault();
         }
 
         public int SaveSavaPolicy(sava_policy policy)

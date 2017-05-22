@@ -9,11 +9,13 @@ namespace InsuredTraveling.Models
     public class SavaPolicyModel
     {
         public int id { get; set; }
-        public int policy_number { get; set; }
+        public string policy_number { get; set; }
         public string SSN_insured { get; set; }
         public string SSN_policyHolder { get; set; }
+        [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yyyy}")]
         public DateTime date_created { get; set; }
+        [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yyyy}")]
         public DateTime expiry_date { get; set; }
         public int premium { get; set; }
