@@ -282,20 +282,20 @@ namespace InsuredTraveling.Controllers
                     SavaPolicyModel policyModel = new SavaPolicyModel();
 
                     var policy_number = dr.ItemArray[0].ToString();
-                    var SSN_insured = " ";
-                    var SSN_policyHolder = dr.ItemArray[1].ToString();
-                    var dateCreated = dr.ItemArray[2].ToString();
-                    var expiry_date = dr.ItemArray[3].ToString();
-                    var premium = dr.ItemArray[4].ToString();
+                    var SSN_insured = dr.ItemArray[1].ToString();
+                    var SSN_policyHolder = dr.ItemArray[2].ToString();
+                    var dateCreated = dr.ItemArray[3].ToString();
+                    var expiry_date = dr.ItemArray[4].ToString();
+                    var premium = dr.ItemArray[5].ToString();
                     //var discount_points = dr.ItemArray[5].ToString();
 
                     if (policy_number != "" && SSN_insured != "" && SSN_policyHolder != "" && expiry_date != "" && premium != "" && dateCreated != "")
                     {
                         
                         policyModel.policy_number = (dr.ItemArray[0].ToString());
-                        policyModel.SSN_insured = " ";
-                        policyModel.SSN_policyHolder = (dr.ItemArray[1]).ToString();
-                        string tempDateCreated = (dr.ItemArray[2]).ToString();
+                        policyModel.SSN_insured = (dr.ItemArray[1]).ToString();
+                        policyModel.SSN_policyHolder = (dr.ItemArray[2]).ToString();
+                        string tempDateCreated = (dr.ItemArray[3]).ToString();
 
                         try
                         {
@@ -311,7 +311,7 @@ namespace InsuredTraveling.Controllers
 
                         }
 
-                        string tempExpiry = (dr.ItemArray[3]).ToString();
+                        string tempExpiry = (dr.ItemArray[4]).ToString();
                         try
                         {
                             var dateTime = ConfigurationManager.AppSettings["DateFormat"];
@@ -328,7 +328,7 @@ namespace InsuredTraveling.Controllers
 
                         try
                         {
-                            policyModel.premium = Convert.ToInt32(dr.ItemArray[4]);
+                            policyModel.premium = Convert.ToInt32(dr.ItemArray[5]);
                         }
                         catch (Exception ex)
                         {
