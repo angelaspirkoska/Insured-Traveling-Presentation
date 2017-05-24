@@ -18,13 +18,15 @@
 </div>
 <div class="col-md-12 form-group">
     <label class="col-md-12 text-left">име и презиме</label>
-    <div class="col-md-5">
-        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "име", @class = "form-control input-sm mandatoryField insuredData insuredInfo" } })
-        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-    </div>
-    <div class="col-md-7">
-        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { placeholder = "презиме", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
-        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+    <div class="insuredNameSurnameContainer">
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "име", @class = "form-control input-sm mandatoryField insuredData insuredInfo insuredName" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-7">
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { placeholder = "презиме", @class = "form-control input-sm mandatoryField insuredData insuredInfo insuredSurname", } })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
     </div>
 </div>
 <div class="col-md-12 form-group">
@@ -90,13 +92,15 @@
         </div>
         <div class="col-md-12 form-group">
             <label class="col-md-12 text-left">име и презиме</label>
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.insureds[i].Name, new { htmlAttributes = new { placeholder = "име", @class = "form-control input-sm mandatoryField insuredData insuredInfo" } })
-                @Html.ValidationMessageFor(model => model.insureds[i].Name, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-7">
-                @Html.EditorFor(model => model.insureds[i].Lastname, new { htmlAttributes = new { placeholder = "презиме", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
-                @Html.ValidationMessageFor(model => model.insureds[i].Lastname, "", new { @class = "text-danger" })
+            <div class="insuredNameSurnameContainer">
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.insureds[i].Name, new { htmlAttributes = new { placeholder = "име", @class = "form-control input-sm mandatoryField insuredData insuredInfo insuredName" } })
+                    @Html.ValidationMessageFor(model => model.insureds[i].Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-7">
+                    @Html.EditorFor(model => model.insureds[i].Lastname, new { htmlAttributes = new { placeholder = "презиме", @class = "form-control input-sm mandatoryField insuredData insuredInfo insuredSurname", } })
+                    @Html.ValidationMessageFor(model => model.insureds[i].Lastname, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
         <div class="col-md-12 form-group">
@@ -158,6 +162,39 @@
 }
 
 <script>
+
+    function fillInsuredsDropdowns() {
+        var i = 1;
+        $('#professionalDriverInureds').html("").selectpicker("refresh");
+        $('#abroadStudentsInsureds').html("").selectpicker("refresh");
+        $('#domasnaAsistencijaInsureds').html("").selectpicker("refresh");
+        $('#avtoasistencijaInsureds').html("").selectpicker("refresh");
+
+        $(".insuredNameSurnameContainer").each(function (element) {
+            var name = $(this).find(".insuredName").val();
+            var surname = $(this).find(".insuredSurname").val();
+            $('#professionalDriverInureds').append($('<option>', {
+                value: i,
+                text: name + " " + surname
+            })).selectpicker('refresh');
+
+            $('#abroadStudentsInsureds').append($('<option>', {
+                value: i,
+                text: name + " " + surname
+            })).selectpicker('refresh');
+
+            $('#domasnaAsistencijaInsureds').append($('<option>', {
+                value: i,
+                text: name + " " + surname
+            })).selectpicker('refresh');
+            $('#avtoasistencijaInsureds').append($('<option>', {
+                value: i,
+                text: name + " " + surname
+            })).selectpicker('refresh');
+            i++;
+        });
+    }
+
     $(function () {
 
         $("#insured-embg").focusout(function () {
@@ -199,6 +236,14 @@
             } else {
                 $(this).val("");
             }
+        });
+
+        $("body").on("change", ".insuredName", function () {
+            fillInsuredsDropdowns();
+        });
+
+        $("body").on("change", ".insuredSurname", function () {
+            fillInsuredsDropdowns();
         });
 
         $(".insured-birthday").daterangepicker({

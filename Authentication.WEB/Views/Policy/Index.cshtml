@@ -408,7 +408,6 @@
                             $(".loader").css("display", "none");
                             $("#SSN").attr("style", "border: 1px solid red;");
                             $("#totalPremiumLabel").hide();
-                            $("#totalPremium").val("");
                         }
 
                     }
@@ -442,7 +441,6 @@
                     $(".loader").css("display", "none");
                     $(".hideMe").hide();
                     $("#totalPremiumLabel").hide();
-                    $("#totalPremium").val("");
                     $("#errorMessage").text((JSON.parse(result.responseText)).Message);
 
 
@@ -453,7 +451,6 @@
         else {
             $(".hideMe").hide();
             $("#totalPremiumLabel").hide();
-            $("#totalPremium").val("");
             if ($("#Valid_Days").val() == 0) {
                 $("#errorMessage").text("@InsuredTraveling.Resource.Policy_ValidDate");
             }

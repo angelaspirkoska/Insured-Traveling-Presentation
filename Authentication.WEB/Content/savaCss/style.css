@@ -30,9 +30,23 @@ label {
     color: white;
 }
 .form-control, .input-group-addon {
-  border: 1px solid #3ca082;
-  color: #3ca082;
+  border: 1px solid #3ca082!important;
+  color: #3ca082!important;
 }
+
+.bootstrap-select {
+    width: 100%!important;
+}
+
+.open > .dropdown-toggle.btn-default:hover, .open > .dropdown-toggle.btn-default:focus {
+    background-color: white!important;
+}
+
+.filter-option {
+    color: #3ca082!important;
+    margin: 1px!important;
+}
+
 .input-group-addon i {
   color: #3ca082;
 }

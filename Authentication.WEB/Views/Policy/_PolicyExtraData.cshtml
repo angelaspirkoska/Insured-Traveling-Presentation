@@ -4,14 +4,14 @@
 @using System.Configuration;
 
 <div class="col-md-12 form-horizontal form-group">
-    <div class="col-md-8 text-left">
+    <div class="col-md-6 text-left">
         <input style="width: 25px;" type="checkbox" name="isProfessionalDriver" id="isProfessionalDriver" />
         <span style="font-weight: bold" class="checkbox-label">
             професионални возачи
         </span>
     </div>
-    <div class="col-md-4">
-        <select class="form-control" name="pers-lica-1" title="Одбери">
+    <div class="col-md-6">
+        <select class="selectpicker" id="professionalDriverInureds" name="professionalDriverInureds" title="Одбери" multiple>
             <option value="1">Лице 1</option>
             <option value="2">Лице 2</option>
             <option value="3">Лице 3</option>
@@ -19,14 +19,14 @@
     </div>
 </div>
 <div class="col-md-12 form-horizontal form-group">
-    <div class="col-md-8 text-left">
+    <div class="col-md-6 text-left">
         <input style="width: 25px;" type="checkbox" name="isAbroadStudent" id="isAbroadStudent" />
         <span style="font-weight: bold" class="checkbox-label">
             студенти во странство
         </span>
     </div>
-    <div class="col-md-4">
-        <select class="form-control" name="pers-lica-1" title="Одбери">
+    <div class="col-md-6">
+        <select class="selectpicker" id="abroadStudentsInsureds" name="abroadStudentsInsureds" title="Одбери" multiple>
             <option value="1">Лице 1</option>
             <option value="2">Лице 2</option>
             <option value="3">Лице 3</option>
@@ -54,14 +54,14 @@
 </div>
 <!-- ДОМАШНА АСИСТЕНЦИЈА -->
 <div class="col-md-12 form-horizontal form-group">
-    <div class="col-md-8 text-left">
+    <div class="col-md-6 text-left">
         <input style="width: 25px;" type="checkbox" name="extraDomasnaAsistencija" id="extraDomasnaAsistencija" />
         <span style="font-weight: bold" class="checkbox-label">
             домашна асистенција
         </span>
     </div>
-    <div class="col-md-4">
-        <select class="form-control" name="pers-lica-1" title="Одбери">
+    <div class="col-md-6">
+        <select class="selectpicker" id="domasnaAsistencijaInsureds" name="domasnaAsistencijaInsureds" title="Одбери" multiple>
             <option value="1">Лице 1</option>
             <option value="2">Лице 2</option>
             <option value="3">Лице 3</option>
@@ -70,14 +70,14 @@
 </div>
 <!-- АВТО АСИСТЕНЦИЈА -->
 <div class="col-md-12 form-horizontal form-group">
-    <div class="col-md-8 text-left">
+    <div class="col-md-6 text-left">
         <input style="width: 25px;" type="checkbox" name="extraAvtoAsistencija" id="extraAvtoAsistencija" />
         <span style="font-weight: bold" class="checkbox-label">
             авто асистенција
         </span>
     </div>
-    <div class="col-md-4">
-        <select class="form-control" name="pers-lica-1" title="Одбери">
+    <div class="col-md-6">
+        <select class="selectpicker" id="avtoasistencijaInsureds" name="avtoasistencijaInsureds" title="Одбери" multiple>
             <option value="1">Лице 1</option>
             <option value="2">Лице 2</option>
             <option value="3">Лице 3</option>
@@ -108,7 +108,7 @@
         @Html.ValidationMessageFor(model => model.Retaining_RiskID, "", new { @class = "text-danger" })
     </div>
 </div>
-
+<script src="~/Scripts/bootstrap-select.js"></script>
 <script>
     $("#extraAvtoAsistencija").change(function () {
         if ($(this).is(":checked")) {
@@ -116,5 +116,9 @@
         } else {
             $("#avtoAsistencijaContainer").hide();
         }
+    });
+
+    $('.selectpicker').selectpicker({
+        size: 5
     });
 </script>

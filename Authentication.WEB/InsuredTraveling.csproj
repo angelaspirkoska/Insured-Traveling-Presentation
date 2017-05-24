@@ -304,6 +304,7 @@
     <Content Include="Content\SavaTemplate\css\freelancer.css" />
     <Content Include="Content\SavaTemplate\css\freelancer.min.css" />
     <Content Include="Content\SavaTemplate\css\style.css" />
+    <Content Include="Content\SavaTemplate\img\favicon.ico" />
     <Content Include="Content\SavaTemplate\img\logo-mk-mk.png" />
     <Content Include="Content\SavaTemplate\img\slidr_163_bg.jpg" />
     <Content Include="Content\SavaTemplate\img\slidr_5_bg.jpg" />
@@ -346,6 +347,7 @@
     </Content>
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\additional-methods.js" />
+    <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Browsers\qt.browser" />
