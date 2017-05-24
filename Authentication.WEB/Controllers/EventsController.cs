@@ -37,10 +37,10 @@ namespace InsuredTraveling.Controllers
             ViewBag.EventTypes = GetTypeOfEvent();
             if (ModelState.IsValid)
             {
-                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
-                var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
-                newEvent.EndDate = String.IsNullOrEmpty(newEvent.EndDate.ToString()) ? new DateTime() : DateTime.ParseExact(newEvent.EndDate.ToString(), dateTimeFormat, CultureInfo.InvariantCulture);
-                newEvent.StartDate = String.IsNullOrEmpty(newEvent.StartDate.ToString()) ? new DateTime() : DateTime.ParseExact(newEvent.StartDate.ToString(), dateTimeFormat, CultureInfo.InvariantCulture);
+                //var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                //var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+                //newEvent.EndDate = String.IsNullOrEmpty(newEvent.EndDate.ToString()) ? new DateTime() : DateTime.ParseExact(newEvent.EndDate.ToString(), dateTimeFormat, CultureInfo.InvariantCulture);
+                //newEvent.StartDate = String.IsNullOrEmpty(newEvent.StartDate.ToString()) ? new DateTime() : DateTime.ParseExact(newEvent.StartDate.ToString(), dateTimeFormat, CultureInfo.InvariantCulture);
 
                 newEvent.CreatedBy = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
                 var mappedEvent = Mapper.Map<Event, @event>(newEvent);
@@ -49,7 +49,7 @@ namespace InsuredTraveling.Controllers
                     _es.AddEvent(mappedEvent);
                     ViewBag.Success = "Success";
                 }
-                catch
+                catch(Exception ex)
                 {
                     ViewBag.Success = "Failure";
                 }

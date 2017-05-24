@@ -71,13 +71,15 @@
     </div>
     <div class="col-md-7">
         <div class="form-group">
+            
             <label class="control-label"> @Resource.Events_StartDate <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
-            @Html.EditorFor(model => model.StartDate,  new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventStartTime" , @placeholder = dateFormatString } })
+            @Html.EditorFor(model => model.StartDate , new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventStartTime" , @placeholder = dateFormatString } })
             @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="col-md-7">
         <div class="form-group">
+
             <label class="control-label"> @Resource.Events_StartTime <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
             @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control input-sm travelInfo mandatoryField", type = "time", @id = "eventStartTime" } })
             @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
@@ -86,7 +88,7 @@
     <div class="col-md-7">
         <div class="form-group">
             <label class="control-label"> @Resource.Events_EndDate <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
-            @Html.EditorFor(model => model.EndDate,  new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventEndTime", @placeholder = dateFormatString }  })
+            @Html.EditorFor(model => model.EndDate ,  new { htmlAttributes = new { @class = "form-control input-sm", @id = "eventEndTime", @placeholder = dateFormatString }  })
             @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -108,7 +110,7 @@
     </div>
     <div class="col-md-7">
         <div class="form-group">
-            <input type="submit" style="width:100px; margin-bottom:100px;" value="@InsuredTraveling.Resource.Events_AddEvent" class="btn btn-success">
+            <input type="submit" style=" margin-bottom:100px;" value="@InsuredTraveling.Resource.Events_AddEvent" class="btn btn-success">
         </div>
     </div>
 </form>

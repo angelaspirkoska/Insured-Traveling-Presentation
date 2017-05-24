@@ -57,20 +57,24 @@ namespace InsuredTraveling.App_Start
                 src.StartDate = dst.StartDate;
                 src.EndDate = src.EndDate;
                 src.Organizer = src.Organizer;
-                if (src.EventType.Equals("Normal"))
+                if (src.EventType.Equals("1"))
                 {
                     dst.Chat = false;
                     dst.Type = false; 
                 }
-                else if (src.EventType.Equals("VIP"))
+                else if (src.EventType.Equals("2"))
                 {
                     dst.Chat = false;
                     dst.Type = true;
                 }
-                else if (src.EventType.Equals("VIP Chat"))
+                else if (src.EventType.Equals("3"))
                 {
                     dst.Chat = true;
                     dst.Type = true;
+                }else
+                {
+                    dst.Chat = false;
+                    dst.Type = false;
                 }
                 var dateTime = src.StartDate;
                 var timeSpan = src.StartTime;
