@@ -357,7 +357,8 @@ namespace Authentication.WEB.Services
             if (premium < 2)
                 premium = 2;
 
-            return Math.Ceiling(premium * 61.5) + premiumNezgoda + premiumAvto + premiumDomasna;
+            return Math.Round(premium * 61.5, 0, MidpointRounding.AwayFromZero) 
+                + Math.Round(premiumNezgoda + premiumAvto + premiumDomasna, 0, MidpointRounding.AwayFromZero);
         }
     }
 }
