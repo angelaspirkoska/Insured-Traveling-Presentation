@@ -336,8 +336,8 @@
       <LastGenOutput>InsuredTravelingEntity2.cs</LastGenOutput>
     </Content>
     <Content Include="Rotativa\wkhtmltopdf.exe" />
-    <Content Include="SavaAdPictures\DHL.png" />
     <Content Include="SavaAdPictures\emc_logo.png" />
+    <Content Include="SavaAdPictures\image.png" />
     <Content Include="Scripts\additional-methods.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

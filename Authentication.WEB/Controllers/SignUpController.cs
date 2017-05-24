@@ -15,7 +15,8 @@ using Authentication.WEB.Services;
 namespace InsuredTraveling.Controllers
 {
     [RoutePrefix("SignUp")]
-    [AllowAnonymous]
+    // [AllowAnonymous]
+    [SessionExpire]
     public class SignUpController : Controller
     {
         private IRolesService _rs;
@@ -32,7 +33,8 @@ namespace InsuredTraveling.Controllers
         public ActionResult Index()
         {
             ViewBag.Gender = Gender();
-            return View();
+            // return View();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
