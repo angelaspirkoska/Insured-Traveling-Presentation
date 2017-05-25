@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using InsuredTraveling.Models;
+using AutoMapper;
 
 namespace InsuredTraveling.DI
 {
@@ -11,7 +12,15 @@ namespace InsuredTraveling.DI
         InsuredTravelingEntity2 _db = new InsuredTravelingEntity2();
         public void AddNews(news_all News)
         {
+           
+
             _db.news_all.Add(News);
+            _db.SaveChanges();
+        }
+        public void AddNewsNew(News news)
+        {
+            var mappedEvent = Mapper.Map<News, news_all>(news);
+            _db.news_all.Add(mappedEvent);
             _db.SaveChanges();
         }
 
@@ -25,7 +34,17 @@ namespace InsuredTraveling.DI
         public IQueryable<news_all> GetAllNews()
         {
             IQueryable<news_all> news = _db.news_all;
+            
             return news;
+        }
+
+        public List<News> GetAllNewsList()
+        {
+           
+            var data = _db.news_all.ToList();
+            var NewsList = data.Select(Mapper.Map<news_all   , News>).ToList();
+            NewsList.Reverse();
+            return NewsList;
         }
 
         public IQueryable<news_all> GetLatestTwentyNews()

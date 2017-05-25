@@ -135,6 +135,7 @@ namespace InsuredTraveling.App_Start
                 dst.aspnetuser = null;
                 dst.aspnetuser1 = null;            
             });
+
             Mapper.CreateMap<Ok_SetupModel, ok_setup>().AfterMap((src, dst) =>
             {
                 dst.Sms_Code_Seconds = src.Sms_Code_Seconds;
@@ -149,6 +150,35 @@ namespace InsuredTraveling.App_Start
           
                 dst.SSNValidationActive = src.SSNValidationActive;
             });
+
+            //Save
+            Mapper.CreateMap<News, news_all>().AfterMap((src, dst) =>
+            {
+
+                dst.ImageLocation = src.ImageLocation;
+                dst.InsuranceCompany = src.InsuranceCompany;
+                dst.isNotification = src.isNotification;
+                dst.Title = src.Title;
+                dst.Content = src.Content;
+                dst.DataCreated = DateTime.Now.Date;
+                
+
+            });
+
+            Mapper.CreateMap<news_all, News>().AfterMap((src, dst) =>
+            {
+
+                dst.ImageLocation = src.ImageLocation;
+                dst.InsuranceCompany = src.InsuranceCompany;
+                dst.isNotification = src.isNotification;
+                dst.Title = src.Title;
+                dst.Content = src.Content;
+                
+
+
+            });
+
+
             Mapper.CreateMap<DiscountModel, discount_codes>().AfterMap((src, dst) =>
             {
                 dst.Discount_Name = src.Discount_Name;

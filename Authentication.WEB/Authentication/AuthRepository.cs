@@ -178,18 +178,18 @@ namespace InsuredTraveling
                     string body1 = string.Format(@"   
                         <div style='margin-left:20px'>
                      <img style='width:700px' src=""cid:{0}"" />
-                     <p> <b>Welcome to Insured Traveling </b> - the standalone platform for online sales of insurance policies.</p>
+                     <p> <b>Добредојдoвте на Сава Спорт + мобилната апликација</b> .</p>
                   
-                     <br /> <br /> Please click the following link to activate your account
-                     <br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>"+
-                     "<br /> <br />Thanks </div>"
+                     <br /> <br /> 
+                     <br /> Ве молиме почекајте 24 часа вашите податоци бидат ажурирани.
+                     <br /> <br />Ви благодариме што одлучивте да ја користите SAVA Спорт + апликацијата. </div>"
                      
                     , inlineLogo.ContentId);
                     var view = AlternateView.CreateAlternateViewFromString(body1, null, "text/html");
                     view.LinkedResources.Add(inlineLogo);             
 
                     MailService mailService = new MailService(userModel.Email, "signup@insuredtraveling.com"); 
-                    mailService.setSubject("Insured Traveling - Account Activation Validation");
+                    mailService.setSubject(" - Account Activation Validation");
                     mailService.setBodyText(body1, true);
                     //ALTERNATIVE VIEW
                     mailService.AlternativeViews(view);

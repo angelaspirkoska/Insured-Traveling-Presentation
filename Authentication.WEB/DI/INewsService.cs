@@ -21,5 +21,7 @@ namespace InsuredTraveling.DI
         news_all GetNewsById(int id);
 
         int LastNewsId();
+        List<News> GetAllNewsList();
+        void AddNewsNew(News news);
     }
 }

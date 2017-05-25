@@ -2334,6 +2334,7 @@
     <Compile Include="Models\DiscountCodeValidateModel.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Event_UserModel.cs" />
+    <Compile Include="Models\NewNews.cs" />
     <Compile Include="Models\Ok_SetupModel.cs" />
     <Compile Include="Models\PointsRequestModel.cs" />
     <Compile Include="Models\QRCodeSavaPolicy.cs" />
@@ -2544,6 +2545,7 @@
     <Content Include="Views\Search\EditUser.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\News\News.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,71 @@
+﻿@model InsuredTraveling.Models.NewNews
+
+@{
+    ViewBag.Title = "News";
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+}
+
+<div class="row" style="margin-top:20px">
+    <form id="newsForm" class="row" method="post" action="@Url.Action("AddNews1")" enctype="multipart/form-data">
+        <div class="form-group col-md-8">
+            <label class="col-md-12" for="newsTitle">@InsuredTraveling.Resource.News_Title</label>
+            @Html.EditorFor(model => model.Title, new { @class = "form-control input-sm col-md-12", @id = "eventDescription", @placeholder = @InsuredTraveling.Resource.News_Title })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger col-md-12 " })
+        </div>
+        <div class="form-group col-md-8">
+            <label for="newsImage ">@InsuredTraveling.Resource.News_Image</label>
+            <input type="file" id="newsImage" name="Image" *@ @*accept="image/**@>
+            @*@Html.(model => model.ImageLocation, new { @class = "form-control input-sm col-md-12", @id = "eventDescription",  placeholder = @InsuredTraveling.Resource.News_Image })*@
+            @Html.ValidationMessageFor(model => model.ImageLocation, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-8">
+            <label for="newsContent">@InsuredTraveling.Resource.News_Content</label>
+
+            @Html.TextAreaFor(model => model.Content, new { @class = "form-control input-sm", @id = "eventDescription",@rows=5, placeholder = @InsuredTraveling.Resource.News_Content })
+            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-8 form-inline">
+            @*<input type="checkbox" id="newsIsNotification" name="newsIsNotification" class="radiobtn-position" />*@
+
+            @Html.CheckBoxFor(model => model.isNotification, new { @class = "form-control input-sm", @id = "eventDescription", placeholder = @InsuredTraveling.Resource.News_Notification })
+            <label for="newsIsNotification">@InsuredTraveling.Resource.News_Notification</label>
+            @Html.ValidationMessageFor(model => model.isNotification, "", new { @class = "text-danger" })
+        </div>
+        <input type="submit" style="" value="@InsuredTraveling.Resource.News_Add" class="btn btn-success col-md-4 col-md-offset-2">
+    </form>
+</div>
+
+<div class="row">
+    @if (Model == null || Model.ListNews.Count() == 0)
+    {
+        <h3>@InsuredTraveling.Resource.News_NoNews</h3>
+    }
+    else
+    {
+        <br />
+        <h3>@InsuredTraveling.Resource.News:</h3>
+            <hr />
+        foreach (var news in Model.ListNews)
+        {
+            <div class="row" style="margin-left:20px;">
+                <div class="col-md-1 col-sm-2">
+
+                    <img style="width: 84px; height: 86px;" class="media-object" src="@news.ImageLocation" alt="description_image">
+
+                </div>
+                <div class="col-md-11 col-sm-10">
+                    <h4 class="media-heading">@news.Title</h4>
+                    <p class="media-content">@news.Content</p>
+                    @*<div id="buttons" class="col-sm-2">*@
+                    
+                    <form  action="@Url.Action("DeleteNews")" enctype="multipart/form-data"  method="post">
+                        <input hidden type="number" name="newsId" value="@news.Id" >
+                        <button   type="submit" class="btn btn-xs btn-danger btnDeleteNews">@InsuredTraveling.Resource.News_Delete</button>
+                    </form>
+                    @*</div>*@
+                </div>
+            </div>
+            <hr />
+        }
+    }
+</div>

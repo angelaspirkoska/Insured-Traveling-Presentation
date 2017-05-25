@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web;
 
 namespace InsuredTraveling.Models
 {
-    public class News
+    public class NewNews
     {
         public string Id { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
@@ -11,10 +14,13 @@ namespace InsuredTraveling.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string Content { get; set; }
         public bool isNotification { get; set; }
-        
+
         public string InsuranceCompany { get; set; }
-       
+        
         public string ImageLocation { get; set; }
-        public HttpPostedFileBase Image{ get; set; }
+
+        public List<News> ListNews {get;set;}
+
+        public HttpPostedFileBase Image { get; set; }
     }
 }

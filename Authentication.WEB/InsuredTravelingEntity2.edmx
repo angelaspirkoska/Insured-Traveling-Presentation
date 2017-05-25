@@ -673,7 +673,7 @@ warning 6002: The table/view 'def.db_9eb138_sava.aspnetuserlogins' does not have
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="policy_number" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="SSN_insured" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="SSN_insured" Type="varchar" MaxLength="128" />
           <Property Name="SSN_policyHolder" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="date_created" Type="date" />
           <Property Name="expiry_date" Type="date" />
