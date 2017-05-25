@@ -58,25 +58,7 @@
         <div class="row">
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
-                    <label >@InsuredTraveling.Resource.Event_EndDate:</label>
-                    <div class="input-group">
-                        <input type="text" id="eventEndDate" class="form-control" placeholder="@dateTimeFormat" />
-                        <div class="input-group-btn">
-                            <button type="button" id="operatorEventEndDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
-                                <p class="caret-position">= <span class="caret"></span></p>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li onclick="$('#operatorEventEndDate').html(' = '); $('#operatorEventEndDate').val('=');">=</li>
-                                <li onclick="$('#operatorEventEndDate').html(' < '); $('#operatorEventEndDate').val('<');">&lt</li>
-                                <li onclick="$('#operatorEventEndDate').html(' > '); $('#operatorEventEndDate').val('>');">&gt</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label >@InsuredTraveling.Resource.Event_StartDate:</label>
+                    <label>@InsuredTraveling.Resource.Event_StartDate:</label>
                     <div class="input-group">
                         <input type="text" id="eventStartDate" class="form-control" placeholder="@dateTimeFormat" />
                         <div class="input-group-btn">
@@ -87,6 +69,24 @@
                                 <li onclick="$('#operatorEventStartDate').html(' = '); $('#operatorEventStartDate').val('=');">=</li>
                                 <li onclick="$('#operatorEventStartDate').html(' < '); $('#operatorEventStartDate').val('<');">&lt</li>
                                 <li onclick="$('#operatorEventStartDate').html(' > '); $('#operatorEventStartDate').val('>');">&gt</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label>@InsuredTraveling.Resource.Event_EndDate:</label>
+                    <div class="input-group">
+                        <input type="text" id="eventEndDate" class="form-control" placeholder="@dateTimeFormat" />
+                        <div class="input-group-btn">
+                            <button type="button" id="operatorEventEndDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                <p class="caret-position">= <span class="caret"></span></p>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li onclick="$('#operatorEventEndDate').html(' = '); $('#operatorEventEndDate').val('=');">=</li>
+                                <li onclick="$('#operatorEventEndDate').html(' < '); $('#operatorEventEndDate').val('<');">&lt</li>
+                                <li onclick="$('#operatorEventEndDate').html(' > '); $('#operatorEventEndDate').val('>');">&gt</li>
                             </ul>
                         </div>
                     </div>
