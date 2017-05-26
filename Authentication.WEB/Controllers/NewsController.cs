@@ -62,7 +62,7 @@ namespace Authentication.WEB.Controllers
                     NewsModel.ImageLocation = fileName;
                
                 }
-                
+                NewsModel.ImageLocation = " ";
                 NewsModel.InsuranceCompany = "Sava";
                 try
                 {

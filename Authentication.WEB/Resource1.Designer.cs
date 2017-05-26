@@ -1726,6 +1726,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The length of the string is exceeded..
+        /// </summary>
+        public static string NewsMaximumLength {
+            get {
+                return ResourceManager.GetString("NewsMaximumLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string No {

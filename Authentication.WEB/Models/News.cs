@@ -6,9 +6,11 @@ namespace InsuredTraveling.Models
     public class News
     {
         public string Id { get; set; }
-        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+      
+        [StringLength(100, ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "NewsMaximumLength")]
         public string Title { get; set; }
-        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
+        
+        [StringLength(120, ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "NewsMaximumLength")]
         public string Content { get; set; }
         public bool isNotification { get; set; }
         

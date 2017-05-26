@@ -1554,4 +1554,7 @@
   <data name="Sava_ExcelPolicyDate" xml:space="preserve">
     <value>Date of issue</value>
   </data>
+  <data name="NewsMaximumLength" xml:space="preserve">
+    <value>The length of the string is exceeded.</value>
+  </data>
 </root>

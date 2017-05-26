@@ -1548,4 +1548,7 @@
   <data name="Sava_ExcelPolicyDate" xml:space="preserve">
     <value>Датум на купување на полиса</value>
   </data>
+  <data name="NewsMaximumLength" xml:space="preserve">
+    <value>Надмината е дозволената должина на текстот</value>
+  </data>
 </root>
