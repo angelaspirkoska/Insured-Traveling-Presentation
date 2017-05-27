@@ -146,6 +146,16 @@
 @Styles.Render("~/Content/loader")
 <script type="text/javascript">
     $(document).ready(function () {
+
+        @if(!User.Identity.IsAuthenticated)
+        {
+            @:$('body').addClass('sidebar-main-hidden');
+        }
+        else
+        {
+            @:$('body').addClass('sidebar-xs');
+        }
+
         $("#successMsg").hide();
         $("#failMsg").hide();
 
@@ -285,7 +295,7 @@
 
         $("#CountryID").val(1);
         $("#Policy_TypeID").val(1);
-        $("#Retaining_RiskID").val(2);
+        //$("#Retaining_RiskID").val(2);
 
         getLocation();
 
