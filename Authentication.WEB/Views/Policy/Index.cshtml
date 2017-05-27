@@ -30,7 +30,7 @@
 
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <div class="form-group totalPremium" style="padding-top: 15px;">
+            <div class="form-group totalPremium policy-calculation" style="padding-top: 15px;">
                 @Html.LabelFor(model => model.Total_Premium, htmlAttributes: new { @class = "control-label", @id = "totalPremiumLabel" })
                 <div>
                     <div class="input-group">
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row policy-calculation">
         <div class="col-md-4 col-md-offset-4">
             <!-- So JS se dodavaat formaction="/Payment/Index"
             formmethod="post" -->
@@ -65,7 +65,7 @@
             @*<div class="form-group col-md-6 btns-position">
                     <input type="button" id="AddOffer" value="@InsuredTraveling.Resource.Policy_AddOffer" class="btn btn-default btn-block hideMe" />
                 </div>*@
-            <input type="submit" id="printOffers" formmethod="post" formaction="/Policy/RedirectPrintOfferSava" class="btn btn-default btn-block hideMe" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
+            <input type="submit" id="printOffers" formmethod="post" formaction="/Policy/RedirectPrintOfferSava" class="btn btn-default btn-block hideMe policy-calculation" value="@InsuredTraveling.Resource.Policy_PrintOffer" />
             @*<div id="successMsg" class="col-md-6" style="display:none;">
                     <div class="alert alert-dismissible alert-success">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -147,7 +147,149 @@
 @Styles.Render("~/Content/jqueryuicss")
 @Styles.Render("~/Content/loader")
 <script type="text/javascript">
+
+    var cities = [
+            {
+                name: "Skopje",
+                zip: 1000
+            },
+            {
+                name: "Tetovo",
+                zip: 1200
+            },
+            {
+                name: "Gostivar",
+                zip: 1230
+            },
+            {
+                name: "Debar",
+                zip: 1250
+            },
+            {
+                name: "Kumanovo",
+                zip: 1300
+            },
+            {
+                name: "Kriva Palanka",
+                zip: 1330
+            },
+            {
+                name: "Kratovo",
+                zip: 1360
+            },
+            {
+                name: "Veles",
+                zip: 1400
+            },
+            {
+                name: "Kavadarci",
+                zip: 1430
+            },
+            {
+                name: "Negotino",
+                zip: 1440
+            },
+            {
+                name: "Demir Kapija",
+                zip: 1442
+            },
+            {
+                name: "Gevgelija",
+                zip: 1480
+            },
+            {
+                name: "Štip",
+                zip: 2000
+            },
+            {
+                name: "Probištip",
+                zip: 2210
+            },
+            {
+                name: "Sveti Nikole",
+                zip: 2220
+            },
+            {
+                name: "Kočani",
+                zip: 2300
+            },
+            {
+                name: "Vinica",
+                zip: 2310
+            },
+            {
+                name: "Delčevo",
+                zip: 2320
+            },
+            {
+                name: "Makedonska Kamenica",
+                zip: 2304
+            },
+            {
+                name: "Pehčevo",
+                zip: 2326
+            },
+            {
+                name: "Berovo",
+                zip: 2330
+            },
+            {
+                name: "Strumica",
+                zip: 2400
+            },
+            {
+                name: "Radoviš",
+                zip: 2420
+            },
+            {
+                name: "Valandovo",
+                zip: 2460
+            },
+            {
+                name: "Ohrid",
+                zip: 6000
+            },
+            {
+                name: "Kičevo",
+                zip: 6250
+            },
+            {
+                name: "Struga",
+                zip: 6330
+            },
+            {
+                name: "Makedonski Brod",
+                zip: 6530
+            },
+            {
+                name: "Bitola",
+                zip: 7000
+            },
+            {
+                name: "Demir Hisar",
+                zip: 7240
+            },
+            {
+                name: "Resen",
+                zip: 7310
+            },
+            {
+                name: "Prilep",
+                zip: 7500
+            },
+            {
+                name: "Kruševo",
+                zip: 7550
+            }
+    ];
+
     $(document).ready(function () {
+
+        $("body").on("change", ".city", function () {
+            var city = $(this).find(":selected").first().text();
+            var zip = cities.filter(function (item) { return item.name === city })[0].zip;
+            $(this).closest(".form-group").find(".zip-code").val(zip);
+        });
 
         @if(!User.Identity.IsAuthenticated)
         {
@@ -211,6 +353,11 @@
         //        }
         //    }
         //});
+
+        $(".policy-component-input").change(function () {
+            console.log($(this));
+            $(".policy-calculation").hide();
+        });
 
         $("#BirthDate").datepicker({
             dateFormat: dateFormatString,
@@ -402,9 +549,7 @@
                 url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/Policy/Index",
                 data: $("#policy_form").serialize(),
                 success: function (result) {
-
-                    console.log(result.status);
-
+                    $(".policy-calculation").show();
                     //This code is for AdvancedSSN validation in premium controler & if Premium Amount exceeded
                     if (result.status != null && result.isValid == false) {
                         if (result.message == "ThePremiumIsExceeded") {

@@ -45,7 +45,7 @@
     <div class="col-md-5">
         <div class="input-group">
             @*@Html.EditorFor(model => model.BirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  mandatoryField insuredData" } })*@
-            <input type="text" id="insured-birthday" name="BirthDate" class="form-control" />
+            <input type="text" id="insured-birthday" name="BirthDate" class="form-control policy-component-input" />
             <span class="input-group-addon">
                 <i class="fa fa-calendar"></i>
             </span>
@@ -65,18 +65,55 @@
         @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
     </div>
     <div class="col-md-3">
-        @Html.EditorFor(model => model.City, new { htmlAttributes = new { placeholder = "град", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
-        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+        @*@Html.EditorFor(model => model.City, new { htmlAttributes = new { placeholder = "град", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
+            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })*@
+        <select id="City" name="City" class="form-control city">
+            <option value="0">--Избери--</option>
+            <option>Skopje</option>
+            <option>Tetovo</option>
+            <option>Gostivar</option>
+            <option>Debar</option>
+            <option>Kumanovo</option>
+            <option>Kriva Palanka</option>
+            <option>Kratovo</option>
+            <option>Veles</option>
+            <option>Kavadarci</option>
+            <option>Negotino</option>
+            <option>Demir Kapija</option>
+            <option>Gevgelija</option>
+            <option>Štip</option>
+            <option>Probištip</option>
+            <option>Sveti Nikole</option>
+            <option>Kočani</option>
+            <option>Vinica</option>
+            <option>Delčevo</option>
+            <option>Makedonska Kamenica</option>
+            <option>Pehčevo</option>
+            <option>Berovo</option>
+            <option>Strumica</option>
+            <option>Radoviš</option>
+            <option>Valandovo</option>
+            <option>Ohrid</option>
+            <option>Kičevo</option>
+            <option>Struga</option>
+            <option>Makedonski Brod</option>
+            <option>Bitola</option>
+            <option>Demir Hisar</option>
+            <option>Resen</option>
+            <option>Prilep</option>
+            <option>Kruševo</option>
+        </select>
     </div>
     <div class="col-md-3">
-        @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { placeholder = "поштенски број", @class = "form-control input-sm mandatoryField insuredData", } })
+        @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { placeholder = "поштенски број", @class = "form-control input-sm mandatoryField insuredData zip-code", @disabled = "disabled" } })
         @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
+        <input type="hidden" name="PostalCode" class="zip-code" />
     </div>
 </div>
 <div class="col-md-12 form-group">
     <label class="col-md-12 text-left">спортски активности</label>
     <div class="col-md-12">
-        <select class="form-control" name="persSport" title="Одбери">
+        <select class="form-control policy-component-input" name="persSport" title="Одбери">
             <option value="0">осигуреникот нема да биде вклучен во спортски активности</option>
             <option value="1">осигуреникот ќе биде вклучен во спортски активности</option>
         </select>
@@ -119,7 +156,7 @@
             <div class="col-md-5">
                 <div class="input-group">
                     @*@Html.EditorFor(model => model.BirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  mandatoryField insuredData" } })*@
-                    <input type="text" name="BirthDate" class="form-control insured-birthday" />
+                    <input type="text" name="BirthDate" class="form-control insured-birthday policy-component-input" />
                     <span class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                     </span>
@@ -139,19 +176,57 @@
                 @Html.ValidationMessageFor(model => model.insureds[i].Address, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-3">
-                @Html.EditorFor(model => model.insureds[i].City, new { htmlAttributes = new { placeholder = "град", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
-                @Html.ValidationMessageFor(model => model.insureds[i].City, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.insureds[i].City, new { htmlAttributes = new { placeholder = "град", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
+                    @Html.ValidationMessageFor(model => model.insureds[i].City, "", new { @class = "text-danger" })*@
+                <input type="hidden" name="insureds.Index" value="@i" />
+                <select id="insureds[@i].City" name="insureds[@i].City" class="form-control city">
+                    <option value="0">--Избери--</option>
+                    <option>Skopje</option>
+                    <option>Tetovo</option>
+                    <option>Gostivar</option>
+                    <option>Debar</option>
+                    <option>Kumanovo</option>
+                    <option>Kriva Palanka</option>
+                    <option>Kratovo</option>
+                    <option>Veles</option>
+                    <option>Kavadarci</option>
+                    <option>Negotino</option>
+                    <option>Demir Kapija</option>
+                    <option>Gevgelija</option>
+                    <option>Štip</option>
+                    <option>Probištip</option>
+                    <option>Sveti Nikole</option>
+                    <option>Kočani</option>
+                    <option>Vinica</option>
+                    <option>Delčevo</option>
+                    <option>Makedonska Kamenica</option>
+                    <option>Pehčevo</option>
+                    <option>Berovo</option>
+                    <option>Strumica</option>
+                    <option>Radoviš</option>
+                    <option>Valandovo</option>
+                    <option>Ohrid</option>
+                    <option>Kičevo</option>
+                    <option>Struga</option>
+                    <option>Makedonski Brod</option>
+                    <option>Bitola</option>
+                    <option>Demir Hisar</option>
+                    <option>Resen</option>
+                    <option>Prilep</option>
+                    <option>Kruševo</option>
+                </select>
             </div>
             <div class="col-md-3">
-                @Html.EditorFor(model => model.insureds[i].Postal_Code, new { htmlAttributes = new { placeholder = "поштенски број", @class = "form-control input-sm mandatoryField insuredData", } })
+                @Html.EditorFor(model => model.insureds[i].Postal_Code, new { htmlAttributes = new { placeholder = "поштенски број", @class = "form-control input-sm mandatoryField insuredData zip-code", @disabled = "disabled" } })
                 @Html.ValidationMessageFor(model => model.insureds[i].Postal_Code, "", new { @class = "text-danger" })
+                <input type="hidden" name="insureds[@i].Postal_Code" class="zip-code" />
             </div>
         </div>
         @*ova treba da se dodade vo insured ko pole*@
         <div class="col-md-12 form-group">
             <label class="col-md-12 text-left">спортски активности</label>
             <div class="col-md-12">
-                <select class="form-control" name="persSport" title="Одбери">
+                <select class="form-control policy-component-input" name="persSport" title="Одбери">
                     <option value="0">осигуреникот нема да биде вклучен во спортски активности</option>
                     <option value="1">осигуреникот ќе биде вклучен во спортски активности</option>
                 </select>
@@ -173,23 +248,27 @@
         $(".insuredNameSurnameContainer").each(function (element) {
             var name = $(this).find(".insuredName").val();
             var surname = $(this).find(".insuredSurname").val();
+            var fullname = name + " " + surname;
+            if (fullname.trim() == "")
+                fullname = "Лице " + i;
+
             $('#professionalDriverInureds').append($('<option>', {
                 value: i,
-                text: name + " " + surname
+                text: fullname
             })).selectpicker('refresh');
 
             $('#abroadStudentsInsureds').append($('<option>', {
                 value: i,
-                text: name + " " + surname
+                text: fullname
             })).selectpicker('refresh');
 
             $('#domasnaAsistencijaInsureds').append($('<option>', {
                 value: i,
-                text: name + " " + surname
+                text: fullname
             })).selectpicker('refresh');
             $('#avtoasistencijaInsureds').append($('<option>', {
                 value: i,
-                text: name + " " + surname
+                text: fullname
             })).selectpicker('refresh');
             i++;
         });
