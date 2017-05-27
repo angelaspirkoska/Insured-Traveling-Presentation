@@ -15,24 +15,18 @@
     <div class="col-md-4">
         <strong>Осигурано лице #1</strong>
     </div>
-    <div class="col-md-8">
-        <div class="checkbox">
-            <label style="padding-left:0;">
-                <input type="checkbox" name="IsSamePolicyHolderInsured" style="width:auto; margin-left:-15px;" id="IsSamePolicyHolderInsured" />
-                @InsuredTraveling.Resource.Policy_HolderSameInsured
-            </label>
-        </div>
-    </div>
 </div>
 <div class="col-md-12 form-group">
     <label class="col-md-12 text-left">име и презиме</label>
-    <div class="col-md-5">
-        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "име", @class = "form-control input-sm mandatoryField insuredData insuredInfo" } })
-        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-    </div>
-    <div class="col-md-7">
-        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { placeholder = "презиме", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
-        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+    <div class="insuredNameSurnameContainer">
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "име", @class = "form-control input-sm mandatoryField insuredData insuredInfo insuredName" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-7">
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { placeholder = "презиме", @class = "form-control input-sm mandatoryField insuredData insuredInfo insuredSurname", } })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
     </div>
 </div>
 <div class="col-md-12 form-group">
@@ -98,13 +92,15 @@
         </div>
         <div class="col-md-12 form-group">
             <label class="col-md-12 text-left">име и презиме</label>
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.insureds[i].Name, new { htmlAttributes = new { placeholder = "име", @class = "form-control input-sm mandatoryField insuredData insuredInfo" } })
-                @Html.ValidationMessageFor(model => model.insureds[i].Name, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-7">
-                @Html.EditorFor(model => model.insureds[i].Lastname, new { htmlAttributes = new { placeholder = "презиме", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
-                @Html.ValidationMessageFor(model => model.insureds[i].Lastname, "", new { @class = "text-danger" })
+            <div class="insuredNameSurnameContainer">
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.insureds[i].Name, new { htmlAttributes = new { placeholder = "име", @class = "form-control input-sm mandatoryField insuredData insuredInfo insuredName" } })
+                    @Html.ValidationMessageFor(model => model.insureds[i].Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-7">
+                    @Html.EditorFor(model => model.insureds[i].Lastname, new { htmlAttributes = new { placeholder = "презиме", @class = "form-control input-sm mandatoryField insuredData insuredInfo insuredSurname", } })
+                    @Html.ValidationMessageFor(model => model.insureds[i].Lastname, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
         <div class="col-md-12 form-group">
@@ -151,7 +147,7 @@
                 @Html.ValidationMessageFor(model => model.insureds[i].Postal_Code, "", new { @class = "text-danger" })
             </div>
         </div>
-        //ova treba da se dodade vo insured ko pole
+        @*ova treba da se dodade vo insured ko pole*@
         <div class="col-md-12 form-group">
             <label class="col-md-12 text-left">спортски активности</label>
             <div class="col-md-12">
@@ -166,6 +162,39 @@
 }
 
 <script>
+
+    function fillInsuredsDropdowns() {
+        var i = 1;
+        $('#professionalDriverInureds').html("").selectpicker("refresh");
+        $('#abroadStudentsInsureds').html("").selectpicker("refresh");
+        $('#domasnaAsistencijaInsureds').html("").selectpicker("refresh");
+        $('#avtoasistencijaInsureds').html("").selectpicker("refresh");
+
+        $(".insuredNameSurnameContainer").each(function (element) {
+            var name = $(this).find(".insuredName").val();
+            var surname = $(this).find(".insuredSurname").val();
+            $('#professionalDriverInureds').append($('<option>', {
+                value: i,
+                text: name + " " + surname
+            })).selectpicker('refresh');
+
+            $('#abroadStudentsInsureds').append($('<option>', {
+                value: i,
+                text: name + " " + surname
+            })).selectpicker('refresh');
+
+            $('#domasnaAsistencijaInsureds').append($('<option>', {
+                value: i,
+                text: name + " " + surname
+            })).selectpicker('refresh');
+            $('#avtoasistencijaInsureds').append($('<option>', {
+                value: i,
+                text: name + " " + surname
+            })).selectpicker('refresh');
+            i++;
+        });
+    }
+
     $(function () {
 
         $("#insured-embg").focusout(function () {
@@ -207,6 +236,14 @@
             } else {
                 $(this).val("");
             }
+        });
+
+        $("body").on("change", ".insuredName", function () {
+            fillInsuredsDropdowns();
+        });
+
+        $("body").on("change", ".insuredSurname", function () {
+            fillInsuredsDropdowns();
         });
 
         $(".insured-birthday").daterangepicker({
