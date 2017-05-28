@@ -325,7 +325,7 @@ namespace Authentication.WEB.Services
             var premiumNezgoda = 0.0;
             //ovde treba po broj na lica
             if (extraNezgoda == "on")
-                premiumNezgoda = 2 * policy.Valid_Days;
+                premiumNezgoda = 2 * policy.Valid_Days * numOfInsureds * 61.5;
 
             var premiumAvto = 0.0;
             var premiumDomasna = 0.0;
