@@ -7,7 +7,6 @@ using System;
 namespace InsuredTraveling.Controllers
 {
     [RoutePrefix("Home")]
-    [SessionExpire]
     public class HomeController : Controller
     {  
         public ActionResult Index()
