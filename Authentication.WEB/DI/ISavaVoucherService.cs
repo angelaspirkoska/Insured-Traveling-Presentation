@@ -10,5 +10,6 @@ namespace InsuredTraveling.DI
     public interface ISavaVoucherService
     {
          void AddSavaVoucher(SavaVoucherModel SavaVoucher);
+        List<sava_voucher> GetPointsRequest(DateTime createdDate);
     }
 }

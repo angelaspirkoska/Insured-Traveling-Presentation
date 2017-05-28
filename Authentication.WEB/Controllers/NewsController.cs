@@ -41,6 +41,7 @@ namespace Authentication.WEB.Controllers
             var newsList = news.Select(Mapper.Map<news_all, News>).ToList();
             NewNews newsNew = new NewNews();
             newsNew.ListNews = newsList;
+            
             return View(newsNew);
 
         }
@@ -51,7 +52,7 @@ namespace Authentication.WEB.Controllers
             var newsList = news.Select(Mapper.Map<news_all, News>).ToList();
             NewNews newsNew = new NewNews();
             newsNew.ListNews = newsList;
-            if (ModelState.IsValid)
+            if (ModelState.IsValid || NewsModel.Title != null || NewsModel.Content != null)
             {
                 if (NewsModel.Image != null)
                 {
@@ -60,18 +61,22 @@ namespace Authentication.WEB.Controllers
                     var path = @"~/News/" + fileName;
                     NewsModel.Image.SaveAs(Server.MapPath(path));
                     NewsModel.ImageLocation = fileName;
-               
+
                 }
-                NewsModel.ImageLocation = " ";
+                else
+                {
+                    NewsModel.ImageLocation = " ";
+                }
                 NewsModel.InsuranceCompany = "Sava";
                 try
                 {
                     _ns.AddNewsNew(NewsModel);
-                    ViewBag.Success = true;
+                 
                     var news1 = _ns.GetAllNews();
                     var newsList1 = news1.Select(Mapper.Map<news_all, News>).ToList();
                     NewNews newsNew1 = new NewNews();
                     newsNew1.ListNews = newsList1;
+                    ViewBag.Success = true;
                     return View("News", newsNew1);
                 }
                 catch(Exception ex)
@@ -85,7 +90,7 @@ namespace Authentication.WEB.Controllers
             }
             else
             {
-
+                ViewBag.Success = false;
                 return View("News", newsNew);
             }
         }
@@ -139,7 +144,7 @@ namespace Authentication.WEB.Controllers
 
             if (news1 == null)
             {
-                ViewBag.Success = false;
+               
                 return View("News", newsNew);
             }
             else
@@ -162,7 +167,7 @@ namespace Authentication.WEB.Controllers
                 try
                 {
                     _ns.DeleteNews(newsId);
-                    ViewBag.Success = true;
+                   
                     var newsU = _ns.GetAllNews();
                     var newsListU = news.Select(Mapper.Map<news_all, News>).ToList();
                     NewNews newsNewU = new NewNews();
@@ -172,7 +177,7 @@ namespace Authentication.WEB.Controllers
                 catch
                 {
 
-                    ViewBag.Success = false;
+                    
                 }
                 return View("News", newsNew);
             }

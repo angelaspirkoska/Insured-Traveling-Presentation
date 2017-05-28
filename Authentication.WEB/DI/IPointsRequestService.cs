@@ -1,4 +1,6 @@
 ﻿using InsuredTraveling.Models;
+using System;
+using System.Collections.Generic;
 
 namespace InsuredTraveling.DI
 {
@@ -6,5 +8,6 @@ namespace InsuredTraveling.DI
     {
         void AddPoints_Request(PointsRequestModel RequestModel);
         void ChangeFlagStatus(bool flag);
+        List<points_requests> GetPointsRequest(DateTime createdDate);
     }
 }

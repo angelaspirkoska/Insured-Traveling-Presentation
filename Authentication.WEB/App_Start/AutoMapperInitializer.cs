@@ -202,6 +202,16 @@ namespace InsuredTraveling.App_Start
                 dst.ssn = src.ssn;
                 dst.timestamp = src.DateCreated;
 
+            }); 
+            Mapper.CreateMap<points_requests, PointsRequestModel>().AfterMap((src, dst) =>
+            {
+                dst.id = dst.id;
+                dst.flag = dst.flag;
+                dst.id_user = src.id_user;
+                dst.policy_id = src.policy_id;
+                dst.ssn = src.ssn;
+                dst.DateCreated = src.timestamp;
+
             });
 
 
@@ -219,6 +229,18 @@ namespace InsuredTraveling.App_Start
 
             Mapper.CreateMap<SavaVoucherModel, sava_voucher>().AfterMap((src, dst) =>
             {
+                dst.voucher_code = src.voucher_code;
+                dst.id_policyHolder = src.id_policyHolder;
+                dst.points_used = src.points_used;
+                dst.id_seller = src.id_seller;
+                dst.timestamp = src.timestamp;
+
+
+            });
+           
+            Mapper.CreateMap<sava_voucher, SavaVoucherModel>().AfterMap((src, dst) =>
+            {
+                dst.id = src.id;
                 dst.voucher_code = src.voucher_code;
                 dst.id_policyHolder = src.id_policyHolder;
                 dst.points_used = src.points_used;

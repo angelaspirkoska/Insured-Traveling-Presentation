@@ -38,6 +38,15 @@
     </form>
 </div>
 
+@if(ViewBag.Success == true)
+{
+    <div class="alert-success well">@Resource.Events_Successful</div>
+}
+else if(ViewBag.Success == false)
+{
+    <div class="alert-danger well">@Resource.Events_Failure</div>
+}
+
 <div class="row">
     @if (Model == null || Model.ListNews.Count() == 0)
     {

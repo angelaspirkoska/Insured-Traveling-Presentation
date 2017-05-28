@@ -1557,4 +1557,31 @@
   <data name="NewsMaximumLength" xml:space="preserve">
     <value>The length of the string is exceeded.</value>
   </data>
+  <data name="SearchPolicyTimestamp" xml:space="preserve">
+    <value>Time Created</value>
+  </data>
+  <data name="SearchRequestDescSearch" xml:space="preserve">
+    <value>View policy request by date</value>
+  </data>
+  <data name="SearchRequestDescString" xml:space="preserve">
+    <value>View today policy requests</value>
+  </data>
+  <data name="SearchRequestNumber" xml:space="preserve">
+    <value>Request Number</value>
+  </data>
+  <data name="SearchUsedPoints" xml:space="preserve">
+    <value>Used Points</value>
+  </data>
+  <data name="SearchUsedPointsDescSearch" xml:space="preserve">
+    <value>View used points by date </value>
+  </data>
+  <data name="SearchUsedPointsDescString" xml:space="preserve">
+    <value>View today used points</value>
+  </data>
+  <data name="SearchUsedPointsNumber" xml:space="preserve">
+    <value>Used Points No.</value>
+  </data>
+  <data name="SearcPolicyRequestStatus" xml:space="preserve">
+    <value>Request Status</value>
+  </data>
 </root>

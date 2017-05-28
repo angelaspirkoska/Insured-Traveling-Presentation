@@ -17,5 +17,14 @@ namespace InsuredTraveling.DI
             _db.sava_voucher.Add(SavaVoucher2);
             _db.SaveChanges();
         }
+
+        public List<sava_voucher> GetPointsRequest(DateTime createdDate)
+        {
+            DateTime startDate = createdDate.Date;
+            DateTime endDate = startDate.AddDays(1).AddTicks(-1);
+            var ListPolicyRequest = _db.sava_voucher.Where(x => (x.timestamp >= startDate && x.timestamp <= endDate)).ToList();
+
+            return ListPolicyRequest;
+        }
     }
 }

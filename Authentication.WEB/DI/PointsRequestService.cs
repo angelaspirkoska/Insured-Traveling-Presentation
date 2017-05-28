@@ -29,5 +29,15 @@ namespace InsuredTraveling.DI
             _db.SaveChanges();
         }
 
+       
+         public List<points_requests> GetPointsRequest(DateTime createdDate)
+        {
+            DateTime startDate = createdDate.Date;
+            DateTime endDate = startDate.AddDays(1).AddTicks(-1);
+            var ListPolicyRequest =  _db.points_requests.Where(x => ( x.timestamp  >= startDate && x.timestamp <= endDate)).ToList();
+            
+            return ListPolicyRequest;
+        }
+
     }
 }

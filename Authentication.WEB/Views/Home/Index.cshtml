@@ -92,6 +92,64 @@ else if (r.IsUser("Sava_admin") || r.IsUser("Sava_support"))
         </table>
     </div>
 
+    <div class="row" style="margin-top: 30px;">
+        <h3>@Resource.SearchRequestDescString</h3>
+        <hr />
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>@Resource.SearchRequestDescSearch</label>
+                <input type="text" id="dateCreatedRequest" class="form-control" placeholder="@dateTimeFormat" />
+            </div>
+            <div class="form-group col-md-3">
+                <button class="btn btn-primary btn-sm" onclick="SearchPointsRequest()" style="margin-top: 30px;"> <span class="glyphicon glyphicon-search"></span>@Resource.Search</button>
+            </div>
+        </div>
+
+
+        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tablePolicyRequest">
+            <thead>
+                <tr>
+                    <th>@InsuredTraveling.Resource.SearchRequestNumber</th>                    
+                    <th>@InsuredTraveling.Resource.Search_SearchSSNHolder</th>
+                    <th>@InsuredTraveling.Resource.Seacrh_SearchTableSeller</th>
+                    <th>@InsuredTraveling.Resource.SearchPolicyTimestamp</th>
+                    <th>@InsuredTraveling.Resource.SearcPolicyRequestStatus</th>
+                  
+                </tr>
+            </thead>
+            <tbody id="searchResultPolicyRequest"></tbody>
+        </table>
+    </div>
+
+
+    <div class="row" style="margin-top: 30px;">
+        <h3>@Resource.SearchUsedPointsDescString</h3>
+        <hr />
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>@Resource.SearchUsedPointsDescSearch</label>
+                <input type="text" id="dateCreatedPointsUsed" class="form-control" placeholder="@dateTimeFormat" />
+            </div>
+            <div class="form-group col-md-3">
+                <button class="btn btn-primary btn-sm" onclick="SearchUsedPoints()" style="margin-top: 30px;"> <span class="glyphicon glyphicon-search"></span>@Resource.Search</button>
+            </div>
+        </div>
+
+
+        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="tableUsedPoints">
+            <thead>
+                <tr>
+                    <th>@InsuredTraveling.Resource.SearchUsedPointsNumber</th>                   
+                    <th>@InsuredTraveling.Resource.Search_SearchSSNHolder</th>
+                    <th>@InsuredTraveling.Resource.Sava_ExcelSeller_id</th>                    
+                    <th>@InsuredTraveling.Resource.SearchUsedPoints</th>
+                    <th>@InsuredTraveling.Resource.SearchPolicyTimestamp</th>
+
+                </tr>
+            </thead>
+            <tbody id="searchResultPolicyRequest"></tbody>
+        </table>
+    </div>
 
     <!-- Reset password modal dialog-->
     <div class="modal fade" id="modal" role="dialog">
@@ -233,8 +291,25 @@ else
             maxDate: 'd'
         });
 
+        $("#dateCreatedRequest").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
+        $("#dateCreatedPointsUsed").datepicker({
+            dateFormat: dateFormatString,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100y:c+nn',
+            maxDate: 'd'
+        });
+
         SearchPoliciesExpiring();
         SearchUsers();
+        SearchPointsRequest();
+        SearchUsedPoints()
     });
 
     $("#ResetPass").click(function () {
@@ -364,6 +439,45 @@ else
             select: true
         });
         $("#tableRegisteredUsers").css("display", "table");
+    };
+
+    function SearchPointsRequest() {
+        ;
+        $("#tablePolicyRequest").DataTable().destroy();
+        $("#tablePolicyRequest").DataTable({
+            dom: "Bfrtip",
+            ajax: "/Search/GetAllPolicyRequest?dateCreated=" + $("#dateCreatedRequest").val(),
+            columns: [
+                    { data: "id" },                    
+                    { data: "ssn" },
+                    { data: "policy_id" },
+                    { data: "DateCreated" },
+                    { data: "flag" }
+                 
+            ],
+            select: true
+        });
+        $("#tablePolicyRequest").css("display", "table");
+    };
+
+    function SearchUsedPoints() {
+        ;
+        $("#tableUsedPoints").DataTable().destroy();
+        $("#tableUsedPoints").DataTable({
+            dom: "Bfrtip",
+            ajax: "/Search/GetAllUsedPoints?dateCreated=" + $("#dateCreatedPointsUsed").val(),
+            columns: [
+                    { data: "id" },
+                    { data: "id_policyHolder" },
+                     { data: "id_seller" },
+                    { data: "points_used" },                    
+                    { data: "timestamp" },
+                    
+
+            ],
+            select: true
+        });
+        $("#tableUsedPoints").css("display", "table");
     };
 
     function SearchPoliciesExpiring() {

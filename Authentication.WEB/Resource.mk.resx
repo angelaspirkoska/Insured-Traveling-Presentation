@@ -1551,4 +1551,31 @@
   <data name="NewsMaximumLength" xml:space="preserve">
     <value>Надмината е дозволената должина на текстот</value>
   </data>
+  <data name="SearchPolicyTimestamp" xml:space="preserve">
+    <value>Време на креирање</value>
+  </data>
+  <data name="SearchRequestDescSearch" xml:space="preserve">
+    <value>Пребарај барања за ажурирања по датум</value>
+  </data>
+  <data name="SearchRequestDescString" xml:space="preserve">
+    <value>Денешни побарувања за ажурирање на полиса</value>
+  </data>
+  <data name="SearchRequestNumber" xml:space="preserve">
+    <value>Број на побарување</value>
+  </data>
+  <data name="SearchUsedPoints" xml:space="preserve">
+    <value>Искористени поени</value>
+  </data>
+  <data name="SearchUsedPointsDescSearch" xml:space="preserve">
+    <value>Пребарај искористени поени по датум</value>
+  </data>
+  <data name="SearchUsedPointsDescString" xml:space="preserve">
+    <value>Денешни искористени поени</value>
+  </data>
+  <data name="SearchUsedPointsNumber" xml:space="preserve">
+    <value>Број на искористени поени</value>
+  </data>
+  <data name="SearcPolicyRequestStatus" xml:space="preserve">
+    <value>Статус на побарување</value>
+  </data>
 </root>

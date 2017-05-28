@@ -3850,6 +3850,42 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Time Created.
+        /// </summary>
+        public static string SearchPolicyTimestamp {
+            get {
+                return ResourceManager.GetString("SearchPolicyTimestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View policy request by date.
+        /// </summary>
+        public static string SearchRequestDescSearch {
+            get {
+                return ResourceManager.GetString("SearchRequestDescSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View today policy requests.
+        /// </summary>
+        public static string SearchRequestDescString {
+            get {
+                return ResourceManager.GetString("SearchRequestDescString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Number.
+        /// </summary>
+        public static string SearchRequestNumber {
+            get {
+                return ResourceManager.GetString("SearchRequestNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show search results in excel.
         /// </summary>
         public static string SearchResultsExcel {
@@ -3972,6 +4008,51 @@ namespace InsuredTraveling {
         public static string SearchTable_UserStatusInactive {
             get {
                 return ResourceManager.GetString("SearchTable_UserStatusInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Used Points.
+        /// </summary>
+        public static string SearchUsedPoints {
+            get {
+                return ResourceManager.GetString("SearchUsedPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View used points by date .
+        /// </summary>
+        public static string SearchUsedPointsDescSearch {
+            get {
+                return ResourceManager.GetString("SearchUsedPointsDescSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View today used points.
+        /// </summary>
+        public static string SearchUsedPointsDescString {
+            get {
+                return ResourceManager.GetString("SearchUsedPointsDescString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Used Points No..
+        /// </summary>
+        public static string SearchUsedPointsNumber {
+            get {
+                return ResourceManager.GetString("SearchUsedPointsNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Status.
+        /// </summary>
+        public static string SearcPolicyRequestStatus {
+            get {
+                return ResourceManager.GetString("SearcPolicyRequestStatus", resourceCulture);
             }
         }
         

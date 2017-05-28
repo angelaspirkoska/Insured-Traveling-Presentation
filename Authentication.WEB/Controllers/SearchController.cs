@@ -40,6 +40,8 @@ namespace InsuredTraveling.Controllers
         private IEventsService _es;
         private readonly ISavaPoliciesService _savaPoliciesService;
         private IEventUserService _eus;
+        private IPointsRequestService _prs;
+        private ISavaVoucherService _SavaVoucherService;
 
         public SearchController(IPolicyService ps, 
                                 IFirstNoticeOfLossService fnls, 
@@ -54,7 +56,9 @@ namespace InsuredTraveling.Controllers
                                 IRolesService rs,
                                 IEventsService es,
                                 ISavaPoliciesService savaPoliciesService,
-                                IEventUserService eus
+                                IEventUserService eus,
+                                IPointsRequestService prs,
+                                ISavaVoucherService savaVoucherService
                                 )
         {
             _ps = ps;
@@ -72,6 +76,8 @@ namespace InsuredTraveling.Controllers
             _es = es;
             _savaPoliciesService = savaPoliciesService;
             _eus = eus;
+            _prs = prs;
+            _SavaVoucherService = savaVoucherService;
         }
 
         [HttpGet]
@@ -952,6 +958,49 @@ namespace InsuredTraveling.Controllers
             var jsonObject = new JObject();
             var searchModel = data.Select(Mapper.Map<aspnetuser, SearchRegisteredUser>).ToList();
             var array = JArray.FromObject(searchModel.ToArray());
+            jsonObject.Add("data", array);
+            return jsonObject;
+        }
+        public JObject GetAllPolicyRequest(string dateCreated)
+        {
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+
+            DateTime createdDate = String.IsNullOrEmpty(dateCreated) ? DateTime.UtcNow.Date : DateTime.ParseExact(dateCreated, dateTimeFormat, CultureInfo.InvariantCulture);
+
+            
+            List<points_requests> data = new List<points_requests>();
+            data = _prs.GetPointsRequest(createdDate);
+
+            var jsonObject = new JObject();
+            var searchModel = data.Select(Mapper.Map<points_requests, PointsRequestModel>).ToList();
+         
+            var array = JArray.FromObject(searchModel.ToArray());
+
+
+
+            jsonObject.Add("data", array);
+            return jsonObject;
+        }
+
+        public JObject GetAllUsedPoints(string dateCreated)
+        {
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+
+            DateTime createdDate = String.IsNullOrEmpty(dateCreated) ? DateTime.UtcNow.Date : DateTime.ParseExact(dateCreated, dateTimeFormat, CultureInfo.InvariantCulture);
+
+
+            List<sava_voucher> data = new List<sava_voucher>();
+            data = _SavaVoucherService.GetPointsRequest(createdDate);
+
+            var jsonObject = new JObject();
+            var searchModel = data.Select(Mapper.Map<sava_voucher, SavaVoucherModel>).ToList();
+
+            var array = JArray.FromObject(searchModel.ToArray());
+
+
+
             jsonObject.Add("data", array);
             return jsonObject;
         }
