@@ -176,6 +176,10 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
@@ -2103,6 +2107,7 @@
     <Compile Include="Controllers\API\QRCodeGeneratorController.cs" />
     <Compile Include="Controllers\API\RefreshTokenController.cs" />
     <Compile Include="Controllers\API\SavaMobileController.cs" />
+    <Compile Include="Controllers\AutomaticSchedulerController.cs" />
     <Compile Include="Controllers\ChangeLanuageController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -2406,6 +2411,7 @@
     </Compile>
     <Compile Include="Schedulers\EmailJob.cs" />
     <Compile Include="Schedulers\JobScheduler.cs" />
+    <Compile Include="Schedulers\NinjectJobFactory .cs" />
     <Compile Include="SignalR\PipelineModules\LoggingPipelineModule.cs" />
     <Compile Include="SignalR\Hubs\ChatHub.cs" />
     <Compile Include="SignalR\PipelineModules\ExceptionPipelineModule.cs" />
@@ -2562,6 +2568,7 @@
     <Folder Include="ExcelSearchResults\SavaPolicies\" />
     <Folder Include="News\" />
     <Folder Include="SavaVaucers\" />
+    <Folder Include="Views\AutomaticScheduler\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ChangeLanuage\" />
     <Folder Include="Views\QRCodeGenerator\" />

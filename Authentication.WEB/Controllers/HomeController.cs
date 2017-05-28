@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Web.Mvc;
 using InsuredTraveling.Filters;
 using System;
+using InsuredTraveling.Schedulers;
 
 namespace InsuredTraveling.Controllers
 {
@@ -12,6 +13,7 @@ namespace InsuredTraveling.Controllers
     {  
         public ActionResult Index()
         {
+            JobScheduler.Start();
              if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)                
                 Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");                               
 
