@@ -25,14 +25,7 @@ namespace Authentication.WEB.Controllers
             _ns = ns;
         }
 
-        [HttpGet]
-        //public ActionResult Index()
-        //{
-        //    if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-        //        Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
-        //    IQueryable<news_all> news = _ns.GetAllNews();
-        //    return View(news);
-        //}
+        [HttpGet]   
         public ActionResult News()
         {
             if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -41,7 +34,7 @@ namespace Authentication.WEB.Controllers
             var newsList = news.Select(Mapper.Map<news_all, News>).ToList();
             NewNews newsNew = new NewNews();
             newsNew.ListNews = newsList;
-            
+            newsNew.ListNews.Reverse();
             return View(newsNew);
 
         }
@@ -52,6 +45,7 @@ namespace Authentication.WEB.Controllers
             var newsList = news.Select(Mapper.Map<news_all, News>).ToList();
             NewNews newsNew = new NewNews();
             newsNew.ListNews = newsList;
+            newsNew.ListNews.Reverse();
             if (ModelState.IsValid || NewsModel.Title != null || NewsModel.Content != null)
             {
                 if (NewsModel.Image != null)
@@ -76,6 +70,7 @@ namespace Authentication.WEB.Controllers
                     var newsList1 = news1.Select(Mapper.Map<news_all, News>).ToList();
                     NewNews newsNew1 = new NewNews();
                     newsNew1.ListNews = newsList1;
+                    newsNew.ListNews.Reverse();
                     ViewBag.Success = true;
                     return View("News", newsNew1);
                 }
@@ -94,43 +89,7 @@ namespace Authentication.WEB.Controllers
                 return View("News", newsNew);
             }
         }
-        //public ActionResult AddNews(HttpPostedFileBase newsImage, string newsTitle = null, string newsContent = null, bool newsIsNotification = false)
-        //{
-        //    IQueryable<news_all> news1 = _ns.GetAllNews();
-        //    if (newsImage == null || newsTitle == null || newsContent == null || newsTitle == "" || newsContent == "")
-        //        return View("Index", news1);
-
-        //    var lastNewsId = _ns.LastNewsId() + 1;
-        //    string fileName = lastNewsId + "_" + newsImage.FileName;
-
-
-        //    var path = @"~/News/" + fileName;
-        //    newsImage.SaveAs(Server.MapPath(path));
-
-        //    news_all news = new news_all();
-        //    news.Title = newsTitle;
-        //    news.Content = newsContent;
-        //    news.isNotification = newsIsNotification;
-        //    news.DataCreated = DateTime.Now;
-        //    news.InsuranceCompany = "Eurolink";
-        //    news.ImageLocation = fileName;
-
-        //    try
-        //    {
-        //        _ns.AddNews(news);
-        //        ViewBag.Success = true;
-        //         news1 = _ns.GetAllNews();
-        //        return View("Index",news1);
-        //    }
-        //    catch
-        //    {
-        //        // return Json(new { Success = "False", Message = "Database problem" }, JsonRequestBehavior.AllowGet);
-        //        ViewBag.Success = false;
-        //         news1 = _ns.GetAllNews();
-        //        return View("Index", news1);
-               
-        //    }
-        //}
+ 
         [HttpPost]
         public ActionResult DeleteNews(int newsId)
         {
@@ -139,7 +98,7 @@ namespace Authentication.WEB.Controllers
             var newsList = news.Select(Mapper.Map<news_all, News>).ToList();
             NewNews newsNew = new NewNews();
             newsNew.ListNews = newsList;
-
+            newsNew.ListNews.Reverse();
             var news1 = _ns.GetNewsById(newsId);
 
             if (news1 == null)
@@ -172,6 +131,7 @@ namespace Authentication.WEB.Controllers
                     var newsListU = news.Select(Mapper.Map<news_all, News>).ToList();
                     NewNews newsNewU = new NewNews();
                     newsNewU.ListNews = newsListU;
+                    newsNewU.ListNews.Reverse();
                     return View("News", newsNewU);
                 }
                 catch

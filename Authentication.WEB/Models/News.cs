@@ -8,9 +8,11 @@ namespace InsuredTraveling.Models
         public string Id { get; set; }
       
         [StringLength(100, ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "NewsMaximumLength")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string Title { get; set; }
         
         [StringLength(120, ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "NewsMaximumLength")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string Content { get; set; }
         public bool isNotification { get; set; }
         

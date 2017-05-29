@@ -2107,7 +2107,6 @@
     <Compile Include="Controllers\API\QRCodeGeneratorController.cs" />
     <Compile Include="Controllers\API\RefreshTokenController.cs" />
     <Compile Include="Controllers\API\SavaMobileController.cs" />
-    <Compile Include="Controllers\AutomaticSchedulerController.cs" />
     <Compile Include="Controllers\ChangeLanuageController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
