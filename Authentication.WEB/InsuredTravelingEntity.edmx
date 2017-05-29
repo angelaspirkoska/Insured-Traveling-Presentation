@@ -415,7 +415,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Passport_Number_IdNumber" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="Type_InsuredID" Type="int" />
           <Property Name="Date_Created" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="Created_By" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Created_By" Type="varchar" MaxLength="128" />
           <Property Name="Date_Modified" Type="datetime" Precision="0" />
           <Property Name="Modified_By" Type="varchar" MaxLength="128" />
         </EntityType>
@@ -1278,18 +1278,6 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_insured_createdby">
-          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1" />
-          <End Role="insured" Type="Self.insured" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetusers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="insured">
-              <PropertyRef Name="Created_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_insured_modifiedby">
           <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="0..1" />
           <End Role="insured" Type="Self.insured" Multiplicity="*" />
@@ -1891,10 +1879,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="discount_group" EntitySet="discount_group" />
           </AssociationSet>
-          <AssociationSet Name="fk_insured_createdby" Association="Self.fk_insured_createdby">
-            <End Role="aspnetusers" EntitySet="aspnetusers" />
-            <End Role="insured" EntitySet="insured" />
-          </AssociationSet>
           <AssociationSet Name="fk_insured_modifiedby" Association="Self.fk_insured_modifiedby">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="insured" EntitySet="insured" />
@@ -2061,12 +2045,12 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Account_HolderID" Type="Int32" Nullable="false" />
           <Property Name="Account_Number" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="BankID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="insured" Relationship="Self.bank_account_info_ibfk_1" FromRole="bank_account_info" ToRole="insured" />
           <NavigationProperty Name="bank" Relationship="Self.bank_account_info_ibfk_2" FromRole="bank_account_info" ToRole="banks" />
           <NavigationProperty Name="first_notice_of_loss" Relationship="Self.first_notice_of_loss_ibfk_3" FromRole="bank_account_info" ToRole="first_notice_of_loss" />
           <NavigationProperty Name="first_notice_of_loss1" Relationship="Self.first_notice_of_loss_ibfk_4" FromRole="bank_account_info" ToRole="first_notice_of_loss" />
           <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Entities.first_notice_of_loss_archive_ibfk_6" FromRole="bank_account_info" ToRole="first_notice_of_loss_archive" />
           <NavigationProperty Name="first_notice_of_loss_archive1" Relationship="Entities.first_notice_of_loss_archive_ibfk_7" FromRole="bank_account_info" ToRole="first_notice_of_loss_archive" />
+          <NavigationProperty Name="insured" Relationship="Entities.bank_account_info_ibfk_1" FromRole="bank_account_info" ToRole="insured" />
         </EntityType>
         <EntityType Name="bank_prefix">
           <Key>
@@ -2250,7 +2234,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="Policy_holder_bank_account_info" Relationship="Self.first_notice_of_loss_ibfk_3" FromRole="first_notice_of_loss" ToRole="bank_account_info" />
           <NavigationProperty Name="Claimant_bank_account_info" Relationship="Self.first_notice_of_loss_ibfk_4" FromRole="first_notice_of_loss" ToRole="bank_account_info" />
           <NavigationProperty Name="documents_first_notice_of_loss" Relationship="Self.documents_first_notice_of_loss_ibfk_2" FromRole="first_notice_of_loss" ToRole="documents_first_notice_of_loss" />
-          <NavigationProperty Name="insured" Relationship="Self.first_notice_of_loss_ibfk_2" FromRole="first_notice_of_loss" ToRole="insured" />
           <NavigationProperty Name="health_insurance" Relationship="Self.fk_loss_id" FromRole="first_notice_of_loss" ToRole="health_insurance" />
           <NavigationProperty Name="luggage_insurance" Relationship="Self.fk_luggage_loss_id" FromRole="first_notice_of_loss" ToRole="luggage_insurance" />
           <Property Name="ChatId" Type="Int32" />
@@ -2260,6 +2243,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="FNOL_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.first_notice_of_loss_ibfk_7" FromRole="first_notice_of_loss" ToRole="aspnetuser" />
           <NavigationProperty Name="travel_policy" Relationship="Entities.first_notice_of_loss_ibfk_6" FromRole="first_notice_of_loss" ToRole="travel_policy" />
+          <NavigationProperty Name="insured" Relationship="Entities.first_notice_of_loss_ibfk_2" FromRole="first_notice_of_loss" ToRole="insured" />
         </EntityType>
         <EntityType Name="group">
           <Key>
@@ -2296,36 +2280,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Previous_medical_history" Type="Boolean" />
           <Property Name="Responsible_institution" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="additional_info" Relationship="Self.health_insurance_info_ibfk_1" FromRole="health_insurance_info" ToRole="additional_info" />
-        </EntityType>
-        <EntityType Name="insured">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Lastname" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SSN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DateBirth" Type="DateTime" Nullable="false" />
-          <Property Name="Age" Type="Int32" />
-          <Property Name="Email" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Phone_Number" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="City" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Postal_Code" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Passport_Number_IdNumber" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Type_InsuredID" Type="Int32" />
-          <Property Name="Date_Created" Type="DateTime" Nullable="false" />
-          <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Date_Modified" Type="DateTime" />
-          <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="bank_account_info" Relationship="Self.bank_account_info_ibfk_1" FromRole="insured" ToRole="bank_account_info" />
-          <NavigationProperty Name="first_notice_of_loss" Relationship="Self.first_notice_of_loss_ibfk_2" FromRole="insured" ToRole="first_notice_of_loss" />
-          <NavigationProperty Name="type_insured" Relationship="Self.fk_insured_type" FromRole="insured" ToRole="type_insured" />
-          <NavigationProperty Name="policy_insured" Relationship="Self.policy_insured_ibfk_1" FromRole="insured" ToRole="policy_insured" />
-          <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Entities.first_notice_of_loss_archive_ibfk_5" FromRole="insured" ToRole="first_notice_of_loss_archive" />
-          <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_insured_createdby" FromRole="insured" ToRole="aspnetuser" />
-          <NavigationProperty Name="aspnetuser1" Relationship="Entities.fk_insured_modifiedby" FromRole="insured" ToRole="aspnetuser" />
-          <NavigationProperty Name="travel_policy" Relationship="Entities.travel_policy_ibfk_1" FromRole="insured" ToRole="travel_policy" />
         </EntityType>
         <EntityType Name="invoice">
           <Key>
@@ -2437,8 +2391,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PolicyID" Type="Int32" Nullable="false" />
           <Property Name="InsuredID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="insured" Relationship="Self.policy_insured_ibfk_1" FromRole="policy_insured" ToRole="insured" />
           <NavigationProperty Name="travel_policy" Relationship="Entities.fk_policy_insured_polcy_id" FromRole="policy_insured" ToRole="travel_policy" />
+          <NavigationProperty Name="insured" Relationship="Entities.policy_insured_ibfk_1" FromRole="policy_insured" ToRole="insured" />
         </EntityType>
         <EntityType Name="policy_status">
           <Key>
@@ -2516,7 +2470,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="insureds" Relationship="Self.fk_insured_type" FromRole="type_insured" ToRole="insured" />
+          <NavigationProperty Name="insureds" Relationship="Entities.fk_insured_type" FromRole="type_insured" ToRole="insured" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -2626,18 +2580,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="luggage_insurance_info">
               <PropertyRef Name="Additional_infoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="bank_account_info_ibfk_1">
-          <End Role="insured" Type="Self.insured" Multiplicity="1" />
-          <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="insured">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="bank_account_info">
-              <PropertyRef Name="Account_HolderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2809,18 +2751,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="first_notice_of_loss_ibfk_2">
-          <End Role="insured" Type="Self.insured" Multiplicity="1" />
-          <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="insured">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="first_notice_of_loss">
-              <PropertyRef Name="ClaimantId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_loss_id">
           <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -2846,32 +2776,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="luggage_insurance">
               <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_insured_type">
-          <End Role="type_insured" Type="Self.type_insured" Multiplicity="0..1" />
-          <End Role="insured" Type="Self.insured" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="type_insured">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="insured">
-              <PropertyRef Name="Type_InsuredID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="policy_insured_ibfk_1">
-          <End Role="insured" Type="Self.insured" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="policy_insured" Type="Self.policy_insured" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="insured">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="policy_insured">
-              <PropertyRef Name="InsuredID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2910,7 +2814,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="groups" EntityType="Self.group" />
           <EntitySet Name="health_insurance" EntityType="Self.health_insurance" />
           <EntitySet Name="health_insurance_info" EntityType="Self.health_insurance_info" />
-          <EntitySet Name="insureds" EntityType="Self.insured" />
           <EntitySet Name="invoices" EntityType="Self.invoice" />
           <EntitySet Name="luggage_insurance" EntityType="Self.luggage_insurance" />
           <EntitySet Name="luggage_insurance_info" EntityType="Self.luggage_insurance_info" />
@@ -2946,10 +2849,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="luggage_insurance_info_ibfk_1" Association="Self.luggage_insurance_info_ibfk_1">
             <End Role="additional_info" EntitySet="additional_info" />
             <End Role="luggage_insurance_info" EntitySet="luggage_insurance_info" />
-          </AssociationSet>
-          <AssociationSet Name="bank_account_info_ibfk_1" Association="Self.bank_account_info_ibfk_1">
-            <End Role="insured" EntitySet="insureds" />
-            <End Role="bank_account_info" EntitySet="bank_account_info" />
           </AssociationSet>
           <AssociationSet Name="bank_account_info_ibfk_2" Association="Self.bank_account_info_ibfk_2">
             <End Role="banks" EntitySet="banks" />
@@ -3007,10 +2906,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
             <End Role="documents_first_notice_of_loss" EntitySet="documents_first_notice_of_loss" />
           </AssociationSet>
-          <AssociationSet Name="first_notice_of_loss_ibfk_2" Association="Self.first_notice_of_loss_ibfk_2">
-            <End Role="insured" EntitySet="insureds" />
-            <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
-          </AssociationSet>
           <AssociationSet Name="fk_loss_id" Association="Self.fk_loss_id">
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
             <End Role="health_insurance" EntitySet="health_insurance" />
@@ -3018,14 +2913,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="fk_luggage_loss_id" Association="Self.fk_luggage_loss_id">
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
             <End Role="luggage_insurance" EntitySet="luggage_insurance" />
-          </AssociationSet>
-          <AssociationSet Name="fk_insured_type" Association="Self.fk_insured_type">
-            <End Role="type_insured" EntitySet="type_insured" />
-            <End Role="insured" EntitySet="insureds" />
-          </AssociationSet>
-          <AssociationSet Name="policy_insured_ibfk_1" Association="Self.policy_insured_ibfk_1">
-            <End Role="insured" EntitySet="insureds" />
-            <End Role="policy_insured" EntitySet="policy_insured" />
           </AssociationSet>
           <AssociationSet Name="min_premium_ibfk_1" Association="Self.min_premium_ibfk_1">
             <End Role="policy_type" EntitySet="policy_type" />
@@ -3074,10 +2961,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           </AssociationSet>
           <AssociationSet Name="first_notice_of_loss_archive_ibfk_4" Association="Entities.first_notice_of_loss_archive_ibfk_4">
             <End Role="additional_info" EntitySet="additional_info" />
-            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
-          </AssociationSet>
-          <AssociationSet Name="first_notice_of_loss_archive_ibfk_5" Association="Entities.first_notice_of_loss_archive_ibfk_5">
-            <End Role="insured" EntitySet="insureds" />
             <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
           </AssociationSet>
           <AssociationSet Name="first_notice_of_loss_archive_ibfk_6" Association="Entities.first_notice_of_loss_archive_ibfk_6">
@@ -3150,14 +3033,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="aspnetuser" EntitySet="aspnetusers" />
             <End Role="discount_group" EntitySet="discount_group" />
           </AssociationSet>
-          <AssociationSet Name="fk_insured_createdby" Association="Entities.fk_insured_createdby">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="insured" EntitySet="insureds" />
-          </AssociationSet>
-          <AssociationSet Name="fk_insured_modifiedby" Association="Entities.fk_insured_modifiedby">
-            <End Role="aspnetuser" EntitySet="aspnetusers" />
-            <End Role="insured" EntitySet="insureds" />
-          </AssociationSet>
           <AssociationSet Name="fk_travel_duration_Created_by" Association="Entities.fk_travel_duration_Created_by">
             <End Role="aspnetuser" EntitySet="aspnetusers" />
             <End Role="travel_duration" EntitySet="travel_duration" />
@@ -3205,10 +3080,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="travel_policy" EntitySet="travel_policy" />
             <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
           </AssociationSet>
-          <AssociationSet Name="travel_policy_ibfk_1" Association="Entities.travel_policy_ibfk_1">
-            <End Role="insured" EntitySet="insureds" />
-            <End Role="travel_policy" EntitySet="travel_policy" />
-          </AssociationSet>
           <AssociationSet Name="fk_policy_id" Association="Entities.fk_policy_id">
             <End Role="travel_policy" EntitySet="travel_policy" />
             <End Role="policy_additional_charge" EntitySet="policy_additional_charge" />
@@ -3231,6 +3102,35 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           </AssociationSet>
           <AssociationSet Name="fk_policy_travel_number" Association="Entities.fk_policy_travel_number">
             <End Role="travel_number" EntitySet="travel_number" />
+            <End Role="travel_policy" EntitySet="travel_policy" />
+          </AssociationSet>
+          <EntitySet Name="insureds" EntityType="Entities.insured" />
+          <AssociationSet Name="fk_insured_modifiedby" Association="Entities.fk_insured_modifiedby">
+            <End Role="aspnetuser" EntitySet="aspnetusers" />
+            <End Role="insured" EntitySet="insureds" />
+          </AssociationSet>
+          <AssociationSet Name="bank_account_info_ibfk_1" Association="Entities.bank_account_info_ibfk_1">
+            <End Role="insured" EntitySet="insureds" />
+            <End Role="bank_account_info" EntitySet="bank_account_info" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_ibfk_2" Association="Entities.first_notice_of_loss_ibfk_2">
+            <End Role="insured" EntitySet="insureds" />
+            <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
+          </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_archive_ibfk_5" Association="Entities.first_notice_of_loss_archive_ibfk_5">
+            <End Role="insured" EntitySet="insureds" />
+            <End Role="first_notice_of_loss_archive" EntitySet="first_notice_of_loss_archive" />
+          </AssociationSet>
+          <AssociationSet Name="fk_insured_type" Association="Entities.fk_insured_type">
+            <End Role="type_insured" EntitySet="type_insured" />
+            <End Role="insured" EntitySet="insureds" />
+          </AssociationSet>
+          <AssociationSet Name="policy_insured_ibfk_1" Association="Entities.policy_insured_ibfk_1">
+            <End Role="insured" EntitySet="insureds" />
+            <End Role="policy_insured" EntitySet="policy_insured" />
+          </AssociationSet>
+          <AssociationSet Name="travel_policy_ibfk_1" Association="Entities.travel_policy_ibfk_1">
+            <End Role="insured" EntitySet="insureds" />
             <End Role="travel_policy" EntitySet="travel_policy" />
           </AssociationSet>
           </EntityContainer>
@@ -3454,11 +3354,11 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="luggage_checking_time" Type="Time" />
           <Property Name="FNOL_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="additional_info" Relationship="Entities.first_notice_of_loss_archive_ibfk_4" FromRole="first_notice_of_loss_archive" ToRole="additional_info" />
-          <NavigationProperty Name="insured" Relationship="Entities.first_notice_of_loss_archive_ibfk_5" FromRole="first_notice_of_loss_archive" ToRole="insured" />
           <NavigationProperty Name="Policy_holder_bank_account_info" Relationship="Entities.first_notice_of_loss_archive_ibfk_6" FromRole="first_notice_of_loss_archive" ToRole="bank_account_info" />
           <NavigationProperty Name="Claimant_bank_account_info" Relationship="Entities.first_notice_of_loss_archive_ibfk_7" FromRole="first_notice_of_loss_archive" ToRole="bank_account_info" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.first_notice_of_loss_archive_ibfk_2" FromRole="first_notice_of_loss_archive" ToRole="aspnetuser" />
           <NavigationProperty Name="travel_policy" Relationship="Entities.first_notice_of_loss_archive_ibfk_3" FromRole="first_notice_of_loss_archive" ToRole="travel_policy" />
+          <NavigationProperty Name="insured" Relationship="Entities.first_notice_of_loss_archive_ibfk_5" FromRole="first_notice_of_loss_archive" ToRole="insured" />
         </EntityType>
         <Association Name="first_notice_of_loss_archive_ibfk_1">
           <End Type="Entities.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="1" />
@@ -3481,18 +3381,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="first_notice_of_loss_archive">
               <PropertyRef Name="Additional_infoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="first_notice_of_loss_archive_ibfk_5">
-          <End Type="Entities.insured" Role="insured" Multiplicity="1" />
-          <End Type="Entities.first_notice_of_loss_archive" Role="first_notice_of_loss_archive" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="insured">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="first_notice_of_loss_archive">
-              <PropertyRef Name="ClaimantId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3571,7 +3459,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="discount_days" Relationship="Entities.fk_discount_days_Created_By" FromRole="aspnetuser" ToRole="discount_days" />
           <NavigationProperty Name="discount_family" Relationship="Entities.fk_discount_family_Created_By" FromRole="aspnetuser" ToRole="discount_family" />
           <NavigationProperty Name="discount_group" Relationship="Entities.fk_discount_group_Created_By" FromRole="aspnetuser" ToRole="discount_group" />
-          <NavigationProperty Name="insureds" Relationship="Entities.fk_insured_createdby" FromRole="aspnetuser" ToRole="insured" />
           <NavigationProperty Name="travel_duration" Relationship="Entities.fk_travel_duration_Created_by" FromRole="aspnetuser" ToRole="travel_duration" />
           <NavigationProperty Name="users" Relationship="Entities.fk_users_aspnetuser" FromRole="aspnetuser" ToRole="user" />
           <NavigationProperty Name="aspnetroles" Relationship="Entities.aspnetuserroles" FromRole="aspnetuser" ToRole="aspnetrole" />
@@ -3579,6 +3466,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="travel_policy" Relationship="Entities.fk_policy_created_by" FromRole="aspnetuser" ToRole="travel_policy" />
           <NavigationProperty Name="travel_policy1" Relationship="Entities.fk_policy_modified_by" FromRole="aspnetuser" ToRole="travel_policy" />
+          <NavigationProperty Name="insureds" Relationship="Entities.fk_insured_modifiedby" FromRole="aspnetuser" ToRole="insured" />
           </EntityType>
         <Association Name="fk_additional_charge_created_by">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
@@ -3760,30 +3648,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_insured_createdby">
-          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
-          <End Type="Entities.insured" Role="insured" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="insured">
-              <PropertyRef Name="Created_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_insured_modifiedby">
-          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="0..1" />
-          <End Type="Entities.insured" Role="insured" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetuser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="insured">
-              <PropertyRef Name="Modified_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_travel_duration_Created_by">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
           <End Type="Entities.travel_duration" Role="travel_duration" Multiplicity="*" />
@@ -3914,13 +3778,13 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="country" Relationship="Entities.fk_travel_policy_country" FromRole="travel_policy" ToRole="country" />
           <NavigationProperty Name="first_notice_of_loss" Relationship="Entities.first_notice_of_loss_ibfk_6" FromRole="travel_policy" ToRole="first_notice_of_loss" />
           <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Entities.first_notice_of_loss_archive_ibfk_3" FromRole="travel_policy" ToRole="first_notice_of_loss_archive" />
-          <NavigationProperty Name="insured" Relationship="Entities.travel_policy_ibfk_1" FromRole="travel_policy" ToRole="insured" />
           <NavigationProperty Name="policy_additional_charge" Relationship="Entities.fk_policy_id" FromRole="travel_policy" ToRole="policy_additional_charge" />
           <NavigationProperty Name="policy_insured" Relationship="Entities.fk_policy_insured_polcy_id" FromRole="travel_policy" ToRole="policy_insured" />
           <NavigationProperty Name="policy_type" Relationship="Entities.fk_travel_policy_policy_type" FromRole="travel_policy" ToRole="policy_type" />
           <NavigationProperty Name="retaining_risk" Relationship="Entities.fk_travel_policy_retaining_risk" FromRole="travel_policy" ToRole="retaining_risk" />
           <NavigationProperty Name="travel_insurance_type" Relationship="Entities.fk_policy_insurance_type" FromRole="travel_policy" ToRole="travel_insurance_type" />
           <NavigationProperty Name="travel_number" Relationship="Entities.fk_policy_travel_number" FromRole="travel_policy" ToRole="travel_number" />
+          <NavigationProperty Name="insured" Relationship="Entities.travel_policy_ibfk_1" FromRole="travel_policy" ToRole="insured" />
         </EntityType>
         <Association Name="fk_policy_created_by">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="0..1" />
@@ -3979,18 +3843,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="first_notice_of_loss_archive">
               <PropertyRef Name="PolicyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="travel_policy_ibfk_1">
-          <End Type="Entities.insured" Role="insured" Multiplicity="1" />
-          <End Type="Entities.travel_policy" Role="travel_policy" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="insured">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="travel_policy">
-              <PropertyRef Name="Policy_HolderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4067,6 +3919,121 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="travel_policy">
               <PropertyRef Name="Travel_NumberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="insured">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Lastname" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="SSN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateBirth" Type="DateTime" Nullable="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Phone_Number" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Postal_Code" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Passport_Number_IdNumber" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Type_InsuredID" Type="Int32" />
+          <Property Name="Date_Created" Type="DateTime" Nullable="false" />
+          <Property Name="Created_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Modified" Type="DateTime" />
+          <Property Name="Modified_By" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_insured_modifiedby" FromRole="insured" ToRole="aspnetuser" />
+          <NavigationProperty Name="bank_account_info" Relationship="Entities.bank_account_info_ibfk_1" FromRole="insured" ToRole="bank_account_info" />
+          <NavigationProperty Name="first_notice_of_loss" Relationship="Entities.first_notice_of_loss_ibfk_2" FromRole="insured" ToRole="first_notice_of_loss" />
+          <NavigationProperty Name="first_notice_of_loss_archive" Relationship="Entities.first_notice_of_loss_archive_ibfk_5" FromRole="insured" ToRole="first_notice_of_loss_archive" />
+          <NavigationProperty Name="type_insured" Relationship="Entities.fk_insured_type" FromRole="insured" ToRole="type_insured" />
+          <NavigationProperty Name="policy_insured" Relationship="Entities.policy_insured_ibfk_1" FromRole="insured" ToRole="policy_insured" />
+          <NavigationProperty Name="travel_policy" Relationship="Entities.travel_policy_ibfk_1" FromRole="insured" ToRole="travel_policy" />
+        </EntityType>
+        <Association Name="fk_insured_modifiedby">
+          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="0..1" />
+          <End Type="Entities.insured" Role="insured" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetuser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="insured">
+              <PropertyRef Name="Modified_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bank_account_info_ibfk_1">
+          <End Type="Entities.insured" Role="insured" Multiplicity="1" />
+          <End Type="Entities.bank_account_info" Role="bank_account_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insured">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="bank_account_info">
+              <PropertyRef Name="Account_HolderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_ibfk_2">
+          <End Type="Entities.insured" Role="insured" Multiplicity="1" />
+          <End Type="Entities.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insured">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss">
+              <PropertyRef Name="ClaimantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="first_notice_of_loss_archive_ibfk_5">
+          <End Type="Entities.insured" Role="insured" Multiplicity="1" />
+          <End Type="Entities.first_notice_of_loss_archive" Role="first_notice_of_loss_archive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insured">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_archive">
+              <PropertyRef Name="ClaimantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_insured_type">
+          <End Type="Entities.type_insured" Role="type_insured" Multiplicity="0..1" />
+          <End Type="Entities.insured" Role="insured" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="type_insured">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="insured">
+              <PropertyRef Name="Type_InsuredID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="policy_insured_ibfk_1">
+          <End Type="Entities.insured" Role="insured" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.policy_insured" Role="policy_insured" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insured">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="policy_insured">
+              <PropertyRef Name="InsuredID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="travel_policy_ibfk_1">
+          <End Type="Entities.insured" Role="insured" Multiplicity="1" />
+          <End Type="Entities.travel_policy" Role="travel_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insured">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="travel_policy">
+              <PropertyRef Name="Policy_HolderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4334,29 +4301,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="Medical_case_description" ColumnName="Medical_case_description" />
                 <ScalarProperty Name="Previous_medical_history" ColumnName="Previous_medical_history" />
                 <ScalarProperty Name="Responsible_institution" ColumnName="Responsible_institution" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="insureds">
-            <EntityTypeMapping TypeName="Entities.insured">
-              <MappingFragment StoreEntitySet="insured">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
-                <ScalarProperty Name="SSN" ColumnName="SSN" />
-                <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Postal_Code" ColumnName="Postal_Code" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Passport_Number_IdNumber" ColumnName="Passport_Number_IdNumber" />
-                <ScalarProperty Name="Type_InsuredID" ColumnName="Type_InsuredID" />
-                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Date_Modified" ColumnName="Date_Modified" />
-                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4838,6 +4782,29 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="Exchange_RateID" ColumnName="Exchange_RateID" />
                 <ScalarProperty Name="Policy_HolderID" ColumnName="Policy_HolderID" />
                 <ScalarProperty Name="Policy_Number" ColumnName="Policy_Number" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="insureds">
+            <EntityTypeMapping TypeName="Entities.insured">
+              <MappingFragment StoreEntitySet="insured">
+                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
+                <ScalarProperty Name="Date_Modified" ColumnName="Date_Modified" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="Type_InsuredID" ColumnName="Type_InsuredID" />
+                <ScalarProperty Name="Passport_Number_IdNumber" ColumnName="Passport_Number_IdNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Postal_Code" ColumnName="Postal_Code" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

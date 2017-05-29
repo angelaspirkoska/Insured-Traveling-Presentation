@@ -26,9 +26,9 @@ public partial class policy_insured
 
 
 
-    public virtual insured insured { get; set; }
-
     public virtual travel_policy travel_policy { get; set; }
+
+    public virtual insured insured { get; set; }
 
 }
 

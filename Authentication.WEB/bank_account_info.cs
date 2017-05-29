@@ -43,8 +43,6 @@ public partial class bank_account_info
 
 
 
-    public virtual insured insured { get; set; }
-
     public virtual bank bank { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -62,6 +60,8 @@ public partial class bank_account_info
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<first_notice_of_loss_archive> first_notice_of_loss_archive1 { get; set; }
+
+    public virtual insured insured { get; set; }
 
 }
 

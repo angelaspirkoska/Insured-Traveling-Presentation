@@ -2272,6 +2272,9 @@
     <Compile Include="Helpers\SavePolicyHelper.cs" />
     <Compile Include="Helpers\UpdateBankAccountInfoHelper.cs" />
     <Compile Include="Helpers\UpdateFirstNoticeOfLossHelper.cs" />
+    <Compile Include="insured.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AdminPanelModel.cs" />
     <Compile Include="Models\BrokerSales.cs" />
     <Compile Include="Models\CreditCardInfoModel.cs" />
@@ -2288,9 +2291,6 @@
     <Compile Include="SignalR\PipelineModules\LoggingPipelineModule.cs" />
     <Compile Include="SignalR\Hubs\ChatHub.cs" />
     <Compile Include="SignalR\PipelineModules\ExceptionPipelineModule.cs" />
-    <Compile Include="insured.cs">
-      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="InsuredTravelingEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

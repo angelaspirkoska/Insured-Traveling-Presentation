@@ -65,8 +65,7 @@ namespace InsuredTraveling.App_Start
                 dst.Date_Created = DateTime.UtcNow;
                 dst.Age = src.Age;
                 dst.type_insured = null;
-                dst.aspnetuser = null;
-                dst.aspnetuser1 = null;            
+                dst.aspnetuser = null;          
             });
             Mapper.CreateMap<Ok_SetupModel, ok_setup>().AfterMap((src, dst) =>
             {

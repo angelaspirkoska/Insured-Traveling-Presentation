@@ -76,8 +76,6 @@ public partial class InsuredTravelingEntity : DbContext
 
     public virtual DbSet<health_insurance_info> health_insurance_info { get; set; }
 
-    public virtual DbSet<insured> insureds { get; set; }
-
     public virtual DbSet<invoice> invoices { get; set; }
 
     public virtual DbSet<luggage_insurance> luggage_insurance { get; set; }
@@ -145,6 +143,8 @@ public partial class InsuredTravelingEntity : DbContext
     public virtual DbSet<broker_employees> broker_employees { get; set; }
 
     public virtual DbSet<travel_policy> travel_policy { get; set; }
+
+    public virtual DbSet<insured> insureds { get; set; }
 
 }
 

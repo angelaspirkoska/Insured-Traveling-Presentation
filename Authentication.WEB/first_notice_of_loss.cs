@@ -81,8 +81,6 @@ public partial class first_notice_of_loss
 
     public virtual ICollection<documents_first_notice_of_loss> documents_first_notice_of_loss { get; set; }
 
-    public virtual insured insured { get; set; }
-
     public virtual health_insurance health_insurance { get; set; }
 
     public virtual luggage_insurance luggage_insurance { get; set; }
@@ -94,6 +92,8 @@ public partial class first_notice_of_loss
     public virtual aspnetuser aspnetuser { get; set; }
 
     public virtual travel_policy travel_policy { get; set; }
+
+    public virtual insured insured { get; set; }
 
 }
 

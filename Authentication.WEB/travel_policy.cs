@@ -97,8 +97,6 @@ public partial class travel_policy
 
     public virtual ICollection<first_notice_of_loss_archive> first_notice_of_loss_archive { get; set; }
 
-    public virtual insured insured { get; set; }
-
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<policy_additional_charge> policy_additional_charge { get; set; }
@@ -114,6 +112,8 @@ public partial class travel_policy
     public virtual travel_insurance_type travel_insurance_type { get; set; }
 
     public virtual travel_number travel_number { get; set; }
+
+    public virtual insured insured { get; set; }
 
 }
 

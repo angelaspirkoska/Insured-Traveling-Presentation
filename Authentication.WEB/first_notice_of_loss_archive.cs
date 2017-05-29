@@ -114,8 +114,6 @@ public partial class first_notice_of_loss_archive
 
     public virtual additional_info additional_info { get; set; }
 
-    public virtual insured insured { get; set; }
-
     public virtual bank_account_info Policy_holder_bank_account_info { get; set; }
 
     public virtual bank_account_info Claimant_bank_account_info { get; set; }
@@ -123,6 +121,8 @@ public partial class first_notice_of_loss_archive
     public virtual aspnetuser aspnetuser { get; set; }
 
     public virtual travel_policy travel_policy { get; set; }
+
+    public virtual insured insured { get; set; }
 
 }
 

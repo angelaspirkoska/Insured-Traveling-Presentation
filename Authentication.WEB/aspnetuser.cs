@@ -38,8 +38,6 @@ public partial class aspnetuser
 
         this.discount_group = new HashSet<discount_group>();
 
-        this.insureds = new HashSet<insured>();
-
         this.travel_duration = new HashSet<travel_duration>();
 
         this.users = new HashSet<user>();
@@ -51,6 +49,8 @@ public partial class aspnetuser
         this.travel_policy = new HashSet<travel_policy>();
 
         this.travel_policy1 = new HashSet<travel_policy>();
+
+        this.insureds = new HashSet<insured>();
 
     }
 
@@ -151,10 +151,6 @@ public partial class aspnetuser
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<insured> insureds { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
     public virtual ICollection<travel_duration> travel_duration { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -176,6 +172,10 @@ public partial class aspnetuser
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<travel_policy> travel_policy1 { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<insured> insureds { get; set; }
 
 }
 

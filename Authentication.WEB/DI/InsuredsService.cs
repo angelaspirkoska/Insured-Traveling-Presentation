@@ -11,9 +11,6 @@ namespace InsuredTraveling.DI
 
         public int AddInsured(insured Insured)
         {
-            //for the sake of model valid
-            Insured.Phone_Number = "1";
-            Insured.Email = "a";
 
             var InsuredData = _db.insureds.Where(x => x.SSN == Insured.SSN).FirstOrDefault();
             if (InsuredData != null)

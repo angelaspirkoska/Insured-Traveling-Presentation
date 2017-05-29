@@ -173,9 +173,9 @@ namespace InsuredTraveling.Helpers
                     newInsured.Lastname = p.PolicyHolderLastName;
                     newInsured.SSN = p.PolicyHolderSSN;
 
-                    newInsured.Email = p.PolicyHolderEmail;
+                    newInsured.Email = "mail";
                     newInsured.DateBirth = p.PolicyHolderBirthDate ?? DateTime.UtcNow;
-                    newInsured.Phone_Number = p.PolicyHolderPhoneNumber;
+                    newInsured.Phone_Number = "number";
 
                     newInsured.Passport_Number_IdNumber = p.PolicyHolderPassportNumber_ID;
 
