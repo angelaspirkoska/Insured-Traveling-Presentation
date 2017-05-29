@@ -70,7 +70,7 @@ namespace Authentication.WEB.Controllers
                     var newsList1 = news1.Select(Mapper.Map<news_all, News>).ToList();
                     NewNews newsNew1 = new NewNews();
                     newsNew1.ListNews = newsList1;
-                    newsNew.ListNews.Reverse();
+                    newsNew1.ListNews.Reverse();
                     ViewBag.Success = true;
                     return View("News", newsNew1);
                 }
