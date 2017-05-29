@@ -40,11 +40,17 @@ namespace InsuredTraveling.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public DateTime PublishDate { get; set; }
 
+        public string PublishDateString { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public TimeSpan StartTime { get; set; }
 
+        public string StartDateString { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public TimeSpan EndTime { get; set; }
+
+        public string EndDateString { get; set; }
 
         public List<SelectListItem> EventTypes { get; set; }
         

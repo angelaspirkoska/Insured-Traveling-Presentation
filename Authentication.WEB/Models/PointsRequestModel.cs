@@ -15,6 +15,7 @@ namespace InsuredTraveling.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yyyy}")]
         public DateTime DateCreated { get; set; }
         public bool flag { get; set; }
+        public string DateCreatedString { get; set; }
 
     }
 }

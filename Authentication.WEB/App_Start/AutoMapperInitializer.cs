@@ -34,16 +34,23 @@ namespace InsuredTraveling.App_Start
 
             Mapper.CreateMap<@event, Event>().AfterMap((src, dst) =>
             {
+
+                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                var dateTimeFormat = dateTime != null && dateTime.Contains("yy") && !dateTime.Contains("yyyy") ? dateTime.Replace("yy", "yyyy") : dateTime;
+
                 dst.id = src.ID;
                 dst.Title = src.Title;
                 dst.EventType = src.Type == false ? "event" : "vip event";
                 dst.Location = src.Location;
                 dst.Organizer = src.Organizer;
                 dst.Description = src.Description;
-                dst.CreatedBy = db.aspnetusers.FirstOrDefault(x => x.Id == src.CreatedBy).UserName;
+                dst.CreatedBy = db.aspnetusers.FirstOrDefault(x => x.Id == src.CreatedBy) != null ? db.aspnetusers.FirstOrDefault(x => x.Id == src.CreatedBy).UserName : null;
                 dst.PublishDate = src.PublishDate.Value.Date;
+                dst.PublishDateString = src.PublishDate != null ? src.PublishDate.Value.ToString(dateTimeFormat, CultureInfo.InvariantCulture) : null;
                 dst.StartDate = src.StartDate.Date;
+                dst.StartDateString = src.StartDate.ToString(dateTimeFormat, CultureInfo.InvariantCulture);
                 dst.EndDate = src.EndDate.Date;
+                dst.EndDateString = src.EndDate.ToString(dateTimeFormat, CultureInfo.InvariantCulture);
             });
 
             Mapper.CreateMap<Event, @event>().AfterMap((src, dst) =>
@@ -205,13 +212,15 @@ namespace InsuredTraveling.App_Start
             }); 
             Mapper.CreateMap<points_requests, PointsRequestModel>().AfterMap((src, dst) =>
             {
+                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                var dateTimeFormat = dateTime != null && dateTime.Contains("yy") && !dateTime.Contains("yyyy") ? dateTime.Replace("yy", "yyyy") : dateTime;
                 dst.id = dst.id;
                 dst.flag = dst.flag;
                 dst.id_user = src.id_user;
                 dst.policy_id = src.policy_id;
                 dst.ssn = src.ssn;
                 dst.DateCreated = src.timestamp;
-
+                dst.DateCreatedString = src.timestamp.ToString(dateTimeFormat, CultureInfo.InvariantCulture);
             });
 
 
@@ -240,13 +249,16 @@ namespace InsuredTraveling.App_Start
            
             Mapper.CreateMap<sava_voucher, SavaVoucherModel>().AfterMap((src, dst) =>
             {
+                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                var dateTimeFormat = dateTime != null && dateTime.Contains("yy") && !dateTime.Contains("yyyy") ? dateTime.Replace("yy", "yyyy") : dateTime;
+
                 dst.id = src.id;
                 dst.voucher_code = src.voucher_code;
                 dst.id_policyHolder = src.id_policyHolder;
                 dst.points_used = src.points_used;
                 dst.id_seller = src.id_seller;
                 dst.timestamp = src.timestamp;
-
+                dst.TimeStampString = src.timestamp.ToString(dateTimeFormat, CultureInfo.InvariantCulture);
 
             });
 
