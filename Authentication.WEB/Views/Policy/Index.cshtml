@@ -294,11 +294,11 @@
         @if(!User.Identity.IsAuthenticated)
         {
             @:$('body').addClass('sidebar-main-hidden');
-        }
+                }
         else
         {
             @:$('body').addClass('sidebar-xs');
-        }
+                }
 
         $("#successMsg").hide();
         $("#failMsg").hide();
@@ -841,7 +841,6 @@
         <text>
     $("body").on("change", "#IsSamePolicyHolderInsured", function () {
         if ($(this).is(":checked")) {
-
             $("#Name").val($("#PolicyHolderName").val());
             $("#LastName").val($("#PolicyHolderLastName").val());
             $("#Address").val($("#PolicyHolderAddress").val());
@@ -859,6 +858,20 @@
             $("#hideWhenSamePerson .form-control").prop('readonly', false);
             $(".insuredData").val("");
 
+        }
+    });
+
+    $("body").on("change", ".holderInfo", function () {
+        if ($("#IsSamePolicyHolderInsured").is(":checked")) {
+            $("#Name").val($("#PolicyHolderName").val());
+            $("#LastName").val($("#PolicyHolderLastName").val());
+            $("#Address").val($("#PolicyHolderAddress").val());
+            $("#City").val($("#PolicyHolderCity").val());
+            $("#PostalCode").val($("#PolicyHolderPostalCode").val());
+            $("#SSN").val($("#PolicyHolderSSN").val());
+            $("#insured-birthday").val($("#holder-birthday").val());
+            $("#insured-embg").val($("#holder-embg").val());
+            $("#PassportNumber_ID").val($("#PolicyHolderPassportNumber_ID").val());
         }
     });
     </text>
