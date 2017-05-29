@@ -31,8 +31,10 @@ namespace InsuredTraveling.DI
         public List<@event> GetEventsBySearchValues(string createdBy, string title, string organizer, string location)
         {
             return
-                _db.events.Where(x => x.CreatedBy.Contains(createdBy) && x.Title.Contains(title) && x.Organizer.Contains(organizer) && x.Location.Contains(location))
-                    .ToList();
+                _db.events.Where(x => (x.aspnetuser.UserName.Contains(createdBy) || String.IsNullOrEmpty(createdBy)) &&
+                                (x.Title.Contains(title) || String.IsNullOrEmpty(title)) &&
+                                (x.Organizer.Contains(organizer) || String.IsNullOrEmpty(organizer)) &&
+                                (x.Location.Contains(location) || String.IsNullOrEmpty(location))).ToList();
         }
 
         public int AddEvent(@event newEvent)
