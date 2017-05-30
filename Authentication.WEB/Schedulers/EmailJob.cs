@@ -38,7 +38,7 @@ namespace InsuredTraveling.Schedulers
         public void Execute(IJobExecutionContext context)
         {
        
-            var dateCreated = "28/05/2017"; // treba dejttajm now
+           // var dateCreated = "29/05/2017"; // treba dejttajm now
 
             var mailService = new MailService("atanasovski46@gmail.com");
             var emailBody = "Dear Ivan now is " + DateTime.Now;
@@ -46,6 +46,7 @@ namespace InsuredTraveling.Schedulers
             mailService.setSubject("Shceduler");
 
             DateTime createdDate = DateTime.Now;
+            string dateCreated = DateTime.Now.ToString("dd/MM/yyyy");
             try
             {
                
@@ -87,10 +88,10 @@ namespace InsuredTraveling.Schedulers
             }
 
             //Points Used 
-            var ListOfPointsUsed = GetAllPolicyRequest(dateCreated);
+            var ListOfPointsUsed = GetAllUsedPoints(dateCreated);
             if (ListOfPointsUsed.Count() != 0)
             {
-                string PointsUsedFilePath = GetPointsRequestSearchResultsAsExcelDocument(ListOfPointsUsed);
+                string PointsUsedFilePath = GetPointsUsedSearchResultsAsExcelDocument(ListOfPointsUsed);
                 Attachment PointsUsedtExcel = new Attachment(PointsUsedFilePath, MediaTypeNames.Application.Octet);
                 mailService.attach(PointsUsedtExcel);
             }else
@@ -162,7 +163,7 @@ namespace InsuredTraveling.Schedulers
             //string username = System.Web.HttpContext.Current.User.Identity.Name;
             //var logUser = _us.GetUserIdByUsername(username);
 
-            string fileName = "ReportRegistredUsers_" + DateTime.Now.ToShortDateString()+ "_" + Guid.NewGuid().ToString() + ".xlsx";
+            string fileName = "ReportRegistredUsers_" + /*+ DateTime.Now.ToShortDateString()+*/ "_" + Guid.NewGuid().ToString() + ".xlsx";
             var path = @"~/ExcelSearchResults/RegisteredUsers/" + fileName;
             path = HostingEnvironment.MapPath(path); //System.Web.HttpContext.Current.Server.MapPath(path);
             FileInfo newFile = new FileInfo(path);
@@ -211,13 +212,20 @@ namespace InsuredTraveling.Schedulers
                 package.Workbook.Properties.Comments = "";
 
                 // set some extended property values
-                package.Workbook.Properties.Company = " ";
+                package.Workbook.Properties.Company = "Sava Osiguruvanje";
 
                 // set some custom property values
                 package.Workbook.Properties.SetCustomPropertyValue("Checked by", "SavaAdmin");
                 package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "EPPlus");
                 // save our new workbook and we are done!
-                package.Save();
+                try
+                {
+                    package.Save();
+                }
+                catch(Exception Ex)
+                {
+
+                }
 
             }
 
@@ -235,7 +243,7 @@ namespace InsuredTraveling.Schedulers
             //string username = System.Web.HttpContext.Current.User.Identity.Name;
             //var logUser = _us.GetUserIdByUsername(username);
 
-            string fileName = "ReportPolicyValidationRequests" + DateTime.Now.ToShortDateString() + "_" + Guid.NewGuid().ToString() + ".xlsx";
+            string fileName = "ReportPolicyValidationRequests" /*+ DateTime.Now.ToShortDateString()*/ + "_" + Guid.NewGuid().ToString() + ".xlsx";
             var path = @"~/ExcelSearchResults/RegisteredUsers/" + fileName;
             path = HostingEnvironment.MapPath(path); //System.Web.HttpContext.Current.Server.MapPath(path);
             FileInfo newFile = new FileInfo(path);
@@ -255,7 +263,7 @@ namespace InsuredTraveling.Schedulers
                 worksheet.Cells[1, 1].Value = InsuredTraveling.Resource.SearchRequestNumber;
                 worksheet.Cells[1, 2].Value = InsuredTraveling.Resource.FNOL_Number;
                 worksheet.Cells[1, 3].Value = InsuredTraveling.Resource.Sava_ExcelSSN_Holder;
-                worksheet.Cells[1, 4].Value = InsuredTraveling.Resource.SearchByDateCreated;
+                worksheet.Cells[1, 4].Value = InsuredTraveling.Resource.SearchTable_CreatedOn;
                 worksheet.Cells[1, 5].Value = InsuredTraveling.Resource.SearcPolicyRequestStatus;
               
 
@@ -266,7 +274,7 @@ namespace InsuredTraveling.Schedulers
                     worksheet.Cells[counter, 1].Value = request.id;
                     worksheet.Cells[counter, 2].Value = request.policy_id;
                     worksheet.Cells[counter, 3].Value = request.ssn;
-                    worksheet.Cells[counter, 4].Value = request.DateCreated;
+                    worksheet.Cells[counter, 4].Value = request.DateCreated.ToString("dd/MM/yyyy HH:mm:ss ");
                     worksheet.Cells[counter, 5].Value = request.flag;
                     counter++;
                 }
@@ -285,7 +293,14 @@ namespace InsuredTraveling.Schedulers
                 package.Workbook.Properties.SetCustomPropertyValue("Checked by", "SavaScheduleService");
                 package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "EPPlus");
                 // save our new workbook and we are done!
-                package.Save();
+                try
+                {
+                    package.Save();
+                }
+                catch (Exception Ex)
+                {
+
+                }
 
             }
 
@@ -303,14 +318,14 @@ namespace InsuredTraveling.Schedulers
             //string username = System.Web.HttpContext.Current.User.Identity.Name;
             //var logUser = _us.GetUserIdByUsername(username);
 
-            string fileName = "ReportUsedPointsRequests_" + DateTime.Now.ToShortDateString() + "_" + Guid.NewGuid().ToString() + ".xlsx";
+            string fileName = "ReportUsedPointsRequests_" + /*DateTime.Now.ToShortDateString() +*/ "_" + Guid.NewGuid().ToString() + ".xlsx";
             var path = @"~/ExcelSearchResults/RegisteredUsers/" + fileName;
             path = HostingEnvironment.MapPath(path); //System.Web.HttpContext.Current.Server.MapPath(path);
             FileInfo newFile = new FileInfo(path);
             if (newFile.Exists)
             {
                 newFile.Delete();  // ensures we create a new workbook
-                fileName = "ReportUsedPointsRequests" + DateTime.Now.ToShortDateString() + "_" + Guid.NewGuid().ToString();
+                fileName = "ReportUsedPointsRequests" +/* DateTime.Now.ToShortDateString() +*/ "_" + Guid.NewGuid().ToString();
                 path = @"~/ExcelSearchResults/RegisteredUsers/" + fileName;
                 newFile = new FileInfo(path);
             }
@@ -324,7 +339,7 @@ namespace InsuredTraveling.Schedulers
                 worksheet.Cells[1, 2].Value = InsuredTraveling.Resource.Sava_ExcelSSN_Holder;
                 worksheet.Cells[1, 3].Value = InsuredTraveling.Resource.Sava_ExcelSeller_id;
                 worksheet.Cells[1, 4].Value = InsuredTraveling.Resource.SearchUsedPointsNumber;
-                worksheet.Cells[1, 5].Value = InsuredTraveling.Resource.SearchByDateCreated;
+                worksheet.Cells[1, 5].Value = InsuredTraveling.Resource.SearchTable_CreatedOn;
 
 
                 int counter = 2;
@@ -335,7 +350,7 @@ namespace InsuredTraveling.Schedulers
                     worksheet.Cells[counter, 2].Value = request.id_policyHolder;
                     worksheet.Cells[counter, 3].Value = request.id_seller;
                     worksheet.Cells[counter, 4].Value = request.points_used;
-                    worksheet.Cells[counter, 5].Value = request.timestamp;
+                    worksheet.Cells[counter, 5].Value = request.timestamp.ToString("dd/MM/yyyy HH:mm:ss ");
                     counter++;
                 }
 

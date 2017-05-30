@@ -13,8 +13,8 @@ namespace InsuredTraveling.Controllers
     {  
         public ActionResult Index()
         {
-            JobScheduler.Start();
-             if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)                
+          
+            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)                
                 Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");                               
 
             return View();
