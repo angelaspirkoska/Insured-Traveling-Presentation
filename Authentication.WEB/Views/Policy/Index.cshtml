@@ -455,6 +455,7 @@
     })
 
     $(document).on("keypress", ".input-sm, .text-box", function (e) {
+        $("#promoBaner").hide();
         var ew = event.which;
         console.log(ew);
         if (ew == 13)

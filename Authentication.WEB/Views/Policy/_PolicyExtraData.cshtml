@@ -61,6 +61,8 @@
             <option value="1">Лице 1</option>
         </select>
     </div>
+    <div hidden class="col-sm-12" id="domasnaAsistencijaAdresses">
+    </div>
 </div>
 <!-- АВТО АСИСТЕНЦИЈА -->
 <div class="col-md-12 form-horizontal form-group">
@@ -80,15 +82,15 @@
     <div class="col-md-12 form-group">
         <div class="col-md-4 text-left">
             <label for="brend-vozilo" class="text-left">бренд на возило</label>
-            <input type="text" id="brend-vozilo" class="form-control" name="brend-vozilo">
+            <input type="text" id="brend-vozilo" class="form-control input-sm" name="brend-vozilo">
         </div>
         <div class="col-md-3">
             <label for="model" class="text-left">модел</label>
-            <input type="text" id="model" class="form-control" name="model">
+            <input type="text" id="model" class="form-control input-sm" name="model">
         </div>
         <div class="col-md-5">
             <label for="reg-tab" class="text-left">регистарски таблички</label>
-            <input type="text" id="reg-tab" class="form-control" name="reg-tab">
+            <input type="text" id="reg-tab" class="form-control input-sm" name="reg-tab">
         </div>
     </div>
 </div>
@@ -110,7 +112,26 @@
         }
     });
 
+    $("#extraDomasnaAsistencija").change(function () {
+        if ($(this).is(":checked")) {
+            $("#domasnaAsistencijaAdresses").show();
+        } else {
+            $("#domasnaAsistencijaAdresses").hide();
+        }
+    });
+
     $('.selectpicker').selectpicker({
         size: 5
+    });
+
+    $("#domasnaAsistencijaInsureds").change(function () {
+        var result = $("#domasnaAsistencijaInsureds").selectpicker("val").toString();
+        var array = result.split(",");
+        $("#domasnaAsistencijaAdresses").html("<br/>");
+        for (var i = 0; i < array.length; i++) {
+            var html = "<div class='col-md-4'><label>" + "Адреса за осигуреник " + array[i] +
+                "</label><input type='text' class='form-control'/></div>";
+            $("#domasnaAsistencijaAdresses").append(html);
+        }
     });
 </script>
