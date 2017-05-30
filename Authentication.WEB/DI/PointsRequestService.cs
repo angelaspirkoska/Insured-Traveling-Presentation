@@ -18,11 +18,11 @@ namespace InsuredTraveling.DI
             _db.points_requests.Add(Points_request);
             _db.SaveChanges();
         }
-        public void ChangeFlagStatus(bool flag)
+        public void ChangeFlagStatus(string PolicyNo)
         {
-           
-            var request = _db.points_requests.Last();
-            request.flag = flag;
+
+            points_requests request = _db.points_requests.Where(x => (x.policy_id == PolicyNo )).FirstOrDefault();
+            request.flag = true; 
            
             _db.points_requests.Attach(request);
             _db.Entry(request).State = EntityState.Modified;

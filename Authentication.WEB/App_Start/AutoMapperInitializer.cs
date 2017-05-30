@@ -256,10 +256,9 @@ namespace InsuredTraveling.App_Start
                 dst.SSN_policyHolder = src.SSN_policyHolder;
                 dst.email_seller = src.email_seller;
                 dst.discount_points = src.discount_points;
-                dst.expiry_date = src.expiry_date;
-                dst.email_seller = src.email_seller;
+                dst.expiry_date = src.expiry_date;                
                 dst.premium = src.premium;
-                dst.expiry_date = src.date_created;
+                dst.date_created = src.date_created;
             });
 
             Mapper.CreateMap<QRCodeSavaPolicy, SavaPolicyModel>().AfterMap((src, dst) =>

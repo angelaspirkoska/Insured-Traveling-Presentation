@@ -4382,7 +4382,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="policy_number" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SSN_insured" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="SSN_insured" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="SSN_policyHolder" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="date_created" Type="DateTime" />
           <Property Name="expiry_date" Type="DateTime" />

@@ -42,7 +42,7 @@ namespace InsuredTraveling.DI
             {
                 
                 var tempUser = _db.aspnetusers.Where(x => x.EMBG.Equals(policyHolder)).FirstOrDefault();
-                if (datePolicyCreated >= tempUser.CreatedOn)
+                if (datePolicyCreated >= tempUser.CreatedOn )
                 {
                     if (tempUser.Points == null)
                     {
@@ -76,21 +76,22 @@ namespace InsuredTraveling.DI
 
         public List<sava_policy> GetSavaPoliciesForList(string ssn, string policyNumber)
         {
-            int number = !String.IsNullOrEmpty(policyNumber) ? Convert.ToInt32(policyNumber) : 0;
+           // int number = !String.IsNullOrEmpty(policyNumber) ? Convert.ToInt32(policyNumber) : 0;
             return
                 _db.sava_policy.Where(
                     x =>
-                        (String.IsNullOrEmpty(policyNumber) || x.policy_number.Equals(number)) &&
+                        (String.IsNullOrEmpty(policyNumber) || x.policy_number ==  policyNumber)  &&
                         (String.IsNullOrEmpty(ssn) || x.SSN_policyHolder.Equals(ssn)) ).ToList();
         }
 
         public List<sava_policy> GetSavaPoliciesForInsuredList(string ssnInsured, string policyNumber)
         {
-            int number = !String.IsNullOrEmpty(policyNumber) ? Convert.ToInt32(policyNumber) : 0;
+           // int number = !String.IsNullOrEmpty(policyNumber) ? Convert.ToInt32(policyNumber) : 0;
+           
             return
                 _db.sava_policy.Where(
                     x =>
-                        (String.IsNullOrEmpty(policyNumber) || x.policy_number.Equals(number) ) &&
+                        (String.IsNullOrEmpty(policyNumber) || x.policy_number == policyNumber) &&
                         (String.IsNullOrEmpty(ssnInsured) || x.SSN_insured.Equals(ssnInsured))).ToList();
         }
 

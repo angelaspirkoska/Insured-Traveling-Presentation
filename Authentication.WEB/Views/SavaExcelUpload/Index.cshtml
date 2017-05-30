@@ -60,7 +60,7 @@
             grid.Columns(
              grid.Column(Resource.Sava_ExcelPolicy_Number, format: @<text>  <span class="display-mode"> @item.policy_number </span> <label id="UserID" class="edit-mode">@item.policy_number</label> </text>, style: "col1Width"),
              @*grid.Column("id_seller", Resource.Sava_ExcelSeller_id, format: @<text>  <span class="display-mode">   <label id="lblName">@item.id_seller</label> </span> <input type="text" id="Name" value="@item.id_seller" class="edit-mode" /></text>, style: "col2Width"),*@
-             grid.Column("SSN_insured", Resource.Sava_ExcelSSN_Insured, format: @<text> <span class="display-mode"> <label id="lblSSN_insured">@item.SSN_insured</label> </span>  <input type="text" id="SSN_insured" value="@item.SSN_insured" class="edit-mode" /> </text>, style: "col2Width"),
+             @*grid.Column("SSN_insured", Resource.Sava_ExcelSSN_Insured, format: @<text> <span class="display-mode"> <label id="lblSSN_insured">@item.SSN_insured</label> </span>  <input type="text" id="SSN_insured" value="@item.SSN_insured" class="edit-mode" /> </text>, style: "col2Width"),*@
              grid.Column("SSN_policyHolder", Resource.Sava_ExcelSSN_Holder, format: @<text> <span class="display-mode"> <label id="lblSSN_policyHolder">@item.SSN_policyHolder</label> </span>  <input type="text" id="SSN_policyHolder" value="@item.SSN_policyHolder" class="edit-mode" /> </text>, style: "col2Width"),
              grid.Column("date_created", Resource.Sava_ExcelPolicyDate, format: @<text> <span class="display-mode"> <label id="lbldate_created">@item.date_created.Date.ToString("dd'/'MM'/'yyyy")</label> </span>  <input type="text" id="date_created" value="@item.date_created.Date.ToString("dd'/'MM'/'yyyy")" class="edit-mode" /> </text>, style: "col2Width"),
              grid.Column("expiry_date", Resource.Sava_ExcelExpiry_Date, format: @<text> <span class="display-mode"> <label id="lblexpiry_date">@item.expiry_date.Date.ToString("dd'/'MM'/'yyyy")</label> </span>  <input type="text" id="expiry_date" value="@item.expiry_date.Date.ToString("dd'/'MM'/'yyyy")" class="edit-mode" /> </text>, style: "col2Width"),
@@ -193,9 +193,9 @@
                             red4(SSN_policyHolder);
                             alert("Korisnik so takva polisa ne postoi");
                         }
-                        if (returnedData.SSN != "true") {
-                            red2(SSN_insured);
-                        }
+                        //if (returnedData.SSN != "true") {
+                                                //    red2(SSN_insured);
+                                                //}
                         if (returnedData.SSN_Holder != "true") {
                             red3(SSN_policyHolder);
                         }
@@ -302,7 +302,7 @@
                 var myObj = {
                     "policy_number": policy_number,
                     //"id_seller": Name,
-                    "SSN_insured": SSN_insured,
+                    //"SSN_insured": SSN_insured,
 
                     "SSN_policyHolder": SSN_policyHolder,
                     "date_created": date_created,

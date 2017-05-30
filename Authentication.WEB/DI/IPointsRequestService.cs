@@ -7,7 +7,7 @@ namespace InsuredTraveling.DI
     public interface IPointsRequestService
     {
         void AddPoints_Request(PointsRequestModel RequestModel);
-        void ChangeFlagStatus(bool flag);
+        void ChangeFlagStatus(string PolicyNo);
         List<points_requests> GetPointsRequest(DateTime createdDate);
     }
 }

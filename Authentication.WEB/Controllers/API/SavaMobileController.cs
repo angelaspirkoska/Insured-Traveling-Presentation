@@ -148,13 +148,7 @@ namespace InsuredTraveling.Controllers.API
                 throw new Exception("Internal error: Empty JSON");
         }
 
-        [System.Web.Http.HttpPost]
-        [System.Web.Http.Route("UsePoints1")]
-        public IHttpActionResult UsePoints1()
-        {
-            
-            throw new Exception("Internal error: Empty JSON");
-        }
+        
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("SetAttending")]
@@ -271,15 +265,15 @@ namespace InsuredTraveling.Controllers.API
                     p_request.DateCreated = DateTime.Now;
                     _prs.AddPoints_Request(p_request);
 
-                    if (_roleAuthorize.IsUser("Sava_Sport+", PolicyUser.UserName))
-                    {
-                        data.Add("Message", "You are already Sava Sport + user. You can use your discount points.");
-                        data.Add("Status", "false");
+                    //if (_roleAuthorize.IsUser("Sava_Sport+", PolicyUser.UserName))
+                    //{
+                    //    data.Add("Message", "You are already Sava Sport + user. You can use your discount points.");
+                    //    data.Add("Status", "false");
 
-                        return data;
-                    }
-                    else
-                    {
+                    //    return data;
+                    //}
+                    //else
+                    //{
 
                         // Ako postoi polisa so toj broj cekor 4
                         if (_savaPoliciesService.GetSavaPolicyIdByPolicyNumber(PolicyNumber) != null)
@@ -287,20 +281,33 @@ namespace InsuredTraveling.Controllers.API
 
                             if (_savaPoliciesService.GetSavaPoliciesForList(SSN, PolicyNumber).Count() != 0)
                             {
-
+                                string message = "";
                                 if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
                                 {
                                     string userRole = "Сава+ корисник на Сава осигурување";
 
                                     _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport+");
 
-                                    _prs.ChangeFlagStatus(true);
-
+                                    _prs.ChangeFlagStatus(PolicyNumber);
+                                    message = "Sucessfully chaged user role, User is now Sava Sport +";
                                     SendSavaEmailHelper.SendEmailForUserChangeRole(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
                                 }
 
+                                var Sava_admin = _savaSetupService.GetLast();
+                                float? UserSumPremiums = _userService.GetUserSumofPremiums(SSN);
+                                if (UserSumPremiums == null)
+                                {
+                                    UserSumPremiums = 0;
+                                }
+                                    if (Sava_admin.vip_sum <= UserSumPremiums)
+                                    {
+                                        string userRole = "VIP корисник на Сава осигурување";
+                                        SendSavaEmailHelper.SendEmailForUserChangeRole(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
+                                        _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport_VIP");
+                                    }
 
                                 data.Add("Message", "Sucessfully chaged user role, User is now Sava Sport +");
+                                data.Add("Message", message);
                                 data.Add("Status", "valid");
 
                                 return data;
@@ -331,7 +338,7 @@ namespace InsuredTraveling.Controllers.API
                             return data;
                         }
 
-                    }
+                    //}
                 }
             }
 
