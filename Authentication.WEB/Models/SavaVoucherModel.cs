@@ -13,5 +13,6 @@ namespace InsuredTraveling.Models
         public float points_used {get;set;}
         public string id_seller { get; set; }
         public DateTime timestamp { get; set; }
+        public string TimeStampString { get; set; }
     }
 }

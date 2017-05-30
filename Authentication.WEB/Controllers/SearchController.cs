@@ -967,18 +967,12 @@ namespace InsuredTraveling.Controllers
             var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
 
             DateTime createdDate = String.IsNullOrEmpty(dateCreated) ? DateTime.UtcNow.Date : DateTime.ParseExact(dateCreated, dateTimeFormat, CultureInfo.InvariantCulture);
-
-            
             List<points_requests> data = new List<points_requests>();
             data = _prs.GetPointsRequest(createdDate);
 
             var jsonObject = new JObject();
-            var searchModel = data.Select(Mapper.Map<points_requests, PointsRequestModel>).ToList();
-         
+            var searchModel = data.Select(Mapper.Map<points_requests, PointsRequestModel>).ToList();      
             var array = JArray.FromObject(searchModel.ToArray());
-
-
-
             jsonObject.Add("data", array);
             return jsonObject;
         }
@@ -990,7 +984,6 @@ namespace InsuredTraveling.Controllers
 
             DateTime createdDate = String.IsNullOrEmpty(dateCreated) ? DateTime.UtcNow.Date : DateTime.ParseExact(dateCreated, dateTimeFormat, CultureInfo.InvariantCulture);
 
-
             List<sava_voucher> data = new List<sava_voucher>();
             data = _SavaVoucherService.GetPointsRequest(createdDate);
 
@@ -998,9 +991,6 @@ namespace InsuredTraveling.Controllers
             var searchModel = data.Select(Mapper.Map<sava_voucher, SavaVoucherModel>).ToList();
 
             var array = JArray.FromObject(searchModel.ToArray());
-
-
-
             jsonObject.Add("data", array);
             return jsonObject;
         }
