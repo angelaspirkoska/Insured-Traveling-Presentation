@@ -299,14 +299,18 @@ namespace InsuredTraveling.Controllers.API
                                 {
                                     UserSumPremiums = 0;
                                 }
+                                //if (_roleAuthorize.IsUser("Sava_Sport+", PolicyUser.UserName))
+                                //{
                                     if (Sava_admin.vip_sum <= UserSumPremiums)
                                     {
                                         string userRole = "VIP корисник на Сава осигурување";
+                                        message = "Sucessfully chaged user role, User is now Sava Sport VIP";
                                         SendSavaEmailHelper.SendEmailForUserChangeRole(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
                                         _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport_VIP");
                                     }
+                                //}
 
-                                data.Add("Message", "Sucessfully chaged user role, User is now Sava Sport +");
+
                                 data.Add("Message", message);
                                 data.Add("Status", "valid");
 
