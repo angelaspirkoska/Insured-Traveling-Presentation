@@ -2334,6 +2334,7 @@
     </Compile>
     <Compile Include="Models\AdminPanelModel.cs" />
     <Compile Include="Models\BrokerSales.cs" />
+    <Compile Include="Models\SitePoints.cs" />
     <Compile Include="Models\CreditCardInfoModel.cs" />
     <Compile Include="Models\DiscountModel.cs" />
     <Compile Include="Models\DiscountCodeValidateModel.cs" />
