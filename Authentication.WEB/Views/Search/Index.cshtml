@@ -770,8 +770,8 @@
     function showHolders() {
         $("#holder").attr("class", "active");
         $("#insured").removeAttr("class");
-        $("#policiesClients").css("display", "none");
-        $("#policiesHolders").css("display", "block");
+        $("#policiesClients").css("display", "block"); //none
+        $("#policiesHolders").css("display", "none");//block
     }
 
     $("#DateI").focusout(function () {

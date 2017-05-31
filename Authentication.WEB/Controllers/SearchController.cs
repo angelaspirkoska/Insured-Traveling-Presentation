@@ -481,7 +481,7 @@ namespace InsuredTraveling.Controllers
             if (policies != null)
             {
                 var languageId = SiteLanguages.CurrentLanguageId();
-                var searchModel = policies.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
+                List<SearchPolicyViewModel> searchModel = policies.Select(Mapper.Map<travel_policy, SearchPolicyViewModel>).ToList();
                 searchModel = _policySearchService.GetCountriesName(searchModel, languageId);
 
                 var array = JArray.FromObject(searchModel.ToArray());
