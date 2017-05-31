@@ -113,6 +113,10 @@ namespace InsuredTraveling.Controllers
             {
                 roles = GetBrokerManagerRoles();
             }
+            if (_roleAuthorize.IsUser("Sava_admin"))
+            {
+                roles = GetAdminManagerRoles();
+            }
             ViewBag.Roles = roles;
             return View();
         }
@@ -122,10 +126,15 @@ namespace InsuredTraveling.Controllers
         {
             ViewBag.Gender = Gender();
             var roles = Roles();
+            if (_roleAuthorize.IsUser("Sava_admin"))
+            {
+                roles = GetAdminManagerRoles();
+            }
             if (_roleAuthorize.IsUser("Broker manager"))
             {
                 roles = GetBrokerManagerRoles();
             }
+         
             ViewBag.Roles = roles;
 
             if (ModelState.IsValid /*&& CaptchaValid*/)
@@ -219,6 +228,41 @@ namespace InsuredTraveling.Controllers
           
             return roles;
          }
+        private List<SelectListItem> GetAdminManagerRoles()
+        {
+
+            List<SelectListItem> roles = new List<SelectListItem>();
+
+            roles.Add(new SelectListItem
+            {
+                Text = "Sava_Seller",
+                Value = "Sava_Seller"
+            });
+            roles.Add(new SelectListItem
+            {
+                Text = "Sava_Sport_Vip",
+                Value = "Sava_Sport_Vip"
+            });
+
+            roles.Add(new SelectListItem
+            {
+                Text = "Sava_Sport+",
+                Value = "Sava_Sport+"
+            });
+            roles.Add(new SelectListItem
+            {
+                Text = "Sava_Support",
+                Value = "Sava_Support"
+            });
+            roles.Add(new SelectListItem
+            {
+                Text = "Sava_normal",
+                Value = "Sava_normal+"
+            });
+
+            return roles;
+        }
+
 
     }
 }

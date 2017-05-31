@@ -1,4 +1,5 @@
 ﻿using Authentication.WEB.Services;
+using InsuredTraveling.Services;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -74,6 +75,7 @@ namespace InsuredTraveling.Models
 
         //[Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         //[Display(Name = "User_PassportNumber", ResourceType = typeof(Resource))]
+        [RequiredIf("hFirstName", "true", ErrorMessage = "First Name is required")]
         public string PassportNumber { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]

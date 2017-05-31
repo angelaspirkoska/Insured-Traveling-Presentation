@@ -13,6 +13,7 @@ using AutoMapper;
 using System.Net.Http;
 using InsuredTraveling.Filters;
 using System.Web.Http.Routing;
+using InsuredTraveling.DI;
 
 namespace InsuredTraveling.Controllers
 {
@@ -21,10 +22,17 @@ namespace InsuredTraveling.Controllers
     public class AccountController : ApiController
     {
         private AuthRepository _repo;
+        private IUserService _IUser;
+
+        public AccountController(IUserService Iuser)
+        {
+            _IUser = Iuser;
+        }
 
         public AccountController()
         {
             _repo = new AuthRepository();
+
         }
         
         //Za testiranje samo
@@ -208,6 +216,24 @@ namespace InsuredTraveling.Controllers
 
             }
             return Ok();
+        }
+
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.Route("FindSSN")]
+        public  async Task<IHttpActionResult> FindSSN(JObject ssn)
+        {
+            string StringSsn = ssn["ssn"].ToString();
+            if (!String.IsNullOrEmpty(StringSsn))
+            {
+                var result =  _IUser.GetUserBySSN(StringSsn);
+               
+                if (result != null)
+                {
+                    return Ok() ;
+                }
+
+            }
+            return Content(HttpStatusCode.BadRequest, "SSN Not valid");
         }
 
         [System.Web.Http.AllowAnonymous]

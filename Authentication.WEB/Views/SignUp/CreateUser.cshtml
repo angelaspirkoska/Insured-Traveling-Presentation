@@ -128,7 +128,7 @@
                             </div>
                             @Html.ValidationMessageFor(model => model.EMBG, "", new { @class = "text-danger" })
                         </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                        @*<div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
                             <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
                             @Html.LabelFor(model => model.PassportNumber, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
@@ -138,6 +138,17 @@
                                 @Html.EditorFor(model => model.PassportNumber, new { htmlAttributes = new { @class = "form-control", style = "" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.PassportNumber, "", new { @class = "text-danger" })
+                        </div>*@
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="icon-city"></i>
+                                </div>
+                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
@@ -163,7 +174,7 @@
                             </div>
                             @Html.ValidationMessageFor(model => model.Municipality, "", new { @class = "text-danger" })
                         </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                        @*<div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
                             <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
                             @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
                             <div class="input-group">
@@ -173,21 +184,9 @@
                                 @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", style = "" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-                        </div>
+                        </div>*@
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                            @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label" })
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="icon-home2"></i>
-                                </div>
-                                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control", style = "" } })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                  
                     <div class="form-group">
                         <div class="col-md-2 col-sm-2 hidden-xs text-right pull-right">
                             <a href="javascript:void(0)" class="btn btn-default tablinks" onclick="openTab(event, 'Dva')" style="font-size:15px;">
@@ -222,17 +221,19 @@
                             </div>
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
-                            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label" })
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <select id="countriesCodes" style="width: 46px;">                                        
-                                    </select>
+                        
+                            <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                                <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                                @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label" })
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="icon-home2"></i>
+                                    </div>
+                                    @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control", style = "" } })
                                 </div>
-                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", style = "" } })
-                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
                             </div>
-                        </div>
+                        
                         <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
                             <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
                             @Html.LabelFor(model => model.MobilePhoneNumber, htmlAttributes: new { @class = "control-label" })
@@ -290,9 +291,22 @@
                                 <div class="input-group-addon">
                                     <i class="icon-users4"></i>
                                 </div>
-                                @Html.DropDownListFor(model => model.Role, (List<SelectListItem>)ViewBag.Roles, new { @class = "form-control", style = "" })
+                                @Html.DropDownListFor(model => model.Role, (List<SelectListItem>)ViewBag.Roles, new { @class = "form-control", style = ""  })
                             </div>
                             @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
+                            <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
+                            @*@Html.LabelFor(model => model.PassportNumber, htmlAttributes: new { @class = "control-label" })*@
+                            <label class="control-label" for="PassportNumber">@InsuredTraveling.Resource.Sava_ExcelSeller_id</label>
+                            <div class="input-group" value="@InsuredTraveling.Resource.Sava_ExcelSeller_id">
+                               
+                                <div class="input-group-addon">
+                                    <i class="icon-profile"></i>
+                                </div>
+                                @Html.EditorFor(model => model.PassportNumber, new { htmlAttributes = new { @class = "form-control", style = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.PassportNumber, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
@@ -330,6 +344,9 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $.validator.setDefaults({
+            ignore: ':hidden, [readonly=readonly]'
+        });
         var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
 
         //Setting the class active-tab, so the user will know which tab is clicked
@@ -392,7 +409,16 @@
 
 
     $("#Email").removeClass("text-box");
+    $("#Role").change(function () {
+        if ($("#Role").val() == "Sava_Seller") {
+           
+            $("#PassportNumber").parent().parent().css({ visibility: "visible" });
 
+        } else {
+            
+            $("#PassportNumber").parent().parent().css({ visibility: "hidden" });
+        }
+    })
     function FindUsername() {
         $.ajax({
             type: "POST",
