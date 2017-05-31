@@ -1584,4 +1584,7 @@
   <data name="SearcPolicyRequestStatus" xml:space="preserve">
     <value>Request Status</value>
   </data>
+  <data name="Sale_Points" xml:space="preserve">
+    <value>Sale Points</value>
+  </data>
 </root>

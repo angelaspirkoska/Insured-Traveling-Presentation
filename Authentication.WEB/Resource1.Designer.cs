@@ -2698,6 +2698,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sale Points.
+        /// </summary>
+        public static string Sale_Points {
+            get {
+                return ResourceManager.GetString("Sale_Points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save policies.
         /// </summary>
         public static string Sava_Excel_SavePolicy {

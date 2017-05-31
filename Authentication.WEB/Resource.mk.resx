@@ -1578,4 +1578,7 @@
   <data name="SearcPolicyRequestStatus" xml:space="preserve">
     <value>Статус на побарување</value>
   </data>
+  <data name="Sale_Points" xml:space="preserve">
+    <value>Продажни места</value>
+  </data>
 </root>
