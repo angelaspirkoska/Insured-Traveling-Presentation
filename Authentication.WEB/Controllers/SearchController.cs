@@ -96,32 +96,13 @@ namespace InsuredTraveling.Controllers
             var roles = _rs.GetAll().ToList();
             if (_roleAuthorize.IsUser("Sava_admin"))
             {
-                foreach (var role in roles)
-                {
-                    if (role.Selected)
-                    {
-                        role.Selected = false;
-                    }
-                    if (!role.Text.Contains("Sava"))
-                    {
-                        role.Disabled = true;
-                    }
-                }
+                roles  = GetAdminManagerRoles();
             }
-            else
-            {
-                foreach (var role in roles)
-                {
-                    if (role.Selected)
-                    {
-                        role.Selected = false;
-                    }
-                }
-            }
+                
             ViewBag.Roles = roles;
             return View();
         }
-
+    
         [HttpGet]
         [Route("GetUsers")]
         public JObject GetUsers(string name, string lastname, string embg, string address, string email, string postal_code, string phone, string city, string passport)
@@ -1334,44 +1315,81 @@ namespace InsuredTraveling.Controllers
 
             User userEditModel = Mapper.Map<aspnetuser, User>(userEdit);
 
+            //if (_roleAuthorize.IsUser("Sava_admin"))
+            //{
+            //    foreach (var role in roles)
+            //    {
+            //        if (role.Selected)
+            //        {
+            //            role.Selected = false;
+            //        }
+            //        if (!role.Text.Contains("Sava"))
+            //        {
+            //            role.Disabled = true;
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    foreach (var role in  roles)
+            //    {
+            //        if (role.Selected)
+            //            role.Selected = false;
+            //        if (role.Text == userEditModel.Role)
+            //            role.Selected = true;
+            //    }
+            //}
+
+            //foreach (var gender in genderList)
+            //{
+            //    if (gender.Text == userEditModel.Gender)
+            //        gender.Selected = true;
+            //}
+
             if (_roleAuthorize.IsUser("Sava_admin"))
             {
-                foreach (var role in roles)
-                {
-                    if (role.Selected)
-                    {
-                        role.Selected = false;
-                    }
-                    if (!role.Text.Contains("Sava"))
-                    {
-                        role.Disabled = true;
-                    }
-                }
+                roles = GetAdminManagerRoles();
             }
-            else
-            {
-                foreach (var role in  roles)
-                {
-                    if (role.Selected)
-                        role.Selected = false;
-                    if (role.Text == userEditModel.Role)
-                        role.Selected = true;
-                }
-            }
-
-            foreach (var gender in genderList)
-            {
-                if (gender.Text == userEditModel.Gender)
-                    gender.Selected = true;
-            }
-
             ViewBag.Roles = roles;
             ViewBag.Gender = genderList;
 
             
             return View(userEditModel);
         }
+        private List<SelectListItem> GetAdminManagerRoles()
+        {
 
+            List<SelectListItem> roles = new List<SelectListItem>();
+
+            roles.Add(new SelectListItem
+            {
+                Text = "Sava_Seller",
+                Value = "Sava_Seller"
+            });
+            roles.Add(new SelectListItem
+            {
+                Text = "Sava_Sport_Vip",
+                Value = "Sava_Sport_Vip"
+            });
+
+            roles.Add(new SelectListItem
+            {
+                Text = "Sava_Sport+",
+                Value = "Sava_Sport+"
+            });
+            roles.Add(new SelectListItem
+            {
+                Text = "Sava_Support",
+                Value = "Sava_Support"
+            });
+            roles.Add(new SelectListItem
+            {
+                Text = "Sava_normal",
+                Value = "Sava_normal"
+            });
+
+            return roles;
+        }
         [HttpPost]
         [Route("EditUser")]
         public ActionResult EditUser(User editedUser)
@@ -1379,30 +1397,30 @@ namespace InsuredTraveling.Controllers
             var genderList = Gender();
             var roles = _rs.GetAll().ToList();
 
-            if (_roleAuthorize.IsUser("Sava_admin"))
-            {
-                foreach (var role in roles)
-                {
-                    if (role.Selected)
-                    {
-                        role.Selected = false;
-                    }
-                    if (!role.Text.Contains("Sava"))
-                    {
-                        role.Disabled = true;
-                    }
-                }
-            }
-            else
-            {
-                foreach (var role in roles)
-                {
-                    if (role.Selected)
-                        role.Selected = false;
-                    if (role.Text == editedUser.Role)
-                        role.Selected = true;
-                }
-            }
+            //if (_roleAuthorize.IsUser("Sava_admin"))
+            //{
+            //    foreach (var role in roles)
+            //    {
+            //        if (role.Selected)
+            //        {
+            //            role.Selected = false;
+            //        }
+            //        if (!role.Text.Contains("Sava"))
+            //        {
+            //            role.Disabled = true;
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    foreach (var role in roles)
+            //    {
+            //        if (role.Selected)
+            //            role.Selected = false;
+            //        if (role.Text == editedUser.Role)
+            //            role.Selected = true;
+            //    }
+            //}
 
             foreach (var gender in genderList)
             {
@@ -1410,6 +1428,10 @@ namespace InsuredTraveling.Controllers
                     gender.Selected = true;
             }
 
+            if (_roleAuthorize.IsUser("Sava_admin"))
+            {
+                roles = GetAdminManagerRoles();
+            }
             ViewBag.Roles = roles;
             ViewBag.Gender = genderList;
 

@@ -172,8 +172,11 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.Route("RegisterWeb")]
         public async Task<IHttpActionResult> RegisterWeb(User userModel)
         {
-
-            if (!ModelState.IsValid)
+            if (userModel.Role != "Sava_Seller")
+            {
+                this.ModelState.Remove("PassportNumber");
+            }
+            if (!ModelState.IsValid || userModel.Role == "Sava_Seller")
             {
                 return BadRequest(ModelState);
             }

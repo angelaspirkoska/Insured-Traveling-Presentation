@@ -42,6 +42,7 @@ namespace InsuredTraveling.DI
             {
                 
                 var tempUser = _db.aspnetusers.Where(x => x.EMBG.Equals(policyHolder)).FirstOrDefault();
+                var datetime = new DateTime(2017, 6, 1).ToString("dd/MM/yyyy");
                 if (datePolicyCreated >= tempUser.CreatedOn )
                 {
                     if (tempUser.Points == null)

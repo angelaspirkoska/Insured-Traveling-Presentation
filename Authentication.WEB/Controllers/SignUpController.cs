@@ -126,16 +126,23 @@ namespace InsuredTraveling.Controllers
         {
             ViewBag.Gender = Gender();
             var roles = Roles();
+
             if (_roleAuthorize.IsUser("Sava_admin"))
             {
                 roles = GetAdminManagerRoles();
             }
+
             if (_roleAuthorize.IsUser("Broker manager"))
             {
                 roles = GetBrokerManagerRoles();
             }
          
             ViewBag.Roles = roles;
+
+            if ( user.Role != "Sava_Seller")
+            {
+                this.ModelState.Remove("PassportNumber");
+            }
 
             if (ModelState.IsValid /*&& CaptchaValid*/)
             {
@@ -150,11 +157,19 @@ namespace InsuredTraveling.Controllers
                 {
                     ViewBag.Message = "Successfully registered!";
                     return View();
+                }else
+                {
+                    ViewBag.Message = "Unsuccessful registered!";
+                    return View();
                 }
 
+            }else
+            {
+                ViewBag.Message = "Unsuccessful registered!";
+                return View();
             }
-            ViewBag.Message = "Registration failed";
-            return View();
+            
+            
         }
 
         [HttpGet]
@@ -257,7 +272,7 @@ namespace InsuredTraveling.Controllers
             roles.Add(new SelectListItem
             {
                 Text = "Sava_normal",
-                Value = "Sava_normal+"
+                Value = "Sava_normal"
             });
 
             return roles;
