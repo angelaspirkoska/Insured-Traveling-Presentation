@@ -27,6 +27,7 @@ namespace InsuredTraveling.Controllers
         public AccountController(IUserService Iuser)
         {
             _IUser = Iuser;
+            _repo = new AuthRepository();
         }
 
         public AccountController()
