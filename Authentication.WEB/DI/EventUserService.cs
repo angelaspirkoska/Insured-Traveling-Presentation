@@ -1,6 +1,8 @@
 ﻿using InsuredTraveling.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -36,6 +38,9 @@ namespace InsuredTraveling.DI
 
             foreach (event_users event_us in ev)
             {
+                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                var dateTimeFormat = dateTime != null && dateTime.Contains("yy") && !dateTime.Contains("yyyy") ? dateTime.Replace("yy", "yyyy") : dateTime;
+
                 if (event_us.EventID == eventName)
                 {
                     foreach (aspnetuser user in Alluser)
@@ -43,11 +48,11 @@ namespace InsuredTraveling.DI
                         if ( event_us.UserID == user.Id ) 
                         {
                             
-                            oneUser.ID = user.UserName;
+                            oneUser.Username = user.UserName;
                             oneUser.LastName = user.LastName;
                             oneUser.FirstName = user.FirstName;
                             oneUser.Email = user.Email;
-                            oneUser.CreatedOn = user.CreatedOn.ToString();
+                            oneUser.CreatedOn = user.CreatedOn.Value.ToString(dateTimeFormat , CultureInfo.InvariantCulture);
                             oneUser.ActiveInactive = user.Active.ToString();
                             listOfUsersEvent.Add(oneUser);
                         }

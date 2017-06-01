@@ -862,11 +862,15 @@ namespace InsuredTraveling.Controllers
         [Route("GetEventUsers")]
         public JObject GetEventUsers(int eventID)
         {
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && dateTime.Contains("yy") && !dateTime.Contains("yyyy") ? dateTime.Replace("yy", "yyyy") : dateTime;
+
             var jsonObject = new JObject();
             List<SearchRegisteredUser> ListUsers = new List<SearchRegisteredUser>();
             
 
             ListUsers = _eus.PeoplePerEventAttending(eventID);
+           
             var array = JArray.FromObject(ListUsers.ToArray());
             jsonObject.Add("data", array);
             return jsonObject;
