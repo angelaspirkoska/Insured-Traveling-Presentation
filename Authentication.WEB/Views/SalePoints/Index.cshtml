@@ -1,33 +1,96 @@
 ﻿@model InsuredTraveling.Models.SalePoints
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
 }
-<div class="container" style="margin-left: 0px;">
-    <div class="row">
-        <h2 class="heading-padding">@InsuredTraveling.Resource.News_AddTitle</h2>
-        <hr />
-    <!--  <div class="col-md-6">
-        <form id="newsForm" method="post" action="@Url.Action("AddNews")" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="newsTitle">@InsuredTraveling.Resource.News_Title</label>
-                <input type="text" class="form-control" name="newsTitle" id="newsTitle" placeholder="@InsuredTraveling.Resource.News_Title">
-            </div>
-            <div class="form-group">
-                <label for="newsImage">@InsuredTraveling.Resource.News_Image</label>
-                <input type="file" id="newsImage" name="newsImage" @*accept="image/**@>
-            </div>
-            <div class="form-group">
-                <label for="newsContent">@InsuredTraveling.Resource.News_Content</label>
-                <textarea class="form-control " name="newsContent" id="newsContent" rows="10" placeholder="@InsuredTraveling.Resource.News_Content"></textarea>
-            </div>
-            <div class="form-group">
-                <input type="checkbox" id="newsIsNotification" name="newsIsNotification" class="radiobtn-position" />
-                <label for="newsIsNotification">@InsuredTraveling.Resource.News_Notification</label>
-            </div>
-            <input type="submit" style="width:100px; margin-left:20px;" value="@InsuredTraveling.Resource.News_Add" class="btn btn-success">
-        </form>
-    </div>
-        -->
 
+<h2>Index</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>SalePoints</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.LocationName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LocationName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LocationName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.insuranceDeal, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.insuranceDeal)
+                    @Html.ValidationMessageFor(model => model.insuranceDeal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.damageReport, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.damageReport)
+                    @Html.ValidationMessageFor(model => model.damageReport, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Municipality, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Municipality, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Municipality, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OpeningHours, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OpeningHours, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OpeningHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
     </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
