@@ -188,6 +188,7 @@
         });
 
         $("#insuredNumber").on("change", function(){
+
             var insuredNumber = $('#insuredNumber').find(":selected").val();
             $("#detailsTitleInsuredNumber").html(insuredNumber);
             if(insuredNumber == 1) {
@@ -212,6 +213,9 @@
                 success: function(result){
                     $("#InsuredInformationContent").html(result);
                     fillInsuredsDropdowns();
+                    if($("#IsSamePolicyHolderInsured").is(":checked")) {
+                        $("#firstInsuredContainer").hide();
+                    }
                 }});
         });
 

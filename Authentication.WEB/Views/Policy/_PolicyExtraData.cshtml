@@ -124,6 +124,14 @@
         size: 5
     });
 
+    $("#professionalDriverInureds").change(function () {
+        $('#isProfessionalDriver').prop('checked', true);
+    });
+
+    $("#abroadStudentsInsureds").change(function () {
+        $('#isAbroadStudent').prop('checked', true);
+    });
+
     $("#domasnaAsistencijaInsureds").change(function () {
         var result = $("#domasnaAsistencijaInsureds").selectpicker("val").toString();
         var array = result.split(",");
@@ -133,5 +141,13 @@
                 "</label><input type='text' class='form-control'/></div>";
             $("#domasnaAsistencijaAdresses").append(html);
         }
+
+        $('#extraDomasnaAsistencija').prop('checked', true);
+        $("#domasnaAsistencijaAdresses").show();
+    });
+
+    $("#avtoasistencijaInsureds").change(function () {
+        $('#extraAvtoAsistencija').prop('checked', true);
+        $("#avtoAsistencijaContainer").show();
     });
 </script>

@@ -278,6 +278,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\freelancer.css" />
+    <Content Include="Content\img\favicon.ico" />
     <Content Include="Content\img\portfolio\cabin.png" />
     <Content Include="Content\img\portfolio\cake.png" />
     <Content Include="Content\img\portfolio\circus.png" />

@@ -285,6 +285,9 @@
 
     $(document).ready(function () {
 
+        $("#IsSamePolicyHolderInsured").prop('checked', true);
+        $("#firstInsuredContainer").hide();
+
         $("body").on("change", ".city", function () {
             var city = $(this).find(":selected").first().text();
             var zip = cities.filter(function (item) { return item.name === city })[0].zip;
@@ -453,6 +456,14 @@
     $(".mandatoryField, #Policy_TypeID, #Retaining_RiskID, #CountryID, .numberTrips, #additional_charges_1__ID, #additional_charges_0__ID, #single_type, #family_type, #group_type").on('change', function () {
         $(".hideMe").hide();
     })
+
+    $(document).on("keypress", ".form-control", function (e) {
+        $("#promoBaner").hide();
+    });
+
+    $(document).on("change", "#policyPackageType, #policyTypeSava, #insuredNumber, #policy-daterange", function (e) {
+        $("#promoBaner").hide();
+    });
 
     $(document).on("keypress", ".input-sm, .text-box", function (e) {
         $("#promoBaner").hide();
@@ -808,6 +819,7 @@
         <text>
     $("body").on("change", "#IsSamePolicyHolderInsured", function () {
         if ($(this).is(":checked")) {
+            $("#firstInsuredContainer").hide();
             $.ajax({
                 type: "GET",
                 url: "/Policy/GetExistentLoggedInUserData",
@@ -832,7 +844,7 @@
             $("#hideWhenSamePerson").show();
             $("#hideWhenSamePerson .form-control").prop('readonly', false);
             $(".insuredData").val("");
-
+            $("#firstInsuredContainer").show();
         }
     });
     </text>
@@ -842,6 +854,7 @@
         <text>
     $("body").on("change", "#IsSamePolicyHolderInsured", function () {
         if ($(this).is(":checked")) {
+            $("#firstInsuredContainer").hide();
             $("#Name").val($("#PolicyHolderName").val());
             $("#LastName").val($("#PolicyHolderLastName").val());
             $("#Address").val($("#PolicyHolderAddress").val());
@@ -858,7 +871,7 @@
             $("#hideWhenSamePerson").show();
             $("#hideWhenSamePerson .form-control").prop('readonly', false);
             $(".insuredData").val("");
-
+            $("#firstInsuredContainer").show();
         }
     });
 
