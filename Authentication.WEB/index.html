@@ -8,15 +8,14 @@
     <meta name="author" content="">
     <title>САВА Осигурување</title>
     <!-- Bootstrap Core CSS -->
-    <link href="/Content/SavaTemplate/css/bootstrap.css" rel="stylesheet">
+    <link href="/Content/bootstrap.css" rel="stylesheet">
     <!-- Theme CSS -->
-    <link href="/Content/SavaTemplate/css/freelancer.css" rel="stylesheet">
+    <link href="/Content/SavaTemplate/css/theme-new.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="/Content/SavaTemplate/css/style.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/Content/SavaTemplate/css/site-new.css">
     <!-- Custom Fonts -->
     <link href="/Content/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" media="all" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic&amp;subset=cyrillic,latin-ext">
     <!-- Icon -->
     <link rel="icon" href="/Content/SavaTemplate/img/favicon.ico">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -25,261 +24,499 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed&subset=cyrillic,latin-ext");
+
+        h1, h2, h3, h4, h5, h6,
+        .h1, .h2, .h3, .h4, .h5, .h6,
+        .slider-btn-cnt,
+        .widget-frm,
+        .insu-card,
+        .biznet > div > strong {
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+
+            .widget-frm form .form-group label {
+                font-size: 15px;
+            }
+
+            .widget-frm form .form-group .form-control {
+                font-size: 17px;
+            }
+    </style>
+
+    <script>
+        window.TMD = {
+            boot: []
+        }
+    </script>
 </head>
-<body id="page-top" class="index">
-    <div id="skipnav"><a href="#maincontent">Skip to main content</a></div>
+
+<body class="savaos mk-mk kat-2">
     <!-- Navigation -->
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
-        <div class="container-fluid">
-            <div class="row">
-                <!-- Logo -->
-                <div class="col-md-4 navbar-brand pull-left">
-                    <a class="text-center" href="index.html"><img class="img-responsive" alt="Сава Осигурување" src="/Content/SavaTemplate/img/logo-mk-mk.png"></a>
-                </div>
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="col-md-4 navbar-header">
-                    <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span><i class="fa fa-bars"></i>
-                    </button>
-                </div>
-                <!--**************************************************-->
-                <div class="col-md-4 navbar-collapse collapse pull-left" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 1px; vertical-align: middle;">
-                    <ul class="nav navbar-nav navbar-left">
-                        <li class="dropdown xs-expand" style="margin-top:6px;">
-                            <a href="#" class="dropdown-toggle nav-a-border" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"
-                               data-parent="#bs-example-navbar-collapse-1"><i class="fa fa-bars" aria-hidden="true"></i>Осигурување</a>
-                            <ul class="dropdown-menu my-dropdown-big" style="height: 542px; overflow-y: auto;">
-                                <li>
-                                    <a href="#" data-toggle="dropdown"><i class="fa fa-car" aria-hidden="true"></i>МојАвтомобил</a>
-                                    <ul class="dropdown-menu so-dropdown-submenu" id="n-m-sub1">
-                                        <li><a href="#">АО и АО+</a></li>
-                                        <li><a href="#">Автомобилска асистенција</a></li>
-                                        <li><a href="#">Каско</a></li>
-                                        <li><a href="#">Зелен картон</a></li>
-                                        <li><a href="#">Гранично</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#" data-toggle="dropdown"><i class="fa fa-home" aria-hidden="true"></i>МојДом</a>
-                                    <ul class="dropdown-menu so-dropdown-submenu" id="n-m-sub2">
-                                        <li><a href="#">Домаќинско</a></li>
-                                        <li><a href="#">Домашна асистенција</a></li>
-                                        <li><a href="#">Земјотрес</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#"><i class="fa fa-suitcase" aria-hidden="true"></i>МоеПатување</a></li>
-                                <li><a href="#"><i class="fa fa-umbrella" aria-hidden="true"></i>Осигурување од незгода</a></li>
-                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i>МоеЗдравје</a></li>
-                                <li>
-                                    <a href="#" data-toggle="dropdown"><i class="fa fa-industry" aria-hidden="true"></i>Осигурување на фирми</a>
-                                    <ul class="dropdown-menu so-dropdown-submenu" id="n-m-sub6">
-                                        <li><a href="#">Имот</a></li>
-                                        <li><a href="#">Транспорт</a></li>
-                                        <li><a href="#">Осигурување од одговорност</a></li>
-                                        <li><a href="#">Осигурување на возила</a></li>
-                                        <li><a href="#">Осигурување од незгода</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#"><i class="fa fa-envira" aria-hidden="true"></i>Земјоделско</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#"><i class="fa fa-map-marker" aria-hidden="true" style="font-size: 20px;"></i> Мрежа</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i><span class="nav-lbl"> <strong> 0800 80 000</strong></span></a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-university" aria-hidden="true"></i><span class="nav-lbl"> За нас</span></a>
-                            <ul class="dropdown-menu" id="nav-so-menu">
-                                <li><a href="#">Новини</a></li>
-                                <li><a href="#">Соопштенија за јавноста</a></li>
-                                <li><a href="#">Профил на компанијата</a></li>
-                                <li><a href="#">Општествено одговорна компанија</a></li>
-                                <li><a href="#">Контактирајте нé</a></li>
-                                <li><a href="#">Документи</a></li>
-                                <li><a href="#">Мрежа</a></li>
-                                <li><a href="#">Услови за осигурување</a></li>
-                                <li><a href="#">Sava Station</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Пријави на штети</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="Home/Index"><i class="fa fa-user" aria-hidden="true"></i><span class="nav-lbl"> <strong> Логин</strong></span></a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search" aria-hidden="true"></i><span class="nav-lbl"> Барај</span></a>
-                            <ul class="dropdown-menu my-dropdown-search">
-                                <li>
-                                    <form class="form-inline" role="form" action="" method="get" id="frm-search">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <input type="text" name="q" class="form-control" autofocus="">
-                                                <span class="input-group-btn">
-                                                    <button type="submit" class="btn btn-primary"> <i class="fa fa-search" aria-hidden="true"></i></button>
-                                                </span>
+    <nav class="navbar navbar-fixed-top" role="navigation">
+        <div class="container-fluid text-center">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-S">
+                    <span class="sr-only">{{navigation}}</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-brand">
+                <a href="savaCopy.html">
+                    <img alt="Сава Осигурување" src="/Content/SavaTemplate/img/logo-mk-mk.png">
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-collapse-S">
+                <ul class="nav navbar-nav my-navbar-left">
+                    <li class="dropdown xs-expand">
+                        <a href="#" class="dropdown-toggle nav-a-border" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" data-parent="#navbar-collapse-S"><i class="fa fa-bars" aria-hidden="true"></i>Осигурување</a>
+                        <ul class="dropdown-menu my-dropdown-big">
+                            <li>
+                                <a href="javascript:void()" data-toggle="dropdown"><i class="fa fa-car" aria-hidden="true"></i>МојАвтомобил</a>
+                                <ul class="dropdown-menu so-dropdown-submenu" id="n-m-sub1">
+                                    <li><a href="/mk-mk/insurance/vehicle/ao/">АО и АО+</a></li>
+                                    <li><a href="/mk-mk/insurance/vehicle/assistance/">Автомобилска асистенција</a></li>
+                                    <li><a href="/mk-mk/insurance/vehicle/kasko/">Каско</a></li>
+                                    <li><a href="/mk-mk/insurance/vehicle/green-card/">Зелен картон</a></li>
+                                    <li><a href="/mk-mk/insurance/vehicle/border/">Гранично</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void()" data-toggle="dropdown"><i class="fa fa-home" aria-hidden="true"></i>МојДом</a>
+                                <ul class="dropdown-menu so-dropdown-submenu" id="n-m-sub2">
+                                    <li><a href="/mk-mk/insurance/property/home/">Домаќинско</a></li>
+                                    <li><a href="/mk-mk/insurance/property/assistance/">Домашна асистенција</a></li>
+                                    <li><a href="/mk-mk/insurance/property/earthquake/">Земјотрес</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/mk-mk/insurance/travel/"><i class="fa fa-suitcase" aria-hidden="true"></i>МоеПатување</a></li>
+                            <li><a href="/mk-mk/insurance/injury/"><i class="fa fa-umbrella" aria-hidden="true"></i>Осигурување од незгода</a></li>
+                            <li><a href="/mk-mk/insurance/health/"><i class="fa fa-heart" aria-hidden="true"></i>МоеЗдравје</a></li>
+                            <li>
+                                <a href="javascript:void()" data-toggle="dropdown"><i class="fa fa-industry" aria-hidden="true"></i>Осигурување на фирми</a>
+                                <ul class="dropdown-menu so-dropdown-submenu" id="n-m-sub6">
+                                    <li><a href="/mk-mk/insurance/business/property/">Имот</a></li>
+                                    <li><a href="/mk-mk/insurance/business/transport/">Транспорт</a></li>
+                                    <li><a href="/mk-mk/insurance/business/liability/">Осигурување од одговорност</a></li>
+                                    <li><a href="/mk-mk/insurance/business/vehicle/">Осигурување на возила</a></li>
+                                    <li><a href="/mk-mk/insurance/business/injury/">Осигурување од незгода</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/mk-mk/insurance/agriculture/"><i class="fa fa-envira" aria-hidden="true"></i>Земјоделско</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/mk-mk/map/"><i class="fa fa-map-marker" aria-hidden="true" style="font-size: 20px;"></i>Мрежа</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/mk-mk/contact/"><i class="fa fa-phone" aria-hidden="true"></i><span class="nav-lbl"> <strong>0800 80 000</strong></span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-university" aria-hidden="true"></i><span class="nav-lbl">За нас</span></a><ul class="dropdown-menu" id="nav-so-menu">
+                            <li><a href="/mk-mk/news/">Новини</a></li>
+                            <li><a href="/mk-mk/press-releases/">Соопштенија за јавноста</a></li>
+                            <li><a href="/mk-mk/company/">Профил на компанијата</a></li>
+                            <li><a href="/mk-mk/company-responsibility/">Општествено одговорна компанија</a></li>
+                            <li><a href="/mk-mk/contact/">Контактирајте нé</a></li>
+                            <li><a href="/mk-mk/documents/">Документи</a></li>
+                            <li><a href="/mk-mk/map/">Мрежа</a></li>
+                            <li><a href="/mk-mk/insurance-terms/">Услови за осигурување</a></li>
+                            <li><a href="/mk-mk/sava-station/">Sava Station</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/mk-mk/claim/">Пријави на штети</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search" aria-hidden="true"></i><span class="nav-lbl">Барај</span></a>
+                        <ul class="dropdown-menu my-dropdown-search"><li><form class="form-inline" role="form" action="/mk-mk/search/" method="get" id="frm-search"><div class="form-group"><input type="text" name="q" class="form-control" autofocus=""><button type="submit" class="btn btn-primary"> <i class="fa fa-search" aria-hidden="true"></i></button></div></form></li></ul>
+                    </li>
+                </ul>
+
+            </div>
+
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+
+    <main>
+
+        <div class="container">
+            <div class="row no-padding">
+                <div class="flexslider s-tiles">
+                    <ul class="slides" style="padding-left:0; margin-bottom:0;">
+                        <li data-slidr-slide="171695" data-slidr-submit-url="/mk-mk/insurance/travel/" class="slidr-url" style="background-size:cover;padding:20px;height:590px;color:white;">
+                            <div>
+                                <div class="slidr-slide" style="background-image: url('/Content/SavaTemplate/img/slides/slidr_163_bg.jpg');">
+                                    <h1>Мое патување</h1>
+                                    <h2>Патувањата по светот често знаат да бидат непредвидливи.</h2>
+                                    <div class="clearfix Xslide-frm visible-xs"><a class="btn btn-primary" href="inc/mk-mk/webshop/?calc=travel">Пресметај <i class="fa fa-chevron-right"></i></a></div><div class="clearfix slide-frm widget-frm hidden-xs">
+                                        <div class="clearfix widget-frm">
+                                            <form ex-class="form form-inline" method="get" action="/Policy/Index">
+                                                <div class="form-group col-sm-3 text-left">
+                                                    <label>Вид</label>
+                                                    <select class="form-control" name="type" id="travel-type">
+                                                        <option value="1">Индивидуално</option>
+                                                        <option value="2">Семејно</option>
+                                                        <option value="3">Студентско</option>
+                                                        <option value="4">Business</option>
+                                                        <option value="5">Групно</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-sm-3 text-left">
+                                                    <label>Број на лица</label>
+                                                    <select class="form-control text-center" name="pers" id="travel-pers">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                        <!-- <option value="5">5 или повеќе </option> -->
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-sm-3 text-left">
+                                                    <label>Период во странство</label>
+                                                    <select class="form-control" name="days" id="travel-days">
+                                                        <option value="3">3 дена</option>
+                                                        <option value="8">8 дена</option>
+                                                        <option value="10">10 дена</option>
+                                                        <option value="15">15 дена</option>
+                                                        <option value="0">друг период</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-sm-3 text-left">
+                                                    <label>&nbsp;</label>
+                                                    <button class="btn btn-primary col-xs-12">Пресметај <i class="fa fa-chevron-right"></i></button>
+                                                </div>
+                                            </form>
+                                            <div class="note">
+                                                <p>
+                                                    <!--
+                                                    <strong>Area 1: </strong>EU, Bahrain, Belarus, Bosnia Herzegovina, ...
+                                                    <strong><a style="color:inherit;" href="#">See all <i class="fa fa-chevron-right"></i></a></strong>
+                                                    <br>
+                                                    <strong>Area 2: </strong>Entire world
+                                                    -->
+                                                    <strong>Вид</strong> изберете тип на патување
+                                                    <br>
+                                                    <strong>Број на лица</strong> 5 или повеќе лица да изберете Вид Групно
+                                                </p>
                                             </div>
                                         </div>
-                                    </form>
-                                </li>
-                            </ul>
+                                    </div>
+                                </div><span class="akcija"></span>
+                            </div>
                         </li>
-                    </ul>
-                </div>
-                <!--**************************************************-->
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <!-- /.navbar-collapse -->
-            </div>
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-    <!-- Header -->
-    <header class="header">
-        <div class="container" id="maincontent" tabindex="-1">
-            <div class="row" style="background: rgba(0,0,0,0.5); border-radius: 5px;">
-                <div class="col-lg-12">
-                    <div class="form-group">
-                        <h2>Мое патување</h2>
-                        <h4>Патувањата по светот често знаат да бидат непредвидливи.</h4>
-                        <form method="get" action="/Policy/Index" class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-md-3">
-                                    <label class="control-label pull-left">Вид</label>
-                                    <select name="category" class="form-control input-lg" title="Одбери">
-                                        <option value="1">Индивидуално</option>
-                                        <option value="2">Фамилијарно</option>
-                                        <option value="3">Студент</option>
-                                        <option value="4">Business</option>
-                                        <option value="5">Групно</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="control-label pull-left">Број на лица</label>
-                                    <select name="personsnum" class="form-control input-lg" title="Одбери">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="control-label pull-left">Период на престој во странство</label>
-                                    <select name="days" class="form-control input-lg" title="Одбери">
-                                        <option value="3">3</option>
-                                        <option value="8">8</option>
-                                        <option value="10">10</option>
-                                        <option value="15">15</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="control-label">&nbsp;</label>
-                                    <button type="submit" class="btn btn-lg btn-primary" id="btn-calculate">
-                                        Пресметај
-                                        <i class="fa fa-chevron-right"></i>
-                                    </button>
+                        <li data-slidr-slide="171696" data-slidr-submit-url="/mk-mk/insurance/vehicle/" style="background-size:cover;padding:20px;height:590px;color:white;">
+                            <div>
+                                <div class="slidr-slide" style="background-image: url('/Content/SavaTemplate/img/slides/slidr_6_bg.jpg');">
+                                    <h1>Мој автомобил</h1>
+                                    <p class="h2">Најкомплетна понуда за осигурување на моторни возила</p>
+                                    <a class="btn btn-primary" href="/mk-mk/insurance/vehicle/">Повеќе <i class="fa fa-chevron-right"></i></a>
                                 </div>
                             </div>
-                        </form>
+                        </li>
+                        <li data-slidr-slide="171699" data-slidr-submit-url="/mk-mk/insurance/property/" style="background-size:cover;padding:20px;height:590px;color:white;">
+                            <div>
+                                <div class="slidr-slide" style="background-image: url('/Content/SavaTemplate/img/slides/slidr_767_bg.jpg');">
+                                    <h1>Мој дом</h1>
+                                    <h2>За сите информации јавете се на 0800 80 000</h2>
+                                    <a class="btn btn-primary" href="/mk-mk/insurance/property/">Повеќе <i class="fa fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li data-slidr-slide="171697" data-slidr-submit-url="/mk-mk/insurance/business/" style="background-size:cover;padding:20px;height:590px;color:white;">
+                            <div>
+                                <div class="slidr-slide" style="background-image: url('/Content/SavaTemplate/img/bg-image-old.jpg');">
+                                    <h1>Осигурување на правни лица</h1>
+                                    <p>Квалитетна грижа за вашиот имот. Го осигуруваме најважното - деловните простории, инвентарот, вредностите и вработените.</p>
+                                    <p>Покритија со посебно внимание. Комбинации од услуги, скроени според потребите на деловниот партнер.</p>
+                                    <a class="btn btn-primary" href="/mk-mk/insurance/business/">Повеќе <i class="fa fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li data-slidr-slide="171698" data-slidr-submit-url="/mk-mk/insurance/injury/" style="background-size:cover;padding:20px;height:590px;color:white;">
+                            <div>
+                                <div class="slidr-slide" style="background-image: url('/Content/SavaTemplate/img/slides/slidr_5_bg.jpg');">
+                                    <h1>Осигурување од незгода</h1>
+                                    <p>Несреќите не можеме да ги предвидиме, но мораме да бидеме подготвени.</p>
+                                    <a class="btn btn-primary" href="/mk-mk/insurance/injury/">Повеќе <i class="fa fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li data-slidr-slide="171700" data-slidr-submit-url="/mk-mk/insurance/health/" style="background-size:cover;padding:20px;height:590px;color:white;">
+                            <div>
+                                <div class="slidr-slide" style="background-image: url('/Content/SavaTemplate/img/slides/slidr_672_bg.jpg');">
+                                    <h1>Мое здравје</h1>
+                                    <h2>Прилагодено на секој осигуреник кој за себе или за своето семејство сака да обезбеди дополнителна здравствена заштита на едноставен, лесен и сигурен начин.</h2>
+                                    <a class="btn btn-primary" href="/mk-mk/insurance/health/">Повеќе <i class="fa fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div><div id="slider-navigation" class="cf slider-navigation-div">
+                    <div class="slider-nav-btn"><div class="slidr-btn slidr-btn-new item-171695 flex-active" data-slidr-target="171695" data-slidr-num="0"><div class="slider-btn-cnt"><div class="tbl"><div class="tbl-td">Мое<span>Патување</span><span class="akcija"></span></div></div></div></div></div>
+                    <div class="slider-nav-btn"><div class="slidr-btn slidr-btn-new item-171696" data-slidr-target="171696" data-slidr-num="1"><div class="slider-btn-cnt"><div class="tbl"><div class="tbl-td">Мој<span>Автомобил</span></div></div></div></div></div>
+                    <div class="slider-nav-btn"><div class="slidr-btn slidr-btn-new item-171699" data-slidr-target="171699" data-slidr-num="2"><div class="slider-btn-cnt"><div class="tbl"><div class="tbl-td">Мој<span>Дом</span></div></div></div></div></div>
+                    <div class="slider-nav-btn"><div class="slidr-btn slidr-btn-new item-171697" data-slidr-target="171697" data-slidr-num="3"><div class="slider-btn-cnt"><div class="tbl"><div class="tbl-td">Осигурување на <span>правни лица</span></div></div></div></div></div>
+                    <div class="slider-nav-btn"><div class="slidr-btn slidr-btn-new item-171698" data-slidr-target="171698" data-slidr-num="4"><div class="slider-btn-cnt"><div class="tbl"><div class="tbl-td">Осигурување од <span>незгода</span></div></div></div></div></div>
+                    <div class="slider-nav-btn"><div class="slidr-btn slidr-btn-new item-171700" data-slidr-target="171700" data-slidr-num="5"><div class="slider-btn-cnt"><div class="tbl"><div class="tbl-td">Мое<span>Здравје</span></div></div></div></div></div>
+                </div>
+            </div>
+            <hr />
+            <section id="sec-main">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="news"><div class="media" id="news-172979"><div class="media-body"><a href="/mk-mk/news/172979/"><span class="date">01.08.2016</span><span class="h2">Онлајн-продажба на полиси за патничко осигурување</span></a></div></div><div class="media" id="news-171164"><div class="media-body"><a href="/mk-mk/news/171164/"><span class="date">15.06.2016</span><span class="h2">Домашна асистенција на „Сава осигурување“ – твој личен хаус мајстор!</span></a></div></div><div class="media" id="news-171163"><div class="media-body"><a href="/mk-mk/news/171163/"><span class="date">15.05.2016</span><span class="h2">Нова услуга - Автомобилска асистенција</span></a></div></div></div>
                     </div>
-                    <!-- <div class="col-md-12" style="margin: 0;padding: 0;">
-                      <img class="img-responsive" src="img/slidr_163_bg.jpg" alt="" style="margin: 0;padding: 0;">
-                    </div>
-                    <div class="form-inline" style="width: 710px;">
-                      <div class="col-md-4" style="margin: 0;padding: 0;">
-                        <img class="img-responsive" src="img/slidr_6_bg.jpg" alt="">
-                      </div>
-                      <div class="col-md-4" style="margin: 0;padding: 0;">
-                        <img class="img-responsive" src="img/slidr_672_bg.jpg" alt="">
-                      </div>
-                      <div class="col-md-4" style="margin: 0;padding: 0;">
-                      <img class="img-responsive" src="img/slidr_767_bg.jpg" alt="">
-                      </div>
-                    </div> -->
-                    <!--SLIDER HERE-->
+                </div>
+            </section>
+        </div>
 
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- About Section -->
-    <!-- <section class="grey" id="about">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <h2>About</h2>
-            <hr class="star-light">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-lg-offset-2">
-            <p>Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy customization.</p>
-          </div>
-          <div class="col-lg-4">
-            <p>Whether you're a student looking to showcase your work, a professional looking to attract clients, or a graphic artist looking to share your projects, this template is the perfect starting point!</p>
-          </div>
-          <div class="col-lg-8 col-lg-offset-2 text-center">
-            <a href="#" class="btn btn-lg btn-outline">
-              <i class="fa fa-download"></i> Download Theme
-            </a>
-          </div>
-        </div>
-      </div>
-    </section> -->
-    <!-- Footer -->
-    <footer class="text-center">
-        <div class="footer-above">
+    </main>
+
+    <footer>
+        <div class="my-footer-one">
             <div class="container">
                 <div class="row">
-                    <div class="footer-col col-md-4">
-                        <p class="text-left">
-                            <strong>Сава Осигуривање а.д.</strong><br>
-                            <a href="">Профил на компанијата</a><br>
-                            <a href="">Контактирајте нé</a><br>
-                            <a href="">Мрежа</a><br>
-                            <a href="">Sava Station</a><br>
-                        </p>
+                    <div class="col-sm-5">
+                        <div class="copyright">
+                            <p><strong>САВА осигурување а.д.</strong> <br /> <a href="/mk-mk/company/">Профил на компанијата<br /></a><a href="/mk-mk/contact/">Контактирајте н&eacute;<br /></a><a href="/mk-mk/map/">Мрежа<br /></a><a href="/mk-mk/sava-station/">Sava Station</a></p>
+                        </div>
                     </div>
-                    <div class="footer-col col-md-4">
-                        <p class="text-left">
-                            <strong>Социјалните мрежи </strong><br>
-                            <a href="#" class="btn-social btn-outline"><span class="sr-only">Facebook</span><i class="fa fa-fw fa-facebook"></i></a>
-                        </p>
+                    <div class="col-sm-2">
+                        <p>Социјалните мрежи <br /> <a class="fb no-wrap" href="https://www.facebook.com/sava.mk/?fref=ts" target="_blank"><i class="fa fa-facebook-official">&nbsp;</i> Facebook</a> <br />&nbsp;</p>
                     </div>
-                    <div class="footer-col col-md-4">
-                        <p class="text-left">
-                            <strong>24/7 Контакт центар на бесплатниот број:</strong><br>
-                            <a href="http://startbootstrap.com"><i class="fa fa-phone" aria-hidden="true"></i><strong> 0800 80 000</strong></a>
-                        </p>
+                    <div class="col-sm-5">
+                        <p>24/7 Контакт центар на бесплатниот број: <br /> <a class="no-wrap" href="/mk-mk/contact/"><i class="fa fa-phone" aria-hidden="true"></i> <strong>0800 80 000</strong></a></p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="footer-below">
+        <div class="my-footer-two">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
-                        Copyright &copy; Systems 4 Enterprise
-                    </div>
+
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- jQuery -->
-    <script src="/Content/SavaTemplate/js/jquery.min.js"></script>
+    <script src="/Content/SavaTemplate/js/jquery-1.12.4.min.js"></script>
+    <script src="/Content/SavaTemplate/js/jquery.easing.1.3.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="/Content/SavaTemplate/js/bootstrap.min.js"></script>
-    <!-- Plugin JavaScript -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <!-- Contact Form JavaScript -->
-    <script src="/Content/SavaTemplate/js/jqBootstrapValidation.js"></script>
-    <script src="/Content/SavaTemplate/js/contact_me.js"></script>
-    <!-- Theme JavaScript -->
-    <script src="/Content/SavaTemplate/js/freelancer.min.js"></script>
     <!-- Custom JavaScript -->
-    <script src="/Content/SavaTemplate/js/script.js"></script>
+    <script src="/Content/SavaTemplate/comp/cookie/js.cookie.js"></script>
+    <script src="/Content/SavaTemplate/comp/moment/moment.min.js"></script>
+    <script src="/Content/SavaTemplate/comp/moment/mk.js"></script>
+    <script src="/Content/SavaTemplate/js/bootstrap3-typeahead.min.js"></script>
+    <script src="/Content/SavaTemplate/comp/bs-dtpicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="/Content/SavaTemplate/comp/formvalidation/js/formValidation.min.js"></script>
+    <script src="/Content/SavaTemplate/comp/formvalidation/js/framework/bootstrap.min.js"></script>
+    <script src="/Content/SavaTemplate/comp/formvalidation/js/language/mk_MK.js"></script>
+    <!-- mask -->
+    <script src="/Content/SavaTemplate/js/jquery.mask.min.js"></script>
+    <!-- Flexslider -->
+    <script src="/Content/SavaTemplate/comp/flexslider/jquery.flexslider-min.js"></script>
+    <!-- MKD -->
+    <script src="/Content/SavaTemplate/js/mkd.js"></script>
+    <script>
+
+        // x-dom
+        if (document.domain.toLowerCase().indexOf('zav-sava.si') > 0) { document.domain = 'zav-sava.si'; }
+
+        // IE shims
+        if (!Array.prototype.indexOf) {
+            Array.prototype.indexOf = function (obj, start) {
+                for (var i = (start || 0), j = this.length; i < j; i++) {
+                    if (this[i] === obj) { return i; }
+                }
+                return -1;
+            }
+        }
+        if (typeof String.prototype.trim !== 'function') {
+            String.prototype.trim = function () {
+                return this.replace(/^\s+|\s+$/g, '');
+            };
+        }
+
+        var globalGMapInit = function (noretry) {
+            if (typeof (gmapInit) === 'function') {
+                gmapInit();
+            } else {
+                if (noretry) { } else { setTimeout(function () { globalGMapInit(true); }, 1000) };
+            }
+        };
+
+        // jQuery config
+        jQuery.support.cors = true;
+
+    </script>
+    <!-- site -->
+    <script src="/Content/SavaTemplate/js/site.js"></script>
+    <!-- webshop MK -->
+    <script src="/Content/SavaTemplate/js/webshop-mk.js"></script>
+    <script>
+        tSite.post = { "cmd": null, _last: false };
+        tSite.webshop.authURL = 'https://mk.sava.insure/inc/comp/pay/go.php';
+        tSite.ln = 'mk';
+        tSite.lang = {
+            'more': 'Повеќе',
+            'message': 'Порака',
+            'one-moment': 'Еден момент ве молам',
+            'news': 'Новини',
+            'more-news': 'Повеќе новини',
+            'loc-a': 'сите локации',
+            'loc-s': 'склучување на осигурување',
+            'loc-d': 'пријава на штета',
+            'travel-dat-inc': 'Период на осигурување, двата датуми вклучени',
+            'travel-gold': '<b>Патничко осигурување GOLD</b> вид:',
+            'travel-multi-71': 'Лицата на возраст од 71-75 години се осигуруваат самостојно, на индивидуална полиса, а не во група.',
+            'comm-err': 'Грешка во комуникацијата, Ве молиме обидете се повторно (5433)',
+            'l-code': 'mk',
+            'l-code2': 'mk_MK'
+        };
+        // Cookie notice?
+        tSite.cookieNotice();
+        // Bootstrappin'
+        while (f = window.TMD.boot.pop()) {
+            // console.log(f);
+            f(); //f.call();
+        }
+    </script>
+
+    <div id="vguard" class="visible-xs"></div>
+
+    <!-- Modal Wait -->
+    <div class="modal fade bs-example-modal-sm" id="frmWait" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary display-no" data-dismiss="modal">Затвори</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /modal -->
+    <!-- chat -->
+    <script type='text/javascript'>
+        (function () {
+            var widget_id = 'ewLnpdWHM8'; var d = document; var w = window; function l() {
+                var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/' + widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);
+            } if (d.readyState == 'complete') { l(); } else { if (w.attachEvent) { w.attachEvent('onload', l); } else { w.addEventListener('load', l, false); } }
+        })();</script>
+    <!-- /chat -->
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-81629437-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    <style>
+        .vertical-alignment-helper {
+            display: table;
+            height: 100%;
+            width: 100%;
+            pointer-events: none; /* This makes sure that we can still click outside of the modal to close it */
+        }
+
+        .vertical-align-center {
+            /* To center vertically */
+            display: table-cell;
+            vertical-align: middle;
+            pointer-events: none;
+        }
+
+        .modal-content {
+            /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+            width: inherit;
+            height: inherit;
+            /* To center horizontally */
+            margin: 0 auto;
+            pointer-events: all;
+        }
+
+        #carousel-travelad {
+            padding: 2px;
+            background-color: white; /*#3ca082;*/
+        }
+        /*
+        #mk-travelad-popup-modal {
+          cursor: pointer;
+        }
+        */
+
+        /*
+        .carousel-caption {
+            position: relative;
+            left: auto;
+            right: auto;
+        }
+        */
+
+        .img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+            width: 100%;
+        }
+
+        @media (max-width: 620px) {
+            .carousel-caption {
+                position: relative;
+                left: auto;
+                right: auto;
+                bottom: 0;
+                background-color: #333;
+                margin: 0 2px 2px 2px;
+                padding: 20px;
+            }
+        }
+    </style>
+
+    <script>
+
+        $(function () {
+
+            setTimeout(
+              function () {
+                  //$('#mk-travelad-popup-modal').on('click', function() {
+                  //  window.location.assign('/inc/mk-mk/webshop/?calc=travel&ref=travelPopup&utm_medium=popup&utm_source=travel');
+                  //});
+                  $('#mk-travelad-popup-modal').modal();
+                  $('#mk-travelad-popup-modal').on('click', function () {
+                      $('#mk-travelad-popup-modal').modal('hide');
+                  });
+
+              },
+              250
+            );
+
+        });
+
+    </script>
 </body>
 </html>

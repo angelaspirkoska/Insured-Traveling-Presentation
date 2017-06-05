@@ -54,7 +54,7 @@ namespace Authentication.WEB.Controllers
         }
         [HttpGet]
         //[SessionExpire]
-        public async Task<ActionResult> Index(string ssn, int category = 1, int personsnum = 1, int days = 10)
+        public async Task<ActionResult> Index(string ssn, int type = 1, int pers = 1, int days = 10)
         {
 
             //if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -75,8 +75,8 @@ namespace Authentication.WEB.Controllers
             ViewBag.additional_charges = additional_charges.Result;
             ViewBag.DisableDefault = false;
 
-            ViewBag.Category = category;
-            ViewBag.PersonsNum = personsnum;
+            ViewBag.Category = type;
+            ViewBag.PersonsNum = pers;
             ViewBag.Days = days;
 
             //extra insured people
