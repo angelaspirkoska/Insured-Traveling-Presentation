@@ -109,6 +109,7 @@ body {
     }
 
 .list-item-content {
+    border-radius: 3px;
     background: #E2E4E6;
     box-sizing: border-box;
     display: flex;
@@ -432,6 +433,7 @@ a:hover, a:active, a:focus {
 }
 
 .list-item-add-hidden {
+    border-radius: 3px;
     background: rgba(0,0,0,.12);
     cursor: pointer;
     color: #fff;
@@ -545,16 +547,23 @@ input {
 .btn-remove {
     background-color: transparent;
     border-color: transparent;
-    color: red;
+    color: #333333;
     font-weight: bold;
     padding-top: 0px;
     padding-bottom: 0px;
-    font-size: 14px;
-    border-radius: 0px !important;
+    padding-left: 4px;
+    padding-right: 5px;
+    font-size: 12px;
+    border-radius: 0 !important;
 }
 
+    .btn-remove:hover, .btn-remove:active, .btn-remove:focus {
+        color: white;
+        background-color: #333333;
+    }
+
 .btn-add-ticket {
-    border-radius: 0px !important;
+    border-radius: 3px;
     background: rgba(0,0,0,.12);
     color: rgba(255,255,255,.7) !important;
     border: rgba(0,0,0,.12) !important;
@@ -586,3 +595,29 @@ input {
         color: inherit !important;
         float: none !important;
     }
+
+
+.kanban-board-list-group-item {
+    position: relative !important;
+    display: block !important;
+    padding: 10px 15px !important;
+    margin-bottom: -1px !important;
+    background-color: #fff !important;
+    border: 1px solid #ddd !important;
+}
+
+.kanban-board-badge {
+    display: inline-block !important;
+    min-width: 10px !important;
+    padding: 3px 7px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #fff !important;
+    line-height: 1.5384616 !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    background-color: #999999 !important;
+    border-radius: 10px !important;
+    float: right !important;
+}
