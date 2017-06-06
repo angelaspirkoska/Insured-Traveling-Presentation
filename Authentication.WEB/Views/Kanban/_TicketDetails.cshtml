@@ -28,6 +28,23 @@
         <h6 style="margin-top: 1px;"><span style="text-decoration: underline;">@user.aspnetuser.FirstName @user.aspnetuser.LastName</span><small> since @DateTime.Now.ToString("dd.MM.yyyy | HH:mm")</small></h6>
     }
     <hr />
+    <h5 style="margin-bottom: 0px; margin-top: 3px; font-weight:bold; font-size:16px; color:#4d4d4d;">Comments:</h5>
+    <ul id="kanban-board-comments" class="list-group" style="border:0;">
+        <li class="kanban-board-list-group-item">
+            <span class="kanban-board-badge">@DateTime.Now.ToString("dd.MM.yyyy | HH:mm")</span>
+            This is some comment
+        </li>
+        <li class="kanban-board-list-group-item">
+            <span class="kanban-board-badge">@DateTime.Now.ToString("dd.MM.yyyy | HH:mm")</span>
+            This is some comment
+        </li>
+        <li class="kanban-board-list-group-item">
+            <span class="kanban-board-badge">@DateTime.Now.ToString("dd.MM.yyyy | HH:mm")</span>
+            This is some comment
+        </li>
+    </ul>
+    <input id="kanban-board-comment-field" type="text" placeholder="enter comment" class="form-control" />
+    <hr />
     <h5 style="margin-bottom: 0px; margin-top: 3px; font-weight:bold; font-size:16px; color:#4d4d4d;">Details:</h5>
     <ul class="list-group" style="border:0;">
         @foreach (var item in Model.kanbanticketcomponents)
