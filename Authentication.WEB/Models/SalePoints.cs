@@ -10,15 +10,12 @@ namespace InsuredTraveling.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string LocationName { get; set; }
 
-        public bool? insuranceDeal { get; set; }
-        public bool? damageReport { get; set; }
-
-  
-
+        public bool insuranceDeal { get; set; }
+        public bool damageReport { get; set; }
+        
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string Municipality { get; set; }
-
-
+        
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string Street { get; set; }
 

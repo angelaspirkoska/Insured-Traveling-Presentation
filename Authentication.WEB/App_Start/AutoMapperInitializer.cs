@@ -179,16 +179,17 @@ namespace InsuredTraveling.App_Start
             {
                 dst.id = src.id;
                 dst.Longitude = src.longitude;
-                dst.insuranceDeal = src.insurance_deal;
+                dst.insuranceDeal =  src.insurance_deal == null ? false : true ;
                 dst.LocationName = src.location_name;
                 dst.Municipality = src.municipality;
                 dst.Street = src.street;
                 dst.OpeningHours = src.opening_hours;
                 dst.PhoneNumber = src.phone_number;
                 dst.PostalCode = int.Parse(src.postalcode);
-                dst.damageReport = src.insurance_report;
+                dst.damageReport = src.insurance_report == null ? false : true;
 
-             
+
+
 
             });
 
