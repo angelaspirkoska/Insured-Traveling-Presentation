@@ -1,96 +1,85 @@
 ﻿@model InsuredTraveling.Models.SalePoints
-
+@using System.Web.Optimization;
+@using System.Configuration;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "SalePoints";
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@Resource.SalePoint_New</h2>
+<form id="eventForm" method="post" action="@Url.Action("AddSalePoint")" enctype="multipart/form-data">
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>SalePoints</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+   
+    <div class="col-md-5">
         <div class="form-group">
-            @Html.LabelFor(model => model.LocationName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LocationName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LocationName, "", new { @class = "text-danger" })
-            </div>
+            <label class="control-label"> @Resource.SalePoint_LocationName <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
+            @Html.EditorFor(model => model.LocationName, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spLocation" } })
         </div>
-
+    </div>
+  
+    <div class="col-md-5">
         <div class="form-group">
-            @Html.LabelFor(model => model.insuranceDeal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.insuranceDeal)
-                    @Html.ValidationMessageFor(model => model.insuranceDeal, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            <label class="control-label"> @Resource.SalePoint_Municipality <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
+            @Html.EditorFor(model => model.Municipality, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spMunicipality" }})
         </div>
+    </div>
 
+   <div class="col-md-5">
         <div class="form-group">
-            @Html.LabelFor(model => model.damageReport, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.damageReport)
-                    @Html.ValidationMessageFor(model => model.damageReport, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            <label class="control-label"> @Resource.SalePoint_Street <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
+            @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spStreet" } })
         </div>
+    </div>
 
+    <div class="col-md-5">
         <div class="form-group">
-            @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
-            </div>
+            <label class="control-label"> @Resource.SalePoint_PostalCode <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
+            @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spPostalCode" } })
         </div>
+    </div>
 
+    <div class="col-md-5">
         <div class="form-group">
-            @Html.LabelFor(model => model.Municipality, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Municipality, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Municipality, "", new { @class = "text-danger" })
-            </div>
+            <label class="control-label"> @Resource.SalePoint_OpeningHours <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
+            @Html.EditorFor(model => model.OpeningHours, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spOpeningHours" } })
         </div>
+    </div>
 
+    <div class="col-md-5">
         <div class="form-group">
-            @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
-            </div>
+
+            <label class="control-label"> @Resource.SalePoint_PhoneNumber <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
+            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spPhoneNum" } })
         </div>
+    </div>
 
+    <div class="col-md-5">
         <div class="form-group">
-            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-            </div>
+            <label class="control-label"> @Resource.SalePoint_InsuranceDeal <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
+            @Html.CheckBoxFor(model => model.insuranceDeal, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spInsuranceDeal"} })
         </div>
+    </div>
 
+    <div class="col-md-5">
         <div class="form-group">
-            @Html.LabelFor(model => model.OpeningHours, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OpeningHours, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OpeningHours, "", new { @class = "text-danger" })
-            </div>
+            <label class="control-label"> @Resource.SalePoint_DamageReport <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
+            @Html.CheckBoxFor(model => model.damageReport, new { htmlAttributes = new { @class = "form-control input-sm ", @id = "spDamageReport" } })
         </div>
+    </div>
 
+   @* <div class="col-md-7">
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <label class="control-label"> @Resource.Events_EventType <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
+            <div class="inputs-spacing">
+                @Html.DropDownListFor(model => model.EventType, (List<SelectListItem>)ViewBag.EventTypes, new { @class = "form-control input-sm", id = "EventType" })
+                @Html.ValidationMessageFor(model => model.EventType, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
-}
+    <div class="col-md-7">
+        <div class="form-group">
+            <input type="submit" style=" margin-bottom:100px;" value="@InsuredTraveling.Resource.Events_AddEvent" class="btn btn-success">
+        </div>
+    </div>*@
+</form>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

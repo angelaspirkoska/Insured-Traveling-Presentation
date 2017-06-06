@@ -2122,6 +2122,7 @@
     <Compile Include="Controllers\API\PremiumController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
     <Compile Include="Controllers\FirstNoticeOfLossController.cs" />
+    <Compile Include="Controllers\SalePointsController.cs" />
     <Compile Include="Controllers\SavaExcelUploadController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />

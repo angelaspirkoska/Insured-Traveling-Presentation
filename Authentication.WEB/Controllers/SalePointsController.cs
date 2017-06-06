@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using InsuredTraveling.Models;
 
 namespace InsuredTraveling.Controllers
 {
@@ -10,9 +11,8 @@ namespace InsuredTraveling.Controllers
     {
         // GET: SalePoints
         public ActionResult Index()
-        {
+        {    
             return View();
         }
-      
     }
 }
