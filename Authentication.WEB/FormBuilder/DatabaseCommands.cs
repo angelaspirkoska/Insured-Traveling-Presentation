@@ -6,12 +6,10 @@ using System.Text;
 using System.Data;
 using System.Web.Mvc;
 
-
 namespace InsuredTraveling.FormBuilder
 {
     public static class DatabaseCommands
     {
-        
         public static string GeneratePolicyCommand(int excelID, List<TagInfo> tagInfoExcel)
         {
             StringBuilder newPolicyTable = new StringBuilder();
@@ -83,9 +81,9 @@ namespace InsuredTraveling.FormBuilder
                 if (tag != null && !String.IsNullOrEmpty(tag.Name) && !tag.Type.Equals("label") && !tag.Type.Equals("header"))
                 {
                     string result = "";
-                    commandText.Append("('"+excelId+"','" + tag.Name +"', ");
+                    commandText.Append("('" + excelId + "','" + tag.Name + "', ");
                     var tryGetValue = tag.Attributes.TryGetValue("required", out result);
-                    
+
                     if (tryGetValue && result.Equals("true"))
                     {
                         commandText.Append("1");
@@ -94,7 +92,7 @@ namespace InsuredTraveling.FormBuilder
                     {
                         commandText.Append("0");
                     }
-                    commandText.Append( "), ");                 
+                    commandText.Append("), ");
                 }
             }
             commandText.Length--;
@@ -202,8 +200,9 @@ namespace InsuredTraveling.FormBuilder
             ExecutePopulateListCommand(excelID, tagInfoExcel);
             ExecuteDGETCommand(excelID, dgetFunctions);
             GenerateMasterProcedure(excelID, procedures, functions, tagInfoExcel);
+            CreateRatingIndicatorsTable(excelID);
+            ExecuteRatingIndicatorsTable(excelID, tagInfoExcel);
         }
-
         public static bool ExecutePolicyCommand(int excelID, List<TagInfo> tagInfoExcel)
         {
             MySqlConnection conn = new MySqlConnection();
@@ -224,7 +223,6 @@ namespace InsuredTraveling.FormBuilder
                 return false;
             }
         }
-
         public static bool ExecutePopulateFormNames(int excelID, List<TagInfo> tagInfoExcel)
         {
             MySqlConnection conn = new MySqlConnection();
@@ -245,7 +243,6 @@ namespace InsuredTraveling.FormBuilder
                 return false;
             }
         }
-
         public static bool ExecuteListCommand(int excelID)
         {
             MySqlConnection conn = new MySqlConnection();
@@ -266,7 +263,6 @@ namespace InsuredTraveling.FormBuilder
                 return false;
             }
         }
-
         public static bool ExecutePopulateListCommand(int excelID, List<TagInfo> tagInfoExcel)
         {
             MySqlConnection conn = new MySqlConnection();
@@ -287,7 +283,6 @@ namespace InsuredTraveling.FormBuilder
                 return false;
             }
         }
-
         public static bool ExecuteDGETCommand(int excelID, List<Dget> dgetFunctions)
         {
             MySqlConnection conn = new MySqlConnection();
@@ -315,6 +310,7 @@ namespace InsuredTraveling.FormBuilder
         }
         public static bool GenerateMasterProcedure(int excelID, List<Function> procedures, List<Function> functions, List<TagInfo> variables)
         {
+            var ratingVariables = variables.Where(x => x.Attributes.ContainsKey("ratingIndicatorIndex")).ToList();
             MySqlConnection conn = new MySqlConnection();
             conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
             try
@@ -322,18 +318,16 @@ namespace InsuredTraveling.FormBuilder
                 StringBuilder masterProcedure = new StringBuilder();
                 masterProcedure.Append("CREATE PROCEDURE `Master_" + excelID + "`");
                 masterProcedure.Append("(");
-                foreach(var variable in variables)
+                foreach (var variable in ratingVariables)
                 {
-                    if(!variable.Type.Equals("label") && !variable.Type.Equals("header") && !String.IsNullOrEmpty(variable.Type))
-                    masterProcedure.Append("IN "+ "`" + variable .Name + "`" +" VARCHAR(50),");
+                    masterProcedure.Append("IN " + "`" + variable.Name + "`" + " VARCHAR(50),");
                 }
                 masterProcedure.Append("OUT `result` VARCHAR(50)");
                 masterProcedure.Append(")");
                 masterProcedure.Append("BEGIN ");
-                //masterProcedure.Append(ButtonsDefaultValue(variables));
                 masterProcedure = GenerateMasterHelpingFunc(excelID, functions, masterProcedure);
                 var masterMidResult = GenerateMidResultFuc(excelID, procedures);
-               masterProcedure.Append(masterMidResult);
+                masterProcedure.Append(masterMidResult);
                 masterProcedure.Append("END");
                 if (masterProcedure.Length > 0)
                 {
@@ -350,26 +344,10 @@ namespace InsuredTraveling.FormBuilder
             catch (Exception ex)
             {
                 conn.Close();
-                return false;;
+                return false; ;
             }
             return false;
         }
-
-        public static StringBuilder ButtonsDefaultValue(List<TagInfo> inputParameters)
-        {
-            StringBuilder inputParametesDefaultValue = new StringBuilder();
-            foreach( TagInfo inputParameter in inputParameters)
-            {
-                    if (inputParameter.Type.ToLower().Contains("radio") || inputParameter.Type.ToLower().Contains("checkbox"))
-                    {
-                        inputParametesDefaultValue.Append(" IF " + inputParameter.Name + "= '0' THEN ");
-                        inputParametesDefaultValue.Append
-                                ("SET " + inputParameter.Name + " = 'no'; ELSE SET " + inputParameter.Name + "= 'yes'; END IF; ");
-                    }          
-            }
-            return inputParametesDefaultValue;
-        }
-
         public static StringBuilder GenerateMasterHelpingFunc(int excelID, List<Function> functions, StringBuilder masterProcedure)
         {
             try
@@ -386,12 +364,12 @@ namespace InsuredTraveling.FormBuilder
                         StringBuilder parameters = new StringBuilder();
                         for (int i = 0; i < castFunction.DatabaseRows; i++)
                         {
-                            if(castFunction.Database[i, 0] != castFunction.PropertyValueName)
+                            if (castFunction.Database[i, 0] != castFunction.PropertyValueName)
                             {
                                 var parametar = castFunction.Database[i, 0].Replace(' ', '_') + ", ";
                                 parameters.Append(ChangeParameterIfFunction(parametar, fuctName));
                             }
-                               
+
                         }
                         parameters.Length = parameters.Length - 2;
 
@@ -516,7 +494,6 @@ namespace InsuredTraveling.FormBuilder
             }
 
         }
-
         public static StringBuilder GenerateMidResultFuc(int excelID, List<Function> procedures)
         {
             var lastProcedure = procedures.Last();
@@ -527,7 +504,7 @@ namespace InsuredTraveling.FormBuilder
                 {
                     string outputParametar = " @OutputProcedure" + procedure.Name;
                     masterProcedure.Append(" SET @OutputProcedure" + procedure.Name + "='';");
-                    
+
                     var procValue = procedure.ToString().ToLower();
                     if (procValue.StartsWith("(if"))
                     {
@@ -635,11 +612,11 @@ namespace InsuredTraveling.FormBuilder
                         }
                     }
 
-                    if(procedure == lastProcedure)
+                    if (procedure == lastProcedure)
                     {
                         masterProcedure.Append(" SET result=" + outputParametar + ";");
                     }
-                  
+
                 }
                 return masterProcedure;
             }
@@ -648,11 +625,10 @@ namespace InsuredTraveling.FormBuilder
                 return new StringBuilder();
             }
         }
-
         public static string ChangeParameterIfProcedure(string parameter)
         {
             string output = null;
-            if(parameter != null)
+            if (parameter != null)
             {
                 if (parameter.ToLower().StartsWith("procedure"))
                 {
@@ -666,13 +642,13 @@ namespace InsuredTraveling.FormBuilder
                     return output;
                 }
             }
-            
+
             return parameter;
         }
         public static string ChangeParameterIfFunction(string parameter, List<string> fuctName)
         {
             string output = null;
-            if(parameter != null)
+            if (parameter != null)
             {
                 var contains = fuctName.Contains(parameter);
                 if (contains)
@@ -681,59 +657,134 @@ namespace InsuredTraveling.FormBuilder
                     return output;
                 }
             }
-           
+
             return parameter;
         }
+        public static bool CreateRatingIndicatorsTable(int excelID)
+        {
+            StringBuilder ratingIndicatorstable = new StringBuilder();
+            ratingIndicatorstable.Append("CREATE TABLE RatingIndicators_" + excelID + " ( ");
+            ratingIndicatorstable.Append("`Name` varchar(50) DEFAULT NULL, `Type` varchar(50) DEFAULT NULL )");
 
-        public static string CalculatePremium(int excelId, FormCollection formCollection, List<form_elements> formElements)
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            try
+            {
+                conn.Open();
+                MySqlCommand listCommand = new MySqlCommand();
+                listCommand.Connection = conn;
+                listCommand.CommandText = ratingIndicatorstable.ToString();
+                listCommand.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
+        public static bool ExecuteRatingIndicatorsTable(int excelID, List<TagInfo> variables)
+        {
+            var ratingVariables = variables.Where(x => x.Attributes.ContainsKey("ratingIndicatorIndex")).ToList();
+            StringBuilder commandText = new StringBuilder();
+            commandText.Append("INSERT INTO RatingIndicators_" + excelID + " (Name , Type) VALUES ");
+            foreach (TagInfo tag in ratingVariables)
+            {
+                commandText.Append("('" + tag.Name + "','" + tag.Type + "'),");
+            }
+            commandText.Length--;
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            try
+            {
+                conn.Open();
+                MySqlCommand populateListCommand = new MySqlCommand();
+                populateListCommand.Connection = conn;
+                populateListCommand.CommandText = commandText.ToString();
+                populateListCommand.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
+        public static List<TagInfo> GetAllRatingIndicators(int excelID)
+        {
+            string sql = " SELECT * FROM RatingIndicators_" + excelID;
+            List<TagInfo> variables = new List<TagInfo>();
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            try
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var variable = new TagInfo();
+                    variable.Name = reader.GetString("Name");
+                    variable.Type = reader.GetString("Type");
+                    variables.Add(variable);
+                }
+
+                conn.Close();
+                return variables;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return new List<TagInfo>();
+            }
+        }
+        public static string CalculatePremium(int excelId, FormCollection formCollection)
         {
             string result = "No value";
+            Dictionary<string, object> formElements = new Dictionary<string, object>();
+            formCollection.CopyTo(formElements);
+
+            var ratingIndicators = GetAllRatingIndicators(excelId);
             MySqlConnection conn = new MySqlConnection();
             MySqlCommand mysqlCommand = new MySqlCommand();
             mysqlCommand.Connection = conn;
             conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
-            if (!conn.Ping())
-            {
-                conn.Open();
-            }
-            //conn.Open();
+
             try
             {
+                conn.Open();
                 mysqlCommand.CommandText = "Master_" + excelId;
                 mysqlCommand.CommandType = CommandType.StoredProcedure;
 
-                foreach(form_elements formElement in formElements)
+                foreach (var indicator in ratingIndicators)
                 {
-                    if (formElement.Name.Equals("Left_hand_drive") || formElement.Name.Equals("Own_goods") || formElement.Name.Equals("General_Cartage") || formElement.Name.Equals("SGU_Faculty") || formElement.Name.Equals("Levy"))
+                    if(indicator.Type.Equals("checkbox") || indicator.Type.Equals("radio"))
                     {
-                        mysqlCommand.Parameters.AddWithValue("@" + formElement.Name, "yes");
-                        mysqlCommand.Parameters["@" + formElement.Name].Direction = ParameterDirection.Input;
-                    }
-                    else
-                    {
-                        if (formCollection.AllKeys.Contains(formElement.Name))
+                        if (formElements.ContainsKey(indicator.Name))
                         {
-
-                            if (formCollection.GetValue(formElement.Name) == null || formCollection.GetValue(formElement.Name).AttemptedValue == "")
-                            {
-                                mysqlCommand.Parameters.AddWithValue("@" + formElement.Name, "0");
-                                mysqlCommand.Parameters["@" + formElement.Name].Direction = ParameterDirection.Input;
-                            }
-                            else
-                            {
-                                mysqlCommand.Parameters.AddWithValue("@" + formElement.Name, formCollection.GetValue(formElement.Name));
-                                mysqlCommand.Parameters["@" + formElement.Name].Direction = ParameterDirection.Input;
-                            }
-
+                            mysqlCommand.Parameters.AddWithValue("@" + indicator.Name, "yes");
                         }
                         else
                         {
-                            mysqlCommand.Parameters.AddWithValue("@" + formElement.Name, "0");
-                            mysqlCommand.Parameters["@" + formElement.Name].Direction = ParameterDirection.Input;
+                            mysqlCommand.Parameters.AddWithValue("@" + indicator.Name, "no");
                         }
                     }
-                    
+                    else
+                    {
+
+                        if (formElements.ContainsKey(indicator.Name))
+                        {
+                            mysqlCommand.Parameters.AddWithValue("@" + indicator.Name, formCollection.GetValue(indicator.Name));
+                        }
+                        else
+                        {
+                            mysqlCommand.Parameters.AddWithValue("@" + indicator.Name, DBNull.Value);
+                        }
+                    }
                 }
+
                 mysqlCommand.Parameters.AddWithValue("@result", MySqlDbType.VarChar);
                 mysqlCommand.Parameters["@result"].Direction = ParameterDirection.Output;
 
@@ -741,9 +792,8 @@ namespace InsuredTraveling.FormBuilder
 
                 result = mysqlCommand.Parameters["@result"].Value.ToString();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-
             }
             finally
             {
@@ -751,5 +801,7 @@ namespace InsuredTraveling.FormBuilder
             }
             return result;
         }
+
+
     }
 }

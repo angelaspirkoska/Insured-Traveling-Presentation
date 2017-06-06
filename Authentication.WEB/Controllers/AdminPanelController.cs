@@ -213,8 +213,7 @@ namespace InsuredTraveling.Controllers
         {
             if (excelId.HasValue)
             {
-                List<form_elements> formElements = _fes.GetAll((int)excelId);
-                ViewBag.CalculatedPremium = DatabaseCommands.CalculatePremium((int)excelId, formCollection, formElements);
+                ViewBag.CalculatedPremium = DatabaseCommands.CalculatePremium((int)excelId, formCollection);
                 return View("PolicyPremium");
             }
             return new HttpStatusCodeResult(500, "Something went wrong");
