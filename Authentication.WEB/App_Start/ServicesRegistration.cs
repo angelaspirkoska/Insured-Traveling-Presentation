@@ -49,6 +49,7 @@ namespace InsuredTraveling
             builder.RegisterType<SavaVoucherService>().As<ISavaVoucherService>().InstancePerRequest();
             builder.RegisterType<SavaAdPicService>().As<ISavaAdPicService>().InstancePerRequest();
             builder.RegisterType<PointsRequestService>().As<IPointsRequestService>().InstancePerRequest();
+            builder.RegisterType<SalePointsService>().As<ISalePointsService>().InstancePerRequest();
             base.Load(builder);
 
 

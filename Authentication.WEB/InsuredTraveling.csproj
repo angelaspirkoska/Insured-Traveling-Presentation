@@ -2191,6 +2191,7 @@
     <Compile Include="DI\IPolicyService.cs" />
     <Compile Include="DI\IPolicyTypeService.cs" />
     <Compile Include="DI\IRolesService.cs" />
+    <Compile Include="DI\ISalePointsService.cs" />
     <Compile Include="DI\ISavaAdPicService.cs" />
     <Compile Include="DI\ISavaPoliciesService.cs" />
     <Compile Include="DI\ISavaVoucherService.cs" />
@@ -2207,6 +2208,7 @@
     <Compile Include="DI\PolicyTypeService.cs" />
     <Compile Include="DI\RolesService.cs" />
     <Compile Include="DI\ISava_setupService.cs" />
+    <Compile Include="DI\SalePointsService.cs" />
     <Compile Include="DI\SavaAdPicService.cs" />
     <Compile Include="DI\SavaPoliciesService.cs" />
     <Compile Include="DI\SavaVoucherService.cs" />

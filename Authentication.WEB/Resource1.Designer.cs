@@ -2734,11 +2734,29 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Latitude.
+        /// </summary>
+        public static string SalePoint_Latitude {
+            get {
+                return ResourceManager.GetString("SalePoint_Latitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sale Point Name.
         /// </summary>
         public static string SalePoint_LocationName {
             get {
                 return ResourceManager.GetString("SalePoint_LocationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Longitude.
+        /// </summary>
+        public static string SalePoint_Longitude {
+            get {
+                return ResourceManager.GetString("SalePoint_Longitude", resourceCulture);
             }
         }
         

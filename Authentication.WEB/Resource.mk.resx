@@ -1611,4 +1611,10 @@
   <data name="SalePoint_Add" xml:space="preserve">
     <value>Додади продажно место</value>
   </data>
+  <data name="SalePoint_Latitude" xml:space="preserve">
+    <value>Географска ширина</value>
+  </data>
+  <data name="SalePoint_Longitude" xml:space="preserve">
+    <value>Географска должина</value>
+  </data>
 </root>

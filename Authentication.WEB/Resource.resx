@@ -1617,4 +1617,10 @@
   <data name="SalePoint_Add" xml:space="preserve">
     <value>Add sale point</value>
   </data>
+  <data name="SalePoint_Latitude" xml:space="preserve">
+    <value>Latitude</value>
+  </data>
+  <data name="SalePoint_Longitude" xml:space="preserve">
+    <value>Longitude</value>
+  </data>
 </root>
