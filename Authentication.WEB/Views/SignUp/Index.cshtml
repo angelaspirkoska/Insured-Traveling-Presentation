@@ -395,7 +395,7 @@
     function FindUsername() {
         $.ajax({
             type: "POST",
-            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/FindUser",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/Account/FindUser",
             data: jQuery.param({ username: $("#username").val() })
         })
         .done(function (result) {

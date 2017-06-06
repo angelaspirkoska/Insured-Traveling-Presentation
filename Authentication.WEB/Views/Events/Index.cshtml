@@ -118,6 +118,7 @@
 @Styles.Render("~/Content/jqueryuicss")
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#btnEvents').parent().addClass('active');
         var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
         $("#eventStartTime").datepicker({
             dateFormat: dateFormatString,

@@ -957,6 +957,8 @@
 <script type="text/javascript">
     var isAdmin = false;
     $(document).ready(function () {
+
+        $('#searchTab').parent().addClass('active');
         
         var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
 

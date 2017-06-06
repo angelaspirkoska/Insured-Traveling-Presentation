@@ -99,6 +99,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $('#UploadTab').parent().addClass('active');
         var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
         $("#expiry_date").datepicker({
             dateFormat: dateFormatString,

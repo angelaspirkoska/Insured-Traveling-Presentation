@@ -417,6 +417,9 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+        $('#adminTab').parent().addClass('active');
+
         $("#configRatingEngine").hide();
         if(@ViewBag.TabIndex == 1) {
             //Setting the class active-tab, so the user will know which tab is clicked

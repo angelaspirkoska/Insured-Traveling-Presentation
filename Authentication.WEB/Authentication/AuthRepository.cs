@@ -295,11 +295,11 @@ namespace InsuredTraveling
                 if (user != null)
                 {
                     string body = "Welcome to Insured Traveling " + " " + ",";
-                    body += "<br /><br />Please click the following link to activate your account";
-                    body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/validatemail".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + user.Id + "'>Click here to activate your account.</a>";
-                    body += "<br /><br />Thanks";
+                    body += "<br /><br />Успешна регистрација";
+                    body += "<br /> ве молиме почекајте вашите податоци да бидат ажурирани ";
+                    body += "<br /><br />Ви благодариме што ја избравте Моја Сава апликацијата";
                     MailService mailService = new MailService(user.Email, "signup@insuredtraveling.com");
-                    mailService.setSubject("Account Activation Validation");
+                    mailService.setSubject("Сава Спорт - успешно креирана корисничка сметка");
                     mailService.setBodyText(body, true);
                     mailService.sendMail();
 
