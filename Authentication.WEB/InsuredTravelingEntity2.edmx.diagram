@@ -145,6 +145,7 @@
         <EntityTypeShape EntityType="db_9eb138_savaModel.sava_ad_pictures" Width="1.5" PointX="12.375" PointY="0.75" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.points_requests" Width="1.5" PointX="5.375" PointY="12.75" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.sava_policy" Width="1.5" PointX="7.375" PointY="12.75" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.sava_sale_points" Width="1.5" PointX="13.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

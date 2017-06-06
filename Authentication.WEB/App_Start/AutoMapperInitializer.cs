@@ -158,6 +158,40 @@ namespace InsuredTraveling.App_Start
                 dst.SSNValidationActive = src.SSNValidationActive;
             });
 
+       
+
+            Mapper.CreateMap<SalePoints, sava_sale_points>().AfterMap((src, dst) =>
+            {
+                dst.longitude = src.Longitude;
+                dst.latitude = src.Latitude;
+                dst.insurance_deal = src.insuranceDeal ;
+                dst.insurance_report = src.damageReport ;
+                dst.location_name = src.LocationName;
+                dst.municipality = src.Municipality;
+                dst.street = src.Street;
+                dst.postalcode = src.PostalCode.ToString();
+                dst.opening_hours = src.OpeningHours;
+                dst.phone_number = src.PhoneNumber;
+
+            });
+         
+            Mapper.CreateMap<sava_sale_points, SalePoints>().AfterMap((src, dst) =>
+            {
+                dst.id = src.id;
+                dst.Longitude = src.longitude;
+                dst.insuranceDeal = src.insurance_deal;
+                dst.LocationName = src.location_name;
+                dst.Municipality = src.municipality;
+                dst.Street = src.street;
+                dst.OpeningHours = src.opening_hours;
+                dst.PhoneNumber = src.phone_number;
+                dst.PostalCode = int.Parse(src.postalcode);
+                dst.damageReport = src.insurance_report;
+
+             
+
+            });
+
             //Save
             Mapper.CreateMap<News, news_all>().AfterMap((src, dst) =>
             {

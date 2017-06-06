@@ -5,11 +5,12 @@ namespace InsuredTraveling.Models
 {
     public class SalePoints
     {
+        public int  id { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string LocationName { get; set; }
 
-        public bool insuranceDeal { get; set; }
-        public bool damageReport { get; set; }
+        public bool? insuranceDeal { get; set; }
+        public bool? damageReport { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string Street { get; set; }
@@ -21,7 +22,8 @@ namespace InsuredTraveling.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string PhoneNumber { get; set; }
         public string OpeningHours { get; set; }
-
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
 
     }
 }

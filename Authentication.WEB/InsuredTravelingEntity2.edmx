@@ -681,6 +681,22 @@ warning 6002: The table/view 'def.db_9eb138_sava.aspnetuserlogins' does not have
           <Property Name="email_seller" Type="varchar" MaxLength="128" />
           <Property Name="discount_points" Type="float" />
         </EntityType>
+        <EntityType Name="sava_sale_points">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="location_name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="street" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="municipality" Type="varchar" MaxLength="100" />
+          <Property Name="postalcode" Type="varchar" MaxLength="20" />
+          <Property Name="phone_number" Type="varchar" MaxLength="50" />
+          <Property Name="opening_hours" Type="varchar" MaxLength="50" />
+          <Property Name="longitude" Type="varchar" MaxLength="100" />
+          <Property Name="latitude" Type="varchar" MaxLength="100" />
+          <Property Name="insurance_deal" Type="bool" />
+          <Property Name="insurance_report" Type="bool" />
+        </EntityType>
         <EntityType Name="sava_setup">
           <Key>
             <PropertyRef Name="id" />
@@ -1813,6 +1829,7 @@ warning 6002: The table/view 'def.db_9eb138_sava.transaction' does not have a pr
           <EntitySet Name="retaining_risk_name" EntityType="Self.retaining_risk_name" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="sava_ad_pictures" EntityType="Self.sava_ad_pictures" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="sava_policy" EntityType="Self.sava_policy" Schema="db_9eb138_sava" store:Type="Tables" />
+          <EntitySet Name="sava_sale_points" EntityType="Self.sava_sale_points" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="sava_setup" EntityType="Self.sava_setup" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="sava_voucher" EntityType="Self.sava_voucher" Schema="db_9eb138_sava" store:Type="Tables" />
           <EntitySet Name="travel_duration" EntityType="Self.travel_duration" Schema="db_9eb138_sava" store:Type="Tables" />
@@ -4343,6 +4360,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySet Name="sava_ad_pictures" EntityType="db_9eb138_savaModel.sava_ad_pictures" />
           <EntitySet Name="points_requests" EntityType="db_9eb138_savaModel.points_requests" />
           <EntitySet Name="sava_policy" EntityType="db_9eb138_savaModel.sava_policy" />
+          <EntitySet Name="sava_sale_points" EntityType="db_9eb138_savaModel.sava_sale_points" />
         </EntityContainer>
         <EntityType Name="sava_voucher">
           <Key>
@@ -4389,6 +4407,22 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="premium" Type="Single" Nullable="false" />
           <Property Name="email_seller" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="discount_points" Type="Single" />
+        </EntityType>
+        <EntityType Name="sava_sale_points">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="location_name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="street" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="municipality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="postalcode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="opening_hours" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="longitude" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="latitude" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="insurance_deal" Type="Boolean" />
+          <Property Name="insurance_report" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5252,6 +5286,23 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="SSN_policyHolder" ColumnName="SSN_policyHolder" />
                 <ScalarProperty Name="SSN_insured" ColumnName="SSN_insured" />
                 <ScalarProperty Name="policy_number" ColumnName="policy_number" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sava_sale_points">
+            <EntityTypeMapping TypeName="db_9eb138_savaModel.sava_sale_points">
+              <MappingFragment StoreEntitySet="sava_sale_points">
+                <ScalarProperty Name="insurance_report" ColumnName="insurance_report" />
+                <ScalarProperty Name="insurance_deal" ColumnName="insurance_deal" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="opening_hours" ColumnName="opening_hours" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="postalcode" ColumnName="postalcode" />
+                <ScalarProperty Name="municipality" ColumnName="municipality" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="location_name" ColumnName="location_name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
