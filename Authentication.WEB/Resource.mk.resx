@@ -1608,4 +1608,7 @@
   <data name="SalePoint_Street" xml:space="preserve">
     <value>Улица</value>
   </data>
+  <data name="SalePoint_Add" xml:space="preserve">
+    <value>Додади продажно место</value>
+  </data>
 </root>

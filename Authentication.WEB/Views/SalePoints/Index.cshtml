@@ -56,15 +56,21 @@
     <div class="col-md-5">
         <div class="form-group">
             <label class="control-label"> @Resource.SalePoint_InsuranceDeal <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
-            @Html.CheckBoxFor(model => model.insuranceDeal, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spInsuranceDeal"} })
+            @Html.CheckBoxFor(model => (bool) model.insuranceDeal, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spInsuranceDeal"} })
         </div>
     </div>
 
     <div class="col-md-5">
         <div class="form-group">
             <label class="control-label"> @Resource.SalePoint_DamageReport <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
-            @Html.CheckBoxFor(model => model.damageReport, new { htmlAttributes = new { @class = "form-control input-sm ", @id = "spDamageReport" } })
+            @Html.CheckBoxFor(model => (bool) model.damageReport, new { htmlAttributes = new { @class = "form-control input-sm ", @id = "spDamageReport" } })
         </div>
+    </div>
+    
+    <div class="col-md-5">
+    <div class="form-group">
+        <input type="submit" style=" margin-bottom:100px;" value="@InsuredTraveling.Resource.SalePoint_Add" class="btn btn-success">
+    </div>
     </div>
 
    @* <div class="col-md-7">
@@ -75,11 +81,7 @@
                 @Html.ValidationMessageFor(model => model.EventType, "", new { @class = "text-danger" })
             </div>
         </div>
-    </div>
-    <div class="col-md-7">
-        <div class="form-group">
-            <input type="submit" style=" margin-bottom:100px;" value="@InsuredTraveling.Resource.Events_AddEvent" class="btn btn-success">
-        </div>
     </div>*@
+   
 </form>
 

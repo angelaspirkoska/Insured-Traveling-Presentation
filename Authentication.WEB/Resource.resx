@@ -1614,4 +1614,7 @@
   <data name="SalePoint_Street" xml:space="preserve">
     <value>Street</value>
   </data>
+  <data name="SalePoint_Add" xml:space="preserve">
+    <value>Add sale point</value>
+  </data>
 </root>

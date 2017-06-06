@@ -2707,6 +2707,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add sale point.
+        /// </summary>
+        public static string SalePoint_Add {
+            get {
+                return ResourceManager.GetString("SalePoint_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Damage report.
         /// </summary>
         public static string SalePoint_DamageReport {
