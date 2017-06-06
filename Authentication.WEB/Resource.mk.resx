@@ -1581,4 +1581,31 @@
   <data name="Sale_Points" xml:space="preserve">
     <value>Продажни места</value>
   </data>
+  <data name="SalePoint_DamageReport" xml:space="preserve">
+    <value>Пријава на штета</value>
+  </data>
+  <data name="SalePoint_InsuranceDeal" xml:space="preserve">
+    <value>Осигурителни договори</value>
+  </data>
+  <data name="SalePoint_LocationName" xml:space="preserve">
+    <value>Име на продажно место</value>
+  </data>
+  <data name="SalePoint_Municipality" xml:space="preserve">
+    <value>Општина</value>
+  </data>
+  <data name="SalePoint_New" xml:space="preserve">
+    <value>Ново продажно место</value>
+  </data>
+  <data name="SalePoint_OpeningHours" xml:space="preserve">
+    <value>Работно време</value>
+  </data>
+  <data name="SalePoint_PhoneNumber" xml:space="preserve">
+    <value>Телефонски број</value>
+  </data>
+  <data name="SalePoint_PostalCode" xml:space="preserve">
+    <value>Поштенски број</value>
+  </data>
+  <data name="SalePoint_Street" xml:space="preserve">
+    <value>Улица</value>
+  </data>
 </root>

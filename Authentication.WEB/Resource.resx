@@ -1587,4 +1587,31 @@
   <data name="Sale_Points" xml:space="preserve">
     <value>Sale Points</value>
   </data>
+  <data name="SalePoint_DamageReport" xml:space="preserve">
+    <value>Damage report</value>
+  </data>
+  <data name="SalePoint_InsuranceDeal" xml:space="preserve">
+    <value>Insurance deal</value>
+  </data>
+  <data name="SalePoint_LocationName" xml:space="preserve">
+    <value>Sale Point Name</value>
+  </data>
+  <data name="SalePoint_Municipality" xml:space="preserve">
+    <value>Municipality</value>
+  </data>
+  <data name="SalePoint_New" xml:space="preserve">
+    <value>New Sale Point</value>
+  </data>
+  <data name="SalePoint_OpeningHours" xml:space="preserve">
+    <value>Opening Hours</value>
+  </data>
+  <data name="SalePoint_PhoneNumber" xml:space="preserve">
+    <value>Phone number</value>
+  </data>
+  <data name="SalePoint_PostalCode" xml:space="preserve">
+    <value>Postal code</value>
+  </data>
+  <data name="SalePoint_Street" xml:space="preserve">
+    <value>Street</value>
+  </data>
 </root>

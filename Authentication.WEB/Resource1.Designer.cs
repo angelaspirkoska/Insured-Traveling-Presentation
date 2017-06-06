@@ -2707,6 +2707,87 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Damage report.
+        /// </summary>
+        public static string SalePoint_DamageReport {
+            get {
+                return ResourceManager.GetString("SalePoint_DamageReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insurance deal.
+        /// </summary>
+        public static string SalePoint_InsuranceDeal {
+            get {
+                return ResourceManager.GetString("SalePoint_InsuranceDeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sale Point Name.
+        /// </summary>
+        public static string SalePoint_LocationName {
+            get {
+                return ResourceManager.GetString("SalePoint_LocationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Municipality.
+        /// </summary>
+        public static string SalePoint_Municipality {
+            get {
+                return ResourceManager.GetString("SalePoint_Municipality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Sale Point.
+        /// </summary>
+        public static string SalePoint_New {
+            get {
+                return ResourceManager.GetString("SalePoint_New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening Hours.
+        /// </summary>
+        public static string SalePoint_OpeningHours {
+            get {
+                return ResourceManager.GetString("SalePoint_OpeningHours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone number.
+        /// </summary>
+        public static string SalePoint_PhoneNumber {
+            get {
+                return ResourceManager.GetString("SalePoint_PhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal code.
+        /// </summary>
+        public static string SalePoint_PostalCode {
+            get {
+                return ResourceManager.GetString("SalePoint_PostalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Street.
+        /// </summary>
+        public static string SalePoint_Street {
+            get {
+                return ResourceManager.GetString("SalePoint_Street", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save policies.
         /// </summary>
         public static string Sava_Excel_SavePolicy {
