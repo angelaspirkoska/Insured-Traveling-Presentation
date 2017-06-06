@@ -185,10 +185,11 @@ $(function () {
 
     $("body").on("keyup", "#kanban-board-comment-field", function (event) {
         if (event.keyCode == 13) {
+            var comm = $(this).val();
             var comment = $(
                 '<li class="kanban-board-list-group-item">' +
                     '<span class="kanban-board-badge">now</span>' +
-                    'This is some comment' +
+                    comm +
                 '</li>'
             );
             $("#kanban-board-comments").append(comment);
