@@ -32,6 +32,7 @@ namespace InsuredTraveling.Controllers.API
         private readonly ISavaVoucherService _svs;
         private readonly ISavaAdPicService _savaAdService;
         private readonly IPointsRequestService _prs;
+        private readonly ISalePointsService _sps;
 
         public SavaMobileController(ISavaPoliciesService savaPoliciesService,
                                     IUserService userService,
@@ -39,7 +40,8 @@ namespace InsuredTraveling.Controllers.API
                                     IRolesService rs,
                                     ISavaVoucherService svs,
                                     ISavaAdPicService savaAdService,
-                                    IPointsRequestService prs)
+                                    IPointsRequestService prs,
+                                    ISalePointsService sps)
         {
             
             _savaPoliciesService = savaPoliciesService;
@@ -52,6 +54,7 @@ namespace InsuredTraveling.Controllers.API
             _svs = svs;
             _savaAdService = savaAdService;
             _prs = prs;
+            _sps = sps;
         }
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("CreatePolicy")]
@@ -234,6 +237,19 @@ namespace InsuredTraveling.Controllers.API
             return adInfo;
         }
 
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("GetSalePoints")]
+        public JObject GetSalePoints()
+        {
+          var SalePoints = _sps.GetSalePoints();
+            
+            var SalePointsObject = new JObject();
+           
+            SalePointsObject.Add("SalePoints", JToken.FromObject(SalePoints));
+            
+            return SalePointsObject;
+        }
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("AddPolicyPoints")]

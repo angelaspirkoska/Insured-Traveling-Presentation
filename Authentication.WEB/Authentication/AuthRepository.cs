@@ -295,11 +295,11 @@ namespace InsuredTraveling
                 if (user != null)
                 {
                     string body = "Welcome to Insured Traveling " + " " + ",";
-                    body += "<br /><br />Успешна регистрација";
-                    body += "<br /> ве молиме почекајте вашите податоци да бидат ажурирани ";
-                    body += "<br /><br />Ви благодариме што ја избравте Моја Сава апликацијата";
+                    body += "<br /><br />Ви благодариме што ја избравте апликацијата Моја Сава! ";
+                    body += "<br /> Вашата регистрација е успешна, ве молиме почекајте да се ажурираат потребните податоци.";
+                   
                     MailService mailService = new MailService(user.Email, "signup@insuredtraveling.com");
-                    mailService.setSubject("Сава Спорт - успешно креирана корисничка сметка");
+                    mailService.setSubject("Моја Сава. Успешно креиран корисник.");
                     mailService.setBodyText(body, true);
                     mailService.sendMail();
 

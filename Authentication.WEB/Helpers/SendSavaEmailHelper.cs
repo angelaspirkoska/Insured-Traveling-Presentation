@@ -27,7 +27,7 @@ namespace InsuredTraveling.Helpers
                 view.LinkedResources.Add(inlineLogo);
 
                 MailService mailService = new MailService(userEmail);
-                mailService.setSubject("Искористени поени");
+                mailService.setSubject("Искористени поени Моја Сава.");
 
                 mailService.setBodyText(userEmail, true);
                 mailService.AlternativeViews(view);
@@ -53,9 +53,10 @@ namespace InsuredTraveling.Helpers
                      <div style='margin-left:20px'>
                      <img style='width:700px' src=""cid:{0}"" />
                      <p> <b> Почитувани, </b></p>                  
-                     <br />
-                      Корисникот " + user.FirstName + " " + user.LastName + " со корисничко име " + model.Username + " " +
-                 "<br /> <br />" + "искористи: " + model.Points + " поени. На корисникот му остануваат уште " + userPoints.ToString() + " поени.</div><br />"
+                     <br /> Корисникот " + user.FirstName + " " + user.LastName + " со корисничко име " + model.Username + " " +
+                 "<br /> <br />"
+                 + "искористи: " + model.Points + " поени. На корисникот му остануваат уште " + userPoints.ToString() + " поени.</div><br />"
+
                 , inlineLogo.ContentId);
 
                 var view = AlternateView.CreateAlternateViewFromString(mailBody, null, "text/html");
@@ -88,13 +89,13 @@ namespace InsuredTraveling.Helpers
                      <img style='width:700px' src=""cid:{0}"" />
                      <p> <b> Почитувани, </b></p>                  
                      <br />" + name + " " + surname +
-                     "<br /> <br />" + "Вие станавте " + userRole + "  <br />  <b>Честитки. </b> </div><br />"
+                     "<br /> <br />" + "Добредојдовте на" + userRole + "  <br />  <b> Уживајте во поволностите со " + userRole + "</ b> </div><br />"
                 , inlineLogo.ContentId);
 
                 var view = AlternateView.CreateAlternateViewFromString(mailBody, null, "text/html");
                 view.LinkedResources.Add(inlineLogo);
                 MailService mailService = new MailService(email);
-                mailService.setSubject("Промена на корисничи привилегии");
+                mailService.setSubject(userRole + " Успешно креиран корисник.");
                 mailService.setBodyText(email, true);
                 mailService.AlternativeViews(view);
                 mailService.sendMail();

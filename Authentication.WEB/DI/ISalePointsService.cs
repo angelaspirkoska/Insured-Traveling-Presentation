@@ -10,5 +10,6 @@ namespace InsuredTraveling.DI
     public interface ISalePointsService
     {
         void AddSalePoint(SalePoints salePoints);
+        List<SalePoints> GetSalePoints();
     }
 }

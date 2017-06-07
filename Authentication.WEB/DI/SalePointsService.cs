@@ -19,5 +19,14 @@ namespace InsuredTraveling.DI
             _db.SaveChanges();
         }
 
+        public List<SalePoints> GetSalePoints()
+        {
+
+            IQueryable<sava_sale_points> saleP = _db.sava_sale_points;
+            var mappedSalePoint = saleP.Select(Mapper.Map<sava_sale_points, SalePoints>).ToList();
+            
+            return mappedSalePoint;
+        }
+
     }
 }
