@@ -181,26 +181,28 @@ namespace InsuredTraveling.Schedulers
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(InsuredTraveling.Resource.RegisteredUserExcelTitle);
                 //Add the headers
                 worksheet.Cells[1, 1].Value = InsuredTraveling.Resource.SearchTable_UserName;
-                worksheet.Cells[1, 2].Value = InsuredTraveling.Resource.SearchTable_FirstName;
-                worksheet.Cells[1, 3].Value = InsuredTraveling.Resource.SearchTable_LastName;
-                worksheet.Cells[1, 4].Value = InsuredTraveling.Resource.SearchTable_Email;
-                worksheet.Cells[1, 5].Value = InsuredTraveling.Resource.SearchTable_RoleName;
-                worksheet.Cells[1, 6].Value = InsuredTraveling.Resource.SearchTable_CreatedOn;
-                worksheet.Cells[1, 7].Value = InsuredTraveling.Resource.SearchTable_ActiveInactiveUser;
-                worksheet.Cells[1, 8].Value = InsuredTraveling.Resource.SearchTable_UserPoints;
+                worksheet.Cells[1, 2].Value = InsuredTraveling.Resource.Policy_HolderSSN;
+                worksheet.Cells[1, 3].Value = InsuredTraveling.Resource.SearchTable_FirstName;
+                worksheet.Cells[1, 4].Value = InsuredTraveling.Resource.SearchTable_LastName;
+                worksheet.Cells[1, 5].Value = InsuredTraveling.Resource.SearchTable_Email;
+                worksheet.Cells[1, 6].Value = InsuredTraveling.Resource.SearchTable_RoleName;
+                worksheet.Cells[1, 7].Value = InsuredTraveling.Resource.SearchTable_CreatedOn;
+                worksheet.Cells[1, 8].Value = InsuredTraveling.Resource.SearchTable_ActiveInactiveUser;
+                worksheet.Cells[1, 9].Value = InsuredTraveling.Resource.SearchTable_UserPoints;
 
                 int counter = 2;
 
                 foreach (SearchRegisteredUser user in users)
                 {
                     worksheet.Cells[counter, 1].Value = user.Username;
-                    worksheet.Cells[counter, 2].Value = user.FirstName;
-                    worksheet.Cells[counter, 3].Value = user.LastName;
-                    worksheet.Cells[counter, 4].Value = user.Email;
-                    worksheet.Cells[counter, 5].Value = user.RoleName;
-                    worksheet.Cells[counter, 6].Value = user.CreatedOn;
-                    worksheet.Cells[counter, 7].Value = user.ActiveInactive;
-                    worksheet.Cells[counter, 8].Value = user.Points == null ? "0" : user.Points;
+                    worksheet.Cells[counter, 2].Value = user.embg;
+                    worksheet.Cells[counter, 3].Value = user.FirstName;
+                    worksheet.Cells[counter, 4].Value = user.LastName;
+                    worksheet.Cells[counter, 5].Value = user.Email;
+                    worksheet.Cells[counter, 6].Value = user.RoleName;
+                    worksheet.Cells[counter, 7].Value = user.CreatedOn;
+                    worksheet.Cells[counter, 8].Value = user.ActiveInactive;
+                    worksheet.Cells[counter, 9].Value = user.Points == null ? "0" : user.Points;
                     counter++;
                 }
 

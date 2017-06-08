@@ -16,5 +16,7 @@ namespace InsuredTraveling.Models
         public string ActiveInactive { get; set; }
         public string ID { get; set; }
         public string Points { get; set; }
+
+        public string embg { get; set; }
     }
 }

@@ -27,6 +27,7 @@ namespace InsuredTraveling.DI
         public void AddSavaPolicy(SavaPolicyModel sava_policy)
         {
             sava_policy sp = _db.sava_policy.Create();
+            sava_policy.createdBy = HttpContext.Current.User.Identity.Name;
             sp = Mapper.Map<SavaPolicyModel, sava_policy>(sava_policy);
             
             _db.sava_policy.Add(sp);

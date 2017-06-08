@@ -22,5 +22,7 @@ namespace InsuredTraveling.Models
         public string email_seller { get; set; }
         public float discount_points { get; set; }
 
+        public string createdBy { get; set; }
+
     }
 }

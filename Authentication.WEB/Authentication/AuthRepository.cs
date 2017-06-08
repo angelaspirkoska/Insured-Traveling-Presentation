@@ -364,12 +364,12 @@ namespace InsuredTraveling
             var r = _userManager.FindByName(username);
             if (r != null)
             {
-                string body = "Welcome to Insured Traveling " + " " + ",";
-                body += "<br /><br />Please click the following link to reset your password";
+                string body = "Сава Спорт + ресетирање на корисничка лозинка " + " " + ",";
+                body += "<br /><br />Ве молам притиснете на следниот линк за да ја ресетирате вашата лозинка";
                 body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
-                body += "<br /><br />Thanks";
+                body += "<br /><br />";
                 MailService mailService = new MailService(r.Email, "signup@insuredtraveling.com");
-                mailService.setSubject("Account Reset Password");
+                mailService.setSubject("Ресетирање на корисничка лозинка");
                 mailService.setBodyText(body, true);
                 mailService.sendMail();
             }

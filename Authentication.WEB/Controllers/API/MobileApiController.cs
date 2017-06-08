@@ -129,6 +129,10 @@ namespace InsuredTraveling.Controllers.API
         public JObject GetEvents(UserDTO username)
         {
             var data = new JObject();
+            if(username.username == null) {
+                data.Add("Error", "Username is empty");
+                return data;
+            }
             var events = _es.GetEventsForUser(username.username);
             if(events == null)
             {

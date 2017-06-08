@@ -30,6 +30,7 @@ namespace InsuredTraveling.App_Start
                 dst.ActiveInactive = src.Active == 1 ? "Active" : "Inactive";
                 dst.ID = src.Id;
                 dst.Points = !src.Points.HasValue ? "0" :src.Points.ToString();
+                dst.embg = src.EMBG;
             });
 
             Mapper.CreateMap<@event, Event>().AfterMap((src, dst) =>
@@ -306,6 +307,8 @@ namespace InsuredTraveling.App_Start
                 dst.expiry_date = src.expiry_date;                
                 dst.premium = src.premium;
                 dst.date_created = src.date_created;
+                dst.timestamp = DateTime.Now.Date;
+                dst.createdBy = src.createdBy; 
             });
 
             Mapper.CreateMap<QRCodeSavaPolicy, SavaPolicyModel>().AfterMap((src, dst) =>

@@ -23,5 +23,7 @@ namespace InsuredTraveling
         public float premium { get; set; }
         public string email_seller { get; set; }
         public Nullable<float> discount_points { get; set; }
+        public string createdBy { get; set; }
+        public Nullable<System.DateTime> timestamp { get; set; }
     }
 }
