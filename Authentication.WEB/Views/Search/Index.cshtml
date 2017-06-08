@@ -26,7 +26,7 @@
     <ul class="nav nav-tabs">
             @if (isAdmin)
             {
-            <li id="polycies"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
+          
         
             <li id="quotes"><a href="#" onclick="ShowQuotes()">@InsuredTraveling.Resource.Quotes </a></li>
             
@@ -40,6 +40,7 @@
         }
         @if (isAdmin || isBrokerManager || isSavaAdmin || isSavaSupport)
         {
+            <li id="polycies"><a href="#" onclick="ShowPolycies()">@InsuredTraveling.Resource.Search_Policy</a></li>
             <li id="registeredUsers"><a href="#" onclick="ShowUsers()">@InsuredTraveling.Resource.Search_Users</a></li>
         }
         
@@ -1355,7 +1356,8 @@
         $("#searchUsers").hide();
         $("#searchEvents").hide();
         $("#searchPolycies").show();
-
+        $("#tablePolicies").show();
+       
         $("#events").removeAttr("class");
         $("#registeredUsers").removeAttr("class");
         $("#clients").removeAttr("class");
