@@ -94,6 +94,7 @@ namespace InsuredTraveling.Controllers
             catch(Exception ex)
             {
                 ViewBag.Success = false;
+                return View(model);
             }
             ViewBag.Success = true;
             return View(model);
@@ -156,12 +157,12 @@ namespace InsuredTraveling.Controllers
         }
         [HttpPost]
         [Route("CheckSSN")]
-        public JObject CheckSSN(string SSN, string SSN_Holder)
+        public JObject CheckSSN( string SSN_Holder)
         {
 
             var JSONObject = new JObject();
             JSONObject.Add("Error", "");
-            if (SSN == null || SSN == "" || SSN_Holder == null || SSN_Holder == "")
+            if ( SSN_Holder == null || SSN_Holder == "")
             {
                 JSONObject.Add("Error", "Internal error: Empty Input");
                 throw new Exception("Internal error: Empty Input");
@@ -170,36 +171,36 @@ namespace InsuredTraveling.Controllers
             {
                 ValidationService ValService = new ValidationService();
 
-                bool SSN_result = ValService.validateSSN_Advanced(SSN);
+               // bool SSN_result = ValService.validateSSN_Advanced(SSN);
                 bool SSN_Holder_result = ValService.validateSSN_Advanced(SSN_Holder);
                 string subSSN = "";
                 string subSSN_Holder = "";
 
                
                
-                    if (SSN.Length == 13)
-                    {
-                        subSSN = SSN.Substring(8, 5);
-                    }
+                    //if (SSN.Length == 13)
+                    //{
+                    //    subSSN = SSN.Substring(10, 3);
+                    //}
 
                     if (SSN_Holder.Length == 13)
                     {
-                        subSSN_Holder = SSN_Holder.Substring(8, 5);
+                        subSSN_Holder = SSN_Holder.Substring(10, 3);
                     }
 
-                    if (SSN_result || subSSN == "00000")
-                    {
+                    //if (SSN_result || subSSN == "000")
+                    //{
 
-                        JSONObject.Add("SSN", "true");
+                    //    JSONObject.Add("SSN", "true");
                      
-                    }
-                    else
-                    {
-                        JSONObject.Add("SSN", "false");
+                    //}
+                    //else
+                    //{
+                    //    JSONObject.Add("SSN", "false");
                        
-                    }
+                    //}
 
-                    if (SSN_Holder_result || subSSN_Holder == "00000")
+                    if (SSN_Holder_result || subSSN_Holder == "000")
                     {
                         JSONObject.Add("SSN_Holder", "true");
                        
@@ -288,6 +289,7 @@ namespace InsuredTraveling.Controllers
                     var dateCreated = dr.ItemArray[2].ToString();
                     var expiry_date = dr.ItemArray[3].ToString();
                     var premium = dr.ItemArray[4].ToString();
+                    
                     //var discount_points = dr.ItemArray[5].ToString();
 
                     if (policy_number != "" && SSN_insured != "" && SSN_policyHolder != "" && expiry_date != "" && premium != "" && dateCreated != "")
@@ -297,13 +299,16 @@ namespace InsuredTraveling.Controllers
                         policyModel.SSN_insured = " ";
                         policyModel.SSN_policyHolder = (dr.ItemArray[1]).ToString();
                         string tempDateCreated = (dr.ItemArray[2]).ToString();
-                        
+                        var asd2 = double.Parse(tempDateCreated);
+                        DateTime conv1 = DateTime.FromOADate(asd2);
+                        var tempDateCreatedReplaced = conv1.ToString("dd/MM/yyy");
+
 
                         try
                         {
                             var dateTime = ConfigurationManager.AppSettings["DateFormat"];
                             var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
-                            DateTime startDate1 = String.IsNullOrEmpty(tempDateCreated) ? new DateTime() : DateTime.ParseExact(tempDateCreated, dateTimeFormat, CultureInfo.InvariantCulture);
+                            DateTime startDate1 = String.IsNullOrEmpty(tempDateCreatedReplaced) ? new DateTime() : DateTime.ParseExact(tempDateCreatedReplaced, dateTimeFormat, CultureInfo.InvariantCulture);
 
                             policyModel.date_created = startDate1;
                         }
@@ -314,11 +319,15 @@ namespace InsuredTraveling.Controllers
                         }
 
                         string tempExpiry = (dr.ItemArray[3]).ToString();
+                        var asd = double.Parse(tempExpiry);
+                        DateTime conv = DateTime.FromOADate(asd);
+                        var tempx = conv.ToString("dd/MM/yyy");
+                        
                         try
                         {
                             var dateTime = ConfigurationManager.AppSettings["DateFormat"];
                             var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
-                            DateTime startDate1 = String.IsNullOrEmpty(tempExpiry) ? new DateTime() : DateTime.ParseExact(tempExpiry, dateTimeFormat, CultureInfo.InvariantCulture);
+                            DateTime startDate1 = String.IsNullOrEmpty(tempx) ? new DateTime() : DateTime.ParseExact(tempx, dateTimeFormat, CultureInfo.InvariantCulture);
 
                             policyModel.expiry_date = startDate1;
                         }
@@ -330,7 +339,8 @@ namespace InsuredTraveling.Controllers
 
                         try
                         {
-                            policyModel.premium = Convert.ToInt32(dr.ItemArray[4]);
+                            policyModel.premium = Math.Abs(Convert.ToInt32(dr.ItemArray[4]));
+                            
                         }
                         catch (Exception ex)
                         {

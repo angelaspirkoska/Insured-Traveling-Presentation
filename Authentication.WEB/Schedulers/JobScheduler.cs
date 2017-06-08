@@ -27,7 +27,7 @@ namespace InsuredTraveling.Schedulers
             //    .Build();
             scheduler.ScheduleJob(
              JobBuilder.Create<EmailJob>().Build(),
-             TriggerBuilder.Create().WithSimpleSchedule(s => s.WithIntervalInHours(1).RepeatForever()).Build()); // privremeno
+             TriggerBuilder.Create().WithSimpleSchedule(s => s.WithIntervalInHours(8).RepeatForever()).Build()); // privremeno
 
             // start scheduler
             scheduler.Start();

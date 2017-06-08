@@ -192,7 +192,7 @@
                         var returnedData = JSON.parse(data);
                         if (returnedData.Error2 == 1) {
                             red4(SSN_policyHolder);
-                            alert("Korisnik so takva polisa ne postoi");
+                            alert("Корисник со таков матичен број не постои");
                         }
                         //if (returnedData.SSN != "true") {
                                                 //    red2(SSN_insured);
@@ -324,11 +324,11 @@
                     type: 'POST',
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        alert("Uspesno zacuvana polisa");
+                        alert("Успешно зачувана полиса");
                     }
                 });
             } else {
-                alert("Policy not valid");
+                alert("Невалидна полиса");
             }
         });
     });
