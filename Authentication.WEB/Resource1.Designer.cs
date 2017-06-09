@@ -2725,6 +2725,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to add new sale point!.
+        /// </summary>
+        public static string SalePoint_Failure {
+            get {
+                return ResourceManager.GetString("SalePoint_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insurance deal.
         /// </summary>
         public static string SalePoint_InsuranceDeal {
@@ -2739,6 +2748,15 @@ namespace InsuredTraveling {
         public static string SalePoint_Latitude {
             get {
                 return ResourceManager.GetString("SalePoint_Latitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List sale points.
+        /// </summary>
+        public static string SalePoint_List {
+            get {
+                return ResourceManager.GetString("SalePoint_List", resourceCulture);
             }
         }
         
@@ -2811,6 +2829,15 @@ namespace InsuredTraveling {
         public static string SalePoint_Street {
             get {
                 return ResourceManager.GetString("SalePoint_Street", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A new sale point has been added!.
+        /// </summary>
+        public static string SalePoint_Successful {
+            get {
+                return ResourceManager.GetString("SalePoint_Successful", resourceCulture);
             }
         }
         

@@ -1623,4 +1623,13 @@
   <data name="SalePoint_Longitude" xml:space="preserve">
     <value>Longitude</value>
   </data>
+  <data name="SalePoint_Failure" xml:space="preserve">
+    <value>Failed to add new sale point!</value>
+  </data>
+  <data name="SalePoint_Successful" xml:space="preserve">
+    <value>A new sale point has been added!</value>
+  </data>
+  <data name="SalePoint_List" xml:space="preserve">
+    <value>List sale points</value>
+  </data>
 </root>

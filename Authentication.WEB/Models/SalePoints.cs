@@ -26,7 +26,7 @@ namespace InsuredTraveling.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         
         public string OpeningHours { get; set; }
-
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string Longitude { get; set; }
         public string Latitude { get; set; }
 

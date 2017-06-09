@@ -1617,4 +1617,13 @@
   <data name="SalePoint_Longitude" xml:space="preserve">
     <value>Географска должина</value>
   </data>
+  <data name="SalePoint_Failure" xml:space="preserve">
+    <value>Неуспешно додавање на ново продажно место!</value>
+  </data>
+  <data name="SalePoint_Successful" xml:space="preserve">
+    <value>Ново продажно место е успешно додадено!</value>
+  </data>
+  <data name="SalePoint_List" xml:space="preserve">
+    <value>Излистај продажни места</value>
+  </data>
 </root>
