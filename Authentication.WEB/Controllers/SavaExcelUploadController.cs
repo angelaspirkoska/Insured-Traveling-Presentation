@@ -301,7 +301,7 @@ namespace InsuredTraveling.Controllers
                         string tempDateCreated = (dr.ItemArray[2]).ToString();
                         var asd2 = double.Parse(tempDateCreated);
                         DateTime conv1 = DateTime.FromOADate(asd2);
-                        var tempDateCreatedReplaced = conv1.ToString("dd/MM/yyy");
+                        var tempDateCreatedReplaced = conv1.Date.ToString("dd'/'MM'/'yyyy");
 
 
                         try
@@ -321,7 +321,7 @@ namespace InsuredTraveling.Controllers
                         string tempExpiry = (dr.ItemArray[3]).ToString();
                         var asd = double.Parse(tempExpiry);
                         DateTime conv = DateTime.FromOADate(asd);
-                        var tempx = conv.ToString("dd/MM/yyy");
+                        var tempx = conv.ToString("dd'/'MM'/'yyyy");
                         
                         try
                         {

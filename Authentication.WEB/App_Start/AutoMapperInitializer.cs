@@ -642,6 +642,10 @@ namespace InsuredTraveling.App_Start
                 dst.Premium = src.premium.ToString();
                 dst.Points = src.discount_points.ToString();
                 dst.EmailSeller = src.email_seller;
+                dst.createdBy = src.createdBy;
+                dst.date_created = src.date_created.HasValue? src.date_created.Value.ToString(dateTimeFormat, new CultureInfo("en-US")) : "/";
+                dst.timestamp = src.timestamp.HasValue ? src.timestamp.Value.ToString(dateTimeFormat, new CultureInfo("en-US")) : "/";
+
             });
 
             Mapper.CreateMap<first_notice_of_loss, SearchFNOLViewModel>().AfterMap((src, dst) =>

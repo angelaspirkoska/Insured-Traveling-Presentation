@@ -15,5 +15,10 @@ namespace InsuredTraveling.ViewModels
         public string Premium { get; set; }
         public string EmailSeller { get; set; }
         public string Points { get; set; }
+
+        public string date_created { get; set; }
+        public string  timestamp { get; set; }
+        public string createdBy { get; set; }
+
     }
 }

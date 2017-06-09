@@ -17,22 +17,23 @@ namespace InsuredTraveling.Schedulers
 
             IJobDetail job = JobBuilder.Create<EmailJob>().Build();
 
-            //ITrigger trigger = TriggerBuilder.Create()
-            //    .WithDailyTimeIntervalSchedule
-            //      (s =>
-            //         s.WithIntervalInHours(24)
-            //        .OnEveryDay()
-            //        .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(23, 59))
-            //      )
-            //    .Build();
-            scheduler.ScheduleJob(
-             JobBuilder.Create<EmailJob>().Build(),
-             TriggerBuilder.Create().WithSimpleSchedule(s => s.WithIntervalInHours(8).RepeatForever()).Build()); // privremeno
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithDailyTimeIntervalSchedule
+                  (s =>
+                     s.WithIntervalInHours(24)
+                    .OnEveryDay()
+                    .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(23, 59)).InTimeZone(TimeZoneInfo.Utc)
+                  )
+                .Build();
+
+            //scheduler.ScheduleJob(
+            // JobBuilder.Create<EmailJob>().Build(),
+            // TriggerBuilder.Create().WithSimpleSchedule(s => s.WithIntervalInHours(8).RepeatForever()).Build()); // privremeno
 
             // start scheduler
             scheduler.Start();
 
-            //scheduler.ScheduleJob(job, trigger);
+            scheduler.ScheduleJob(job, trigger);
 
 
 

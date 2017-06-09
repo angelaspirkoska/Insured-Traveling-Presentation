@@ -69,7 +69,7 @@ namespace InsuredTraveling.Controllers
         {
             Sava_AdminPanelModel Sok = APM.SavaAdmin;
             RoleAuthorize rol = new RoleAuthorize();
-            if (ModelState.IsValid && TryValidateModel(APM.SavaAdmin, "SavaAdmin."))
+            if (Sok.vip_sum != 0 && Sok.points_percentage != 0)
             {
 
 
@@ -79,10 +79,10 @@ namespace InsuredTraveling.Controllers
                 {
                     Sok.email_administrator = "";
                     Sok.last_modify_by = System.Web.HttpContext.Current.User.Identity.Name;
-                    Sok.timestamp = DateTime.UtcNow;
-
+                    Sok.timestamp = DateTime.Now.Date;
                     _sok.AddSavaOkSetup(Sok);
-                    ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
+
+                   // ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
                 }
                 catch (Exception ex)
                 {
@@ -108,7 +108,7 @@ namespace InsuredTraveling.Controllers
                     // ViewBag.TabIndex = "2";
                 }
             
-                return View("Index");
+                return View("Index", APM);
          
         }
 
