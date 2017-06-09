@@ -9,8 +9,9 @@ namespace InsuredTraveling.Models
         public int  id { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string LocationName { get; set; }
-
+    
         public bool insuranceDeal { get; set; }
+     
         public bool damageReport { get; set; }
         
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
@@ -23,11 +24,13 @@ namespace InsuredTraveling.Models
         [RegularExpression("^[0-9]*$", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "OnlyNumbers")]
         public int PostalCode { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
-        
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]  
         public string OpeningHours { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string Longitude { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string Latitude { get; set; }
 
         public string PhoneNumber { get; set; }
