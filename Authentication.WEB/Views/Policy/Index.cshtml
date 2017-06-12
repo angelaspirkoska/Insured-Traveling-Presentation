@@ -75,10 +75,8 @@
             </div>
         </div>
     </div>
-    @{
-        RoleAuthorize r = new RoleAuthorize();
-    }
-    @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Broker manager") || r.IsUser("Sava_admin") )
+
+    @if (RoleAuthorize.IsUser("Admin") || RoleAuthorize.IsUser("Broker") || RoleAuthorize.IsUser("Broker manager") || RoleAuthorize.IsUser("Sava_admin") )
     {
         <div class="row">
             <header class="well" id="HolderInformation">
@@ -157,14 +155,14 @@
             <a href="javascript:void(0)" id="InsuredInformation">
                 @InsuredTraveling.Resource.Policy_InsuredInformation
             </a>
-            @if (r.IsUser("End user"))
+            @if (RoleAuthorize.IsUser("End user"))
             {
                 @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "checkbox-policyholder", @ariahidden = "false" })
                 <p class="checkbox-label">
                     @InsuredTraveling.Resource.Policy_IamInsured
                 </p>
             }
-            @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Broker manager"))
+            @if (RoleAuthorize.IsUser("Admin") || RoleAuthorize.IsUser("Broker") || RoleAuthorize.IsUser("Broker manager"))
             {
                 @Html.CheckBoxFor(model => model.IsSamePolicyHolderInsured, new { @class = "checkbox-policyholder", @ariahidden = "false", @id = "IsSamePolicyHolderInsuredAdmin" })
                 <p class="checkbox-label">

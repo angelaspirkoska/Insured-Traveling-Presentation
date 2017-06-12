@@ -9,11 +9,13 @@ using System.Net;
 using System.Linq;
 using static InsuredTraveling.Models.AdminPanel;
 using System.Configuration;
-using AutoMapper;
 using System.Net.Http;
 using InsuredTraveling.Filters;
-using System.Web.Http.Routing;
 using InsuredTraveling.DI;
+using InsuredTraveling.App_Start;
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security.Cookies;
 
 namespace InsuredTraveling.Controllers
 {
@@ -21,57 +23,41 @@ namespace InsuredTraveling.Controllers
     [System.Web.Http.RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private AuthRepository _repo;
-        private IUserService _IUser;
+        #region Parameters
+        private readonly AuthRepository _authRepository;
+        private readonly IUserService _userService;
+        private ApplicationUserManager _userManager;
+        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+        #endregion
 
-        public AccountController(IUserService Iuser)
+        public AccountController(IUserService userService)
         {
-            _IUser = Iuser;
-            _repo = new AuthRepository();
+            _userService = userService;
+            _authRepository = new AuthRepository();
         }
 
         public AccountController()
         {
-            _repo = new AuthRepository();
-
+            _authRepository = new AuthRepository();
         }
-        
-        //Za testiranje samo
-        [HttpPost]
-        public IHttpActionResult Check()
+
+        public AccountController(ApplicationUserManager userManager,
+                        ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
-            FirstNoticeOfLossReportViewModel f = new FirstNoticeOfLossReportViewModel();
-            //f.PolicyType = "Comfort";
-            //f.policyNumber = 123456;
-            //f.username = "Daki123";
-            //f.TransactionAccount = "jsJADKJASD";
-            //f.deponent = "akhKSDds";
-            //f.insuredAddress = "jsaksf";
-            //f.insuredEMBG = "jsaksf";
-            //f.insuredName = "jsaksf";
-            //f.insuredPhone = "jsaksf";
-            //f.insuredTransactionAccount = "jsaksf";
-            //f.deponentInsured = "msalfdf";
-            //f.relationship = "friend";
-            //f.travelDestination = "gldfd";
-            //f.message = "fnlgfsldfgk;dfxlgd;f";
-            //f.additionalDocumentsHanded = "dajda";
-            //f.travelTimeFrom = DateTime.Now.TimeOfDay;
-            //f.travelTimeTo = DateTime.Now.TimeOfDay;
-            //f.travelDateFrom = DateTime.Now;
-            //f.travelDateTo = DateTime.Now;
-            //f.message = "sjaDKa";
-            //f.valueExpenses = 100;
-            ////f.ShortDetailed = true;
-            ////f.LuggageInsurance = true;
-            ////f.HealthInsurance = false;
-            ////f.WebMobile = false;
-            //f.transportationType = "Car";
+            _userManager = userManager;
+            AccessTokenFormat = accessTokenFormat;
+        }
 
-            
-
-            var fnol = Mapper.Map<FirstNoticeOfLossReportViewModel, first_notice_of_loss>(f);
-            return Ok(new { fnol = fnol});
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
         }
 
         [HttpPost]
@@ -82,7 +68,7 @@ namespace InsuredTraveling.Controllers
             {
                 return BadRequest(ModelState);
             }
-            IdentityResult result =_repo.AddUserToRole(r.UserID, r.Name);
+            IdentityResult result = _authRepository.AddUserToRole(r.UserID, r.Name);
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -98,17 +84,9 @@ namespace InsuredTraveling.Controllers
         [Route("AddClient")]
         public IHttpActionResult AddClient(Client c)
         {
-            if (_repo.AddClient(c) != -1)
+            if (_authRepository.AddClient(c) != -1)
                 return Ok();
             return InternalServerError();
-        }
-
-        [HttpGet]
-        [Route("RefreshToken")]
-        public IHttpActionResult RefreshToken(string refresh_token)
-        {
-            _repo.RefreshToken(refresh_token);
-            return Ok();
         }
 
         [HttpPost]
@@ -119,7 +97,7 @@ namespace InsuredTraveling.Controllers
             {
                 return BadRequest(ModelState);
             }
-            IdentityResult result =  _repo.AddRole(r);
+            IdentityResult result = _authRepository.AddRole(r);
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -135,38 +113,31 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.Route("Register")]
         public async Task<IHttpActionResult> Register(UserModel userModel)
         {
-            
             if (!ModelState.IsValid)
-            {                       
+            {
                 return BadRequest(ModelState);
             }
-            IdentityResult results = _repo.FindUserByUsername(userModel.UserName).Result;
-            var pp = results.Errors.ToList();
-             
+            IdentityResult results = _authRepository.FindUserByUsername(userModel.UserName).Result;
+            var errors = results.Errors.ToList();
 
-            if ( pp[0] == "OK" )
+            if (errors[0] == "OK")
             {
+                IdentityResult result = await _authRepository.CreateApplicationUser(userModel);
+                IHttpActionResult errorResult = GetErrorResult(result);
 
+                if (errorResult != null)
+                    return errorResult;
 
-
-                IdentityResult result = await _repo.RegisterUser(userModel);
-
-            IHttpActionResult errorResult = GetErrorResult(result);
-
-            if (errorResult != null)
-            {
-                return errorResult;
-            }
-              var id =  _repo.GetUserID(userModel.UserName);
-            return Ok("userId: "+id);
+                var id = _authRepository.GetUserID(userModel.UserName);
+                return Ok("userId: " + id);
             }
             string errorString = "";
             foreach (var err in results.Errors)
             {
-                errorString = errorString + " "+ err.ToString();
+                errorString = errorString + " " + err.ToString();
             }
-           return  BadRequest(errorString);
-            
+            return BadRequest(errorString);
+
         }
 
         [System.Web.Http.AllowAnonymous]
@@ -182,7 +153,7 @@ namespace InsuredTraveling.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await _repo.RegisterUserWeb(userModel);
+            IdentityResult result = await _authRepository.CreateApplictionUserWeb(userModel);
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -199,17 +170,17 @@ namespace InsuredTraveling.Controllers
         [Route("ActivateAccount")]
         public IHttpActionResult ActivateAccount(UserDTO username)
         {
-             _repo.ActivateAccount(username.username);
+            _authRepository.ActivateAccount(username.username);
             return Ok();
         }
-        
+
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("FindUser")]
         public async Task<IHttpActionResult> FindUsername(UserDTO username)
         {
             if (!String.IsNullOrEmpty(username.username))
             {
-                IdentityResult result = await _repo.FindUserByUsername(username.username);
+                IdentityResult result = await _authRepository.FindUserByUsername(username.username);
 
                 IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -224,16 +195,16 @@ namespace InsuredTraveling.Controllers
 
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("FindSSN")]
-        public  async Task<IHttpActionResult> FindSSN(JObject ssn)
+        public async Task<IHttpActionResult> FindSSN(JObject ssn)
         {
             string StringSsn = ssn["ssn"].ToString();
             if (!String.IsNullOrEmpty(StringSsn))
             {
-                var result =  _IUser.GetUserBySSN(StringSsn);
-               
+                var result = _userService.GetUserBySSN(StringSsn);
+
                 if (result != null)
                 {
-                    return Ok() ;
+                    return Ok();
                 }
 
             }
@@ -247,7 +218,7 @@ namespace InsuredTraveling.Controllers
         {
             if (username != null)
             {
-                var id = _repo.GetUserID(username.username);
+                var id = _authRepository.GetUserID(username.username);
                 var data = new JObject();
                 data.Add("id", id);
                 return Json(data);
@@ -255,13 +226,13 @@ namespace InsuredTraveling.Controllers
             return null;
         }
 
-       
-
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            if (disposing && _userManager != null)
             {
-                _repo.Dispose();
+                _userManager.Dispose();
+                _userManager = null;
+                _authRepository.Dispose();
             }
 
             base.Dispose(disposing);
@@ -272,9 +243,9 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.Route("FillUser")]
         public async Task<IHttpActionResult> FillUserDetails(UserModel_Detail userModel)
         {
-            IdentityResult result = await _repo.FillUserDetails(userModel);
+            IdentityResult result = await _authRepository.FillUserDetails(userModel);
 
-            IHttpActionResult errorResult = GetErrorResult(result);         
+            IHttpActionResult errorResult = GetErrorResult(result);
 
             if (errorResult != null)
             {
@@ -289,14 +260,10 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.Route("ForgetPassword")]
         public void ForgetPassword(UserDTO username)
         {
-            if (username.username !=null)
-            {
-                _repo.ForgetPassword(username.username);
-            }
+            if (username.username != null)
+                _authRepository.SendEmailForForgetPasswordByUserName(username.username);
             else
-            {
-                _repo.ForgetPassword2(username.email);
-            }
+                _authRepository.SendEmailForForgetPasswordByEmail(username.email);
         }
 
         [TwilioDownHandlingFilter]
@@ -305,10 +272,8 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.Route("SendSmSCode")]
         public async Task<IHttpActionResult> SendSmsCode(UserDTO user)
         {
-            var result = await  _repo.SendSmsCode(user.username);
-
+            var result = await _authRepository.SendSmsCode(user.username);
             IHttpActionResult errorResult = GetErrorResult(result);
-
             if (errorResult != null)
             {
                 return errorResult;
@@ -322,7 +287,7 @@ namespace InsuredTraveling.Controllers
         [System.Web.Http.Route("ConfirmSms")]
         public async Task<IHttpActionResult> ConfirmSms(UserDTO user)
         {
-            var result = await _repo.ConfirmSmsCode(user.username, user.code);
+            var result = await _authRepository.ConfirmSmsCode(user.username, user.code);
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -332,34 +297,6 @@ namespace InsuredTraveling.Controllers
             }
 
             return Ok();
-        }
-
-        [System.Web.Http.HttpGet]
-        [System.Web.Http.Route("DeleteToken")]
-        [AllowAnonymous]
-        public IHttpActionResult DeleteToken()
-        {
-            
-            if (HttpContext.Current.Request.Cookies["token"] != null)
-            {
-                var token = HttpContext.Current.Request.Cookies["token"];
-                token.Expires = DateTime.Now.AddYears(-1);
-                HttpContext.Current.Response.Cookies.Remove("token");
-                HttpContext.Current.Response.Cookies.Clear();
-                HttpContext.Current.Response.Cookies.Set(token);
-
-            }
-
-            if (HttpContext.Current.Request.Cookies["refresh_token"] != null)
-            {
-                var refresh_token = HttpContext.Current.Request.Cookies["refresh_token"];
-                refresh_token.Expires = DateTime.Now.AddYears(-1);
-                HttpContext.Current.Response.Cookies.Remove("refresh_token");
-                HttpContext.Current.Response.Cookies.Clear();
-                HttpContext.Current.Response.Cookies.Set(refresh_token);
-            }
-  
-             return Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
@@ -381,15 +318,14 @@ namespace InsuredTraveling.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    // No ModelState errors are available to send, so just return an empty BadRequest.
                     return BadRequest();
                 }
 
                 string resultError = " ";
 
-                foreach(var r in result.Errors)
+                foreach (var r in result.Errors)
                 {
-                    resultError += r.ToString() + " "; 
+                    resultError += r.ToString() + " ";
                 }
                 if (resultError.Trim(' ') == "OK")
                 {
@@ -400,5 +336,57 @@ namespace InsuredTraveling.Controllers
 
             return null;
         }
+
+        // POST api/Account/Logout
+        [Route("Logout")]
+        public IHttpActionResult Logout()
+        {
+            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            return Ok();
+        }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("DeleteToken")]
+        [AllowAnonymous]
+        public IHttpActionResult DeleteToken()
+        {
+
+            if (HttpContext.Current.Request.Cookies["token"] != null)
+            {
+                var token = HttpContext.Current.Request.Cookies["token"];
+                token.Expires = DateTime.Now.AddYears(-1);
+                HttpContext.Current.Response.Cookies.Remove("token");
+                HttpContext.Current.Response.Cookies.Clear();
+                HttpContext.Current.Response.Cookies.Set(token);
+            }
+
+            if (HttpContext.Current.Request.Cookies["username"] != null)
+            {
+                var username = HttpContext.Current.Request.Cookies["username"];
+                username.Expires = DateTime.Now.AddYears(-1);
+                HttpContext.Current.Response.Cookies.Remove("username");
+                HttpContext.Current.Response.Cookies.Clear();
+                HttpContext.Current.Response.Cookies.Set(username);
+            }
+
+            if (HttpContext.Current.Request.Cookies["expires"] != null)
+            {
+                var expires = HttpContext.Current.Request.Cookies["expires"];
+                expires.Expires = DateTime.Now.AddYears(-1);
+                HttpContext.Current.Response.Cookies.Remove("expires");
+                HttpContext.Current.Response.Cookies.Clear();
+                HttpContext.Current.Response.Cookies.Set(expires);
+            }
+
+            return Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
+        }
+
+
+        #region Helpers
+        private IAuthenticationManager Authentication
+        {
+            get { return Request.GetOwinContext().Authentication; }
+        }
+        #endregion
     }
 }

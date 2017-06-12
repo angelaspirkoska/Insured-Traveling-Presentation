@@ -1,48 +1,19 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace InsuredTraveling.Filters
 {
-    public class RoleAuthorize : AuthorizeAttribute
+    public static class RoleAuthorize
     {
-        InsuredTravelingEntity2 context = new InsuredTravelingEntity2();
-        private readonly string[] allowedroles;
-
-        public RoleAuthorize(params string[] roles)
+        public static bool IsUser(string role)
         {
-            allowedroles = roles;
-        }
+            InsuredTravelingEntity2 context = new InsuredTravelingEntity2();
 
-        protected override bool AuthorizeCore(HttpContextBase httpContext)
-        {
+            string username = GetCurrentLoggedUser();
             bool authorize = false;
-            foreach (var role in allowedroles)
-            {
-                var user = httpContext.User;
-                var aspnetuser = context.aspnetusers.Where(m => m.UserName == user.Identity.Name);
-                if (aspnetuser.Count() == 0)
-                    return false;
-                var selectedUser = aspnetuser.Single();
-                if(selectedUser.aspnetroles.Count == 0)
-                {
-                    authorize = false;
-                    return authorize;
-                }
-                authorize = selectedUser.aspnetroles.FirstOrDefault().Name == role;          
-            }
-            return authorize;
-        }
-        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
-        {
-            filterContext.Result = new HttpUnauthorizedResult();
-        }
-
-        public bool IsUser(string role)
-        {
-            bool authorize = false;
-            var user = System.Web.HttpContext.Current.User;
-            aspnetuser aspnetuser = context.aspnetusers.Where(m => m.UserName == user.Identity.Name).FirstOrDefault();
+            aspnetuser aspnetuser = context.aspnetusers.Where(m => m.UserName == username).FirstOrDefault();
             if (aspnetuser == null)
                 return authorize;     
             if (aspnetuser.aspnetroles.Count == 0)
@@ -54,9 +25,10 @@ namespace InsuredTraveling.Filters
             
             return authorize;
         }
-
-        public bool IsUser(string role, string username)
+        public static bool IsUser(string role, string username)
         {
+            InsuredTravelingEntity2 context = new InsuredTravelingEntity2();
+
             bool authorize = false;
             aspnetuser aspnetuser = context.aspnetusers.FirstOrDefault(m => m.UserName == username);
             if (aspnetuser == null)
@@ -67,14 +39,48 @@ namespace InsuredTraveling.Filters
 
             return authorize;
         }
-
-        public string UserSsn(string username)
+        public static string UserSsn(string username)
         {
+            InsuredTravelingEntity2 context = new InsuredTravelingEntity2();
+
             aspnetuser aspnetuser = context.aspnetusers.FirstOrDefault(m => m.UserName == username);
             if (aspnetuser == null)
                 return null;
             else
                 return aspnetuser.EMBG.ToString();
+        }
+
+        public static string GetCurrentLoggedUser()
+        {
+            string username = "";
+     
+            var usernameCookie = HttpContext.Current.Request.Cookies["username"];
+            if (usernameCookie != null)
+            {
+                if (usernameCookie.Value != null)
+                {
+                    username = usernameCookie.Value;
+                   
+                }
+            }
+            return username;
+        }
+
+        public static bool IsUserLoggedIn()
+        {
+            var token = HttpContext.Current.Request.Cookies["token"];
+            var expires = HttpContext.Current.Request.Cookies["expires"];
+            if(token != null && expires != null)
+            {
+                if(token.Value != null && expires.Value != null)
+                {
+                    if(DateTime.UtcNow < Convert.ToDateTime(expires.Value))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

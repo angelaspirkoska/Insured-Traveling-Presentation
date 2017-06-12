@@ -11,7 +11,6 @@ namespace InsuredTraveling.Helpers
         public static int SaveSavaPolicies(ISavaPoliciesService _savaPoliciesService,
                                            IUserService _userService,
                                            ISava_setupService _savaSetupService,
-                                           RoleAuthorize _roleAuthorize, 
                                            SavaPolicyModel model)
         {
             var policyHolder = _userService.GetUserBySSN(model.SSN_policyHolder);
@@ -31,7 +30,7 @@ namespace InsuredTraveling.Helpers
                     _userService.UpdateUserPoints(policyHolder);
                     _userService.UpdatePremiumSum(model.SSN_policyHolder, policy.premium, policy.expiry_date );
                 }
-                ChangeUserRole(_savaSetupService, _userService, _roleAuthorize, policyHolder);
+                ChangeUserRole(_savaSetupService, _userService,  policyHolder);
                 return returnValue;
             }
             else
@@ -43,7 +42,6 @@ namespace InsuredTraveling.Helpers
 
         public static bool ChangeUserRole(ISava_setupService _savaSetupService, 
                                           IUserService _userService,
-                                          RoleAuthorize _roleAuthorize,
                                           aspnetuser policyHolder)
         {
             try
@@ -57,13 +55,13 @@ namespace InsuredTraveling.Helpers
                     UserSumPremiums = 0;
                 }
 
-                if (_roleAuthorize.IsUser("Sava_normal", policyHolder.UserName))
+                if (RoleAuthorize.IsUser("Sava_normal", policyHolder.UserName))
                 {
                     string userRole = "Сава+ корисник на Сава осигурување";
                     SendSavaEmailHelper.SendEmailForUserChangeRole(policyHolder.Email, policyHolder.FirstName, policyHolder.LastName, userRole);
                     _repo.AddUserToRole(policyHolder.Id, "Sava_Sport+");
                 }
-                if (_roleAuthorize.IsUser("Sava_Sport+", policyHolder.UserName))
+                if (RoleAuthorize.IsUser("Sava_Sport+", policyHolder.UserName))
                 {
                     if (Sava_admin.vip_sum <= UserSumPremiums)
                     {

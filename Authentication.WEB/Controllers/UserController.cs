@@ -6,9 +6,11 @@ using System.Web.Mvc;
 using AutoMapper;
 using InsuredTraveling.DI;
 using InsuredTraveling.Models;
+using InsuredTraveling.Filters;
 
 namespace InsuredTraveling.Controllers
 {
+    [SessionExpireAttribute]
     public class UserController : Controller
     {
         // GET: User

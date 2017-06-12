@@ -21,7 +21,7 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 
 namespace InsuredTraveling.Controllers
 {
-    [SessionExpire]
+    [SessionExpireAttribute]
     public class SearchController : Controller
     {
 
@@ -34,7 +34,6 @@ namespace InsuredTraveling.Controllers
         private ICountryService _countryService;
         private IChatService _ics;
         private IPolicySearchService _policySearchService;
-        private RoleAuthorize _roleAuthorize;
         private IFirstNoticeOfLossArchiveService _firstNoticeLossArchiveService;
         private IRolesService _rs;
         private IEventsService _es;
@@ -71,7 +70,6 @@ namespace InsuredTraveling.Controllers
             _ics = ics;
             _rs = rs;
             _policySearchService = policySearchService;
-            _roleAuthorize = new RoleAuthorize();
             _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
             _es = es;
             _savaPoliciesService = savaPoliciesService;
@@ -83,8 +81,6 @@ namespace InsuredTraveling.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
             var type_policies = GetTypeOfPolicy();
             ViewBag.TypeOfPolicy = type_policies.Result;
 
@@ -94,7 +90,7 @@ namespace InsuredTraveling.Controllers
             var policies = GetAllPolicies();
             ViewBag.Policies = policies.Result;
             var roles = _rs.GetAll().ToList();
-            if (_roleAuthorize.IsUser("Sava_admin"))
+            if (RoleAuthorize.IsUser("Sava_admin"))
             {
                 roles  = GetAdminManagerRoles();
             }
@@ -108,7 +104,7 @@ namespace InsuredTraveling.Controllers
         public JObject GetUsers(string name, string lastname, string embg, string address, string email, string postal_code, string phone, string city, string passport)
         {
             List<SearchClientsViewModel> searchModel = new List<SearchClientsViewModel>();
-            if (_roleAuthorize.IsUser("Broker") || _roleAuthorize.IsUser("Broker manager"))
+            if (RoleAuthorize.IsUser("Broker") || RoleAuthorize.IsUser("Broker manager"))
             {
                 var data = _iss.GetInsuredBySearchValues(name, lastname, embg, address, email, postal_code, phone, city, passport, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name));
                 searchModel = data.Select(Mapper.Map<insured, SearchClientsViewModel>).ToList();
@@ -135,7 +131,7 @@ namespace InsuredTraveling.Controllers
             JArray chatJArray = new JArray();
             bool isAdmin = false;
 
-            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
+            if (RoleAuthorize.IsUser("Admin") || RoleAuthorize.IsUser("Claims adjuster"))
             {
                 isAdmin = true;
                 chats = _ics.GetChatsAdmin(System.Web.HttpContext.Current.User.Identity.Name);
@@ -144,7 +140,7 @@ namespace InsuredTraveling.Controllers
                     chats = chats.Where(x => x.Requested_by.Equals(username)).ToList();
                 }
             }
-            else if (_roleAuthorize.IsUser("End user"))
+            else if (RoleAuthorize.IsUser("End user"))
             {
                 chats = _ics.GetChatsEndUser(System.Web.HttpContext.Current.User.Identity.Name);
                 if (!String.IsNullOrEmpty(username))
@@ -203,9 +199,8 @@ namespace InsuredTraveling.Controllers
         [Route("IsAdmin")]
         public JObject isAdmin()
         {
-            RoleAuthorize r = new RoleAuthorize();
             JObject response = new JObject();
-            if(r.IsUser("Admin"))
+            if(RoleAuthorize.IsUser("Admin"))
             {
                 response.Add("isAdmin", true);
             }
@@ -220,9 +215,8 @@ namespace InsuredTraveling.Controllers
         [Route("IsBroker")]
         public JObject isBroker()
         {
-            RoleAuthorize r = new RoleAuthorize();
             JObject response = new JObject();
-            if (r.IsUser("Broker"))
+            if (RoleAuthorize.IsUser("Broker"))
             {
                 response.Add("isBroker", true);
             }
@@ -251,13 +245,13 @@ namespace InsuredTraveling.Controllers
 
             List<sava_policy> data = new List<sava_policy>();
 
-            if (_roleAuthorize.IsUser("Sava_admin"))
+            if (RoleAuthorize.IsUser("Sava_admin"))
             {
                 data = _savaPoliciesService.GetSavaPoliciesAdminForList(number, ssnInsured, ssnHolder);
             }
-            else if(_roleAuthorize.IsUser("Sava_normal") || _roleAuthorize.IsUser("Sava_Sport_VIP") || _roleAuthorize.IsUser("Sava_Sport_VIP"))
+            else if(RoleAuthorize.IsUser("Sava_normal") || RoleAuthorize.IsUser("Sava_Sport_VIP") || RoleAuthorize.IsUser("Sava_Sport_VIP"))
             {
-                var userSSN = _roleAuthorize.UserSsn(username);
+                var userSSN = RoleAuthorize.UserSsn(username);
                 data = _savaPoliciesService.GetSavaPoliciesForList(userSSN, number);
             }
           
@@ -291,15 +285,15 @@ namespace InsuredTraveling.Controllers
             List<travel_policy> data = new List<travel_policy>();
             DateTime dateFromGettingPolicies = DateTime.Now.AddDays(days);
 
-           if (_roleAuthorize.IsUser("Broker"))
+           if (RoleAuthorize.IsUser("Broker"))
            {
                 data = _ps.GetBrokersExpiringPolicies(logUser, dateFromGettingPolicies);
 
-            }else if (_roleAuthorize.IsUser("Broker manager"))
+            }else if (RoleAuthorize.IsUser("Broker manager"))
             {
                 data = _ps.GetBrokerManagerExpiringPolicies(logUser, dateFromGettingPolicies);
 
-            }else if (_roleAuthorize.IsUser("End user"))
+            }else if (RoleAuthorize.IsUser("End user"))
             {
                 data = _ps.GetEndUserExpiringPolicies(logUser, dateFromGettingPolicies);
             }
@@ -334,11 +328,11 @@ namespace InsuredTraveling.Controllers
                     dateFrom = new DateTime(DateTime.Now.Year,1,1);
                     List<travel_policy> policies = null;
 
-                    if (_roleAuthorize.IsUser("Broker"))
+                    if (RoleAuthorize.IsUser("Broker"))
                     {
                         policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
                     }
-                    else if (_roleAuthorize.IsUser("Broker manager"))
+                    else if (RoleAuthorize.IsUser("Broker manager"))
                     {
                          policies = _ps.GetBrokerManagerPolicies(logUserId, dateFrom);
                     }
@@ -374,11 +368,11 @@ namespace InsuredTraveling.Controllers
                     List<travel_policy> policies = null;
                     dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
 
-                    if (_roleAuthorize.IsUser("Broker"))
+                    if (RoleAuthorize.IsUser("Broker"))
                     {
                         policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
                     }
-                    else if (_roleAuthorize.IsUser("Broker manager"))
+                    else if (RoleAuthorize.IsUser("Broker manager"))
                     {
                         policies = _ps.GetBrokerManagerPolicies(logUserId, dateFrom);
                     }
@@ -412,11 +406,11 @@ namespace InsuredTraveling.Controllers
                     dateFrom = dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-7); ;
                     List<travel_policy> policies = null;
 
-                    if (_roleAuthorize.IsUser("Broker"))
+                    if (RoleAuthorize.IsUser("Broker"))
                     {
                         policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
                     }
-                    else if (_roleAuthorize.IsUser("Broker manager"))
+                    else if (RoleAuthorize.IsUser("Broker manager"))
                     {
                         policies = _ps.GetBrokerManagerPolicies(logUserId, dateFrom);
                     }
@@ -471,11 +465,11 @@ namespace InsuredTraveling.Controllers
                         dateFrom = new DateTime(DateTime.Now.Year, 1, 1);
                         List<first_notice_of_loss> fnols = null;
 
-                        if (_roleAuthorize.IsUser("Broker"))
+                        if (RoleAuthorize.IsUser("Broker"))
                         {
                             fnols = _fnls.GetBrokersFnols(logUserId, dateFrom);
 
-                        }else if(_roleAuthorize.IsUser("Broker manager"))
+                        }else if(RoleAuthorize.IsUser("Broker manager"))
                         {
                             fnols = _fnls.GetBrokeManagerFnols(logUserId, dateFrom);
                         }
@@ -510,12 +504,12 @@ namespace InsuredTraveling.Controllers
                     {
                         dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                         List<first_notice_of_loss> fnols = null;
-                        if (_roleAuthorize.IsUser("Broker"))
+                        if (RoleAuthorize.IsUser("Broker"))
                         {
                             fnols = _fnls.GetBrokersFnols(logUserId, dateFrom);
 
                         }
-                        else if (_roleAuthorize.IsUser("Broker manager"))
+                        else if (RoleAuthorize.IsUser("Broker manager"))
                         {
                             fnols = _fnls.GetBrokeManagerFnols(logUserId, dateFrom);
                         }
@@ -549,12 +543,12 @@ namespace InsuredTraveling.Controllers
                         dateFrom = dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-7);
                         List<first_notice_of_loss> fnols = null;
 
-                        if (_roleAuthorize.IsUser("Broker"))
+                        if (RoleAuthorize.IsUser("Broker"))
                         {
                             fnols = _fnls.GetBrokersFnols(logUserId, dateFrom);
 
                         }
-                        else if (_roleAuthorize.IsUser("Broker manager"))
+                        else if (RoleAuthorize.IsUser("Broker manager"))
                         {
                             fnols = _fnls.GetBrokeManagerFnols(logUserId, dateFrom);
                         }
@@ -610,13 +604,13 @@ namespace InsuredTraveling.Controllers
                         List<travel_policy> policies = new List<travel_policy>();
                         List<travel_policy> quotes = new List<travel_policy>();
 
-                        if (_roleAuthorize.IsUser("Broker"))
+                        if (RoleAuthorize.IsUser("Broker"))
                         {
                             policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
                             quotes = _ps.GetBrokersQuotes(logUserId, dateFrom);
 
                         }
-                        else if (_roleAuthorize.IsUser("Broker manager"))
+                        else if (RoleAuthorize.IsUser("Broker manager"))
                         {
                             policies = _ps.GetBrokerManagerPolicies(logUserId, dateFrom);
                             quotes = _ps.GetBrokerManagerQuotes(logUserId, dateFrom);
@@ -650,13 +644,13 @@ namespace InsuredTraveling.Controllers
                         List<travel_policy> policies = new List<travel_policy>();
                         List<travel_policy> quotes = new List<travel_policy>();
 
-                        if (_roleAuthorize.IsUser("Broker"))
+                        if (RoleAuthorize.IsUser("Broker"))
                         {
                             policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
                             quotes = _ps.GetBrokersQuotes(logUserId, dateFrom);
 
                         }
-                        else if (_roleAuthorize.IsUser("Broker manager"))
+                        else if (RoleAuthorize.IsUser("Broker manager"))
                         {
                             policies = _ps.GetBrokerManagerPolicies(logUserId, dateFrom);
                             quotes = _ps.GetBrokerManagerQuotes(logUserId, dateFrom);
@@ -690,13 +684,13 @@ namespace InsuredTraveling.Controllers
                         List<travel_policy> policies = new List<travel_policy>();
                         List<travel_policy> quotes = new List<travel_policy>();
 
-                        if (_roleAuthorize.IsUser("Broker"))
+                        if (RoleAuthorize.IsUser("Broker"))
                         {
                             policies = _ps.GetBrokersPolicies(logUserId, dateFrom);
                             quotes = _ps.GetBrokersQuotes(logUserId, dateFrom);
 
                         }
-                        else if (_roleAuthorize.IsUser("Broker manager"))
+                        else if (RoleAuthorize.IsUser("Broker manager"))
                         {
                             policies = _ps.GetBrokerManagerPolicies(logUserId, dateFrom);
                             quotes = _ps.GetBrokerManagerQuotes(logUserId, dateFrom);
@@ -754,16 +748,16 @@ namespace InsuredTraveling.Controllers
 
             List<travel_policy> data = new List<travel_policy>();
 
-            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
+            if (RoleAuthorize.IsUser("Admin") || RoleAuthorize.IsUser("Claims adjuster"))
             {
                 data = _ps.GetQuotesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, PolicyNumber);
             }
 
-            else if (_roleAuthorize.IsUser("End user") || _roleAuthorize.IsUser("Broker"))
+            else if (RoleAuthorize.IsUser("End user") || RoleAuthorize.IsUser("Broker"))
             {
                 data = _ps.GetQuotesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, logUser, PolicyNumber);
             }
-            else if (_roleAuthorize.IsUser("Broker manager"))
+            else if (RoleAuthorize.IsUser("Broker manager"))
             {
                 data = _ps.GetBrokerManagerBrokersQuotesByCountryAndTypeAndPolicyNumber(TypePolicy, Country, logUser, PolicyNumber);
             }
@@ -888,7 +882,7 @@ namespace InsuredTraveling.Controllers
             DateTime registerDateValue = String.IsNullOrEmpty(registerDate) ? new DateTime() : DateTime.ParseExact(registerDate, dateTimeFormat, CultureInfo.InvariantCulture);
 
             string currentUserId = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
-            if (_roleAuthorize.IsUser("Sava_admin"))
+            if (RoleAuthorize.IsUser("Sava_admin"))
             {
                 data = _us.GetSavaUsersByRoleName(roleName);
             }
@@ -897,7 +891,7 @@ namespace InsuredTraveling.Controllers
                 data = _us.GetUsersByRoleName(roleName);
             }
 
-            if (_roleAuthorize.IsUser("Broker manager"))
+            if (RoleAuthorize.IsUser("Broker manager"))
             {
                 data = data.Where(x => x.CreatedBy == currentUserId).ToList();
             }
@@ -1053,21 +1047,21 @@ namespace InsuredTraveling.Controllers
 
             DateTime dateAdded = String.IsNullOrEmpty(DateAdded) ? new DateTime() : DateTime.ParseExact(DateAdded, dateTimeFormat, CultureInfo.InvariantCulture);
 
-            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster"))
+            if (RoleAuthorize.IsUser("Admin") || RoleAuthorize.IsUser("Claims adjuster"))
             {
                 fnol = _fnls.GetFNOLBySearchValues(PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
             }
-            else if (_roleAuthorize.IsUser("End user"))
+            else if (RoleAuthorize.IsUser("End user"))
             {
                 fnol = _fnls.GetFNOLBySearchValues(System.Web.HttpContext.Current.User.Identity.Name,PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName, insuredLastName, totalPrice, healthInsurance, luggageInsurance);
             }
-            else if (_roleAuthorize.IsUser("Broker"))
+            else if (RoleAuthorize.IsUser("Broker"))
             {
                 fnol = _fnls.GetFNOLForBrokerBySearchValues(System.Web.HttpContext.Current.User.Identity.Name,
                     PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName,
                     insuredLastName, totalPrice, healthInsurance, luggageInsurance);
             }
-            else if(_roleAuthorize.IsUser("Broker manager"))
+            else if(RoleAuthorize.IsUser("Broker manager"))
             {
                 fnol = _fnls.GetFNOLForBrokerManagerBySearchValues(System.Web.HttpContext.Current.User.Identity.Name,
                     PolicyNumber, FNOLNumber, holderName, holderLastName, clientName, clientLastName, insuredName,
@@ -1163,14 +1157,14 @@ namespace InsuredTraveling.Controllers
         [HttpPost]
         public JsonResult ShowPolicies(string Prefix)
         {
-            if (_roleAuthorize.IsUser("End user"))
+            if (RoleAuthorize.IsUser("End user"))
             {
                 var policies = _us.GetPoliciesByUsernameToList(System.Web.HttpContext.Current.User.Identity.Name, Prefix);
                 var policiesAutoComplete = policies.Select(Mapper.Map<travel_policy, PolicyAutoCompleteViewModel>).ToList();
                 return Json(policiesAutoComplete, JsonRequestBehavior.AllowGet);
 
             }
-            else if (_roleAuthorize.IsUser("Admin"))
+            else if (RoleAuthorize.IsUser("Admin"))
             {
                 var policies = _ps.GetAllPoliciesByPolicyNumber(Prefix);
                 var policiesAutoComplete = policies.Select(Mapper.Map<travel_policy, PolicyAutoCompleteViewModel>).ToList();
@@ -1319,7 +1313,7 @@ namespace InsuredTraveling.Controllers
 
             User userEditModel = Mapper.Map<aspnetuser, User>(userEdit);
 
-            //if (_roleAuthorize.IsUser("Sava_admin"))
+            //if (RoleAuthorize.IsUser("Sava_admin"))
             //{
             //    foreach (var role in roles)
             //    {
@@ -1350,7 +1344,7 @@ namespace InsuredTraveling.Controllers
             //        gender.Selected = true;
             //}
 
-            if (_roleAuthorize.IsUser("Sava_admin"))
+            if (RoleAuthorize.IsUser("Sava_admin"))
             {
                 roles = GetAdminManagerRoles();
             }
@@ -1401,7 +1395,7 @@ namespace InsuredTraveling.Controllers
             var genderList = Gender();
             var roles = _rs.GetAll().ToList();
 
-            //if (_roleAuthorize.IsUser("Sava_admin"))
+            //if (RoleAuthorize.IsUser("Sava_admin"))
             //{
             //    foreach (var role in roles)
             //    {
@@ -1432,7 +1426,7 @@ namespace InsuredTraveling.Controllers
                     gender.Selected = true;
             }
 
-            if (_roleAuthorize.IsUser("Sava_admin"))
+            if (RoleAuthorize.IsUser("Sava_admin"))
             {
                 roles = GetAdminManagerRoles();
             }

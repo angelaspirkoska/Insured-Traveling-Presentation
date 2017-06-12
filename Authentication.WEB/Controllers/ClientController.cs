@@ -12,7 +12,7 @@ using System.Configuration;
 
 namespace Authentication.WEB.Controllers
 {
-    [SessionExpire]
+    [SessionExpireAttribute]
     public class ClientController : Controller
     {
         private IInsuredsService _ins;
@@ -27,8 +27,6 @@ namespace Authentication.WEB.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
             ViewBag.BirthDate = new DateTime();
             ViewBag.PhoneNumber = 0;
             ViewBag.CountryCodes = 0;

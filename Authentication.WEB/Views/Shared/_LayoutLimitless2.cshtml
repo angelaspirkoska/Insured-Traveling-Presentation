@@ -1,8 +1,5 @@
 ﻿@using InsuredTraveling.Filters;
 @using InsuredTraveling.Filters;
-@{
-    RoleAuthorize r = new RoleAuthorize();
-}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -141,7 +138,7 @@
                         </div>
                     </div>
                 </li>
-                if (r.IsUser("Sava_support"))
+                if (RoleAuthorize.IsUser("Sava_support"))
                 {
                 <li class="dropdown">
                     <a href="#" id="messageRequests" class="dropdown-toggle" data-toggle="dropdown">
@@ -197,7 +194,7 @@
                                         </a>
                                     </li>
                                  
-                                    @if (r.IsUser("Admin") || r.IsUser("Broker"))
+                                    @if (RoleAuthorize.IsUser("Admin") || RoleAuthorize.IsUser("Broker"))
                                     {
                                         <li>
                                             <a href="/News/Index">
@@ -206,7 +203,7 @@
                                             </a>
                                         </li>
                                     }
-                                    @if (r.IsUser("Sava_admin") || r.IsUser("Sava_support"))
+                                    @if (RoleAuthorize.IsUser("Sava_admin") || RoleAuthorize.IsUser("Sava_support"))
                                     {
                                         <li>
                                             <a href="/Events/Index" id="eventsTab">
@@ -227,7 +224,7 @@
                                             <span id="btnFNOL">@InsuredTraveling.Resource.Home_FirstNoticeOfLoss</span>
                                         </a>
                                     </li>
-                                    @if (r.IsUser("Admin"))
+                                    @if (RoleAuthorize.IsUser("Admin"))
                                     {
                                         <li>
                                             <a href="/AdminPanel/Index">
@@ -248,7 +245,7 @@
                                             </a>
                                         </li>
                                     }
-                                    @if (r.IsUser("Broker"))
+                                    @if (RoleAuthorize.IsUser("Broker"))
                                     {
                                         <li>
                                             <a href="/Client/Create">

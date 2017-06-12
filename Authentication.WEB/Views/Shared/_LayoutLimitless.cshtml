@@ -1,7 +1,9 @@
 ﻿@using InsuredTraveling.Filters;
 @using InsuredTraveling.Filters;
 @{
-    RoleAuthorize r = new RoleAuthorize();
+    bool isUserLoged = true;
+    isUserLoged = RoleAuthorize.IsUserLoggedIn();
+    string currentUser = RoleAuthorize.GetCurrentLoggedUser();
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -96,7 +98,7 @@
                             </div>
                         </div>*@
                 </li>
-                @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                @if (isUserLoged)
                 {
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
@@ -104,7 +106,7 @@
                             <li id="no-messages" style="display: none;">@InsuredTraveling.Resource.Home_NoMsg</li>
                         </ul>
                     </li>
-                    if (r.IsUser("Sava_support"))
+                    if (RoleAuthorize.IsUser("Sava_support"))
                     {
                         <li class="dropdown">
                             <a href="#" id="messageRequests" class="dropdown-toggle" data-toggle="dropdown">
@@ -114,27 +116,27 @@
                         </li>
                     }
                 }
-                @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                @if (isUserLoged)
                 {
                     <li class="dropdown dropdown-user">
                         <a class="dropdown-toggle" data-toggle="dropdown">
-                            @if (r.IsUser("Admin"))
+                            @if (RoleAuthorize.IsUser("Admin"))
                             {
                                 @InsuredTraveling.Resource.Home_Admin
                             }
-                            @if (r.IsUser("Broker"))
+                            @if (RoleAuthorize.IsUser("Broker"))
                             {
                                 @InsuredTraveling.Resource.Home_Broker
                             }
-                            @if (r.IsUser("Broker manager"))
+                            @if (RoleAuthorize.IsUser("Broker manager"))
                             {
                                 @InsuredTraveling.Resource.Home_Broker_manager
                             }
-                            @if (r.IsUser("Claims adjuster"))
+                            @if (RoleAuthorize.IsUser("Claims adjuster"))
                             {
                                 @InsuredTraveling.Resource.Home_Claims_adjuster
                             }
-                            <span>@System.Web.HttpContext.Current.User.Identity.Name</span>
+                            <span>@currentUser</span>
                             <b class="caret"></b>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a href="#"><i class="icon-user-plus"></i>@InsuredTraveling.Resource.Home_MyProfile</a></li>
@@ -175,7 +177,7 @@
                 <div class="sidebar-content">
                     <!-- Main navigation -->
                     <div class="sidebar-category sidebar-category-visible">
-                        @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                        @if (isUserLoged)
                         {
                             <div class="category-content no-padding">
                                 <ul class="navigation navigation-main navigation-accordion">
@@ -183,7 +185,7 @@
                                     <li class="navigation-header">
                                         <span>@InsuredTraveling.Resource.MainPage</span> <i class="icon-menu" title="Main pages"></i>
                                     </li>
-                                    @*@if (r.IsUser("Sava_Sport_VIP"))
+                                    @*@if (RoleAuthorize.IsUser("Sava_Sport_VIP"))
                                         {
                                         <li >
                                             <input type="submit" id="requestChatBtn" value="@InsuredTraveling.Resource.RequestChat" class="btn btn-primary chat-btn--rotate" />
@@ -197,7 +199,7 @@
                                             </a>
                                         </li>*@
 
-                                    @if (r.IsUser("Admin") || r.IsUser("Broker") || r.IsUser("Sava_admin") || r.IsUser("Sava_support"))
+                                    @if (RoleAuthorize.IsUser("Admin") || RoleAuthorize.IsUser("Broker") || RoleAuthorize.IsUser("Sava_admin") || RoleAuthorize.IsUser("Sava_support"))
                                     {
                                         <li>
                                             <a href="/News/News" id="newsTab">
@@ -213,7 +215,7 @@
                                             </a>
                                         </li>
                                     }
-                                    @if (r.IsUser("Sava_admin") || r.IsUser("Sava_support"))
+                                    @if (RoleAuthorize.IsUser("Sava_admin") || RoleAuthorize.IsUser("Sava_support"))
                                     {
                                         <li>
                                             <a href="/Events/Index" id="eventsTab">
@@ -229,17 +231,8 @@
                                             <span id="btnSearch">@InsuredTraveling.Resource.Home_Search</span>
                                         </a>
                                     </li>
-                                    @if (r.IsUser("Admin"))
-                                    {
-                                        <li>
-                                            <a href="/FirstNoticeOfLoss/Index" id="fnolTab">
-                                                <i class="icon-file-plus"></i>
-                                                <span id="btnFNOL">@InsuredTraveling.Resource.Home_FirstNoticeOfLoss</span>
-                                            </a>
-                                        </li>
-                                    }
 
-                                    @if (r.IsUser("Admin") || r.IsUser("Sava_admin"))
+                                    @if (RoleAuthorize.IsUser("Admin") || RoleAuthorize.IsUser("Sava_admin"))
                                     {
                                         <li>
                                             <a href="/AdminPanel/Index" id="adminTab">
@@ -247,7 +240,7 @@
                                                 <span id="btnAdmin">@InsuredTraveling.Resource.Home_AdminPanel</span>
                                             </a>
                                         </li>
-                                        if (!r.IsUser("Sava_admin"))
+                                        if (!RoleAuthorize.IsUser("Sava_admin"))
                                         {
                                             <li>
                                                 <a href="/Client/Create" id="createTab">
@@ -270,16 +263,7 @@
                                         </li>
                                         
 
-                                    }
-                                    @if (r.IsUser("Broker"))
-                                    {
-                                        <li>
-                                            <a href="/Client/Create">
-                                                <i class="icon-stack2"></i>
-                                                <span id="dodadiKlient">@InsuredTraveling.Resource.Home_NewClient</span>
-                                            </a>
-                                        </li>
-                                    }
+                                    }  
                                     <!-- /main -->
                                 </ul>
                             </div>

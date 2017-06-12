@@ -18,7 +18,7 @@ using System.Net.Mail;
 
 namespace InsuredTraveling.Controllers
 {
-    [SessionExpire]
+    [SessionExpireAttribute]
     public class SavaExcelUploadController : Controller
     {
         private readonly ISavaPoliciesService _sp;
@@ -55,7 +55,7 @@ namespace InsuredTraveling.Controllers
                 foreach (SavaPolicyModel policy in model)
                 {
                     AuthRepository _repo = new AuthRepository();
-                    RoleAuthorize _roleAuthorize = new RoleAuthorize();
+                 
                     policy.email_seller = " ";
 
                     _sp.AddSavaPolicy(policy);
@@ -78,7 +78,7 @@ namespace InsuredTraveling.Controllers
                     //    _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport+");
                     //}
 
-                    if (_roleAuthorize.IsUser("Sava_Sport+", PolicyUser.UserName))
+                    if (RoleAuthorize.IsUser("Sava_Sport+", PolicyUser.UserName))
                     {
                         if (Sava_admin.vip_sum <= UserSumPremiums)
                         {

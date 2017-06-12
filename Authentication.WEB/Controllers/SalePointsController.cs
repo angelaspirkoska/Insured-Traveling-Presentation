@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 
 namespace InsuredTraveling.Controllers
 {
+    [SessionExpireAttribute]
     public class SalePointsController : Controller
     {
         public ISalePointsService _sps;

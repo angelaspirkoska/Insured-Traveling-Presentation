@@ -16,47 +16,36 @@ namespace InsuredTraveling.Controllers
     public class LoginController : Controller
     {
         [HttpPost]
-        public async Task<ActionResult> Index(LoginUser user/*, bool CaptchaValid*/)
+        public async Task<ActionResult> Index(LoginUser user)
         {
-
-            //if (!CaptchaValid)
-            //{
-            //    ModelState.AddModelError("reCaptcha", "recaptchaError");
-            //    return View(user);
-            //}
-
             if (ModelState.IsValid)
             {
-                user.grant_type = "password";
                 var uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/token");
                 var client = new HttpClient {BaseAddress = uri};
                 IDictionary<string, string> userData = new Dictionary<string, string>();
                 userData.Add("username", user.username);
                 userData.Add("password", user.password);
-                userData.Add("grant_type", user.grant_type);
-                userData.Add("client_id", "InsuredTravel");
+                userData.Add("grant_type", "password");
                 HttpContent content = new FormUrlEncodedContent(userData);
                 content.Headers.Remove("Content-Type");
                 content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                var responseMessage = client.PostAsync(uri, content).Result;
+                var responseMessage = await client.PostAsync(uri, content);
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     var responseBody = await responseMessage.Content.ReadAsStringAsync();
                     dynamic data = JObject.Parse(responseBody);
                     string token = data.access_token;
-                    string refresh_token = data.refresh_token;
                     if (!String.IsNullOrEmpty(token))
                     {
                         string encryptedToken = HttpUtility.UrlEncode(EncryptionHelper.Encrypt(token));
                         HttpCookie cookieToken = new HttpCookie("token", encryptedToken);
-                        cookieToken.Expires = DateTime.Now.AddYears(1);
-                        HttpContext.Response.Cookies.Add(cookieToken);
+                        HttpContext.Response.Cookies.Set(cookieToken);
 
-                        //string encryptedRefreshToken = HttpUtility.UrlEncode(EncryptionHelper.Encrypt(refresh_token));
-                        //string decryptedRefreshToken = EncryptionHelper.Decrypt(HttpUtility.UrlEncode(encryptedRefreshToken));
-                        HttpCookie cookieRefreshToken = new HttpCookie("refresh_token", refresh_token);
-                        cookieRefreshToken.Expires = DateTime.Now.AddYears(1);
-                        HttpContext.Response.Cookies.Add(cookieRefreshToken);
+                        HttpCookie cookieUserName = new HttpCookie("username", user.username);
+                        HttpContext.Response.Cookies.Set(cookieUserName);
+
+                        HttpCookie cookieExpires = new HttpCookie("expires", DateTime.UtcNow.AddHours(5).ToString());
+                        HttpContext.Response.Cookies.Set(cookieExpires);
 
                         Response.Redirect("/home");
                     }
@@ -80,12 +69,9 @@ namespace InsuredTraveling.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            if (System.Web.HttpContext.Current.User != null)
+            if(RoleAuthorize.IsUserLoggedIn())
             {
-                if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-                {
-                    Response.Redirect("/home");
-                }
+                Response.Redirect("/home");
             }
             return View();
         }

@@ -2105,7 +2105,6 @@
     <Compile Include="Controllers\API\MobileApiController.cs" />
     <Compile Include="Controllers\API\Ok_SetupController.cs" />
     <Compile Include="Controllers\API\QRCodeGeneratorController.cs" />
-    <Compile Include="Controllers\API\RefreshTokenController.cs" />
     <Compile Include="Controllers\API\SavaMobileController.cs" />
     <Compile Include="Controllers\ChangeLanuageController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
@@ -2120,7 +2119,6 @@
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PolicyController.cs" />
     <Compile Include="Controllers\API\PremiumController.cs" />
-    <Compile Include="Controllers\RefreshTokensController.cs" />
     <Compile Include="Controllers\FirstNoticeOfLossController.cs" />
     <Compile Include="Controllers\SalePointsController.cs" />
     <Compile Include="Controllers\SavaExcelUploadController.cs" />
@@ -2453,8 +2451,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Entities\Client.cs" />
     <Compile Include="Models\Entities\RefreshToken.cs" />
-    <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
-    <Compile Include="Providers\SimpleRefreshTokenProvider.cs" />
     <Compile Include="Services\ConditionalValidationAttribute.cs" />
     <Compile Include="Services\DocumentService.cs" />
     <Compile Include="Services\MailNewsService.cs" />

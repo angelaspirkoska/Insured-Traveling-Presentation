@@ -5,7 +5,6 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
-    RoleAuthorize rol = new RoleAuthorize();
 }
 
 
@@ -14,11 +13,11 @@
     <h2 class="page-header"> @InsuredTraveling.Resource.AdminPanel_Title </h2>
     <br />
     <ul class="nav nav-pills" id="adminNavigation">
-        @if (rol.IsUser("Sava_admin"))
+        @if (RoleAuthorize.IsUser("Sava_admin"))
         {
         <li id="SavaAdminNav" class="active"><a data-toggle="pill" href="#SavaAdmin"> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </a></li>
         }
-        @if(rol.IsUser("Admin")) {
+        @if(RoleAuthorize.IsUser("Admin")) {
             <li id="navConfigurableRatingEngine"><a data-toggle="pill" href="#configRatingEngine"> @InsuredTraveling.Resource.AdminPanel_ConfigurableRatingEngine </a></li>
         <li id="navRoles" class="active"><a data-toggle="pill" href="#home" > @InsuredTraveling.Resource.AdminPanel_Roles </a></li>
         <li  id="navSetup"><a data-toggle="pill" href="#menu1"  id="navSetup"> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </a></li>
@@ -27,7 +26,7 @@
     </ul>
 
     <div class="tab-content">
-        @if (rol.IsUser("Sava_admin"))
+        @if (RoleAuthorize.IsUser("Sava_admin"))
         {
         <div id="SavaAdmin" class="tab-pane fade">
             <h3> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </h3>

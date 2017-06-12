@@ -12,8 +12,7 @@ using InsuredTraveling.ViewModels;
 
 namespace InsuredTraveling.Controllers
 {
-    //[RoleAuthorize(roles: "Admin")]
-    [SessionExpire]
+    [SessionExpireAttribute]
     public class AdminPanelController : Controller
     {
         private IRolesService _rs;
@@ -22,9 +21,9 @@ namespace InsuredTraveling.Controllers
         private IDiscountService _ds;
         private ISava_setupService _sok;
 
-        
 
-        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us, IDiscountService ds, ISava_setupService sok)
+
+        public AdminPanelController(IRolesService rs, IOkSetupService okss, IUserService us, IDiscountService ds, ISava_setupService sok)
         {
             _rs = rs;
             _okss = okss;
@@ -36,8 +35,7 @@ namespace InsuredTraveling.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            RoleAuthorize rol = new RoleAuthorize();
-            if (rol.IsUser("Sava_admin"))
+            if (RoleAuthorize.IsUser("Sava_admin"))
             {
                 ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
                 ViewBag.TabIndex = "0";
@@ -56,9 +54,6 @@ namespace InsuredTraveling.Controllers
                 //View Bag Discount
                 var discount = _ds.GetAllDiscounts();
                 ViewBag.Discount = discount;
-
-               // ViewBag.TabIndex = "1";
-               
             }
             return View();
         }
@@ -68,12 +63,8 @@ namespace InsuredTraveling.Controllers
         public ActionResult AddSavaOKSetup(AdminPanelModel APM)
         {
             Sava_AdminPanelModel Sok = APM.SavaAdmin;
-            RoleAuthorize rol = new RoleAuthorize();
             if (Sok.vip_sum != 0 && Sok.points_percentage != 0)
             {
-
-
-                
                 ViewBag.AddOk_SetupMsg = "OK";
                 try
                 {
@@ -81,35 +72,32 @@ namespace InsuredTraveling.Controllers
                     Sok.last_modify_by = System.Web.HttpContext.Current.User.Identity.Name;
                     Sok.timestamp = DateTime.Now.Date;
                     _sok.AddSavaOkSetup(Sok);
-
-                   // ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
                 }
                 catch (Exception ex)
                 {
                     ViewBag.AddOk_SetupMsg = ex.ToString();
                 }
             }
-                if (rol.IsUser("Sava_admin"))
-                {
-                    ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
-                    ViewBag.TabIndex = "0";
-                }
-                else
-                {
-                    ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
-                    ViewBag.TabIndex = "0";
+            if (RoleAuthorize.IsUser("Sava_admin"))
+            {
+                ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
+                ViewBag.TabIndex = "0";
+            }
+            else
+            {
+                ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
+                ViewBag.TabIndex = "0";
 
-                    var ok_setup = _okss.GetAllOkSetups();
-                    var roles = _rs.GetAllRoles();
-                    var discount = _ds.GetAllDiscounts();
-                    ViewBag.Discount = discount;
-                    ViewBag.Roles = roles;
-                    ViewBag.Ok_setup = ok_setup;
-                    // ViewBag.TabIndex = "2";
-                }
-            
-                return View("Index", APM);
-         
+                var ok_setup = _okss.GetAllOkSetups();
+                var roles = _rs.GetAllRoles();
+                var discount = _ds.GetAllDiscounts();
+                ViewBag.Discount = discount;
+                ViewBag.Roles = roles;
+                ViewBag.Ok_setup = ok_setup;
+            }
+
+            return View("Index", APM);
+
         }
 
 
@@ -143,7 +131,8 @@ namespace InsuredTraveling.Controllers
         public ActionResult AddOK_setup(Ok_SetupModel ok)
         {
             ViewBag.AddOk_SetupMsg = "OK";
-            try {
+            try
+            {
                 ok.Created_By = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
                 ok.Created_Date = DateTime.UtcNow;
 
@@ -162,7 +151,7 @@ namespace InsuredTraveling.Controllers
             ViewBag.Discount = discount;
             ViewBag.Roles = roles;
             ViewBag.Ok_setup = ok_setup;
-          
+
             ViewBag.TabIndex = "2";
             return View("Index");
         }
@@ -208,8 +197,9 @@ namespace InsuredTraveling.Controllers
                 catch (Exception ex)
                 {
                     ViewBag.AddOk_SetupMsg = ex.ToString();
-                }               
-            }else
+                }
+            }
+            else
             {
                 ViewBag.Message = "Registration failed";
             }

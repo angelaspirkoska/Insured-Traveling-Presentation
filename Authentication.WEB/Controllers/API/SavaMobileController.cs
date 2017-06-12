@@ -26,7 +26,6 @@ namespace InsuredTraveling.Controllers.API
         private readonly IUserService _userService;
         private readonly ISava_setupService _savaSetupService;
         private readonly IEventsService _es;
-        private readonly RoleAuthorize _roleAuthorize;
         private readonly IEventUserService _eus;
         private readonly IUserService _us;
         private readonly ISavaVoucherService _svs;
@@ -48,7 +47,6 @@ namespace InsuredTraveling.Controllers.API
             _userService = userService;
             _savaSetupService= savaSetupService;
             _es = es;
-            _roleAuthorize = new RoleAuthorize();
             _eus = eus;
             _us = us;
             _svs = svs;
@@ -70,7 +68,7 @@ namespace InsuredTraveling.Controllers.API
                 else
                 {
                     var policy = Mapper.Map<QRCodeSavaPolicy, SavaPolicyModel>(model);
-                    var policyId = SaveSavaPoliciesHelper.SaveSavaPolicies(_savaPoliciesService, _userService, _savaSetupService, _roleAuthorize, policy);
+                    var policyId = SaveSavaPoliciesHelper.SaveSavaPolicies(_savaPoliciesService, _userService, _savaSetupService, policy);
                     if (policyId != -1)
                     {
                         return Ok();
@@ -190,7 +188,7 @@ namespace InsuredTraveling.Controllers.API
         {
             if (username != null)
             {
-                if (_roleAuthorize.IsUser("Sava_Sport+", username) || _roleAuthorize.IsUser("Sava_Sport_VIP", username))
+                if (RoleAuthorize.IsUser("Sava_Sport+", username) || RoleAuthorize.IsUser("Sava_Sport_VIP", username))
                 {
                     var user = _userService.GetUserDataByUsername(username);
                     JObject data = new JObject();
@@ -298,7 +296,7 @@ namespace InsuredTraveling.Controllers.API
                             if (_savaPoliciesService.GetSavaPoliciesForList(SSN, PolicyNumber).Count() != 0)
                             {
                                 string message = "";
-                                if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
+                                if (RoleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
                                 {
                                     string userRole = "Сава+ корисник на Сава осигурување";
 

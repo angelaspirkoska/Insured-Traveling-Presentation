@@ -8,15 +8,11 @@ using InsuredTraveling.Schedulers;
 namespace InsuredTraveling.Controllers
 {
     [RoutePrefix("Home")]
-    [SessionExpire]
+    [SessionExpireAttribute]
     public class HomeController : Controller
     {  
         public ActionResult Index()
         {
-          
-            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)                
-                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");                               
-
             return View();
         }
     }

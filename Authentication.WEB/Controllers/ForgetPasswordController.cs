@@ -26,7 +26,7 @@ namespace InsuredTraveling.Controllers
             {
                 model.ID = System.Web.HttpContext.Current.Request.QueryString["ID"].ToString();
 
-                IdentityResult result = await _repo.PasswordChange(model);
+                IdentityResult result = await _repo.ChangePassword(model);
                 if (result.Succeeded)
                 {
                     ViewBag.Message = "Password changed successfully!";
@@ -73,7 +73,7 @@ namespace InsuredTraveling.Controllers
             if (ModelState.IsValid)
             {
 
-                IdentityResult result =  _repo.PasswordChangeByUsername(model);
+                IdentityResult result =  _repo.ChangePasswordByUsername(model);
                 if (result.Succeeded)
                 {
                     resultJSON.Add("message", "OK");

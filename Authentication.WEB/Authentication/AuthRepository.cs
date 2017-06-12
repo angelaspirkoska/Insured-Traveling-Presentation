@@ -3,7 +3,6 @@ using Authentication.WEB.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,47 +12,25 @@ using System.Net.Http;
 using System.Web;
 using Newtonsoft.Json.Linq;
 using System.Net.Mail;
-using InsuredTraveling.DI;
 
 namespace InsuredTraveling
 {
     public class AuthRepository : IDisposable
     {
-        private AuthContext _ctx;
-        private UserManager<ApplicationUser> _userManager;
-        private RoleManager<IdentityRole> roleManager;
-       
-       
+        private readonly AuthContext _ctx;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
+
+
         public AuthRepository()
         {
             _ctx = new AuthContext();
             _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_ctx));
             roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_ctx));
-           
-            
         }
-        
-        public async Task<IdentityResult> RegisterUser(UserModel userModel)
+
+        public async Task<IdentityResult> CreateApplicationUser(UserModel userModel)
         {
-
-            //string secret = "MobileApp123";
-            //Client mobile_client = new Client
-            //{
-            //    Id = "MobileApp",
-            //    Secret = Helper.GetHash(secret),
-            //    Name = "Mobile Application",
-            //    ApplicationType = Enums.ApplicationTypes.NativeConfidential,
-            //    Active = true,
-            //    RefreshTokenLifeTime = 1234,
-            //    AllowedOrigin = "*"
-            //};
-            //AuthContext db = new AuthContext();
-            //db.Clients.Add(mobile_client);
-            //db.SaveChanges();
-
-            //Random r = new Random();
-            //string id = "1234" + r.Next(1000, 9999).ToString() + r.Next(100,999).ToString();
-
             ApplicationUser user = new ApplicationUser
             {
                 UserName = userModel.UserName,
@@ -70,7 +47,7 @@ namespace InsuredTraveling
                 Gender = userModel.Gender,
                 DateOfBirth = userModel.DateOfBirth,
                 CreatedOn = DateTime.UtcNow
-                
+
             };
             var result = await _userManager.CreateAsync(user, userModel.Password);
             var result2 = _userManager.AddToRole(user.Id, "Sava_normal");
@@ -90,11 +67,10 @@ namespace InsuredTraveling
                 RefreshTokenLifeTime = 1234,
                 AllowedOrigin = "*"
             };
-            AuthContext db = new AuthContext();
-            db.Clients.Add(client);
-            var rez = db.SaveChanges();
 
-            return rez;
+            _ctx.Clients.Add(client);
+            var result = _ctx.SaveChanges();
+            return result;
 
         }
 
@@ -114,7 +90,7 @@ namespace InsuredTraveling
             {
                 var responseBody = returnContent(responseMessage);
                 await Task.WhenAll(responseBody);
-                dynamic data =  JObject.Parse(responseBody.Result);
+                dynamic data = JObject.Parse(responseBody.Result);
                 string token = data.access_token;
                 string refresh_token2 = data.refresh_token;
                 if (!String.IsNullOrEmpty(token))
@@ -129,7 +105,7 @@ namespace InsuredTraveling
                     cookieRefreshToken.Expires = DateTime.Now.AddYears(1);
                     HttpContext.Current.Response.Cookies.Add(cookieRefreshToken);
                 }
-            }  
+            }
         }
 
         public async Task<string> returnContent(HttpResponseMessage responseMessage)
@@ -137,7 +113,7 @@ namespace InsuredTraveling
             return await responseMessage.Content.ReadAsStringAsync();
         }
 
-        public async Task<IdentityResult> RegisterUserWeb(User userModel)
+        public async Task<IdentityResult> CreateApplictionUserWeb(User userModel)
         {
             ApplicationUser user = new ApplicationUser
             {
@@ -162,16 +138,16 @@ namespace InsuredTraveling
                 EMBG = userModel.EMBG,
                 City = userModel.City,
                 CreatedOn = DateTime.UtcNow,
-                CreatedBy = userModel.CreatedBy != null ? userModel.CreatedBy  : " "
+                CreatedBy = userModel.CreatedBy != null ? userModel.CreatedBy : " "
             };
-            
-            var result = await _userManager.CreateAsync(user, userModel.Password);
 
-            if (result.Succeeded)
+            var result = await _userManager.CreateAsync(user, userModel.Password);
+            var result2 = _userManager.AddToRole(user.Id, userModel.Role);
+
+            try
             {
-                try
+                if (result.Succeeded)
                 {
-                   
                     var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/EmailHeaderWelcome1.png"));
                     inlineLogo.ContentId = Guid.NewGuid().ToString();
 
@@ -183,12 +159,12 @@ namespace InsuredTraveling
                      <br /> <br /> 
                      <br /> Ве молиме почекајте 24 часа вашите податоци бидат ажурирани.
                      <br /> <br />Ви благодариме што одлучивте да ја користите SAVA Спорт + апликацијата. </div>"
-                     
+
                     , inlineLogo.ContentId);
                     var view = AlternateView.CreateAlternateViewFromString(body1, null, "text/html");
-                    view.LinkedResources.Add(inlineLogo);             
+                    view.LinkedResources.Add(inlineLogo);
 
-                    MailService mailService = new MailService(userModel.Email, "signup@insuredtraveling.com"); 
+                    MailService mailService = new MailService(userModel.Email, "signup@insuredtraveling.com");
                     mailService.setSubject(" - Account Activation Validation");
                     mailService.setBodyText(body1, true);
                     //ALTERNATIVE VIEW
@@ -197,13 +173,11 @@ namespace InsuredTraveling
                     mailService.sendMail();
 
                 }
-                catch(Exception e)
-                {
-                    return null;
-                }
             }
-
-            var result2 = _userManager.AddToRole(user.Id, userModel.Role);
+            catch (Exception e)
+            {
+                return null;
+            }
 
             return result;
         }
@@ -220,13 +194,13 @@ namespace InsuredTraveling
             return result;
         }
 
-        
+
 
         public IdentityResult AddRole(Roles r)
         {
             var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
             role.Name = r.Name;
-            var result = roleManager.Create(role);            
+            var result = roleManager.Create(role);
             return result;
         }
 
@@ -235,7 +209,7 @@ namespace InsuredTraveling
             return _userManager.Find(username, password);
         }
 
-        
+
         public async Task<IdentityResult> FindUserByUsername(string username)
         {
             var r = await _userManager.FindByNameAsync(username);
@@ -297,7 +271,7 @@ namespace InsuredTraveling
                     string body = "Welcome to Insured Traveling " + " " + ",";
                     body += "<br /><br />Ви благодариме што ја избравте апликацијата Моја Сава! ";
                     body += "<br /> Вашата регистрација е успешна, ве молиме почекајте да се ажурираат потребните податоци.";
-                   
+
                     MailService mailService = new MailService(user.Email, "signup@insuredtraveling.com");
                     mailService.setSubject("Моја Сава. Успешно креиран корисник.");
                     mailService.setBodyText(body, true);
@@ -334,8 +308,8 @@ namespace InsuredTraveling
                 }
             }
 
-            }
-        
+        }
+
 
         public bool ValidateMail(string ID)
         {
@@ -349,8 +323,8 @@ namespace InsuredTraveling
             return false;
         }
 
-        
-        
+
+
 
         public async Task<IdentityUser> FindUser(string userName, string password)
         {
@@ -359,7 +333,7 @@ namespace InsuredTraveling
             return user;
         }
 
-        public void ForgetPassword(string username)
+        public void SendEmailForForgetPasswordByUserName(string username)
         {
             var r = _userManager.FindByName(username);
             if (r != null)
@@ -375,7 +349,7 @@ namespace InsuredTraveling
             }
         }
 
-        public void ForgetPassword2(string email)
+        public void SendEmailForForgetPasswordByEmail(string email)
         {
             var r = _userManager.FindByEmail(email);
             if (r != null)
@@ -390,59 +364,55 @@ namespace InsuredTraveling
                 mailService.sendMail();
             }
         }
-       
+
         public bool ValidUsernameOrMail(string s)
         {
             if (!String.IsNullOrEmpty(s))
             {
                 if (_userManager.FindByEmail(s) != null)
                 {
-                    ForgetPassword2(s);
+                    SendEmailForForgetPasswordByEmail(s);
                     return true;
                 }
                 else if (_userManager.FindByName(s) != null)
                 {
-                    ForgetPassword(s);
+                    SendEmailForForgetPasswordByUserName(s);
                     return true;
                 }
             }
             return false;
         }
-        public async Task<IdentityResult> PasswordChange(ForgetPasswordModel model)
+        public async Task<IdentityResult> ChangePassword(ForgetPasswordModel model)
         {
-            var user1 = await _userManager.FindByIdAsync(model.ID);
-            if (user1 != null)
+            var user = await _userManager.FindByIdAsync(model.ID);
+            if (user != null)
             {
-               // var r1 = _userManager.ChangePassword(user1.Id, user1.PasswordHash, model.Password);
-                var r1 =  _userManager.RemovePassword(user1.Id);
-                _userManager.Update(user1);
-                if (r1.Succeeded)
+                var removePass = _userManager.RemovePassword(user.Id);
+                _userManager.Update(user);
+                if (removePass.Succeeded)
                 {
-                    var r2 =  _userManager.AddPassword(user1.Id, model.Password);
-                    _userManager.Update(user1);
-                    var r3 = _userManager.CheckPassword(user1, model.Password);
-
-                    return r2;
+                    var addPass = _userManager.AddPassword(user.Id, model.Password);
+                    _userManager.Update(user);
+                    var checkPass = _userManager.CheckPassword(user, model.Password);
+                    return addPass;
                 }
             }
-
             return new IdentityResult();
         }
 
-        public  IdentityResult PasswordChangeByUsername(ForgetPasswordModel model)
+        public IdentityResult ChangePasswordByUsername(ForgetPasswordModel model)
         {
-            var user1 =  _userManager.FindByName(model.username);
-            if (user1 != null)
+            var user = _userManager.FindByName(model.username);
+            if (user != null)
             {
-                var r1 = _userManager.RemovePassword(user1.Id);
-                _userManager.Update(user1);
-                if (r1.Succeeded)
+                var removePass = _userManager.RemovePassword(user.Id);
+                _userManager.Update(user);
+                if (removePass.Succeeded)
                 {
-                    var r2 = _userManager.AddPassword(user1.Id, model.Password);
-                    _userManager.Update(user1);
-                    var r3 = _userManager.CheckPassword(user1, model.Password);
-
-                    return r2;
+                    var addPass = _userManager.AddPassword(user.Id, model.Password);
+                    _userManager.Update(user);
+                    var checkPass = _userManager.CheckPassword(user, model.Password);
+                    return addPass;
                 }
             }
 
@@ -453,19 +423,17 @@ namespace InsuredTraveling
         {
             if (!String.IsNullOrEmpty(username))
             {
-                var user1 = (String.IsNullOrEmpty(username)) ? null : await _userManager.FindByNameAsync(username);
-                if (user1 != null)
+                var user = (String.IsNullOrEmpty(username)) ? null : await _userManager.FindByNameAsync(username);
+                if (user != null)
                 {
-                    if (user1.MobilePhoneNumber != null)
+                    if (user.MobilePhoneNumber != null)
                     {
-                        if (user1.AccessFailedCount > 5)
-                        {
+                        if (user.AccessFailedCount > 5)
                             return new IdentityResult("You have reached the limited numbers of attempts, try again tomorrow");
-                        }
                         SMSvalidation s = new SMSvalidation();
                         string code = s.SendMessage();
-                        user1.ActivationCodeSMS = code;
-                        var result = _userManager.Update(user1);
+                        user.ActivationCodeSMS = code;
+                        var result = _userManager.Update(user);
                         return result;
                     }
                 }
@@ -478,22 +446,22 @@ namespace InsuredTraveling
             if (!String.IsNullOrEmpty(username))
             {
 
-                var user1 = await _userManager.FindByNameAsync(username);
-                if (user1 != null)
+                var user = await _userManager.FindByNameAsync(username);
+                if (user != null)
                 {
-                    if (user1.ActivationCodeSMS != null)
+                    if (user.ActivationCodeSMS != null)
                     {
-                        if (user1.ActivationCodeSMS == code)
+                        if (user.ActivationCodeSMS == code)
                         {
-                            user1.PhoneNumberConfirmed = true;
-                            var result = _userManager.Update(user1);
+                            user.PhoneNumberConfirmed = true;
+                            var result = _userManager.Update(user);
 
                             return result;
                         }
                         else
                         {
-                            user1.AccessFailedCount += 1;
-                            _userManager.Update(user1);
+                            user.AccessFailedCount += 1;
+                            _userManager.Update(user);
                             return new IdentityResult("The code provided is not valid");
                         }
                     }
@@ -515,50 +483,5 @@ namespace InsuredTraveling
             return client;
         }
 
-        public async Task<bool> AddRefreshToken(RefreshToken token)
-        {
-
-            var existingToken = _ctx.RefreshTokens.Where(r => r.Subject == token.Subject && r.ClientId == token.ClientId).SingleOrDefault();
-
-            if (existingToken != null)
-            {
-                var result = await RemoveRefreshToken(existingToken);
-            }
-
-            _ctx.RefreshTokens.Add(token);
-
-            return await _ctx.SaveChangesAsync() > 0;
-        }
-
-        public async Task<bool> RemoveRefreshToken(string refreshTokenId)
-        {
-            var refreshToken = await _ctx.RefreshTokens.FindAsync(refreshTokenId);
-
-            if (refreshToken != null)
-            {
-                _ctx.RefreshTokens.Remove(refreshToken);
-                return await _ctx.SaveChangesAsync() > 0;
-            }
-
-            return false;
-        }
-
-        public async Task<bool> RemoveRefreshToken(RefreshToken refreshToken)
-        {
-            _ctx.RefreshTokens.Remove(refreshToken);
-            return await _ctx.SaveChangesAsync() > 0;
-        }
-
-        public async Task<RefreshToken> FindRefreshToken(string refreshTokenId)
-        {
-            var refreshToken = await _ctx.RefreshTokens.FindAsync(refreshTokenId);
-
-            return refreshToken;
-        }
-
-        public List<RefreshToken> GetAllRefreshTokens()
-        {
-            return _ctx.RefreshTokens.ToList();
-        }
     }
 }

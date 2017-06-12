@@ -14,8 +14,7 @@ using AutoMapper;
 
 namespace Authentication.WEB.Controllers
 {
-
-    [SessionExpire]
+    [SessionExpireAttribute]
     public class NewsController : Controller
     {
 
@@ -28,8 +27,6 @@ namespace Authentication.WEB.Controllers
         [HttpGet]   
         public ActionResult News()
         {
-            if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-                Response.Redirect(ConfigurationManager.AppSettings["webpage_url"] + "/Login");
             var news = _ns.GetAllNews();
             var newsList = news.Select(Mapper.Map<news_all, News>).ToList();
             NewNews newsNew = new NewNews();

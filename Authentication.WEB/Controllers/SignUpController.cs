@@ -15,18 +15,15 @@ using Authentication.WEB.Services;
 namespace InsuredTraveling.Controllers
 {
     [RoutePrefix("SignUp")]
-    // [AllowAnonymous]
-    [SessionExpire]
     public class SignUpController : Controller
     {
         private IRolesService _rs;
         private IUserService _us;
-        private RoleAuthorize _roleAuthorize;
+
         public SignUpController(IRolesService rs, IUserService us)
         {
             _rs = rs;
             _us = us;
-            _roleAuthorize = new RoleAuthorize();
         }
 
         [HttpGet]
@@ -109,11 +106,11 @@ namespace InsuredTraveling.Controllers
         {
             ViewBag.Gender = Gender();
             var roles = Roles();
-            if (_roleAuthorize.IsUser("Broker manager"))
+            if (RoleAuthorize.IsUser("Broker manager"))
             {
                 roles = GetBrokerManagerRoles();
             }
-            if (_roleAuthorize.IsUser("Sava_admin"))
+            if (RoleAuthorize.IsUser("Sava_admin"))
             {
                 roles = GetAdminManagerRoles();
             }
@@ -127,12 +124,12 @@ namespace InsuredTraveling.Controllers
             ViewBag.Gender = Gender();
             var roles = Roles();
 
-            if (_roleAuthorize.IsUser("Sava_admin"))
+            if (RoleAuthorize.IsUser("Sava_admin"))
             {
                 roles = GetAdminManagerRoles();
             }
 
-            if (_roleAuthorize.IsUser("Broker manager"))
+            if (RoleAuthorize.IsUser("Broker manager"))
             {
                 roles = GetBrokerManagerRoles();
             }

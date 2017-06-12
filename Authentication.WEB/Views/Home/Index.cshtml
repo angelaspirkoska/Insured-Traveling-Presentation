@@ -6,7 +6,6 @@
 
 @{
     ViewBag.Title = InsuredTraveling.Resource.Home;
-    RoleAuthorize r = new RoleAuthorize();
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
     var dateTime = ConfigurationManager.AppSettings["DateFormat"];
     var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy").ToLower() : dateTime.ToLower();
@@ -15,7 +14,7 @@
 @Scripts.Render("~/bundles/jqueryui")
 @Styles.Render("~/Content/jqueryuicss")
 
-@if ((r.IsUser("Broker") || r.IsUser("Broker manager")))
+@if ((RoleAuthorize.IsUser("Broker") || RoleAuthorize.IsUser("Broker manager")))
 {
     <div id="searchExpiringPolicy" style="margin-top: 30px;">
         <div class="row">
@@ -56,7 +55,7 @@
 
     </div>
 }
-else if (r.IsUser("Sava_admin") || r.IsUser("Sava_support"))
+else if (RoleAuthorize.IsUser("Sava_admin") || RoleAuthorize.IsUser("Sava_support"))
 {
     <div class="row" style="margin-top: 30px;">
         <h3>@Resource.TodayRegisteredUsersMsg</h3>

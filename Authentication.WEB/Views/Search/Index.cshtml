@@ -6,17 +6,16 @@
 @using System.Configuration;
 @{
     ViewBag.Title = InsuredTraveling.Resource.Search;
-    RoleAuthorize r = new RoleAuthorize();
-    var isClaimsAdjuster = r.IsUser("Claims adjuster");
-    var isBrokerManager = r.IsUser("Broker manager");
+    var isClaimsAdjuster = RoleAuthorize.IsUser("Claims adjuster");
+    var isBrokerManager = RoleAuthorize.IsUser("Broker manager");
     // ima problem so js iszgleda, poso se se menuva i ima nepoterbni data tables
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
-    var isBroker = r.IsUser("Broker");
-    var isAdmin = r.IsUser("Admin");
-    var isEndUser = r.IsUser("End user");
-    var isSavaAdmin = r.IsUser("Sava_admin");
-    var isSavaSupport = r.IsUser("Sava_support");
-    var isSavaUser = r.IsUser("Sava_normal") || r.IsUser("Sava_Sport_VIP") || r.IsUser("Sava_Sport_VIP") || r.IsUser("Sava_Sport+");
+    var isBroker = RoleAuthorize.IsUser("Broker");
+    var isAdmin = RoleAuthorize.IsUser("Admin");
+    var isEndUser = RoleAuthorize.IsUser("End user");
+    var isSavaAdmin = RoleAuthorize.IsUser("Sava_admin");
+    var isSavaSupport = RoleAuthorize.IsUser("Sava_support");
+    var isSavaUser = RoleAuthorize.IsUser("Sava_normal") || RoleAuthorize.IsUser("Sava_Sport_VIP") || RoleAuthorize.IsUser("Sava_Sport_VIP") || RoleAuthorize.IsUser("Sava_Sport+");
     var dateTime = ConfigurationManager.AppSettings["DateFormat"];
     var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy").ToLower() : dateTime.ToLower();
 }
@@ -873,7 +872,7 @@
                     <th>@InsuredTraveling.Resource.Seacrh_SearchTableLuggageInsurance</th>
                     <th></th>
                     <th></th>
-                    @if (r.IsUser("Claims adjuster"))
+                    @if (RoleAuthorize.IsUser("Claims adjuster"))
                     {
                         <th></th>
                     }

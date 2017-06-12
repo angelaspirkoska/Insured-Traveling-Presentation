@@ -34,11 +34,10 @@ namespace InsuredTraveling.Hubs
         }
         public override Task OnReconnected()
         {
-            var roleAuthorize = new RoleAuthorize();
             if (HttpContext.Current != null)
             {
                 _currentUser = HttpContext.Current.User.Identity.Name;
-                _isAdmin = roleAuthorize.IsUser("Sava_support");
+                _isAdmin = RoleAuthorize.IsUser("Sava_support");
             }
             else
             {
@@ -49,10 +48,9 @@ namespace InsuredTraveling.Hubs
         }
         public override Task OnConnected()
         {
-            var roleAuthorize = new RoleAuthorize();
             _currentUser = HttpContext.Current.User.Identity.Name;
             var lastMessages = new List<LastMessagesDTO>();
-            _isAdmin = roleAuthorize.IsUser("Sava_support");
+            _isAdmin = RoleAuthorize.IsUser("Sava_support");
 
             if (_isAdmin)
             {
@@ -162,8 +160,7 @@ namespace InsuredTraveling.Hubs
                 else
                 {
                     message.From = _currentUser;
-                    RoleAuthorize r = new RoleAuthorize();
-                    if (r.IsUser("Admin"))
+                    if (RoleAuthorize.IsUser("Admin"))
                     {
                         message.Admin = false;
                     }

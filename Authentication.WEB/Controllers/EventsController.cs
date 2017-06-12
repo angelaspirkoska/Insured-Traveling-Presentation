@@ -13,7 +13,7 @@ using System.Globalization;
 
 namespace InsuredTraveling.Controllers
 {
-    [SessionExpire]
+    [SessionExpireAttribute]
     public class EventsController : Controller
     {
         private IUserService _us;
