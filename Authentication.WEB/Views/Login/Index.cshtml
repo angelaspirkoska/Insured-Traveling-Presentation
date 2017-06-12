@@ -30,6 +30,10 @@
                 {
                     <p>@InsuredTraveling.Resource.Msg_EmptyUsernameOrPassword</p>
                 }
+                if (modelError.ErrorMessage == "notAuthorize")
+                {
+                    <p>@InsuredTraveling.Resource.Msg_UserIsNotAuthorize</p>
+                }
 
             }
         </div>

@@ -1618,6 +1618,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are not authorized to login..
+        /// </summary>
+        public static string Msg_UserIsNotAuthorize {
+            get {
+                return ResourceManager.GetString("Msg_UserIsNotAuthorize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Policy.
         /// </summary>
         public static string NewPolicy_Title {

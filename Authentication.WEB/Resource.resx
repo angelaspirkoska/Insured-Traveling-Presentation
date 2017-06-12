@@ -1641,4 +1641,7 @@
   <data name="SalePoint_Show" xml:space="preserve">
     <value>Show sale points</value>
   </data>
+  <data name="Msg_UserIsNotAuthorize" xml:space="preserve">
+    <value>You are not authorized to login.</value>
+  </data>
 </root>

@@ -20,6 +20,11 @@ namespace InsuredTraveling.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(!CanUserBeLoggedIn(user.username))
+                {
+                    ModelState.AddModelError("loginErr", "notAutorize");
+                    return View();
+                }
                 var uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/token");
                 var client = new HttpClient {BaseAddress = uri};
                 IDictionary<string, string> userData = new Dictionary<string, string>();
@@ -76,6 +81,25 @@ namespace InsuredTraveling.Controllers
             return View();
         }
 
-       
+
+        #region Helpers
+        public bool CanUserBeLoggedIn(string username)
+        {
+            if(RoleAuthorize.IsUser("Sava_admin", username))
+            {
+                return true;
+            }
+            else if(RoleAuthorize.IsUser("Sava_support", username))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        #endregion
+
+
     }
 }

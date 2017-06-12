@@ -1635,4 +1635,7 @@
   <data name="SalePoint_Show" xml:space="preserve">
     <value>Прикажи продажни места</value>
   </data>
+  <data name="Msg_UserIsNotAuthorize" xml:space="preserve">
+    <value>Не сте авторизирани за логин на апликацијата.</value>
+  </data>
 </root>
