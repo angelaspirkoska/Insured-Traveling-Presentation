@@ -7,6 +7,7 @@ namespace InsuredTraveling.Models
     {
 
         public int  id { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         public string LocationName { get; set; }
     

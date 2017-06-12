@@ -14,82 +14,80 @@
         <div class="col-md-5">
             <div class="form-group">
                 <label class="control-label"> @Resource.SalePoint_LocationName <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.LocationName, new {htmlAttributes = new {@class = "form-control input-sm", @id = "spLocation"}})
+                @Html.EditorFor(model => model.LocationName, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spLocation" } })
             </div>
         </div>
         <div class="col-md-5">
             <div class="form-group">
                 <label class="control-label"> @Resource.SalePoint_Municipality <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.Municipality, new {htmlAttributes = new {@class = "form-control input-sm", @id = "spMunicipality"}})
+                @Html.EditorFor(model => model.Municipality, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spMunicipality" } })
             </div>
         </div>
         <div class="col-md-5">
             <div class="form-group">
                 <label class="control-label"> @Resource.SalePoint_Street <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.Street, new {htmlAttributes = new {@class = "form-control input-sm", @id = "spStreet"}})
+                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spStreet" } })
             </div>
         </div>
         <div class="col-md-5">
             <div class="form-group">
                 <label class="control-label"> @Resource.SalePoint_PostalCode <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.PostalCode, new {htmlAttributes = new {@class = "form-control input-sm", @id = "spPostalCode"}})
+                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spPostalCode" } })
             </div>
         </div>
         <div class="col-md-5">
             <div class="form-group">
                 <label class="control-label"> @Resource.SalePoint_OpeningHours <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.OpeningHours, new {htmlAttributes = new {@class = "form-control input-sm", @id = "spOpeningHours"}})
+                @Html.EditorFor(model => model.OpeningHours, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spOpeningHours" } })
             </div>
         </div>
         <div class="col-md-5">
             <div class="form-group">
                 <label class="control-label"> @Resource.SalePoint_PhoneNumber <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.PhoneNumber, new {htmlAttributes = new {@class = "form-control input-sm", @id = "spPhoneNum"}})
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spPhoneNum" } })
             </div>
         </div>
 
         <div class="col-md-5">
             <div class="form-group">
                 <label class="control-label"> @Resource.SalePoint_Longitude <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.Longitude, new {htmlAttributes = new {@class = "form-control input-sm", @id = "spLongitude"}})
+                @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spLongitude" } })
             </div>
         </div>
         <div class="col-md-5">
             <div class="form-group">
                 <label class="control-label"> @Resource.SalePoint_Latitude <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.Latitude, new {htmlAttributes = new {@class = "form-control input-sm", @id = "spLatitude"}})
+                @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spLatitude" } })
             </div>
         </div>
         <div class="col-md-5">
             <div class="form-group">
-                
-                @Html.CheckBoxFor(model => model.insuranceDeal, new {htmlAttributes = new {@class = "radiobtn-position", @id = "spInsuranceDeal"}})
+                @Html.CheckBoxFor(model => model.insuranceDeal, new { htmlAttributes = new { @class = "radiobtn-position", @id = "spInsuranceDeal" } })
                 <label class="control-label"> @Resource.SalePoint_InsuranceDeal<span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.CheckBoxFor(model => model.damageReport, new {htmlAttributes = new {@class = "form-control input-sm ", @id = "spDamageReport"}})
+                @Html.CheckBoxFor(model => model.damageReport, new { htmlAttributes = new { @class = "form-control input-sm ", @id = "spDamageReport" } })
                 <label class="control-label"> @Resource.SalePoint_DamageReport<span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                
             </div>
         </div>
-
+        
         <div class="col-md-5">
             <div class="form-group">
-                <input type="submit" style="margin-bottom: 100px;" value="@InsuredTraveling.Resource.SalePoint_Add" class="btn btn-success" id="sp">
+                <input type="submit" style="margin-bottom: 200px; width: 235px" value="@InsuredTraveling.Resource.SalePoint_Add" class="btn btn-success" id="spadd">
+                @*<input type="submit" style="margin-bottom: 200px; width: 235px" value="@InsuredTraveling.Resource.SalePoint_List" class="btn btn-success" id="splist">*@
             </div>
         </div>
-
-
+        
         @* <div class="col-md-7">
-                    <div class="form-group">
-                        <label class="control-label"> @Resource.Events_EventType <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
-                        <div class="inputs-spacing">
-                            @Html.DropDownListFor(model => model.EventType, (List<SelectListItem>)ViewBag.EventTypes, new { @class = "form-control input-sm", id = "EventType" })
-                            @Html.ValidationMessageFor(model => model.EventType, "", new { @class = "text-danger" })
-                        </div>
+                <div class="form-group">
+                    <label class="control-label"> @Resource.Events_EventType <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
+                    <div class="inputs-spacing">
+                        @Html.DropDownListFor(model => model.EventType, (List<SelectListItem>)ViewBag.EventTypes, new { @class = "form-control input-sm", id = "EventType" })
+                        @Html.ValidationMessageFor(model => model.EventType, "", new { @class = "text-danger" })
                     </div>
-                </div>*@
-
+                </div>
+            </div>*@
     </form>
 </div>
+
 @if (ViewBag.Success != null)
 {
     if (ViewBag.Success == "Success")
@@ -115,14 +113,16 @@
         </div>
     }
 }
-<div class="row">
-    <table style="width: 100%; " class="table table-bordered table-hover table-striped" id="tableSalePoints">
-        <thead>
+<div>
+    <div class="row">
+        <table style="width: 100%; " class="table table-bordered table-hover table-striped" id="tableSalePoints">
+            <thead>
             <tr>
                 <th>@InsuredTraveling.Resource.SalePoint_LocationName</th>
                 <th>@InsuredTraveling.Resource.SalePoint_Municipality</th>
                 <th>@InsuredTraveling.Resource.SalePoint_Street</th>
                 <th>@InsuredTraveling.Resource.SalePoint_PostalCode</th>
+                <th>@InsuredTraveling.Resource.SalePoint_PhoneNumber</th>
                 <th>@InsuredTraveling.Resource.SalePoint_DamageReport</th>
                 <th>@InsuredTraveling.Resource.SalePoint_InsuranceDeal</th>
                 <th>@InsuredTraveling.Resource.SalePoint_OpeningHours</th>
@@ -131,15 +131,65 @@
                 <th></th>
                 <th></th>
             </tr>
-        </thead>
-        <tbody id="searchResultSalePoints"></tbody>
-    </table>
+            </thead>
+            <tbody id="searchResultSalePoints"></tbody>
+        </table>
+    </div>
 </div>
-<script type="text/javascript" >
+
+<script type="text/javascript">
+    
     $(document).ready(function () {
         SalePoints();
     });
-   function SalePoints(){
+    //var editor; // use a global for the submit and return data rendering in the examples
+ 
+    //$(document).ready(function() {
+    //    editor = new $.fn.dataTable.Editor( {
+    //        ajax: "../php/staff.php",
+    //        table: "#tableSalePoints",
+    //        fields: [ {
+    //            label: "LocationName",
+    //            name: "first_name"
+    //        }, {
+    //            label: "Municipality",
+    //            name: "last_name"
+    //        }, {
+    //            label: "Street",
+    //            name: "position"
+    //        }, {
+    //            label: "PostalCode",
+    //            name: "office"
+    //        }, {
+    //            label: "PhoneNumber",
+    //            name: "extn"
+    //        }, {
+    //            label: "damageReport",
+    //            name: "start_date2",
+    //        }, {
+    //            label: "insuranceDeal",
+    //            name: "salary1"
+    //        },
+    //        {
+    //        label: "OpeningHours",
+    //    name: "start_date1",
+    //    }, {
+    //        label: "Longitude",
+    //        name: "salary2"
+    //    },
+    //     {
+    //        label: "Latitude:",
+    //        name: "salary3"
+    //    }
+    //        ]
+    //    } );
+ 
+    //    // Activate an inline edit on click of a table cell
+    //    $('#tableSalePoints').on( 'click', 'tbody td:not(:first-child)', function (e) {
+    //        editor.inline( this );
+    //    } );
+ 
+    function SalePoints() {
         $("#tableSalePoints").DataTable().destroy();
         $("#tableSalePoints").DataTable({
             dom: "Bfrtip",
@@ -149,17 +199,63 @@
                 { data: "Municipality" },
                 { data: "Street" },
                 { data: "PostalCode" },
+                { data: "PhoneNumber" },
                 { data: "damageReport" },
                 { data: "insuranceDeal" },
                 { data: "OpeningHours" },
                 { data: "Longitude" },
-                { data: "Latitude" }
+                { data: "Latitude" },
+                {
+                    data: "Location",
+                    "render": function (data, type, row, meta)
+                    {
+                        if (type === 'display')
+                        {
+                            var value = data;
+                            return $('<a>')
+                                .attr('href', '#')
+                                .attr('onclick', "ShowModal('" + data + "')")
+                                .text("@InsuredTraveling.Resource.SalePoint_Edit")
+                                .wrap('<div></div>')
+                                .parent()
+                                .html();
+                        }
+                        else
+                        {
+                            return data;
+                        }
+                    }
+                },
+                {
+                    data: "Location",
+                    "render": function (data, type, row, meta)
+                    {
+                        if (type === 'display')
+                        {
+                            var value = data;
+                            return $('<a>')
+                                .attr('href', '#')
+                                .attr('onclick', "ShowModalSetUserUpdated('" + data + "')")
+                                .text("@InsuredTraveling.Resource.SalePoint_Delete")
+                                .wrap('<div></div>')
+                                .parent()
+                                .html();
+                        }
+                        else
+                        {
+                            return data;
+                        }
+                    }
+                },
+
             ],
+
             select: true
         });
         $("#tableSalePoints").css("display", "table");
+        
     };
 </script>
 
-@Scripts.Render("~/bundles/jqueryui")
-@Styles.Render("~/Content/jqueryuicss")
+            @Scripts.Render("~/bundles/jqueryui")
+            @Styles.Render("~/Content/jqueryuicss")

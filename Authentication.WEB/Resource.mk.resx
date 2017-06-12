@@ -1626,4 +1626,13 @@
   <data name="SalePoint_List" xml:space="preserve">
     <value>Излистај продажни места</value>
   </data>
+  <data name="SalePoint_Delete" xml:space="preserve">
+    <value>Избриши</value>
+  </data>
+  <data name="SalePoint_Edit" xml:space="preserve">
+    <value>Промени</value>
+  </data>
+  <data name="SalePoint_Show" xml:space="preserve">
+    <value>Прикажи продажни места</value>
+  </data>
 </root>

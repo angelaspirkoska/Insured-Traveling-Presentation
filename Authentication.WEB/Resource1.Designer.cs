@@ -2725,6 +2725,24 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete .
+        /// </summary>
+        public static string SalePoint_Delete {
+            get {
+                return ResourceManager.GetString("SalePoint_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit .
+        /// </summary>
+        public static string SalePoint_Edit {
+            get {
+                return ResourceManager.GetString("SalePoint_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to add new sale point!.
         /// </summary>
         public static string SalePoint_Failure {
@@ -2820,6 +2838,15 @@ namespace InsuredTraveling {
         public static string SalePoint_PostalCode {
             get {
                 return ResourceManager.GetString("SalePoint_PostalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show sale points.
+        /// </summary>
+        public static string SalePoint_Show {
+            get {
+                return ResourceManager.GetString("SalePoint_Show", resourceCulture);
             }
         }
         
