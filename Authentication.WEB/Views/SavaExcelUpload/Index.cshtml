@@ -12,7 +12,7 @@
 <div class="row">
     <div class="row">
         <br /><br />
-        <div class="col-md-5">
+        <div class="col-md-4">
             @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div>
@@ -20,7 +20,7 @@
                     @Html.TextBoxFor(x => x.MyExcelFile, new { type = "file" })
 
                 </div>
-                <button class="btn btn-success" type="submit">@Resource.Sava_ExcelUpload_Doc</button>
+                <button class="btn btn-success" style="margin-top:30px" type="submit">@Resource.Sava_ExcelUpload_Doc</button>
                 <br /><br />
             }
 
@@ -39,10 +39,20 @@
                     <p>@ViewBag.ErrorMessage</p>
                 </div>
             }
+
+           
+            <div class="alert alert-danger" id="saveMessageError" role="alert" style="visibility:hidden">
+                <a class="close" data-dismiss="alert">x</a>
+                <p>Грешка при зачувување на полиса</p>
+            </div>
+
+
+            
+          
         </div>
         <div class="col-md-7">
 
-            <a class="btn btn-info" href="/SavaExcelUpload/SavaDocumentDownload">@Resource.Sava_ExcelTemplateDownload</a>
+            <a class="btn btn-primary btn-material-design-success"  style="margin-top: -5px; "href="/SavaExcelUpload/SavaDocumentDownload">@Resource.Sava_ExcelTemplateDownload</a>
             
         </div>
     </div>
@@ -62,8 +72,8 @@
              @*grid.Column("id_seller", Resource.Sava_ExcelSeller_id, format: @<text>  <span class="display-mode">   <label id="lblName">@item.id_seller</label> </span> <input type="text" id="Name" value="@item.id_seller" class="edit-mode" /></text>, style: "col2Width"),*@
              @*grid.Column("SSN_insured", Resource.Sava_ExcelSSN_Insured, format: @<text> <span class="display-mode"> <label id="lblSSN_insured">@item.SSN_insured</label> </span>  <input type="text" id="SSN_insured" value="@item.SSN_insured" class="edit-mode" /> </text>, style: "col2Width"),*@
              grid.Column("SSN_policyHolder", Resource.Sava_ExcelSSN_Holder, format: @<text> <span class="display-mode"> <label id="lblSSN_policyHolder">@item.SSN_policyHolder</label> </span>  <input type="text" id="SSN_policyHolder" value="@item.SSN_policyHolder" class="edit-mode" /> </text>, style: "col2Width"),
-             grid.Column("date_created", Resource.Sava_ExcelPolicyDate, format: @<text> <span class="display-mode"> <label id="lbldate_created">@item.date_created.Date.ToString("dd'/'MM'/'yyyy")</label> </span>  <input type="text" id="date_created" value="@item.date_created.Date.ToString("dd'/'MM'/'yyyy")" class="edit-mode" /> </text>, style: "col2Width"),
-             grid.Column("expiry_date", Resource.Sava_ExcelExpiry_Date, format: @<text> <span class="display-mode"> <label id="lblexpiry_date">@item.expiry_date.Date.ToString("dd'/'MM'/'yyyy")</label> </span>  <input type="text" id="expiry_date" value="@item.expiry_date.Date.ToString("dd'/'MM'/'yyyy")" class="edit-mode" /> </text>, style: "col2Width"),
+             grid.Column("date_created", Resource.Sava_ExcelPolicyDate, format: @<text> <span class="display-mode"> <label id="lbldate_created">@item.date_created.Date.ToString("dd'/'MM'/'yyyy")</label> </span>  <input type="text" id="date_created+@item.policy_number" value="@item.date_created.Date.ToString("dd'/'MM'/'yyyy")" class="edit-mode date" /> </text>, style: "col2Width"),
+             grid.Column("expiry_date", Resource.Sava_ExcelExpiry_Date, format: @<text> <span class="display-mode"> <label id="lblexpiry_date">@item.expiry_date.Date.ToString("dd'/'MM'/'yyyy")</label> </span>  <input type="text" id="expiry_date+@item.policy_number" value="@item.expiry_date.Date.ToString("dd'/'MM'/'yyyy")" class="edit-mode date2" /> </text>, style: "col2Width"),
              grid.Column("premium", Resource.Sava_ExcelPremium, format: @<text> <span class="display-mode"> <label id="lblpremium">@item.premium</label> </span>  <input type="text" id="premium" value="@item.premium" class="edit-mode" /> </text>, style: "col2Width"),
              @*grid.Column("email_seller", Resource.Sava_ExcelEmailHolder, format: @<text> <span class="display-mode"> <label id="lblemail_seller">@item.email_seller</label> </span>  <input type="text" id="email_seller" value="@item.email_seller" class="edit-mode" /> </text>, style: "col2Width"),*@
              grid.Column("discount_points", Resource.Sava_ExcelDiscountPoints, format: @<text> <span class="display-mode"> <label id="lbldiscount_points">@item.discount_points</label> </span>  <input type="text" id="discount_points" value="@item.discount_points" class="edit-mode" /> </text>, style: "col2Width"),
@@ -101,7 +111,8 @@
     $(document).ready(function () {
         $('#UploadTab').parent().addClass('active');
         var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
-        $("#expiry_date").datepicker({
+
+        $(".date").datepicker({
             dateFormat: dateFormatString,
             changeMonth: true,
             changeYear: true,
@@ -109,7 +120,7 @@
 
         });
 
-        $("#date_created").datepicker({
+        $(".date2").datepicker({
             dateFormat: dateFormatString,
             changeMonth: true,
             changeYear: true,
@@ -153,11 +164,12 @@
         $('.save-user').on('click', function () {
 
             var tr = $(this).parents('tr:first');
-            var Name = tr.find("#Name").val();
+            var Name = tr.find("#UserID").html();
+           
             var SSN_insured = tr.find("#SSN_insured").val();
             var SSN_policyHolder = tr.find("#SSN_policyHolder").val();
-            var date_created = tr.find("#date_created").val();
-            var expiry_date = tr.find("#expiry_date").val();
+            var date_created = tr.find(".date").val();
+            var expiry_date = tr.find(".date2").val();
             var premium = tr.find("#premium").val();
             var email_seller = tr.find("#email_seller").val();
             var discount_points = tr.find("#discount_points").val();
@@ -325,6 +337,14 @@
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
                         alert("Успешно зачувана полиса");
+                        $("#saveMessage").css('visibility', 'visible');
+                        $("#saveMessageЕррор").css('visibility', 'hidden');
+                       
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                        $("#saveMessageЕррор").css('visibility', 'visible');
+                        $("#saveMessage").css('visibility', 'hidden');
                     }
                 });
             } else {

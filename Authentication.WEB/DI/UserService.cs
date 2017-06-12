@@ -197,7 +197,8 @@ namespace InsuredTraveling.DI
             var tempUser = _db.aspnetusers.Where(x => x.EMBG.Equals(policyHolder)).FirstOrDefault();
             if (tempUser != null)
             {
-                if (datePolicyCreated >= tempUser.CreatedOn)
+                var datetime = new DateTime(2017, 6, 1);
+                if (datePolicyCreated >= datetime)
                 {
                     if (tempUser.Sum_premium == null)
                     {

@@ -1003,13 +1003,13 @@
     <value>Верзија број</value>
   </data>
   <data name="ForgetPassword_Enter" xml:space="preserve">
-    <value>Корисничко име или емаил</value>
+    <value>Корисничко име </value>
   </data>
   <data name="ForgetPassword_Submit" xml:space="preserve">
     <value>Прати</value>
   </data>
   <data name="ForgetPassword_Title" xml:space="preserve">
-    <value>Внеси корисничко име или емаил:</value>
+    <value>Внеси корисничко име</value>
   </data>
   <data name="Policy_CountryDD" xml:space="preserve">
     <value>-- Земја --</value>

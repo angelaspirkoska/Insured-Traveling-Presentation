@@ -57,6 +57,7 @@ namespace InsuredTraveling.Controllers
                     AuthRepository _repo = new AuthRepository();
                     RoleAuthorize _roleAuthorize = new RoleAuthorize();
                     policy.email_seller = " ";
+
                     _sp.AddSavaPolicy(policy);
                     _sp.SumDiscountPoints(policy.SSN_policyHolder, policy.discount_points,policy.date_created);
                     _userService.UpdatePremiumSum(policy.SSN_policyHolder, policy.premium, policy.date_created);
@@ -64,7 +65,6 @@ namespace InsuredTraveling.Controllers
                     var Sava_admin = _savaSetupService.GetLast();
 
                     float? UserSumPremiums = _userService.GetUserSumofPremiums(policy.SSN_policyHolder);
-
                     if (UserSumPremiums == null)
                     {
                         UserSumPremiums = 0;
@@ -94,10 +94,10 @@ namespace InsuredTraveling.Controllers
             catch(Exception ex)
             {
                 ViewBag.Success = false;
-                return View(model);
+                return RedirectToAction("Index", model);
             }
             ViewBag.Success = true;
-            return View(model);
+            return RedirectToAction("Index",model);
         }
 
         private void SendSavaEmail(string email, string ime, string prezime, string userRole)
@@ -190,14 +190,11 @@ namespace InsuredTraveling.Controllers
 
                     //if (SSN_result || subSSN == "000")
                     //{
-
-                    //    JSONObject.Add("SSN", "true");
-                     
+                    //    JSONObject.Add("SSN", "true");                     
                     //}
                     //else
                     //{
-                    //    JSONObject.Add("SSN", "false");
-                       
+                    //    JSONObject.Add("SSN", "false");                       
                     //}
 
                     if (SSN_Holder_result || subSSN_Holder == "000")
@@ -273,7 +270,7 @@ namespace InsuredTraveling.Controllers
             }
 
             ViewBag.IsRepost = 1;
-            var savaSetup = _savaSetupService.GetActiveSavaSetup();
+            var savaSetup = _savaSetupService.GetLast();
             var percentage = savaSetup != null ? savaSetup.points_percentage : 1;
             DataTable dt = GetDataTableFromSpreadsheet(model.MyExcelFile.InputStream, false);
             
@@ -284,12 +281,11 @@ namespace InsuredTraveling.Controllers
                     SavaPolicyModel policyModel = new SavaPolicyModel();
 
                     var policy_number = dr.ItemArray[0].ToString();
-                    var SSN_insured = " ";                   
+                    var SSN_insured = " ";
                     var SSN_policyHolder = dr.ItemArray[1].ToString();
                     var dateCreated = dr.ItemArray[2].ToString();
                     var expiry_date = dr.ItemArray[3].ToString();
                     var premium = dr.ItemArray[4].ToString();
-                    
                     //var discount_points = dr.ItemArray[5].ToString();
 
                     if (policy_number != "" && SSN_insured != "" && SSN_policyHolder != "" && expiry_date != "" && premium != "" && dateCreated != "")
@@ -299,13 +295,12 @@ namespace InsuredTraveling.Controllers
                         policyModel.SSN_insured = " ";
                         policyModel.SSN_policyHolder = (dr.ItemArray[1]).ToString();
                         string tempDateCreated = (dr.ItemArray[2]).ToString();
-                        var asd2 = double.Parse(tempDateCreated);
-                        DateTime conv1 = DateTime.FromOADate(asd2);
-                        var tempDateCreatedReplaced = conv1.Date.ToString("dd'/'MM'/'yyyy");
-
-
+                       
                         try
                         {
+                            double DoubletempDateCreated = double.Parse(tempDateCreated, CultureInfo.InvariantCulture);
+                            DateTime conv1 = DateTime.FromOADate(DoubletempDateCreated);
+                            var tempDateCreatedReplaced = conv1.Date.ToString("dd'/'MM'/'yyyy");
                             var dateTime = ConfigurationManager.AppSettings["DateFormat"];
                             var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
                             DateTime startDate1 = String.IsNullOrEmpty(tempDateCreatedReplaced) ? new DateTime() : DateTime.ParseExact(tempDateCreatedReplaced, dateTimeFormat, CultureInfo.InvariantCulture);
@@ -317,14 +312,12 @@ namespace InsuredTraveling.Controllers
                             ViewBag.ErrorMessage += " Невалиден датум на почеток.";
 
                         }
-
                         string tempExpiry = (dr.ItemArray[3]).ToString();
-                        var asd = double.Parse(tempExpiry);
-                        DateTime conv = DateTime.FromOADate(asd);
-                        var tempx = conv.ToString("dd'/'MM'/'yyyy");
-                        
                         try
                         {
+                            var DoubletempExpiry = double.Parse(tempExpiry, CultureInfo.InvariantCulture);
+                            DateTime conv = DateTime.FromOADate(DoubletempExpiry);
+                            var tempx = conv.ToString("dd'/'MM'/'yyyy");
                             var dateTime = ConfigurationManager.AppSettings["DateFormat"];
                             var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
                             DateTime startDate1 = String.IsNullOrEmpty(tempx) ? new DateTime() : DateTime.ParseExact(tempx, dateTimeFormat, CultureInfo.InvariantCulture);

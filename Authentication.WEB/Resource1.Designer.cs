@@ -1348,7 +1348,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username or email.
+        ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string ForgetPassword_Enter {
             get {
@@ -1366,7 +1366,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your username or email:.
+        ///   Looks up a localized string similar to Enter your username.
         /// </summary>
         public static string ForgetPassword_Title {
             get {
