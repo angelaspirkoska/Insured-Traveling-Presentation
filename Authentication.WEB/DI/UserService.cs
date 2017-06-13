@@ -151,6 +151,11 @@ namespace InsuredTraveling.DI
             return _db.aspnetusers.Where(x => x.PassportNumber == sellerID).Select(x => x.Email).SingleOrDefault();
         }
 
+        public aspnetuser GetUserBySellerID(string sellerID)
+        {
+            return _db.aspnetusers.Where(x => x.PassportNumber == sellerID).FirstOrDefault();
+        }
+
         public bool IsSameLoggedUserAndInsured(string UsernameLoggedUser, int SelectedInsuredId)
         {
             string SSNLoggedUser = _db.aspnetusers.Where(x => x.UserName == UsernameLoggedUser).Select(x => x.EMBG).First(); 

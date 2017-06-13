@@ -30,6 +30,7 @@ namespace InsuredTraveling.DI
         void UpdatePremiumSum(string policyHolder, float PolicyPremium, DateTime? datePolicyCreated);
         float? GetUserSumofPremiums(string policyHolder);
         string GetUserEmailBySellerID(string sellerID);
+        aspnetuser GetUserBySellerID(string sellerID);
 
 
     }

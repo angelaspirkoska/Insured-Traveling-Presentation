@@ -94,6 +94,12 @@
             @Resource.Sava_Excel_SavePolicy
         </button>
     </div>
+
+    <div class="alert alert-danger" id="saveMessageError" role="alert" style="visibility:hidden">
+        <a class="close" data-dismiss="alert">x</a>
+        <p>Грешка при зачувување на полиса</p>
+    </div>
+
     </div>
 
 <style>
@@ -306,8 +312,8 @@
                 var SSN_insured = tr.find("#SSN_insured").val();
                 var SSN_policyHolder = tr.find("#SSN_policyHolder").val();
                 checkSSN(SSN_insured, SSN_policyHolder);
-                 date_created = tr.find("#date_created").val();
-                 expiry_date = tr.find("#expiry_date").val();
+                date_created = tr.find("#lbldate_created").html();
+                 expiry_date = tr.find("#lblexpiry_date").html();
                 
                 var premium = tr.find("#premium").val();
                 var email_seller = tr.find("#email_seller").val();
@@ -343,7 +349,7 @@
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log(errorThrown);
-                        $("#saveMessageЕррор").css('visibility', 'visible');
+                        $("#saveMessageError").css('visibility', 'visible');
                         $("#saveMessage").css('visibility', 'hidden');
                     }
                 });

@@ -94,6 +94,10 @@ namespace InsuredTraveling.Controllers.API
             {
                
                     var user = _userService.GetUserDataByUsername(model.Username);
+                if (_us.GetUserBySellerID(model.IDSeller) == null)
+                {
+                    throw new Exception("Internal error: Seller ID does not exist");
+                }
                     string SellerEmail = _us.GetUserEmailBySellerID(model.IDSeller);
               
                 if (user != null)
