@@ -28,5 +28,16 @@ namespace InsuredTraveling.DI
             return mappedSalePoint;
         }
 
+        public void DeleteSP(int id)
+        {
+            var o = _db.sava_sale_points.Where(x => x.id == id);
+            if (o != null)
+            {
+                _db.sava_sale_points.Remove(o.ToArray().First());
+                _db.SaveChanges();
+            }
+
+        }
+
     }
 }

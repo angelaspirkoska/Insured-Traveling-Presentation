@@ -1638,4 +1638,7 @@
   <data name="Msg_UserIsNotAuthorize" xml:space="preserve">
     <value>Не сте авторизирани за логин на апликацијата.</value>
   </data>
+  <data name="SalePoint_Id" xml:space="preserve">
+    <value>Број на продажно место</value>
+  </data>
 </root>

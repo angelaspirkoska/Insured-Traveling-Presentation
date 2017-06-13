@@ -23,7 +23,9 @@ namespace InsuredTraveling
         public string opening_hours { get; set; }
         public string longitude { get; set; }
         public string latitude { get; set; }
-        public Nullable<bool> insurance_deal { get; set; }
-        public Nullable<bool> insurance_report { get; set; }
+        public bool insurance_deal { get; set; }
+        public bool insurance_report { get; set; }
+        //public Nullable<bool> insurance_deal { get; set; }
+        //public Nullable<bool> insurance_report { get; set; }
     }
 }

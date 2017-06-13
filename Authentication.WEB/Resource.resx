@@ -1644,4 +1644,7 @@
   <data name="Msg_UserIsNotAuthorize" xml:space="preserve">
     <value>You are not authorized to login.</value>
   </data>
+  <data name="SalePoint_Id" xml:space="preserve">
+    <value>Sale Point ID</value>
+  </data>
 </root>

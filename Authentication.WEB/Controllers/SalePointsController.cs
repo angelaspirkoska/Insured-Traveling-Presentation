@@ -8,8 +8,10 @@ using System.IO;
 using System.Web;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity.ModelConfiguration.Configuration;
 using InsuredTraveling.Models;
 using AutoMapper;
+using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json.Linq;
 
 namespace InsuredTraveling.Controllers
@@ -47,9 +49,8 @@ namespace InsuredTraveling.Controllers
             }
             return View("Index");
         }
- 
 
-    [HttpGet]
+        [HttpGet]
         [Route("GetSalePoints")]
         public JObject GetSalePoints()
         {
@@ -60,5 +61,13 @@ namespace InsuredTraveling.Controllers
             return jsonObject;
         }
 
+
+
+        public ActionResult DeleteSalePoint(int id)
+        {
+            _sps.DeleteSP(id);
+            return View("Index");
+
+        }
     }
 }

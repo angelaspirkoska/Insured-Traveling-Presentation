@@ -62,7 +62,7 @@
         </div>
         <div class="col-md-5">
             <div class="form-group">
-                @Html.CheckBoxFor(model => model.insuranceDeal, new { htmlAttributes = new { @class = "radiobtn-position", @id = "spInsuranceDeal" } })
+                @Html.CheckBoxFor(model => model.insuranceDeal, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spInsuranceDeal"} })
                 <label class="control-label"> @Resource.SalePoint_InsuranceDeal<span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
                 @Html.CheckBoxFor(model => model.damageReport, new { htmlAttributes = new { @class = "form-control input-sm ", @id = "spDamageReport" } })
                 <label class="control-label"> @Resource.SalePoint_DamageReport<span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
@@ -118,6 +118,7 @@
         <table style="width: 100%; " class="table table-bordered table-hover table-striped" id="tableSalePoints">
             <thead>
             <tr>
+                <th>@InsuredTraveling.Resource.SalePoint_Id</th>
                 <th>@InsuredTraveling.Resource.SalePoint_LocationName</th>
                 <th>@InsuredTraveling.Resource.SalePoint_Municipality</th>
                 <th>@InsuredTraveling.Resource.SalePoint_Street</th>
@@ -138,12 +139,12 @@
 </div>
 
 <script type="text/javascript">
-    
+
     $(document).ready(function () {
         SalePoints();
     });
     //var editor; // use a global for the submit and return data rendering in the examples
- 
+
     //$(document).ready(function() {
     //    editor = new $.fn.dataTable.Editor( {
     //        ajax: "../php/staff.php",
@@ -183,18 +184,19 @@
     //    }
     //        ]
     //    } );
- 
+
     //    // Activate an inline edit on click of a table cell
     //    $('#tableSalePoints').on( 'click', 'tbody td:not(:first-child)', function (e) {
     //        editor.inline( this );
     //    } );
- 
+
     function SalePoints() {
         $("#tableSalePoints").DataTable().destroy();
         $("#tableSalePoints").DataTable({
             dom: "Bfrtip",
             ajax: "/SalePoints/GetSalePoints",
             columns: [
+                {data: "id"},
                 { data: "LocationName" },
                 { data: "Municipality" },
                 { data: "Street" },
@@ -206,54 +208,29 @@
                 { data: "Longitude" },
                 { data: "Latitude" },
                 {
-                    data: "Location",
-                    "render": function (data, type, row, meta)
-                    {
-                        if (type === 'display')
-                        {
+                    data: "id",
+                    "render": function (data, type, row, meta) {
+                        if (type === 'display') {
                             var value = data;
                             return $('<a>')
-                                .attr('href', '#')
-                                .attr('onclick', "ShowModal('" + data + "')")
-                                .text("@InsuredTraveling.Resource.SalePoint_Edit")
-                                .wrap('<div></div>')
-                                .parent()
-                                .html();
-                        }
-                        else
-                        {
+                                //.attr('href','#')
+                               .attr('href', '/SalePoints/DeleteSalePoint?id=' + data)
+                               .text("@InsuredTraveling.Resource.SalePoint_Delete")
+                               .wrap('<div></div>')
+                               .parent()
+                               .html();
+                        } else {
                             return data;
                         }
                     }
-                },
-                {
-                    data: "Location",
-                    "render": function (data, type, row, meta)
-                    {
-                        if (type === 'display')
-                        {
-                            var value = data;
-                            return $('<a>')
-                                .attr('href', '#')
-                                .attr('onclick', "ShowModalSetUserUpdated('" + data + "')")
-                                .text("@InsuredTraveling.Resource.SalePoint_Delete")
-                                .wrap('<div></div>')
-                                .parent()
-                                .html();
-                        }
-                        else
-                        {
-                            return data;
-                        }
-                    }
-                },
+                }
 
             ],
 
             select: true
         });
         $("#tableSalePoints").css("display", "table");
-        
+
     };
 </script>
 

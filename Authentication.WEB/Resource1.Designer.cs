@@ -2761,6 +2761,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sale Point ID.
+        /// </summary>
+        public static string SalePoint_Id {
+            get {
+                return ResourceManager.GetString("SalePoint_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insurance deal.
         /// </summary>
         public static string SalePoint_InsuranceDeal {

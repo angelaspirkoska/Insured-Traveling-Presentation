@@ -11,5 +11,6 @@ namespace InsuredTraveling.DI
     {
         void AddSalePoint(SalePoints salePoints);
         List<SalePoints> GetSalePoints();
+        void DeleteSP(int id);
     }
 }
