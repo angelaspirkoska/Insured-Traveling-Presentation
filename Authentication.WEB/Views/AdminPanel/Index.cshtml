@@ -28,77 +28,86 @@
     <div class="tab-content">
         @if (RoleAuthorize.IsUser("Sava_admin"))
         {
-        <div id="SavaAdmin" class="tab-pane fade">
-            <h3> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </h3>
-            <table class="table table-striped table-hover ">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>@InsuredTraveling.Resource.AdminPanel_ID</th>
-                        <th>@InsuredTraveling.Resource.SavaAdminPanel_ModifiedBy</th>
-                        <th>@InsuredTraveling.Resource.SavaAdminPanel_ModifiedByDate</th>
-                        <th>@InsuredTraveling.Resource.SavaAdminPanel_SumToPoints</th>
-                        <th>@InsuredTraveling.Resource.SavaAdminPanel_VipPoints</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (ViewBag.SavaOkSetup != null)
-                    {
-                        int i = 0;
-                        foreach (var r in ViewBag.SavaOkSetup)
-                        {
-                            <tr>
-                                <td>@i</td>
-                                <td>@r.id</td>
-                                <td>@r.last_modify_by</td>
-                                <td>@r.timestamp </td>
-                                <td>@r.points_percentage</td>
-                                <td>@r.vip_sum</td>
-                              
-                                @*<td><a href="/AdminPanel/?id=@r.id"><span class="glyphicon glyphicon-trash"></span></a></td>*@
-                            </tr>
-                            i++;
-                        }
-                    }
-                </tbody>
-            </table>
-            <button class="btn btn-primary" onclick="AddOK_SetupRecord()"> @InsuredTraveling.Resource.AdminPanel_AddRecordBtn </button>
-            <form id="addOK_setupForm" class="form-padding"  method="post" action="@Url.Action("AddSavaOKSetup")">
-                <div class="form-horizontal row">
-                    <h4> @InsuredTraveling.Resource.AdminPanel_RequiredFields *</h4>
-                 
-                    <div class="form-group col-md-6">
-                        <label class="control-label col-md-4"> @InsuredTraveling.Resource.SavaAdminPanel_SumToPoints * :</label>
-                        @*<div class="col-md-6" style="margin-bottom:10px">
-                            <input type="number" class="form-control" name="points_percentage" required number min="0"/>
-                            @Html.LabelFor(x => x.SavaAdmin.points_percentage)*@
-                            @Html.TextBoxFor(x => x.SavaAdmin.points_percentage, new { htmlAttributes = new { @class = "form-control col-md-8" } } )
-                            @Html.ValidationMessageFor(x => x.SavaAdmin.points_percentage , "", new { @class = "col-md-6 text-danger" }  )
-                        @*</div>*@
-                    </div>
+            <div id="SavaAdmin" class="tab-pane fade">
 
-                    <div class="form-group col-md-6">
-                        <label class="control-label col-md-4"> @InsuredTraveling.Resource.SavaAdminPanel_VipPoints *:</label>
-                        @*<div class="col-md-6" style="margin-bottom:10px">
-                            <input type="number" class="form-control" name="vip_sum" required />*@
-                           
-                            @Html.TextBoxFor(x => x.SavaAdmin.vip_sum , new { htmlAttributes = new { @class = "form-control col-md-8" } })
-                            @Html.ValidationMessageFor(x => x.SavaAdmin.vip_sum , "", new { @class = "col-md-6 text-danger" })
-                        @*</div>*@
-                    </div>
+                @*<button class="btn btn-primary" onclick="AddOK_SetupRecord()"> @InsuredTraveling.Resource.AdminPanel_AddRecordBtn </button>*@
 
+                <form id="addOK_setupForm" class="form-padding" method="post" action="@Url.Action("AddSavaOKSetup")">
+                    <div class="form-horizontal row">
+                        <h4> @InsuredTraveling.Resource.AdminPanel_RequiredFields *</h4>
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-4" style="margin-bottom:10px">
-                            <button type="submit" class="form-control btn btn-success">
-                                @InsuredTraveling.Resource.AdminPanel_AddRecButton
-                            </button>
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-4"> @InsuredTraveling.Resource.SavaAdminPanel_SumToPoints * :</label>
+                            @*<div class="col-md-6" style="margin-bottom:10px">
+                                <input type="number" class="form-control" name="points_percentage" required number min="0"/>
+                                @Html.LabelFor(x => x.SavaAdmin.points_percentage)*@
+                            @Html.TextBoxFor(x => x.SavaAdmin.points_percentage, new { htmlAttributes = new { @class = "form-control col-md-8" } })
+                            @Html.ValidationMessageFor(x => x.SavaAdmin.points_percentage, "", new { @class = "col-md-6 text-danger" })
+                            @*</div>*@
                         </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-4"> @InsuredTraveling.Resource.SavaAdminPanel_VipPoints *:</label>
+                            @*<div class="col-md-6" style="margin-bottom:10px">
+                                <input type="number" class="form-control" name="vip_sum" required />*@
+                            @Html.TextBoxFor(x => x.SavaAdmin.vip_sum, new { htmlAttributes = new { @class = "form-control col-md-8" } })
+                            @Html.ValidationMessageFor(x => x.SavaAdmin.vip_sum, "", new { @class = "col-md-6 text-danger" })
+                            @*</div>*@
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-4" style="margin-bottom:10px">
+                                <button type="submit" class="form-control btn btn-success">
+                                    @InsuredTraveling.Resource.AdminPanel_AddRecButton
+                                </button>
+                            </div>
+                        </div>
+
+
+
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+
+                <h3> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </h3>
+                <table class="table table-striped table-hover " id="AdminTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>@InsuredTraveling.Resource.AdminPanel_ID</th>
+                            <th>@InsuredTraveling.Resource.SavaAdminPanel_ModifiedBy</th>
+                            <th>@InsuredTraveling.Resource.SavaAdminPanel_ModifiedByDate</th>
+                            <th>@InsuredTraveling.Resource.SavaAdminPanel_SumToPoints</th>
+                            <th>@InsuredTraveling.Resource.SavaAdminPanel_VipPoints</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.SavaOkSetup != null)
+                        {
+                            int i = 0;
+                            foreach (var r in ViewBag.SavaOkSetup)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@r.id</td>
+                                    <td>@r.last_modify_by</td>
+                                    <td>@r.timestamp.ToString("dd'/'MM'/'yyyy") </td>
+                                    <td>@r.points_percentage</td>
+                                    <td>@r.vip_sum</td>
+
+                                    <td><a href="/AdminPanel/DeleteSavaSetup?id=@r.id"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                    </tbody>
+                </table>
+
+
+
+
+            </div>
         }
         else
         {

@@ -877,7 +877,12 @@ namespace InsuredTraveling.Controllers
         {
             var dateTime = ConfigurationManager.AppSettings["DateFormat"];
             var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
-
+            // Fix for Sava_Sport checklist
+            if (roleName == "Sava_Sport ")
+            {
+                roleName = roleName.Replace(" ", string.Empty);
+                roleName += '+';
+            }
             List<aspnetuser> data = new List<aspnetuser>();
             DateTime registerDateValue = String.IsNullOrEmpty(registerDate) ? new DateTime() : DateTime.ParseExact(registerDate, dateTimeFormat, CultureInfo.InvariantCulture);
 

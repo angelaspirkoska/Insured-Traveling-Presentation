@@ -126,6 +126,20 @@ namespace InsuredTraveling.Controllers
             return View("Index");
         }
 
+        public ActionResult DeleteSavaSetup(int id)
+        {
+            _sok.DeleteOkSetup(id);
+            var roles = _rs.GetAllRoles();
+            var ok_setup = _okss.GetAllOkSetups();
+            var discount = _ds.GetAllDiscounts();
+            ViewBag.SavaOkSetup = _sok.GetAllSavaSetups();
+            ViewBag.Discount = discount;
+            ViewBag.Ok_setup = ok_setup;
+            ViewBag.Roles = roles;
+            ViewBag.TabIndex = "0";
+            return View("Index");
+        }
+
         [HttpPost]
         [Route("AddOK_setup")]
         public ActionResult AddOK_setup(Ok_SetupModel ok)
