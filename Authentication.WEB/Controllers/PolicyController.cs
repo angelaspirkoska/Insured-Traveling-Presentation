@@ -236,7 +236,7 @@ namespace Authentication.WEB.Controllers
             RatingEngineService ratingEngineService = new RatingEngineService();
             travel_policy polisaEntity = new travel_policy();
 
-            Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_url"] + "/api/premium/calculate");
+            Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/premium/calculate");
             HttpClient client = new HttpClient();
             client.BaseAddress = uri;
             var mediaType = new MediaTypeHeaderValue("application/json");
