@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Web;
 using Newtonsoft.Json.Linq;
 using System.Net.Mail;
+using System.Net.Mime;
 
 namespace InsuredTraveling
 {
@@ -148,25 +149,40 @@ namespace InsuredTraveling
             {
                 if (result.Succeeded)
                 {
-                    var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/EmailHeaderWelcome1.png"));
+                    var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/SAVAMAK728x90.jpg"));
                     inlineLogo.ContentId = Guid.NewGuid().ToString();
+                    var FacebookLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/facebook@2x.png"));
+                    FacebookLogo.ContentId = Guid.NewGuid().ToString();
+                    var TwitterLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/twitter@2x.png"));
+                    TwitterLogo.ContentId = Guid.NewGuid().ToString();
 
-                    string body1 = string.Format(@"   
-                        <div style='margin-left:20px'>
-                     <img style='width:700px' src=""cid:{0}"" />
-                     <p> <b>Добредојдoвте на Сава Спорт + мобилната апликација</b> .</p>
-                  
+                 string mailBody = string.Format(@"   <div>
+                  <div >
+                  <a href='https://mk.sava.insure/'> <img style='width: 100%; max-width: 1000px; ' src=""cid:{0}"" /> </a>
+                    <p> <b>Добредојдoвте на Сава Спорт + мобилната апликација</b> .</p>                  
                      <br /> <br /> 
                      <br /> Ве молиме почекајте 24 часа вашите податоци бидат ажурирани.
                      <br /> <br />Ви благодариме што одлучивте да ја користите SAVA Спорт + апликацијата. </div>"
+                + " <div style='border-top: 1px solid #BBBBBB; max-width: 1000px; width:100%; max-width: 1000px; line-height:1px; height:1px; font-size:1px; '>&nbsp;</div> "
+                + @" <div style=' text-align: center;'> <a href='https://www.facebook.com/sava.mk'> <img style='width:32px; max-width:35px' src=""cid:{1}"" /></a> <a href='https://twitter.com/Savamk'><img style='width:32px; max-width:35px' src=""cid:{2}"" /></a> </div>"
+                + "<br /> "
+               , inlineLogo.ContentId, FacebookLogo.ContentId, TwitterLogo.ContentId);
+                   
+                    var view = AlternateView.CreateAlternateViewFromString(mailBody, null, MediaTypeNames.Text.Plain);
+                    var view2 = AlternateView.CreateAlternateViewFromString(mailBody, null, MediaTypeNames.Text.Html);
 
-                    , inlineLogo.ContentId);
-                    var view = AlternateView.CreateAlternateViewFromString(body1, null, "text/html");
-                    view.LinkedResources.Add(inlineLogo);
+                    view2.LinkedResources.Add(inlineLogo);
+                    view2.LinkedResources.Add(FacebookLogo);
+                    view2.LinkedResources.Add(TwitterLogo);
 
                     MailService mailService = new MailService(userModel.Email, "signup@insuredtraveling.com");
-                    mailService.setSubject(" - Account Activation Validation");
-                    mailService.setBodyText(body1, true);
+
+                    mailService.setSubject("Моја Сава. Успешно креиран корисник.");
+
+                    mailService.setBodyText(mailBody, true);
+
+                    mailService.AlternativeViews(view);
+                    mailService.AlternativeViews(view2);
                     //ALTERNATIVE VIEW
                     mailService.AlternativeViews(view);
 
@@ -268,18 +284,49 @@ namespace InsuredTraveling
                 var user = await _userManager.FindByNameAsync(username);
                 if (user != null)
                 {
-                    string body = "Welcome to Insured Traveling " + " " + ",";
-                    body += "<br /><br />Ви благодариме што ја избравте апликацијата Моја Сава! ";
-                    body += "<br /> Вашата регистрација е успешна, ве молиме почекајте да се ажурираат потребните податоци.";
+               
+                    var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/SAVAMAK728x90.jpg"));
+                    inlineLogo.ContentId = Guid.NewGuid().ToString();
+                    var FacebookLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/facebook@2x.png"));
+                    FacebookLogo.ContentId = Guid.NewGuid().ToString();
+                    var TwitterLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/twitter@2x.png"));
+                    TwitterLogo.ContentId = Guid.NewGuid().ToString();
+
+                    string mailBody = string.Format(@"   <div>
+                  <div >
+                  <a href='https://mk.sava.insure/'> <img style='width: 100%; max-width: 1000px; ' src=""cid:{0}"" /> </a>
+                    <p> <b>Добредојдoвте на Сава Спорт + мобилната апликација</b> .</p>                  
+                     <br /> <br /> 
+                     <br /> Ве молиме почекајте 24 часа вашите податоци бидат ажурирани.
+                     <br /> <br />Ви благодариме што одлучивте да ја користите SAVA Спорт + апликацијата. </div>"
+                   + " <div style='border-top: 1px solid #BBBBBB; max-width: 1000px; width:100%; max-width: 1000px; line-height:1px; height:1px; font-size:1px; '>&nbsp;</div> "
+                   + @" <div style=' text-align: center;'> <a href='https://www.facebook.com/sava.mk'> <img style='width:32px; max-width:35px' src=""cid:{1}"" /></a> <a href='https://twitter.com/Savamk'><img style='width:32px; max-width:35px' src=""cid:{2}"" /></a> </div>"
+                   + "<br /> "
+                  , inlineLogo.ContentId, FacebookLogo.ContentId, TwitterLogo.ContentId);
+
+                    var view = AlternateView.CreateAlternateViewFromString(mailBody, null, MediaTypeNames.Text.Plain);
+                    var view2 = AlternateView.CreateAlternateViewFromString(mailBody, null, MediaTypeNames.Text.Html);
+
+                    view2.LinkedResources.Add(inlineLogo);
+                    view2.LinkedResources.Add(FacebookLogo);
+                    view2.LinkedResources.Add(TwitterLogo);
 
                     MailService mailService = new MailService(user.Email, "signup@insuredtraveling.com");
+
                     mailService.setSubject("Моја Сава. Успешно креиран корисник.");
-                    mailService.setBodyText(body, true);
+
+                    mailService.setBodyText(mailBody, true);
+
+                    mailService.AlternativeViews(view);
+                    mailService.AlternativeViews(view2);
+                    //ALTERNATIVE VIEW
+                    mailService.AlternativeViews(view);
+
                     mailService.sendMail();
 
                     try
                     {
-                        var inlineLogo =
+                        var inlineLogo2 =
                            new LinkedResource(
                                System.Web.HttpContext.Current.Server.MapPath(
                                    "~/Content/img/EmailHeaderWelcome1.png"));
@@ -293,7 +340,7 @@ namespace InsuredTraveling
                                                      "<br /> " + "SSN: " + user.EMBG +
                                                      "<br /> " + "Email: " + user.Email +
                                                      //"<br /> " + "Role: " + user.Role +
-                                                     "<br /> <br />Thanks </div>", inlineLogo.ContentId);
+                                                     "<br /> <br />Thanks </div>", inlineLogo2.ContentId);
 
                         MailService mailService2 = new MailService("systems4enterprise@gmail.com", "signup@insuredtraveling.com");
                         mailService2.setSubject("My Sava - User registered on Sava");
@@ -338,7 +385,7 @@ namespace InsuredTraveling
             var r = _userManager.FindByName(username);
             if (r != null)
             {
-                string body = "Сава Спорт + ресетирање на корисничка лозинка " + " " + ",";
+                string body = "Моја сава ресетирање на корисничка лозинка " + " " + ",";
                 body += "<br /><br />Ве молам притиснете на следниот линк за да ја ресетирате вашата лозинка";
                 body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
                 body += "<br /><br />";
@@ -351,6 +398,7 @@ namespace InsuredTraveling
 
         public void SendEmailForForgetPasswordByEmail(string email)
         {
+            
             var r = _userManager.FindByEmail(email);
             if (r != null)
             {

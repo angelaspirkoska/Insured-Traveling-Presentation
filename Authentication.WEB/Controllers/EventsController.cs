@@ -41,8 +41,9 @@ namespace InsuredTraveling.Controllers
                 //var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
                 //newEvent.EndDate = String.IsNullOrEmpty(newEvent.EndDate.ToString()) ? new DateTime() : DateTime.ParseExact(newEvent.EndDate.ToString(), dateTimeFormat, CultureInfo.InvariantCulture);
                 //newEvent.StartDate = String.IsNullOrEmpty(newEvent.StartDate.ToString()) ? new DateTime() : DateTime.ParseExact(newEvent.StartDate.ToString(), dateTimeFormat, CultureInfo.InvariantCulture);
+                var roleAuthorize = RoleAuthorize.GetCurrentLoggedUser();
 
-                newEvent.CreatedBy = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
+                newEvent.CreatedBy = _us.GetUserIdByUsername(roleAuthorize.ToString());
                 var mappedEvent = Mapper.Map<Event, @event>(newEvent);
                 try
                 {

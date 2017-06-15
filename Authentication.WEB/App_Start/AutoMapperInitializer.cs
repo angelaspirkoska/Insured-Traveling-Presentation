@@ -57,8 +57,10 @@ namespace InsuredTraveling.App_Start
             Mapper.CreateMap<Event, @event>().AfterMap((src, dst) =>
             {
                 dst.Voucher = false;
+
                 src.CreatedBy = dst.CreatedBy;
-                src.PublishDate = DateTime.Now;
+                src.PublishDate = DateTime.Now.Date;
+                dst.PublishDate = DateTime.Now.Date;
                 src.Title = dst.Title;
                 src.Description = dst.Description;
                 src.Location = dst.Location;

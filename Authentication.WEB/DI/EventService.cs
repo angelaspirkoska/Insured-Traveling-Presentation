@@ -38,8 +38,13 @@ namespace InsuredTraveling.DI
 
         public int AddEvent(@event newEvent)
         {
-            _db.events.Add(newEvent);
-            _db.SaveChanges();
+            try
+            {
+                _db.events.Add(newEvent);
+                _db.SaveChanges();
+            }
+            catch (Exception ex) { }
+
             return newEvent.ID;
         }
     }
