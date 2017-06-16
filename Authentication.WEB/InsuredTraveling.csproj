@@ -2186,6 +2186,7 @@
     <Compile Include="DI\IFranchiseService.cs" />
     <Compile Include="DI\IHealthInsuranceService.cs" />
     <Compile Include="DI\IInsuredsService.cs" />
+    <Compile Include="DI\ILogActivityService.cs" />
     <Compile Include="DI\ILuggageInsuranceService.cs" />
     <Compile Include="DI\INewsService.cs" />
     <Compile Include="DI\InsuredsService.cs" />
@@ -2198,6 +2199,7 @@
     <Compile Include="DI\ITransactionsService.cs" />
     <Compile Include="DI\ITravelNumberService.cs" />
     <Compile Include="DI\IUserService.cs" />
+    <Compile Include="DI\LogActivityService.cs" />
     <Compile Include="DI\LuggageInsuranceService.cs" />
     <Compile Include="DI\NewsService.cs" />
     <Compile Include="DI\OkSetupService.cs" />
@@ -2247,6 +2249,7 @@
     <Compile Include="exchange_rate.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Filters\CustomActionFilter.cs" />
     <Compile Include="Filters\RoleAuthorize.cs" />
     <Compile Include="Filters\RecaptchaFilter.cs" />
     <Compile Include="Filters\SessionExpireAttribute.cs" />
@@ -2284,6 +2287,9 @@
     <Compile Include="Helpers\UpdateBankAccountInfoHelper.cs" />
     <Compile Include="Helpers\UpdateFirstNoticeOfLossHelper.cs" />
     <Compile Include="insured.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="log_activities.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ActionLog1.cs" />

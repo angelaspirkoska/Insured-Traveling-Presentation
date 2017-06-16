@@ -7,7 +7,7 @@ namespace InsuredTraveling.Models
 {
     public class ActionLog1
     {
-        public int log_activityID { get; set; }
+        public long log_activityID { get; set; }
         public string controller { get; set; }
         public string action { get; set; }
         public string ip_address { get; set; }

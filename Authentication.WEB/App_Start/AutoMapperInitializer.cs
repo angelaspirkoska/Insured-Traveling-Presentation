@@ -199,6 +199,26 @@ namespace InsuredTraveling.App_Start
                 dst.PolicyHolderId = src.Policy_HolderID;                
             });
 
+            Mapper.CreateMap<ActionLog1, log_activities>().AfterMap((src, dst) =>
+            {
+                dst.Log_Activity_ID = src.log_activityID;
+                dst.Action = src.action;
+                dst.Controller = src.controller;
+                dst.IP_Address = src.ip_address;
+                dst.Time_Stamp = src.datetime;
+
+            });
+
+            Mapper.CreateMap<log_activities, ActionLog1>().AfterMap((src, dst) =>
+            {
+                dst.log_activityID = src.Log_Activity_ID;
+                dst.action = src.Action;
+                dst.controller = src.Controller;
+                dst.ip_address = src.IP_Address;
+                dst.datetime = src.Time_Stamp;
+
+            });
+
             Mapper.CreateMap<FirstNoticeOfLossReportViewModel, first_notice_of_loss>().AfterMap((src, dst) =>
             {
                 
