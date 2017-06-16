@@ -1362,4 +1362,22 @@
   <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
     <value>Ексел документ</value>
   </data>
+  <data name="ActionLog_Action" xml:space="preserve">
+    <value>Име на акција</value>
+  </data>
+  <data name="ActionLog_Controller" xml:space="preserve">
+    <value>Име на контролер</value>
+  </data>
+  <data name="ActionLog_ID" xml:space="preserve">
+    <value>Број на извештај</value>
+  </data>
+  <data name="ActionLog_IP" xml:space="preserve">
+    <value>IP адреса </value>
+  </data>
+  <data name="ActionLog_Timestamp" xml:space="preserve">
+    <value>Временска марка</value>
+  </data>
+  <data name="ActionLog_Title" xml:space="preserve">
+    <value>Извештај за активности</value>
+  </data>
 </root>

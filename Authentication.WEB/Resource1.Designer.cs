@@ -61,6 +61,60 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action Name.
+        /// </summary>
+        public static string ActionLog_Action {
+            get {
+                return ResourceManager.GetString("ActionLog_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controller Name.
+        /// </summary>
+        public static string ActionLog_Controller {
+            get {
+                return ResourceManager.GetString("ActionLog_Controller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        public static string ActionLog_ID {
+            get {
+                return ResourceManager.GetString("ActionLog_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP address.
+        /// </summary>
+        public static string ActionLog_IP {
+            get {
+                return ResourceManager.GetString("ActionLog_IP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timestamp.
+        /// </summary>
+        public static string ActionLog_Timestamp {
+            get {
+                return ResourceManager.GetString("ActionLog_Timestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recent Activities.
+        /// </summary>
+        public static string ActionLog_Title {
+            get {
+                return ResourceManager.GetString("ActionLog_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register User.
         /// </summary>
         public static string Admin_SignUp {

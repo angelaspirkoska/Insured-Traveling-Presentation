@@ -1368,4 +1368,22 @@
   <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
     <value>Excel Document</value>
   </data>
+  <data name="ActionLog_Action" xml:space="preserve">
+    <value>Action Name</value>
+  </data>
+  <data name="ActionLog_Controller" xml:space="preserve">
+    <value>Controller Name</value>
+  </data>
+  <data name="ActionLog_ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="ActionLog_IP" xml:space="preserve">
+    <value>IP address</value>
+  </data>
+  <data name="ActionLog_Timestamp" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="ActionLog_Title" xml:space="preserve">
+    <value>Recent Activities</value>
+  </data>
 </root>

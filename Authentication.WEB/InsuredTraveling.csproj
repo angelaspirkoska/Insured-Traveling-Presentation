@@ -2111,6 +2111,7 @@
     <Compile Include="company.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ActionLog1Controller.cs" />
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\API\AccountController.cs" />
     <Compile Include="Controllers\API\ChatController.cs" />
@@ -2285,6 +2286,7 @@
     <Compile Include="insured.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ActionLog1.cs" />
     <Compile Include="Models\AdminPanelModel.cs" />
     <Compile Include="Models\BrokerSales.cs" />
     <Compile Include="Models\CreditCardInfoModel.cs" />
@@ -2508,6 +2510,7 @@
     <Content Include="Views\Policy\_PolicyHolder.cshtml" />
     <Content Include="Views\Policy\_PolicyExtraData.cshtml" />
     <Content Include="Views\Policy\PolicyPrintSava.cshtml" />
+    <Content Include="Views\ActionLog1\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

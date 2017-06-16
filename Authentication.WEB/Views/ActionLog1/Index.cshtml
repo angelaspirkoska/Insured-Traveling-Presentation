@@ -1,0 +1,31 @@
+﻿@model InsuredTraveling.Models.ActionLog1
+@using System.Web.Optimization;
+@using System.Configuration;
+
+@{
+    ViewBag.Title = "ActionLog";
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+}
+
+<h2>@InsuredTraveling.Resource.ActionLog_Title</h2>
+
+<div>
+    <div class="row">
+        <table style="width: 100%; " class="table table-bordered table-hover table-striped" id="tableSalePoints">
+            <thead>
+                <tr>
+                    <th>@InsuredTraveling.Resource.ActionLog_ID</th>
+                    <th>@InsuredTraveling.Resource.ActionLog_Controller</th>
+                    <th>@InsuredTraveling.Resource.ActionLog_Action</th>
+                    <th>@InsuredTraveling.Resource.ActionLog_IP</th>
+                    <th>@InsuredTraveling.Resource.ActionLog_Timestamp</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+
+@Scripts.Render("~/bundles/jqueryui")
+@Styles.Render("~/Content/jqueryuicss")
