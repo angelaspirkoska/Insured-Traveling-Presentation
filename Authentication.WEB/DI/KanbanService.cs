@@ -169,7 +169,8 @@ namespace InsuredTraveling.DI
                 OrderBy = highestOrder + 1,
                 CreatedById = createdyBy,
                 TicketTypeId = int.Parse(collection["ticketType"]),
-                KanbanPoolListId = int.Parse(collection["poolListId"])
+                KanbanPoolListId = int.Parse(collection["poolListId"]),
+                CreatedDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
             };
 
             _db.kanbantickets.Add(ticket);

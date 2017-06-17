@@ -35,7 +35,10 @@ function AddNewTicket() {
         success: function (result) {
             $(".inner-sortable[data-poollist='" + poolListId + "']").append(result);
             $("#addNewTicketModal input").val("");
+            $("#addNewTicketModal select").val(-1);
             $("#addNewTicketModal textarea").val("");
+            $("#ticketTypeComponents").html("");
+            $('.selectpicker').selectpicker('deselectAll');
             sendNotifications();
             $("#loader").hide();
         },

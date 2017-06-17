@@ -415,7 +415,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Passport_Number_IdNumber" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="Type_InsuredID" Type="int" />
           <Property Name="Date_Created" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="Created_By" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Created_By" Type="varchar" MaxLength="128" />
           <Property Name="Date_Modified" Type="datetime" Precision="0" />
           <Property Name="Modified_By" Type="varchar" MaxLength="128" />
         </EntityType>
@@ -461,6 +461,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="TicketTypeId" Type="int" />
           <Property Name="CreatedById" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderBy" Type="float" Nullable="false" />
           <Property Name="KanbanPoolListId" Type="int" Nullable="false" />
         </EntityType>
@@ -791,9 +792,9 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <Property Name="Policy_Number" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="Policy_HolderID" Type="int" Nullable="false" />
           <Property Name="Exchange_RateID" Type="int" Nullable="false" />
-          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="CountryID" Type="int" />
           <Property Name="Policy_TypeID" Type="int" Nullable="false" />
-          <Property Name="Retaining_RiskID" Type="int" Nullable="false" />
+          <Property Name="Retaining_RiskID" Type="int" />
           <Property Name="Franchise_Age" Type="varchar" MaxLength="64" />
           <Property Name="Start_Date" Type="date" Nullable="false" />
           <Property Name="End_Date" Type="date" Nullable="false" />
@@ -805,7 +806,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <Property Name="Group_Total_Premium" Type="double" />
           <Property Name="Discount" Type="int" />
           <Property Name="Total_Premium" Type="double" />
-          <Property Name="Created_By" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Created_By" Type="varchar" MaxLength="128" />
           <Property Name="Date_Created" Type="date" Nullable="false" />
           <Property Name="Date_Modified" Type="datetime" Precision="0" />
           <Property Name="Modified_By" Type="varchar" MaxLength="128" />
@@ -1433,18 +1434,6 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_insured_createdby">
-          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1" />
-          <End Role="insured" Type="Self.insured" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnetusers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="insured">
-              <PropertyRef Name="Created_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_insured_modifiedby">
           <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="0..1" />
           <End Role="insured" Type="Self.insured" Multiplicity="*" />
@@ -1510,7 +1499,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_policy_created_by">
-          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1" />
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="0..1" />
           <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="aspnetusers">
@@ -1622,7 +1611,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_travel_policy_country">
-          <End Role="countries" Type="Self.countries" Multiplicity="1" />
+          <End Role="countries" Type="Self.countries" Multiplicity="0..1" />
           <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="countries">
@@ -1646,7 +1635,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_travel_policy_retaining_risk">
-          <End Role="retaining_risk" Type="Self.retaining_risk" Multiplicity="1" />
+          <End Role="retaining_risk" Type="Self.retaining_risk" Multiplicity="0..1" />
           <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="retaining_risk">
@@ -2206,10 +2195,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="fk_discount_group_Modified_by" Association="Self.fk_discount_group_Modified_by">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="discount_group" EntitySet="discount_group" />
-          </AssociationSet>
-          <AssociationSet Name="fk_insured_createdby" Association="Self.fk_insured_createdby">
-            <End Role="aspnetusers" EntitySet="aspnetusers" />
-            <End Role="insured" EntitySet="insured" />
           </AssociationSet>
           <AssociationSet Name="fk_insured_modifiedby" Association="Self.fk_insured_modifiedby">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
@@ -4676,6 +4661,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="kanbanticketcomponents" Relationship="Entities.TicketFK" FromRole="kanbanticket" ToRole="kanbanticketcomponent" />
           <NavigationProperty Name="kanbantickettype" Relationship="Entities.TicketTypeFK" FromRole="kanbanticket" ToRole="kanbantickettype" />
           <NavigationProperty Name="kanbanpoollist" Relationship="Entities.PoolListFK" FromRole="kanbanticket" ToRole="kanbanpoollist" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <Association Name="CreatedByFK">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1">
@@ -5662,6 +5648,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="kanbantickets">
             <EntityTypeMapping TypeName="Entities.kanbanticket">
               <MappingFragment StoreEntitySet="kanbanticket">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="KanbanPoolListId" ColumnName="KanbanPoolListId" />
                 <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
                 <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />

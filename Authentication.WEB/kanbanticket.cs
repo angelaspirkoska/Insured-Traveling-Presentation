@@ -45,6 +45,8 @@ public partial class kanbanticket
 
     public int KanbanPoolListId { get; set; }
 
+    public System.DateTime CreatedDate { get; set; }
+
 
 
     public virtual aspnetuser aspnetuser { get; set; }
@@ -64,7 +66,6 @@ public partial class kanbanticket
     public virtual kanbantickettype kanbantickettype { get; set; }
 
     public virtual kanbanpoollist kanbanpoollist { get; set; }
-
-}
+    }
 
 }
