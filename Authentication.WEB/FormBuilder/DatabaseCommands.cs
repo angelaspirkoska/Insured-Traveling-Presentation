@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Web.Mvc;
+using System.Configuration;
 
 namespace InsuredTraveling.FormBuilder
 {
@@ -223,7 +224,7 @@ namespace InsuredTraveling.FormBuilder
         public static bool ExecutePolicyCommand(int excelID, List<TagInfo> tagInfoExcel)
         {
             MySqlConnection conn = new MySqlConnection();
-            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            conn.ConnectionString = ConfigurationManager.AppSettings["ExecuteStoreProcedureConnectionString"];
             try
             {
                 conn.Open();
@@ -243,7 +244,7 @@ namespace InsuredTraveling.FormBuilder
         public static bool ExecutePopulateFormNames(int excelID, List<TagInfo> tagInfoExcel)
         {
             MySqlConnection conn = new MySqlConnection();
-            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            conn.ConnectionString = ConfigurationManager.AppSettings["ExecuteStoreProcedureConnectionString"];
             try
             {
                 conn.Open();
@@ -263,7 +264,7 @@ namespace InsuredTraveling.FormBuilder
         public static bool ExecuteListCommand(int excelID)
         {
             MySqlConnection conn = new MySqlConnection();
-            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            conn.ConnectionString = ConfigurationManager.AppSettings["ExecuteStoreProcedureConnectionString"];
             try
             {
                 conn.Open();
@@ -283,7 +284,7 @@ namespace InsuredTraveling.FormBuilder
         public static bool ExecutePopulateListCommand(int excelID, List<TagInfo> tagInfoExcel)
         {
             MySqlConnection conn = new MySqlConnection();
-            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            conn.ConnectionString = ConfigurationManager.AppSettings["ExecuteStoreProcedureConnectionString"];
             try
             {
                 conn.Open();
@@ -303,7 +304,7 @@ namespace InsuredTraveling.FormBuilder
         public static bool ExecuteDGETCommand(int excelID, List<Dget> dgetFunctions)
         {
             MySqlConnection conn = new MySqlConnection();
-            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            conn.ConnectionString = ConfigurationManager.AppSettings["ExecuteStoreProcedureConnectionString"];
             try
             {
                 conn.Open();
@@ -336,7 +337,7 @@ namespace InsuredTraveling.FormBuilder
             }
             commandText.Length--;
             MySqlConnection conn = new MySqlConnection();
-            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            conn.ConnectionString = ConfigurationManager.AppSettings["ExecuteStoreProcedureConnectionString"];
             try
             {
                 conn.Open();
@@ -672,7 +673,7 @@ namespace InsuredTraveling.FormBuilder
         {
             var ratingVariables = variables.Where(x => x.Attributes.ContainsKey("ratingIndicatorIndex")).ToList();
             MySqlConnection conn = new MySqlConnection();
-            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            conn.ConnectionString = ConfigurationManager.AppSettings["ExecuteStoreProcedureConnectionString"];
             try
             {
                 StringBuilder masterProcedure = new StringBuilder();
@@ -716,7 +717,7 @@ namespace InsuredTraveling.FormBuilder
             string sql = " SELECT * FROM RatingIndicators_" + excelID;
             List<TagInfo> variables = new List<TagInfo>();
             MySqlConnection conn = new MySqlConnection();
-            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            conn.ConnectionString = ConfigurationManager.AppSettings["ExecuteStoreProcedureConnectionString"];
             try
             {
                 conn.Open();
@@ -760,7 +761,7 @@ namespace InsuredTraveling.FormBuilder
             MySqlConnection conn = new MySqlConnection();
             MySqlCommand mysqlCommand = new MySqlCommand();
             mysqlCommand.Connection = conn;
-            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            conn.ConnectionString = ConfigurationManager.AppSettings["ExecuteStoreProcedureConnectionString"];
 
             try
             {
@@ -814,6 +815,5 @@ namespace InsuredTraveling.FormBuilder
             return result;
         }
         #endregion
-
     }
 }
