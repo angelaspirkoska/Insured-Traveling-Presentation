@@ -69,5 +69,6 @@ namespace InsuredTraveling.DI
 
         List<kanbancomponent> GetAllComponents();
         kanbantickettypecomponent AddTicketTypeComponent(int ticketTypeId, int componentType, string componentName);
+        void RemoveTicketTypeComponent(int ticketTypeComponentId);
     }
 }

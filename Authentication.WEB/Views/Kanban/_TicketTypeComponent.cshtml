@@ -17,7 +17,9 @@
     else if (Model.kanbancomponent.Type.ToLower() == "policytype")
     {
         <div>
-            @Html.Action("GetPolicyTypesDropdown", "Kanban")
+            <select name="@item.Name.Replace(" ", "_")" id="policyTypeSelect" class="form-control">
+                @Html.Action("GetPolicyTypesDropdown", "Kanban")
+            </select>
         </div>
     }
     else if (Model.kanbancomponent.Type.ToLower() == "client")

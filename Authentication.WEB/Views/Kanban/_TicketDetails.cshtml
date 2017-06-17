@@ -19,13 +19,13 @@
     <h5 style="margin-bottom: 0px; margin-top: 3px; font-weight:bold; font-size:16px; color:#4d4d4d;">Assigned To:</h5>
     @foreach (var user in Model.kanbanticketassignedtoes)
     {
-        <h6 style="margin-top: 1px;"><span style="text-decoration: underline;">@user.aspnetuser.FirstName @user.aspnetuser.LastName</span><small> since @DateTime.Now.ToString("dd.MM.yyyy | HH:mm")</small></h6>
+        <h6 style="margin-top: 1px;"><span style="text-decoration: underline;">@user.aspnetuser.FirstName @user.aspnetuser.LastName</span><small> since @user.AssignedDateTime.ToString("dd.MM.yyyy | HH:mm")</small></h6>
     }
     <hr />
     <h5 style="margin-bottom: 0px; margin-top: 3px; font-weight:bold; font-size:16px; color:#4d4d4d;">Watchers:</h5>
     @foreach (var user in Model.kanbanticketwatchers)
     {
-        <h6 style="margin-top: 1px;"><span style="text-decoration: underline;">@user.aspnetuser.FirstName @user.aspnetuser.LastName</span><small> since @DateTime.Now.ToString("dd.MM.yyyy | HH:mm")</small></h6>
+        <h6 style="margin-top: 1px;"><span style="text-decoration: underline;">@user.aspnetuser.FirstName @user.aspnetuser.LastName</span><small> since @user.AssignedDateTime.ToString("dd.MM.yyyy | HH:mm")</small></h6>
     }
     <hr />
     <h5 style="margin-bottom: 0px; margin-top: 3px; font-weight:bold; font-size:16px; color:#4d4d4d;">Comments:</h5>
@@ -51,7 +51,7 @@
         {
             <li class="kanban-board-list-group-item">
                 <span class="kanban-board-badge">@item.Value</span>
-                @item.Name
+                @item.Name.Replace("_", " ")
             </li>
         }
     </ul>

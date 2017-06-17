@@ -46,9 +46,10 @@ namespace InsuredTraveling.Controllers
             return View();
         }
 
-        public ActionResult AddTicketPartial(int ticketTypeId)
+        public ActionResult AddTicketPartial(int ticketTypeId, int editing)
         {
             List<kanbantickettypecomponent> list = _kanbanService.GetComponentsForTicketType(ticketTypeId);
+            ViewBag.Editing = editing;
             return PartialView("_AddTicket", list);
         }
 
@@ -93,6 +94,11 @@ namespace InsuredTraveling.Controllers
         public void DeleteTicket(int ticketId)
         {
             _kanbanService.RemoveTicket(ticketId);
+        }
+
+        public void DeleteTicketTypeComponent(int ticketTypeComponentId)
+        {
+            _kanbanService.RemoveTicketTypeComponent(ticketTypeComponentId);
         }
 
         public void ChangeTicketOrder(List<int> order)

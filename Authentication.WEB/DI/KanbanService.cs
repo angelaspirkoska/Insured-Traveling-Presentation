@@ -209,8 +209,8 @@ namespace InsuredTraveling.DI
                 {
                     ComponentId = ticketTypeComponent.ComponentId,
                     TicketId = ticket.Id,
-                    Value = collection[ticketTypeComponent.Name.Replace(" ", "_")],
-                    Name = ticketTypeComponent.Name.Replace(" ", "_")
+                    Value = collection[ticketTypeComponent.Name.Replace(" ", "_")].ToString(),
+                    Name = ticketTypeComponent.Name.Replace(" ", "_").ToString()
                 });
             }
 
@@ -272,6 +272,14 @@ namespace InsuredTraveling.DI
         {
             kanbanticket ticketForRemove = _db.kanbantickets.Where(x => x.Id == ticketId).FirstOrDefault();
             _db.kanbantickets.Remove(ticketForRemove);
+            _db.SaveChanges();
+        }
+
+        public void RemoveTicketTypeComponent(int ticketTypeComponentId)
+        {
+            kanbantickettypecomponent ticketTypeComponentForRemove =
+                _db.kanbantickettypecomponents.Where(x => x.Id == ticketTypeComponentId).FirstOrDefault();
+            _db.kanbantickettypecomponents.Remove(ticketTypeComponentForRemove);
             _db.SaveChanges();
         }
 

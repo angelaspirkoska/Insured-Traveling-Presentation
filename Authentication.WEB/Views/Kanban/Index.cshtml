@@ -132,11 +132,13 @@
     $("#ticketTypeSelect").change(function () {
         $("#loader").show();
         var ticketTypeId = $(this).val();
+        var editing = 0;
         $.ajax({
             url: "/Kanban/AddTicketPartial",
             type: "post",
             data: {
-                ticketTypeId: ticketTypeId
+                ticketTypeId: ticketTypeId,
+                editing: editing
             },
             success: function (result) {
                 $("#ticketTypeComponents").html(result);

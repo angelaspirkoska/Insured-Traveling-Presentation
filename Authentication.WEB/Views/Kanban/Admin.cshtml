@@ -58,11 +58,13 @@
     function updateTicketTypeContainer() {
         $("#loader").show();
         var ticketTypeId = $("#ticketTypeSelect").val();
+        var editing = 1;
         $.ajax({
             url: "/Kanban/AddTicketPartial",
             type: "post",
             data: {
-                ticketTypeId: ticketTypeId
+                ticketTypeId: ticketTypeId,
+                editing: editing
             },
             success: function (result) {
                 $("#configureTicketTypeContainer").html(result);
@@ -96,4 +98,22 @@
             }
         });
     });
+
+    function deleteTicketTypeComponent(ticketTypeComponentId) {
+        $("#loader").show();
+        $.ajax({
+            url: "/Kanban/DeleteTicketTypeComponent",
+            type: "post",
+            data: {
+                ticketTypeComponentId: ticketTypeComponentId
+            },
+            success: function () {
+                $("#loader").hide();
+                $('div[data-tickettypecomponentid="' + ticketTypeComponentId + '"]').remove();
+            },
+            error: function () {
+                $("#loader").hide();
+            }
+        });
+    }
 </script>
