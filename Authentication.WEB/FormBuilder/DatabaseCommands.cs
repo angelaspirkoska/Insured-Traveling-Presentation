@@ -758,17 +758,18 @@ namespace InsuredTraveling.FormBuilder
                 mysqlCommand.CommandText = "Master_" + excelId;
                 mysqlCommand.CommandType = CommandType.StoredProcedure;
 
-                foreach (var indicator in ratingIndicators)
+
+                foreach (var indicator in ratingIndicators) 
                 {
-                    if(indicator.Type.Equals("checkbox") || indicator.Type.Equals("radio"))
+                    if (indicator.Type.Equals("checkbox") || indicator.Type.Equals("radio"))
                     {
                         if (formElements.ContainsKey(indicator.Name))
                         {
-                            mysqlCommand.Parameters.AddWithValue("@" + indicator.Name, "yes");
+                            mysqlCommand.Parameters.Add(new MySqlParameter(indicator.Name.ToString(), "yes"));
                         }
                         else
                         {
-                            mysqlCommand.Parameters.AddWithValue("@" + indicator.Name, "no");
+                            mysqlCommand.Parameters.Add(new MySqlParameter(indicator.Name.ToString(), "no"));
                         }
                     }
                     else
@@ -776,17 +777,17 @@ namespace InsuredTraveling.FormBuilder
 
                         if (formElements.ContainsKey(indicator.Name))
                         {
-                            mysqlCommand.Parameters.AddWithValue("@" + indicator.Name, formCollection.GetValue(indicator.Name));
+                            mysqlCommand.Parameters.Add(new MySqlParameter(indicator.Name, formCollection.GetValue(indicator.Name).AttemptedValue));
                         }
                         else
                         {
-                            mysqlCommand.Parameters.AddWithValue("@" + indicator.Name, DBNull.Value);
+                            mysqlCommand.Parameters.Add(new MySqlParameter(indicator.Name, DBNull.Value));
                         }
                     }
                 }
-
-                mysqlCommand.Parameters.AddWithValue("@result", MySqlDbType.VarChar);
-                mysqlCommand.Parameters["@result"].Direction = ParameterDirection.Output;
+                MySqlParameter output = new MySqlParameter("result", MySqlDbType.VarChar);
+                output.Direction = ParameterDirection.Output;
+                mysqlCommand.Parameters.Add(output);
 
                 mysqlCommand.ExecuteNonQuery();
 
@@ -794,6 +795,7 @@ namespace InsuredTraveling.FormBuilder
             }
             catch (Exception e)
             {
+                return result;
             }
             finally
             {
@@ -801,7 +803,5 @@ namespace InsuredTraveling.FormBuilder
             }
             return result;
         }
-
-
     }
 }
