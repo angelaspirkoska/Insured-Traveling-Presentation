@@ -125,7 +125,13 @@ namespace InsuredTraveling.FormBuilder
                 {
                     for (int column = valueStart.Column; column <= valueEnd.Column; column++, j++)
                     {
-                        Database[i, j] = dgetWorksheet.Cells[column, row].Value.ToString();
+                        var dgetCellValue = dgetWorksheet.Cells[column, row].Value;
+                        var stringValue = dgetCellValue.ToString();
+                        if(stringValue.Contains(","))
+                        {
+                            stringValue = stringValue.Replace(",", ".");
+                        }
+                        Database[i, j] = stringValue;
                     }
                     j = 0;
                 }
