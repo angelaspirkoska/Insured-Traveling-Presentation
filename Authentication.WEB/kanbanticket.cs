@@ -47,6 +47,8 @@ public partial class kanbanticket
 
     public System.DateTime CreatedDate { get; set; }
 
+    public System.DateTime DeadlineDate { get; set; }
+
 
 
     public virtual aspnetuser aspnetuser { get; set; }

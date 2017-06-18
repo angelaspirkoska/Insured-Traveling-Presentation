@@ -462,6 +462,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="TicketTypeId" Type="int" />
           <Property Name="CreatedById" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeadlineDate" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderBy" Type="float" Nullable="false" />
           <Property Name="KanbanPoolListId" Type="int" Nullable="false" />
         </EntityType>
@@ -4666,6 +4667,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="kanbantickettype" Relationship="Entities.TicketTypeFK" FromRole="kanbanticket" ToRole="kanbantickettype" />
           <NavigationProperty Name="kanbanpoollist" Relationship="Entities.PoolListFK" FromRole="kanbanticket" ToRole="kanbanpoollist" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeadlineDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <Association Name="CreatedByFK">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1">
@@ -5654,6 +5656,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="kanbantickets">
             <EntityTypeMapping TypeName="Entities.kanbanticket">
               <MappingFragment StoreEntitySet="kanbanticket">
+                <ScalarProperty Name="DeadlineDate" ColumnName="DeadlineDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="KanbanPoolListId" ColumnName="KanbanPoolListId" />
                 <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
