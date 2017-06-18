@@ -473,6 +473,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="KanbanTicketId" Type="int" Nullable="false" />
           <Property Name="AssignedToId" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="AssignedDateTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Active" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="kanbanticketcomponent">
           <Key>
@@ -509,6 +510,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="KanbanTicketId" Type="int" Nullable="false" />
           <Property Name="WatcherId" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="AssignedDateTime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Active" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="languages">
           <Key>
@@ -4604,6 +4606,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="AssignedDateTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.WatcherFK" FromRole="kanbanticketwatcher" ToRole="aspnetuser" />
           <NavigationProperty Name="kanbanticket" Relationship="Entities.KanbanTicketFK2" FromRole="kanbanticketwatcher" ToRole="kanbanticket" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="WatcherFK">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1">
@@ -4629,6 +4632,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="AssignedDateTime" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.AssignedToFK1" FromRole="kanbanticketassignedto" ToRole="aspnetuser" />
           <NavigationProperty Name="kanbanticket" Relationship="Entities.KanbanTicketFK" FromRole="kanbanticketassignedto" ToRole="kanbanticket" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="AssignedToFK1">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1">
@@ -5628,6 +5632,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="kanbanticketwatchers">
             <EntityTypeMapping TypeName="Entities.kanbanticketwatcher">
               <MappingFragment StoreEntitySet="kanbanticketwatcher">
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="AssignedDateTime" ColumnName="AssignedDateTime" />
                 <ScalarProperty Name="WatcherId" ColumnName="WatcherId" />
                 <ScalarProperty Name="KanbanTicketId" ColumnName="KanbanTicketId" />
@@ -5638,6 +5643,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="kanbanticketassignedtoes">
             <EntityTypeMapping TypeName="Entities.kanbanticketassignedto">
               <MappingFragment StoreEntitySet="kanbanticketassignedto">
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="AssignedDateTime" ColumnName="AssignedDateTime" />
                 <ScalarProperty Name="AssignedToId" ColumnName="AssignedToId" />
                 <ScalarProperty Name="KanbanTicketId" ColumnName="KanbanTicketId" />

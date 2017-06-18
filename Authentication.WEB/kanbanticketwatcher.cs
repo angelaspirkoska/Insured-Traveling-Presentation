@@ -26,6 +26,8 @@ public partial class kanbanticketwatcher
 
     public System.DateTime AssignedDateTime { get; set; }
 
+    public bool Active { get; set; }
+
 
 
     public virtual aspnetuser aspnetuser { get; set; }

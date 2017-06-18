@@ -66,6 +66,7 @@ public partial class kanbanticket
     public virtual kanbantickettype kanbantickettype { get; set; }
 
     public virtual kanbanpoollist kanbanpoollist { get; set; }
-    }
+
+}
 
 }
