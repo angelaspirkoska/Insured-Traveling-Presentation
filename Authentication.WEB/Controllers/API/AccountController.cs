@@ -202,7 +202,7 @@ namespace InsuredTraveling.Controllers
             {
                 var result = _userService.GetUserBySSN(StringSsn);
 
-                if (result != null)
+                if (result == null)
                 {
                     return Ok();
                 }
