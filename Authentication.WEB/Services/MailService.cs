@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace Authentication.WEB.Services
 {
-    class MailService
+    public class MailService
     {
         public string receiver { get; set; }
 
@@ -41,7 +41,7 @@ namespace Authentication.WEB.Services
 
             smtp = new SmtpClient(mailServ, portNo);
             smtp.Credentials = new NetworkCredential(sentFrom, pass);
-            smtp.EnableSsl = true;
+            smtp.EnableSsl = false;
 
             email = new MailMessage(sentFrom, sentTo, "Insurance Policy Notification",
                 "This is an automated message sent to you as an information about the policy you ordered.");
