@@ -5,13 +5,13 @@ using System.Web;
 
 namespace InsuredTraveling.DI
 {
-    public class LogActivityService
+    public class LogActivityService : ILogActivityService
     {
         InsuredTravelingEntity _db = new InsuredTravelingEntity();
        public void AddLog(log_activities LogActivity)
-        {
-            
-            _db.log_activities.Add(LogActivity);
+       {
+
+           _db.log_activities.Add(LogActivity);
             _db.SaveChanges();
         }
     }

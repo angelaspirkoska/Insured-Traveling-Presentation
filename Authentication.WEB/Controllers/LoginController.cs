@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
 {
+    [CustomActionFilter]
     public class LoginController : Controller
     {
         [HttpPost]

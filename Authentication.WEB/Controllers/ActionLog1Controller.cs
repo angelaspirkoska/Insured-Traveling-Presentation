@@ -8,7 +8,6 @@ using System.Collections.Generic;
     {
         public class ActionLog1Controller : Controller
         {
-            // GET: ActionLog
             public ActionResult Index()
             {
                 return View();

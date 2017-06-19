@@ -8,6 +8,6 @@ namespace InsuredTraveling.DI
 {
     interface ILogActivityService
     {
-        int AddLog(log_activities LogActivity);
+        void AddLog(log_activities LogActivity);
     }
 }

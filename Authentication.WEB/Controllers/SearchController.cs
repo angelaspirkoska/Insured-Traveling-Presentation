@@ -20,6 +20,7 @@ using System.Globalization;
 
 namespace InsuredTraveling.Controllers
 {
+    [CustomActionFilter]
     [SessionExpire]
     public class SearchController : Controller
     {

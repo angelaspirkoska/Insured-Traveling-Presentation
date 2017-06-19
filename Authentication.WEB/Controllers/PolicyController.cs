@@ -23,7 +23,7 @@ using Authentication.WEB.Models;
 
 namespace Authentication.WEB.Controllers
 {
-
+    [CustomActionFilter]
     //[SessionExpire]
     public class PolicyController : Controller
     {

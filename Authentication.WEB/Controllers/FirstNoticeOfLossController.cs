@@ -17,7 +17,7 @@ using System.Globalization;
 
 namespace InsuredTraveling.Controllers
 {
-
+    [CustomActionFilter]
     [SessionExpire]
     public class FirstNoticeOfLossController : Controller
     {

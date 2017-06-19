@@ -12,7 +12,7 @@ using System.Configuration;
 
 namespace Authentication.WEB.Controllers
 {
-
+    [CustomActionFilter]
     [SessionExpire]
     public class NewsController : Controller
     {

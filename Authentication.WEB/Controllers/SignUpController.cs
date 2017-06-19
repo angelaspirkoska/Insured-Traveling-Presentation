@@ -12,6 +12,7 @@ using System.Linq;
 
 namespace InsuredTraveling.Controllers
 {
+    [CustomActionFilter]
     [RoutePrefix("SignUp")]
     [AllowAnonymous]
     public class SignUpController : Controller
