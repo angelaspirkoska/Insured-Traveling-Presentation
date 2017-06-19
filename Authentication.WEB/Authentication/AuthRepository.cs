@@ -389,7 +389,7 @@ namespace InsuredTraveling
                 body += "<br /><br />Ве молам притиснете на следниот линк за да ја ресетирате вашата лозинка";
                 body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
                 body += "<br /><br />";
-                MailService mailService = new MailService(r.Email, "signup@insuredtraveling.com");
+                MailService mailService = new MailService(r.Email, "webs.sava@sava.mk");
                 mailService.setSubject("Ресетирање на корисничка лозинка");
                 mailService.setBodyText(body, true);
                 mailService.sendMail();
@@ -406,7 +406,7 @@ namespace InsuredTraveling
                 body += "<br /><br />Please click the following link to reset your password";
                 body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
                 body += "<br /><br />Thanks";
-                MailService mailService = new MailService("slobodanka@optimalreinsurance.com", "signup@insuredtraveling.com");
+                MailService mailService = new MailService("slobodanka@optimalreinsurance.com", "webs.sava@sava.mk");
                 mailService.setSubject("Account Reset Password");
                 mailService.setBodyText(body, true);
                 mailService.sendMail();

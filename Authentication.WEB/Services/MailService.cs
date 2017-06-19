@@ -12,7 +12,7 @@ namespace Authentication.WEB.Services
         private SmtpClient smtp;
         private MailMessage email;
 
-        public MailService(string receiver, string sender = "policies@insuredtraveling.com", string mailServer = "smtp.zoho.com", int port = 587, string passphrase = "Enter4Sy")
+        public MailService(string receiver, string sender = "webs.sava@sava.mk", string mailServer = "mail.sava.mk", int port = 25, string passphrase = "W@sk89%dr2?")
         {
             string sentFrom, pass, sentTo, mailServ;
             int portNo;
@@ -87,7 +87,7 @@ namespace Authentication.WEB.Services
         {
             try
             {
-                smtp.EnableSsl = true;
+                smtp.EnableSsl = false;
                 smtp.Send(email);
             }
             catch (Exception e) { }

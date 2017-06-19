@@ -22,7 +22,7 @@ namespace InsuredTraveling.Schedulers
                   (s =>
                      s.WithIntervalInHours(24)
                     .OnEveryDay()
-                    .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(23, 59)).InTimeZone(TimeZoneInfo.Utc)
+                    .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(21, 59)).InTimeZone(TimeZoneInfo.Utc)
                   )
                 .Build();
 

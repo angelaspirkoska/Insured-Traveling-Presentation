@@ -295,7 +295,13 @@ namespace InsuredTraveling.Controllers
                         policyModel.policy_number = (dr.ItemArray[0].ToString());
                         policyModel.SSN_insured = " ";
                         policyModel.SSN_policyHolder = (dr.ItemArray[1]).ToString();
+                        //Workaround ako MBR pocnuva na nula, koga kje se popravi vo makroto da se trgne ova
+                        if(policyModel.SSN_policyHolder.Length == 12)
+                        {
+                            policyModel.SSN_policyHolder = "0" + policyModel.SSN_policyHolder;
+                        }
                         string tempDateCreated = (dr.ItemArray[2]).ToString();
+
                        
                         try
                         {
