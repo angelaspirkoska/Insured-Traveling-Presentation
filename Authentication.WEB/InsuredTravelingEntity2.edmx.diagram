@@ -43,7 +43,7 @@
         <EntityTypeShape EntityType="db_9eb138_savaModel.luggage_insurance_info" Width="1.5" PointX="13.5" PointY="73.125" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.message" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.min_premium" Width="1.5" PointX="16.5" PointY="32.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_9eb138_savaModel.news_all" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_9eb138_savaModel.news_all" Width="1.5" PointX="13.375" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.ok_setup" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.p_referent" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_9eb138_savaModel.p_stapki" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
