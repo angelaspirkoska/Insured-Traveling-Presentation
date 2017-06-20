@@ -12,7 +12,7 @@ namespace Authentication.WEB.Services
         private SmtpClient smtp;
         private MailMessage email;
 
-        public MailService(string receiver, string sender = "webs.sava@sava.mk", string mailServer = "mail.sava.mk", int port = 25, string passphrase = "W@sk89%dr2?")
+        public MailService(string receiver, string sender = "webs.sava@sava.mk", string mailServer = "217.16.69.3", int port = 25, string passphrase = "W@sk89%dr2?")
         {
             string sentFrom, pass, sentTo, mailServ;
             int portNo;
