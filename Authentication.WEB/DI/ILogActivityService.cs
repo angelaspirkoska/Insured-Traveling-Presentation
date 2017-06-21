@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace InsuredTraveling.DI
 {
-    interface ILogActivityService
+   public interface ILogActivityService
     {
-        void AddLog(log_activities LogActivity);
+        IQueryable<log_activities> GetAllLogs();
+       void AddLog(log_activities LogActivity);
     }
+
 }

@@ -14,5 +14,11 @@ namespace InsuredTraveling.DI
            _db.log_activities.Add(LogActivity);
             _db.SaveChanges();
         }
+
+        public IQueryable<log_activities> GetAllLogs()
+        {
+            IQueryable<log_activities> logs = _db.log_activities;
+            return logs;
+        }
     }
 }

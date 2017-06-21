@@ -1,4 +1,4 @@
-﻿@model InsuredTraveling.Models.ActionLog1
+﻿@model IQueryable<InsuredTraveling.log_activities>
 @using System.Web.Optimization;
 @using System.Configuration;
 
@@ -21,7 +21,16 @@
                     <th>@InsuredTraveling.Resource.ActionLog_Timestamp</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            @foreach (var logs in Model)
+            {
+                <tr>
+                    <td>@logs.Log_Activity_ID</td>
+                    <td>@logs.Controller</td>
+                    <td>@logs.Action</td>
+                    <td>@logs.IP_Address</td>
+                    <td>@logs.Time_Stamp</td>
+                </tr>
+            }
         </table>
     </div>
 </div>
