@@ -298,7 +298,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\freelancer.css" />
-	<Content Include="Content\img\500x500_SAVA-akademik.jpg" />
+    <Content Include="Content\img\500x500_SAVA-akademik.jpg" />
     <Content Include="Content\img\500x500_SAVA-slikarka.jpg" />
     <Content Include="Content\img\portfolio\cabin.png" />
     <Content Include="Content\img\portfolio\cake.png" />
@@ -307,8 +307,8 @@
     <Content Include="Content\img\portfolio\safe.png" />
     <Content Include="Content\img\portfolio\submarine.png" />
     <Content Include="Content\img\profile.png" />
-	    <Content Include="Content\img\facebook%402x.png" />
-   <Content Include="Content\img\SAVAMAK728x90.jpg" />
+    <Content Include="Content\img\facebook%402x.png" />
+    <Content Include="Content\img\SAVAMAK728x90.jpg" />
     <Content Include="Content\img\twitter%402x.png" />
     <Content Include="Content\Limitless-css\bootstrap.css" />
     <Content Include="Content\Limitless-css\colors.css" />
@@ -2291,6 +2291,7 @@
     </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="Helpers\ArchiveFirstNoticeOfLossHelper.cs" />
+    <Compile Include="Helpers\ConvertDateTimeHelper.cs" />
     <Compile Include="Helpers\SaveSavaPoliciesHelper.cs" />
     <Compile Include="Helpers\SendSavaEmailHelper.cs" />
     <Compile Include="Helpers\UpdateAdditionalInfoHelper.cs" />

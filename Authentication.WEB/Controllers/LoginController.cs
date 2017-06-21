@@ -1,10 +1,12 @@
 ﻿using InsuredTraveling.App_Start;
 using InsuredTraveling.Filters;
+using InsuredTraveling.Helpers;
 using InsuredTraveling.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
@@ -49,7 +51,7 @@ namespace InsuredTraveling.Controllers
                         HttpCookie cookieUserName = new HttpCookie("username", user.username);
                         HttpContext.Response.Cookies.Set(cookieUserName);
 
-                        HttpCookie cookieExpires = new HttpCookie("expires", DateTime.UtcNow.AddHours(5).ToString());
+                        HttpCookie cookieExpires = new HttpCookie("expires", DateTime.UtcNow.AddHours(5).ToString(new CultureInfo("en-US")));
                         HttpContext.Response.Cookies.Set(cookieExpires);
 
                         Response.Redirect("/home");

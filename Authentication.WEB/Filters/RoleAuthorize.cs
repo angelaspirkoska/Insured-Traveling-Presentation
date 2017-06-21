@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InsuredTraveling.Helpers;
+using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -74,7 +75,8 @@ namespace InsuredTraveling.Filters
             {
                 if(token.Value != null && expires.Value != null)
                 {
-                    if(DateTime.UtcNow < Convert.ToDateTime(expires.Value))
+                    var expiresDateTime = ConvertDateTimeHelper.ConvertDateTime(expires.Value);
+                    if (DateTime.UtcNow < Convert.ToDateTime(expiresDateTime))
                     {
                         return true;
                     }
