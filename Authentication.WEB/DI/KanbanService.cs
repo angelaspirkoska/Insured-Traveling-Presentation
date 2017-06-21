@@ -16,6 +16,14 @@ namespace InsuredTraveling.DI
             return _db.kanbanboards.ToList();
         }
 
+        public List<kanbanticket> GetTicketsForEmailNotifications()
+        {
+            return _db.kanbantickets.Where(x => x.kanbanpoollist.Name.ToLower() != "done" 
+                                            && DbFunctions.TruncateTime(x.DeadlineDate) >= DbFunctions.TruncateTime(DateTime.Now)
+                                            && DbFunctions.TruncateTime(x.DeadlineDate) < DbFunctions.TruncateTime(DateTime.Now.AddDays(3))
+                   ).ToList();
+        }
+
         public kanbanboard GetBoardById(int BoardId)
         {
             return _db.kanbanboards.Where(x => x.Id == BoardId).FirstOrDefault();
@@ -170,7 +178,8 @@ namespace InsuredTraveling.DI
                 CreatedById = createdyBy,
                 TicketTypeId = int.Parse(collection["ticketType"]),
                 KanbanPoolListId = int.Parse(collection["poolListId"]),
-                CreatedDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
+                CreatedDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                DeadlineDate = DateTime.Parse(collection["deadline"])
             };
 
             _db.kanbantickets.Add(ticket);
