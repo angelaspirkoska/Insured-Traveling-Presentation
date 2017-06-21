@@ -362,7 +362,7 @@
 
         $.ajax({
             type: "GET",
-            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_url"]/countriesCodes.json",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webapi_url"]/countriesCodes.json",
             contentType: "application/json; text/plain; charset=utf-8",
             dataType: 'json'
         }).done(function(result) {

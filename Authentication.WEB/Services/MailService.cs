@@ -20,24 +20,24 @@ namespace Authentication.WEB.Services
             if (mailServer != null)
                 mailServ = mailServer;
             else
-                mailServ = "smtp.zoho.com";
+                mailServ = "217.16.69.3";
 
             if (port > 0)
                 portNo = port;
             else
-                portNo = 587;
+                portNo = 25;
 
             if (sender != null)
                 sentFrom = sender;
             else
-                sentFrom = "policies@insuredtraveling.com";
+                sentFrom = "webs.sava@sava.mk";
 
             sentTo = receiver;
 
             if (passphrase != "")
                 pass = passphrase;
             else
-                pass = "Enter4Sy"; // is this the password for info@insuredtraveling.com 
+                pass = "W@sk89%dr2?"; // is this the password for info@insuredtraveling.com 
 
             smtp = new SmtpClient(mailServ, portNo);
             smtp.Credentials = new NetworkCredential(sentFrom, pass);
@@ -90,7 +90,10 @@ namespace Authentication.WEB.Services
                 smtp.EnableSsl = false;
                 smtp.Send(email);
             }
-            catch (Exception e) { }
+            catch (Exception e) {
+
+          
+            }
      
         }
     }

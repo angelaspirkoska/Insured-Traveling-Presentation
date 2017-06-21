@@ -175,7 +175,7 @@ namespace InsuredTraveling
                     view2.LinkedResources.Add(FacebookLogo);
                     view2.LinkedResources.Add(TwitterLogo);
 
-                    MailService mailService = new MailService(userModel.Email, "signup@insuredtraveling.com");
+                    MailService mailService = new MailService(userModel.Email);
 
                     mailService.setSubject("Моја Сава. Успешно креиран корисник.");
 
@@ -311,7 +311,7 @@ namespace InsuredTraveling
                     view2.LinkedResources.Add(FacebookLogo);
                     view2.LinkedResources.Add(TwitterLogo);
 
-                    MailService mailService = new MailService(user.Email, "signup@insuredtraveling.com");
+                    MailService mailService = new MailService(user.Email);
 
                     mailService.setSubject("Моја Сава. Успешно креиран корисник.");
 
@@ -342,7 +342,7 @@ namespace InsuredTraveling
                                                      //"<br /> " + "Role: " + user.Role +
                                                      "<br /> <br />Thanks </div>", inlineLogo2.ContentId);
 
-                        MailService mailService2 = new MailService("systems4enterprise@gmail.com", "signup@insuredtraveling.com");
+                        MailService mailService2 = new MailService("atanasovski46@gmail.com", "webs.sava@sava.mk");
                         mailService2.setSubject("My Sava - User registered on Sava");
                         mailService2.setBodyText(body2, true);
 
@@ -406,7 +406,7 @@ namespace InsuredTraveling
                 body += "<br /><br />Please click the following link to reset your password";
                 body += "<br /><a href = '" + ConfigurationManager.AppSettings["webpage_url"] + "/forgetpassword".Replace("CS.aspx", "CS_Activation.aspx") + "?ID=" + r.Id + "'>Click here to reset your password.</a>";
                 body += "<br /><br />Thanks";
-                MailService mailService = new MailService("slobodanka@optimalreinsurance.com", "webs.sava@sava.mk");
+                MailService mailService = new MailService("atanasovski46@gmail.com", "webs.sava@sava.mk");
                 mailService.setSubject("Account Reset Password");
                 mailService.setBodyText(body, true);
                 mailService.sendMail();

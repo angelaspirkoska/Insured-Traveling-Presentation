@@ -11,72 +11,87 @@
 
 <div>
     <form id="salePointForm" method="post" action="@Url.Action("AddSalePoint")" enctype="multipart/form-data">
-        <div class="col-md-5">
-            <div class="form-group">
-                <label class="control-label"> @Resource.SalePoint_LocationName <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.LocationName, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spLocation" } })
+        <div class="col-md-12 row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label class="control-label"> @Resource.SalePoint_LocationName <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
+                    @Html.EditorFor(model => model.LocationName, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spLocation" } })
+                    @Html.ValidationMessageFor(model => model.LocationName, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-        <div class="col-md-5">
-            <div class="form-group">
-                <label class="control-label"> @Resource.SalePoint_Municipality <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.Municipality, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spMunicipality" } })
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label class="control-label"> @Resource.SalePoint_Municipality <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
+                    @Html.EditorFor(model => model.Municipality, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spMunicipality" } })
+                    @Html.ValidationMessageFor(model => model.Municipality, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-        <div class="col-md-5">
-            <div class="form-group">
-                <label class="control-label"> @Resource.SalePoint_Street <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spStreet" } })
             </div>
-        </div>
-        <div class="col-md-5">
-            <div class="form-group">
-                <label class="control-label"> @Resource.SalePoint_PostalCode <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spPostalCode" } })
+            <div class="col-md-12 row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label"> @Resource.SalePoint_Street <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
+                        @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spStreet" } })
+                        @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label"> @Resource.SalePoint_PostalCode <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
+                        @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spPostalCode" } })
+                        @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-md-5">
-            <div class="form-group">
-                <label class="control-label"> @Resource.SalePoint_OpeningHours <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.OpeningHours, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spOpeningHours" } })
+            <div class="col-md-12 row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label"> @Resource.SalePoint_OpeningHours <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
+                        @Html.EditorFor(model => model.OpeningHours, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spOpeningHours" } })
+                        @Html.ValidationMessageFor(model => model.OpeningHours, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label"> @Resource.SalePoint_PhoneNumber <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
+                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spPhoneNum" } })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-md-5">
-            <div class="form-group">
-                <label class="control-label"> @Resource.SalePoint_PhoneNumber <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spPhoneNum" } })
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label class="control-label"> @Resource.SalePoint_Longitude <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
+                    @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spLongitude" } })
+                    @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-5">
-            <div class="form-group">
-                <label class="control-label"> @Resource.SalePoint_Longitude <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spLongitude" } })
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label class="control-label"> @Resource.SalePoint_Latitude <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
+                    @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spLatitude" } })
+                    @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-        <div class="col-md-5">
-            <div class="form-group">
-                <label class="control-label"> @Resource.SalePoint_Latitude <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spLatitude" } })
+            <div class="col-md-5">
+                <div class="form-group">
+                    @Html.CheckBoxFor(model => model.insuranceDeal, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spInsuranceDeal" } })
+                    <label class="control-label"> @Resource.SalePoint_InsuranceDeal<span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
+                    @Html.CheckBoxFor(model => model.damageReport, new { htmlAttributes = new { @class = "form-control input-sm ", @id = "spDamageReport" } })
+                    <label class="control-label"> @Resource.SalePoint_DamageReport<span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
+                </div>
             </div>
-        </div>
-        <div class="col-md-5">
-            <div class="form-group">
-                @Html.CheckBoxFor(model => model.insuranceDeal, new { htmlAttributes = new { @class = "form-control input-sm", @id = "spInsuranceDeal"} })
-                <label class="control-label"> @Resource.SalePoint_InsuranceDeal<span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
-                @Html.CheckBoxFor(model => model.damageReport, new { htmlAttributes = new { @class = "form-control input-sm ", @id = "spDamageReport" } })
-                <label class="control-label"> @Resource.SalePoint_DamageReport<span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color: #E41B17; font-size: 10px;"></span></label>
+
+
+            <div class="col-md-5">
+                <div class="form-group">
+                    <input type="submit" style="margin-bottom: 200px; width: 235px" value="@InsuredTraveling.Resource.SalePoint_Add" class="btn btn-success" id="spadd">
+                    @*<input type="submit" style="margin-bottom: 200px; width: 235px" value="@InsuredTraveling.Resource.SalePoint_List" class="btn btn-success" id="splist">*@
+                </div>
             </div>
-        </div>
-        
-        <div class="col-md-5">
-            <div class="form-group">
-                <input type="submit" style="margin-bottom: 200px; width: 235px" value="@InsuredTraveling.Resource.SalePoint_Add" class="btn btn-success" id="spadd">
-                @*<input type="submit" style="margin-bottom: 200px; width: 235px" value="@InsuredTraveling.Resource.SalePoint_List" class="btn btn-success" id="splist">*@
-            </div>
-        </div>
-        
-        @* <div class="col-md-7">
+
+            @* <div class="col-md-7">
                 <div class="form-group">
                     <label class="control-label"> @Resource.Events_EventType <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;font-size: 10px;"></span></label>
                     <div class="inputs-spacing">
@@ -85,7 +100,7 @@
                     </div>
                 </div>
             </div>*@
-    </form>
+</form>
 </div>
 
 @if (ViewBag.Success != null)
@@ -117,21 +132,21 @@
     <div class="row">
         <table style="width: 100%; " class="table table-bordered table-hover table-striped" id="tableSalePoints">
             <thead>
-            <tr>
-                <th>@InsuredTraveling.Resource.SalePoint_Id</th>
-                <th>@InsuredTraveling.Resource.SalePoint_LocationName</th>
-                <th>@InsuredTraveling.Resource.SalePoint_Municipality</th>
-                <th>@InsuredTraveling.Resource.SalePoint_Street</th>
-                <th>@InsuredTraveling.Resource.SalePoint_PostalCode</th>
-                <th>@InsuredTraveling.Resource.SalePoint_PhoneNumber</th>
-                <th>@InsuredTraveling.Resource.SalePoint_DamageReport</th>
-                <th>@InsuredTraveling.Resource.SalePoint_InsuranceDeal</th>
-                <th>@InsuredTraveling.Resource.SalePoint_OpeningHours</th>
-                <th>@InsuredTraveling.Resource.SalePoint_Longitude</th>
-                <th>@InsuredTraveling.Resource.SalePoint_Latitude</th>
-                <th></th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>@InsuredTraveling.Resource.SalePoint_Id</th>
+                    <th>@InsuredTraveling.Resource.SalePoint_LocationName</th>
+                    <th>@InsuredTraveling.Resource.SalePoint_Municipality</th>
+                    <th>@InsuredTraveling.Resource.SalePoint_Street</th>
+                    <th>@InsuredTraveling.Resource.SalePoint_PostalCode</th>
+                    <th>@InsuredTraveling.Resource.SalePoint_PhoneNumber</th>
+                    <th>@InsuredTraveling.Resource.SalePoint_DamageReport</th>
+                    <th>@InsuredTraveling.Resource.SalePoint_InsuranceDeal</th>
+                    <th>@InsuredTraveling.Resource.SalePoint_OpeningHours</th>
+                    <th>@InsuredTraveling.Resource.SalePoint_Longitude</th>
+                    <th>@InsuredTraveling.Resource.SalePoint_Latitude</th>
+                    <th></th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody id="searchResultSalePoints"></tbody>
         </table>
@@ -196,7 +211,7 @@
             dom: "Bfrtip",
             ajax: "/SalePoints/GetSalePoints",
             columns: [
-                {data: "id"},
+                { data: "id" },
                 { data: "LocationName" },
                 { data: "Municipality" },
                 { data: "Street" },
@@ -234,5 +249,5 @@
     };
 </script>
 
-            @Scripts.Render("~/bundles/jqueryui")
-            @Styles.Render("~/Content/jqueryuicss")
+@Scripts.Render("~/bundles/jqueryui")
+@Styles.Render("~/Content/jqueryuicss")
