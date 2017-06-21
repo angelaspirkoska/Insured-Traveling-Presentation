@@ -1,4 +1,5 @@
 ﻿using Authentication.WEB.Services;
+using InsuredTraveling.DI;
 using Quartz;
 using System;
 using System.Net;
@@ -10,16 +11,27 @@ namespace InsuredTraveling.Schedulers
     {
         public void Execute(IJobExecutionContext context)
         {
-            //TODO: Check if ticket with due date expired exists and send e-mail to the aasigned user
-            var ticketName = "[TicketName]";
-            var ticketNumber = "[TicketNumber]";
-            var userName = "[TicketUser]";
-            var ticketDate = "[TicketDate]";
+            var kanbanService = new KanbanService();
+            var tickets = kanbanService.GetTicketsForEmailNotifications();
 
-            //var mailService = new MailService("aleksandar.spaseski@hotmail.com");
-            //var emailBody = "Dear " + userName + ". Please check your ticket " + ticketNumber + ": " + ticketName + ". " + "It is past it's due date of " + ticketDate + ".";
-            //mailService.setBodyText(emailBody);
-            //mailService.sendMail();
+            foreach (var ticket in tickets)
+            {
+                var ticketName = ticket.Name;
+                var ticketPoolList = ticket.kanbanpoollist.Name;
+                var deadline = ticket.DeadlineDate.ToString("dd/mmm/yyyy");
+
+                foreach (var assignee in ticket.kanbanticketassignedtoes)
+                {
+                    var assigneeEmail = assignee.aspnetuser.Email;
+                    var assigneeUserName = assignee.aspnetuser.UserName;
+                    var mailService = new MailService(assigneeEmail);
+                    var emailBody = "Dear " + assigneeUserName + ". Please check your ticket " + ticketName + " from the pool: " + ticketPoolList + ". Its deadline is: " + deadline + ".";
+                    mailService.setBodyText(emailBody);
+                    //mailService.sendMail();
+                }
+            }
+
+
         }
     }
 }

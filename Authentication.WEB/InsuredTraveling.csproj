@@ -297,6 +297,8 @@
     <Content Include="Content\img\portfolio\safe.png" />
     <Content Include="Content\img\portfolio\submarine.png" />
     <Content Include="Content\img\profile.png" />
+    <Content Include="Content\Kanban\bootstrap-datepicker.css" />
+    <Content Include="Scripts\Kanban\bootstrap-datepicker.js" />
     <Content Include="Content\Kanban\bootstrap-select.min.css" />
     <Content Include="Content\Kanban\jquery-ui.css" />
     <Content Include="Content\Kanban\kanban.css" />
