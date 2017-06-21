@@ -148,7 +148,7 @@ namespace InsuredTraveling.Controllers
             {
                 this.ModelState.Remove("PassportNumber");
             }
-            if (ModelState.IsValid || (userModel.Role == "Sava_Seller"))
+            if (!ModelState.IsValid && (userModel.Role == "Sava_Seller")||(!ModelState.IsValid && (userModel.Role != "Sava_Seller")))
             {
                 return BadRequest(ModelState);
             }
