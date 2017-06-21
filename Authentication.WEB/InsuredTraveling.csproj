@@ -2540,6 +2540,7 @@
     <Content Include="Views\Kanban\Admin.cshtml" />
     <Content Include="Views\Kanban\_ComponentsDropdown.cshtml" />
     <Content Include="Views\Kanban\_TicketTypeComponent.cshtml" />
+    <Content Include="Views\Kanban\_EditTicket.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
