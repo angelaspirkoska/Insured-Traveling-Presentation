@@ -22,22 +22,28 @@ namespace InsuredTraveling.Schedulers
 
                 foreach (var assignee in ticket.kanbanticketassignedtoes)
                 {
-                    var assigneeEmail = assignee.aspnetuser.Email;
-                    var assigneeUserName = assignee.aspnetuser.UserName;
-                    var mailService = new MailService(assigneeEmail);
-                    var emailBody = "Dear " + assigneeUserName + ". Please check your ticket " + ticketName + " from the pool: " + ticketPoolList + ". Its deadline is: " + deadline + ".";
-                    mailService.setBodyText(emailBody);
-                    //mailService.sendMail();
+                    if(assignee.Active)
+                    {
+                        var assigneeEmail = assignee.aspnetuser.Email;
+                        var assigneeUserName = assignee.aspnetuser.UserName;
+                        var mailService = new MailService(assigneeEmail);
+                        var emailBody = "Dear " + assigneeUserName + ". Please check your ticket " + ticketName + " from the pool: " + ticketPoolList + ". Its deadline is: " + deadline + ".";
+                        mailService.setBodyText(emailBody);
+                        //mailService.sendMail();
+                    }
                 }
 
                 foreach (var watcher in ticket.kanbanticketwatchers)
                 {
-                    var watcherEmail = watcher.aspnetuser.Email;
-                    var watcherUserName = watcher.aspnetuser.UserName;
-                    var mailService = new MailService(watcherEmail);
-                    var emailBody = "Dear " + watcherUserName + ". Please check your ticket " + ticketName + " from the pool: " + ticketPoolList + ". Its deadline is: " + deadline + ".";
-                    mailService.setBodyText(emailBody);
-                    //mailService.sendMail();
+                    if(watcher.Active)
+                    {
+                        var watcherEmail = watcher.aspnetuser.Email;
+                        var watcherUserName = watcher.aspnetuser.UserName;
+                        var mailService = new MailService(watcherEmail);
+                        var emailBody = "Dear " + watcherUserName + ". Please check your ticket " + ticketName + " from the pool: " + ticketPoolList + ". Its deadline is: " + deadline + ".";
+                        mailService.setBodyText(emailBody);
+                        //mailService.sendMail();
+                    }
                 }
             }
 
