@@ -29,6 +29,16 @@ namespace InsuredTraveling.Schedulers
                     mailService.setBodyText(emailBody);
                     //mailService.sendMail();
                 }
+
+                foreach (var watcher in ticket.kanbanticketwatchers)
+                {
+                    var watcherEmail = watcher.aspnetuser.Email;
+                    var watcherUserName = watcher.aspnetuser.UserName;
+                    var mailService = new MailService(watcherEmail);
+                    var emailBody = "Dear " + watcherUserName + ". Please check your ticket " + ticketName + " from the pool: " + ticketPoolList + ". Its deadline is: " + deadline + ".";
+                    mailService.setBodyText(emailBody);
+                    //mailService.sendMail();
+                }
             }
 
 
