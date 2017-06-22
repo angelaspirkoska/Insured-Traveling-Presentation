@@ -84,5 +84,8 @@ namespace InsuredTraveling
         public virtual DbSet<broker_employees> broker_employees { get; set; }
         public virtual DbSet<excelconfig> excelconfigs { get; set; }
         public virtual DbSet<form_elements> form_elements { get; set; }
+        public virtual DbSet<config_policy_type> config_policy_type { get; set; }
+        public virtual DbSet<a_test_table> a_test_table { get; set; }
+        public virtual DbSet<a_test> a_test { get; set; }
     }
 }

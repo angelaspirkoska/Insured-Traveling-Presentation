@@ -24,8 +24,9 @@ namespace InsuredTraveling.Controllers
         private IDiscountService _ds;
         private IExcelConfigService _exs;
         private IFormElementsService _fes;
+        private IConfigPolicyTypeService _configPolicyTypeService;
 
-        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us, IDiscountService ds, IExcelConfigService exs, IFormElementsService fes)
+        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us, IDiscountService ds, IExcelConfigService exs, IFormElementsService fes, IConfigPolicyTypeService configPolicyTypeService)
         {
             _rs = rs;
             _okss = okss;
@@ -33,6 +34,7 @@ namespace InsuredTraveling.Controllers
             _ds = ds;
             _exs = exs;
             _fes = fes;
+            _configPolicyTypeService = configPolicyTypeService;
         }
 
         [HttpGet]
@@ -50,7 +52,6 @@ namespace InsuredTraveling.Controllers
             ViewBag.TabIndex = "1";
             return View();
         }
-
 
         [HttpPost]
         [Route("AddRole")]
@@ -183,40 +184,36 @@ namespace InsuredTraveling.Controllers
 
         [HttpPost]
         [Route("ConfigureRatingEngine")]
-        public ActionResult ConfigureRatingEngine(HttpPostedFileBase excelConfigFile)
+        public ActionResult ConfigureRatingEngine(HttpPostedFileBase excelConfigFile, string policyName, DateTime effectiveDate, DateTime expiryDate)
         {
-            if (excelConfigFile != null && excelConfigFile.ContentLength > 0)
+            try
             {
-                var path = @"~/ExcelConfig/config_file.xlsx";
-                path = System.Web.HttpContext.Current.Server.MapPath(path);
-                excelConfigFile.SaveAs(path);
-                ExcelFileViewModel e = new ExcelFileViewModel();
-                e.Path = path;
-                excelconfig excelConfig = new excelconfig();
-                excelConfig.DateCreated = DateTime.Now;
-                excelConfig.CreatedBy = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
-                try
+                if (excelConfigFile != null && excelConfigFile.ContentLength > 0)
                 {
-                    e.Id = _exs.AddExcelConfig(excelConfig);
+                    if(excelConfigFile.ContentType.Equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                    {
+                        var path = @"~/ExcelConfig/" + excelConfigFile.FileName;
+                        var fullPath = System.Web.HttpContext.Current.Server.MapPath(path);
+                        excelConfigFile.SaveAs(fullPath);
+
+                        var configPolicyType = ExcelReader.CreateConfigPolicyTypeObject(policyName, effectiveDate, expiryDate);
+                        configPolicyType.ID = _configPolicyTypeService.AddConfigPolicyType(configPolicyType);
+
+                        excelconfig excelConfig = ExcelReader.CreateExcelConfigObject(path, excelConfigFile.FileName, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name), configPolicyType.ID, effectiveDate, expiryDate);
+                        var excelId = _exs.AddExcelConfig(excelConfig);
+
+                        ExcelReader.SaveExcelConfiguration(path, excelId);
+                        return View("Index");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    return View();
-                }
-                return View("PolicyForm", e);
+                return View("Index");
+            } 
+            catch (Exception ex)
+            {
+               return View();
             }
-            return View("Index");
         }
 
-        [HttpPost]
-        public ActionResult PolicyForm(int? excelId, FormCollection formCollection)
-        {
-            if (excelId.HasValue)
-            {
-                ViewBag.CalculatedPremium = DatabaseCommands.CalculatePremium((int)excelId, formCollection);
-                return View("PolicyPremium");
-            }
-            return new HttpStatusCodeResult(500, "Something went wrong");
-        }
+
     }
 }

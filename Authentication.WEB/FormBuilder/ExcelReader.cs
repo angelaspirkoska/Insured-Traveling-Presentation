@@ -15,18 +15,33 @@ namespace InsuredTraveling.FormBuilder
         public static int helperFunctions { get; set; }
         public static int procedures { get; set; }
         public static List<Dget> dgetFunctions { get; set; }     
-        public static IHtmlString ReadExcel(ExcelFileViewModel e)
+        public static IHtmlString ReadExcel(PolicyFormViewModel model)
         {
-            ExcelPackage pck = new ExcelPackage(new FileInfo(e.Path));
+            //var excelPath = System.Web.HttpContext.Current.Server.MapPath(model.ExcelPath);
+            ExcelPackage pck = new ExcelPackage(new FileInfo(model.ExcelPath));
             dgetFunctions = new List<Dget>();
-            var tagInfoExcel = ParseFormElements(pck, e.Id);         
-            var result = CreateForm(pck, tagInfoExcel, e.Id);
-            var functions = DetermineFunction(pck);
-            var procedures = DetermineProcedure(pck);
-            DatabaseCommands.CreateDatabaseTables(e.Id, tagInfoExcel, dgetFunctions, procedures, functions);
-            var functionsStrings = GenerateStringFunctions(functions);
-            var proceduresStrings = GenerateStringProcedures(procedures);
+            var tagInfoExcel = ParseFormElements(pck, model.ExcelID);         
+            var result = CreateForm(pck, tagInfoExcel, model.ExcelID);
             return result;
+        }
+        public static bool SaveExcelConfiguration(string excelPath, int excelID)
+        {
+            try
+            {
+                ExcelPackage pck = new ExcelPackage(new FileInfo(excelPath));
+                dgetFunctions = new List<Dget>();
+                var tagInfoExcel = ParseFormElements(pck, excelID);
+                var functions = DetermineFunction(pck);
+                var procedures = DetermineProcedure(pck);
+                DatabaseCommands.CreateDatabaseTables(excelID, tagInfoExcel, dgetFunctions, procedures, functions);
+                var functionsStrings = GenerateStringFunctions(functions);
+                var proceduresStrings = GenerateStringProcedures(procedures);
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
         }
         public static List<Function> DetermineFunction(ExcelPackage pck)
         {
@@ -269,8 +284,27 @@ namespace InsuredTraveling.FormBuilder
             }
             return tagInfoExcel;
         }
-      
-
+        public static excelconfig CreateExcelConfigObject(string path, string fileName, string createdBy, int idConfigPolicyType, DateTime effectiveDate, DateTime expiryDate)
+        {
+            excelconfig excelConfig = new excelconfig();
+            excelConfig.excel_path = path;
+            excelConfig.excel_name = fileName;
+            excelConfig.DateCreated = DateTime.Now;
+            excelConfig.CreatedBy = createdBy;
+            excelConfig.id_config_policy_type = idConfigPolicyType;
+            excelConfig.ValidDateStart = effectiveDate;
+            excelConfig.ValidDateEnd = expiryDate;
+            return excelConfig;
+        }
+        public static config_policy_type CreateConfigPolicyTypeObject(string policyName, DateTime effectiveDate, DateTime expiryDate)
+        {
+            var configPolicyType = new config_policy_type();
+            configPolicyType.policy_type_name = policyName;
+            configPolicyType.policy_effective_date = effectiveDate;
+            configPolicyType.policy_expiry_date = expiryDate;
+            configPolicyType.status = true;
+            return configPolicyType;
+        }
     }
    
 }

@@ -1,0 +1,25 @@
+﻿@model InsuredTraveling.ViewModels.ConfigurationPolicyViewModel
+@{
+    ViewBag.Title = InsuredTraveling.Resource.NewPolicy_Title;
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+}
+
+@using (Html.BeginForm("Index", "ConfigurationPolicy", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.PolicyTypeID, htmlAttributes: new { @class = "control-label" })
+                <div class="inputs-spacing">
+                    @Html.DropDownListFor(model => model.PolicyTypeID, (List<SelectListItem>)ViewBag.PolicyTypes, new { @class = "form-control input-sm", id = "PolicyTypeID"})
+                    @Html.ValidationMessageFor(model => model.PolicyTypeID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-sm-4 btns-position">
+            <input type="submit" value="@InsuredTraveling.Resource.Policy_BuyPolicy" class="btn btn-success hideMe btn-padding btn-block customButton"/>
+        </div>
+    </div>
+}

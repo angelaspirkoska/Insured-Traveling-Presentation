@@ -106,6 +106,33 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Effective Date.
+        /// </summary>
+        public static string AdminPanel_Configuration_EffectiveDate {
+            get {
+                return ResourceManager.GetString("AdminPanel_Configuration_EffectiveDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expiry Date.
+        /// </summary>
+        public static string AdminPanel_Configuration_ExpiryDate {
+            get {
+                return ResourceManager.GetString("AdminPanel_Configuration_ExpiryDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Name.
+        /// </summary>
+        public static string AdminPanel_Configuration_PolicyName {
+            get {
+                return ResourceManager.GetString("AdminPanel_Configuration_PolicyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Excel Document.
         /// </summary>
         public static string AdminPanel_ConfigurationDocument {
@@ -498,6 +525,15 @@ namespace InsuredTraveling {
         public static string Client_SuccessfullyAdded {
             get {
                 return ResourceManager.GetString("Client_SuccessfullyAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy Type.
+        /// </summary>
+        public static string Config_Policy_Type {
+            get {
+                return ResourceManager.GetString("Config_Policy_Type", resourceCulture);
             }
         }
         

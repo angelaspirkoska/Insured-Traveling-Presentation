@@ -1,18 +1,21 @@
 ﻿@using InsuredTraveling.Helpers
 @using System.Web.Optimization;
+@using System.Configuration;
 @model InsuredTraveling.Models.AdminPanelModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+    var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+    var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy").ToLower() : dateTime.ToLower();
 }
 
-<div class="container container-position-for-limitless-admin-panel" >
+<div class="container container-position-for-limitless-admin-panel">
     <h2 class="page-header"> @InsuredTraveling.Resource.AdminPanel_Title </h2>
     <br />
     <ul class="nav nav-pills" id="adminNavigation">
-        <li id="navRoles" class="active"><a data-toggle="pill" href="#home" > @InsuredTraveling.Resource.AdminPanel_Roles </a></li>
-        <li  id="navSetup"><a data-toggle="pill" href="#menu1"  id="navSetup"> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </a></li>
-        <li  id="navDiscount" ><a data-toggle="pill" href="#DiscountMenu" > @InsuredTraveling.Resource.AdminPanel_Discount </a></li>
+        <li id="navRoles" class="active"><a data-toggle="pill" href="#home"> @InsuredTraveling.Resource.AdminPanel_Roles </a></li>
+        <li id="navSetup"><a data-toggle="pill" href="#menu1" id="navSetup"> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </a></li>
+        <li id="navDiscount"><a data-toggle="pill" href="#DiscountMenu"> @InsuredTraveling.Resource.AdminPanel_Discount </a></li>
         <li id="navConfigurableRatingEngine"><a data-toggle="pill" href="#configRatingEngine"> @InsuredTraveling.Resource.AdminPanel_ConfigurableRatingEngine </a></li>
     </ul>
 
@@ -29,7 +32,7 @@
                 <tbody>
                     @if (ViewBag.Roles != null)
                     {
-                        int i =0;
+                        int i = 0;
                         foreach (var r in ViewBag.Roles)
                         {
                             <tr>
@@ -41,10 +44,8 @@
                         }
                     }
                 </tbody>
-              </table>
-              
+            </table>
             <button class="btn btn-primary" onclick="AddRole()"> @InsuredTraveling.Resource.AdminPanel_AddRoleBtn </button>
-
             <form id="addRoleForm" class="form-padding" hidden method="post" action="@Url.Action("AddRole")">
                 <div class="row">
                     <div class="form-group">
@@ -60,10 +61,9 @@
                             <input type="submit" class="form-control btn btn-success" value="Add" />
                         </div>
                     </div>
-                </div>                                        
+                </div>
             </form>
         </div>
-        @*Insurance Company setup*@
         <div id="menu1" class="tab-pane fade">
             <h3> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </h3>
             <table class="table table-striped table-hover ">
@@ -78,7 +78,7 @@
                         <th>@InsuredTraveling.Resource.AdminPanel_NumMessage</th>
                         <th>@InsuredTraveling.Resource.AdminPanel_InsuranceCompany</th>
                         <th>@InsuredTraveling.Resource.AdminPanel_VersionNumber</th>
-                          <th>@InsuredTraveling.Resource.AdminPanel_SSNValidation</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_SSNValidation</th>
                         <th>@InsuredTraveling.Resource.AdminPanel_TestPayment</th>
                     </tr>
                 </thead>
@@ -120,43 +120,43 @@
                     <div class="form-group">
                         <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_NumAttepmts * :</label>
                         <div class="col-md-6" style="margin-bottom:10px">
-                            <input type="text" class="form-control" name="NumberOfAttempts" required/>
+                            <input type="text" class="form-control" name="NumberOfAttempts" required />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_NumViews *:</label>
                         <div class="col-md-6" style="margin-bottom:10px">
-                            <input type="text" class="form-control" name="NumberOfNews" required/>
+                            <input type="text" class="form-control" name="NumberOfNews" required />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_Notification *:</label>
                         <div class="col-md-6" style="margin-bottom:10px">
-                            <input type="time" class="form-control" name="NotificationTime" required/>
+                            <input type="time" class="form-control" name="NotificationTime" required />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_NumMessage *:</label>
                         <div class="col-md-6" style="margin-bottom:10px">
-                            <input type="text" class="form-control" name="NumberOfLastMsg" required/>
+                            <input type="text" class="form-control" name="NumberOfLastMsg" required />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_InsuranceCompany *:</label>
                         <div class="col-md-6" style="margin-bottom:10px">
-                            <input type="text" class="form-control" name="InsuranceCompany" required/>
+                            <input type="text" class="form-control" name="InsuranceCompany" required />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_VersionNumber * :</label>
                         <div class="col-md-6" style="margin-bottom:10px">
-                            <input type="text" class="form-control" name="VersionNumber" required/>
+                            <input type="text" class="form-control" name="VersionNumber" required />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2"> @InsuredTraveling.Resource.AdminPanel_SSNValidation * :</label>
                         <div class="col-md-6" style="margin-bottom:10px">
-                            <input type="checkbox" class="form-control" name="SSNValidationActive" value="1"  />
+                            <input type="checkbox" class="form-control" name="SSNValidationActive" value="1" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -178,7 +178,7 @@
         </div>
         <div id="DiscountMenu" class="tab-pane fade">
             <h3 class="text-capitalize"> @InsuredTraveling.Resource.AdminPanel_Discount  </h3>
-           <table class="table table-striped table-hover ">
+            <table class="table table-striped table-hover ">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -191,14 +191,14 @@
                         int i = 0;
                         foreach (var r in ViewBag.Discount)
                         {
-                            <tr>
-                                <td>@i</td>
-                                <td>@r.Discount_Name</td>
-                                <td>@r.Discount_Coef</td>
-                                <td>@r.Start_Date</td>
-                                <td>@r.End_Date</td>
-                                <td><a href="/AdminPanel/DeleteDiscount?ID=@r.ID" ><span class="glyphicon glyphicon-trash"></span></a></td>
-                            </tr>
+                    <tr>
+                        <td>@i</td>
+                        <td>@r.Discount_Name</td>
+                        <td>@r.Discount_Coef</td>
+                        <td>@r.Start_Date</td>
+                        <td>@r.End_Date</td>
+                        <td><a href="/AdminPanel/DeleteDiscount?ID=@r.ID"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    </tr>
                             i++;
                         }
                     }
@@ -209,14 +209,14 @@
 
             <form id="addDiscount" class="form-padding" hidden method="post" action="@Url.Action("AddDiscount")">
                 <div class="row">
-                                       
+
                     <div class="row">
                         <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
                             <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
                             @Html.LabelFor(model => model.Discount_Name , htmlAttributes: new { @class = "control-label" })
-                            <div class='input-group date field-size-holder' >
+                            <div class='input-group date field-size-holder'>
                                 <div class="input-group-addon" style="width: 45px; border-radius: 2px;">
-                                   
+
                                 </div>
                                 @Html.EditorFor(model => model.Discount_Name, new { htmlAttributes = new { @class = "form-control splaceholder mandatoryField insuredData" , onblur = "FindName()" } })
                             </div>
@@ -228,7 +228,7 @@
                             @Html.LabelFor(model => model.Discount_Coef, htmlAttributes: new { @class = "control-label" })
                             <div class='input-group date field-size-holder' id='Discount_Coef'>
                                 <div class="input-group-addon" style="width: 45px; border-radius: 2px;">
-                                    
+
                                 </div>
                                 @Html.EditorFor(model => model.Discount_Coef, new { htmlAttributes = new { @class = "form-control splaceholder mandatoryField insuredData" } })
                             </div>
@@ -257,7 +257,7 @@
                                 </div>
                                 @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control splaceholder mandatoryField insuredData" } })
                             </div>
-                         
+
                             @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -273,7 +273,7 @@
                             <div class="col-md-12" style="margin-bottom:10px">
                                 <button type="reset" class="form-control btn btn-success">
                                     @InsuredTraveling.Resource.AdminPanel_DiscountCancelButton
-                                  
+
                                 </button>
                             </div>
                         </div>
@@ -289,27 +289,36 @@
                     </div>
                 </div>
 
-             
+
             </form>
         </div>
-
-        <div id="configRatingEngine">
+        <div id="configRatingEngine" class="tab-pane fade">
             <h2>@InsuredTraveling.Resource.AdminPanel_ConfigurableRatingEngine </h2>
             <form style="margin-top:40px;" method="post" enctype="multipart/form-data" action="@Url.Action("ConfigureRatingEngine")">
                 <div class="form-group">
-                    <label for="excelConfigFile">@InsuredTraveling.Resource.AdminPanel_ConfigurationDocument </label>
-                    <input type="file" class="form-control-file" id="excelConfigFile"  name="excelConfigFile" aria-describedby="fileHelp">  
+                    <label for="policyName">@InsuredTraveling.Resource.AdminPanel_Configuration_PolicyName </label>
+                    <input type="text" id="policyName" name="policyName" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <div class="col-md-4 col-sm-4"  style="padding-left: 0px;">
+                    <label for="effectiveDate">@InsuredTraveling.Resource.AdminPanel_Configuration_EffectiveDate </label>
+                    <input type="text" id="effectiveDate" name="effectiveDate" class="form-control" placeholder="@dateTimeFormat" />
+                </div>
+                <div class="form-group">
+                    <label for="expiryDate">@InsuredTraveling.Resource.AdminPanel_Configuration_ExpiryDate </label>
+                    <input type="text" id="expiryDate" name="expiryDate" class="form-control" placeholder="@dateTimeFormat" />
+                </div>
+                <div class="form-group">
+                    <label for="excelConfigFile">@InsuredTraveling.Resource.AdminPanel_ConfigurationDocument </label>
+                    <input type="file" class="form-control-file" id="excelConfigFile" name="excelConfigFile" aria-describedby="fileHelp">
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4 col-sm-4" style="padding-left: 0px;">
                         <input type="submit" value="Прикачи" class="btn btn-default btn-block" />
                     </div>
                 </div>
             </form>
         </div>
-
     </div>
-
 </div>
 
 <script src="~/Scripts/jquery.validate.js"></script>
@@ -328,8 +337,9 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
+        var DateToday = new Date();
         if(@ViewBag.TabIndex == 1) {
-            //Setting the class active-tab, so the user will know which tab is clicked
             $("#addNewPolicy").removeClass("active-tab");
             $("#newsTab").removeClass("active-tab");
             $("#searchTab").removeClass("active-tab");
@@ -341,13 +351,27 @@
         }
         ChangeTabsOnPost();
 
+        $("#effectiveDate").datepicker({
+            dateFormat: dateFormatString,
+            "minDate": DateToday,
+            onSelect: function () {
+                $("#expiryDate").datepicker("option", "minDate", selected);
+              
+            }
+        });
+
+        $("#expiryDate").datepicker({
+            dateFormat: dateFormatString,
+            "minDate": DateToday,
+            onSelect: function () {
+                $("#effectiveDate").datepicker("option", "maxDate", selected);
+            }
+        });
     });
-    
+
     function ChangeTabsOnPost() {
-        
         var number = parseInt(@ViewBag.TabIndex);
         if(number == 3){
-           
             $("#DiscountMenu").toggle();
             $("#addDiscount").toggle();
             $("#DiscountMenu").addClass("in active");
@@ -358,10 +382,8 @@
 
             $("#navSetup").removeClass("active");
             $("#menu1").removeClass("in active");
-                  
         }
         else if (number == 2){
-           
             $("#menu1").addClass("in active");
             $("#navSetup").addClass("active");
 
@@ -371,22 +393,23 @@
             $("#navDiscount").removeClass("active");
             $("#DiscountMenu").removeClass("in active");
 
-        }else {                   
-        }       
+        }
+        else 
+        {
+        }
     }
-    // temporary workaround 
+    // temporary workaround
     $("form").submit(function (e,valid) {
         if ($("#UsernameMsg").html() != " " && $('#navDiscount').hasClass('active') ){
             e.preventDefault();
-        }              
-    }); 
+        }
+    });
 
     function AddRole() {
         $("#addRoleForm").toggle();
     }
 
     function AddDiscount() {
-
         $("#addDiscount").toggle();
     }
 
@@ -394,28 +417,21 @@
         $("#menu1").removeAttr('class');
         $("#menu1").attr("class", "tab-pane fade in active");
         $("#addOK_setupForm").toggle();
-
     }
 
     function FindName() {
-       
-            $.ajax({
-                type: "POST",
-                url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/OkSetup/FindDiscountName",
-                data: jQuery.param({ Discount_Name: $("#Discount_Name").val() })
-            })
-
-        .done(function (result) {
-            $("#UsernameMsg").text(" ");
-
-      
-        
+    $.ajax({
+            type: "POST",
+            url: "@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/OkSetup/FindDiscountName",
+            data: jQuery.param({ Discount_Name: $("#Discount_Name").val() })
         })
-        .fail(function () {
-            $("#UsernameMsg").text("@InsuredTraveling.Resource.AdminPanel_DiscountNameErrorMessage");
-       
-        });
-       
+    .done(function (result) {
+        $("#UsernameMsg").text(" ");
+    })
+    .fail(function () {
+        $("#UsernameMsg").text("@InsuredTraveling.Resource.AdminPanel_DiscountNameErrorMessage");
+
+    });
     };
 
     $('#DiscountStartDate').datetimepicker({
@@ -426,8 +442,4 @@
         viewMode: 'years',
         format: 'DD/MM/YYYY'
     });
-
-
-
-
 </script>

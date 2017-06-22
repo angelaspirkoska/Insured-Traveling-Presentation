@@ -1362,4 +1362,16 @@
   <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
     <value>Ексел документ</value>
   </data>
+  <data name="AdminPanel_Configuration_EffectiveDate" xml:space="preserve">
+    <value>Датум на важење од</value>
+  </data>
+  <data name="AdminPanel_Configuration_ExpiryDate" xml:space="preserve">
+    <value>Датум на важење до</value>
+  </data>
+  <data name="AdminPanel_Configuration_PolicyName" xml:space="preserve">
+    <value>Име на полиса</value>
+  </data>
+  <data name="Config_Policy_Type" xml:space="preserve">
+    <value>Тип на полиса</value>
+  </data>
 </root>

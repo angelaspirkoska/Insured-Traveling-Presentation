@@ -1368,4 +1368,16 @@
   <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
     <value>Excel Document</value>
   </data>
+  <data name="AdminPanel_Configuration_EffectiveDate" xml:space="preserve">
+    <value>Effective Date</value>
+  </data>
+  <data name="AdminPanel_Configuration_ExpiryDate" xml:space="preserve">
+    <value>Expiry Date</value>
+  </data>
+  <data name="AdminPanel_Configuration_PolicyName" xml:space="preserve">
+    <value>Policy Name</value>
+  </data>
+  <data name="Config_Policy_Type" xml:space="preserve">
+    <value>Policy Type</value>
+  </data>
 </root>

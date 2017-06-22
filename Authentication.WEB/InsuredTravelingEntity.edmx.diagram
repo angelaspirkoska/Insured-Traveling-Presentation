@@ -138,6 +138,10 @@
         <AssociationConnector Association="Entities.fk_createdby_aspnetusers" />
         <EntityTypeShape EntityType="Entities.form_elements" Width="1.5" PointX="7.5" PointY="19.625" />
         <AssociationConnector Association="Entities.fk_formelement_excelconfig" />
+        <EntityTypeShape EntityType="Entities.config_policy_type" Width="1.5" PointX="13.375" PointY="3.75" />
+        <EntityTypeShape EntityType="Entities.a_test_table" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Entities.a_test" Width="1.5" PointX="0.75" PointY="14.75" />
+        <AssociationConnector Association="Entities.excelconfig_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

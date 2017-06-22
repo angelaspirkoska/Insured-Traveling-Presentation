@@ -5,6 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Entities.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.db_9eb138_config.a_test' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="a_test">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="ColumnName" Type="int" />
+        </EntityType>
+        <EntityType Name="a_test_table">
+          <Key>
+            <PropertyRef Name="empno" />
+          </Key>
+          <Property Name="empno" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="20" />
+          <Property Name="last_name" Type="varchar" MaxLength="20" />
+          <Property Name="birthdate" Type="date" />
+        </EntityType>
         <EntityType Name="additional_charge">
           <Key>
             <PropertyRef Name="ID" />
@@ -167,6 +185,16 @@ warning 6002: The table/view 'def.db_9eb138_config.aspnetuserlogins' does not ha
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="text" Nullable="false" />
         </EntityType>
+        <EntityType Name="config_policy_type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="policy_type_name" Type="varchar" MaxLength="50" />
+          <Property Name="policy_effective_date" Type="date" />
+          <Property Name="policy_expiry_date" Type="date" />
+          <Property Name="status" Type="bit" />
+        </EntityType>
         <EntityType Name="countries">
           <Key>
             <PropertyRef Name="ID" />
@@ -285,6 +313,9 @@ warning 6002: The table/view 'def.db_9eb138_config.aspnetuserlogins' does not ha
           <Property Name="CreatedBy" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="ValidDateStart" Type="date" />
           <Property Name="ValidDateEnd" Type="date" />
+          <Property Name="excel_path" Type="varchar" MaxLength="250" />
+          <Property Name="excel_name" Type="varchar" MaxLength="250" />
+          <Property Name="id_config_policy_type" Type="int" />
         </EntityType>
         <EntityType Name="exchange_rate">
           <Key>
@@ -906,6 +937,18 @@ warning 6002: The table/view 'def.db_9eb138_config.transaction' does not have a 
             </Principal>
             <Dependent Role="documents_first_notice_of_loss">
               <PropertyRef Name="First_notice_of_lossID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="excelconfig_ibfk_1">
+          <End Role="config_policy_type" Type="Self.config_policy_type" Multiplicity="0..1" />
+          <End Role="excelconfig" Type="Self.excelconfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="config_policy_type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="excelconfig">
+              <PropertyRef Name="id_config_policy_type" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1660,6 +1703,7 @@ warning 6002: The table/view 'def.db_9eb138_config.transaction' does not have a 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="EntitiesStoreContainer">
+          <EntitySet Name="a_test_table" EntityType="Self.a_test_table" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="additional_charge" EntityType="Self.additional_charge" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="additional_charge_name" EntityType="Self.additional_charge_name" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="additional_info" EntityType="Self.additional_info" Schema="db_9eb138_config" store:Type="Tables" />
@@ -1674,6 +1718,7 @@ warning 6002: The table/view 'def.db_9eb138_config.transaction' does not have a 
           <EntitySet Name="chat_requests" EntityType="Self.chat_requests" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="clients" EntityType="Self.clients" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="company" EntityType="Self.company" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="config_policy_type" EntityType="Self.config_policy_type" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="countries" EntityType="Self.countries" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="countries_name" EntityType="Self.countries_name" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="discount_age" EntityType="Self.discount_age" Schema="db_9eb138_config" store:Type="Tables" />
@@ -1718,6 +1763,12 @@ warning 6002: The table/view 'def.db_9eb138_config.transaction' does not have a 
           <EntitySet Name="travel_policy" EntityType="Self.travel_policy" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="type_insured" EntityType="Self.type_insured" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="a_test" EntityType="Self.a_test" store:Type="Tables" store:Schema="db_9eb138_config">
+            <DefiningQuery>SELECT
+`a_test`.`id`, 
+`a_test`.`ColumnName`
+FROM `a_test` AS `a_test`</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogins" store:Type="Tables" store:Schema="db_9eb138_config">
             <DefiningQuery>SELECT
 `aspnetuserlogins`.`LoginProvider`, 
@@ -1795,6 +1846,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="documents_first_notice_of_loss_ibfk_2" Association="Self.documents_first_notice_of_loss_ibfk_2">
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
             <End Role="documents_first_notice_of_loss" EntitySet="documents_first_notice_of_loss" />
+          </AssociationSet>
+          <AssociationSet Name="excelconfig_ibfk_1" Association="Self.excelconfig_ibfk_1">
+            <End Role="config_policy_type" EntitySet="config_policy_type" />
+            <End Role="excelconfig" EntitySet="excelconfig" />
           </AssociationSet>
           <AssociationSet Name="first_notice_of_loss_archive_ibfk_1" Association="Self.first_notice_of_loss_archive_ibfk_1">
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
@@ -3431,6 +3486,13 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="excelconfig" EntitySet="excelconfigs" />
             <End Role="form_elements" EntitySet="form_elements" />
           </AssociationSet>
+          <EntitySet Name="config_policy_type" EntityType="Entities.config_policy_type" />
+          <EntitySet Name="a_test_table" EntityType="Entities.a_test_table" />
+          <EntitySet Name="a_test" EntityType="Entities.a_test" />
+          <AssociationSet Name="excelconfig_ibfk_1" Association="Entities.excelconfig_ibfk_1">
+            <End Role="config_policy_type" EntitySet="config_policy_type" />
+            <End Role="excelconfig" EntitySet="excelconfigs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -4126,6 +4188,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="ValidDateEnd" Type="DateTime" />
           <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_createdby_aspnetusers" FromRole="excelconfig" ToRole="aspnetuser" />
           <NavigationProperty Name="form_elements" Relationship="Entities.fk_formelement_excelconfig" FromRole="excelconfig" ToRole="form_elements" />
+          <Property Name="excel_path" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="excel_name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="id_config_policy_type" Type="Int32" />
+          <NavigationProperty Name="config_policy_type" Relationship="Entities.excelconfig_ibfk_1" FromRole="excelconfig" ToRole="config_policy_type" />
         </EntityType>
         <Association Name="fk_createdby_aspnetusers">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
@@ -4158,6 +4224,45 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="form_elements">
               <PropertyRef Name="ExcelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="config_policy_type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="policy_type_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="policy_effective_date" Type="DateTime" />
+          <Property Name="policy_expiry_date" Type="DateTime" />
+          <Property Name="status" Type="Boolean" />
+          <NavigationProperty Name="excelconfigs" Relationship="Entities.excelconfig_ibfk_1" FromRole="config_policy_type" ToRole="excelconfig" />
+        </EntityType>
+        <EntityType Name="a_test_table">
+          <Key>
+            <PropertyRef Name="empno" />
+          </Key>
+          <Property Name="empno" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="birthdate" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="a_test">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="ColumnName" Type="Int32" />
+        </EntityType>
+        <Association Name="excelconfig_ibfk_1">
+          <End Type="Entities.config_policy_type" Role="config_policy_type" Multiplicity="0..1" />
+          <End Type="Entities.excelconfig" Role="excelconfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="config_policy_type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="excelconfig">
+              <PropertyRef Name="id_config_policy_type" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4936,6 +5041,9 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="excelconfigs">
             <EntityTypeMapping TypeName="Entities.excelconfig">
               <MappingFragment StoreEntitySet="excelconfig">
+                <ScalarProperty Name="id_config_policy_type" ColumnName="id_config_policy_type" />
+                <ScalarProperty Name="excel_name" ColumnName="excel_name" />
+                <ScalarProperty Name="excel_path" ColumnName="excel_path" />
                 <ScalarProperty Name="ValidDateEnd" ColumnName="ValidDateEnd" />
                 <ScalarProperty Name="ValidDateStart" ColumnName="ValidDateStart" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -4951,6 +5059,35 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ExcelID" ColumnName="ExcelID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="config_policy_type">
+            <EntityTypeMapping TypeName="Entities.config_policy_type">
+              <MappingFragment StoreEntitySet="config_policy_type">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="policy_expiry_date" ColumnName="policy_expiry_date" />
+                <ScalarProperty Name="policy_effective_date" ColumnName="policy_effective_date" />
+                <ScalarProperty Name="policy_type_name" ColumnName="policy_type_name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="a_test_table">
+            <EntityTypeMapping TypeName="Entities.a_test_table">
+              <MappingFragment StoreEntitySet="a_test_table">
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="empno" ColumnName="empno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="a_test">
+            <EntityTypeMapping TypeName="Entities.a_test">
+              <MappingFragment StoreEntitySet="a_test">
+                <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

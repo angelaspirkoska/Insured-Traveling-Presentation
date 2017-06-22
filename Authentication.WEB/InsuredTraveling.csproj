@@ -2050,6 +2050,12 @@
     </Compile>
     <Compile Include="Authentication\AuthContext.cs" />
     <Compile Include="Authentication\AuthRepository.cs" />
+    <Compile Include="a_test.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="a_test_table.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="bank.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -2071,6 +2077,9 @@
     <Compile Include="company.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="config_policy_type.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\API\AccountController.cs" />
     <Compile Include="Controllers\API\ChatController.cs" />
@@ -2079,6 +2088,7 @@
     <Compile Include="Controllers\API\RefreshTokenController.cs" />
     <Compile Include="Controllers\ChangeLanuageController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\ConfigurationPolicyController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ForgetPasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2125,12 +2135,14 @@
     <Compile Include="DI\AdditionalInfoService.cs" />
     <Compile Include="DI\BankAccountService.cs" />
     <Compile Include="DI\ChatService.cs" />
+    <Compile Include="DI\ConfigPolicyTypeService.cs" />
     <Compile Include="DI\CountryService.cs" />
     <Compile Include="DI\DiscountService.cs" />
     <Compile Include="DI\ExcelConfigService.cs" />
     <Compile Include="DI\ExchangeRateService.cs" />
     <Compile Include="DI\FirstNoticeOfLossArchiveService.cs" />
     <Compile Include="DI\FormElementsService.cs" />
+    <Compile Include="DI\IConfigPolicyTypeService.cs" />
     <Compile Include="DI\IFormElementsService.cs" />
     <Compile Include="DI\FranchiseService.cs" />
     <Compile Include="DI\IAdditionalChargesService.cs" />
@@ -2414,12 +2426,14 @@
     <Compile Include="ViewModels\BankPrefixViewModel.cs" />
     <Compile Include="ViewModels\CalculatePremiumViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
+    <Compile Include="ViewModels\ConfigurationPolicyViewModel.cs" />
     <Compile Include="ViewModels\DetailFirstNoticeOfLossViewModel.cs" />
     <Compile Include="ViewModels\ExcelFileViewModel.cs" />
     <Compile Include="ViewModels\FileDescriptionViewModel.cs" />
     <Compile Include="ViewModels\FirstNoticeOfLossEditViewModel.cs" />
     <Compile Include="ViewModels\JsonWrapperPolicyFirstNoticeOfLossViewModel.cs" />
     <Compile Include="ViewModels\PolicyAutoCompleteViewModel.cs" />
+    <Compile Include="ViewModels\PolicyFormViewModel.cs" />
     <Compile Include="ViewModels\Request.cs" />
     <Compile Include="ViewModels\SearchClientsViewModel.cs" />
     <Compile Include="ViewModels\SearchFNOLViewModel.cs" />
@@ -2473,8 +2487,9 @@
     <Content Include="Scripts\Limitless-js\plugins\pickers\pickadate\translations\FORMATTING.md" />
     <Content Include="Scripts\Limitless-js\plugins\pickers\pickadate\translations\NAMING.md" />
     <Content Include="Views\Shared\_LayoutLimitless2.cshtml" />
-    <Content Include="Views\AdminPanel\PolicyForm.cshtml" />
+    <Content Include="Views\ConfigurationPolicy\PolicyForm.cshtml" />
     <Content Include="Views\AdminPanel\PolicyPremium.cshtml" />
+    <Content Include="Views\ConfigurationPolicy\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
