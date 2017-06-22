@@ -19,6 +19,6 @@ namespace InsuredTraveling
         public string Action { get; set; }
         public string IP_Address { get; set; }
         public System.DateTime Time_Stamp { get; set; }
-        public string Pateka { get; set; }
+        public string Username { get; set; }
     }
 }

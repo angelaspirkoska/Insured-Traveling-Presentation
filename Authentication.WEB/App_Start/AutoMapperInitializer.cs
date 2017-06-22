@@ -202,7 +202,7 @@ namespace InsuredTraveling.App_Start
             Mapper.CreateMap<ActionLog1, log_activities>().AfterMap((src, dst) =>
             {
                 dst.Log_Activity_ID = src.log_activityID;
-                dst.Pateka = src.pateka;
+                dst.Username = src.username;
                 dst.Action = src.action;
                 dst.Controller = src.controller;
                 dst.IP_Address = src.ip_address;
@@ -213,7 +213,7 @@ namespace InsuredTraveling.App_Start
             Mapper.CreateMap<log_activities, ActionLog1>().AfterMap((src, dst) =>
             {
                 dst.log_activityID = src.Log_Activity_ID;
-                dst.pateka = src.Pateka;
+                dst.username = src.Username;
                 dst.action = src.Action;
                 dst.controller = src.Controller;
                 dst.ip_address = src.IP_Address;

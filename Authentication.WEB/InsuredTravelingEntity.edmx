@@ -440,7 +440,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
             <PropertyRef Name="Log Activity ID" />
           </Key>
           <Property Name="Log Activity ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Pateka" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Controller" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Action" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IP Address" Type="varchar" MaxLength="100" Nullable="false" />
@@ -4061,7 +4061,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Action" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IP_Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Time_Stamp" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Pateka" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -4839,7 +4839,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="log_activities">
             <EntityTypeMapping TypeName="Entities.log_activities">
               <MappingFragment StoreEntitySet="log_activities">
-                <ScalarProperty Name="Pateka" ColumnName="Pateka" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Time_Stamp" ColumnName="Time Stamp" />
                 <ScalarProperty Name="IP_Address" ColumnName="IP Address" />
                 <ScalarProperty Name="Action" ColumnName="Action" />

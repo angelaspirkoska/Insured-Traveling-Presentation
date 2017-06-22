@@ -97,15 +97,6 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Path.
-        /// </summary>
-        public static string ActionLog_Pateka {
-            get {
-                return ResourceManager.GetString("ActionLog_Pateka", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Timestamp.
         /// </summary>
         public static string ActionLog_Timestamp {
@@ -120,6 +111,15 @@ namespace InsuredTraveling {
         public static string ActionLog_Title {
             get {
                 return ResourceManager.GetString("ActionLog_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string ActionLog_Username {
+            get {
+                return ResourceManager.GetString("ActionLog_Username", resourceCulture);
             }
         }
         

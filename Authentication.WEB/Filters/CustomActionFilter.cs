@@ -26,7 +26,7 @@ namespace InsuredTraveling.Filters
                 controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName,
                 action = string.Concat(filterContext.ActionDescriptor.ActionName, " (Logged By: Custom Action Filter)"),
                 ip_address = filterContext.HttpContext.Request.UserHostAddress,
-                pateka = System.Web.HttpContext.Current.User.Identity.Name,
+                username = System.Web.HttpContext.Current.User.Identity.Name,
                 datetime = filterContext.HttpContext.Timestamp
 
             };

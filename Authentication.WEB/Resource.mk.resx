@@ -1380,7 +1380,7 @@
   <data name="ActionLog_Title" xml:space="preserve">
     <value>Aктивности</value>
   </data>
-  <data name="ActionLog_Pateka" xml:space="preserve">
-    <value>Патека</value>
+  <data name="ActionLog_Username" xml:space="preserve">
+    <value>Корисничко име</value>
   </data>
 </root>
