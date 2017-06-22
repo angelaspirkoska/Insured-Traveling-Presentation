@@ -5,9 +5,11 @@ using System.Net.Sockets;
 using System.Web;
 using System.Web.Mvc.Filters;
 using System.Web.Mvc;
+using System.Web.Security;
 using AutoMapper;
 using InsuredTraveling.DI;
 using InsuredTraveling.Models;
+using Microsoft.AspNet.Identity;
 
 
 namespace InsuredTraveling.Filters
@@ -20,9 +22,11 @@ namespace InsuredTraveling.Filters
 		{
 			ActionLog1 log = new ActionLog1()
 			{
+                
                 controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName,
                 action = string.Concat(filterContext.ActionDescriptor.ActionName, " (Logged By: Custom Action Filter)"),
                 ip_address = filterContext.HttpContext.Request.UserHostAddress,
+                pateka = System.Web.HttpContext.Current.User.Identity.Name,
                 datetime = filterContext.HttpContext.Timestamp
 
             };

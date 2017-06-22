@@ -97,6 +97,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Path.
+        /// </summary>
+        public static string ActionLog_Pateka {
+            get {
+                return ResourceManager.GetString("ActionLog_Pateka", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Timestamp.
         /// </summary>
         public static string ActionLog_Timestamp {

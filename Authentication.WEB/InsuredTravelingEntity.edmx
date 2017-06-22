@@ -75,6 +75,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="longtext" Nullable="false" />
           <Property Name="LastName" Type="longtext" Nullable="false" />
           <Property Name="EMBG" Type="longtext" />
@@ -439,6 +440,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
             <PropertyRef Name="Log Activity ID" />
           </Key>
           <Property Name="Log Activity ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pateka" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="Controller" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Action" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IP Address" Type="varchar" MaxLength="100" Nullable="false" />
@@ -3479,6 +3481,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="travel_policy" Relationship="Entities.fk_policy_created_by" FromRole="aspnetuser" ToRole="travel_policy" />
           <NavigationProperty Name="travel_policy1" Relationship="Entities.fk_policy_modified_by" FromRole="aspnetuser" ToRole="travel_policy" />
           <NavigationProperty Name="insureds" Relationship="Entities.fk_insured_modifiedby" FromRole="aspnetuser" ToRole="insured" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           </EntityType>
         <Association Name="fk_additional_charge_created_by">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
@@ -4058,6 +4061,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Action" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IP_Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Time_Stamp" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pateka" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -4708,6 +4712,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="aspnetusers">
             <EntityTypeMapping TypeName="Entities.aspnetuser">
               <MappingFragment StoreEntitySet="aspnetusers">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
@@ -4834,6 +4839,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="log_activities">
             <EntityTypeMapping TypeName="Entities.log_activities">
               <MappingFragment StoreEntitySet="log_activities">
+                <ScalarProperty Name="Pateka" ColumnName="Pateka" />
                 <ScalarProperty Name="Time_Stamp" ColumnName="Time Stamp" />
                 <ScalarProperty Name="IP_Address" ColumnName="IP Address" />
                 <ScalarProperty Name="Action" ColumnName="Action" />
