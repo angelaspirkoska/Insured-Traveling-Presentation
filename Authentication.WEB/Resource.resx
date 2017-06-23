@@ -1368,7 +1368,16 @@
   <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
     <value>Excel Document</value>
   </data>
-  <data name="Home_Kanban" xml:space="preserve">
-    <value>Kanban Board</value>
+  <data name="Policy_PrintQuotes" xml:space="preserve">
+    <value>Print Quotes</value>
+  </data>
+  <data name="UserManagment" xml:space="preserve">
+    <value>User Managment</value>
+  </data>
+  <data name="Policy_Message" xml:space="preserve">
+    <value>Use only numbers or Latin letters</value>
+  </data>
+  <data name="News_ChooseImage" xml:space="preserve">
+    <value>Choose image</value>
   </data>
 </root>

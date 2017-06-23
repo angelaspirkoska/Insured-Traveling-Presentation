@@ -8,7 +8,6 @@
     RoleAuthorize r = new RoleAuthorize();
     var isClaimsAdjuster = r.IsUser("Claims adjuster");
     var isBrokerManager = r.IsUser("Broker manager");
-    // ima problem so js iszgleda, poso se se menuva i ima nepoterbni data tables
     Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
     var isBroker = r.IsUser("Broker");
     var isAdmin = r.IsUser("Admin");
@@ -393,7 +392,7 @@
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
                     <label for="country">@InsuredTraveling.Resource.Search_QuoteNumber:</label>
-                    <input class="form-control" type="text" id="PolicyNumber1" name="PolicyNumber" />
+                    <input class="form-control" type="text" id="PolicyNumber1" name="PolicyNumber" title="@InsuredTraveling.Resource.Policy_Message" />
                 </div>
             </div>
         </div>
@@ -492,51 +491,51 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <input type="search" name="name" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="name" />
+                        <input type="search" name="name" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="name" title="@InsuredTraveling.Resource.Policy_Message" />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <input type="search" name="lastname" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchLastName" id="lastname" />
+                        <input type="search" name="lastname" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchLastName" id="lastname" title="@InsuredTraveling.Resource.Policy_Message" />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <input type="search" name="embg" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchSSN" id="embg" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <input type="search" name="address" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchAddress" id="address" />
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <input type="search" name="city" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchCity" id="city" />
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <input type="search" name="postal_code" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchPostalCode" id="postal_code" />
+                        <input type="search" name="embg" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchSSN" id="embg" title="@InsuredTraveling.Resource.Policy_Message" />
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <input type="search" name="phone" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchPhoneNumber" id="phone" />
+                        <input type="search" name="address" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchAddress" id="address" title="@InsuredTraveling.Resource.Policy_Message" />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <input type="search" name="email" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchEmail" id="email" />
+                        <input type="search" name="city" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchCity" id="city" title="@InsuredTraveling.Resource.Policy_Message" />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <input type="search" name="passport" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchPassport" id="passport" />
+                        <input type="search" name="postal_code" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchPostalCode" id="postal_code" title="@InsuredTraveling.Resource.Policy_Message" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="search" name="phone" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchPhoneNumber" id="phone" title="@InsuredTraveling.Resource.Policy_Message" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="search" name="email" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchEmail" id="email" title="@InsuredTraveling.Resource.Policy_Message" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="search" name="passport" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchPassport" id="passport" title="@InsuredTraveling.Resource.Policy_Message" />
                     </div>
                 </div>
             </div>
@@ -639,14 +638,14 @@
                     <div class="form-group">
                         <label for="vidPolisa">@InsuredTraveling.Resource.Search_FNOLNumber :</label>
                         <br />
-                        <input class="form-control" type="text" id="FNOLNumber" name="FNOLNumber" />
+                        <input class="form-control" type="text" id="FNOLNumber" name="FNOLNumber" title="@InsuredTraveling.Resource.Policy_Message" />
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="form-group">
                         <label for="vidPolisa">@InsuredTraveling.Resource.Search_PolicyNumber :</label>
                         <br />
-                        <input class="form-control" type="text" id="PolicyNumberFNL" name="PolicyNumberFNL" />
+                        <input class="form-control" type="text" id="PolicyNumberFNL" name="PolicyNumberFNL" title="@InsuredTraveling.Resource.Policy_Message" />
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
@@ -674,13 +673,13 @@
                 <div class="col-md-4 col-sm-4">
                     <div class="form-group">
                         <label for="holderName">@InsuredTraveling.Resource.Search_HolderName:</label>
-                        <input type="search" name="holderName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="holderName" />
+                        <input type="search" name="holderName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="holderName" title="@InsuredTraveling.Resource.Policy_Message" />
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="form-group">
                         <label for="holderLastName">@InsuredTraveling.Resource.Search_HolderLastName:</label>
-                        <input type="search" name="holderLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="holderLastName" />
+                        <input type="search" name="holderLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="holderLastName" title="@InsuredTraveling.Resource.Policy_Message" />
                     </div>
                 </div>
             </div>
@@ -688,13 +687,13 @@
                 <div class="col-md-4 col-sm-4">
                     <div class="form-group">
                         <label for="clientName">@InsuredTraveling.Resource.Search_InsuredName:</label>
-                        <input type="search" name="clientName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="clientName" />
+                        <input type="search" name="clientName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="clientName" title="@InsuredTraveling.Resource.Policy_Message" />
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="form-group">
                         <label for="clientLastName">@InsuredTraveling.Resource.Search_InsuredLastName:</label>
-                        <input type="search" name="clientLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="clientLastName" />
+                        <input type="search" name="clientLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="clientLastName" title="@InsuredTraveling.Resource.Policy_Message" />
                     </div>
                 </div>
             </div>
@@ -702,13 +701,13 @@
                 <div class="col-md-4 col-sm-4">
                     <div class="form-group">
                         <label for="insuredName">@InsuredTraveling.Resource.Search_ClaimantName:</label>
-                        <input type="search" name="insuredName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="insuredName" />
+                        <input type="search" name="insuredName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="insuredName" title="@InsuredTraveling.Resource.Policy_Message" />
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="form-group">
                         <label for="insuredLastName">@InsuredTraveling.Resource.Search_ClaimantLastName: </label>
-                        <input type="search" name="insuredLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="insuredLastName" />
+                        <input type="search" name="insuredLastName" class="form-control" placeholder="@InsuredTraveling.Resource.Search_FNOLsurname" id="insuredLastName" title="@InsuredTraveling.Resource.Policy_Message" />
                     </div>
                 </div>
             </div>
@@ -812,10 +811,10 @@
     <div class="row">
         <div class="col-md-4 col-sm-4">
             <div class="form-group">
-                <input type="search" name="name" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="nameChat" />
+                <input type="search" name="name" class="form-control" placeholder="@InsuredTraveling.Resource.Search_SearchName" id="nameChat" title="@InsuredTraveling.Resource.Policy_Message" />
             </div>
             <div class="form-group">
-                <input type="search" id="chatId" name="chatId" class="form-control" placeholder="@InsuredTraveling.Resource.Search_Id" />
+                <input type="search" id="chatId" name="chatId" class="form-control" placeholder="@InsuredTraveling.Resource.Search_Id" title="@InsuredTraveling.Resource.Policy_Message" />
                 <br />
             </div>
         </div>
@@ -862,6 +861,10 @@
         var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
 
         $('.explain-functionality').tooltip({
+            placement: "right"
+        });
+
+        $('.form-control').tooltip({
             placement: "right"
         });
 
@@ -1073,8 +1076,8 @@
     function showHolders() {
         $("#holder").attr("class", "active");
         $("#insured").removeAttr("class");
-        $("#policiesClients").css("display", "none");
-        $("#policiesHolders").css("display", "block");
+        $("#policiesClients").css("display", "block");//block
+        $("#policiesHolders").css("display", "none");//none
     }
 
     $("#PolicyNumber").autocomplete({

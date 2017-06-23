@@ -120,13 +120,15 @@ namespace Authentication.WEB.Controllers
             model.TransId = Request.Form.Get("TransId");
             model.AuthCode = Request.Form.Get("AuthCode");
             model.mdStatus = Request.Form.Get("mdStatus");
+            model.Policy_Number = Request.Form.Get("PolicyNumber");
+            model.email = Request.Form.Get("email");
             var policyNumber = Request.Form.Get("PolicyNumber");
             if (model.mdStatus == "1" || model.mdStatus == "2" || model.mdStatus == "3" || model.mdStatus == "4")
             {
 
                 string fullPath = System.Web.Hosting.HostingEnvironment.MapPath("~/PolicyPDF/" + model.TransId + model.amount + ".pdf");
 
-                PrintPolicyModel pat = new PrintPolicyModel();
+                PaymentModel pat = new PaymentModel();
                 pat.Pat = _ps.GetPolicyIdByPolicyNumber(policyNumber);
                 _ps.UpdatePaymentStatus(policyNumber);
                 var actionResult = new ViewAsPdf("Print", pat);

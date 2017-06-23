@@ -1456,6 +1456,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose image.
+        /// </summary>
+        public static string News_ChooseImage {
+            get {
+                return ResourceManager.GetString("News_ChooseImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Content.
         /// </summary>
         public static string News_Content {
@@ -1960,6 +1969,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use only numbers or Latin letters.
+        /// </summary>
+        public static string Policy_Message {
+            get {
+                return ResourceManager.GetString("Policy_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel change.
         /// </summary>
         public static string Policy_Modal_Date_CancelDate {
@@ -2109,6 +2127,15 @@ namespace InsuredTraveling {
         public static string Policy_PrintOffer {
             get {
                 return ResourceManager.GetString("Policy_PrintOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print Quotes.
+        /// </summary>
+        public static string Policy_PrintQuotes {
+            get {
+                return ResourceManager.GetString("Policy_PrintQuotes", resourceCulture);
             }
         }
         
@@ -3774,6 +3801,15 @@ namespace InsuredTraveling {
         public static string User_UserName {
             get {
                 return ResourceManager.GetString("User_UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Managment.
+        /// </summary>
+        public static string UserManagment {
+            get {
+                return ResourceManager.GetString("UserManagment", resourceCulture);
             }
         }
         

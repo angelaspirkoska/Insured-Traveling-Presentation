@@ -1362,7 +1362,16 @@
   <data name="AdminPanel_ConfigurationDocument" xml:space="preserve">
     <value>Ексел документ</value>
   </data>
-  <data name="Home_Kanban" xml:space="preserve">
-    <value>Канбан</value>
+  <data name="Policy_PrintQuotes" xml:space="preserve">
+    <value>Печати понуди</value>
+  </data>
+  <data name="UserManagment" xml:space="preserve">
+    <value>Менаџирање на корисник</value>
+  </data>
+  <data name="Policy_Message" xml:space="preserve">
+    <value>Користи само бројки или латински букви</value>
+  </data>
+  <data name="News_ChooseImage" xml:space="preserve">
+    <value>Избери слика</value>
   </data>
 </root>

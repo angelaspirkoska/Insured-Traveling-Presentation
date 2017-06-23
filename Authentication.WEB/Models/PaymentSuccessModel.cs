@@ -9,5 +9,7 @@
         public string AuthCode { get; set; }
         public string TransId { get; set; }
         public int PolicyNumber { get; set; }
+        public string Policy_Number { get; set; }
+        public string email { get; set; }
     }
 }

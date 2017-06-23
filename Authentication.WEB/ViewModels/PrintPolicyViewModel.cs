@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace InsuredTraveling.Models
+namespace InsuredTraveling.ViewModels
 {
-    public class PrintPolicyModel
+    public class PrintPolicyViewModel
     {
-
         public travel_policy Pat { get; set; }
         public string PolicyNumber { get; set; }
         public insured mainInsured { get; set; }

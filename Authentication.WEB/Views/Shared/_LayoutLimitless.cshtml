@@ -81,31 +81,31 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     @*<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="icon-bubbles4"></i>
-                            <span class="visible-xs-inline-block position-right">Messages</span>
-                            <span class="badge bg-warning-400"></span>
-                        </a>*@
+                    <i class="icon-bubbles4"></i>
+                    <span class="visible-xs-inline-block position-right">Messages</span>
+                    <span class="badge bg-warning-400"></span>
+                </a>*@
 
                     @*<div class="dropdown-menu dropdown-content width-350">
-                            <div class="dropdown-content-heading">
-                                Messages
-                                <ul class="icons-list">
-                                    <li><a href="#"><i class="icon-compose"></i></a></li>
-                                </ul>
-                            </div>
+                    <div class="dropdown-content-heading">
+                        Messages
+                        <ul class="icons-list">
+                            <li><a href="#"><i class="icon-compose"></i></a></li>
+                        </ul>
+                    </div>
 
-                            <ul class="media-list dropdown-content-body">
-                                <li class="media">
-                                    <div class="media-left">
-                                        <span class="badge bg-danger-400 media-badge">5</span>
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <div class="dropdown-content-footer">
-                                <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
+                    <ul class="media-list dropdown-content-body">
+                        <li class="media">
+                            <div class="media-left">
+                                <span class="badge bg-danger-400 media-badge">5</span>
                             </div>
-                        </div>*@
+                        </li>
+                    </ul>
+
+                    <div class="dropdown-content-footer">
+                        <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
+                    </div>
+                </div>*@
                 </li>
                 @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                 {
@@ -151,19 +151,19 @@
                             }
                             @if (r.IsUser("Claims adjuster"))
                             {
-                                @InsuredTraveling.Resource.Home_Claims_adjuster
+                                @InsuredTraveling.Resource.Home_Claims_adjuster 
                             }
-                            <span>@System.Web.HttpContext.Current.User.Identity.Name</span>
-                            <b class="caret"></b>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="#"><i class="icon-user-plus"></i>@InsuredTraveling.Resource.Home_MyProfile</a></li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken">
-                                        <i class="icon-switch2"></i> @InsuredTraveling.Resource.LogOut
-                                    </a>
-                                </li>
-                            </ul>
+                    <span>@System.Web.HttpContext.Current.User.Identity.Name</span>
+                    <b class="caret"></b>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#"><i class="icon-user-plus"></i>@InsuredTraveling.Resource.Home_MyProfile</a></li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="@System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"]/api/account/deletetoken">
+                                <i class="icon-switch2"></i> @InsuredTraveling.Resource.LogOut
+                            </a>
+                        </li>
+                    </ul>
                     </li>
                 }
                 @foreach (var i in InsuredTraveling.App_Start.SiteLanguages.GetAllanguages())
@@ -241,6 +241,9 @@
                                                 <span id="btnAdmin">@InsuredTraveling.Resource.Home_AdminPanel</span>
                                             </a>
                                         </li>
+                                        <li class="navigation-header">
+                                            <span>@InsuredTraveling.Resource.UserManagment</span> <i class="icon-menu" title="User management"></i>
+                                        </li>
                                         <li>
                                             <a href="/Client/Create" id="createTab">
                                                 <i class="icon-user-plus"></i>
@@ -284,19 +287,19 @@
             <div class="body-position-for-limitless">
                 @RenderBody()
             </div>
-            <!-- /page content -->
+            <!-- /page content -->  
         </div>
         <!-- /page container -->
     </div>
     <div id="chats"></div>
-    <!-- Footer -->
-    <div class="footer text-muted col-md-12" align="center" @*style="margin: 30px;"*@>
-        <a href="#">&copy; @DateTime.Now.Year - Insured Traveling</a>
-    </div>
-
-    <!-- /footer -->
-
-
+            <!-- Footer -->
+            <div class="footer text-muted col-md-12" align="center" @*style="margin: 30px;"*@>
+                <a href="#">&copy; @DateTime.Now.Year - Insured Traveling</a>
+            </div>
+        
+            <!-- /footer -->
+        
+      
     <script type="text/javascript">
         $(document).ready(function () {
             localStorage.setItem("username", '@HttpContext.Current.User.Identity.Name');
