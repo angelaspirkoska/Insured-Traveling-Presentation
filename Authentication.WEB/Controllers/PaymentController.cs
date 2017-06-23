@@ -152,7 +152,7 @@ namespace Authentication.WEB.Controllers
                 view.LinkedResources.Add(inlineLogo);
 
                 var PolicyHolderEmail = _ps.GetPolicyHolderEmailByPolicyId(pat.Pat.ID);
-                MailService mailService = new MailService(PolicyHolderEmail);
+                SavaMailService mailService = new SavaMailService(PolicyHolderEmail);
                 mailService.setSubject("Издадена полиса број: " + model.oid);
 
 

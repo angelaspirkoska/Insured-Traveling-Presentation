@@ -40,7 +40,7 @@ namespace InsuredTraveling.Schedulers
        
            // var dateCreated = "29/05/2017"; // treba dejttajm now
 
-            var mailService = new MailService("atanasovski46@gmail.com");
+            var mailService = new SavaMailService("atanasovski46@gmail.com");
             var emailBody = "Dear Ivan now is " + DateTime.Now;
             
             mailService.setSubject("Shceduler");
@@ -71,6 +71,18 @@ namespace InsuredTraveling.Schedulers
             }else
             {
                 emailBody += "Нема нови корисници";
+            }
+
+            var ListOfAllUsers = GetAllSavaUsers();
+            if (ListOfAllUsers.Count() != 0)
+            {
+                string UserFilePath = GetSavaUsersSearchResultsAsExcelDocument(ListOfAllUsers);
+                Attachment ListOfUsersExcel = new Attachment(UserFilePath, MediaTypeNames.Application.Octet);
+                mailService.attach(ListOfUsersExcel);
+            }
+            else
+            {
+                emailBody += "Нема корисници на системот";
             }
 
             //PolicyRequest - Validate account
@@ -115,6 +127,16 @@ namespace InsuredTraveling.Schedulers
             DateTime createdDate = String.IsNullOrEmpty(dateCreated) ? DateTime.UtcNow.Date : DateTime.ParseExact(dateCreated, dateTimeFormat, CultureInfo.InvariantCulture);
             List<aspnetuser> data = new List<aspnetuser>();
             data = _us.GetAllUsersCreatedTodayForSavaAdmin(createdDate);
+            var jsonObject = new JObject();
+            var searchModel = data.Select(Mapper.Map<aspnetuser, SearchRegisteredUser>).ToList();
+
+            return searchModel;
+        }
+
+        public List<SearchRegisteredUser> GetAllSavaUsers()
+        {
+            List<aspnetuser> data = new List<aspnetuser>();
+            data = _us.GetAllSavaUsers();
             var jsonObject = new JObject();
             var searchModel = data.Select(Mapper.Map<aspnetuser, SearchRegisteredUser>).ToList();
 
@@ -225,6 +247,81 @@ namespace InsuredTraveling.Schedulers
                     package.Save();
                 }
                 catch(Exception Ex)
+                {
+
+                }
+
+            }
+
+            //JObject jsonPath = new JObject();
+            //jsonPath.Add("path", path);
+            return path;
+            //return jsonPath;
+            // return File(path, "application/vnd.ms-excel", "PoliciesSearchResults.xlsx");
+        }
+
+        public string GetSavaUsersSearchResultsAsExcelDocument(List<SearchRegisteredUser> users)
+        {
+            if (users == null || !users.Any())
+                return null;
+
+            //string username = System.Web.HttpContext.Current.User.Identity.Name;
+            //var logUser = _us.GetUserIdByUsername(username);
+
+            string fileName = "ReportRegistredUsers_" + /*+ DateTime.Now.ToShortDateString()+*/ "_" + Guid.NewGuid().ToString() + ".xlsx";
+            var path = @"~/ExcelSearchResults/RegisteredUsers/" + fileName;
+            path = HostingEnvironment.MapPath(path); //System.Web.HttpContext.Current.Server.MapPath(path);
+            FileInfo newFile = new FileInfo(path);
+            if (newFile.Exists)
+            {
+                newFile.Delete();  // ensures we create a new workbook
+                fileName = "ReportRegistredUsers" + DateTime.Now.ToShortDateString() + Guid.NewGuid().ToString();
+                path = @"~/ExcelSearchResults/RegisteredUsers/" + fileName;
+                newFile = new FileInfo(path);
+            }
+
+            using (ExcelPackage package = new ExcelPackage(newFile))
+            {
+                // add a new worksheet to the empty workbook
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(InsuredTraveling.Resource.RegisteredUserExcelTitle);
+                //Add the headers
+                worksheet.Cells[1, 1].Value = "Број на полиса";
+                worksheet.Cells[1, 2].Value = "ЕМБГ";
+                worksheet.Cells[1, 3].Value = "Датум на креирање";
+                worksheet.Cells[1, 4].Value = "Датум на истекување";
+                worksheet.Cells[1, 5].Value = "Премија";
+
+
+
+                int counter = 2;
+
+                foreach (SearchRegisteredUser user in users)
+                {
+                    
+                    worksheet.Cells[counter, 2].Value = user.embg;
+                    
+                    counter++;
+                }
+
+                worksheet.View.PageLayoutView = true;
+
+                // set some document properties
+                package.Workbook.Properties.Title = InsuredTraveling.Resource.RegisteredUserExcelTitle;
+                package.Workbook.Properties.Author = "SavaAdmin";
+                package.Workbook.Properties.Comments = "";
+
+                // set some extended property values
+                package.Workbook.Properties.Company = "Sava Osiguruvanje";
+
+                // set some custom property values
+                package.Workbook.Properties.SetCustomPropertyValue("Checked by", "SavaAdmin");
+                package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "EPPlus");
+                // save our new workbook and we are done!
+                try
+                {
+                    package.Save();
+                }
+                catch (Exception Ex)
                 {
 
                 }

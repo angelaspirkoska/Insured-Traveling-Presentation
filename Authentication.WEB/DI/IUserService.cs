@@ -32,6 +32,6 @@ namespace InsuredTraveling.DI
         string GetUserEmailBySellerID(string sellerID);
         aspnetuser GetUserBySellerID(string sellerID);
 
-
+        List<aspnetuser> GetAllSavaUsers();
     }
 }

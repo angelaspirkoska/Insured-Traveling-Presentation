@@ -91,6 +91,11 @@ namespace InsuredTraveling.DI
         {
             return _db.aspnetusers.Where(x => (x.aspnetroles.FirstOrDefault().Name.Contains("Sava_admin") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_normal") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_Sport_VIP") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_Sport+") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_support")) && x.CreatedOn == createdDate).ToList();
         }
+        //All users from 01/06/2017
+        public List<aspnetuser> GetAllSavaUsers()
+        {
+            return _db.aspnetusers.Where(x => (x.aspnetroles.FirstOrDefault().Name.Contains("Sava_normal") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_Sport_VIP") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_Sport+") || x.aspnetroles.FirstOrDefault().Name.Contains("Sava_support"))).ToList();
+        }
 
         public List<travel_policy> GetPoliciesByUsernameToList(string Username, string Prefix)
         {
@@ -202,8 +207,8 @@ namespace InsuredTraveling.DI
             var tempUser = _db.aspnetusers.Where(x => x.EMBG.Equals(policyHolder)).FirstOrDefault();
             if (tempUser != null)
             {
-                var datetime = new DateTime(2017, 6, 1);
-                if (datePolicyCreated >= datetime)
+                //var datetime = new DateTime(2017, 6, 1);
+                if (datePolicyCreated >= tempUser.CreatedOn)
                 {
                     if (tempUser.Sum_premium == null)
                     {

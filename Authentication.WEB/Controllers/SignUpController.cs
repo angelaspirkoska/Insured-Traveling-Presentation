@@ -80,7 +80,7 @@ namespace InsuredTraveling.Controllers
                                                          "<br /> <br />Thanks </div>", inlineLogo.ContentId);
 
 
-                            MailService mailService2 = new MailService(sava_admin.Email, "signup@insuredtraveling.com");
+                            SavaMailService mailService2 = new SavaMailService(sava_admin.Email);
                             mailService2.setSubject("My Sava - User registered on Sava");
                             mailService2.setBodyText(body2, true);
 

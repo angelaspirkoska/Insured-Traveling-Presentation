@@ -43,8 +43,9 @@ namespace InsuredTraveling.DI
             {
                 
                 var tempUser = _db.aspnetusers.Where(x => x.EMBG.Equals(policyHolder)).FirstOrDefault();
-                var datetime = new DateTime(2017, 6, 1);
-                if (datePolicyCreated >= datetime) 
+                //var datetime = new DateTime(2017, 6, 1);
+               
+                if (datePolicyCreated >= tempUser.CreatedOn) 
                 {
                     if (tempUser.Points == null)
                     {
@@ -65,8 +66,13 @@ namespace InsuredTraveling.DI
             }
             catch (Exception ex)
             {
-
+                
             }
+        }
+
+        public int GetPolicyCountByPolicyHolder(string policyHolderSSN)
+        {
+          return _db.aspnetusers.Where(x => x.EMBG.Equals(policyHolderSSN)).Count();
         }
 
         public float? GetUserPoints(string policyHolder)

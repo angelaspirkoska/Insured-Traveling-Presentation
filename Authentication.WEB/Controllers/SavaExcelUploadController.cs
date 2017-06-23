@@ -63,6 +63,13 @@ namespace InsuredTraveling.Controllers
                     _sp.SumDiscountPoints(policy.SSN_policyHolder, policy.discount_points,policy.date_created);
                     _userService.UpdatePremiumSum(policy.SSN_policyHolder, policy.premium, policy.date_created);
                     //var Sava_admin =  _savaSetupService.GetActiveSavaSetup();
+                    var PolicyUser = _userService.GetUserBySSN(policy.SSN_policyHolder);
+
+                    // sends e-mail if user have 0 policy in the system.
+                    if (0 == _sp.GetSavaPoliciesForUser(policy.SSN_policyHolder).Count)
+                    {
+                        SendSavaEmailHelper.SendEmailPolicyUploaded(PolicyUser.Email,PolicyUser.FirstName,PolicyUser.LastName);
+                    }
                     var Sava_admin = _savaSetupService.GetLast();
 
                     float? UserSumPremiums = _userService.GetUserSumofPremiums(policy.SSN_policyHolder);
@@ -70,7 +77,7 @@ namespace InsuredTraveling.Controllers
                     {
                         UserSumPremiums = 0;
                     }
-                    var PolicyUser = _userService.GetUserBySSN(policy.SSN_policyHolder);
+
 
                     //if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
                     //{
