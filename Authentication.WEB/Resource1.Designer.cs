@@ -88,6 +88,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DateTime.
+        /// </summary>
+        public static string ActionLog_DateTime {
+            get {
+                return ResourceManager.GetString("ActionLog_DateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string ActionLog_ID {

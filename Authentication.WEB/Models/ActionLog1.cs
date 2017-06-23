@@ -13,8 +13,9 @@ namespace InsuredTraveling.Models
         public string controller { get; set; }
         public string action { get; set; }
         public string ip_address { get; set; }
+        public DateTime datetime { get; set; }
         public string date { get; set; }
-        public string time { get; set; }
+       // public string time { get; set; }
 
     }
 }

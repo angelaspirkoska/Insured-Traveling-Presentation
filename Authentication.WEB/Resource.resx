@@ -1392,4 +1392,7 @@
   <data name="ActionLog_Date" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="ActionLog_DateTime" xml:space="preserve">
+    <value>DateTime</value>
+  </data>
 </root>

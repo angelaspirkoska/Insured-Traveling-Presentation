@@ -1386,4 +1386,7 @@
   <data name="ActionLog_Date" xml:space="preserve">
     <value>Датум</value>
   </data>
+  <data name="ActionLog_DateTime" xml:space="preserve">
+    <value>Датум и време</value>
+  </data>
 </root>
