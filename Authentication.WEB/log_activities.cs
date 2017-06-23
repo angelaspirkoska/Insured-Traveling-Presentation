@@ -18,7 +18,8 @@ namespace InsuredTraveling
         public string Controller { get; set; }
         public string Action { get; set; }
         public string IP_Address { get; set; }
-        public System.DateTime Time_Stamp { get; set; }
         public string Username { get; set; }
+        public string Date { get; set; }
+        public string Time { get; set; }
     }
 }

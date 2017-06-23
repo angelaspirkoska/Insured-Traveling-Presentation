@@ -22,13 +22,12 @@ namespace InsuredTraveling.Filters
 		{
 			ActionLog1 log = new ActionLog1()
 			{
-                
+                username = System.Web.HttpContext.Current.User.Identity.Name,
                 controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName,
                 action = string.Concat(filterContext.ActionDescriptor.ActionName, " (Logged By: Custom Action Filter)"),
                 ip_address = filterContext.HttpContext.Request.UserHostAddress,
-                username = System.Web.HttpContext.Current.User.Identity.Name,
-                datetime = filterContext.HttpContext.Timestamp
-
+                date = System.Web.HttpContext.Current.Timestamp.Date.ToString(),
+                time = System.Web.HttpContext.Current.Timestamp.TimeOfDay.ToString("g")
             };
                 //context.log_activities.
                 //context.SaveChanges();

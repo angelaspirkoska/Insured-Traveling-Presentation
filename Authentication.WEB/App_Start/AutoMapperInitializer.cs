@@ -206,7 +206,8 @@ namespace InsuredTraveling.App_Start
                 dst.Action = src.action;
                 dst.Controller = src.controller;
                 dst.IP_Address = src.ip_address;
-                dst.Time_Stamp = src.datetime;
+                dst.Date = src.date;
+                dst.Time = src.time;
 
             });
 
@@ -217,8 +218,8 @@ namespace InsuredTraveling.App_Start
                 dst.action = src.Action;
                 dst.controller = src.Controller;
                 dst.ip_address = src.IP_Address;
-                dst.datetime = src.Time_Stamp;
-
+                dst.date = src.Date;
+                dst.time = src.Time;
             });
 
             Mapper.CreateMap<FirstNoticeOfLossReportViewModel, first_notice_of_loss>().AfterMap((src, dst) =>

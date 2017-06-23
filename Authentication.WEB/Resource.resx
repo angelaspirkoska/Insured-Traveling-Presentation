@@ -1380,13 +1380,16 @@
   <data name="ActionLog_IP" xml:space="preserve">
     <value>IP address</value>
   </data>
-  <data name="ActionLog_Timestamp" xml:space="preserve">
-    <value>Timestamp</value>
+  <data name="ActionLog_Time" xml:space="preserve">
+    <value>Time</value>
   </data>
   <data name="ActionLog_Title" xml:space="preserve">
     <value>Recent Activities</value>
   </data>
   <data name="ActionLog_Username" xml:space="preserve">
     <value>Username</value>
+  </data>
+  <data name="ActionLog_Date" xml:space="preserve">
+    <value>Date</value>
   </data>
 </root>

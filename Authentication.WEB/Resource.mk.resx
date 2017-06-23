@@ -1374,13 +1374,16 @@
   <data name="ActionLog_IP" xml:space="preserve">
     <value>IP адреса </value>
   </data>
-  <data name="ActionLog_Timestamp" xml:space="preserve">
-    <value>Временска марка</value>
+  <data name="ActionLog_Time" xml:space="preserve">
+    <value>Време</value>
   </data>
   <data name="ActionLog_Title" xml:space="preserve">
     <value>Aктивности</value>
   </data>
   <data name="ActionLog_Username" xml:space="preserve">
     <value>Корисничко име</value>
+  </data>
+  <data name="ActionLog_Date" xml:space="preserve">
+    <value>Датум</value>
   </data>
 </root>
