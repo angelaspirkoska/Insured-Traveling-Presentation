@@ -16,7 +16,7 @@ namespace InsuredTraveling.Filters
 {
     public class CustomActionFilter : ActionFilterAttribute, IActionFilter
     {
-        void IActionFilter.OnActionExecuting(ActionExecutingContext filterContext)
+        void IActionFilter.OnActionExecuted(ActionExecutedContext filterContext)
         { 
 		using (InsuredTravelingEntity baza = new InsuredTravelingEntity())
 		{
@@ -35,7 +35,7 @@ namespace InsuredTraveling.Filters
                 var log1 = Mapper.Map<ActionLog1, log_activities>(log);
                 LogActivityService nasd = new LogActivityService();
                 nasd.AddLog(log1);
-                OnActionExecuting(filterContext);
+                OnActionExecuted(filterContext);
 		}
 	}
 
