@@ -15,10 +15,12 @@ namespace InsuredTraveling
     public partial class log_activities
     {
         public long Log_Activity_ID { get; set; }
+        public string Username { get; set; }
         public string Controller { get; set; }
         public string Action { get; set; }
         public string IP_Address { get; set; }
-        public string Username { get; set; }
         public System.DateTime DateTime { get; set; }
+        public string Date { get; set; }
+        public string Time { get; set; }
     }
 }

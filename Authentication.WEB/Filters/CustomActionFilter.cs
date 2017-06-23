@@ -27,8 +27,8 @@ namespace InsuredTraveling.Filters
                 action = string.Concat(filterContext.ActionDescriptor.ActionName, " (Logged By: Custom Action Filter)"),
                 ip_address = filterContext.HttpContext.Request.UserHostAddress,
                 datetime = filterContext.HttpContext.Timestamp.ToUniversalTime(),
-                date = System.Web.HttpContext.Current.Timestamp.Date.ToString()
-                //time = System.Web.HttpContext.Current.Timestamp.TimeOfDay.ToString("g")
+                date = System.Web.HttpContext.Current.Timestamp.Date.ToShortDateString(),
+                time = System.Web.HttpContext.Current.Timestamp.TimeOfDay.ToString("g")
             };
                 //context.log_activities.
                 //context.SaveChanges();

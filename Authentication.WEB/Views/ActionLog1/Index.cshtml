@@ -21,7 +21,7 @@
                     <th>@InsuredTraveling.Resource.ActionLog_IP</th>
                     <th>@InsuredTraveling.Resource.ActionLog_DateTime</th>
                     <th>@InsuredTraveling.Resource.ActionLog_Date</th>
-                    @*<th>@InsuredTraveling.Resource.ActionLog_Time</th>*@
+                    <th>@InsuredTraveling.Resource.ActionLog_Time</th>
                 </tr>
             </thead>
             @foreach (var logs in Model)
@@ -34,7 +34,7 @@
                     <td>@logs.IP_Address</td>
                     <td>@logs.DateTime</td>
                     <td>@logs.Date</td>
-                    @*//<td>@logs.Time</td>*@
+                    <td>@logs.Time</td>
                 </tr>
             }
         </table>
