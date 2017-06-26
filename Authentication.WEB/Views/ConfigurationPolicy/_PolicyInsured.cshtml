@@ -1,0 +1,345 @@
+﻿@model InsuredTraveling.Models.Policy
+@using InsuredTraveling.Filters;
+@using System.Web.Optimization;
+@using System.Configuration;
+
+@{
+    var dateFormat = ConfigurationManager.AppSettings["DateFormat"].ToUpper();
+    if (dateFormat.Count(x => x == 'Y') == 2)
+    {
+        dateFormat = dateFormat.Replace("YY", "YYYY");
+    }
+}
+
+<div id="firstInsuredContainer">
+    <div class="col-md-12 form-group">
+        <div class="col-md-4">
+            <strong>Осигурано лице #1</strong>
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <label class="col-md-12 text-left">име и презиме</label>
+        <div class="insuredNameSurnameContainer">
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "име", @class = "form-control input-sm mandatoryField insuredData insuredInfo insuredName" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { placeholder = "презиме", @class = "form-control input-sm mandatoryField insuredData insuredInfo insuredSurname", } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <label class="col-md-12 text-left">ЕМБГ и број на пасош</label>
+        <div class="col-md-7">
+            @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { placeholder = "ЕМБГ", @class = "form-control input-sm mandatoryField insuredData insuredInfo", @id = "insured-embg" } })
+            @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.PassportNumber_ID, new { htmlAttributes = new { placeholder = "Број на пасош", @class = "form-control input-sm mandatoryField insuredData insuredInfo" } })
+            @Html.ValidationMessageFor(model => model.PassportNumber_ID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <label class="col-md-12 text-left">датум на раѓање</label>
+        <div class="col-md-5">
+            <div class="input-group">
+                @*@Html.EditorFor(model => model.BirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  mandatoryField insuredData" } })*@
+                <input type="text" id="insured-birthday" name="BirthDate" class="form-control policy-component-input" />
+                <span class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </span>
+                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- ОВАА ЛАБЕЛА ТРЕБА ДА ЈА ПРИКАЖИ ВОЗРАСТА НА ОСИГУРАНОТО ЛИЦЕ -->
+        <!-- ПРЕСМЕТАНО ОД ПОЛЕТО "датум на раѓање" -->
+        <div class="col-sm-7">
+            <label id="lbl-pers-bdate-1"></label>
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <label class="col-md-12 text-left">адреса</label>
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { placeholder = "улица", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-3">
+            @*@Html.EditorFor(model => model.City, new { htmlAttributes = new { placeholder = "град", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })*@
+            <select id="City" name="City" class="form-control city">
+                <option value="0">--Избери--</option>
+                <option>Skopje</option>
+                <option>Tetovo</option>
+                <option>Gostivar</option>
+                <option>Debar</option>
+                <option>Kumanovo</option>
+                <option>Kriva Palanka</option>
+                <option>Kratovo</option>
+                <option>Veles</option>
+                <option>Kavadarci</option>
+                <option>Negotino</option>
+                <option>Demir Kapija</option>
+                <option>Gevgelija</option>
+                <option>Štip</option>
+                <option>Probištip</option>
+                <option>Sveti Nikole</option>
+                <option>Kočani</option>
+                <option>Vinica</option>
+                <option>Delčevo</option>
+                <option>Makedonska Kamenica</option>
+                <option>Pehčevo</option>
+                <option>Berovo</option>
+                <option>Strumica</option>
+                <option>Radoviš</option>
+                <option>Valandovo</option>
+                <option>Ohrid</option>
+                <option>Kičevo</option>
+                <option>Struga</option>
+                <option>Makedonski Brod</option>
+                <option>Bitola</option>
+                <option>Demir Hisar</option>
+                <option>Resen</option>
+                <option>Prilep</option>
+                <option>Kruševo</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { placeholder = "поштенски број", @class = "form-control input-sm mandatoryField insuredData zip-code", @disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
+            <input type="hidden" name="PostalCode" class="zip-code" />
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <label class="col-md-12 text-left">спортски активности</label>
+        <div class="col-md-12">
+            <select class="form-control policy-component-input" name="persSport" title="Одбери">
+                <option value="0">осигуреникот нема да биде вклучен во спортски активности</option>
+                <option value="1">осигуреникот ќе биде вклучен во спортски активности</option>
+            </select>
+            <hr>
+        </div>
+    </div>
+</div>
+
+@for (int i = 2; i <= ViewBag.InsuredNumber + 1; i++)
+{
+    <div class="insured-container">
+        <div class="col-md-4">
+            <strong>Осигурано лице #@i</strong>
+        </div>
+        <div class="col-md-12 form-group">
+            <label class="col-md-12 text-left">име и презиме</label>
+            <div class="insuredNameSurnameContainer">
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.insureds[i].Name, new { htmlAttributes = new { placeholder = "име", @class = "form-control input-sm mandatoryField insuredData insuredInfo insuredName" } })
+                    @Html.ValidationMessageFor(model => model.insureds[i].Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-7">
+                    @Html.EditorFor(model => model.insureds[i].Lastname, new { htmlAttributes = new { placeholder = "презиме", @class = "form-control input-sm mandatoryField insuredData insuredInfo insuredSurname", } })
+                    @Html.ValidationMessageFor(model => model.insureds[i].Lastname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <label class="col-md-12 text-left">ЕМБГ и број на пасош</label>
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.insureds[i].SSN, new { htmlAttributes = new { placeholder = "ЕМБГ", @class = "form-control input-sm mandatoryField insuredData insuredInfo insuredSSN" } })
+                @Html.ValidationMessageFor(model => model.insureds[i].SSN, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.insureds[i].Passport_Number_IdNumber, new { htmlAttributes = new { placeholder = "Број на пасош", @class = "form-control input-sm mandatoryField insuredData insuredInfo" } })
+                @Html.ValidationMessageFor(model => model.insureds[i].Passport_Number_IdNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <label class="col-md-12 text-left">датум на раѓање</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    @*@Html.EditorFor(model => model.BirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  mandatoryField insuredData" } })*@
+                    <input type="text" name="BirthDate" class="form-control insured-birthday policy-component-input" />
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                    @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <!-- ОВАА ЛАБЕЛА ТРЕБА ДА ЈА ПРИКАЖИ ВОЗРАСТА НА ОСИГУРАНОТО ЛИЦЕ -->
+            <!-- ПРЕСМЕТАНО ОД ПОЛЕТО "датум на раѓање" -->
+            <div class="col-sm-7">
+                <label id="lbl-pers-bdate-1"></label>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <label class="col-md-12 text-left">адреса</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.insureds[i].Address, new { htmlAttributes = new { placeholder = "улица", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
+                @Html.ValidationMessageFor(model => model.insureds[i].Address, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3">
+                @*@Html.EditorFor(model => model.insureds[i].City, new { htmlAttributes = new { placeholder = "град", @class = "form-control input-sm mandatoryField insuredData insuredInfo", } })
+                    @Html.ValidationMessageFor(model => model.insureds[i].City, "", new { @class = "text-danger" })*@
+                <input type="hidden" name="insureds.Index" value="@i" />
+                <select id="insureds[@i].City" name="insureds[@i].City" class="form-control city">
+                    <option value="0">--Избери--</option>
+                    <option>Skopje</option>
+                    <option>Tetovo</option>
+                    <option>Gostivar</option>
+                    <option>Debar</option>
+                    <option>Kumanovo</option>
+                    <option>Kriva Palanka</option>
+                    <option>Kratovo</option>
+                    <option>Veles</option>
+                    <option>Kavadarci</option>
+                    <option>Negotino</option>
+                    <option>Demir Kapija</option>
+                    <option>Gevgelija</option>
+                    <option>Štip</option>
+                    <option>Probištip</option>
+                    <option>Sveti Nikole</option>
+                    <option>Kočani</option>
+                    <option>Vinica</option>
+                    <option>Delčevo</option>
+                    <option>Makedonska Kamenica</option>
+                    <option>Pehčevo</option>
+                    <option>Berovo</option>
+                    <option>Strumica</option>
+                    <option>Radoviš</option>
+                    <option>Valandovo</option>
+                    <option>Ohrid</option>
+                    <option>Kičevo</option>
+                    <option>Struga</option>
+                    <option>Makedonski Brod</option>
+                    <option>Bitola</option>
+                    <option>Demir Hisar</option>
+                    <option>Resen</option>
+                    <option>Prilep</option>
+                    <option>Kruševo</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.insureds[i].Postal_Code, new { htmlAttributes = new { placeholder = "поштенски број", @class = "form-control input-sm mandatoryField insuredData zip-code", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.insureds[i].Postal_Code, "", new { @class = "text-danger" })
+                <input type="hidden" name="insureds[@i].Postal_Code" class="zip-code" />
+            </div>
+        </div>
+        @*ova treba da se dodade vo insured ko pole*@
+        <div class="col-md-12 form-group">
+            <label class="col-md-12 text-left">спортски активности</label>
+            <div class="col-md-12">
+                <select class="form-control policy-component-input" name="persSport" title="Одбери">
+                    <option value="0">осигуреникот нема да биде вклучен во спортски активности</option>
+                    <option value="1">осигуреникот ќе биде вклучен во спортски активности</option>
+                </select>
+                <hr>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+
+    function fillInsuredsDropdowns() {
+        var i = 1;
+        $('#professionalDriverInureds').html("").selectpicker("refresh");
+        $('#abroadStudentsInsureds').html("").selectpicker("refresh");
+        $('#domasnaAsistencijaInsureds').html("").selectpicker("refresh");
+        $('#avtoasistencijaInsureds').html("").selectpicker("refresh");
+
+        $(".insuredNameSurnameContainer").each(function (element) {
+            var name = $(this).find(".insuredName").val();
+            var surname = $(this).find(".insuredSurname").val();
+            var fullname = name + " " + surname;
+            if (fullname.trim() == "")
+                fullname = "Лице " + i;
+
+            $('#professionalDriverInureds').append($('<option>', {
+                value: i,
+                text: fullname
+            })).selectpicker('refresh');
+
+            $('#abroadStudentsInsureds').append($('<option>', {
+                value: i,
+                text: fullname
+            })).selectpicker('refresh');
+
+            $('#domasnaAsistencijaInsureds').append($('<option>', {
+                value: i,
+                text: fullname
+            })).selectpicker('refresh');
+            $('#avtoasistencijaInsureds').append($('<option>', {
+                value: i,
+                text: fullname
+            })).selectpicker('refresh');
+            i++;
+        });
+    }
+
+    $(function () {
+
+        $("#insured-embg").focusout(function () {
+            var embg = $(this).val();
+            if ($.isNumeric(embg) && embg.length == 13) {
+                var day = embg.substring(0, 2);
+                var month = embg.substring(2, 4);
+                var year = "1" + embg.substring(4, 7);
+                var birthday = moment(day + "." + month + "." + year, '@dateFormat');
+                $("#insured-birthday").daterangepicker({
+                    singleDatePicker: true,
+                    locale: {
+                        format: '@dateFormat'
+                    },
+                    startDate: birthday
+                });
+            } else {
+                $(this).val("");
+            }
+        });
+
+        $("body").on("focusout", ".insuredSSN", function () {
+            var embg = $(this).val();
+            var $container = $(this).closest(".insured-container");
+            var $bday = $container.find(".insured-birthday").first();
+
+            if ($.isNumeric(embg) && embg.length == 13) {
+                var day = embg.substring(0, 2);
+                var month = embg.substring(2, 4);
+                var year = "1" + embg.substring(4, 7);
+                var birthday = moment(day + "." + month + "." + year, '@dateFormat');
+                $bday.daterangepicker({
+                    singleDatePicker: true,
+                    locale: {
+                        format: '@dateFormat'
+                    },
+                    startDate: birthday
+                });
+            } else {
+                $(this).val("");
+            }
+        });
+
+        $("body").on("change", ".insuredName", function () {
+            fillInsuredsDropdowns();
+        });
+
+        $("body").on("change", ".insuredSurname", function () {
+            fillInsuredsDropdowns();
+        });
+
+        $(".insured-birthday").daterangepicker({
+            singleDatePicker: true,
+            locale: {
+                format: '@dateFormat'
+            }
+        });
+
+        $("#insured-birthday").daterangepicker({
+            singleDatePicker: true,
+            locale: {
+                format: '@dateFormat'
+            }
+        });
+
+    })
+</script>

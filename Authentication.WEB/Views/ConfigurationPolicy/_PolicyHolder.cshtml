@@ -1,0 +1,151 @@
+﻿@model InsuredTraveling.Models.Policy
+@using InsuredTraveling.Filters;
+@using System.Web.Optimization;
+@using System.Configuration;
+
+@{
+    var dateFormat = ConfigurationManager.AppSettings["DateFormat"].ToUpper();
+    if (dateFormat.Count(x => x == 'Y') == 2)
+    {
+        dateFormat = dateFormat.Replace("YY", "YYYY");
+    }
+}
+
+<div class="col-md-12 form-group">
+    <div class="col-md-4">
+        <strong>Податоци за договорувачот</strong>
+    </div>
+    <div class="col-md-8">
+        <div class="checkbox">
+            <label style="padding-left:0;">
+                <input type="checkbox" name="IsSamePolicyHolderInsured" style="width:auto; margin-left:-15px;" id="IsSamePolicyHolderInsured" />
+                @InsuredTraveling.Resource.Policy_HolderSameInsured
+            </label>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 form-group">
+    <label class="col-md-12 text-left">име и презиме</label>
+    <div class="col-md-5">
+        @Html.EditorFor(model => model.PolicyHolderName, new { htmlAttributes = new { placeholder = "име", @class = "form-control input-sm mandatoryField holderInfo" } })
+        @Html.ValidationMessageFor(model => model.PolicyHolderName, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.PolicyHolderLastName, new { htmlAttributes = new { placeholder = "презиме", @class = "form-control input-sm mandatoryField holderInfo", } })
+        @Html.ValidationMessageFor(model => model.PolicyHolderLastName, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="col-md-12 form-group">
+    <label class="col-md-12 text-left">ЕМБГ и број на пасош</label>
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.PolicyHolderSSN, new { htmlAttributes = new { placeholder = "ЕМБГ", @class = "form-control input-sm mandatoryField holderInfo", @id = "holder-embg" } })
+        @Html.ValidationMessageFor(model => model.PolicyHolderSSN, "", new { @class = "text-danger", id = "ErrorPolicyHolderSSN" })
+    </div>
+    <div class="col-md-5">
+        @Html.EditorFor(model => model.PolicyHolderPassportNumber_ID, new { htmlAttributes = new { placeholder = "број на пасош", @class = "form-control input-sm mandatoryField holderInfo" } })
+        @Html.ValidationMessageFor(model => model.PolicyHolderPassportNumber_ID, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="col-md-12 form-group">
+    <label class="col-md-12 text-left">датум на раѓање</label>
+    <div class="col-md-5">
+        <div class="input-group">
+            @*@Html.EditorFor(model => model.PolicyHolderBirthDate, "{0:" + @ConfigurationManager.AppSettings["DateFormat"].ToString() + "}", new { htmlAttributes = new { @class = "form-control input-sm  placeholder mandatoryField holderInfo" } })*@
+            <input class="form-control policy-component-input holderInfo" name="PolicyHolderBirthDate" id="holder-birthday" type="text" />
+            @Html.ValidationMessageFor(model => model.PolicyHolderBirthDate, "", new { @class = "text-danger" })
+            <span class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+            </span>
+        </div>
+    </div>
+    <!-- ОВАА ЛАБЕЛА ТРЕБА ДА ЈА ПРИКАЖИ ВОЗРАСТА НА ОСИГУРАНОТО ЛИЦЕ -->
+    <!-- ПРЕСМЕТАНО ОД ПОЛЕТО "датум на раѓање" -->
+    <div class="col-sm-7">
+        <label id="lbl-pers-bdate-1"></label>
+    </div>
+</div>
+<div class="col-md-12 form-group">
+    <label class="col-md-12 text-left">адреса</label>
+    <div class="col-md-6">
+        @Html.EditorFor(model => model.PolicyHolderAddress, new { htmlAttributes = new { placeholder = "адреса", @class = "form-control input-sm mandatoryField holderInfo" } })
+        @Html.ValidationMessageFor(model => model.PolicyHolderAddress, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-md-3">
+        @*@Html.EditorFor(model => model.PolicyHolderCity, new { htmlAttributes = new { placeholder = "град", @class = "form-control input-sm mandatoryField holderInfo" } })
+        @Html.ValidationMessageFor(model => model.PolicyHolderCity, "", new { @class = "text-danger" })*@
+        <select id="PolicyHolderCity" name="PolicyHolderCity" class="form-control city holderInfo">
+            <option value="0">--Избери--</option>
+            <option>Skopje</option>
+            <option>Tetovo</option>
+            <option>Gostivar</option>
+            <option>Debar</option>
+            <option>Kumanovo</option>
+            <option>Kriva Palanka</option>
+            <option>Kratovo</option>
+            <option>Veles</option>
+            <option>Kavadarci</option>
+            <option>Negotino</option>
+            <option>Demir Kapija</option>
+            <option>Gevgelija</option>
+            <option>Štip</option>
+            <option>Probištip</option>
+            <option>Sveti Nikole</option>
+            <option>Kočani</option>
+            <option>Vinica</option>
+            <option>Delčevo</option>
+            <option>Makedonska Kamenica</option>
+            <option>Pehčevo</option>
+            <option>Berovo</option>
+            <option>Strumica</option>
+            <option>Radoviš</option>
+            <option>Valandovo</option>
+            <option>Ohrid</option>
+            <option>Kičevo</option>
+            <option>Struga</option>
+            <option>Makedonski Brod</option>
+            <option>Bitola</option>
+            <option>Demir Hisar</option>
+            <option>Resen</option>
+            <option>Prilep</option>
+            <option>Kruševo</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        @Html.EditorFor(model => model.PolicyHolderPostalCode, new { htmlAttributes = new { placeholder = "поштенски број", @class = "form-control input-sm mandatoryField holderInfo zip-code", @disabled="disabled" } })
+        @Html.ValidationMessageFor(model => model.PolicyHolderPostalCode, "", new { @class = "text-danger" })
+        <input type="hidden" name="PolicyHolderPostalCode" class="zip-code" />
+    </div>
+</div>
+<div class="col-md-12"><hr></div>
+
+<script>
+    $(function () {
+
+        $("#holder-embg").focusout(function () {
+            var embg = $(this).val();
+            if ($.isNumeric(embg) && embg.length == 13) {
+                var day = embg.substring(0, 2);
+                var month = embg.substring(2, 4);
+                var year = "1" + embg.substring(4, 7);
+                var birthday = moment(day + "." + month + "." + year, '@dateFormat');
+                $("#holder-birthday").daterangepicker({
+                    singleDatePicker: true,
+                    locale: {
+                        format: '@dateFormat'
+                    },
+                    startDate: birthday
+                });
+            } else {
+                $(this).val("");
+            }
+        });
+
+        $("#holder-birthday").daterangepicker({
+            singleDatePicker: true,
+            locale: {
+                format: '@dateFormat'
+            }
+        });
+
+    })
+</script>

@@ -16,10 +16,10 @@
     <AssemblyName>InsuredTraveling</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44375</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressSSLPort>44344</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -271,6 +271,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\daterangepicker.css" />
+    <Content Include="Content\daterangepicker.js" />
     <Content Include="Content\dropdownliststyle.css" />
     <Content Include="Content\flags\en-US.png" />
     <Content Include="Content\flags\mk-MK.png" />
@@ -296,6 +298,9 @@
     <Content Include="Content\Limitless-css\icons\icomoon\styles.css" />
     <Content Include="Content\loader.css" />
     <Content Include="Content\loader\page-loader.gif" />
+    <Content Include="Content\moment.js" />
+    <Content Include="Content\moment.min.js" />
+    <Content Include="Content\package.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Errors\401.aspx" />
     <Content Include="Errors\401.html" />
@@ -2500,6 +2505,8 @@
     <Content Include="Views\ConfigurationPolicy\PolicyForm.cshtml" />
     <Content Include="Views\AdminPanel\PolicyPremium.cshtml" />
     <Content Include="Views\ConfigurationPolicy\Index.cshtml" />
+    <Content Include="Views\ConfigurationPolicy\_PolicyHolder.cshtml" />
+    <Content Include="Views\ConfigurationPolicy\_PolicyInsured.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
