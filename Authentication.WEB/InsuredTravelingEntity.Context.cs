@@ -87,5 +87,7 @@ namespace InsuredTraveling
         public virtual DbSet<config_policy_type> config_policy_type { get; set; }
         public virtual DbSet<a_test_table> a_test_table { get; set; }
         public virtual DbSet<a_test> a_test { get; set; }
+        public virtual DbSet<config_policy> config_policy { get; set; }
+        public virtual DbSet<config_policy_values> config_policy_values { get; set; }
     }
 }

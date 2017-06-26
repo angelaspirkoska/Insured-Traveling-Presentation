@@ -12,24 +12,21 @@ namespace InsuredTraveling
     using System;
     using System.Collections.Generic;
     
-    public partial class config_policy_type
+    public partial class config_policy
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public config_policy_type()
+        public config_policy()
         {
-            this.excelconfigs = new HashSet<excelconfig>();
-            this.config_policy = new HashSet<config_policy>();
+            this.config_policy_values = new HashSet<config_policy_values>();
         }
     
-        public int ID { get; set; }
-        public string policy_type_name { get; set; }
-        public Nullable<System.DateTime> policy_effective_date { get; set; }
-        public Nullable<System.DateTime> policy_expiry_date { get; set; }
-        public Nullable<bool> status { get; set; }
+        public int IDPolicy { get; set; }
+        public int ID_Config_poliy_Type { get; set; }
+        public string Rating { get; set; }
+        public bool IsPaid { get; set; }
     
+        public virtual config_policy_type config_policy_type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<excelconfig> excelconfigs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<config_policy> config_policy { get; set; }
+        public virtual ICollection<config_policy_values> config_policy_values { get; set; }
     }
 }

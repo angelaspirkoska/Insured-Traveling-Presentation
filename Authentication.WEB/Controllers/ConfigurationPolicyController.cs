@@ -13,10 +13,18 @@ namespace InsuredTraveling.Controllers
     {
         private readonly IConfigPolicyTypeService _configPolicyTypeService;
         private readonly IExcelConfigService _excelConfigService;
-        public ConfigurationPolicyController(IConfigPolicyTypeService configPolicyTypeService, IExcelConfigService excelConfigService)
+        private readonly IConfigPolicyService _configPolicyService;
+        private readonly IConfigPolicyValuesService _configPolicyValuesService;
+
+        public ConfigurationPolicyController(IConfigPolicyTypeService configPolicyTypeService, 
+                                             IExcelConfigService excelConfigService,
+                                             IConfigPolicyService configPolicyService,
+                                             IConfigPolicyValuesService configPolicyValuesService)
         {
             _configPolicyTypeService = configPolicyTypeService;
             _excelConfigService = excelConfigService;
+            _configPolicyService = configPolicyService;
+            _configPolicyValuesService = configPolicyValuesService;
         }
         // GET: ConfigurationPolicy
         public ActionResult Index()
@@ -67,7 +75,15 @@ namespace InsuredTraveling.Controllers
         {
             if (excelId.HasValue)
             {
-                ViewBag.CalculatedPremium = DatabaseCommands.CalculatePremium((int)excelId, formCollection);
+                var premium = DatabaseCommands.CalculatePremium((int)excelId, formCollection);
+                ViewBag.CalculatedPremium = premium;
+
+                var configPolicy = DatabaseCommands.InsertPolicyConfigData(1, premium);
+                configPolicy.IDPolicy = _configPolicyService.AddConfigPolicy(configPolicy);
+
+                var configPolicyValues = DatabaseCommands.InsertConfigPolicyValues((int)excelId, formCollection, configPolicy);
+                var isSuccessful = _configPolicyValuesService.AddConfigPolicyValues(configPolicyValues);
+
                 return View("PolicyPremium");
             }
             return new HttpStatusCodeResult(500, "Something went wrong");

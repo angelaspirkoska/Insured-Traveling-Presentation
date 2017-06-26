@@ -142,6 +142,10 @@
         <EntityTypeShape EntityType="Entities.a_test_table" Width="1.5" PointX="14.75" PointY="0.75" />
         <EntityTypeShape EntityType="Entities.a_test" Width="1.5" PointX="0.75" PointY="14.75" />
         <AssociationConnector Association="Entities.excelconfig_ibfk_1" />
+        <EntityTypeShape EntityType="Entities.config_policy" Width="1.5" PointX="15.625" PointY="3.875" />
+        <EntityTypeShape EntityType="Entities.config_policy_values" Width="1.5" PointX="17.875" PointY="4" />
+        <AssociationConnector Association="Entities.config_policy_ibfk_1" />
+        <AssociationConnector Association="Entities.config_policy_values_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -199,18 +199,17 @@ namespace InsuredTraveling.Controllers
                         var configPolicyType = ExcelReader.CreateConfigPolicyTypeObject(policyName, effectiveDate, expiryDate);
                         configPolicyType.ID = _configPolicyTypeService.AddConfigPolicyType(configPolicyType);
 
-                        excelconfig excelConfig = ExcelReader.CreateExcelConfigObject(path, excelConfigFile.FileName, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name), configPolicyType.ID, effectiveDate, expiryDate);
+                        excelconfig excelConfig = ExcelReader.CreateExcelConfigObject(fullPath, excelConfigFile.FileName, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name), configPolicyType.ID, effectiveDate, expiryDate);
                         var excelId = _exs.AddExcelConfig(excelConfig);
 
-                        ExcelReader.SaveExcelConfiguration(path, excelId);
-                        return View("Index");
+                        ExcelReader.SaveExcelConfiguration(fullPath, excelId);
                     }
                 }
-                return View("Index");
+                return RedirectToAction("Index", "AdminPanel");
             } 
             catch (Exception ex)
             {
-               return View();
+                return RedirectToAction("Index", "AdminPanel");
             }
         }
 

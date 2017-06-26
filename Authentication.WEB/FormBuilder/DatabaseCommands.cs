@@ -194,11 +194,11 @@ namespace InsuredTraveling.FormBuilder
             commandText.Length--;
             return commandText.ToString();
         }      
-        public static bool CreateRatingIndicatorsTable(int excelID)
+        public static bool CreateConfigParametersTable(int excelID)
         {
             StringBuilder ratingIndicatorstable = new StringBuilder();
-            ratingIndicatorstable.Append("CREATE TABLE RatingIndicators_" + excelID + " ( ");
-            ratingIndicatorstable.Append("`Name` varchar(50) DEFAULT NULL, `Type` varchar(50) DEFAULT NULL )");
+            ratingIndicatorstable.Append("CREATE TABLE ConfigParameters_" + excelID + " ( ");
+            ratingIndicatorstable.Append("`Name` varchar(50) DEFAULT NULL, `Type` varchar(50) DEFAULT NULL, `IsRatingIndicator` BIT DEFAULT NULL )");
 
             MySqlConnection conn = new MySqlConnection();
             conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
@@ -326,14 +326,20 @@ namespace InsuredTraveling.FormBuilder
                 return false;
             }
         }
-        public static bool ExecuteRatingIndicatorsTable(int excelID, List<TagInfo> variables)
+        public static bool ExecuteConfigParametersTable(int excelID, List<TagInfo> variables)
         {
-            var ratingVariables = variables.Where(x => x.Attributes.ContainsKey("ratingIndicatorIndex")).ToList();
+            var configParameters = variables.Where(x => !x.Type.Equals("header") && !x.Type.Equals("label") && !x.Type.Equals("submit")).ToList();
             StringBuilder commandText = new StringBuilder();
-            commandText.Append("INSERT INTO RatingIndicators_" + excelID + " (Name , Type) VALUES ");
-            foreach (TagInfo tag in ratingVariables)
+            commandText.Append("INSERT INTO ConfigParameters_" + excelID + " (Name , Type, IsRatingIndicator) VALUES ");
+            foreach (TagInfo tag in configParameters)
             {
-                commandText.Append("('" + tag.Name + "','" + tag.Type + "'),");
+                if(tag.Attributes.ContainsKey("ratingIndicatorIndex"))
+                {
+                    commandText.Append("('" + tag.Name + "','" + tag.Type + "','1" + "'),");
+                }
+                else
+                    commandText.Append("('" + tag.Name + "','" + tag.Type + "', b'0" + "'),");
+
             }
             commandText.Length--;
             MySqlConnection conn = new MySqlConnection();
@@ -714,7 +720,35 @@ namespace InsuredTraveling.FormBuilder
         #region Helpers
         public static List<TagInfo> GetAllRatingIndicators(int excelID)
         {
-            string sql = " SELECT * FROM RatingIndicators_" + excelID;
+            string sql = " SELECT * FROM ConfigParameters_" + excelID + " WHERE IsRatingIndicator=1";
+            List<TagInfo> variables = new List<TagInfo>();
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = ConfigurationManager.AppSettings["ExecuteStoreProcedureConnectionString"];
+            try
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var variable = new TagInfo();
+                    variable.Name = reader.GetString("Name");
+                    variable.Type = reader.GetString("Type");
+                    variables.Add(variable);
+                }
+
+                conn.Close();
+                return variables;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return new List<TagInfo>();
+            }
+        }
+        public static List<TagInfo> GetAllConfigParameters(int excelID)
+        {
+            string sql = " SELECT * FROM ConfigParameters_" + excelID;
             List<TagInfo> variables = new List<TagInfo>();
             MySqlConnection conn = new MySqlConnection();
             conn.ConnectionString = ConfigurationManager.AppSettings["ExecuteStoreProcedureConnectionString"];
@@ -743,13 +777,13 @@ namespace InsuredTraveling.FormBuilder
         public static void CreateDatabaseTables(int excelID, List<TagInfo> tagInfoExcel, List<Dget> dgetFunctions, List<Function> procedures, List<Function> functions)
         {
             ExecutePopulateFormNames(excelID, tagInfoExcel);
-            ExecutePolicyCommand(excelID, tagInfoExcel);
+            //ExecutePolicyCommand(excelID, tagInfoExcel);
             ExecuteListCommand(excelID);
             ExecutePopulateListCommand(excelID, tagInfoExcel);
             ExecuteDGETCommand(excelID, dgetFunctions);
             GenerateMasterProcedure(excelID, procedures, functions, tagInfoExcel);
-            CreateRatingIndicatorsTable(excelID);
-            ExecuteRatingIndicatorsTable(excelID, tagInfoExcel);
+            CreateConfigParametersTable(excelID);
+            ExecuteConfigParametersTable(excelID, tagInfoExcel);
         }
         public static string CalculatePremium(int excelId, FormCollection formCollection)
         {
@@ -813,6 +847,65 @@ namespace InsuredTraveling.FormBuilder
                 conn.Close();
             }
             return result;
+        }
+        public static List<config_policy_values> InsertConfigPolicyValues(int excelId, FormCollection formCollection, config_policy configPolicy)
+        {
+            var configPolicyValues = new List<config_policy_values>();
+            var parameters = GetAllConfigParameters(excelId);
+
+            Dictionary<string, object> formElements = new Dictionary<string, object>();
+            formCollection.CopyTo(formElements);
+
+            foreach (var parameter in parameters)
+            {
+                if (parameter.Type.Equals("checkbox") || parameter.Type.Equals("radio"))
+                {
+                    if (formElements.ContainsKey(parameter.Name))
+                    {
+                        var configPolicyValue = new config_policy_values();
+                        configPolicyValue.IDPolicy = configPolicy.IDPolicy;
+                        configPolicyValue.Name = parameter.Name;
+                        configPolicyValue.Value = "yes";
+                        configPolicyValues.Add(configPolicyValue);
+                    }
+                    else
+                    {
+                        var configPolicyValue = new config_policy_values();
+                        configPolicyValue.IDPolicy = configPolicy.IDPolicy;
+                        configPolicyValue.Name = parameter.Name;
+                        configPolicyValue.Value = "no";
+                        configPolicyValues.Add(configPolicyValue);
+                    }
+                }
+                else
+                {
+
+                    if (formElements.ContainsKey(parameter.Name))
+                    {
+                        var configPolicyValue = new config_policy_values();
+                        configPolicyValue.IDPolicy = configPolicy.IDPolicy;
+                        configPolicyValue.Name = parameter.Name;
+                        configPolicyValue.Value = formCollection.GetValue(parameter.Name).AttemptedValue;
+                        configPolicyValues.Add(configPolicyValue);
+                    }
+                    else
+                    {
+                        var configPolicyValue = new config_policy_values();
+                        configPolicyValue.IDPolicy = configPolicy.IDPolicy;
+                        configPolicyValue.Name = parameter.Name;
+                        configPolicyValue.Value = string.Empty;
+                        configPolicyValues.Add(configPolicyValue);
+                    }
+                }
+            }
+            return configPolicyValues;
+        }
+        public static config_policy InsertPolicyConfigData(int idConfigPolicyType, string rating)
+        {
+            var policy = new config_policy();
+            policy.ID_Config_poliy_Type = idConfigPolicyType;
+            policy.Rating = rating;
+            return policy;
         }
         #endregion
     }

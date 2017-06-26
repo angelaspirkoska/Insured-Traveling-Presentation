@@ -2077,7 +2077,13 @@
     <Compile Include="company.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="config_policy.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="config_policy_type.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="config_policy_values.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AdminPanelController.cs" />
@@ -2278,6 +2284,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="DI\ConfigPolicyService.cs" />
+    <Compile Include="DI\ConfigPolicyValuesService.cs" />
+    <Compile Include="DI\IConfigPolicyService.cs" />
+    <Compile Include="DI\IConfigPolicyValuesService.cs" />
     <Compile Include="SignalR\PipelineModules\LoggingPipelineModule.cs" />
     <Compile Include="SignalR\Hubs\ChatHub.cs" />
     <Compile Include="SignalR\PipelineModules\ExceptionPipelineModule.cs" />

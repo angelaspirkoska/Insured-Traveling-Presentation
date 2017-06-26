@@ -154,7 +154,7 @@ namespace InsuredTraveling.FormBuilder
         {          
             var formBuilder = new FormBuilder()
                .SetName("my-form")
-               .SetAction("/index")
+               .SetAction("/ConfigurationPolicy/PolicyForm")
                .SetMethod("post");
             foreach (var excelRow in tagInfoExcel)
             {           

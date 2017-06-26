@@ -185,6 +185,15 @@ warning 6002: The table/view 'def.db_9eb138_config.aspnetuserlogins' does not ha
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="text" Nullable="false" />
         </EntityType>
+        <EntityType Name="config_policy">
+          <Key>
+            <PropertyRef Name="IDPolicy" />
+          </Key>
+          <Property Name="IDPolicy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Config_poliy_Type" Type="int" Nullable="false" />
+          <Property Name="Rating" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="IsPaid" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="config_policy_type">
           <Key>
             <PropertyRef Name="ID" />
@@ -194,6 +203,15 @@ warning 6002: The table/view 'def.db_9eb138_config.aspnetuserlogins' does not ha
           <Property Name="policy_effective_date" Type="date" />
           <Property Name="policy_expiry_date" Type="date" />
           <Property Name="status" Type="bit" />
+        </EntityType>
+        <EntityType Name="config_policy_values">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="IDPolicy" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="countries">
           <Key>
@@ -829,6 +847,30 @@ warning 6002: The table/view 'def.db_9eb138_config.transaction' does not have a 
             </Principal>
             <Dependent Role="bank_account_info">
               <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="config_policy_ibfk_1">
+          <End Role="config_policy_type" Type="Self.config_policy_type" Multiplicity="1" />
+          <End Role="config_policy" Type="Self.config_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="config_policy_type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="config_policy">
+              <PropertyRef Name="ID_Config_poliy_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="config_policy_values_ibfk_1">
+          <End Role="config_policy" Type="Self.config_policy" Multiplicity="1" />
+          <End Role="config_policy_values" Type="Self.config_policy_values" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="config_policy">
+              <PropertyRef Name="IDPolicy" />
+            </Principal>
+            <Dependent Role="config_policy_values">
+              <PropertyRef Name="IDPolicy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1718,7 +1760,9 @@ warning 6002: The table/view 'def.db_9eb138_config.transaction' does not have a 
           <EntitySet Name="chat_requests" EntityType="Self.chat_requests" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="clients" EntityType="Self.clients" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="company" EntityType="Self.company" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="config_policy" EntityType="Self.config_policy" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="config_policy_type" EntityType="Self.config_policy_type" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="config_policy_values" EntityType="Self.config_policy_values" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="countries" EntityType="Self.countries" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="countries_name" EntityType="Self.countries_name" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="discount_age" EntityType="Self.discount_age" Schema="db_9eb138_config" store:Type="Tables" />
@@ -1810,6 +1854,14 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="bank_account_info_ibfk_2" Association="Self.bank_account_info_ibfk_2">
             <End Role="banks" EntitySet="banks" />
             <End Role="bank_account_info" EntitySet="bank_account_info" />
+          </AssociationSet>
+          <AssociationSet Name="config_policy_ibfk_1" Association="Self.config_policy_ibfk_1">
+            <End Role="config_policy_type" EntitySet="config_policy_type" />
+            <End Role="config_policy" EntitySet="config_policy" />
+          </AssociationSet>
+          <AssociationSet Name="config_policy_values_ibfk_1" Association="Self.config_policy_values_ibfk_1">
+            <End Role="config_policy" EntitySet="config_policy" />
+            <End Role="config_policy_values" EntitySet="config_policy_values" />
           </AssociationSet>
           <AssociationSet Name="countries_name_ibfk_1" Association="Self.countries_name_ibfk_1">
             <End Role="countries" EntitySet="countries" />
@@ -3493,6 +3545,16 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="config_policy_type" EntitySet="config_policy_type" />
             <End Role="excelconfig" EntitySet="excelconfigs" />
           </AssociationSet>
+          <EntitySet Name="config_policy" EntityType="Entities.config_policy" />
+          <EntitySet Name="config_policy_values" EntityType="Entities.config_policy_values" />
+          <AssociationSet Name="config_policy_ibfk_1" Association="Entities.config_policy_ibfk_1">
+            <End Role="config_policy_type" EntitySet="config_policy_type" />
+            <End Role="config_policy" EntitySet="config_policy" />
+          </AssociationSet>
+          <AssociationSet Name="config_policy_values_ibfk_1" Association="Entities.config_policy_values_ibfk_1">
+            <End Role="config_policy" EntitySet="config_policy" />
+            <End Role="config_policy_values" EntitySet="config_policy_values" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -4237,6 +4299,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="policy_expiry_date" Type="DateTime" />
           <Property Name="status" Type="Boolean" />
           <NavigationProperty Name="excelconfigs" Relationship="Entities.excelconfig_ibfk_1" FromRole="config_policy_type" ToRole="excelconfig" />
+          <NavigationProperty Name="config_policy" Relationship="Entities.config_policy_ibfk_1" FromRole="config_policy_type" ToRole="config_policy" />
         </EntityType>
         <EntityType Name="a_test_table">
           <Key>
@@ -4263,6 +4326,51 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="excelconfig">
               <PropertyRef Name="id_config_policy_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="config_policy">
+          <Key>
+            <PropertyRef Name="IDPolicy" />
+          </Key>
+          <Property Name="IDPolicy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Config_poliy_Type" Type="Int32" Nullable="false" />
+          <Property Name="Rating" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsPaid" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="config_policy_type" Relationship="Entities.config_policy_ibfk_1" FromRole="config_policy" ToRole="config_policy_type" />
+          <NavigationProperty Name="config_policy_values" Relationship="Entities.config_policy_values_ibfk_1" FromRole="config_policy" ToRole="config_policy_values" />
+        </EntityType>
+        <EntityType Name="config_policy_values">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IDPolicy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="config_policy" Relationship="Entities.config_policy_values_ibfk_1" FromRole="config_policy_values" ToRole="config_policy" />
+        </EntityType>
+        <Association Name="config_policy_ibfk_1">
+          <End Type="Entities.config_policy_type" Role="config_policy_type" Multiplicity="1" />
+          <End Type="Entities.config_policy" Role="config_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="config_policy_type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="config_policy">
+              <PropertyRef Name="ID_Config_poliy_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="config_policy_values_ibfk_1">
+          <End Type="Entities.config_policy" Role="config_policy" Multiplicity="1" />
+          <End Type="Entities.config_policy_values" Role="config_policy_values" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="config_policy">
+              <PropertyRef Name="IDPolicy" />
+            </Principal>
+            <Dependent Role="config_policy_values">
+              <PropertyRef Name="IDPolicy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5088,6 +5196,26 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               <MappingFragment StoreEntitySet="a_test">
                 <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="config_policy">
+            <EntityTypeMapping TypeName="Entities.config_policy">
+              <MappingFragment StoreEntitySet="config_policy">
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="ID_Config_poliy_Type" ColumnName="ID_Config_poliy_Type" />
+                <ScalarProperty Name="IDPolicy" ColumnName="IDPolicy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="config_policy_values">
+            <EntityTypeMapping TypeName="Entities.config_policy_values">
+              <MappingFragment StoreEntitySet="config_policy_values">
+                <ScalarProperty Name="IDPolicy" ColumnName="IDPolicy" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

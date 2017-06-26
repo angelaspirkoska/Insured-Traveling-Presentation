@@ -365,7 +365,7 @@ namespace InsuredTraveling.FormBuilder
         {
             _tag.RemoveAttr("id");
             _tag.Attr("type", "submit").Value("Calculate");
-            _tag.Attr("formaction", "/AdminPanel/PolicyForm?excelId=" + tagInfo.Id);
+            _tag.Attr("formaction", "/ConfigurationPolicy/PolicyForm?excelId=" + tagInfo.Id);
         }
 
     }

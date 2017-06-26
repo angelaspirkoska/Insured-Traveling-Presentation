@@ -43,6 +43,8 @@ namespace InsuredTraveling
             builder.RegisterType<ExcelConfigService>().As<IExcelConfigService>().InstancePerRequest();
             builder.RegisterType<FormElementsService>().As<IFormElementsService>().InstancePerRequest();
             builder.RegisterType<ConfigPolicyTypeService>().As<IConfigPolicyTypeService>().InstancePerRequest();
+            builder.RegisterType<ConfigPolicyService>().As<IConfigPolicyService>().InstancePerRequest();
+            builder.RegisterType<ConfigPolicyValuesService>().As<IConfigPolicyValuesService>().InstancePerRequest();
             base.Load(builder);
         }
     }
