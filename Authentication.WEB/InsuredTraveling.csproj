@@ -16,7 +16,7 @@
     <AssemblyName>InsuredTraveling</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44344</IISExpressSSLPort>
+    <IISExpressSSLPort>44375</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -2082,6 +2082,15 @@
     <Compile Include="company.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="config_insureds.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="config_insured_policy.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="config_insured_type.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="config_policy.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -2146,6 +2155,9 @@
     <Compile Include="DI\AdditionalInfoService.cs" />
     <Compile Include="DI\BankAccountService.cs" />
     <Compile Include="DI\ChatService.cs" />
+    <Compile Include="DI\ConfigInsuredPolicyService.cs" />
+    <Compile Include="DI\ConfigInsuredService.cs" />
+    <Compile Include="DI\ConfigInsuredTypeService.cs" />
     <Compile Include="DI\ConfigPolicyTypeService.cs" />
     <Compile Include="DI\CountryService.cs" />
     <Compile Include="DI\DiscountService.cs" />
@@ -2153,6 +2165,9 @@
     <Compile Include="DI\ExchangeRateService.cs" />
     <Compile Include="DI\FirstNoticeOfLossArchiveService.cs" />
     <Compile Include="DI\FormElementsService.cs" />
+    <Compile Include="DI\IConfigInsuredPolicyService.cs" />
+    <Compile Include="DI\IConfigInsuredService.cs" />
+    <Compile Include="DI\IConfigInsuredTypeService.cs" />
     <Compile Include="DI\IConfigPolicyTypeService.cs" />
     <Compile Include="DI\IFormElementsService.cs" />
     <Compile Include="DI\FranchiseService.cs" />

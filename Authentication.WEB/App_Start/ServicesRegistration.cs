@@ -45,6 +45,9 @@ namespace InsuredTraveling
             builder.RegisterType<ConfigPolicyTypeService>().As<IConfigPolicyTypeService>().InstancePerRequest();
             builder.RegisterType<ConfigPolicyService>().As<IConfigPolicyService>().InstancePerRequest();
             builder.RegisterType<ConfigPolicyValuesService>().As<IConfigPolicyValuesService>().InstancePerRequest();
+            builder.RegisterType<ConfigInsuredPolicyService>().As<IConfigInsuredPolicyService>().InstancePerRequest();
+            builder.RegisterType<ConfigInsuredService>().As<IConfigInsuredService>().InstancePerRequest();
+            builder.RegisterType<ConfigInsuredTypeService>().As<IConfigInsuredTypeService>().InstancePerRequest();
             base.Load(builder);
         }
     }

@@ -8,6 +8,7 @@ namespace InsuredTraveling.DI
 {
     public interface IConfigPolicyService
     {
-        int AddConfigPolicy(config_policy policy);
+        int AddConfigPolicy(int idConfigPolicyType, string rating, DateTime StartDate, DateTime EndDate, bool isPaid);
+        bool UpdateConfigPolicy(int idPolicy, string rating);
     }
 }

@@ -848,7 +848,7 @@ namespace InsuredTraveling.FormBuilder
             }
             return result;
         }
-        public static List<config_policy_values> InsertConfigPolicyValues(int excelId, FormCollection formCollection, config_policy configPolicy)
+        public static List<config_policy_values> InsertConfigPolicyValues(int excelId, FormCollection formCollection, int idPolicy)
         {
             var configPolicyValues = new List<config_policy_values>();
             var parameters = GetAllConfigParameters(excelId);
@@ -863,7 +863,7 @@ namespace InsuredTraveling.FormBuilder
                     if (formElements.ContainsKey(parameter.Name))
                     {
                         var configPolicyValue = new config_policy_values();
-                        configPolicyValue.IDPolicy = configPolicy.IDPolicy;
+                        configPolicyValue.IDPolicy = idPolicy;
                         configPolicyValue.Name = parameter.Name;
                         configPolicyValue.Value = "yes";
                         configPolicyValues.Add(configPolicyValue);
@@ -871,7 +871,7 @@ namespace InsuredTraveling.FormBuilder
                     else
                     {
                         var configPolicyValue = new config_policy_values();
-                        configPolicyValue.IDPolicy = configPolicy.IDPolicy;
+                        configPolicyValue.IDPolicy = idPolicy;
                         configPolicyValue.Name = parameter.Name;
                         configPolicyValue.Value = "no";
                         configPolicyValues.Add(configPolicyValue);
@@ -883,7 +883,7 @@ namespace InsuredTraveling.FormBuilder
                     if (formElements.ContainsKey(parameter.Name))
                     {
                         var configPolicyValue = new config_policy_values();
-                        configPolicyValue.IDPolicy = configPolicy.IDPolicy;
+                        configPolicyValue.IDPolicy = idPolicy;
                         configPolicyValue.Name = parameter.Name;
                         configPolicyValue.Value = formCollection.GetValue(parameter.Name).AttemptedValue;
                         configPolicyValues.Add(configPolicyValue);
@@ -891,7 +891,7 @@ namespace InsuredTraveling.FormBuilder
                     else
                     {
                         var configPolicyValue = new config_policy_values();
-                        configPolicyValue.IDPolicy = configPolicy.IDPolicy;
+                        configPolicyValue.IDPolicy = idPolicy;
                         configPolicyValue.Name = parameter.Name;
                         configPolicyValue.Value = string.Empty;
                         configPolicyValues.Add(configPolicyValue);
@@ -900,13 +900,7 @@ namespace InsuredTraveling.FormBuilder
             }
             return configPolicyValues;
         }
-        public static config_policy InsertPolicyConfigData(int idConfigPolicyType, string rating)
-        {
-            var policy = new config_policy();
-            policy.ID_Config_poliy_Type = idConfigPolicyType;
-            policy.Rating = rating;
-            return policy;
-        }
+ 
         #endregion
     }
 }

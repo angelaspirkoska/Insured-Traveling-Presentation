@@ -146,6 +146,12 @@
         <EntityTypeShape EntityType="Entities.config_policy_values" Width="1.5" PointX="17.875" PointY="4" />
         <AssociationConnector Association="Entities.config_policy_ibfk_1" />
         <AssociationConnector Association="Entities.config_policy_values_ibfk_1" />
+        <EntityTypeShape EntityType="Entities.config_insured_policy" Width="1.5" PointX="17.875" PointY="0.875" />
+        <EntityTypeShape EntityType="Entities.config_insured_type" Width="1.5" PointX="15.625" PointY="7.375" />
+        <AssociationConnector Association="Entities.config_insured_policy_ibfk_2" />
+        <AssociationConnector Association="Entities.config_insured_policy_ibfk_3" />
+        <EntityTypeShape EntityType="Entities.config_insureds" Width="1.5" PointX="3.375" PointY="15" />
+        <AssociationConnector Association="Entities.config_insured_policy_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

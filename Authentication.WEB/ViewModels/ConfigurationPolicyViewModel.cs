@@ -25,7 +25,7 @@ namespace InsuredTraveling.ViewModels
         public string PolicyHolderPassportNumber_ID { get; set; }
         [Required]
         [Display(Name = "Policy_HolderBirthDay", ResourceType = typeof(Resource))]
-        public string PolicyHolderBirthDate { get; set; }
+        public DateTime? PolicyHolderBirthDate { get; set; }
         [Required]
         [Display(Name = "Policy_InsuredAddress", ResourceType = typeof(Resource))]
         public string PolicyHolderAddress { get; set; }
@@ -33,8 +33,12 @@ namespace InsuredTraveling.ViewModels
         [Required]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yyyy}")]
         [Display(Name = "Policy_PolicyEffectiveDate", ResourceType = typeof(Resource))]
-        public DateTime Start_Date { get; set; }
+        public DateTime? Start_Date { get; set; }
 
+        [Required]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yyyy}")]
+        [Display(Name = "Policy_PolicyExpiryDate", ResourceType = typeof(Resource))]
+        public DateTime? End_Date { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         [Display(Name = "Policy_InsuredName", ResourceType = typeof(Resource))]
@@ -51,7 +55,7 @@ namespace InsuredTraveling.ViewModels
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         [Display(Name = "Policy_InsuredBirthDate", ResourceType = typeof(Resource))]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{00:dd/MM/yyyy}")]
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Required")]
         [Display(Name = "Policy_InsuredSSN", ResourceType = typeof(Resource))]

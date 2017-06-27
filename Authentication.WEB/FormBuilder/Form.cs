@@ -361,11 +361,11 @@ namespace InsuredTraveling.FormBuilder
 
     public class SubmitButton : InputTag
     {
-        public SubmitButton(TagInfo tagInfo) : base(tagInfo)
+        public SubmitButton(TagInfo tagInfo, int idPolicy) : base(tagInfo)
         {
             _tag.RemoveAttr("id");
             _tag.Attr("type", "submit").Value("Calculate");
-            _tag.Attr("formaction", "/ConfigurationPolicy/PolicyForm?excelId=" + tagInfo.Id);
+            _tag.Attr("formaction", "/ConfigurationPolicy/PolicyForm?excelId=" + tagInfo.Id + "&idPolicy=" + idPolicy);
         }
 
     }
@@ -386,13 +386,13 @@ namespace InsuredTraveling.FormBuilder
 
     public static class TagFactory
     {
-        public static ITagGenerator GenerateTagFor(TagInfo tagInfo)
+        public static ITagGenerator GenerateTagFor(TagInfo tagInfo, int idPolicy)
         {
             ITagGenerator tag = null;
             switch (tagInfo.Type)
             {     
                 case "password": tag = new PasswordTag(tagInfo); break;
-                case "submit": tag = new SubmitButton(tagInfo); break;
+                case "submit": tag = new SubmitButton(tagInfo, idPolicy); break;
                 case "label": tag = new LabelTag(tagInfo); break;
                 case "header": tag = new HeaderTag(tagInfo); break;
                 case "textarea": tag = new TextareaTag(tagInfo); break;
@@ -415,9 +415,9 @@ namespace InsuredTraveling.FormBuilder
             return tag;
         }
 
-        public static HtmlTag GenerateWrappedTagFor(TagInfo tagInfo)
+        public static HtmlTag GenerateWrappedTagFor(TagInfo tagInfo, int idPolicy)
         {
-            var a = TagFactory.GenerateTagFor(tagInfo).GetTag();
+            var a = TagFactory.GenerateTagFor(tagInfo, idPolicy).GetTag();
             var wrapper = new HtmlTag("div");
             string res;
             var tryGetValue = tagInfo.Attributes.TryGetValue("class", out res);

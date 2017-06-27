@@ -21,7 +21,7 @@ namespace InsuredTraveling.FormBuilder
             ExcelPackage pck = new ExcelPackage(new FileInfo(model.ExcelPath));
             dgetFunctions = new List<Dget>();
             var tagInfoExcel = ParseFormElements(pck, model.ExcelID);         
-            var result = CreateForm(pck, tagInfoExcel, model.ExcelID);
+            var result = CreateForm(pck, tagInfoExcel, model.ExcelID, model.IdPolicy);
             return result;
         }
         public static bool SaveExcelConfiguration(string excelPath, int excelID)
@@ -150,7 +150,7 @@ namespace InsuredTraveling.FormBuilder
             }
             return generatedStringProcedures;
         }
-        public static HtmlString CreateForm(ExcelPackage pck, List<TagInfo> tagInfoExcel, int excelId)
+        public static HtmlString CreateForm(ExcelPackage pck, List<TagInfo> tagInfoExcel, int excelId, int idPolicy)
         {          
             var formBuilder = new FormBuilder()
                .SetName("my-form")
@@ -158,7 +158,7 @@ namespace InsuredTraveling.FormBuilder
                .SetMethod("post");
             foreach (var excelRow in tagInfoExcel)
             {           
-                var wrapper = TagFactory.GenerateWrappedTagFor(excelRow);
+                var wrapper = TagFactory.GenerateWrappedTagFor(excelRow, idPolicy);
                 formBuilder.AddElement(wrapper);
             }
 

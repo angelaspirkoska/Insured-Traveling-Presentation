@@ -185,14 +185,44 @@ warning 6002: The table/view 'def.db_9eb138_config.aspnetuserlogins' does not ha
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="text" Nullable="false" />
         </EntityType>
+        <EntityType Name="config_insured_policy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDPolicy" Type="int" Nullable="false" />
+          <Property Name="IDInsured" Type="int" Nullable="false" />
+          <Property Name="IdInsuredType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="config_insured_type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="config_insureds">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" />
+          <Property Name="Surname" Type="varchar" MaxLength="250" />
+          <Property Name="SSN" Type="varchar" MaxLength="250" />
+          <Property Name="Passport" Type="varchar" MaxLength="250" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="Address" Type="varchar" MaxLength="250" />
+        </EntityType>
         <EntityType Name="config_policy">
           <Key>
             <PropertyRef Name="IDPolicy" />
           </Key>
           <Property Name="IDPolicy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_Config_poliy_Type" Type="int" Nullable="false" />
-          <Property Name="Rating" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Rating" Type="varchar" MaxLength="500" />
           <Property Name="IsPaid" Type="bit" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="config_policy_type">
           <Key>
@@ -847,6 +877,42 @@ warning 6002: The table/view 'def.db_9eb138_config.transaction' does not have a 
             </Principal>
             <Dependent Role="bank_account_info">
               <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="config_insured_policy_ibfk_1">
+          <End Role="config_insureds" Type="Self.config_insureds" Multiplicity="1" />
+          <End Role="config_insured_policy" Type="Self.config_insured_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="config_insureds">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="config_insured_policy">
+              <PropertyRef Name="IDInsured" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="config_insured_policy_ibfk_2">
+          <End Role="config_insured_type" Type="Self.config_insured_type" Multiplicity="1" />
+          <End Role="config_insured_policy" Type="Self.config_insured_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="config_insured_type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="config_insured_policy">
+              <PropertyRef Name="IdInsuredType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="config_insured_policy_ibfk_3">
+          <End Role="config_policy" Type="Self.config_policy" Multiplicity="1" />
+          <End Role="config_insured_policy" Type="Self.config_insured_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="config_policy">
+              <PropertyRef Name="IDPolicy" />
+            </Principal>
+            <Dependent Role="config_insured_policy">
+              <PropertyRef Name="IDPolicy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1760,6 +1826,9 @@ warning 6002: The table/view 'def.db_9eb138_config.transaction' does not have a 
           <EntitySet Name="chat_requests" EntityType="Self.chat_requests" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="clients" EntityType="Self.clients" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="company" EntityType="Self.company" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="config_insured_policy" EntityType="Self.config_insured_policy" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="config_insured_type" EntityType="Self.config_insured_type" Schema="db_9eb138_config" store:Type="Tables" />
+          <EntitySet Name="config_insureds" EntityType="Self.config_insureds" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="config_policy" EntityType="Self.config_policy" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="config_policy_type" EntityType="Self.config_policy_type" Schema="db_9eb138_config" store:Type="Tables" />
           <EntitySet Name="config_policy_values" EntityType="Self.config_policy_values" Schema="db_9eb138_config" store:Type="Tables" />
@@ -1854,6 +1923,18 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="bank_account_info_ibfk_2" Association="Self.bank_account_info_ibfk_2">
             <End Role="banks" EntitySet="banks" />
             <End Role="bank_account_info" EntitySet="bank_account_info" />
+          </AssociationSet>
+          <AssociationSet Name="config_insured_policy_ibfk_1" Association="Self.config_insured_policy_ibfk_1">
+            <End Role="config_insureds" EntitySet="config_insureds" />
+            <End Role="config_insured_policy" EntitySet="config_insured_policy" />
+          </AssociationSet>
+          <AssociationSet Name="config_insured_policy_ibfk_2" Association="Self.config_insured_policy_ibfk_2">
+            <End Role="config_insured_type" EntitySet="config_insured_type" />
+            <End Role="config_insured_policy" EntitySet="config_insured_policy" />
+          </AssociationSet>
+          <AssociationSet Name="config_insured_policy_ibfk_3" Association="Self.config_insured_policy_ibfk_3">
+            <End Role="config_policy" EntitySet="config_policy" />
+            <End Role="config_insured_policy" EntitySet="config_insured_policy" />
           </AssociationSet>
           <AssociationSet Name="config_policy_ibfk_1" Association="Self.config_policy_ibfk_1">
             <End Role="config_policy_type" EntitySet="config_policy_type" />
@@ -3555,6 +3636,21 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="config_policy" EntitySet="config_policy" />
             <End Role="config_policy_values" EntitySet="config_policy_values" />
           </AssociationSet>
+          <EntitySet Name="config_insured_policy" EntityType="Entities.config_insured_policy" />
+          <EntitySet Name="config_insured_type" EntityType="Entities.config_insured_type" />
+          <AssociationSet Name="config_insured_policy_ibfk_2" Association="Entities.config_insured_policy_ibfk_2">
+            <End Role="config_insured_type" EntitySet="config_insured_type" />
+            <End Role="config_insured_policy" EntitySet="config_insured_policy" />
+          </AssociationSet>
+          <AssociationSet Name="config_insured_policy_ibfk_3" Association="Entities.config_insured_policy_ibfk_3">
+            <End Role="config_policy" EntitySet="config_policy" />
+            <End Role="config_insured_policy" EntitySet="config_insured_policy" />
+          </AssociationSet>
+          <EntitySet Name="config_insureds" EntityType="Entities.config_insureds" />
+          <AssociationSet Name="config_insured_policy_ibfk_1" Association="Entities.config_insured_policy_ibfk_1">
+            <End Role="config_insureds" EntitySet="config_insureds" />
+            <End Role="config_insured_policy" EntitySet="config_insured_policy" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -4339,6 +4435,9 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="IsPaid" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="config_policy_type" Relationship="Entities.config_policy_ibfk_1" FromRole="config_policy" ToRole="config_policy_type" />
           <NavigationProperty Name="config_policy_values" Relationship="Entities.config_policy_values_ibfk_1" FromRole="config_policy" ToRole="config_policy_values" />
+          <NavigationProperty Name="config_insured_policy" Relationship="Entities.config_insured_policy_ibfk_3" FromRole="config_policy" ToRole="config_insured_policy" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="config_policy_values">
           <Key>
@@ -4371,6 +4470,75 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="config_policy_values">
               <PropertyRef Name="IDPolicy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="config_insured_policy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDPolicy" Type="Int32" Nullable="false" />
+          <Property Name="IDInsured" Type="Int32" Nullable="false" />
+          <Property Name="IdInsuredType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="config_insured_type" Relationship="Entities.config_insured_policy_ibfk_2" FromRole="config_insured_policy" ToRole="config_insured_type" />
+          <NavigationProperty Name="config_policy" Relationship="Entities.config_insured_policy_ibfk_3" FromRole="config_insured_policy" ToRole="config_policy" />
+          <NavigationProperty Name="config_insureds" Relationship="Entities.config_insured_policy_ibfk_1" FromRole="config_insured_policy" ToRole="config_insureds" />
+        </EntityType>
+        <EntityType Name="config_insured_type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="config_insured_policy" Relationship="Entities.config_insured_policy_ibfk_2" FromRole="config_insured_type" ToRole="config_insured_policy" />
+        </EntityType>
+        <Association Name="config_insured_policy_ibfk_2">
+          <End Type="Entities.config_insured_type" Role="config_insured_type" Multiplicity="1" />
+          <End Type="Entities.config_insured_policy" Role="config_insured_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="config_insured_type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="config_insured_policy">
+              <PropertyRef Name="IdInsuredType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="config_insured_policy_ibfk_3">
+          <End Type="Entities.config_policy" Role="config_policy" Multiplicity="1" />
+          <End Type="Entities.config_insured_policy" Role="config_insured_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="config_policy">
+              <PropertyRef Name="IDPolicy" />
+            </Principal>
+            <Dependent Role="config_insured_policy">
+              <PropertyRef Name="IDPolicy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="config_insureds">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Surname" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="SSN" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Passport" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="BirthDate" Type="DateTime" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="config_insured_policy" Relationship="Entities.config_insured_policy_ibfk_1" FromRole="config_insureds" ToRole="config_insured_policy" />
+        </EntityType>
+        <Association Name="config_insured_policy_ibfk_1">
+          <End Type="Entities.config_insureds" Role="config_insureds" Multiplicity="1" />
+          <End Type="Entities.config_insured_policy" Role="config_insured_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="config_insureds">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="config_insured_policy">
+              <PropertyRef Name="IDInsured" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5202,6 +5370,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="config_policy">
             <EntityTypeMapping TypeName="Entities.config_policy">
               <MappingFragment StoreEntitySet="config_policy">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="ID_Config_poliy_Type" ColumnName="ID_Config_poliy_Type" />
@@ -5214,6 +5384,37 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               <MappingFragment StoreEntitySet="config_policy_values">
                 <ScalarProperty Name="IDPolicy" ColumnName="IDPolicy" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="config_insured_policy">
+            <EntityTypeMapping TypeName="Entities.config_insured_policy">
+              <MappingFragment StoreEntitySet="config_insured_policy">
+                <ScalarProperty Name="IdInsuredType" ColumnName="IdInsuredType" />
+                <ScalarProperty Name="IDInsured" ColumnName="IDInsured" />
+                <ScalarProperty Name="IDPolicy" ColumnName="IDPolicy" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="config_insured_type">
+            <EntityTypeMapping TypeName="Entities.config_insured_type">
+              <MappingFragment StoreEntitySet="config_insured_type">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="config_insureds">
+            <EntityTypeMapping TypeName="Entities.config_insureds">
+              <MappingFragment StoreEntitySet="config_insureds">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

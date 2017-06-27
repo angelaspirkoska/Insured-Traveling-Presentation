@@ -9,5 +9,6 @@ namespace InsuredTraveling.ViewModels
     {
         public string ExcelPath { get; set; }
         public int ExcelID { get; set; }
+        public int IdPolicy { get; set; }
     }
 }
