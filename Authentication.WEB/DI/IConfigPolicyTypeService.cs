@@ -10,5 +10,6 @@ namespace InsuredTraveling.DI
         int AddConfigPolicyType(config_policy_type configPolicyType);
         List<config_policy_type> GetAllActivePolicyTypes();
         config_policy_type GetConfigPolicyTypeByID(int id);
+        List<config_policy_type> GetTypeByName(string TypeName);
     }
 }

@@ -2278,6 +2278,7 @@
     <Compile Include="Helpers\UpdateFirstNoticeOfLossHelper.cs" />
     <Compile Include="Models\AdminPanelModel.cs" />
     <Compile Include="Models\BrokerSales.cs" />
+    <Compile Include="Models\ConfigPolicyTypeModel.cs" />
     <Compile Include="Models\CreditCardInfoModel.cs" />
     <Compile Include="Models\DiscountModel.cs" />
     <Compile Include="Models\DiscountCodeValidateModel.cs" />

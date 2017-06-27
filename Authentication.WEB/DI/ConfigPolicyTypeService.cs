@@ -32,5 +32,20 @@ namespace InsuredTraveling.DI
         {
             return _db.config_policy_type.Where(x => x.ID == id).FirstOrDefault();
         }
+
+        public List<config_policy_type> GetTypeByName(string TypeName)
+        {
+            List<config_policy_type> ListType = new List<config_policy_type>();
+            if (TypeName == null || TypeName == " " || TypeName == "undefined")
+            {
+                return _db.config_policy_type.ToList();
+            }
+            else
+            {
+                return _db.config_policy_type.Where(x => x.policy_type_name == TypeName).ToList();
+            }
+
+
+        }
     }
 }

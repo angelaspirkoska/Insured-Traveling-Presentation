@@ -36,6 +36,7 @@ namespace InsuredTraveling.Controllers
         private RoleAuthorize _roleAuthorize;
         private IFirstNoticeOfLossArchiveService _firstNoticeLossArchiveService;
         private IRolesService _rs;
+        private IConfigPolicyTypeService _cpts;
 
         public SearchController(IPolicyService ps, 
                                 IFirstNoticeOfLossService fnls, 
@@ -47,7 +48,9 @@ namespace InsuredTraveling.Controllers
                                 IChatService ics,
                                 IPolicySearchService policySearchService,
                                 IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService,
-                                IRolesService rs)
+                                IRolesService rs,
+                                IConfigPolicyTypeService cpts
+                                )
         {
             _ps = ps;
             _fnls = fnls;
@@ -61,6 +64,7 @@ namespace InsuredTraveling.Controllers
             _policySearchService = policySearchService;
             _roleAuthorize = new RoleAuthorize();
             _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
+            _cpts = cpts;
         }
 
         [HttpGet]
@@ -314,6 +318,71 @@ namespace InsuredTraveling.Controllers
             JSONObject.Add("data", array);
             return JSONObject;
         }
+
+        [HttpGet]
+        [Route("GetPolicyType")]
+        public JObject GetPolicyType(string name,
+                                   string startDate,
+                                   string endDate,
+                                   string operatorStartDate, 
+                                   string operatorEndDate
+                                 
+                               
+                              )
+        {
+            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+
+            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : DateTime.ParseExact(startDate, dateTimeFormat, CultureInfo.InvariantCulture);
+            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : DateTime.ParseExact(endDate, dateTimeFormat, CultureInfo.InvariantCulture);
+           
+
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            var logUser = _us.GetUserIdByUsername(username);
+
+            List<config_policy_type> data = new List<config_policy_type>();
+
+            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster") || _roleAuthorize.IsUser("Broker"))
+            {
+                data = _cpts.GetTypeByName(name);
+            }
+            data = _cpts.GetTypeByName(name);
+
+            if (!String.IsNullOrEmpty(startDate))
+            {
+                switch (operatorStartDate)
+                {
+                    case "<": data = data.Where(x => x.policy_effective_date < startDate1).ToList(); break;
+                    case "=": data = data.Where(x => x.policy_effective_date == startDate1).ToList(); break;
+                    case ">": data = data.Where(x => x.policy_effective_date > startDate1).ToList(); break;
+                    default: break;
+                }
+            }
+            if (!String.IsNullOrEmpty(endDate))
+            {
+                switch (operatorEndDate)
+                {
+                    case "<": data = data.Where(x => x.policy_expiry_date < endDate1).ToList(); break;
+                    case "=": data = data.Where(x => x.policy_expiry_date == endDate1).ToList(); break;
+                    case ">": data = data.Where(x => x.policy_expiry_date > endDate1).ToList(); break;
+                    default: break;
+                }
+            }
+       
+
+            var JSONObject = new JObject();
+            var dataJSON = new JArray();
+
+            var languageId = SiteLanguages.CurrentLanguageId();
+            var searchModel = data.Select(Mapper.Map<config_policy_type, ConfigPolicyTypeModel>).ToList();
+            //searchModel = _policySearchService.GetCountriesName(searchModel, languageId);
+
+            var array = JArray.FromObject(searchModel.ToArray());
+            JSONObject.Add("data", array);
+            return JSONObject;
+        }
+
+
 
         [HttpGet]
         [Route("GetExpiringPolicies")]

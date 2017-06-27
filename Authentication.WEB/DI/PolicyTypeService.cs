@@ -28,5 +28,10 @@ namespace InsuredTraveling.DI
         {
             return _db.policy_type.ToList();
         }
+     
+
+
+
+
     }
 }

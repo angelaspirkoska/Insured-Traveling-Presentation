@@ -398,6 +398,17 @@ namespace InsuredTraveling.App_Start
                 dst.Datum_Na_Storniranje = src.Date_Cancellation.HasValue ? src.Date_Cancellation.Value.Date.ToShortDateString().ToString() : "/";
             });
 
+            Mapper.CreateMap<config_policy_type, ConfigPolicyTypeModel>().AfterMap((src, dst) =>
+            {
+                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;              
+                dst.name = src.policy_type_name;
+                dst.startDate = src.policy_effective_date.Value.ToString(dateTimeFormat, new CultureInfo("en-US"));
+                dst.endDate = src.policy_expiry_date.Value.ToString(dateTimeFormat, new CultureInfo("en-US"));
+                dst.status = src.status;
+               
+            });
+
             Mapper.CreateMap<first_notice_of_loss, SearchFNOLViewModel>().AfterMap((src, dst) =>
             {
                 var dateTime = ConfigurationManager.AppSettings["DateFormat"];
