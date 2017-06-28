@@ -16,7 +16,7 @@
     <AssemblyName>InsuredTraveling</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44344</IISExpressSSLPort>
+    <IISExpressSSLPort>44375</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -2520,7 +2520,7 @@
     <Content Include="Scripts\Limitless-js\plugins\pickers\pickadate\translations\NAMING.md" />
     <Content Include="Views\Shared\_LayoutLimitless2.cshtml" />
     <Content Include="Views\ConfigurationPolicy\PolicyForm.cshtml" />
-    <Content Include="Views\AdminPanel\PolicyPremium.cshtml" />
+    <Content Include="Views\Payment\PolicyPremium.cshtml" />
     <Content Include="Views\ConfigurationPolicy\Index.cshtml" />
     <Content Include="Views\ConfigurationPolicy\_PolicyHolder.cshtml" />
     <Content Include="Views\ConfigurationPolicy\_PolicyInsured.cshtml" />

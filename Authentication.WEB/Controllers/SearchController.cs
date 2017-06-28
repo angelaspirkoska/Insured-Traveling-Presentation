@@ -347,12 +347,12 @@ namespace InsuredTraveling.Controllers
             var JSONObject = new JObject();
             var dataJSON = new JArray();
 
-            var languageId = SiteLanguages.CurrentLanguageId();
-            var searchModel = data.Select(Mapper.Map<config_policy_type, ConfigPolicyTypeModel>).ToList();
-            //searchModel = _policySearchService.GetCountriesName(searchModel, languageId);
+            //var languageId = SiteLanguages.CurrentLanguageId();
+            //var searchModel = data.Select(Mapper.Map<config_policy_type, ConfigPolicyTypeModel>).ToList();
+            ////searchModel = _policySearchService.GetCountriesName(searchModel, languageId);
 
-            var array = JArray.FromObject(searchModel.ToArray());
-            JSONObject.Add("data", array);
+            //var array = JArray.FromObject(searchModel.ToArray());
+            //JSONObject.Add("data", array);
             return JSONObject;
         }
 

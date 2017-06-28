@@ -13,5 +13,7 @@ namespace InsuredTraveling.DI
         bool UpdateConfigPolicy(int idPolicy, string rating);
         IQueryable<SelectListItem> GetConfigPolicyList();
         List<config_policy> GetConfigPolicyByConfigType(int type);
+        config_policy GetConfigByPolicyId(int policyId);
+
     }
 }
