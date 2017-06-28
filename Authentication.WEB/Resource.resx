@@ -1395,4 +1395,7 @@
   <data name="SearchPane_PolicyConfStartDate" xml:space="preserve">
     <value>Start Date </value>
   </data>
+  <data name="Config_policyNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
 </root>

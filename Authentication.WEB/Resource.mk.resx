@@ -1389,4 +1389,7 @@
   <data name="SearchPane_PolicyConfStartDate" xml:space="preserve">
     <value>Датум на почеток</value>
   </data>
+  <data name="Config_policyNext" xml:space="preserve">
+    <value>Следно</value>
+  </data>
 </root>

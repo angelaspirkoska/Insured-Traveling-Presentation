@@ -538,6 +538,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string Config_policyNext {
+            get {
+                return ResourceManager.GetString("Config_policyNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You have not successfully edited user.
         /// </summary>
         public static string Edit_FailMessage {
