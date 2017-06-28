@@ -54,7 +54,13 @@ namespace InsuredTraveling.DI
                 Text = p.IDPolicy.ToString(),
                 Value = p.IDPolicy.ToString()
             });
-          
+
+        }
+
+        public List<config_policy> GetConfigPolicyByConfigType(int type)
+        {
+            return _db.config_policy.Where(x => x.ID_Config_poliy_Type == type).ToList();
+
         }
     }
 }

@@ -207,7 +207,7 @@
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
                     <label>@InsuredTraveling.Resource.User_Role:</label>
-                    @Html.DropDownList("RoleName", (List<SelectListItem>)ViewBag.ConfigPolicy, Resource.SearchTable_RoleName, new { @class = "form-control", style = "" })
+                    @Html.DropDownList("policy_type_name", (List<SelectListItem>)ViewBag.ConfigPolicyType, Resource.SearchTable_RoleName, new { @class = "form-control", style = "" })
                 </div>
             </div>
             <div class="col-md-4 col-sm-4">
@@ -1561,7 +1561,7 @@
             $("#table_policy-type").DataTable().destroy();
             $("#table_policy-type").DataTable({
                 dom: "Bfrtip",
-                ajax: "/Search/GetPolicyType?name=" + $("#namePolicy").val() + "&startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val() + "&operatorDateS=" + $("#operatorDateS").val(),
+                ajax: "/Search/GetPolicyType?=" + $("#policy_type_name").val(),
                 columns: [
                    { data: "name" },
                    { data: "startDate" },

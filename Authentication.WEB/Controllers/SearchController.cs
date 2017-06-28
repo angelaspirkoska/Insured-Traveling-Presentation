@@ -83,14 +83,9 @@ namespace InsuredTraveling.Controllers
 
             var policies = GetAllPolicies();
             ViewBag.Policies = policies.Result;
-
-         
-
-            ViewBag.ConfigPolicyType = _cpts.GetAllActivePolicyTypesDropdown();
-
-
-
-
+            
+            ViewBag.ConfigPolicyType = _cpts.GetAllActivePolicyTypesDropdown().ToList();
+            
             var roles = _rs.GetAll().ToList();
             foreach(var role in roles)
             {
@@ -332,53 +327,21 @@ namespace InsuredTraveling.Controllers
 
         [HttpGet]
         [Route("GetPolicyType")]
-        public JObject GetPolicyType(string name,
-                                   string startDate,
-                                   string endDate,
-                                   string operatorStartDate, 
-                                   string operatorEndDate
-                                 
-                               
+        public JObject GetPolicyType(string PolicyType
+
                               )
         {
-            var dateTime = ConfigurationManager.AppSettings["DateFormat"];
-            var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
-
-            DateTime startDate1 = String.IsNullOrEmpty(startDate) ? new DateTime() : DateTime.ParseExact(startDate, dateTimeFormat, CultureInfo.InvariantCulture);
-            DateTime endDate1 = String.IsNullOrEmpty(endDate) ? new DateTime() : DateTime.ParseExact(endDate, dateTimeFormat, CultureInfo.InvariantCulture);
-           
+         
 
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUser = _us.GetUserIdByUsername(username);
 
-            List<config_policy_type> data = new List<config_policy_type>();
+            List<config_policy> data = new List<config_policy>();
 
-            if (_roleAuthorize.IsUser("Admin") || _roleAuthorize.IsUser("Claims adjuster") || _roleAuthorize.IsUser("Broker"))
-            {
-                data = _cpts.GetTypeByName(name);
-            }
-            data = _cpts.GetTypeByName(name);
 
-            if (!String.IsNullOrEmpty(startDate))
-            {
-                switch (operatorStartDate)
-                {
-                    case "<": data = data.Where(x => x.policy_effective_date < startDate1).ToList(); break;
-                    case "=": data = data.Where(x => x.policy_effective_date == startDate1).ToList(); break;
-                    case ">": data = data.Where(x => x.policy_effective_date > startDate1).ToList(); break;
-                    default: break;
-                }
-            }
-            if (!String.IsNullOrEmpty(endDate))
-            {
-                switch (operatorEndDate)
-                {
-                    case "<": data = data.Where(x => x.policy_expiry_date < endDate1).ToList(); break;
-                    case "=": data = data.Where(x => x.policy_expiry_date == endDate1).ToList(); break;
-                    case ">": data = data.Where(x => x.policy_expiry_date > endDate1).ToList(); break;
-                    default: break;
-                }
-            }
+            data = _cps.GetConfigPolicyByConfigType(int.Parse(PolicyType));
+
+       
        
 
             var JSONObject = new JObject();

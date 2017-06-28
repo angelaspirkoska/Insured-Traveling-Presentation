@@ -12,5 +12,6 @@ namespace InsuredTraveling.DI
         int AddConfigPolicy(int idConfigPolicyType, string rating, DateTime StartDate, DateTime EndDate, bool isPaid);
         bool UpdateConfigPolicy(int idPolicy, string rating);
         IQueryable<SelectListItem> GetConfigPolicyList();
+        List<config_policy> GetConfigPolicyByConfigType(int type);
     }
 }
