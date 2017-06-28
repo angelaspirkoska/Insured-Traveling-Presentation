@@ -1,0 +1,120 @@
+﻿@model InsuredTraveling.Models.PaymentModel
+@using System.Configuration
+@{
+    ViewBag.Title = "PolicyPremium";
+}
+<div class="col-md-12 text-center">
+    <h2> Преглед на полиса </h2>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            Тип на покритие / Coverage type:
+            @Model.ConfigPolicyType
+        </div>
+        <div class="pull-right">
+            Број на полиса / Policy number:
+            <span class="policy-number">@Model.IdPolicy</span>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12 text-center policy-print-title">ОСИГУРУВАЧ / INSURER</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-5">
+            <p>Агенција / Agency:</p>
+        </div>
+        <div class="col-md-6">
+            <p>INSURED TRAVELING</p>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12 text-center policy-print-title">ДОГОВАРАЧ / POLICY HOLDER</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-5">
+            <p>Име / Name:</p>
+            <p>Адреса / Address:</p>
+            <p>Бр. на пасош / Passport no:</p>
+            <p>ЕМБГ / Social Security no:</p>
+            <p>Датум на раѓање / Date of birth: </p>
+        </div>
+        <div class="col-md-5">
+            <p class="">@Model.InsuredNameLastName </p>
+            <p class="">@Model.InsuredAddress</p>
+            <p class="">@Model.InsuredPassport</p>
+            <p class="">@Model.InsuredSSN</p>
+            <p class="">@Model.InsuredDateBirth.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString()) </p>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12 text-center policy-print-title">ОСИГУРЕНИК / INSURED</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-5">
+            <p>Име / Name:</p>
+            <p>Адреса / Address:</p>
+            <p>Бр. на пасош / Passport no:</p>
+            <p>ЕМБГ / Social Security no:</p>
+            <p>Датум на раѓање / Date of birth: </p>
+        </div>
+        <div class="col-md-5">
+            <p class="">@Model.PolicyHolderNameLastName </p>
+            <p class="">@Model.PolicyHolderAddress</p>
+            <p class="">@Model.PolicyHolderPassport</p>
+            <p class="">@Model.PolicyHolderSSN</p>
+            <p class="">@Model.PolicyHolderDateBirth.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString()) </p>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12 text-center policy-print-title">ИНФОРМАЦИИ ЗА ПОЛИСАТА / POLICY INFORMATION</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-5">
+            <p>Започнува на / Valid from: </p>
+        </div>
+        <div class="col-md-5">
+            <p class="">@Model.PolicyStartDate.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString())  </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <p>Завршува на / Valid until:	</p>
+        </div>
+        <div class="col-md-5">
+            <p class="">@Model.PolicyEndDate.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString())  </p>
+        </div>
+    </div>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-12 text-center policy-print-title">ИНФОРМАЦИИ ЗА ПРЕМИЈАТА / PREMIUM INFORMATION</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-5">
+            <p>Вкупна премија  / Total premium:</p>
+        </div>
+        <div class="col-md-5">
+            <p style="font-weight: bold;">@Model.Premium  ден. / den.</p>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12 small">
+            *ДДВ: Согласно ЗДДВ, член 23, точка 6, дејноста осигурување е ослободена од плаќање данок без право на одбиток на претходно платен данок. <br />
+            **Осигурувањето важи во сите земји. / Valid for all countries. <br />
+            ***Овластувам болница, лекар или друго лице кое ме придружува или испитува, да побара од Осигурителот или негов претставник, податоци за мојата здравствена состојба и лекување. Го овластувам Осигурителот да побара податоци за мојата здравствена состојба и лекување, во врска со договорот за осигурување. Го ослободувам од обврската за чување на професионална тајна и ги овластувам здравствените институции да ги дадат бараните податоци на Осигурителот.
+        </div>
+    </div>
+    <hr />
+</div>
+
