@@ -341,38 +341,28 @@ namespace InsuredTraveling.Controllers
             var dataJSON = new JArray();
             if (PolicyType == null || PolicyType == "")
             {
-
                 return JSONObject;
-
             }
-            string username = System.Web.HttpContext.Current.User.Identity.Name;
-            var logUser = _us.GetUserIdByUsername(username);
-
             List<ConfigPolicyTypeModel> SearchModelList = new List<ConfigPolicyTypeModel>();
-            ConfigPolicyTypeModel configModel = new ConfigPolicyTypeModel();
 
             List<config_policy> data = new List<config_policy>();
             data = _cps.GetConfigPolicyByConfigType(int.Parse(PolicyType));
 
-            List<config_insureds> data2 = new List<config_insureds>();
             foreach(config_policy confPolicy in data)
             {
                 var Insured = _cis.GetInsuredByPolicyId(confPolicy.IDPolicy);
                 if (Insured != null)
                 {
+                    var configModel = new ConfigPolicyTypeModel();
                     configModel.NameSurename = Insured.Name + " " + Insured.Surname;
                     configModel.raiting = confPolicy.Rating;
                     configModel.startDate = confPolicy.StartDate.ToString("dd/MM/yyyy");
                     configModel.endDate = confPolicy.EndDate.ToString("dd/MM/yyyy");
-
                     SearchModelList.Add(configModel);
                 }
 
             }
             
-
-           
-                    
             var array = JArray.FromObject(SearchModelList.ToArray());
             JSONObject.Add("data", array);
             return JSONObject;
