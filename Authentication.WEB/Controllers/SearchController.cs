@@ -37,6 +37,7 @@ namespace InsuredTraveling.Controllers
         private IFirstNoticeOfLossArchiveService _firstNoticeLossArchiveService;
         private IRolesService _rs;
         private IConfigPolicyTypeService _cpts;
+        private IConfigPolicyService _cps;
 
         public SearchController(IPolicyService ps, 
                                 IFirstNoticeOfLossService fnls, 
@@ -49,7 +50,8 @@ namespace InsuredTraveling.Controllers
                                 IPolicySearchService policySearchService,
                                 IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService,
                                 IRolesService rs,
-                                IConfigPolicyTypeService cpts
+                                IConfigPolicyTypeService cpts,
+                                IConfigPolicyService cps
                                 )
         {
             _ps = ps;
@@ -65,6 +67,7 @@ namespace InsuredTraveling.Controllers
             _roleAuthorize = new RoleAuthorize();
             _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
             _cpts = cpts;
+            _cps = cps;
         }
 
         [HttpGet]
@@ -80,6 +83,14 @@ namespace InsuredTraveling.Controllers
 
             var policies = GetAllPolicies();
             ViewBag.Policies = policies.Result;
+
+         
+
+            ViewBag.ConfigPolicyType = _cpts.GetAllActivePolicyTypesDropdown();
+
+
+
+
             var roles = _rs.GetAll().ToList();
             foreach(var role in roles)
             {
@@ -1737,6 +1748,11 @@ namespace InsuredTraveling.Controllers
 
             var policies = _ps.GetPoliciesByUserId(logUser);
             return await policies.ToListAsync();
+        }
+          private async Task<List<SelectListItem>> GetPolicyType()
+        {
+            var policy = _cps.GetConfigPolicyList();
+            return await policy.ToListAsync();
         }
 
         public List<SearchPolicyViewModel> DefinePolicyCountries(List<SearchPolicyViewModel> policies)

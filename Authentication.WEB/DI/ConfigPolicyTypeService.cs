@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace InsuredTraveling.DI
 {
@@ -27,6 +28,14 @@ namespace InsuredTraveling.DI
         {
             return _db.config_policy_type.Where(x => x.status == true).ToList();
         }
+        public IQueryable<SelectListItem> GetAllActivePolicyTypesDropdown()
+        {
+            return _db.config_policy_type.Select(p => new SelectListItem
+            {
+                Text = p.policy_type_name.ToString(),
+                Value = p.ID.ToString()
+            });
+        }
 
         public config_policy_type GetConfigPolicyTypeByID(int id)
         {
@@ -46,6 +55,18 @@ namespace InsuredTraveling.DI
             }
 
 
+        }
+        public List<config_policy_type> GetTypeID(string TypeName)
+        {
+            List<config_policy_type> ListType = new List<config_policy_type>();
+            if (TypeName == null || TypeName == " " || TypeName == "undefined")
+            {
+                return _db.config_policy_type.ToList();
+            }
+            else
+            {
+                return _db.config_policy_type.Where(x => x.policy_type_name == TypeName).ToList();
+            }
         }
     }
 }

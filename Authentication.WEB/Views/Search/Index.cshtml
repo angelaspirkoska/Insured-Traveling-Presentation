@@ -207,7 +207,7 @@
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
                     <label>@InsuredTraveling.Resource.User_Role:</label>
-                    @Html.DropDownList("RoleName", (List<SelectListItem>)ViewBag.Roles, Resource.SearchTable_RoleName, new { @class = "form-control", style = "" })
+                    @Html.DropDownList("RoleName", (List<SelectListItem>)ViewBag.ConfigPolicy, Resource.SearchTable_RoleName, new { @class = "form-control", style = "" })
                 </div>
             </div>
             <div class="col-md-4 col-sm-4">
@@ -278,83 +278,6 @@
 </div>
 
 
-<div class="" id="ConfigPolicyType">
-    <br />
-    <br />
-    <form>
-        <div class="row">
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label>@InsuredTraveling.Resource.User_Role:</label>
-                    @Html.DropDownList("RoleName", (List<SelectListItem>)ViewBag.Roles, Resource.SearchTable_RoleName, new { @class = "form-control", style = "" })
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label for="country">@InsuredTraveling.Resource.RegisterDate:</label>
-                    <div class="input-group">
-                        <input type="text" id="RegisterDate" class="form-control" placeholder="@dateTimeFormat" />
-                        <div class="input-group-btn">
-                            <button type="button" id="operatorRegisterDate" class="btn btn-default dropdown-toggle explain-functionality" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
-                                <p class="caret-position">= <span class="caret"></span></p>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li onclick="$('#operatorRegisterDate').html(' = '); $('#operatorRegisterDate').val('=');">=</li>
-                                <li onclick="$('#operatorRegisterDate').html(' < '); $('#operatorRegisterDate').val('<');">&lt</li>
-                                <li onclick="$('#operatorRegisterDate').html(' > '); $('#operatorRegisterDate').val('>');">&gt</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-                <div class="">
-                    <label>@InsuredTraveling.Resource.SearchTable_UserStatus:</label>
-                    <div class="form-group">
-                        <input type="radio" name="status" value="0" style="width:15px;"> @Resource.SearchTable_UserStatusActive
-                        <input type="radio" name="status" value="1" style="width:15px;"> @Resource.SearchTable_UserStatusInactive
-                        <input type="radio" name="status" value="2" style="width:15px;"> @Resource.SearchTable_UserStatusBoth
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <input id="btnSubmit" class="btn btn-primary btn-block btn-material-design-success" value="@InsuredTraveling.Resource.Search_SearchButton" onclick="SearchPolicyType()" type="button" style="float:left;" />
-            </div>
-            <div class="col-md-4">
-                <input class="btn btn-primary btn-block btn-material-design-success" value="@Resource.SearchResultsExcel" onclick="ShowRegisteredUsersSearchResultsInExcel()" type="button" style="float:left;" />
-            </div>
-            <div class="col-md-4">
-                <div class="hover-tooltip">
-                    <button type="button" class="btn btn-success btn-circle btn-lg btn-material-design pull-right" data-toggle="tooltip" title="@InsuredTraveling.Resource.Search_AddUserButton" onclick="@("window.location.href='" + @Url.Action("CreateUser", "SignUp") + "'");"><i class="glyphicon glyphicon-plus"></i></button>
-                </div>
-            </div>
-        </div>
-        <br />
-        <br />
-    </form>
-    <br />
-    <br />
-    <div class="row">
-        <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="table_policy-type">
-            <thead>
-                <tr>
-                    <th>@InsuredTraveling.Resource.SearchTable_UserName</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_FirstName</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_LastName</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_Email</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_RoleName</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_CreatedOn</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_ActiveInactiveUser</th>
-
-                </tr>
-            </thead>
-            <tbody id="searchResultRegisteredUsers"></tbody>
-        </table>
-    </div>
-</div>
 <!--Table search result of policies -->
 <div class="" id="searchPolycies">
     <br />

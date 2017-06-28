@@ -397,7 +397,21 @@ namespace InsuredTraveling.App_Start
                 dst.Datum_Na_Izdavanje = src.Date_Created.ToString(dateTimeFormat, new CultureInfo("en-US"));
                 dst.Datum_Na_Storniranje = src.Date_Cancellation.HasValue ? src.Date_Cancellation.Value.Date.ToShortDateString().ToString() : "/";
             });
+            // CONFIG_POLICY - GET Map
+            Mapper.CreateMap<config_policy, ConfigPolicyModel>().AfterMap((src, dst) =>
+            {
+                var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+                var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy") : dateTime;
+                dst.IDPolicy = src.IDPolicy;
+                dst.ID_config_policy_type = src.ID_Config_poliy_Type;
+                dst.IsPaid = src.IsPaid;               
+                dst.raiting = src.Rating;
+                dst.StartDate = src.StartDate.ToString(dateTimeFormat, new CultureInfo("en-US"));
+                dst.EndDate = src.EndDate.ToString(dateTimeFormat, new CultureInfo("en-US"));
+             
+            });
 
+            // CONFIG_POLICY_TYPE - GET Map
             Mapper.CreateMap<config_policy_type, ConfigPolicyTypeModel>().AfterMap((src, dst) =>
             {
                 var dateTime = ConfigurationManager.AppSettings["DateFormat"];

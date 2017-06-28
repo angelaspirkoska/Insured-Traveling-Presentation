@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace InsuredTraveling.DI
 {
@@ -11,5 +12,6 @@ namespace InsuredTraveling.DI
         List<config_policy_type> GetAllActivePolicyTypes();
         config_policy_type GetConfigPolicyTypeByID(int id);
         List<config_policy_type> GetTypeByName(string TypeName);
+        IQueryable<SelectListItem> GetAllActivePolicyTypesDropdown();
     }
 }

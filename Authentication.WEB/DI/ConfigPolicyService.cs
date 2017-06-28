@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace InsuredTraveling.DI
 {
@@ -45,6 +46,15 @@ namespace InsuredTraveling.DI
             }
 
 
+        }
+        public IQueryable<SelectListItem> GetConfigPolicyList()
+        {
+            return _db.config_policy.Select(p => new SelectListItem
+            {
+                Text = p.IDPolicy.ToString(),
+                Value = p.IDPolicy.ToString()
+            });
+          
         }
     }
 }

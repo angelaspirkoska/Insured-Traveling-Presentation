@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace InsuredTraveling.DI
 {
@@ -10,5 +11,6 @@ namespace InsuredTraveling.DI
     {
         int AddConfigPolicy(int idConfigPolicyType, string rating, DateTime StartDate, DateTime EndDate, bool isPaid);
         bool UpdateConfigPolicy(int idPolicy, string rating);
+        IQueryable<SelectListItem> GetConfigPolicyList();
     }
 }
