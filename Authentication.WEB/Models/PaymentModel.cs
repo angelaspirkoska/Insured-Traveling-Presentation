@@ -33,5 +33,23 @@ namespace InsuredTraveling.Models
         public String hash { get; set; }
         public string Password { get; internal set; }
         public string Username { get; internal set; }
+
+        #region New Paremeters
+        public string ConfigPolicyType { get; set; }
+        public int IdPolicy { get; set; }
+        public string PolicyHolderNameLastName { get; set; }
+        public string PolicyHolderAddress { get; set; }
+        public string PolicyHolderPassport { get; set; }
+        public string PolicyHolderSSN { get; set; }
+        public DateTime PolicyHolderDateBirth { get; set; }
+        public DateTime PolicyStartDate { get; set; }
+        public DateTime PolicyEndDate { get; set; }
+        public double Premium { get; set; }
+        public string InsuredNameLastName { get; set; }
+        public string InsuredAddress { get; set; }
+        public string InsuredPassport { get; set; }
+        public string InsuredSSN { get; set; }
+        public DateTime InsuredDateBirth { get; set; }
+        #endregion
     }
 }

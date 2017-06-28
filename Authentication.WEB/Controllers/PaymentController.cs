@@ -26,8 +26,9 @@ namespace Authentication.WEB.Controllers
         private IInsuredsService _iss;
         private IPolicyInsuredService _pis;
         private IAdditionalChargesService _acs;
+        private readonly IConfigPolicyService _configPolicyService;
 
-        public PaymentController(IUserService us, IPolicyService ps, IInsuredsService iss, IPolicyInsuredService pis, IAdditionalChargesService acs)
+        public PaymentController(IUserService us, IPolicyService ps, IInsuredsService iss, IPolicyInsuredService pis, IAdditionalChargesService acs, IConfigPolicyService configPolicyService)
         {
             ViewBag.IsPaid = false;
             this._us = us;
@@ -35,15 +36,18 @@ namespace Authentication.WEB.Controllers
             _iss = iss;
             _pis = pis;
             _acs = acs;
+            configPolicyService = _configPolicyService;
         }
 
         // GET: Payment
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(int idPolicy)
         {
             PaymentModel model = new PaymentModel();
+
+            var policy = _configPolicyService.Get
             model.clientId = "180000069";                   //Merchant Id defined by bank to user
-            model.amount = "9.95";                         //Transaction amount
+            //   "9.95";                         //Transaction amount
             model.oid = "";                                //Order Id. Must be unique. If left blank, system will generate a unique one.
             model.okUrl = ConfigurationManager.AppSettings["webpage_url"] + "/Payment/PaymentSuccess";                      //URL which client be redirected if authentication is successful
             model.failUrl = ConfigurationManager.AppSettings["webpage_url"] + "/Payment/PaymentFail";                    //URL which client be redirected if authentication is not successful
@@ -57,7 +61,8 @@ namespace Authentication.WEB.Controllers
             System.Security.Cryptography.SHA1 sha = new System.Security.Cryptography.SHA1CryptoServiceProvider();
             model.hashbytes = System.Text.Encoding.GetEncoding("ISO-8859-9").GetBytes(model.hashstr);
             model.inputbytes = sha.ComputeHash(model.hashbytes);
-            model.hash = Convert.ToBase64String(model.inputbytes); //Hash value used for validation
+
+            model.hash = Convert.ToBase64String(model.inputbytes);
             return View(model);
         }
 
