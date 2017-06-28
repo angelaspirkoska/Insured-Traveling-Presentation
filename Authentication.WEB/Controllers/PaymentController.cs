@@ -27,8 +27,9 @@ namespace Authentication.WEB.Controllers
         private IPolicyInsuredService _pis;
         private IAdditionalChargesService _acs;
         private readonly IConfigPolicyService _configPolicyService;
+        private readonly IConfigInsuredService _configInsuredService;
 
-        public PaymentController(IUserService us, IPolicyService ps, IInsuredsService iss, IPolicyInsuredService pis, IAdditionalChargesService acs, IConfigPolicyService configPolicyService)
+        public PaymentController(IUserService us, IPolicyService ps, IInsuredsService iss, IPolicyInsuredService pis, IAdditionalChargesService acs, IConfigPolicyService configPolicyService, IConfigInsuredService configInsuredService)
         {
             ViewBag.IsPaid = false;
             this._us = us;
@@ -37,6 +38,7 @@ namespace Authentication.WEB.Controllers
             _pis = pis;
             _acs = acs;
             configPolicyService = _configPolicyService;
+            configInsuredService = _configInsuredService;
         }
 
         // GET: Payment
@@ -44,7 +46,7 @@ namespace Authentication.WEB.Controllers
         public ActionResult Index(int idPolicy)
         {
             PaymentModel model = new PaymentModel();
-
+            model = DefinePolicyModel(model, idPolicy);
            
             model.clientId = "180000069";                   //Merchant Id defined by bank to user
             //   "9.95";                         //Transaction amount
@@ -186,6 +188,29 @@ namespace Authentication.WEB.Controllers
         {
             var policy = _configPolicyService.GetConfigByPolicyId(idPolicy);
             model.ConfigPolicyType = policy.config_policy_type.policy_type_name;
+            model.Premium = Convert.ToDecimal(policy.Rating);
+            model.PolicyStartDate = policy.StartDate;
+            model.PolicyEndDate = policy.EndDate;
+            model.IdPolicy = idPolicy;
+            var policyHolder = _configInsuredService.GetPolicyHolderByPolicyId(idPolicy);
+            if(policyHolder != null)
+            {
+                model.PolicyHolderNameLastName = policyHolder.Name + " " + policyHolder.Surname;
+                model.PolicyHolderPassport = policyHolder.Passport;
+                model.PolicyHolderDateBirth = policyHolder.BirthDate.Value;
+                model.PolicyHolderSSN = policyHolder.SSN;
+                model.PolicyHolderAddress = policyHolder.Address;
+            }
+
+            var insured = _configInsuredService.GetInsuredByPolicyId(idPolicy);
+            if(insured != null)
+            {
+                model.InsuredNameLastName = insured.Name + " " + insured.Surname;
+                model.InsuredPassport = insured.Passport;
+                model.InsuredDateBirth = insured.BirthDate.Value;
+                model.InsuredSSN = insured.SSN;
+                model.InsuredAddress = insured.Address;
+            }
 
             return model;
         }

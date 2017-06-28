@@ -30,5 +30,25 @@ namespace InsuredTraveling.DI
                 return 0;
             }
         }
+
+        public config_insureds GetPolicyHolderByPolicyId(int policyId)
+        {
+            var insuredPolicy = _db.config_insured_policy.Where(x => x.IDPolicy == policyId && x.IdInsuredType == 1).FirstOrDefault();
+            if(insuredPolicy != null)
+            {
+                return _db.config_insureds.Where(x => x.ID == insuredPolicy.IDInsured).FirstOrDefault();
+            }
+            return null;
+        }
+
+        public config_insureds GetInsuredByPolicyId(int policyId)
+        {
+            var insuredPolicy = _db.config_insured_policy.Where(x => x.IDPolicy == policyId && x.IdInsuredType == 2).FirstOrDefault();
+            if (insuredPolicy != null)
+            {
+                return _db.config_insureds.Where(x => x.ID == insuredPolicy.IDInsured).FirstOrDefault();
+            }
+            return null;
+        }
     }
 }

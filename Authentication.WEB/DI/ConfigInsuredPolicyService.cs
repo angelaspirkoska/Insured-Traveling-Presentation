@@ -26,5 +26,7 @@ namespace InsuredTraveling.DI
                 return 0;
             }
         }
+
+        
     }
 }
