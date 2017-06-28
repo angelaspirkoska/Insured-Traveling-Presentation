@@ -3,6 +3,7 @@ using InsuredTraveling.FormBuilder;
 using InsuredTraveling.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -100,10 +101,18 @@ namespace InsuredTraveling.Controllers
         {
             if (excelId.HasValue && idPolicy.HasValue)
             {
+                decimal roundPremium = 0;
                 var premium = DatabaseCommands.CalculatePremium((int)excelId, formCollection);
-                ViewBag.CalculatedPremium = premium;
+                if (!String.IsNullOrEmpty(premium))
+                    if (!premium.Equals("No value"))
+                    {
+                        roundPremium = decimal.Parse(premium, CultureInfo.InvariantCulture);
+                        roundPremium = decimal.Round(roundPremium, 4, MidpointRounding.ToEven);
+                    }
+                        
+                ViewBag.CalculatedPremium = roundPremium.ToString();
 
-                var isUpdated = _configPolicyService.UpdateConfigPolicy((int)idPolicy, premium);
+                var isUpdated = _configPolicyService.UpdateConfigPolicy((int)idPolicy, roundPremium.ToString());
 
                 if(isUpdated)
                 {

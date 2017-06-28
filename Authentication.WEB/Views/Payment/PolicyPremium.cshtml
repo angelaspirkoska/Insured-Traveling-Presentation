@@ -1,5 +1,6 @@
 ﻿@model InsuredTraveling.Models.PaymentModel
 @using System.Configuration
+@using System.Globalization
 @{
     ViewBag.Title = "PolicyPremium";
 }
@@ -45,7 +46,7 @@
             <p class="">@Model.PolicyHolderAddress</p>
             <p class="">@Model.PolicyHolderPassport</p>
             <p class="">@Model.PolicyHolderSSN</p>
-            <p class="">@Model.PolicyHolderDateBirth.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString()) </p>
+            <p class="">@Model.PolicyHolderDateBirth.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString(), new CultureInfo("en-US")) </p>
         </div>
     </div>
    
@@ -67,7 +68,7 @@
             <p class="">@Model.InsuredAddress</p>
             <p class="">@Model.InsuredPassport</p>
             <p class="">@Model.InsuredSSN</p>
-            <p class="">@Model.InsuredDateBirth.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString()) </p>
+            <p class="">@Model.InsuredDateBirth.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString(), new CultureInfo("en-US")) </p>
         </div>
     </div>
     <hr />
@@ -80,7 +81,7 @@
             <p>Започнува на / Valid from: </p>
         </div>
         <div class="col-md-5">
-            <p class="">@Model.PolicyStartDate.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString())  </p>
+            <p class="">@Model.PolicyStartDate.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString(), new CultureInfo("en-US"))  </p>
         </div>
     </div>
     <div class="row">
@@ -88,7 +89,7 @@
             <p>Завршува на / Valid until:	</p>
         </div>
         <div class="col-md-5">
-            <p class="">@Model.PolicyEndDate.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString())  </p>
+            <p class="">@Model.PolicyEndDate.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString(), new CultureInfo("en-US"))  </p>
         </div>
     </div>
 

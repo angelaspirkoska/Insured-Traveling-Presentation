@@ -822,7 +822,10 @@ namespace InsuredTraveling.FormBuilder
 
                         if (formElements.ContainsKey(indicator.Name))
                         {
-                            mysqlCommand.Parameters.Add(new MySqlParameter(indicator.Name, formCollection.GetValue(indicator.Name).AttemptedValue));
+                            var value = formCollection.GetValue(indicator.Name).AttemptedValue;
+                            if (value.Contains(","))
+                                value = value.Replace(",", ".");
+                            mysqlCommand.Parameters.Add(new MySqlParameter(indicator.Name, value));
                         }
                         else
                         {

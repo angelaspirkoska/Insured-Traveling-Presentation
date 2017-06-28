@@ -17,8 +17,8 @@ namespace InsuredTraveling.FormBuilder
         public static List<Dget> dgetFunctions { get; set; }     
         public static IHtmlString ReadExcel(PolicyFormViewModel model)
         {
-            //var excelPath = System.Web.HttpContext.Current.Server.MapPath(model.ExcelPath);
-            ExcelPackage pck = new ExcelPackage(new FileInfo(model.ExcelPath));
+            var excelPath = System.Web.HttpContext.Current.Server.MapPath(model.ExcelPath);
+            ExcelPackage pck = new ExcelPackage(new FileInfo(excelPath));
             dgetFunctions = new List<Dget>();
             var tagInfoExcel = ParseFormElements(pck, model.ExcelID);         
             var result = CreateForm(pck, tagInfoExcel, model.ExcelID, model.IdPolicy);
