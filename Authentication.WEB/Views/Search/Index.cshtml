@@ -207,7 +207,7 @@
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
                     <label>@InsuredTraveling.Resource.SearchPanel_PolicyConfigType:</label>
-                    @Html.DropDownList("policy_type_name", (List<SelectListItem>)ViewBag.ConfigPolicyType, Resource.SearchTable_RoleName, new { @class = "form-control", style = "" })
+                    @Html.DropDownList("policy_type_name", (List<SelectListItem>)ViewBag.ConfigPolicyType, new { @class = "form-control", style = "" })
                 </div>
             </div>
             <div class="col-md-4 col-sm-4">
@@ -1054,6 +1054,7 @@
         $("#searchChats").hide();
         $("#searchQuotes").hide();
         $("#searchUsers").hide();
+        $("#SearchPolicyType").hide();
         $("#tableClients").DataTable().destroy();
         $("#tableClients").DataTable();
         $("#tableRegisteredUsers").DataTable().destroy();
@@ -1068,6 +1069,8 @@
         $("#tableArchivedFNOL").css("display", "none");
         $("#tablePoliciesClients").css("display", "none");
         $("#tablePoliciesHolders").css("display", "none");
+        $("#table_policy-type").css("display", "none");
+
 
         //Setting the class active-tab, so the user will know which tab is clicked
         $("#addNewPolicy").removeClass("active-tab");
@@ -1238,7 +1241,7 @@
         $("#registeredUsers").removeAttr("class");
         $("#clients").removeAttr("class");
         $("#client_policy").attr("class", "active");
-
+        $("#table_policy-type").css("display", "table");
        
 
         $("#tablePoliciesClients").css("display", "none");
