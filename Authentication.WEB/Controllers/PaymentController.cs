@@ -45,7 +45,7 @@ namespace Authentication.WEB.Controllers
         {
             PaymentModel model = new PaymentModel();
 
-            var policy = _configPolicyService.Get
+            //var policy = _configPolicyService.Get
             model.clientId = "180000069";                   //Merchant Id defined by bank to user
             //   "9.95";                         //Transaction amount
             model.oid = "";                                //Order Id. Must be unique. If left blank, system will generate a unique one.
