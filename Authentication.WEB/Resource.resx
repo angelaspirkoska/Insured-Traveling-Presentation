@@ -1383,4 +1383,16 @@
   <data name="Home_NewConfigPolicy" xml:space="preserve">
     <value>Configurable Policy</value>
   </data>
+  <data name="SearchPanel_NameSurname" xml:space="preserve">
+    <value>Name and Surname</value>
+  </data>
+  <data name="SearchPanel_PolicyConfigType" xml:space="preserve">
+    <value>Policy configuration types</value>
+  </data>
+  <data name="SearchPane_PolicyConfEndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="SearchPane_PolicyConfStartDate" xml:space="preserve">
+    <value>Start Date </value>
+  </data>
 </root>

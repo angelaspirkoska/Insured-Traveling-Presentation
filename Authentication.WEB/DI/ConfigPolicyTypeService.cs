@@ -30,7 +30,7 @@ namespace InsuredTraveling.DI
         }
         public IQueryable<SelectListItem> GetAllActivePolicyTypesDropdown()
         {
-            return _db.config_policy_type.Select(p => new SelectListItem
+            return _db.config_policy_type.Where(x => x.status == true).Select(p => new SelectListItem
             {
                 Text = p.policy_type_name.ToString(),
                 Value = p.ID.ToString()

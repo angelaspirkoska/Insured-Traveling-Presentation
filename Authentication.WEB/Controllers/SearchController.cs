@@ -38,7 +38,8 @@ namespace InsuredTraveling.Controllers
         private IRolesService _rs;
         private IConfigPolicyTypeService _cpts;
         private IConfigPolicyService _cps;
-
+        private IConfigInsuredPolicyService _cips;
+        private IConfigInsuredService _cis;
         public SearchController(IPolicyService ps, 
                                 IFirstNoticeOfLossService fnls, 
                                 IUserService us, 
@@ -51,7 +52,10 @@ namespace InsuredTraveling.Controllers
                                 IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService,
                                 IRolesService rs,
                                 IConfigPolicyTypeService cpts,
-                                IConfigPolicyService cps
+                                 IConfigPolicyService cps,
+                                IConfigInsuredPolicyService cips,
+                                IConfigInsuredService cis
+
                                 )
         {
             _ps = ps;
@@ -68,6 +72,8 @@ namespace InsuredTraveling.Controllers
             _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
             _cpts = cpts;
             _cps = cps;
+            _cips = cips;
+            _cis = cis;
         }
 
         [HttpGet]
@@ -331,28 +337,44 @@ namespace InsuredTraveling.Controllers
 
                               )
         {
-         
+            var JSONObject = new JObject();
+            var dataJSON = new JArray();
+            if (PolicyType == null || PolicyType == "")
+            {
 
+                return JSONObject;
+
+            }
             string username = System.Web.HttpContext.Current.User.Identity.Name;
             var logUser = _us.GetUserIdByUsername(username);
 
+            List<ConfigPolicyTypeModel> SearchModelList = new List<ConfigPolicyTypeModel>();
+            ConfigPolicyTypeModel configModel = new ConfigPolicyTypeModel();
+
             List<config_policy> data = new List<config_policy>();
-
-
             data = _cps.GetConfigPolicyByConfigType(int.Parse(PolicyType));
 
-       
-       
+            List<config_insureds> data2 = new List<config_insureds>();
+            foreach(config_policy confPolicy in data)
+            {
+                var Insured = _cis.GetInsuredByPolicyId(confPolicy.IDPolicy);
+                if (Insured != null)
+                {
+                    configModel.NameSurename = Insured.Name + " " + Insured.Surname;
+                    configModel.raiting = confPolicy.Rating;
+                    configModel.startDate = confPolicy.StartDate.ToString("dd/MM/yyyy");
+                    configModel.endDate = confPolicy.EndDate.ToString("dd/MM/yyyy");
 
-            var JSONObject = new JObject();
-            var dataJSON = new JArray();
+                    SearchModelList.Add(configModel);
+                }
 
-            //var languageId = SiteLanguages.CurrentLanguageId();
-            //var searchModel = data.Select(Mapper.Map<config_policy_type, ConfigPolicyTypeModel>).ToList();
-            ////searchModel = _policySearchService.GetCountriesName(searchModel, languageId);
+            }
+            
 
-            //var array = JArray.FromObject(searchModel.ToArray());
-            //JSONObject.Add("data", array);
+           
+                    
+            var array = JArray.FromObject(SearchModelList.ToArray());
+            JSONObject.Add("data", array);
             return JSONObject;
         }
 

@@ -3391,6 +3391,42 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End Date.
+        /// </summary>
+        public static string SearchPane_PolicyConfEndDate {
+            get {
+                return ResourceManager.GetString("SearchPane_PolicyConfEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Date .
+        /// </summary>
+        public static string SearchPane_PolicyConfStartDate {
+            get {
+                return ResourceManager.GetString("SearchPane_PolicyConfStartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name and Surname.
+        /// </summary>
+        public static string SearchPanel_NameSurname {
+            get {
+                return ResourceManager.GetString("SearchPanel_NameSurname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Policy configuration types.
+        /// </summary>
+        public static string SearchPanel_PolicyConfigType {
+            get {
+                return ResourceManager.GetString("SearchPanel_PolicyConfigType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Days before expiring.
         /// </summary>
         public static string SearchPolicyByExpiringDays {

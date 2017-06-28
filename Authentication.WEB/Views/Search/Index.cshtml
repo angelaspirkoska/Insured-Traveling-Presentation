@@ -206,12 +206,12 @@
         <div class="row">
             <div class="col-md-4 col-sm-4">
                 <div class="form-group">
-                    <label>@InsuredTraveling.Resource.User_Role:</label>
+                    <label>@InsuredTraveling.Resource.SearchPanel_PolicyConfigType:</label>
                     @Html.DropDownList("policy_type_name", (List<SelectListItem>)ViewBag.ConfigPolicyType, Resource.SearchTable_RoleName, new { @class = "form-control", style = "" })
                 </div>
             </div>
             <div class="col-md-4 col-sm-4">
-                <div class="form-group">
+                @*<div class="form-group">
                     <label for="country">@InsuredTraveling.Resource.RegisterDate:</label>
                     <div class="input-group">
                         <input type="text" id="RegisterDate" class="form-control" placeholder="@dateTimeFormat" />
@@ -226,17 +226,17 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div>*@
             </div>
             <div class="col-md-4 col-sm-4">
-                <div class="">
+                @*<div class="">
                     <label>@InsuredTraveling.Resource.SearchTable_UserStatus:</label>
                     <div class="form-group">
                         <input type="radio" name="status" value="0" style="width:15px;"> @Resource.SearchTable_UserStatusActive
                         <input type="radio" name="status" value="1" style="width:15px;"> @Resource.SearchTable_UserStatusInactive
                         <input type="radio" name="status" value="2" style="width:15px;"> @Resource.SearchTable_UserStatusBoth
                     </div>
-                </div>
+                </div>*@
             </div>
         </div>
 
@@ -262,13 +262,12 @@
         <table style="width: 100%;" class="table table-bordered table-hover table-striped" id="table_policy-type">
             <thead>
                 <tr>
-                    <th>@InsuredTraveling.Resource.SearchTable_UserName</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_FirstName</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_LastName</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_Email</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_RoleName</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_CreatedOn</th>
-                    <th>@InsuredTraveling.Resource.SearchTable_ActiveInactiveUser</th>
+                    <th>@InsuredTraveling.Resource.SearchPanel_NameSurname</th>
+                    <th>@InsuredTraveling.Resource.SearchPane_PolicyConfStartDate</th>
+                    <th>@InsuredTraveling.Resource.SearchPane_PolicyConfEndDate</th>
+                    <th>@InsuredTraveling.Resource.Policy_TotalPremium</th>
+                    
+                  
                  
                 </tr>
             </thead>
@@ -1561,12 +1560,13 @@
             $("#table_policy-type").DataTable().destroy();
             $("#table_policy-type").DataTable({
                 dom: "Bfrtip",
-                ajax: "/Search/GetPolicyType?=" + $("#policy_type_name").val(),
+                ajax: "/Search/GetPolicyType?PolicyType=" + $("#policy_type_name").val(),
                 columns: [
-                   { data: "name" },
+                   { data: "NameSurename" },
                    { data: "startDate" },
-                   { data: "endDate" },
-                   { data: "status" },
+                   { data: "endDate" }, 
+                   { data: "raiting" },
+                  
                   
                    @*{
                        data: "Polisa_Broj",
