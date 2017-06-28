@@ -110,7 +110,7 @@ namespace InsuredTraveling.Controllers
                     var configPolicyValues = DatabaseCommands.InsertConfigPolicyValues((int)excelId, formCollection, (int) idPolicy);
                     var isSuccessful = _configPolicyValuesService.AddConfigPolicyValues(configPolicyValues);
                 }
-                return View("Index", "Payment", new { idPolicy = (int) idPolicy });
+                return RedirectToAction("Index", "Payment", new { idPolicy = (int) idPolicy });
             }
             return new HttpStatusCodeResult(500, "Something went wrong");
         }

@@ -37,8 +37,8 @@ namespace Authentication.WEB.Controllers
             _iss = iss;
             _pis = pis;
             _acs = acs;
-            configPolicyService = _configPolicyService;
-            configInsuredService = _configInsuredService;
+            _configPolicyService = configPolicyService;
+            _configInsuredService = configInsuredService;
         }
 
         // GET: Payment
@@ -188,7 +188,7 @@ namespace Authentication.WEB.Controllers
         {
             var policy = _configPolicyService.GetConfigByPolicyId(idPolicy);
             model.ConfigPolicyType = policy.config_policy_type.policy_type_name;
-            model.Premium = Convert.ToDecimal(policy.Rating);
+            model.Premium = policy.Rating;
             model.PolicyStartDate = policy.StartDate;
             model.PolicyEndDate = policy.EndDate;
             model.IdPolicy = idPolicy;

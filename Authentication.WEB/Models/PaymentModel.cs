@@ -44,7 +44,7 @@ namespace InsuredTraveling.Models
         public DateTime PolicyHolderDateBirth { get; set; }
         public DateTime PolicyStartDate { get; set; }
         public DateTime PolicyEndDate { get; set; }
-        public decimal Premium { get; set; }
+        public string Premium { get; set; }
         public string InsuredNameLastName { get; set; }
         public string InsuredAddress { get; set; }
         public string InsuredPassport { get; set; }

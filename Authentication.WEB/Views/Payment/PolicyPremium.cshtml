@@ -41,13 +41,14 @@
             <p>Датум на раѓање / Date of birth: </p>
         </div>
         <div class="col-md-5">
-            <p class="">@Model.InsuredNameLastName </p>
-            <p class="">@Model.InsuredAddress</p>
-            <p class="">@Model.InsuredPassport</p>
-            <p class="">@Model.InsuredSSN</p>
-            <p class="">@Model.InsuredDateBirth.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString()) </p>
+            <p class="">@Model.PolicyHolderNameLastName </p>
+            <p class="">@Model.PolicyHolderAddress</p>
+            <p class="">@Model.PolicyHolderPassport</p>
+            <p class="">@Model.PolicyHolderSSN</p>
+            <p class="">@Model.PolicyHolderDateBirth.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString()) </p>
         </div>
     </div>
+   
     <hr />
     <div class="row">
         <div class="col-md-12 text-center policy-print-title">ОСИГУРЕНИК / INSURED</div>
@@ -62,11 +63,11 @@
             <p>Датум на раѓање / Date of birth: </p>
         </div>
         <div class="col-md-5">
-            <p class="">@Model.PolicyHolderNameLastName </p>
-            <p class="">@Model.PolicyHolderAddress</p>
-            <p class="">@Model.PolicyHolderPassport</p>
-            <p class="">@Model.PolicyHolderSSN</p>
-            <p class="">@Model.PolicyHolderDateBirth.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString()) </p>
+            <p class="">@Model.InsuredNameLastName </p>
+            <p class="">@Model.InsuredAddress</p>
+            <p class="">@Model.InsuredPassport</p>
+            <p class="">@Model.InsuredSSN</p>
+            <p class="">@Model.InsuredDateBirth.ToString(@ConfigurationManager.AppSettings["DateFormat"].ToString()) </p>
         </div>
     </div>
     <hr />

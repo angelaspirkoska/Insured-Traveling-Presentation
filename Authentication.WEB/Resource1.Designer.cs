@@ -1312,6 +1312,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configurable Policy.
+        /// </summary>
+        public static string Home_NewConfigPolicy {
+            get {
+                return ResourceManager.GetString("Home_NewConfigPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Policy.
         /// </summary>
         public static string Home_NewPolicy {

@@ -1380,4 +1380,7 @@
   <data name="Config_Policy_Type" xml:space="preserve">
     <value>Policy Type</value>
   </data>
+  <data name="Home_NewConfigPolicy" xml:space="preserve">
+    <value>Configurable Policy</value>
+  </data>
 </root>
