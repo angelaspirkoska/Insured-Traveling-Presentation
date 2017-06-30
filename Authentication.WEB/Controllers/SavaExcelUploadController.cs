@@ -66,26 +66,24 @@ namespace InsuredTraveling.Controllers
                     var PolicyUser = _userService.GetUserBySSN(policy.SSN_policyHolder);
 
                     // sends e-mail if user have 0 policy in the system.
-                    if (0 == _sp.GetSavaPoliciesForUser(policy.SSN_policyHolder).Count)
+                
+                    if (1 == (_sp.GetSavaPoliciesForUser(policy.SSN_policyHolder).Count))
                     {
                         SendSavaEmailHelper.SendEmailPolicyUploaded(PolicyUser.Email,PolicyUser.FirstName,PolicyUser.LastName);
                     }
-                    var Sava_admin = _savaSetupService.GetLast();
 
+                    var Sava_admin = _savaSetupService.GetLast();
                     float? UserSumPremiums = _userService.GetUserSumofPremiums(policy.SSN_policyHolder);
                     if (UserSumPremiums == null)
                     {
                         UserSumPremiums = 0;
                     }
-
-
                     //if (_roleAuthorize.IsUser("Sava_normal", PolicyUser.UserName))
                     //{
                     //    string userRole = "Сава+ корисник на Сава осигурување";
                     //    SendSavaEmail(PolicyUser.Email, PolicyUser.FirstName, PolicyUser.LastName, userRole);
                     //    _repo.AddUserToRole(PolicyUser.Id, "Sava_Sport+");
                     //}
-
                     if (RoleAuthorize.IsUser("Sava_Sport+", PolicyUser.UserName))
                     {
                         if (Sava_admin.vip_sum <= UserSumPremiums)

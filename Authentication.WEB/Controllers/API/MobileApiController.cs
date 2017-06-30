@@ -22,6 +22,7 @@ using System.Net.Http.Formatting;
 namespace InsuredTraveling.Controllers.API
 {
     [RoutePrefix("api/mobile")]
+    [Authorize]
     public class MobileApiController : ApiController
     {
         private IPolicyService _ps;
@@ -165,7 +166,7 @@ namespace InsuredTraveling.Controllers.API
             return data;
         }
 
-       
+        [Authorize]
         [Route("RetrieveUserInfo")]
         public JObject RetrieveUserInformation(UserDTO username)
         {

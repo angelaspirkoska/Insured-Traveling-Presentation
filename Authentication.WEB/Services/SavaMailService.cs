@@ -92,6 +92,7 @@ namespace Authentication.WEB.Services
             }
             catch (Exception e) {
                 ZohoMailService mail = new ZohoMailService("iatanasovski@optimalreinsurance.com");
+                mail.setSubject("------Email Service Logger -------");
                 mail.setBodyText(e.ToString());
                 mail.sendMail();
           

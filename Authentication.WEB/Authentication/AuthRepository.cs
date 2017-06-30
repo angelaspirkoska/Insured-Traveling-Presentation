@@ -13,7 +13,7 @@ using System.Web;
 using Newtonsoft.Json.Linq;
 using System.Net.Mail;
 using System.Net.Mime;
-
+using InsuredTraveling.Helpers;
 namespace InsuredTraveling
 {
     public class AuthRepository : IDisposable
@@ -159,7 +159,7 @@ namespace InsuredTraveling
                  string mailBody = string.Format(@"   <div>
                   <div >
                   <a href='https://mk.sava.insure/'> <img style='width: 100%; max-width: 1000px; ' src=""cid:{0}"" /> </a>
-                    <p> <b>Добредојдoвте на Сава Спорт + мобилната апликација</b> .</p>                  
+                    <p> <b>Добредојдoвте на Сава Спорт + мобилната апликација</b> .</p>
                      <br /> <br /> 
                      <br /> Ве молиме почекајте 24 часа вашите податоци бидат ажурирани.
                      <br /> <br />Ви благодариме што одлучивте да ја користите SAVA Спорт + апликацијата. </div>"
@@ -184,7 +184,7 @@ namespace InsuredTraveling
                     mailService.AlternativeViews(view);
                     mailService.AlternativeViews(view2);
                     //ALTERNATIVE VIEW
-                    mailService.AlternativeViews(view);
+                    //mailService.AlternativeViews(view);
 
                     mailService.sendMail();
 
@@ -284,72 +284,80 @@ namespace InsuredTraveling
                 var user = await _userManager.FindByNameAsync(username);
                 if (user != null)
                 {
-               
-                    var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/SAVAMAK728x90.jpg"));
-                    inlineLogo.ContentId = Guid.NewGuid().ToString();
-                    var FacebookLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/facebook@2x.png"));
-                    FacebookLogo.ContentId = Guid.NewGuid().ToString();
-                    var TwitterLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/twitter@2x.png"));
-                    TwitterLogo.ContentId = Guid.NewGuid().ToString();
 
-                    string mailBody = string.Format(@"   <div>
-                  <div >
-                  <a href='https://mk.sava.insure/'> <img style='width: 100%; max-width: 1000px; ' src=""cid:{0}"" /> </a>
-                    <p> <b>Добредојдoвте на Сава Спорт + мобилната апликација</b> .</p>                  
-                     <br /> <br /> 
-                     <br /> Ве молиме почекајте 24 часа вашите податоци бидат ажурирани.
-                     <br /> <br />Ви благодариме што одлучивте да ја користите SAVA Спорт + апликацијата. </div>"
-                   + " <div style='border-top: 1px solid #BBBBBB; max-width: 1000px; width:100%; max-width: 1000px; line-height:1px; height:1px; font-size:1px; '>&nbsp;</div> "
-                   + @" <div style=' text-align: center;'> <a href='https://www.facebook.com/sava.mk'> <img style='width:32px; max-width:35px' src=""cid:{1}"" /></a> <a href='https://twitter.com/Savamk'><img style='width:32px; max-width:35px' src=""cid:{2}"" /></a> </div>"
-                   + "<br /> "
-                  , inlineLogo.ContentId, FacebookLogo.ContentId, TwitterLogo.ContentId);
+                  //  var inlineLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/SAVAMAK728x90.jpg"));
+                  //  inlineLogo.ContentId = Guid.NewGuid().ToString();
+                  //  var FacebookLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/facebook@2x.png"));
+                  //  FacebookLogo.ContentId = Guid.NewGuid().ToString();
+                  //  var TwitterLogo = new LinkedResource(System.Web.HttpContext.Current.Server.MapPath("~/Content/img/twitter@2x.png"));
+                  //  TwitterLogo.ContentId = Guid.NewGuid().ToString();
 
-                    var view = AlternateView.CreateAlternateViewFromString(mailBody, null, MediaTypeNames.Text.Plain);
-                    var view2 = AlternateView.CreateAlternateViewFromString(mailBody, null, MediaTypeNames.Text.Html);
+                    //  string mailBody = string.Format(@"   <div>
+                    //<div >
+                    //<a href='https://mk.sava.insure/'> <img style='width: 100%; max-width: 1000px; ' src=""cid:{0}"" /> </a>
+                    //< p > < b > Добредојдoвте на Сава Спорт + мобилната апликација </ b > .</ p >
+     
+                    //      < br /> < br />
+     
+                    //      < br /> Ве молиме почекајте 24 часа вашите податоци бидат ажурирани.
+      
+                    //       < br /> < br /> Ви благодариме што одлучивте да ја користите SAVA Спорт +апликацијата. </ div > "
+                  // + " <div style='border-top: 1px solid #BBBBBB; max-width: 1000px; width:100%; max-width: 1000px; line-height:1px; height:1px; font-size:1px; '>&nbsp;</div> "
+                  // + @" <div style=' text-align: center;'> <a href='https://www.facebook.com/sava.mk'> <img style='width:32px; max-width:35px' src=""cid:{1}"" /></a> <a href='https://twitter.com/Savamk'><img style='width:32px; max-width:35px' src=""cid:{2}"" /></a> </div>"
+                  // + "<br /> "
+                  //, inlineLogo.ContentId, FacebookLogo.ContentId, TwitterLogo.ContentId);
 
-                    view2.LinkedResources.Add(inlineLogo);
-                    view2.LinkedResources.Add(FacebookLogo);
-                    view2.LinkedResources.Add(TwitterLogo);
+                    //  var view = AlternateView.CreateAlternateViewFromString(mailBody, null, MediaTypeNames.Text.Plain);
+                    //  var view2 = AlternateView.CreateAlternateViewFromString(mailBody, null, MediaTypeNames.Text.Html);
 
-                    SavaMailService mailService = new SavaMailService(user.Email);
+                    //  view2.LinkedResources.Add(inlineLogo);
+                    //  view2.LinkedResources.Add(FacebookLogo);
+                    //  view2.LinkedResources.Add(TwitterLogo);
 
-                    mailService.setSubject("Моја Сава. Успешно креиран корисник.");
+                    //  SavaMailService mailService = new SavaMailService(user.Email);
 
-                    mailService.setBodyText(mailBody, true);
+                    //  mailService.setSubject("Моја Сава. Успешно креиран корисник.");
 
-                    mailService.AlternativeViews(view);
-                    mailService.AlternativeViews(view2);
-                    //ALTERNATIVE VIEW
-                    mailService.AlternativeViews(view);
+                    //  mailService.setBodyText(mailBody, true);
 
-                    mailService.sendMail();
+                    //  mailService.AlternativeViews(view);
+                    //  mailService.AlternativeViews(view2);
+                    //  //ALTERNATIVE VIEW
+                    // // mailService.AlternativeViews(view);
+
+                    //  mailService.sendMail();
 
                     try
                     {
-                        var inlineLogo2 =
-                           new LinkedResource(
-                               System.Web.HttpContext.Current.Server.MapPath(
-                                   "~/Content/img/EmailHeaderWelcome1.png"));
-                        inlineLogo.ContentId = Guid.NewGuid().ToString();
+                        SendSavaEmailHelper.SendEmailCreatedAccount(user.Email);
+                        //var inlineLogo2 =
+                        //   new LinkedResource(
+                        //       System.Web.HttpContext.Current.Server.MapPath(
+                        //           "~/Content/img/EmailHeaderWelcome1.png"));
+                        //inlineLogo.ContentId = Guid.NewGuid().ToString();
 
-                        string body2 = string.Format(@"   
-                            <div style='margin-left:20px'>
-                            <p> <b>Welcome to My Sava </b> - the standalone platform for online sales of insurance policies.</p>                  
-                            <br /> <br /> To inform you that the following user was registered at MySava : 
-                            <br />" + "Username: " + user.UserName +
-                                                     "<br /> " + "SSN: " + user.EMBG +
-                                                     "<br /> " + "Email: " + user.Email +
-                                                     //"<br /> " + "Role: " + user.Role +
-                                                     "<br /> <br />Thanks </div>", inlineLogo2.ContentId);
+                        //string body2 = string.Format(@"   
+                        //    <div style='margin-left:20px'>
+                        //    <p> <b>Welcome to My Sava </b> - the standalone platform for online sales of insurance policies.</p>                  
+                        //    <br /> <br /> To inform you that the following user was registered at MySava : 
+                        //    <br />" + "Username: " + user.UserName +
+                        //                             "<br /> " + "SSN: " + user.EMBG +
+                        //                             "<br /> " + "Email: " + user.Email +
+                        //                             //"<br /> " + "Role: " + user.Role +
+                        //                             "<br /> <br />Thanks </div>", inlineLogo2.ContentId);
 
-                        SavaMailService mailService2 = new SavaMailService("atanasovski46@gmail.com", "webs.sava@sava.mk");
-                        mailService2.setSubject("My Sava - User registered on Sava");
-                        mailService2.setBodyText(body2, true);
+                        //SavaMailService mailService2 = new SavaMailService("atanasovski46@gmail.com");
+                        //mailService2.setSubject("My Sava - User registered on Sava");
+                        //mailService2.setBodyText(body2, true);
 
-                        mailService2.sendMail();
+                        //mailService2.sendMail();
                     }
                     catch (Exception ex)
                     {
+                        ZohoMailService mail = new ZohoMailService("iatanasovski@optimalreinsurance.com");
+                        mail.setSubject("------AuthRepository-Email Logger -------");
+                        mail.setBodyText(ex.ToString());
+                        mail.sendMail();
 
                     }
                 }

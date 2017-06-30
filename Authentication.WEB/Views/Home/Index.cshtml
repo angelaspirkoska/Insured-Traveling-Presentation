@@ -65,8 +65,11 @@ else if (RoleAuthorize.IsUser("Sava_admin") || RoleAuthorize.IsUser("Sava_suppor
                 <label>@Resource.SearchByDateCreated</label>
                 <input type="text" id="dateCreated" class="form-control" placeholder="@dateTimeFormat" />
             </div>
-            <div class="form-group col-md-3">
-                <button class="btn btn-primary btn-sm" onclick="SearchUsers()" style="margin-top: 30px;"> <span class="glyphicon glyphicon-search"></span>@Resource.Search</button>
+            <div class="form-group col-md-2">
+                <button class="btn btn-primary  btn-sm" onclick="SearchUsers()" style="margin-top: 30px;"> <span class="glyphicon glyphicon-search"></span>@Resource.Search</button>
+            </div>
+             <div class="form-group col-md-3">
+                <button class="btn btn-primary btn-material-design " onclick="ShowAllUsersInExcel()" style="margin-top: 30px;"> <span class="glyphicon glyphicon-search"></span>@Resource.Sava_ExcelTemplateDownload</button>
             </div>
         </div>
 
@@ -460,7 +463,23 @@ else
         });
         $("#tablePolicyRequest").css("display", "table");
     };
+    function ShowAllUsersInExcel() {
 
+        var usersTable = $("#tableEvents").dataTable();
+        var users = usersTable.fnGetData();
+
+        $.ajax({
+            url: "/Search/GetSavaUsersAsExcelDocument",
+            type: "POST",
+            data: { events: users },
+            success: function (data) {
+                var urlString =
+                    "/Search/ShowSearchResultInExcel?path=" + JSON.parse(data).path;
+                window.location.href = urlString;
+            }
+        });
+
+    };
     function SearchUsedPoints() {
         ;
         $("#tableUsedPoints").DataTable().destroy();
