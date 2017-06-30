@@ -17,7 +17,7 @@ using System.Globalization;
 
 namespace InsuredTraveling.Controllers
 {
-    [CustomActionFilter]
+    
     [SessionExpire]
     public class FirstNoticeOfLossController : Controller
     {
@@ -57,7 +57,7 @@ namespace InsuredTraveling.Controllers
             _lis = lis;
             _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
         }
-
+        [CustomActionFilter]
         [SessionExpire]
         public ActionResult Index(int? policyId)
         {
@@ -146,7 +146,7 @@ namespace InsuredTraveling.Controllers
             return View(firstNoticeOfLossViewModel);
         }
 
-
+        [CustomActionFilter]
         [SessionExpire]
         [HttpGet]
         public ActionResult Edit(int? id)
@@ -199,7 +199,7 @@ namespace InsuredTraveling.Controllers
             UpdateFirstNoticeOfLossHelper.UpdateFirstNoticeOfLoss(model, _fis, _bas, _ais,  _his,  _lis, _firstNoticeLossArchiveService, invoices, documentsHealth, documentsLuggage);
             return RedirectToAction("View", new { id = model.Id });
         }
-
+        [CustomActionFilter]
         [SessionExpire]
         public ActionResult View(int? id)
         {
@@ -234,6 +234,7 @@ namespace InsuredTraveling.Controllers
             return View(model);
         }
 
+        [CustomActionFilter]
         [SessionExpire]
         public ActionResult ViewArchived(int? id)
         {
@@ -294,6 +295,7 @@ namespace InsuredTraveling.Controllers
             return model;
         }
 
+        [CustomActionFilter]
         [SessionExpire]
         public FileResult DocumentDownload(string path)
         {
@@ -483,6 +485,7 @@ namespace InsuredTraveling.Controllers
             return FirstNoticeOfLossID>0;            
         }
 
+        [CustomActionFilter]
         [HttpPost]
         public JsonResult ShowPolicies(string Prefix)
         {
