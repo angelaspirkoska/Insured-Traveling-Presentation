@@ -34,6 +34,7 @@ namespace InsuredTraveling.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+
             var roles = _rs.GetAllRoles();
             var ok_setup = _okss.GetAllOkSetups();
 
