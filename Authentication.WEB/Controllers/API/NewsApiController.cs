@@ -32,7 +32,7 @@ namespace Authentication.WEB.Controllers
 
             foreach (news_all lastNews in lastTwentyNews)
             {
-                lastNews.ImageLocation = System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"].ToString() + "/News/" + lastNews.ImageLocation;        
+                lastNews.ImageLocation = System.Configuration.ConfigurationManager.AppSettings["webpage_apiurl"].ToString()  + lastNews.ImageLocation;        
             }
 
             return Ok(new { News = lastTwentyNews });

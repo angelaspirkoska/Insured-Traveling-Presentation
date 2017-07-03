@@ -197,7 +197,7 @@ namespace InsuredTraveling.App_Start
             Mapper.CreateMap<News, news_all>().AfterMap((src, dst) =>
             {
 
-                dst.ImageLocation = src.ImageLocation;
+                dst.ImageLocation = ConfigurationManager.AppSettings["webpage_url"] + src.ImageLocation;
                 dst.InsuranceCompany = src.InsuranceCompany;
                 dst.isNotification = src.isNotification;
                 dst.Title = src.Title;
@@ -210,7 +210,7 @@ namespace InsuredTraveling.App_Start
             Mapper.CreateMap<news_all, News>().AfterMap((src, dst) =>
             {
 
-                dst.ImageLocation = src.ImageLocation;
+                dst.ImageLocation = ConfigurationManager.AppSettings["webpage_url"] + src.ImageLocation;
                 dst.InsuranceCompany = src.InsuranceCompany;
                 dst.isNotification = src.isNotification;
                 dst.Title = src.Title;

@@ -19,7 +19,9 @@ namespace InsuredTraveling.DI
         }
         public void AddNewsNew(News news)
         {
+            var location = news.ImageLocation;
             var mappedEvent = Mapper.Map<News, news_all>(news);
+            mappedEvent.ImageLocation = location;
             _db.news_all.Add(mappedEvent);
             _db.SaveChanges();
         }

@@ -51,7 +51,7 @@ namespace Authentication.WEB.Controllers
                     string fileName = lastNewsId + "_" + NewsModel.Image.FileName;
                     var path = @"~/News/" + fileName;
                     NewsModel.Image.SaveAs(Server.MapPath(path));
-                    NewsModel.ImageLocation = fileName;
+                    NewsModel.ImageLocation = "/News/" + fileName;
 
                 }
                 else
@@ -107,7 +107,7 @@ namespace Authentication.WEB.Controllers
             {
                 if (news1.ImageLocation != null)
                 {
-                    var fixedPath = Server.MapPath("~/News/" + news1.ImageLocation);
+                    var fixedPath = Server.MapPath("~" + news1.ImageLocation);
 
                     if (System.IO.Directory.Exists(fixedPath))
                     {

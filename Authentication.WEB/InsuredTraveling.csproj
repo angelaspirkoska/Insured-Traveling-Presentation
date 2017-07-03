@@ -291,14 +291,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\dropdownliststyle.css" />
     <Content Include="Content\flags\en-US.png" />
     <Content Include="Content\flags\mk-MK.png" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\freelancer.css" />
-    <Content Include="Content\img\109_sava_logo_icon.png" />
+    <Content Include="News\109_sava_logo_icon.png" />
     <Content Include="Content\img\500x500_SAVA-akademik.jpg" />
     <Content Include="Content\img\500x500_SAVA-slikarka.jpg" />
     <Content Include="Content\img\portfolio\cabin.png" />
@@ -2578,7 +2577,6 @@
     <Folder Include="DocumentsFirstNoticeOfLoss\LuggageInsurance\" />
     <Folder Include="ExcelSearchResults\Policies\" />
     <Folder Include="ExcelSearchResults\SavaPolicies\" />
-    <Folder Include="News\" />
     <Folder Include="SavaVaucers\" />
     <Folder Include="Views\AutomaticScheduler\" />
     <Folder Include="Views\Base\" />
