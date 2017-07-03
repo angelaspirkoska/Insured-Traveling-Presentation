@@ -20,6 +20,7 @@ using InsuredTraveling.ViewModels;
 namespace InsuredTraveling.Controllers.API
 {
     [System.Web.Http.RoutePrefix("api/SavaMobile")]
+    [System.Web.Http.Authorize]
     public class SavaMobileController : ApiController
     {
         private readonly ISavaPoliciesService _savaPoliciesService;
@@ -153,8 +154,6 @@ namespace InsuredTraveling.Controllers.API
                 throw new Exception("Internal error: Empty JSON");
         }
 
-        
-
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("SetAttending")]
         public JObject SetAttending(JObject IDjson)
@@ -185,10 +184,9 @@ namespace InsuredTraveling.Controllers.API
             return data;
         }
 
-
         [System.Web.Http.HttpPost]
-        [System.Web.Http.Route("CalulatePoints/{username}")]
-        public JObject CalulatePoints(string username)
+        [System.Web.Http.Route("CalculatePoints/{username}")]
+        public JObject CalculatePoints(string username)
         {
             if (username != null)
             {
@@ -238,7 +236,6 @@ namespace InsuredTraveling.Controllers.API
             adInfo.Add("Title", PicModel.Title);
             return adInfo;
         }
-
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("GetSalePoints")]
