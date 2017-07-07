@@ -134,6 +134,7 @@
         <AssociationConnector Association="Entities.policy_insured_ibfk_1" />
         <AssociationConnector Association="Entities.travel_policy_ibfk_1" />
         <EntityTypeShape EntityType="Entities.log_activities" Width="1.5" PointX="13.375" PointY="3.75" />
+        <EntityTypeShape EntityType="Entities.elmah_error" Width="1.5" PointX="0.75" PointY="14.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -277,6 +277,22 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="DocumentID" Type="int" Nullable="false" />
           <Property Name="First_notice_of_lossID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="elmah_error">
+          <Key>
+            <PropertyRef Name="Sequence" />
+          </Key>
+          <Property Name="ErrorId" Type="guid" Nullable="false" />
+          <Property Name="Application" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Host" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Source" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Message" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="User" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StatusCode" Type="int" Nullable="false" />
+          <Property Name="TimeUtc" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Sequence" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AllXml" Type="text" Nullable="false" />
+        </EntityType>
         <EntityType Name="exchange_rate">
           <Key>
             <PropertyRef Name="ID" />
@@ -1630,6 +1646,28 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="elmah_GetErrorsXml" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="db_9eb138_travel">
+          <Parameter Name="App" Type="varchar" Mode="In" />
+          <Parameter Name="PageIndex" Type="int" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="TotalCount" Type="int" Mode="Out" />
+        </Function>
+        <Function Name="elmah_GetErrorXml" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="db_9eb138_travel">
+          <Parameter Name="Id" Type="char" Mode="In" />
+          <Parameter Name="App" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="elmah_LogError" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="db_9eb138_travel">
+          <Parameter Name="ErrorId" Type="char" Mode="In" />
+          <Parameter Name="Application" Type="varchar" Mode="In" />
+          <Parameter Name="HOST" Type="varchar" Mode="In" />
+          <Parameter Name="TYPE" Type="varchar" Mode="In" />
+          <Parameter Name="SOURCE" Type="varchar" Mode="In" />
+          <Parameter Name="Message" Type="varchar" Mode="In" />
+          <Parameter Name="USER" Type="varchar" Mode="In" />
+          <Parameter Name="AllXml" Type="text" Mode="In" />
+          <Parameter Name="StatusCode" Type="int" Mode="In" />
+          <Parameter Name="TimeUtc" Type="datetime" Mode="In" />
+        </Function>
         <EntityContainer Name="EntitiesStoreContainer">
           <EntitySet Name="additional_charge" EntityType="Self.additional_charge" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="additional_charge_name" EntityType="Self.additional_charge_name" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1655,6 +1693,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="discount_group" EntityType="Self.discount_group" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="documents" EntityType="Self.documents" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="documents_first_notice_of_loss" EntityType="Self.documents_first_notice_of_loss" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="elmah_error" EntityType="Self.elmah_error" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="exchange_rate" EntityType="Self.exchange_rate" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="first_notice_of_loss" EntityType="Self.first_notice_of_loss" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="first_notice_of_loss_archive" EntityType="Self.first_notice_of_loss_archive" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -3167,6 +3206,25 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <Parameter Name="StatusCode" Mode="In" Type="Int32" />
             <Parameter Name="TimeUtc" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="elmah_GetErrorsXml1" ReturnType="Collection(Entities.elmah_GetErrorsXml1_Result)">
+            <Parameter Name="App" Mode="In" Type="String" />
+            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="TotalCount" Mode="Out" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="elmah_LogError1">
+            <Parameter Name="ErrorId" Mode="In" Type="String" />
+            <Parameter Name="Application" Mode="In" Type="String" />
+            <Parameter Name="HOST" Mode="In" Type="String" />
+            <Parameter Name="TYPE" Mode="In" Type="String" />
+            <Parameter Name="SOURCE" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="In" Type="String" />
+            <Parameter Name="USER" Mode="In" Type="String" />
+            <Parameter Name="AllXml" Mode="In" Type="String" />
+            <Parameter Name="StatusCode" Mode="In" Type="Int32" />
+            <Parameter Name="TimeUtc" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="elmah_error" EntityType="Entities.elmah_error" />
           </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -4086,6 +4144,23 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Time" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
         </EntityType>
         <ComplexType Name="elmah_GetErrorsXml_Result" />
+        <ComplexType Name="elmah_GetErrorsXml1_Result" />
+        <EntityType Name="elmah_error">
+          <Key>
+            <PropertyRef Name="Sequence" />
+          </Key>
+          <Property Name="ErrorId" Type="Guid" Nullable="false" />
+          <Property Name="Application" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Host" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Source" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="User" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StatusCode" Type="Int32" Nullable="false" />
+          <Property Name="TimeUtc" Type="DateTime" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AllXml" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4870,6 +4945,29 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="Controller" ColumnName="Controller" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Log_Activity_ID" ColumnName="Log Activity ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="elmah_GetErrorsXml1" FunctionName="Entities.Store.elmah_GetErrorsXml">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Entities.elmah_GetErrorsXml1_Result" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="elmah_LogError1" FunctionName="Entities.Store.elmah_LogError" />
+          <EntitySetMapping Name="elmah_error">
+            <EntityTypeMapping TypeName="Entities.elmah_error">
+              <MappingFragment StoreEntitySet="elmah_error">
+                <ScalarProperty Name="AllXml" ColumnName="AllXml" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="TimeUtc" ColumnName="TimeUtc" />
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Host" ColumnName="Host" />
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="ErrorId" ColumnName="ErrorId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
