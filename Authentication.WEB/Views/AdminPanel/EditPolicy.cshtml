@@ -1,0 +1,126 @@
+﻿@using InsuredTraveling.Helpers;
+@using System.Web.Optimization;
+@using System.Configuration;
+@model InsuredTraveling.Models.ConfigPolicyTypeModel
+@{
+    ViewBag.Title = "EditPolicy";
+    Layout = "~/Views/Shared/_LayoutLimitless.cshtml";
+    var dateTime = ConfigurationManager.AppSettings["DateFormat"];
+    var dateTimeFormat = dateTime != null && (dateTime.Contains("yy") && !dateTime.Contains("yyyy")) ? dateTime.Replace("yy", "yyyy").ToLower() : dateTime.ToLower();
+}
+<ul class="nav nav-pills" id="adminNavigation">
+    <li id="navRoles" class="active"><a data-toggle="pill" href="#home"> @InsuredTraveling.Resource.AdminPanel_Roles </a></li>
+    <li id="navSetup"><a data-toggle="pill" href="#menu1" id="navSetup"> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </a></li>
+    <li id="navDiscount"><a data-toggle="pill" href="#DiscountMenu"> @InsuredTraveling.Resource.AdminPanel_Discount </a></li>
+    <li id="navConfigurableRatingEngine"><a data-toggle="pill" href="#configRatingEngine"> @InsuredTraveling.Resource.AdminPanel_ConfigurableRatingEngine </a></li>
+    <li id="navEditPolicies"><a data-toggle="pill" href="#editpolicies"> @InsuredTraveling.Resource.AdminPanel_EditPoliciesTab </a></li>
+</ul>
+
+<h2>@InsuredTraveling.Resource.AdminPanel_EditConfigurableRatingEngine</h2>
+@using (Html.BeginForm("EditPolicy", "AdminPanel", FormMethod.Post, new { id = "editPolicy", enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(x=>x.name)
+        @Html.TextBoxFor(m => m.name, new {@class = "form-control", id="policyName" })
+    </div>
+    <div class="form-group">
+        @Html.Label(@InsuredTraveling.Resource.AdminPanel_Configuration_EffectiveDate)
+        @Html.TextBoxFor(m => m.startDate, new {@class = "form-control", id = "startDate", placeholder = "@dateTimeFormat" })
+    </div>
+    <div class="form-group">
+        @Html.Label(@InsuredTraveling.Resource.AdminPanel_Configuration_ExpiryDate)
+        @Html.TextBoxFor(m => m.endDate, new {@class = "form-control", id = "endDate", placeholder = "@dateTimeFormat" })
+    </div>
+    <div class="form-group">
+        @Html.Label(@InsuredTraveling.Resource.AdminPanel_Configuration_PolicyStatus)
+        @Html.TextBoxFor(m => m.status, new {@class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label(@InsuredTraveling.Resource.AdminPanel_ConfigurationDocument)
+        <input type="file" class="form-control-file" id="excelConfigFile" name="excelConfigFile" aria-describedby="fileHelp">
+    </div>
+      <div class="form-group">
+          <div class="col-md-4 col-sm-4" style="padding-left: 0px;">
+              @Html.HiddenFor(m => m.id)
+              <input type="submit" value="Прикачи" class="btn btn-default btn-block"/>
+          </div>
+
+    </div>
+}
+
+   
+<script src="~/Scripts/jquery.validate.js"></script>
+
+@Scripts.Render("~/bundles/jqueryui")
+@Styles.Render("~/Content/jqueryuicss")
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+
+            $(document).ready(function () {
+                var dateFormatString = "@System.Configuration.ConfigurationManager.AppSettings["DateFormat"].ToString().ToLower()";
+                var DateToday = new Date();
+
+                if(@ViewBag.TabIndex == 5) {
+                    $("#addNewPolicy").removeClass("active-tab");
+                    $("#newsTab").removeClass("active-tab");
+                    $("#searchTab").removeClass("active-tab");
+                    $("#fnolTab").removeClass("active-tab");
+                    $("#adminTab").addClass("active-tab");
+                    $("#createTab").removeClass("active-tab");
+                    $("#signupTab").removeClass("active-tab");
+                    $("#configRatingEngine").removeClass("active-tab");
+                    $("#editpolicies").removeClass("active-tab");
+                    $("#editConfigPolicyType").removeClass("active-tab");
+                }
+                ChangeTabsOnPost();
+
+                $("#startDate").datepicker({
+                    dateFormat: dateFormatString,
+                    "minDate": DateToday,
+                    onSelect: function () {
+                        $("#endDate").datepicker("option", "minDate", selected);
+
+                    }
+                });
+
+                $("#endDate").datepicker({
+                    dateFormat: dateFormatString,
+                    "minDate": DateToday,
+                    onSelect: function () {
+                        $("#startDate").datepicker("option", "maxDate", selected);
+                    }
+                });
+            });
+
+            function ChangeTabsOnPost() {
+                var number = parseInt(@ViewBag.TabIndex);
+                if(number == 3){
+                    $("#DiscountMenu").toggle();
+                    $("#addDiscount").toggle();
+                    $("#DiscountMenu").addClass("in active");
+                    $("#navDiscount").addClass("active");
+
+                    $("#home").removeClass("in active");
+                    $("#navRoles").removeClass("active");
+
+                    $("#navSetup").removeClass("active");
+                    $("#menu1").removeClass("in active");
+                }
+                else if (number == 2){
+                    $("#menu1").addClass("in active");
+                    $("#navSetup").addClass("active");
+
+                    $("#home").removeClass("in active");
+                    $("#navRoles").removeClass("active");
+
+                    $("#navDiscount").removeClass("active");
+                    $("#DiscountMenu").removeClass("in active");
+
+                }
+                else 
+                {
+                }
+            }
+
+        </script>

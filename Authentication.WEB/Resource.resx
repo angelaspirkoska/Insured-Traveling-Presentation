@@ -1398,4 +1398,16 @@
   <data name="Config_policyNext" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="AdminPanel_EditPoliciesTab" xml:space="preserve">
+    <value>Edit Policies</value>
+  </data>
+  <data name="AdminPanel_Configuration_PolicyStatus" xml:space="preserve">
+    <value>PolicyStatus</value>
+  </data>
+  <data name="AdminPanel_Configuration_PolicyID" xml:space="preserve">
+    <value>PolicyID</value>
+  </data>
+  <data name="AdminPanel_EditConfigurableRatingEngine" xml:space="preserve">
+    <value>Edit Configurable Rating Engine</value>
+  </data>
 </root>

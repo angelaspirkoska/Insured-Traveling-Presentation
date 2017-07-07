@@ -11,6 +11,9 @@ using OfficeOpenXml;
 using InsuredTraveling.ViewModels;
 using InsuredTraveling.FormBuilder;
 using System.Collections.Generic;
+using System.Data.Entity;
+using AutoMapper;
+using InsuredTraveling.Models;
 
 namespace InsuredTraveling.Controllers
 {
@@ -26,7 +29,7 @@ namespace InsuredTraveling.Controllers
         private IFormElementsService _fes;
         private IConfigPolicyTypeService _configPolicyTypeService;
 
-        public AdminPanelController(IRolesService rs, IOkSetupService okss,IUserService us, IDiscountService ds, IExcelConfigService exs, IFormElementsService fes, IConfigPolicyTypeService configPolicyTypeService)
+        public AdminPanelController(IRolesService rs, IOkSetupService okss, IUserService us, IDiscountService ds, IExcelConfigService exs, IFormElementsService fes, IConfigPolicyTypeService configPolicyTypeService)
         {
             _rs = rs;
             _okss = okss;
@@ -35,17 +38,19 @@ namespace InsuredTraveling.Controllers
             _exs = exs;
             _fes = fes;
             _configPolicyTypeService = configPolicyTypeService;
+
         }
 
         [HttpGet]
         public ActionResult Index()
         {
             var roles = _rs.GetAllRoles();
+            var policies = _configPolicyTypeService.GetAllPolicies();
             var ok_setup = _okss.GetAllOkSetups();
 
             ViewBag.Ok_setup = ok_setup;
             ViewBag.Roles = roles;
-
+            ViewBag.Policies = policies;
             //View Bag Discount
             var discount = _ds.GetAllDiscounts();
             ViewBag.Discount = discount;
@@ -83,7 +88,8 @@ namespace InsuredTraveling.Controllers
         public ActionResult AddOK_setup(Ok_SetupModel ok)
         {
             ViewBag.AddOk_SetupMsg = "OK";
-            try {
+            try
+            {
                 ok.Created_By = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
                 ok.Created_Date = DateTime.UtcNow;
 
@@ -102,7 +108,7 @@ namespace InsuredTraveling.Controllers
             ViewBag.Discount = discount;
             ViewBag.Roles = roles;
             ViewBag.Ok_setup = ok_setup;
-          
+
             ViewBag.TabIndex = "2";
             return View("Index");
         }
@@ -148,8 +154,9 @@ namespace InsuredTraveling.Controllers
                 catch (Exception ex)
                 {
                     ViewBag.AddOk_SetupMsg = ex.ToString();
-                }               
-            }else
+                }
+            }
+            else
             {
                 ViewBag.Message = "Registration failed";
             }
@@ -190,7 +197,7 @@ namespace InsuredTraveling.Controllers
             {
                 if (excelConfigFile != null && excelConfigFile.ContentLength > 0)
                 {
-                    if(excelConfigFile.ContentType.Equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                    if (excelConfigFile.ContentType.Equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
                     {
                         var path = @"~/ExcelConfig/" + excelConfigFile.FileName;
                         var fullPath = System.Web.HttpContext.Current.Server.MapPath(path);
@@ -206,13 +213,41 @@ namespace InsuredTraveling.Controllers
                     }
                 }
                 return RedirectToAction("Index", "AdminPanel");
-            } 
+            }
             catch (Exception ex)
             {
                 return RedirectToAction("Index", "AdminPanel");
             }
         }
+        [HttpGet]
+        [Route("EditPolicy")]
+        public ActionResult EditPolicy(int id)
+        {
+            config_policy_type policyEdit = _configPolicyTypeService.GetConfigPolicyTypeByID(id);
+            ConfigPolicyTypeModel policyEditModel = Mapper.Map<config_policy_type, ConfigPolicyTypeModel>(policyEdit);
+            ViewBag.TabIndex = "5";
+            return View(policyEditModel);
+        }
 
+        [HttpPost]
+        [Route("EditPolicy")]
+        public ActionResult EditPolicy(ConfigPolicyTypeModel editedPolicy, HttpPostedFileBase excelConfigFile)
+        {
 
+            int result = _configPolicyTypeService.UpdatePolicy(editedPolicy);
+
+            if (result == -1)
+            {
+                ViewBag.Message = "NOK";
+                return RedirectToAction("Index", "AdminPanel");
+            }
+            else
+            {
+                ViewBag.Message = "OK";
+                return RedirectToAction("Index", "AdminPanel");
+            }
+         
+
+        }
     }
-}
+    }

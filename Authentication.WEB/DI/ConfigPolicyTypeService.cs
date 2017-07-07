@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using InsuredTraveling.Models;
+using  System.Configuration;
 namespace InsuredTraveling.DI
 {
     public class ConfigPolicyTypeService : IConfigPolicyTypeService
@@ -67,6 +69,29 @@ namespace InsuredTraveling.DI
             {
                 return _db.config_policy_type.Where(x => x.policy_type_name == TypeName).ToList();
             }
+        }
+        public List<config_policy_type> GetAllPolicies()
+        {
+            return _db.config_policy_type.ToList();
+        }
+        public int UpdatePolicy(ConfigPolicyTypeModel editedPolicy )
+        {
+            int result = -1;
+            try
+            {
+                config_policy_type editedPolicyDb = GetConfigPolicyTypeByID(editedPolicy.id);
+                editedPolicyDb.policy_type_name = editedPolicy.name;
+                editedPolicyDb.policy_effective_date = DateTime.ParseExact(editedPolicy.startDate, ConfigurationManager.AppSettings["DateFormat"], CultureInfo.InvariantCulture);
+                editedPolicyDb.policy_expiry_date = DateTime.ParseExact(editedPolicy.endDate, ConfigurationManager.AppSettings["DateFormat"], CultureInfo.InvariantCulture);
+                editedPolicyDb.status = editedPolicy.status;              
+                result = _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
         }
     }
 }

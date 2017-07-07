@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +8,7 @@ namespace InsuredTraveling.Models
 {
     public class ConfigPolicyTypeModel
     {
+        [Display(Name = "AdminPanel_Configuration_PolicyName", ResourceType = typeof(Resource))]
         public string name { get; set; }
         public string startDate { get; set; }
         public string endDate { get; set; }
@@ -14,5 +16,6 @@ namespace InsuredTraveling.Models
         public bool? status { get; set; }
         public string NameSurename {get;set; }
         public string raiting { get; set; }
+        public int id { get; set; }
     }
 }

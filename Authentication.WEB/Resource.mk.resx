@@ -1392,4 +1392,10 @@
   <data name="Config_policyNext" xml:space="preserve">
     <value>Следно</value>
   </data>
+  <data name="AdminPanel_EditPoliciesTab" xml:space="preserve">
+    <value>Измена на полиси</value>
+  </data>
+  <data name="AdminPanel_Configuration_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
 </root>

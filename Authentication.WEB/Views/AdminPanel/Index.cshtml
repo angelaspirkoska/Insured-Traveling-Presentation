@@ -17,6 +17,7 @@
         <li id="navSetup"><a data-toggle="pill" href="#menu1" id="navSetup"> @InsuredTraveling.Resource.AdminPanel_InsuranceSetupTab </a></li>
         <li id="navDiscount"><a data-toggle="pill" href="#DiscountMenu"> @InsuredTraveling.Resource.AdminPanel_Discount </a></li>
         <li id="navConfigurableRatingEngine"><a data-toggle="pill" href="#configRatingEngine"> @InsuredTraveling.Resource.AdminPanel_ConfigurableRatingEngine </a></li>
+        <li id="navEditPolicies"><a data-toggle="pill" href="#editpolicies"> @InsuredTraveling.Resource.AdminPanel_EditPoliciesTab </a></li>
     </ul>
 
     <div class="tab-content">
@@ -191,14 +192,14 @@
                         int i = 0;
                         foreach (var r in ViewBag.Discount)
                         {
-                    <tr>
-                        <td>@i</td>
-                        <td>@r.Discount_Name</td>
-                        <td>@r.Discount_Coef</td>
-                        <td>@r.Start_Date</td>
-                        <td>@r.End_Date</td>
-                        <td><a href="/AdminPanel/DeleteDiscount?ID=@r.ID"><span class="glyphicon glyphicon-trash"></span></a></td>
-                    </tr>
+                            <tr>
+                                <td>@i</td>
+                                <td>@r.Discount_Name</td>
+                                <td>@r.Discount_Coef</td>
+                                <td>@r.Start_Date</td>
+                                <td>@r.End_Date</td>
+                                <td><a href="/AdminPanel/DeleteDiscount?ID=@r.ID"><span class="glyphicon glyphicon-trash"></span></a></td>
+                            </tr>
                             i++;
                         }
                     }
@@ -213,12 +214,12 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-12 col-xs-12 col-lg-4">
                             <span class="glyphicon glyphicon-asterisk small" aria-hidden="true" style="color:#E41B17;"></span>
-                            @Html.LabelFor(model => model.Discount_Name , htmlAttributes: new { @class = "control-label" })
+                            @Html.LabelFor(model => model.Discount_Name, htmlAttributes: new { @class = "control-label" })
                             <div class='input-group date field-size-holder'>
                                 <div class="input-group-addon" style="width: 45px; border-radius: 2px;">
 
                                 </div>
-                                @Html.EditorFor(model => model.Discount_Name, new { htmlAttributes = new { @class = "form-control splaceholder mandatoryField insuredData" , onblur = "FindName()" } })
+                                @Html.EditorFor(model => model.Discount_Name, new { htmlAttributes = new { @class = "form-control splaceholder mandatoryField insuredData", onblur = "FindName()" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.Discount_Name, "", new { @class = "text-danger" })
                             <span style="color: red" id="UsernameMsg"></span>
@@ -318,6 +319,43 @@
                 </div>
             </form>
         </div>
+
+        <div id="editpolicies" class="tab-pane fade">
+            <h2>@InsuredTraveling.Resource.AdminPanel_EditPoliciesTab</h2>
+            <table class="table table-striped table-hover ">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_Configuration_PolicyName</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_Configuration_EffectiveDate</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_Configuration_ExpiryDate</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_Configuration_PolicyStatus</th>
+                        <th>Edit Policy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Policies != null)
+                    {
+                        int i = 0;
+                        foreach (var r in ViewBag.Policies)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@r.policy_type_name</td>
+                                <td>@r.policy_effective_date</td>
+                                <td>@r.policy_expiry_date</td>
+                                <td>@r.status</td>
+                                <td><a href="/AdminPanel/EditPolicy?id=@r.ID"><span class="glyphicon glyphicon-edit"></span></a></td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+       
     </div>
 </div>
 
@@ -348,6 +386,8 @@
             $("#createTab").removeClass("active-tab");
             $("#signupTab").removeClass("active-tab");
             $("#configRatingEngine").removeClass("active-tab");
+            $("#editpolicies").removeClass("active-tab");
+            $("#editConfigPolicyType").removeClass("active-tab");
         }
         ChangeTabsOnPost();
 

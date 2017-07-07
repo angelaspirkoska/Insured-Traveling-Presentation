@@ -124,11 +124,29 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PolicyID.
+        /// </summary>
+        public static string AdminPanel_Configuration_PolicyID {
+            get {
+                return ResourceManager.GetString("AdminPanel_Configuration_PolicyID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Policy Name.
         /// </summary>
         public static string AdminPanel_Configuration_PolicyName {
             get {
                 return ResourceManager.GetString("AdminPanel_Configuration_PolicyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PolicyStatus.
+        /// </summary>
+        public static string AdminPanel_Configuration_PolicyStatus {
+            get {
+                return ResourceManager.GetString("AdminPanel_Configuration_PolicyStatus", resourceCulture);
             }
         }
         
@@ -210,6 +228,24 @@ namespace InsuredTraveling {
         public static string AdminPanel_DiscountStartDate {
             get {
                 return ResourceManager.GetString("AdminPanel_DiscountStartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Configurable Rating Engine.
+        /// </summary>
+        public static string AdminPanel_EditConfigurableRatingEngine {
+            get {
+                return ResourceManager.GetString("AdminPanel_EditConfigurableRatingEngine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Policies.
+        /// </summary>
+        public static string AdminPanel_EditPoliciesTab {
+            get {
+                return ResourceManager.GetString("AdminPanel_EditPoliciesTab", resourceCulture);
             }
         }
         
