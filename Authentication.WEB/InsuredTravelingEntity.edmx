@@ -443,7 +443,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Username" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Controller" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Action" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="IP Address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IP Address" Type="varchar" MaxLength="1000" Nullable="false" />
           <Property Name="DateTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Time" Type="varchar" MaxLength="35" Nullable="false" />
@@ -3149,6 +3149,24 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="travel_policy" EntitySet="travel_policy" />
           </AssociationSet>
           <EntitySet Name="log_activities" EntityType="Entities.log_activities" />
+          <FunctionImport Name="elmah_GetErrorsXml" ReturnType="Collection(Entities.elmah_GetErrorsXml_Result)">
+            <Parameter Name="App" Mode="In" Type="String" />
+            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="TotalCount" Mode="Out" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="elmah_LogError">
+            <Parameter Name="ErrorId" Mode="In" Type="String" />
+            <Parameter Name="Application" Mode="In" Type="String" />
+            <Parameter Name="Host" Mode="In" Type="String" />
+            <Parameter Name="Type" Mode="In" Type="String" />
+            <Parameter Name="Source" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="In" Type="String" />
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="AllXml" Mode="In" Type="String" />
+            <Parameter Name="StatusCode" Mode="In" Type="Int32" />
+            <Parameter Name="TimeUtc" Mode="In" Type="DateTime" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -4067,6 +4085,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Date" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Time" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
         </EntityType>
+        <ComplexType Name="elmah_GetErrorsXml_Result" />
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4854,7 +4873,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

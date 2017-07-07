@@ -12,6 +12,8 @@ namespace InsuredTraveling
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class InsuredTravelingEntity : DbContext
     {
@@ -83,5 +85,8 @@ namespace InsuredTraveling
         public virtual DbSet<travel_policy> travel_policy { get; set; }
         public virtual DbSet<insured> insureds { get; set; }
         public virtual DbSet<log_activities> log_activities { get; set; }
+    
+       
+      
     }
 }
