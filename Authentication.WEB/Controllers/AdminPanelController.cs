@@ -13,7 +13,7 @@ using InsuredTraveling.ViewModels;
 namespace InsuredTraveling.Controllers
 {
     //[RoleAuthorize(roles: "Admin")]
-    [CustomActionFilter]
+    [AdminPanelFilter]
     [SessionExpire]
     public class AdminPanelController : Controller
     {

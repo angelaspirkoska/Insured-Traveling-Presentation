@@ -124,7 +124,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recent Activities.
+        ///   Looks up a localized string similar to Audit log.
         /// </summary>
         public static string ActionLog_Title {
             get {
@@ -696,6 +696,15 @@ namespace InsuredTraveling {
         public static string Error_PostalCode_Numeric {
             get {
                 return ResourceManager.GetString("Error_PostalCode_Numeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error log.
+        /// </summary>
+        public static string ErrorLog_Title {
+            get {
+                return ResourceManager.GetString("ErrorLog_Title", resourceCulture);
             }
         }
         
