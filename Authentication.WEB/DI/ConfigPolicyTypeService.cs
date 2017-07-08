@@ -74,7 +74,7 @@ namespace InsuredTraveling.DI
         {
             return _db.config_policy_type.ToList();
         }
-        public int UpdatePolicy(ConfigPolicyTypeModel editedPolicy )
+        public int EditConfigPolicyType(ConfigPolicyTypeModel editedPolicy )
         {
             int result = -1;
             try
@@ -92,6 +92,21 @@ namespace InsuredTraveling.DI
             }
 
             return result;
+        }
+
+        public int AddNewPolicyTypeVersion(ConfigPolicyTypeModel selectedPolicy)
+        {
+            try
+            {
+                _db.config_policy_type.Add(selectedPolicy);
+                _db.SaveChanges();
+                return selectedPolicy.id;
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+
         }
     }
 }

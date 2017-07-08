@@ -1410,4 +1410,7 @@
   <data name="AdminPanel_EditConfigurableRatingEngine" xml:space="preserve">
     <value>Edit Configurable Rating Engine</value>
   </data>
+  <data name="AdminPanel_Configuration_AddNewConfigPolicyTypeVersion" xml:space="preserve">
+    <value>Add New Version</value>
+  </data>
 </root>

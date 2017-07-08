@@ -1,6 +1,9 @@
 ﻿@using InsuredTraveling.Helpers
 @using System.Web.Optimization;
 @using System.Configuration;
+@using DocumentFormat.OpenXml.Wordprocessing
+@using Boolean = DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle.Boolean
+@using Styles = System.Web.Optimization.Styles
 @model InsuredTraveling.Models.AdminPanelModel
 @{
     ViewBag.Title = "Index";
@@ -330,6 +333,7 @@
                         <th>@InsuredTraveling.Resource.AdminPanel_Configuration_EffectiveDate</th>
                         <th>@InsuredTraveling.Resource.AdminPanel_Configuration_ExpiryDate</th>
                         <th>@InsuredTraveling.Resource.AdminPanel_Configuration_PolicyStatus</th>
+                        <th>@InsuredTraveling.Resource.AdminPanel_Configuration_AddNewConfigPolicyTypeVersion</th>
                         <th>Edit Policy</th>
                     </tr>
                 </thead>
@@ -343,8 +347,18 @@
                                 <td>@i</td>
                                 <td>@r.policy_type_name</td>
                                 <td>@r.policy_effective_date</td>
-                                <td>@r.policy_expiry_date</td>
-                                <td>@r.status</td>
+                                <td>@r.policy_expiry_date.ToString()</td>
+                                <td>
+                                    @if (r.status == true)
+                                    {
+                                        @Html.Label("Active");
+                                    }
+                                    else
+                                    {
+                                    @Html.Label("Inactive");
+                                    }
+                                </td>
+                                <td><a href="/AdminPanel/AddNewConfigPolicyTypeVersion?id=@r.ID"> @InsuredTraveling.Resource.AdminPanel_Configuration_AddNewConfigPolicyTypeVersion</a></td>
                                 <td><a href="/AdminPanel/EditPolicy?id=@r.ID"><span class="glyphicon glyphicon-edit"></span></a></td>
                             </tr>
                             i++;

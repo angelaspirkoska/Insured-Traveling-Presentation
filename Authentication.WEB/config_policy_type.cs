@@ -26,6 +26,8 @@ namespace InsuredTraveling
         public Nullable<System.DateTime> policy_effective_date { get; set; }
         public Nullable<System.DateTime> policy_expiry_date { get; set; }
         public Nullable<bool> status { get; set; }
+        public Nullable<int> Version { get; set; }
+        public Nullable<int> typeFrom { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<excelconfig> excelconfigs { get; set; }

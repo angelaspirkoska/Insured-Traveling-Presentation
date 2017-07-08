@@ -233,6 +233,8 @@ warning 6002: The table/view 'def.db_9eb138_config.aspnetuserlogins' does not ha
           <Property Name="policy_effective_date" Type="date" />
           <Property Name="policy_expiry_date" Type="date" />
           <Property Name="status" Type="bit" />
+          <Property Name="Version" Type="int" />
+          <Property Name="typeFrom" Type="int" />
         </EntityType>
         <EntityType Name="config_policy_values">
           <Key>
@@ -364,6 +366,7 @@ warning 6002: The table/view 'def.db_9eb138_config.aspnetuserlogins' does not ha
           <Property Name="excel_path" Type="varchar" MaxLength="250" />
           <Property Name="excel_name" Type="varchar" MaxLength="250" />
           <Property Name="id_config_policy_type" Type="int" />
+          <Property Name="version" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="exchange_rate">
           <Key>
@@ -4350,6 +4353,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="excel_name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="id_config_policy_type" Type="Int32" />
           <NavigationProperty Name="config_policy_type" Relationship="Entities.excelconfig_ibfk_1" FromRole="excelconfig" ToRole="config_policy_type" />
+          <Property Name="version" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="fk_createdby_aspnetusers">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
@@ -4396,6 +4400,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="status" Type="Boolean" />
           <NavigationProperty Name="excelconfigs" Relationship="Entities.excelconfig_ibfk_1" FromRole="config_policy_type" ToRole="excelconfig" />
           <NavigationProperty Name="config_policy" Relationship="Entities.config_policy_ibfk_1" FromRole="config_policy_type" ToRole="config_policy" />
+          <Property Name="Version" Type="Int32" />
+          <Property Name="typeFrom" Type="Int32" />
         </EntityType>
         <EntityType Name="a_test_table">
           <Key>
@@ -5317,6 +5323,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="excelconfigs">
             <EntityTypeMapping TypeName="Entities.excelconfig">
               <MappingFragment StoreEntitySet="excelconfig">
+                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="id_config_policy_type" ColumnName="id_config_policy_type" />
                 <ScalarProperty Name="excel_name" ColumnName="excel_name" />
                 <ScalarProperty Name="excel_path" ColumnName="excel_path" />
@@ -5341,6 +5348,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="config_policy_type">
             <EntityTypeMapping TypeName="Entities.config_policy_type">
               <MappingFragment StoreEntitySet="config_policy_type">
+                <ScalarProperty Name="typeFrom" ColumnName="typeFrom" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="policy_expiry_date" ColumnName="policy_expiry_date" />
                 <ScalarProperty Name="policy_effective_date" ColumnName="policy_effective_date" />

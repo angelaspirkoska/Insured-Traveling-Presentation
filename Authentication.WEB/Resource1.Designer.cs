@@ -106,6 +106,15 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add New Version.
+        /// </summary>
+        public static string AdminPanel_Configuration_AddNewConfigPolicyTypeVersion {
+            get {
+                return ResourceManager.GetString("AdminPanel_Configuration_AddNewConfigPolicyTypeVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Effective Date.
         /// </summary>
         public static string AdminPanel_Configuration_EffectiveDate {

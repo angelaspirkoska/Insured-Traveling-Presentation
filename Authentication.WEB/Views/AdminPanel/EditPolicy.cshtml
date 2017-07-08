@@ -33,16 +33,15 @@
     </div>
     <div class="form-group">
         @Html.Label(@InsuredTraveling.Resource.AdminPanel_Configuration_PolicyStatus)
-        @Html.TextBoxFor(m => m.status, new {@class = "form-control" })
-    </div>
-    <div class="form-group">
-        @Html.Label(@InsuredTraveling.Resource.AdminPanel_ConfigurationDocument)
-        <input type="file" class="form-control-file" id="excelConfigFile" name="excelConfigFile" aria-describedby="fileHelp">
+        @Html.RadioButtonFor(m => m.status, true)
+        @Html.Label("Active")
+        @Html.RadioButtonFor(m => m.status, false)
+        @Html.Label("Inactive")
     </div>
       <div class="form-group">
           <div class="col-md-4 col-sm-4" style="padding-left: 0px;">
               @Html.HiddenFor(m => m.id)
-              <input type="submit" value="Прикачи" class="btn btn-default btn-block"/>
+              <input type="submit" value="Зачувај" class="btn btn-default btn-block"/>
           </div>
 
     </div>

@@ -16,6 +16,8 @@ namespace InsuredTraveling.DI
         IQueryable<SelectListItem> GetAllActivePolicyTypesDropdown();
         List<config_policy_type> GetAllPolicies();
 
-        int UpdatePolicy(ConfigPolicyTypeModel editedPolicy);
+        int EditConfigPolicyType(ConfigPolicyTypeModel editedPolicy);
+        int AddNewConfigPolicyType(config_policy_type selectedPolicy);
+
     }
 }

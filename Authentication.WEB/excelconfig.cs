@@ -28,6 +28,7 @@ namespace InsuredTraveling
         public string excel_path { get; set; }
         public string excel_name { get; set; }
         public Nullable<int> id_config_policy_type { get; set; }
+        public int version { get; set; }
     
         public virtual aspnetuser aspnetuser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

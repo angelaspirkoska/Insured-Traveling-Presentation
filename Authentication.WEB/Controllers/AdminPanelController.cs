@@ -234,7 +234,7 @@ namespace InsuredTraveling.Controllers
         public ActionResult EditPolicy(ConfigPolicyTypeModel editedPolicy, HttpPostedFileBase excelConfigFile)
         {
 
-            int result = _configPolicyTypeService.UpdatePolicy(editedPolicy);
+            int result = _configPolicyTypeService.EditConfigPolicyType(editedPolicy);
 
             if (result == -1)
             {
@@ -247,6 +247,36 @@ namespace InsuredTraveling.Controllers
                 return RedirectToAction("Index", "AdminPanel");
             }
          
+
+        }
+        [HttpGet]
+        [Route("AddNewConfigPolicyTypeVersion")]
+        public ActionResult AddNewConfigPolicyTypeVersion(int id)
+        {
+            config_policy_type policyEdit = _configPolicyTypeService.GetConfigPolicyTypeByID(id);
+            ConfigPolicyTypeModel policyEditModel = Mapper.Map<config_policy_type, ConfigPolicyTypeModel>(policyEdit);
+            ViewBag.TabIndex = "5";
+            return View(policyEditModel);
+        }
+
+        [HttpPost]
+        [Route("AddNewConfigPolicyTypeVersion")]
+        public ActionResult AddNewConfigPolicyTypeVersion(ConfigPolicyTypeModel editedPolicy, HttpPostedFileBase excelConfigFile)
+        {
+
+            int result = _configPolicyTypeService.EditConfigPolicyType(editedPolicy);
+
+            if (result == -1)
+            {
+                ViewBag.Message = "NOK";
+                return RedirectToAction("Index", "AdminPanel");
+            }
+            else
+            {
+                ViewBag.Message = "OK";
+                return RedirectToAction("Index", "AdminPanel");
+            }
+
 
         }
     }

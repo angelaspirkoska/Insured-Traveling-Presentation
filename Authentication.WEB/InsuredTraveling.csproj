@@ -2525,6 +2525,7 @@
     <Content Include="Views\ConfigurationPolicy\_PolicyHolder.cshtml" />
     <Content Include="Views\ConfigurationPolicy\_PolicyInsured.cshtml" />
     <Content Include="Views\AdminPanel\EditPolicy.cshtml" />
+    <Content Include="Views\AdminPanel\AddNewConfigPolicyTypeVersion.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
