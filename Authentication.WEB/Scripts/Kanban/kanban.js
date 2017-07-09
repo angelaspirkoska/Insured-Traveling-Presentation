@@ -43,12 +43,23 @@ function AddNewTicket() {
             $("#loader").hide();
         },
         error: function () {
+            $("#addNewTicketModal input").val("");
+            $("#addNewTicketModal select").val(-1);
+            $("#addNewTicketModal textarea").val("");
+            $("#ticketTypeComponents").html("");
+            $('.selectpicker').selectpicker('deselectAll');
             $("#loader").hide();
         }
     });
 }
 
 function deletePoolList(poolListId) {
+    $("#poolListForDeleteId").val(poolListId);
+    $("#deletePoolListModal").modal("show");
+}
+
+function submitDeletePoolList() {
+    var poolListId = $("#poolListForDeleteId").val();
     $("#loader").show();
     $.ajax({
         url: "/Kanban/DeletePoolList",
@@ -59,14 +70,22 @@ function deletePoolList(poolListId) {
         success: function () {
             $("#loader").hide();
             $("#" + poolListId).remove();
+            $("#deletePoolListModal").modal("hide");
         },
         error: function () {
             $("#loader").hide();
+            $("#deletePoolListModal").modal("hide");
         }
     });
 }
 
 function deleteTicket(ticketId) {
+    $("#ticketForDeleteId").val(ticketId);
+    $("#deleteTicketModal").modal("show");
+}
+
+function submitDeleteTicket() {
+    var ticketId = $("#ticketForDeleteId").val();
     $("#loader").show();
     $.ajax({
         url: "/Kanban/DeleteTicket",
@@ -77,9 +96,11 @@ function deleteTicket(ticketId) {
         success: function () {
             $("#loader").hide();
             $('div[data-ticketid="' + ticketId + '"]').remove();
+            $("#deleteTicketModal").modal("hide");
         },
         error: function () {
             $("#loader").hide();
+            $("#deleteTicketModal").modal("hide");
         }
     });
 }

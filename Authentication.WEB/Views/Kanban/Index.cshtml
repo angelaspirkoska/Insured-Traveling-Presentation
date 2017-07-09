@@ -68,7 +68,52 @@
 <div id="ticketDetailsModal" class="modal fade" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content" id="ticketDetailsContainer">
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
+<div id="deleteTicketModal" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Are you sure</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="ticketForDeleteId" />
+                <p>Are you sure you want to delete the ticket </p><span id="ticketForDeleteContainer"></span>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="button" class="btn btn-block btn-add-new btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+                <div class="col-sm-4">
+                    <button onclick="submitDeleteTicket()" type="button" class="btn btn-block btn-add-new btn-success">Yes</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="deletePoolListModal" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Are you sure</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="poolListForDeleteId" />
+                <p>Are you sure you want to delete the pool list </p><span id="poolListForDeleteContainer"></span>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="button" class="btn btn-block btn-add-new btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+                <div class="col-sm-4">
+                    <button onclick="submitDeletePoolList()" type="button" class="btn btn-block btn-add-new btn-success">Yes</button>
+                </div>
+            </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
