@@ -273,7 +273,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\daterangepicker.css" />
     <Content Include="Content\daterangepicker.js" />
-    <Content Include="Content\dropdownliststyle.css" />
     <Content Include="Content\flags\en-US.png" />
     <Content Include="Content\flags\mk-MK.png" />
     <Content Include="Content\font-awesome.css" />
@@ -395,7 +394,6 @@
     <Content Include="Scripts\jquery.metadata.js" />
     <Content Include="Scripts\jquery.signalR-2.2.1.js" />
     <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
-    <Content Include="Scripts\jquery.sumoselect.min.js" />
     <Content Include="Scripts\jquery.tablesorter.js" />
     <Content Include="Scripts\jquery.tablesorter.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
