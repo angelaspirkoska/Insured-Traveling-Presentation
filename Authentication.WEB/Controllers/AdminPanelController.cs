@@ -11,7 +11,9 @@ using OfficeOpenXml;
 using InsuredTraveling.ViewModels;
 using InsuredTraveling.FormBuilder;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
+using System.Globalization;
 using AutoMapper;
 using InsuredTraveling.Models;
 
@@ -261,10 +263,42 @@ namespace InsuredTraveling.Controllers
 
         [HttpPost]
         [Route("AddNewConfigPolicyTypeVersion")]
-        public ActionResult AddNewConfigPolicyTypeVersion(ConfigPolicyTypeModel editedPolicy, HttpPostedFileBase excelConfigFile)
+        public ActionResult AddNewConfigPolicyTypeVersion(ConfigPolicyTypeModel editedPolicy,HttpPostedFileBase excelConfigFile)
         {
+            var datetimeformat =  ConfigurationManager.AppSettings["DateFormat"];
+            datetimeformat = datetimeformat.Replace("yy", "yyyy");
+            config_policy_type policyEdit = _configPolicyTypeService.GetConfigPolicyTypeByID(editedPolicy.id);
+            var version = policyEdit.Version;
+            var configPolicyType = new config_policy_type();
+            configPolicyType.policy_type_name = editedPolicy.name;
+            configPolicyType.policy_effective_date = DateTime.ParseExact(editedPolicy.startDate, datetimeformat, CultureInfo.InvariantCulture);
+            configPolicyType.policy_expiry_date = DateTime.ParseExact(editedPolicy.endDate, datetimeformat, CultureInfo.InvariantCulture);
+            configPolicyType.status = editedPolicy.status;
+            configPolicyType.Version = version + 1;
+            configPolicyType.typeFrom = editedPolicy.id;
+            int result = _configPolicyTypeService.AddConfigPolicyType(configPolicyType);
 
-            int result = _configPolicyTypeService.EditConfigPolicyType(editedPolicy);
+            if (excelConfigFile != null && excelConfigFile.ContentLength > 0)
+            {
+                try
+                {
+                    if (excelConfigFile.ContentType.Equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                    {
+                        var path = @"~/ExcelConfig/" + excelConfigFile.FileName;
+                        var fullPath = System.Web.HttpContext.Current.Server.MapPath(path);
+                        excelConfigFile.SaveAs(fullPath);
+
+                        excelconfig excelConfig = ExcelReader.CreateExcelConfigObject(path, excelConfigFile.FileName, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name), configPolicyType.ID, DateTime.ParseExact(editedPolicy.startDate, datetimeformat, CultureInfo.InvariantCulture), DateTime.ParseExact(editedPolicy.endDate, datetimeformat, CultureInfo.InvariantCulture));
+                        var excelId = _exs.AddExcelConfig(excelConfig);
+                    }
+                    return RedirectToAction("Index", "AdminPanel");
+                }
+                catch (Exception ex)
+                {
+                    return RedirectToAction("Index", "AdminPanel");
+                }
+
+            }
 
             if (result == -1)
             {
@@ -277,7 +311,7 @@ namespace InsuredTraveling.Controllers
                 return RedirectToAction("Index", "AdminPanel");
             }
 
-
+     
         }
     }
     }

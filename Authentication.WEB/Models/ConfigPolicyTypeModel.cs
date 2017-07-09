@@ -17,5 +17,7 @@ namespace InsuredTraveling.Models
         public string NameSurename {get;set; }
         public string raiting { get; set; }
         public int id { get; set; }
+        public int version { get; set; }
+        public int typeFrom { get; set; }
     }
 }
