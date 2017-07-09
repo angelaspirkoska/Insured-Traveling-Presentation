@@ -17,7 +17,7 @@ namespace InsuredTraveling.DI
         List<config_policy_type> GetAllPolicies();
 
         int EditConfigPolicyType(ConfigPolicyTypeModel editedPolicy);
-        int AddNewConfigPolicyType(config_policy_type selectedPolicy);
+        int AddNewPolicyTypeVersion(config_policy_type selectedPolicy);
 
     }
 }

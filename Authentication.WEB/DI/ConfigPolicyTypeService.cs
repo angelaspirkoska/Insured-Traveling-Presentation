@@ -94,13 +94,13 @@ namespace InsuredTraveling.DI
             return result;
         }
 
-        public int AddNewPolicyTypeVersion(ConfigPolicyTypeModel selectedPolicy)
+        public int AddNewPolicyTypeVersion(config_policy_type selectedPolicy)
         {
             try
             {
                 _db.config_policy_type.Add(selectedPolicy);
                 _db.SaveChanges();
-                return selectedPolicy.id;
+                return selectedPolicy.ID;
             }
             catch (Exception e)
             {
