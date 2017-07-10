@@ -294,6 +294,7 @@ namespace InsuredTraveling.FormBuilder
             excelConfig.id_config_policy_type = idConfigPolicyType;
             excelConfig.ValidDateStart = effectiveDate;
             excelConfig.ValidDateEnd = expiryDate;
+            excelConfig.version = 1;
             return excelConfig;
         }
         public static excelconfig CreateExcelConfigObjectForPolicyVersion(string path, string fileName, string createdBy, int idConfigPolicyType, DateTime effectiveDate, DateTime expiryDate,int version)
@@ -316,6 +317,7 @@ namespace InsuredTraveling.FormBuilder
             configPolicyType.policy_effective_date = effectiveDate;
             configPolicyType.policy_expiry_date = expiryDate;
             configPolicyType.status = true;
+            configPolicyType.version = 1;
             return configPolicyType;
         }
     }

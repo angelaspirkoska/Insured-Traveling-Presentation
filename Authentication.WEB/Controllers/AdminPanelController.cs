@@ -202,14 +202,15 @@ namespace InsuredTraveling.Controllers
                 {
                     if (excelConfigFile.ContentType.Equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
                     {
-                        var path = @"~/ExcelConfig/" + excelConfigFile.FileName;
+                        var excelFileName = excelConfigFile.FileName.Replace(".xlsx", "") + "_" + Guid.NewGuid()+ ".xlsx";
+                        var path = @"~/ExcelConfig/" + excelFileName;
                         var fullPath = System.Web.HttpContext.Current.Server.MapPath(path);
                         excelConfigFile.SaveAs(fullPath);
 
                         var configPolicyType = ExcelReader.CreateConfigPolicyTypeObject(policyName, effectiveDate, expiryDate);
                         configPolicyType.ID = _configPolicyTypeService.AddConfigPolicyType(configPolicyType);
 
-                        excelconfig excelConfig = ExcelReader.CreateExcelConfigObject(path, excelConfigFile.FileName, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name), configPolicyType.ID, effectiveDate, expiryDate);
+                        excelconfig excelConfig = ExcelReader.CreateExcelConfigObject(path, excelFileName, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name), configPolicyType.ID, effectiveDate, expiryDate);
                         var excelId = _exs.AddExcelConfig(excelConfig);
 
                         ExcelReader.SaveExcelConfiguration(fullPath, excelId);
