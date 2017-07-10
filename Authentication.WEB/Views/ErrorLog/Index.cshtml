@@ -1,5 +1,7 @@
-﻿@using System.Web.Optimization;
+﻿@model IQueryable<InsuredTraveling.elmah_error>
+@using System.Web.Optimization;
 @using System.Configuration;
+@using OfficeOpenXml.Style
 
 @{
     ViewBag.Title = "Error Log";
@@ -7,6 +9,44 @@
 }
 
 <h2>@InsuredTraveling.Resource.ErrorLog_Title</h2>
+
+<div>
+    <div class="row">
+        <table style="width: 100%; " class="table table-bordered table-hover table-striped" id="tableErrorLog">
+            <thead>
+                <tr>
+                    <th>@InsuredTraveling.Resource.ErrorLog_Sequence</th>
+                    <th>@InsuredTraveling.Resource.ErrorLog_User</th>
+                    <th>@InsuredTraveling.Resource.ErrorLog_Source</th>
+                    <th>@InsuredTraveling.Resource.ErrorLog_Status</th>
+                    <th>@InsuredTraveling.Resource.ErrorLog_Type</th>
+                    <th>@InsuredTraveling.Resource.ErrorLog_Message</th>
+                    <th>@InsuredTraveling.Resource.ErrorLog_Time</th>
+                    <th>@InsuredTraveling.Resource.ErrorLog_Application</th>
+                    <th>@InsuredTraveling.Resource.ErrorLog_Host</th>
+                    @*<th>@InsuredTraveling.Resource.ErrorLog_AllXml</th>*@
+                    <th>@InsuredTraveling.Resource.ErrorLog_ID</th>
+                </tr>
+            </thead>
+            @foreach (var errors in Model)
+            {
+                <tr>
+                    <td>@errors.Sequence</td>
+                    <td>@errors.User</td>
+                    <td>@errors.Source</td>
+                    <td>@errors.StatusCode</td>
+                    <td>@errors.Type</td>
+                    <td>@errors.Message</td>
+                    <td>@errors.TimeUtc</td>
+                    <td>@errors.Application</td>
+                    <td>@errors.Host</td>
+                    @*<td>@errors.AllXml</td>*@
+                    <td>@errors.ErrorId</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
 
 @Scripts.Render("~/bundles/jqueryui")
 @Styles.Render("~/Content/jqueryuicss")

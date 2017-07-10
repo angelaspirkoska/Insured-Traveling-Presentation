@@ -198,7 +198,35 @@ namespace InsuredTraveling.App_Start
                 dst.Total_Premium = src.Total_Premium;
                 dst.PolicyHolderId = src.Policy_HolderID;                
             });
+            Mapper.CreateMap<ErrorLog, elmah_error>().AfterMap((src, dst) =>
+            {
+                dst.Sequence= src.sequence;
+                dst.User = src.username;
+                dst.Application = src.application;
+                dst.ErrorId = src.error_id;
+                dst.Type = src.type;
+                dst.AllXml = src.xml;
+                dst.Host = src.host;
+                dst.Message = src.message;
+                dst.TimeUtc = src.datetime;
+                dst.Source = src.source;
+                dst.StatusCode = src.status_code;
+            });
 
+            Mapper.CreateMap<elmah_error, ErrorLog>().AfterMap((src, dst) =>
+            {
+                dst.sequence= src.Sequence;
+                dst.username = src.User;
+                dst.application = src.Application;
+                dst.error_id = src.ErrorId;
+                dst.type = src.Type;
+                dst.xml = src.AllXml;
+                dst.host = src.Host;
+                dst.message = src.Message;
+                dst.datetime = src.TimeUtc;
+                dst.source = src.Source;
+                dst.status_code = src.StatusCode;
+            });
             Mapper.CreateMap<ActionLog1, log_activities>().AfterMap((src, dst) =>
             {
                 dst.Log_Activity_ID = src.log_activityID;

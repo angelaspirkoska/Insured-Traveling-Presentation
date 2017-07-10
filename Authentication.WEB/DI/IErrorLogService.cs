@@ -5,7 +5,10 @@ using System.Web;
 
 namespace InsuredTraveling.DI
 {
-    public class IErrorLogService
+    public interface IErrorLogService
     {
+        IQueryable<elmah_error> GetAllErrorLogs();
+
+         void AddLog(elmah_error ErrorLog);
     }
 }
