@@ -1384,7 +1384,7 @@
     <value>Time</value>
   </data>
   <data name="ActionLog_Title" xml:space="preserve">
-    <value>Audit log</value>
+    <value>General Audit log</value>
   </data>
   <data name="ActionLog_Username" xml:space="preserve">
     <value>Username</value>
@@ -1397,5 +1397,38 @@
   </data>
   <data name="ErrorLog_Title" xml:space="preserve">
     <value>Error log</value>
+  </data>
+  <data name="ErrorLog_AllXml" xml:space="preserve">
+    <value>All Xml</value>
+  </data>
+  <data name="ErrorLog_Application" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="ErrorLog_Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="ErrorLog_ID" xml:space="preserve">
+    <value>Error ID</value>
+  </data>
+  <data name="ErrorLog_Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="ErrorLog_Sequence" xml:space="preserve">
+    <value>Sequence</value>
+  </data>
+  <data name="ErrorLog_Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="ErrorLog_Status" xml:space="preserve">
+    <value>Status code</value>
+  </data>
+  <data name="ErrorLog_Time" xml:space="preserve">
+    <value>Time UTC</value>
+  </data>
+  <data name="ErrorLog_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="ErrorLog_User" xml:space="preserve">
+    <value>User</value>
   </data>
 </root>

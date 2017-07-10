@@ -1392,4 +1392,37 @@
   <data name="ErrorLog_Title" xml:space="preserve">
     <value>Лог за грешки</value>
   </data>
+  <data name="ErrorLog_AllXml" xml:space="preserve">
+    <value>Xml</value>
+  </data>
+  <data name="ErrorLog_Application" xml:space="preserve">
+    <value>Апликација</value>
+  </data>
+  <data name="ErrorLog_Host" xml:space="preserve">
+    <value>Хост</value>
+  </data>
+  <data name="ErrorLog_ID" xml:space="preserve">
+    <value>Број на грешка</value>
+  </data>
+  <data name="ErrorLog_Message" xml:space="preserve">
+    <value>Порака</value>
+  </data>
+  <data name="ErrorLog_Sequence" xml:space="preserve">
+    <value>Секвенца</value>
+  </data>
+  <data name="ErrorLog_Source" xml:space="preserve">
+    <value>Извор</value>
+  </data>
+  <data name="ErrorLog_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="ErrorLog_Time" xml:space="preserve">
+    <value>Време</value>
+  </data>
+  <data name="ErrorLog_Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="ErrorLog_User" xml:space="preserve">
+    <value>Корисник</value>
+  </data>
 </root>

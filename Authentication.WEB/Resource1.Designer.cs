@@ -124,7 +124,7 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Audit log.
+        ///   Looks up a localized string similar to General Audit log.
         /// </summary>
         public static string ActionLog_Title {
             get {
@@ -700,11 +700,110 @@ namespace InsuredTraveling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Xml.
+        /// </summary>
+        public static string ErrorLog_AllXml {
+            get {
+                return ResourceManager.GetString("ErrorLog_AllXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application.
+        /// </summary>
+        public static string ErrorLog_Application {
+            get {
+                return ResourceManager.GetString("ErrorLog_Application", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host.
+        /// </summary>
+        public static string ErrorLog_Host {
+            get {
+                return ResourceManager.GetString("ErrorLog_Host", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error ID.
+        /// </summary>
+        public static string ErrorLog_ID {
+            get {
+                return ResourceManager.GetString("ErrorLog_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        public static string ErrorLog_Message {
+            get {
+                return ResourceManager.GetString("ErrorLog_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sequence.
+        /// </summary>
+        public static string ErrorLog_Sequence {
+            get {
+                return ResourceManager.GetString("ErrorLog_Sequence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source.
+        /// </summary>
+        public static string ErrorLog_Source {
+            get {
+                return ResourceManager.GetString("ErrorLog_Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status code.
+        /// </summary>
+        public static string ErrorLog_Status {
+            get {
+                return ResourceManager.GetString("ErrorLog_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time UTC.
+        /// </summary>
+        public static string ErrorLog_Time {
+            get {
+                return ResourceManager.GetString("ErrorLog_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error log.
         /// </summary>
         public static string ErrorLog_Title {
             get {
                 return ResourceManager.GetString("ErrorLog_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string ErrorLog_Type {
+            get {
+                return ResourceManager.GetString("ErrorLog_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.
+        /// </summary>
+        public static string ErrorLog_User {
+            get {
+                return ResourceManager.GetString("ErrorLog_User", resourceCulture);
             }
         }
         
