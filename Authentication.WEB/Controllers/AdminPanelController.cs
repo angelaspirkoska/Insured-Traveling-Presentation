@@ -16,6 +16,7 @@ using System.Data.Entity;
 using System.Globalization;
 using AutoMapper;
 using InsuredTraveling.Models;
+using Newtonsoft.Json.Linq;
 
 namespace InsuredTraveling.Controllers
 {
@@ -265,30 +266,42 @@ namespace InsuredTraveling.Controllers
         [Route("AddNewConfigPolicyTypeVersion")]
         public ActionResult AddNewConfigPolicyTypeVersion(ConfigPolicyTypeModel editedPolicy,HttpPostedFileBase excelConfigFile)
         {
-            var datetimeformat =  ConfigurationManager.AppSettings["DateFormat"];
+            var datetimeformat = ConfigurationManager.AppSettings["DateFormat"];
             datetimeformat = datetimeformat.Replace("yy", "yyyy");
-            config_policy_type policyEdit = _configPolicyTypeService.GetConfigPolicyTypeByID(editedPolicy.id);
-            var version = policyEdit.Version;
+            config_policy_type policyEdit = new config_policy_type();
+            if (Convert.ToInt32(editedPolicy.typeFrom) == 0)
+            {
+                policyEdit = _configPolicyTypeService.GetConfigPolicyTypeByTypeFromID(editedPolicy.id);
+            }
+            else
+            {
+                policyEdit = _configPolicyTypeService.GetConfigPolicyTypeByID(editedPolicy.id);
+            }
+           
+            var version = policyEdit.version;
             var configPolicyType = new config_policy_type();
             configPolicyType.policy_type_name = editedPolicy.name;
             configPolicyType.policy_effective_date = DateTime.ParseExact(editedPolicy.startDate, datetimeformat, CultureInfo.InvariantCulture);
             configPolicyType.policy_expiry_date = DateTime.ParseExact(editedPolicy.endDate, datetimeformat, CultureInfo.InvariantCulture);
             configPolicyType.status = editedPolicy.status;
-            configPolicyType.Version = version + 1;
+            configPolicyType.version = version + 1;
             configPolicyType.typeFrom = editedPolicy.id;
-            int result = _configPolicyTypeService.AddConfigPolicyType(configPolicyType);
+
 
             if (excelConfigFile != null && excelConfigFile.ContentLength > 0)
             {
                 try
                 {
-                    if (excelConfigFile.ContentType.Equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                    if (excelConfigFile.ContentType.Equals(
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
                     {
                         var path = @"~/ExcelConfig/" + excelConfigFile.FileName;
                         var fullPath = System.Web.HttpContext.Current.Server.MapPath(path);
                         excelConfigFile.SaveAs(fullPath);
-
-                        excelconfig excelConfig = ExcelReader.CreateExcelConfigObject(path, excelConfigFile.FileName, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name), configPolicyType.ID, DateTime.ParseExact(editedPolicy.startDate, datetimeformat, CultureInfo.InvariantCulture), DateTime.ParseExact(editedPolicy.endDate, datetimeformat, CultureInfo.InvariantCulture));
+                        configPolicyType.ID = _configPolicyTypeService.AddConfigPolicyType(configPolicyType);
+                        excelconfig selectedExcel = _exs.GetExcelConfigByPolicyTypeId(editedPolicy.id);
+                        var newExcelVersion = selectedExcel.version + 1;
+                        excelconfig excelConfig = ExcelReader.CreateExcelConfigObjectForPolicyVersion(path, excelConfigFile.FileName,_us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name),configPolicyType.ID,DateTime.ParseExact(editedPolicy.startDate, datetimeformat, CultureInfo.InvariantCulture), DateTime.ParseExact(editedPolicy.endDate, datetimeformat, CultureInfo.InvariantCulture),newExcelVersion);
                         var excelId = _exs.AddExcelConfig(excelConfig);
                     }
                     return RedirectToAction("Index", "AdminPanel");
@@ -300,18 +313,10 @@ namespace InsuredTraveling.Controllers
 
             }
 
-            if (result == -1)
-            {
-                ViewBag.Message = "NOK";
-                return RedirectToAction("Index", "AdminPanel");
-            }
-            else
-            {
-                ViewBag.Message = "OK";
-                return RedirectToAction("Index", "AdminPanel");
-            }
+            return RedirectToAction("Index", "AdminPanel");
+        
+    }
 
-     
-        }
+       
     }
     }

@@ -43,6 +43,10 @@ namespace InsuredTraveling.DI
         {
             return _db.config_policy_type.Where(x => x.ID == id).FirstOrDefault();
         }
+        public config_policy_type GetConfigPolicyTypeByTypeFromID(int id)
+        {
+            return _db.config_policy_type.Where(x => x.typeFrom == id).OrderByDescending(x => x.ID).FirstOrDefault();
+        }
 
         public List<config_policy_type> GetTypeByName(string TypeName)
         {
@@ -76,13 +80,15 @@ namespace InsuredTraveling.DI
         }
         public int EditConfigPolicyType(ConfigPolicyTypeModel editedPolicy )
         {
+            var datetimeformat = ConfigurationManager.AppSettings["DateFormat"];
+            datetimeformat = datetimeformat.Replace("yy", "yyyy");
             int result = -1;
             try
             {
                 config_policy_type editedPolicyDb = GetConfigPolicyTypeByID(editedPolicy.id);
                 editedPolicyDb.policy_type_name = editedPolicy.name;
-                editedPolicyDb.policy_effective_date = DateTime.ParseExact(editedPolicy.startDate, ConfigurationManager.AppSettings["DateFormat"], CultureInfo.InvariantCulture);
-                editedPolicyDb.policy_expiry_date = DateTime.ParseExact(editedPolicy.endDate, ConfigurationManager.AppSettings["DateFormat"], CultureInfo.InvariantCulture);
+                editedPolicyDb.policy_effective_date = DateTime.ParseExact(editedPolicy.startDate, datetimeformat, CultureInfo.InvariantCulture);
+                editedPolicyDb.policy_expiry_date = DateTime.ParseExact(editedPolicy.endDate, datetimeformat, CultureInfo.InvariantCulture);
                 editedPolicyDb.status = editedPolicy.status;              
                 result = _db.SaveChanges();
             }
@@ -108,5 +114,6 @@ namespace InsuredTraveling.DI
             }
 
         }
+     
     }
 }

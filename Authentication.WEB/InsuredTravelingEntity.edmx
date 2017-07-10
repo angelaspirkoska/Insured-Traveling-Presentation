@@ -233,7 +233,7 @@ warning 6002: The table/view 'def.db_9eb138_config.aspnetuserlogins' does not ha
           <Property Name="policy_effective_date" Type="date" />
           <Property Name="policy_expiry_date" Type="date" />
           <Property Name="status" Type="bit" />
-          <Property Name="Version" Type="int" />
+          <Property Name="version" Type="int" Nullable="false" />
           <Property Name="typeFrom" Type="int" />
         </EntityType>
         <EntityType Name="config_policy_values">
@@ -3622,19 +3622,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="excelconfig" EntitySet="excelconfigs" />
             <End Role="form_elements" EntitySet="form_elements" />
           </AssociationSet>
-          <EntitySet Name="config_policy_type" EntityType="Entities.config_policy_type" />
           <EntitySet Name="a_test_table" EntityType="Entities.a_test_table" />
           <EntitySet Name="a_test" EntityType="Entities.a_test" />
-          <AssociationSet Name="excelconfig_ibfk_1" Association="Entities.excelconfig_ibfk_1">
-            <End Role="config_policy_type" EntitySet="config_policy_type" />
-            <End Role="excelconfig" EntitySet="excelconfigs" />
-          </AssociationSet>
           <EntitySet Name="config_policy" EntityType="Entities.config_policy" />
           <EntitySet Name="config_policy_values" EntityType="Entities.config_policy_values" />
-          <AssociationSet Name="config_policy_ibfk_1" Association="Entities.config_policy_ibfk_1">
-            <End Role="config_policy_type" EntitySet="config_policy_type" />
-            <End Role="config_policy" EntitySet="config_policy" />
-          </AssociationSet>
           <AssociationSet Name="config_policy_values_ibfk_1" Association="Entities.config_policy_values_ibfk_1">
             <End Role="config_policy" EntitySet="config_policy" />
             <End Role="config_policy_values" EntitySet="config_policy_values" />
@@ -3653,6 +3644,15 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="config_insured_policy_ibfk_1" Association="Entities.config_insured_policy_ibfk_1">
             <End Role="config_insureds" EntitySet="config_insureds" />
             <End Role="config_insured_policy" EntitySet="config_insured_policy" />
+          </AssociationSet>
+          <EntitySet Name="config_policy_type" EntityType="Entities.config_policy_type" />
+          <AssociationSet Name="config_policy_ibfk_1" Association="Entities.config_policy_ibfk_1">
+            <End Role="config_policy_type" EntitySet="config_policy_type" />
+            <End Role="config_policy" EntitySet="config_policy" />
+          </AssociationSet>
+          <AssociationSet Name="excelconfig_ibfk_1" Association="Entities.excelconfig_ibfk_1">
+            <End Role="config_policy_type" EntitySet="config_policy_type" />
+            <End Role="excelconfig" EntitySet="excelconfigs" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment_status">
@@ -4352,8 +4352,8 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="excel_path" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="excel_name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="id_config_policy_type" Type="Int32" />
-          <NavigationProperty Name="config_policy_type" Relationship="Entities.excelconfig_ibfk_1" FromRole="excelconfig" ToRole="config_policy_type" />
           <Property Name="version" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="config_policy_type" Relationship="Entities.excelconfig_ibfk_1" FromRole="excelconfig" ToRole="config_policy_type" />
         </EntityType>
         <Association Name="fk_createdby_aspnetusers">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
@@ -4389,20 +4389,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="config_policy_type">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="policy_type_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="policy_effective_date" Type="DateTime" />
-          <Property Name="policy_expiry_date" Type="DateTime" />
-          <Property Name="status" Type="Boolean" />
-          <NavigationProperty Name="excelconfigs" Relationship="Entities.excelconfig_ibfk_1" FromRole="config_policy_type" ToRole="excelconfig" />
-          <NavigationProperty Name="config_policy" Relationship="Entities.config_policy_ibfk_1" FromRole="config_policy_type" ToRole="config_policy" />
-          <Property Name="Version" Type="Int32" />
-          <Property Name="typeFrom" Type="Int32" />
-        </EntityType>
         <EntityType Name="a_test_table">
           <Key>
             <PropertyRef Name="empno" />
@@ -4419,18 +4405,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="ColumnName" Type="Int32" />
         </EntityType>
-        <Association Name="excelconfig_ibfk_1">
-          <End Type="Entities.config_policy_type" Role="config_policy_type" Multiplicity="0..1" />
-          <End Type="Entities.excelconfig" Role="excelconfig" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="config_policy_type">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="excelconfig">
-              <PropertyRef Name="id_config_policy_type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="config_policy">
           <Key>
             <PropertyRef Name="IDPolicy" />
@@ -4439,11 +4413,11 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="ID_Config_poliy_Type" Type="Int32" Nullable="false" />
           <Property Name="Rating" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="IsPaid" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="config_policy_type" Relationship="Entities.config_policy_ibfk_1" FromRole="config_policy" ToRole="config_policy_type" />
           <NavigationProperty Name="config_policy_values" Relationship="Entities.config_policy_values_ibfk_1" FromRole="config_policy" ToRole="config_policy_values" />
           <NavigationProperty Name="config_insured_policy" Relationship="Entities.config_insured_policy_ibfk_3" FromRole="config_policy" ToRole="config_insured_policy" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="config_policy_type" Relationship="Entities.config_policy_ibfk_1" FromRole="config_policy" ToRole="config_policy_type" />
         </EntityType>
         <EntityType Name="config_policy_values">
           <Key>
@@ -4455,18 +4429,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="IDPolicy" Type="Int32" Nullable="false" />
           <NavigationProperty Name="config_policy" Relationship="Entities.config_policy_values_ibfk_1" FromRole="config_policy_values" ToRole="config_policy" />
         </EntityType>
-        <Association Name="config_policy_ibfk_1">
-          <End Type="Entities.config_policy_type" Role="config_policy_type" Multiplicity="1" />
-          <End Type="Entities.config_policy" Role="config_policy" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="config_policy_type">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="config_policy">
-              <PropertyRef Name="ID_Config_poliy_Type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="config_policy_values_ibfk_1">
           <End Type="Entities.config_policy" Role="config_policy" Multiplicity="1" />
           <End Type="Entities.config_policy_values" Role="config_policy_values" Multiplicity="*" />
@@ -4545,6 +4507,44 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             </Principal>
             <Dependent Role="config_insured_policy">
               <PropertyRef Name="IDInsured" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="config_policy_type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="policy_type_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="policy_effective_date" Type="DateTime" />
+          <Property Name="policy_expiry_date" Type="DateTime" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="version" Type="Int32" Nullable="false" />
+          <Property Name="typeFrom" Type="Int32" />
+          <NavigationProperty Name="config_policy" Relationship="Entities.config_policy_ibfk_1" FromRole="config_policy_type" ToRole="config_policy" />
+          <NavigationProperty Name="excelconfigs" Relationship="Entities.excelconfig_ibfk_1" FromRole="config_policy_type" ToRole="excelconfig" />
+        </EntityType>
+        <Association Name="config_policy_ibfk_1">
+          <End Type="Entities.config_policy_type" Role="config_policy_type" Multiplicity="1" />
+          <End Type="Entities.config_policy" Role="config_policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="config_policy_type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="config_policy">
+              <PropertyRef Name="ID_Config_poliy_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="excelconfig_ibfk_1">
+          <End Type="Entities.config_policy_type" Role="config_policy_type" Multiplicity="0..1" />
+          <End Type="Entities.excelconfig" Role="excelconfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="config_policy_type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="excelconfig">
+              <PropertyRef Name="id_config_policy_type" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5345,19 +5345,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="config_policy_type">
-            <EntityTypeMapping TypeName="Entities.config_policy_type">
-              <MappingFragment StoreEntitySet="config_policy_type">
-                <ScalarProperty Name="typeFrom" ColumnName="typeFrom" />
-                <ScalarProperty Name="Version" ColumnName="Version" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="policy_expiry_date" ColumnName="policy_expiry_date" />
-                <ScalarProperty Name="policy_effective_date" ColumnName="policy_effective_date" />
-                <ScalarProperty Name="policy_type_name" ColumnName="policy_type_name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="a_test_table">
             <EntityTypeMapping TypeName="Entities.a_test_table">
               <MappingFragment StoreEntitySet="a_test_table">
@@ -5425,6 +5412,19 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="SSN" ColumnName="SSN" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="config_policy_type">
+            <EntityTypeMapping TypeName="Entities.config_policy_type">
+              <MappingFragment StoreEntitySet="config_policy_type">
+                <ScalarProperty Name="typeFrom" ColumnName="typeFrom" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="policy_expiry_date" ColumnName="policy_expiry_date" />
+                <ScalarProperty Name="policy_effective_date" ColumnName="policy_effective_date" />
+                <ScalarProperty Name="policy_type_name" ColumnName="policy_type_name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

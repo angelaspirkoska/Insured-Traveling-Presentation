@@ -296,6 +296,19 @@ namespace InsuredTraveling.FormBuilder
             excelConfig.ValidDateEnd = expiryDate;
             return excelConfig;
         }
+        public static excelconfig CreateExcelConfigObjectForPolicyVersion(string path, string fileName, string createdBy, int idConfigPolicyType, DateTime effectiveDate, DateTime expiryDate,int version)
+        {
+            excelconfig excelConfig = new excelconfig();
+            excelConfig.excel_path = path;
+            excelConfig.excel_name = fileName;
+            excelConfig.DateCreated = DateTime.Now;
+            excelConfig.CreatedBy = createdBy;
+            excelConfig.id_config_policy_type = idConfigPolicyType;
+            excelConfig.ValidDateStart = effectiveDate;
+            excelConfig.ValidDateEnd = expiryDate;
+            excelConfig.version = version;
+            return excelConfig;
+        }
         public static config_policy_type CreateConfigPolicyTypeObject(string policyName, DateTime effectiveDate, DateTime expiryDate)
         {
             var configPolicyType = new config_policy_type();

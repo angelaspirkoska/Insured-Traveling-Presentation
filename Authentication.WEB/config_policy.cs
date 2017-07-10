@@ -28,10 +28,10 @@ namespace InsuredTraveling
         public System.DateTime StartDate { get; set; }
         public System.DateTime EndDate { get; set; }
     
-        public virtual config_policy_type config_policy_type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<config_policy_values> config_policy_values { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<config_insured_policy> config_insured_policy { get; set; }
+        public virtual config_policy_type config_policy_type { get; set; }
     }
 }

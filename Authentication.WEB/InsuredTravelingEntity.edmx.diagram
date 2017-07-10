@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="98e5219c4ee54651afe193f34e768c8b" Name="Diagram1" ZoomLevel="10">
+      <Diagram DiagramId="98e5219c4ee54651afe193f34e768c8b" Name="Diagram1" ZoomLevel="72">
         <EntityTypeShape EntityType="Entities.additional_charge" Width="1.5" PointX="5.25" PointY="24.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.additional_info" Width="1.5" PointX="9" PointY="40" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.aspnetrole" Width="1.5" PointX="0.75" PointY="31.375" IsExpanded="true" />
@@ -138,13 +138,10 @@
         <AssociationConnector Association="Entities.fk_createdby_aspnetusers" />
         <EntityTypeShape EntityType="Entities.form_elements" Width="1.5" PointX="7.5" PointY="19.625" />
         <AssociationConnector Association="Entities.fk_formelement_excelconfig" />
-        <EntityTypeShape EntityType="Entities.config_policy_type" Width="1.5" PointX="13.375" PointY="3.75" />
         <EntityTypeShape EntityType="Entities.a_test_table" Width="1.5" PointX="14.75" PointY="0.75" />
         <EntityTypeShape EntityType="Entities.a_test" Width="1.5" PointX="0.75" PointY="14.75" />
-        <AssociationConnector Association="Entities.excelconfig_ibfk_1" />
         <EntityTypeShape EntityType="Entities.config_policy" Width="1.5" PointX="15.625" PointY="3.875" />
         <EntityTypeShape EntityType="Entities.config_policy_values" Width="1.5" PointX="17.875" PointY="4" />
-        <AssociationConnector Association="Entities.config_policy_ibfk_1" />
         <AssociationConnector Association="Entities.config_policy_values_ibfk_1" />
         <EntityTypeShape EntityType="Entities.config_insured_policy" Width="1.5" PointX="17.875" PointY="0.875" />
         <EntityTypeShape EntityType="Entities.config_insured_type" Width="1.5" PointX="15.625" PointY="7.375" />
@@ -152,6 +149,9 @@
         <AssociationConnector Association="Entities.config_insured_policy_ibfk_3" />
         <EntityTypeShape EntityType="Entities.config_insureds" Width="1.5" PointX="3.375" PointY="15" />
         <AssociationConnector Association="Entities.config_insured_policy_ibfk_1" />
+        <EntityTypeShape EntityType="Entities.config_policy_type" Width="1.5" PointX="1" PointY="16.875" />
+        <AssociationConnector Association="Entities.config_policy_ibfk_1" />
+        <AssociationConnector Association="Entities.excelconfig_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

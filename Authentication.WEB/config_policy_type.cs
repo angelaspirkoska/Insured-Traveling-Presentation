@@ -17,8 +17,8 @@ namespace InsuredTraveling
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public config_policy_type()
         {
-            this.excelconfigs = new HashSet<excelconfig>();
             this.config_policy = new HashSet<config_policy>();
+            this.excelconfigs = new HashSet<excelconfig>();
         }
     
         public int ID { get; set; }
@@ -26,12 +26,12 @@ namespace InsuredTraveling
         public Nullable<System.DateTime> policy_effective_date { get; set; }
         public Nullable<System.DateTime> policy_expiry_date { get; set; }
         public Nullable<bool> status { get; set; }
-        public Nullable<int> Version { get; set; }
+        public int version { get; set; }
         public Nullable<int> typeFrom { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<excelconfig> excelconfigs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<config_policy> config_policy { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<excelconfig> excelconfigs { get; set; }
     }
 }
