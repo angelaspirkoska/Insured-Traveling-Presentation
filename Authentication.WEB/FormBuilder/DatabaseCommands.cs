@@ -201,7 +201,7 @@ namespace InsuredTraveling.FormBuilder
             ratingIndicatorstable.Append("`Name` varchar(50) DEFAULT NULL, `Type` varchar(50) DEFAULT NULL, `IsRatingIndicator` BIT DEFAULT NULL )");
 
             MySqlConnection conn = new MySqlConnection();
-            conn.ConnectionString = "server=mysql5018.smarterasp.net;user id = 9eb138_config;database=db_9eb138_config;Pwd=Tunderwriter1; Allow User Variables=True;persistsecurityinfo=True;Convert Zero Datetime=True";
+            conn.ConnectionString = ConfigurationManager.AppSettings["ExecuteStoreProcedureConnectionString"];
             try
             {
                 conn.Open();
@@ -217,6 +217,65 @@ namespace InsuredTraveling.FormBuilder
                 conn.Close();
                 return false;
             }
+        }
+
+        public static bool CreateFormBuilderElementsTable(int excelID)
+        {
+            StringBuilder formBuilderTable = new StringBuilder();
+            formBuilderTable.Append("CREATE TABLE FormBuilderElements_" + excelID + " ( ");
+            formBuilderTable.Append("`ID` INT, `ItemID` INT, `Name` varchar(50), `Type`  varchar(50), `HasList` BIT)");
+
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = ConfigurationManager.AppSettings["ExecuteStoreProcedureConnectionString"];
+            try
+            {
+                conn.Open();
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = conn;
+                command.CommandText = formBuilderTable.ToString();
+                command.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
+
+        public static bool CreateFormBuilderElementAttributesTable(int excelID)
+        {
+            StringBuilder attributes = new StringBuilder();
+            attributes.Append("CREATE TABLE FormBuilderElementAttributes_" + excelID + " ( ");
+            attributes.Append("`ID` INT, `ItemID` INT, `Name` varchar(50), `Value`  varchar(50) )");
+
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = ConfigurationManager.AppSettings["ExecuteStoreProcedureConnectionString"];
+            try
+            {
+                conn.Open();
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = conn;
+                command.CommandText = attributes.ToString();
+                command.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
+
+        public static bool PopulateFormBuilderTables(int excelID, List<TagInfo> elements)
+        {
+            foreach(var element in elements)
+            {
+                
+            }
+            return true;
         }
         #endregion
 
@@ -784,6 +843,8 @@ namespace InsuredTraveling.FormBuilder
             GenerateMasterProcedure(excelID, procedures, functions, tagInfoExcel);
             CreateConfigParametersTable(excelID);
             ExecuteConfigParametersTable(excelID, tagInfoExcel);
+            CreateFormBuilderElementsTable(excelID);
+            CreateFormBuilderElementAttributesTable(excelID);
         }
         public static string CalculatePremium(int excelId, FormCollection formCollection)
         {
