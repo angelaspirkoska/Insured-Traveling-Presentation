@@ -135,6 +135,12 @@
         <AssociationConnector Association="Entities.travel_policy_ibfk_1" />
         <EntityTypeShape EntityType="Entities.log_activities" Width="1.5" PointX="13.375" PointY="3.75" />
         <EntityTypeShape EntityType="Entities.elmah_error" Width="1.5" PointX="0.75" PointY="14.75" />
+        <EntityTypeShape EntityType="Entities.aspnetusers_log" Width="1.5" PointX="3.75" PointY="14.75" />
+        <EntityTypeShape EntityType="Entities.first_notice_of_loss_log" Width="1.5" PointX="15.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Entities.quote" Width="1.5" PointX="17.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Entities.quotes_log" Width="1.5" PointX="0.75" PointY="18.75" />
+        <EntityTypeShape EntityType="Entities.travel_policy_log" Width="1.5" PointX="18.75" PointY="7.75" />
+        <EntityTypeShape EntityType="Entities.insured_log" Width="1.5" PointX="15.75" PointY="7.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

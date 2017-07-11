@@ -106,6 +106,49 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="CreatedOn" Type="date" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="128" />
         </EntityType>
+        <EntityType Name="aspnetusers_log">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="longtext" Nullable="false" />
+          <Property Name="LastName" Type="longtext" Nullable="false" />
+          <Property Name="EMBG" Type="longtext" Nullable="false" />
+          <Property Name="Address" Type="longtext" Nullable="false" />
+          <Property Name="Municipality" Type="longtext" Nullable="false" />
+          <Property Name="InsuranceCompany" Type="longtext" Nullable="false" />
+          <Property Name="ActivationCodeMail" Type="longtext" Nullable="false" />
+          <Property Name="ActivationCodeSMS" Type="longtext" Nullable="false" />
+          <Property Name="GroupID" Type="longtext" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="EmailConfirmed" Type="bool" Nullable="false" />
+          <Property Name="PasswordHash" Type="longtext" Nullable="false" />
+          <Property Name="SecurityStamp" Type="longtext" Nullable="false" />
+          <Property Name="PhoneNumber" Type="longtext" Nullable="false" />
+          <Property Name="PhoneNumberConfirmed" Type="bool" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bool" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="LockoutEnabled" Type="bool" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="MobilePhoneNumber" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="PassportNumber" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Active" Type="tinyint" Nullable="false" />
+          <Property Name="CreatedOn" Type="date" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Modified" Type="bool" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Date_Modified" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="IPaddress" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="OldValue" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="NewValue" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
         <EntityType Name="bank_account_info">
           <Key>
             <PropertyRef Name="ID" />
@@ -286,7 +329,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Host" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Type" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Source" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="Message" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Message" Type="varchar" MaxLength="1500" Nullable="false" />
           <Property Name="User" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
           <Property Name="TimeUtc" Type="datetime" Precision="0" Nullable="false" />
@@ -381,6 +424,35 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Modified_Datetime" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="FNOL_Number" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="first_notice_of_loss_log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PolicyId" Type="int" Nullable="false" />
+          <Property Name="ClaimantId" Type="int" Nullable="false" />
+          <Property Name="Relation_claimant_policy_holder" Type="text" Nullable="false" />
+          <Property Name="Policy_holder_bank_accountID" Type="int" Nullable="false" />
+          <Property Name="Claimant_bank_accountID" Type="int" Nullable="false" />
+          <Property Name="Destination" Type="text" Nullable="false" />
+          <Property Name="Depart_Date_Time" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Arrival_Date_Time" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Transport_means" Type="text" Nullable="false" />
+          <Property Name="Additional_infoID" Type="int" Nullable="false" />
+          <Property Name="Total_cost" Type="float" Nullable="false" />
+          <Property Name="Web/Mobile" Type="bool" Nullable="false" />
+          <Property Name="ChatId" Type="int" Nullable="false" />
+          <Property Name="Short/Detailed" Type="bool" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Modified" Type="bool" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Modified_Datetime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="FNOL_Number" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="IPaddress" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="OldValue" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="NewValue" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
         <EntityType Name="groups">
           <Key>
             <PropertyRef Name="ID" />
@@ -435,6 +507,54 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Created_By" Type="varchar" MaxLength="128" />
           <Property Name="Date_Modified" Type="datetime" Precision="0" />
           <Property Name="Modified_By" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.db_9eb138_travel.insured_log' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="insured_log">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Lastname" />
+            <PropertyRef Name="SSN" />
+            <PropertyRef Name="DateBirth" />
+            <PropertyRef Name="Age" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Phone_Number" />
+            <PropertyRef Name="City" />
+            <PropertyRef Name="Postal_Code" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="Passport_Number_IdNumber" />
+            <PropertyRef Name="Type_InsuredID" />
+            <PropertyRef Name="Date_Created" />
+            <PropertyRef Name="Created_By" />
+            <PropertyRef Name="Modified" />
+            <PropertyRef Name="Date_Modified" />
+            <PropertyRef Name="Modified_By" />
+            <PropertyRef Name="IPaddress" />
+            <PropertyRef Name="OldValue" />
+            <PropertyRef Name="NewValue" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Lastname" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="SSN" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateBirth" Type="date" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Phone_Number" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Postal_Code" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Passport_Number_IdNumber" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Type_InsuredID" Type="int" Nullable="false" />
+          <Property Name="Date_Created" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Created_By" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Modified" Type="bool" Nullable="false" />
+          <Property Name="Date_Modified" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Modified_By" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="IPaddress" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="OldValue" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="NewValue" Type="varchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="invoices">
           <Key>
@@ -622,6 +742,67 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="language_id" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="quotes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Policy_Number" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Policy_HolderID" Type="int" Nullable="false" />
+          <Property Name="Exchange_RateID" Type="int" Nullable="false" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="Policy_TypeID" Type="int" Nullable="false" />
+          <Property Name="Retaining_RiskID" Type="int" Nullable="false" />
+          <Property Name="Franchise_Age" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Start_Date" Type="date" Nullable="false" />
+          <Property Name="End_Date" Type="date" Nullable="false" />
+          <Property Name="Valid_Days" Type="int" Nullable="false" />
+          <Property Name="Franchise_Days" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Travel_NumberID" Type="int" Nullable="false" />
+          <Property Name="Travel_Insurance_TypeID" Type="int" Nullable="false" />
+          <Property Name="Group_Members" Type="int" Nullable="false" />
+          <Property Name="Group_Total_Premium" Type="double" Nullable="false" />
+          <Property Name="Discount" Type="int" Nullable="false" />
+          <Property Name="Total_Premium" Type="double" Nullable="false" />
+          <Property Name="Created_By" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Date_Created" Type="date" Nullable="false" />
+          <Property Name="Date_Modified" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Modified_By" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Payment_Status" Type="bool" Nullable="false" />
+          <Property Name="Date_Cancellation" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="quotes_log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Policy_Number" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Policy_HolderID" Type="int" Nullable="false" />
+          <Property Name="Exchange_RateID" Type="int" Nullable="false" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="Policy_TypeID" Type="int" Nullable="false" />
+          <Property Name="Retaining_RiskID" Type="int" Nullable="false" />
+          <Property Name="Franchise_Age" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Start_Date" Type="date" Nullable="false" />
+          <Property Name="End_Date" Type="date" Nullable="false" />
+          <Property Name="Valid_Days" Type="int" Nullable="false" />
+          <Property Name="Franchise_Days" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Travel_NumberID" Type="int" Nullable="false" />
+          <Property Name="Travel_Insurance_TypeID" Type="int" Nullable="false" />
+          <Property Name="Group_Members" Type="int" Nullable="false" />
+          <Property Name="Group_Total_Premium" Type="double" Nullable="false" />
+          <Property Name="Discount" Type="int" Nullable="false" />
+          <Property Name="Total_Premium" Type="double" Nullable="false" />
+          <Property Name="Payment_Status" Type="bool" Nullable="false" />
+          <Property Name="Date_Cancellation" Type="date" Nullable="false" />
+          <Property Name="Created_By" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Date_Created" Type="date" Nullable="false" />
+          <Property Name="Modified" Type="bool" Nullable="false" />
+          <Property Name="Modified_By" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Date_Modified" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="OldValue" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="NewValue" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
         <EntityType Name="refreshtokens">
           <Key>
             <PropertyRef Name="Id" />
@@ -738,6 +919,39 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <Property Name="Modified_By" Type="varchar" MaxLength="128" />
           <Property Name="Payment_Status" Type="bool" Nullable="false" />
           <Property Name="Date_Cancellation" Type="date" />
+        </EntityType>
+        <EntityType Name="travel_policy_log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Policy_Number" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Policy_HolderID" Type="int" Nullable="false" />
+          <Property Name="Exchange_RateID" Type="int" Nullable="false" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="Policy_TypeID" Type="int" Nullable="false" />
+          <Property Name="Retaining_RiskID" Type="int" Nullable="false" />
+          <Property Name="Franchise_Age" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Start_Date" Type="date" Nullable="false" />
+          <Property Name="End_Date" Type="date" Nullable="false" />
+          <Property Name="Valid_Days" Type="int" Nullable="false" />
+          <Property Name="Franchise_Days" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Travel_NumberID" Type="int" Nullable="false" />
+          <Property Name="Travel_Insurance_TypeID" Type="int" Nullable="false" />
+          <Property Name="Group_Members" Type="int" Nullable="false" />
+          <Property Name="Group_Total_Premium" Type="double" Nullable="false" />
+          <Property Name="Discount" Type="int" Nullable="false" />
+          <Property Name="Total_Premium" Type="double" Nullable="false" />
+          <Property Name="Created_By" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Date_Created" Type="date" Nullable="false" />
+          <Property Name="Modified" Type="bool" Nullable="false" />
+          <Property Name="Modified_By" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Date_modified" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="IPaddress" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="OldValue" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="NewValue" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Date_Cancellation" Type="date" Nullable="false" />
+          <Property Name="Payment_Status" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="type_insured">
           <Key>
@@ -1676,6 +1890,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaims" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="aspnetuserroles" EntityType="Self.aspnetuserroles" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="aspnetusers" EntityType="Self.aspnetusers" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="aspnetusers_log" EntityType="Self.aspnetusers_log" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="bank_account_info" EntityType="Self.bank_account_info" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="bank_prefix" EntityType="Self.bank_prefix" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="banks" EntityType="Self.banks" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1697,6 +1912,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="exchange_rate" EntityType="Self.exchange_rate" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="first_notice_of_loss" EntityType="Self.first_notice_of_loss" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="first_notice_of_loss_archive" EntityType="Self.first_notice_of_loss_archive" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="first_notice_of_loss_log" EntityType="Self.first_notice_of_loss_log" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="groups" EntityType="Self.groups" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="health_insurance" EntityType="Self.health_insurance" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="health_insurance_info" EntityType="Self.health_insurance_info" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1718,6 +1934,8 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="policy_status" EntityType="Self.policy_status" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="policy_type" EntityType="Self.policy_type" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="policy_type_name" EntityType="Self.policy_type_name" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="quotes" EntityType="Self.quotes" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="quotes_log" EntityType="Self.quotes_log" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="refreshtokens" EntityType="Self.refreshtokens" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="retaining_risk" EntityType="Self.retaining_risk" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="retaining_risk_name" EntityType="Self.retaining_risk_name" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1725,6 +1943,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="travel_insurance_type" EntityType="Self.travel_insurance_type" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="travel_number" EntityType="Self.travel_number" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="travel_policy" EntityType="Self.travel_policy" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="travel_policy_log" EntityType="Self.travel_policy_log" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="type_insured" EntityType="Self.type_insured" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogins" store:Type="Tables" store:Schema="db_9eb138_travel">
@@ -1733,6 +1952,31 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
 `aspnetuserlogins`.`ProviderKey`, 
 `aspnetuserlogins`.`UserId`
 FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="insured_log" EntityType="Self.insured_log" store:Type="Tables" store:Schema="db_9eb138_travel">
+            <DefiningQuery>SELECT
+`insured_log`.`ID`, 
+`insured_log`.`Name`, 
+`insured_log`.`Lastname`, 
+`insured_log`.`SSN`, 
+`insured_log`.`DateBirth`, 
+`insured_log`.`Age`, 
+`insured_log`.`Email`, 
+`insured_log`.`Phone_Number`, 
+`insured_log`.`City`, 
+`insured_log`.`Postal_Code`, 
+`insured_log`.`Address`, 
+`insured_log`.`Passport_Number_IdNumber`, 
+`insured_log`.`Type_InsuredID`, 
+`insured_log`.`Date_Created`, 
+`insured_log`.`Created_By`, 
+`insured_log`.`Modified`, 
+`insured_log`.`Date_Modified`, 
+`insured_log`.`Modified_By`, 
+`insured_log`.`IPaddress`, 
+`insured_log`.`OldValue`, 
+`insured_log`.`NewValue`
+FROM `insured_log` AS `insured_log`</DefiningQuery>
           </EntitySet>
           <EntitySet Name="transaction" EntityType="Self.transaction" store:Type="Tables" store:Schema="db_9eb138_travel">
             <DefiningQuery>SELECT
@@ -3225,6 +3469,12 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <Parameter Name="TimeUtc" Mode="In" Type="DateTime" />
           </FunctionImport>
           <EntitySet Name="elmah_error" EntityType="Entities.elmah_error" />
+          <EntitySet Name="aspnetusers_log" EntityType="Entities.aspnetusers_log" />
+          <EntitySet Name="first_notice_of_loss_log" EntityType="Entities.first_notice_of_loss_log" />
+          <EntitySet Name="quotes" EntityType="Entities.quote" />
+          <EntitySet Name="quotes_log" EntityType="Entities.quotes_log" />
+          <EntitySet Name="travel_policy_log" EntityType="Entities.travel_policy_log" />
+          <EntitySet Name="insured_log" EntityType="Entities.insured_log" />
           </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -4161,6 +4411,218 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Sequence" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AllXml" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="aspnetusers_log">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="EMBG" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Municipality" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="InsuranceCompany" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="ActivationCodeMail" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="ActivationCodeSMS" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="GroupID" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="SecurityStamp" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Nullable="false" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="MobilePhoneNumber" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="PostalCode" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="PassportNumber" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="SByte" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Modified" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Modified" Type="DateTime" Nullable="false" />
+          <Property Name="IPaddress" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="OldValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="NewValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="first_notice_of_loss_log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PolicyId" Type="Int32" Nullable="false" />
+          <Property Name="ClaimantId" Type="Int32" Nullable="false" />
+          <Property Name="Relation_claimant_policy_holder" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Policy_holder_bank_accountID" Type="Int32" Nullable="false" />
+          <Property Name="Claimant_bank_accountID" Type="Int32" Nullable="false" />
+          <Property Name="Destination" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Depart_Date_Time" Type="DateTime" Nullable="false" />
+          <Property Name="Arrival_Date_Time" Type="DateTime" Nullable="false" />
+          <Property Name="Transport_means" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Additional_infoID" Type="Int32" Nullable="false" />
+          <Property Name="Total_cost" Type="Single" Nullable="false" />
+          <Property Name="Web_Mobile" Type="Boolean" Nullable="false" />
+          <Property Name="ChatId" Type="Int32" Nullable="false" />
+          <Property Name="Short_Detailed" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="Modified" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Modified_Datetime" Type="DateTime" Nullable="false" />
+          <Property Name="FNOL_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="IPaddress" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="OldValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="NewValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="quote">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Policy_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Policy_HolderID" Type="Int32" Nullable="false" />
+          <Property Name="Exchange_RateID" Type="Int32" Nullable="false" />
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <Property Name="Policy_TypeID" Type="Int32" Nullable="false" />
+          <Property Name="Retaining_RiskID" Type="Int32" Nullable="false" />
+          <Property Name="Franchise_Age" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Date" Type="DateTime" Nullable="false" />
+          <Property Name="End_Date" Type="DateTime" Nullable="false" />
+          <Property Name="Valid_Days" Type="Int32" Nullable="false" />
+          <Property Name="Franchise_Days" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Travel_NumberID" Type="Int32" Nullable="false" />
+          <Property Name="Travel_Insurance_TypeID" Type="Int32" Nullable="false" />
+          <Property Name="Group_Members" Type="Int32" Nullable="false" />
+          <Property Name="Group_Total_Premium" Type="Double" Nullable="false" />
+          <Property Name="Discount" Type="Int32" Nullable="false" />
+          <Property Name="Total_Premium" Type="Double" Nullable="false" />
+          <Property Name="Created_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Created" Type="DateTime" Nullable="false" />
+          <Property Name="Date_Modified" Type="DateTime" Nullable="false" />
+          <Property Name="Modified_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Payment_Status" Type="Boolean" Nullable="false" />
+          <Property Name="Date_Cancellation" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="quotes_log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Policy_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Policy_HolderID" Type="Int32" Nullable="false" />
+          <Property Name="Exchange_RateID" Type="Int32" Nullable="false" />
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <Property Name="Policy_TypeID" Type="Int32" Nullable="false" />
+          <Property Name="Retaining_RiskID" Type="Int32" Nullable="false" />
+          <Property Name="Franchise_Age" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Date" Type="DateTime" Nullable="false" />
+          <Property Name="End_Date" Type="DateTime" Nullable="false" />
+          <Property Name="Valid_Days" Type="Int32" Nullable="false" />
+          <Property Name="Franchise_Days" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Travel_NumberID" Type="Int32" Nullable="false" />
+          <Property Name="Travel_Insurance_TypeID" Type="Int32" Nullable="false" />
+          <Property Name="Group_Members" Type="Int32" Nullable="false" />
+          <Property Name="Group_Total_Premium" Type="Double" Nullable="false" />
+          <Property Name="Discount" Type="Int32" Nullable="false" />
+          <Property Name="Total_Premium" Type="Double" Nullable="false" />
+          <Property Name="Payment_Status" Type="Boolean" Nullable="false" />
+          <Property Name="Date_Cancellation" Type="DateTime" Nullable="false" />
+          <Property Name="Created_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Created" Type="DateTime" Nullable="false" />
+          <Property Name="Modified" Type="Boolean" Nullable="false" />
+          <Property Name="Modified_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Modified" Type="DateTime" Nullable="false" />
+          <Property Name="OldValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="NewValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="travel_policy_log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Policy_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Policy_HolderID" Type="Int32" Nullable="false" />
+          <Property Name="Exchange_RateID" Type="Int32" Nullable="false" />
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <Property Name="Policy_TypeID" Type="Int32" Nullable="false" />
+          <Property Name="Retaining_RiskID" Type="Int32" Nullable="false" />
+          <Property Name="Franchise_Age" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Date" Type="DateTime" Nullable="false" />
+          <Property Name="End_Date" Type="DateTime" Nullable="false" />
+          <Property Name="Valid_Days" Type="Int32" Nullable="false" />
+          <Property Name="Franchise_Days" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Travel_NumberID" Type="Int32" Nullable="false" />
+          <Property Name="Travel_Insurance_TypeID" Type="Int32" Nullable="false" />
+          <Property Name="Group_Members" Type="Int32" Nullable="false" />
+          <Property Name="Group_Total_Premium" Type="Double" Nullable="false" />
+          <Property Name="Discount" Type="Int32" Nullable="false" />
+          <Property Name="Total_Premium" Type="Double" Nullable="false" />
+          <Property Name="Created_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Created" Type="DateTime" Nullable="false" />
+          <Property Name="Modified" Type="Boolean" Nullable="false" />
+          <Property Name="Modified_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Date_modified" Type="DateTime" Nullable="false" />
+          <Property Name="IPaddress" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="OldValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="NewValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Cancellation" Type="DateTime" Nullable="false" />
+          <Property Name="Payment_Status" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="insured_log">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Lastname" />
+            <PropertyRef Name="SSN" />
+            <PropertyRef Name="DateBirth" />
+            <PropertyRef Name="Age" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Phone_Number" />
+            <PropertyRef Name="City" />
+            <PropertyRef Name="Postal_Code" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="Passport_Number_IdNumber" />
+            <PropertyRef Name="Type_InsuredID" />
+            <PropertyRef Name="Date_Created" />
+            <PropertyRef Name="Created_By" />
+            <PropertyRef Name="Modified" />
+            <PropertyRef Name="Date_Modified" />
+            <PropertyRef Name="Modified_By" />
+            <PropertyRef Name="IPaddress" />
+            <PropertyRef Name="OldValue" />
+            <PropertyRef Name="NewValue" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Lastname" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="SSN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateBirth" Type="DateTime" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Phone_Number" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Postal_Code" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Passport_Number_IdNumber" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Type_InsuredID" Type="Int32" Nullable="false" />
+          <Property Name="Date_Created" Type="DateTime" Nullable="false" />
+          <Property Name="Created_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Modified" Type="Boolean" Nullable="false" />
+          <Property Name="Date_Modified" Type="DateTime" Nullable="false" />
+          <Property Name="Modified_By" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="IPaddress" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="OldValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="NewValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4968,6 +5430,203 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="Host" ColumnName="Host" />
                 <ScalarProperty Name="Application" ColumnName="Application" />
                 <ScalarProperty Name="ErrorId" ColumnName="ErrorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnetusers_log">
+            <EntityTypeMapping TypeName="Entities.aspnetusers_log">
+              <MappingFragment StoreEntitySet="aspnetusers_log">
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+                <ScalarProperty Name="IPaddress" ColumnName="IPaddress" />
+                <ScalarProperty Name="Date_Modified" ColumnName="Date_Modified" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="MobilePhoneNumber" ColumnName="MobilePhoneNumber" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="ActivationCodeSMS" ColumnName="ActivationCodeSMS" />
+                <ScalarProperty Name="ActivationCodeMail" ColumnName="ActivationCodeMail" />
+                <ScalarProperty Name="InsuranceCompany" ColumnName="InsuranceCompany" />
+                <ScalarProperty Name="Municipality" ColumnName="Municipality" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="EMBG" ColumnName="EMBG" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="first_notice_of_loss_log">
+            <EntityTypeMapping TypeName="Entities.first_notice_of_loss_log">
+              <MappingFragment StoreEntitySet="first_notice_of_loss_log">
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+                <ScalarProperty Name="IPaddress" ColumnName="IPaddress" />
+                <ScalarProperty Name="FNOL_Number" ColumnName="FNOL_Number" />
+                <ScalarProperty Name="Modified_Datetime" ColumnName="Modified_Datetime" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Short_Detailed" ColumnName="Short/Detailed" />
+                <ScalarProperty Name="ChatId" ColumnName="ChatId" />
+                <ScalarProperty Name="Web_Mobile" ColumnName="Web/Mobile" />
+                <ScalarProperty Name="Total_cost" ColumnName="Total_cost" />
+                <ScalarProperty Name="Additional_infoID" ColumnName="Additional_infoID" />
+                <ScalarProperty Name="Transport_means" ColumnName="Transport_means" />
+                <ScalarProperty Name="Arrival_Date_Time" ColumnName="Arrival_Date_Time" />
+                <ScalarProperty Name="Depart_Date_Time" ColumnName="Depart_Date_Time" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="Claimant_bank_accountID" ColumnName="Claimant_bank_accountID" />
+                <ScalarProperty Name="Policy_holder_bank_accountID" ColumnName="Policy_holder_bank_accountID" />
+                <ScalarProperty Name="Relation_claimant_policy_holder" ColumnName="Relation_claimant_policy_holder" />
+                <ScalarProperty Name="ClaimantId" ColumnName="ClaimantId" />
+                <ScalarProperty Name="PolicyId" ColumnName="PolicyId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quotes">
+            <EntityTypeMapping TypeName="Entities.quote">
+              <MappingFragment StoreEntitySet="quotes">
+                <ScalarProperty Name="Date_Cancellation" ColumnName="Date_Cancellation" />
+                <ScalarProperty Name="Payment_Status" ColumnName="Payment_Status" />
+                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
+                <ScalarProperty Name="Date_Modified" ColumnName="Date_Modified" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Total_Premium" ColumnName="Total_Premium" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Group_Total_Premium" ColumnName="Group_Total_Premium" />
+                <ScalarProperty Name="Group_Members" ColumnName="Group_Members" />
+                <ScalarProperty Name="Travel_Insurance_TypeID" ColumnName="Travel_Insurance_TypeID" />
+                <ScalarProperty Name="Travel_NumberID" ColumnName="Travel_NumberID" />
+                <ScalarProperty Name="Franchise_Days" ColumnName="Franchise_Days" />
+                <ScalarProperty Name="Valid_Days" ColumnName="Valid_Days" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="Franchise_Age" ColumnName="Franchise_Age" />
+                <ScalarProperty Name="Retaining_RiskID" ColumnName="Retaining_RiskID" />
+                <ScalarProperty Name="Policy_TypeID" ColumnName="Policy_TypeID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Exchange_RateID" ColumnName="Exchange_RateID" />
+                <ScalarProperty Name="Policy_HolderID" ColumnName="Policy_HolderID" />
+                <ScalarProperty Name="Policy_Number" ColumnName="Policy_Number" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quotes_log">
+            <EntityTypeMapping TypeName="Entities.quotes_log">
+              <MappingFragment StoreEntitySet="quotes_log">
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+                <ScalarProperty Name="Date_Modified" ColumnName="Date_Modified" />
+                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Date_Cancellation" ColumnName="Date_Cancellation" />
+                <ScalarProperty Name="Payment_Status" ColumnName="Payment_Status" />
+                <ScalarProperty Name="Total_Premium" ColumnName="Total_Premium" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Group_Total_Premium" ColumnName="Group_Total_Premium" />
+                <ScalarProperty Name="Group_Members" ColumnName="Group_Members" />
+                <ScalarProperty Name="Travel_Insurance_TypeID" ColumnName="Travel_Insurance_TypeID" />
+                <ScalarProperty Name="Travel_NumberID" ColumnName="Travel_NumberID" />
+                <ScalarProperty Name="Franchise_Days" ColumnName="Franchise_Days" />
+                <ScalarProperty Name="Valid_Days" ColumnName="Valid_Days" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="Franchise_Age" ColumnName="Franchise_Age" />
+                <ScalarProperty Name="Retaining_RiskID" ColumnName="Retaining_RiskID" />
+                <ScalarProperty Name="Policy_TypeID" ColumnName="Policy_TypeID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Exchange_RateID" ColumnName="Exchange_RateID" />
+                <ScalarProperty Name="Policy_HolderID" ColumnName="Policy_HolderID" />
+                <ScalarProperty Name="Policy_Number" ColumnName="Policy_Number" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="travel_policy_log">
+            <EntityTypeMapping TypeName="Entities.travel_policy_log">
+              <MappingFragment StoreEntitySet="travel_policy_log">
+                <ScalarProperty Name="Payment_Status" ColumnName="Payment_Status" />
+                <ScalarProperty Name="Date_Cancellation" ColumnName="Date_Cancellation" />
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+                <ScalarProperty Name="IPaddress" ColumnName="IPaddress" />
+                <ScalarProperty Name="Date_modified" ColumnName="Date_modified" />
+                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Total_Premium" ColumnName="Total_Premium" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Group_Total_Premium" ColumnName="Group_Total_Premium" />
+                <ScalarProperty Name="Group_Members" ColumnName="Group_Members" />
+                <ScalarProperty Name="Travel_Insurance_TypeID" ColumnName="Travel_Insurance_TypeID" />
+                <ScalarProperty Name="Travel_NumberID" ColumnName="Travel_NumberID" />
+                <ScalarProperty Name="Franchise_Days" ColumnName="Franchise_Days" />
+                <ScalarProperty Name="Valid_Days" ColumnName="Valid_Days" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="Franchise_Age" ColumnName="Franchise_Age" />
+                <ScalarProperty Name="Retaining_RiskID" ColumnName="Retaining_RiskID" />
+                <ScalarProperty Name="Policy_TypeID" ColumnName="Policy_TypeID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Exchange_RateID" ColumnName="Exchange_RateID" />
+                <ScalarProperty Name="Policy_HolderID" ColumnName="Policy_HolderID" />
+                <ScalarProperty Name="Policy_Number" ColumnName="Policy_Number" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="insured_log">
+            <EntityTypeMapping TypeName="Entities.insured_log">
+              <MappingFragment StoreEntitySet="insured_log">
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+                <ScalarProperty Name="IPaddress" ColumnName="IPaddress" />
+                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
+                <ScalarProperty Name="Date_Modified" ColumnName="Date_Modified" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="Type_InsuredID" ColumnName="Type_InsuredID" />
+                <ScalarProperty Name="Passport_Number_IdNumber" ColumnName="Passport_Number_IdNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Postal_Code" ColumnName="Postal_Code" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
