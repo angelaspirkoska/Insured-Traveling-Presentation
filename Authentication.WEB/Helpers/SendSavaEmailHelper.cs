@@ -213,9 +213,9 @@ namespace InsuredTraveling.Helpers
                 string mailBody = string.Format(@"   <div>
                   <div >
                   <a href='https://mk.sava.insure/'> <img style='width: 100%; max-width: 1000px; ' src=""cid:{0}"" /> </a>
-                 Добредојдoвте на Моја Сава
+                 Добредојдoвте на Моја Сава!
                 <br/> <br/>"
-                + "<br/> Ве молиме почекајте 24 часа вашите податоци бидат ажурирани."
+                + "<br/> Ве молиме почекајте вашите податоци да се ажурираат."
                 + "<br/> <br/> Ви благодариме што одлучивте да ја користите Моја Сава. </div > <br/>"
                 + " <div style='border-top: 1px solid #BBBBBB; max-width: 1000px; width:100%; max-width: 1000px; line-height:1px; height:1px; font-size:1px; '>&nbsp;</div> "
                 + @" <div style=' text-align: center;'> <a href='https://www.facebook.com/sava.mk'> <img style='width:32px; max-width:35px' src=""cid:{1}"" /></a> <a href='https://twitter.com/Savamk'><img style='width:32px; max-width:35px' src=""cid:{2}"" /></a> </div>"
