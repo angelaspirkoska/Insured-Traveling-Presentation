@@ -93,24 +93,22 @@ namespace InsuredTraveling.DI
         {
             var datetimeformat = ConfigurationManager.AppSettings["DateFormat"];
             datetimeformat = datetimeformat.Replace("yy", "yyyy");
-            int result = -1;
             try
             {
-                config_policy_type editedPolicyDb = GetConfigPolicyTypeByID(editedPolicy.id);
-                editedPolicyDb.policy_type_name = editedPolicy.name;
-                editedPolicyDb.policy_effective_date = DateTime.ParseExact(editedPolicy.startDate, datetimeformat,
+                config_policy_type editPolicy = GetConfigPolicyTypeByID(editedPolicy.id);
+                editPolicy.policy_type_name = editedPolicy.name;
+                editPolicy.policy_effective_date = DateTime.ParseExact(editedPolicy.startDate, datetimeformat,
                     CultureInfo.InvariantCulture);
-                editedPolicyDb.policy_expiry_date =
+                editPolicy.policy_expiry_date =
                     DateTime.ParseExact(editedPolicy.endDate, datetimeformat, CultureInfo.InvariantCulture);
-                editedPolicyDb.status = editedPolicy.status;
-                result = _db.SaveChanges();
+                editPolicy.status = editedPolicy.status;
+                _db.SaveChanges();
+                return editPolicy.ID;
             }
             catch (Exception ex)
             {
-
+                return -1;
             }
-
-            return result;
         }
 
         public int AddNewPolicyTypeVersion(config_policy_type selectedPolicy)

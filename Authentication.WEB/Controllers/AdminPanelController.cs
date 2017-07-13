@@ -208,10 +208,13 @@ namespace InsuredTraveling.Controllers
                         excelConfigFile.SaveAs(fullPath);
                         
                         var configPolicyType = ExcelReader.CreateConfigPolicyTypeObject(policyName, effectiveDate, expiryDate);
-                       
-                        
+
+                        if (_configPolicyTypeService.CompleteRows(fullPath) &
+                            _configPolicyTypeService.FunctionsValidation(fullPath))
+                        {
                             configPolicyType.ID = _configPolicyTypeService.AddConfigPolicyType(configPolicyType);
-                        
+                        }
+
                         //else
                         //{
                         //    Console.WriteLine("imate gresha vo konfiguracijata");
@@ -238,6 +241,7 @@ namespace InsuredTraveling.Controllers
             config_policy_type policyEdit = _configPolicyTypeService.GetConfigPolicyTypeByID(id);
             ConfigPolicyTypeModel policyEditModel = Mapper.Map<config_policy_type, ConfigPolicyTypeModel>(policyEdit);
             ViewBag.TabIndex = "5";
+            ViewBag.Message = null;
             return View(policyEditModel);
         }
 
@@ -250,12 +254,12 @@ namespace InsuredTraveling.Controllers
 
             if (result == -1)
             {
-                ViewBag.Message = "NOK";
-                return RedirectToAction("Index", "AdminPanel");
+                //show message on index page if the update is valid
+                ViewBag.Message = "NOTOK";
+                return View(editedPolicy);
             }
             else
             {
-                ViewBag.Message = "OK";
                 return RedirectToAction("Index", "AdminPanel");
             }
          
@@ -267,7 +271,7 @@ namespace InsuredTraveling.Controllers
         {
             config_policy_type policyEdit = _configPolicyTypeService.GetConfigPolicyTypeByID(id);
             ConfigPolicyTypeModel policyEditModel = Mapper.Map<config_policy_type, ConfigPolicyTypeModel>(policyEdit);
-            ViewBag.TabIndex = "5";
+            ViewBag.TabIndex = "6";
             return View(policyEditModel);
         }
 
@@ -288,13 +292,9 @@ namespace InsuredTraveling.Controllers
             }
            
             var version = policyEdit.version;
-            var configPolicyType = new config_policy_type();
-            configPolicyType.policy_type_name = editedPolicy.name;
-            configPolicyType.policy_effective_date = DateTime.ParseExact(editedPolicy.startDate, datetimeformat, CultureInfo.InvariantCulture);
-            configPolicyType.policy_expiry_date = DateTime.ParseExact(editedPolicy.endDate, datetimeformat, CultureInfo.InvariantCulture);
-            configPolicyType.status = editedPolicy.status;
+            var configPolicyType = Mapper.Map<ConfigPolicyTypeModel, config_policy_type>(editedPolicy);
             configPolicyType.version = version + 1;
-            configPolicyType.typeFrom = editedPolicy.id;
+
 
 
             if (excelConfigFile != null && excelConfigFile.ContentLength > 0)

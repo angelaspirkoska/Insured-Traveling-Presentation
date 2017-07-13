@@ -29,6 +29,18 @@ namespace InsuredTraveling.App_Start
                 dst.ID = src.Id;
             });
 
+            
+            Mapper.CreateMap<ConfigPolicyTypeModel, config_policy_type>().AfterMap((src, dst) =>
+            {
+                var datetimeformat = ConfigurationManager.AppSettings["DateFormat"];
+                datetimeformat = datetimeformat.Replace("yy", "yyyy");
+                dst.policy_type_name = src.name;
+                dst.policy_effective_date = DateTime.ParseExact(src.startDate, datetimeformat, CultureInfo.InvariantCulture);
+                dst.policy_expiry_date = DateTime.ParseExact(src.endDate, datetimeformat, CultureInfo.InvariantCulture);
+                dst.status = src.status;
+                dst.typeFrom = src.id;
+            });
+
             Mapper.CreateMap<aspnetuser, User>().AfterMap((src, dst) =>
             {
                 dst.UserName = src.UserName;

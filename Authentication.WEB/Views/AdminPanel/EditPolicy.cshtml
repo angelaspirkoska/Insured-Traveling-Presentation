@@ -17,6 +17,17 @@
 </ul>
 
 <h2>@InsuredTraveling.Resource.AdminPanel_EditConfigurableRatingEngine</h2>
+@if (ViewBag.Message != null)
+{
+        <div class="row">
+            <div class="col-md-5 col-sm-5">
+                <div class="alert alert-dismissible alert-danger" style="margin-left:12px; width:211%">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span>@InsuredTraveling.Resource.FNOL_SuccessfullyAddedFNOL</span>
+                </div>
+            </div>
+        </div>
+}
 @using (Html.BeginForm("EditPolicy", "AdminPanel", FormMethod.Post, new { id = "editPolicy", enctype = "multipart/form-data" }))
 {
     <div class="form-group">
