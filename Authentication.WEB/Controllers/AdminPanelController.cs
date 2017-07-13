@@ -204,11 +204,19 @@ namespace InsuredTraveling.Controllers
                     {
                         var excelFileName = excelConfigFile.FileName.Replace(".xlsx", "") + "_" + Guid.NewGuid()+ ".xlsx";
                         var path = @"~/ExcelConfig/" + excelFileName;
-                        var fullPath = System.Web.HttpContext.Current.Server.MapPath(path);
+                        var fullPath = System.Web.HttpContext.Current.Server.MapPath(path);   
                         excelConfigFile.SaveAs(fullPath);
-
+                        
                         var configPolicyType = ExcelReader.CreateConfigPolicyTypeObject(policyName, effectiveDate, expiryDate);
-                        configPolicyType.ID = _configPolicyTypeService.AddConfigPolicyType(configPolicyType);
+                       
+                        
+                            configPolicyType.ID = _configPolicyTypeService.AddConfigPolicyType(configPolicyType);
+                        
+                        //else
+                        //{
+                        //    Console.WriteLine("imate gresha vo konfiguracijata");
+                        //   //da se izbrisha od excewlconfig tabeltaa
+                        //}
 
                         excelconfig excelConfig = ExcelReader.CreateExcelConfigObject(path, excelFileName, _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name), configPolicyType.ID, effectiveDate, expiryDate);
                         var excelId = _exs.AddExcelConfig(excelConfig);

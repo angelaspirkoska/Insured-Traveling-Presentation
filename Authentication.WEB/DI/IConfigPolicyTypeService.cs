@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using InsuredTraveling.Models;
+using OfficeOpenXml;
 
 namespace InsuredTraveling.DI
 {
@@ -19,7 +20,9 @@ namespace InsuredTraveling.DI
 
         int EditConfigPolicyType(ConfigPolicyTypeModel editedPolicy);
         int AddNewPolicyTypeVersion(config_policy_type selectedPolicy);
-       
-
+        int NumberOfColums(String path);
+        bool CompleteRows(String path);
+        bool RatingIndicatorValidation(String path);
+        bool FunctionsValidation(String path);
     }
 }
