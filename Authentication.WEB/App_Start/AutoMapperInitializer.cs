@@ -122,30 +122,59 @@ namespace InsuredTraveling.App_Start
                 dst.Lastname = src.Lastname;
                 dst.SSN = src.SSN;
                 dst.DateBirth = src.DateBirth;
-                dst.Age = (int) src.Age;
+                dst.Age = src.Age != null ? Convert.ToInt32(src.Age) : 0;
                 dst.Email = src.Email;
                 dst.Phone_Number = src.Phone_Number;
                 dst.City = src.City;
                 dst.Postal_Code = src.Postal_Code;
                 dst.Address = src.Address;
                 dst.Passport_Number_IdNumber = src.Passport_Number_IdNumber;
-                dst.Type_InsuredID = (int) src.Type_InsuredID;
+                dst.Type_InsuredID = src.Type_InsuredID != null ? Convert.ToInt32(src.Type_InsuredID) : 0;
                 dst.Date_Created = src.Date_Created;
                 dst.Created_By = src.Created_By;
-                dst.Date_Modified = (DateTime) src.Date_Modified;
+                dst.Date_Modified = src.Date_Modified != null ? Convert.ToDateTime(src.Date_Modified) : DateTime.MinValue;
                 dst.Modified_By = src.Modified_By;
 
             });
            
+            Mapper.CreateMap<quote,quotes_log>().AfterMap((src, dst) =>
+                {
+                    dst.ID = src.ID;
+                    dst.Policy_Number = src.Policy_Number;
+                    dst.Policy_HolderID = src.Policy_HolderID;
+                    dst.Exchange_RateID = src.Exchange_RateID;
+                    dst.CountryID = src.CountryID;
+                    dst.Policy_TypeID = src.Policy_TypeID;
+                    dst.Retaining_RiskID = src.Retaining_RiskID;
+                    dst.Franchise_Age = src.Franchise_Age;
+                    dst.Start_Date = src.Start_Date;
+                    dst.End_Date = src.End_Date;
+                    dst.Valid_Days = src.Valid_Days;
+                    dst.Franchise_Days = src.Franchise_Days;
+                    dst.Travel_NumberID = src.Travel_NumberID;
+                    dst.Travel_Insurance_TypeID = src.Travel_Insurance_TypeID;
+                    dst.Group_Members = src.Group_Members;
+                    dst.Group_Total_Premium = src.Group_Total_Premium;
+                    dst.Discount = src.Discount;
+                    dst.Total_Premium = src.Total_Premium;
+                    dst.Created_By = src.Created_By;
+                    dst.Date_Created = src.Date_Created;
+                    dst.Date_Modified = src.Date_Modified;
+                    dst.Modified_By = src.Modified_By;
+                    dst.Payment_Status = src.Payment_Status;
+                    dst.Date_Cancellation = src.Date_Cancellation;
+
+                })
+            ;
             Mapper.CreateMap<travel_policy,travel_policy_log>().AfterMap((src, dst) =>
             {
                 dst.ID = src.ID;
                 dst.Policy_Number = src.Policy_Number;
                 dst.Policy_HolderID = src.Policy_HolderID;
                 dst.Exchange_RateID = src.Exchange_RateID;
-                dst.CountryID = (int) src.CountryID;
+                dst.CountryID = src.CountryID != null ? Convert.ToInt32(src.CountryID) : 0 ;
                 dst.Policy_TypeID = src.Policy_TypeID;
-                dst.Retaining_RiskID = (int) src.Retaining_RiskID;
+                dst.Retaining_RiskID = src.Retaining_RiskID != null ? Convert.ToInt32(src.Retaining_RiskID) : 0;
                 dst.Franchise_Age = src.Franchise_Age;
                 dst.Start_Date = src.Start_Date;
                 dst.End_Date = src.End_Date;
@@ -153,17 +182,55 @@ namespace InsuredTraveling.App_Start
                 dst.Franchise_Days = src.Franchise_Days;
                 dst.Travel_NumberID = src.Travel_NumberID;
                 dst.Travel_Insurance_TypeID = src.Travel_Insurance_TypeID;
-                dst.Group_Members = (int) src.Group_Members;
-                dst.Group_Total_Premium = (double) src.Group_Total_Premium;
-                dst.Discount = (int) src.Discount;
-                dst.Total_Premium = (double) src.Total_Premium;
+                dst.Group_Members = src.Group_Members != null ? Convert.ToInt32(src.Group_Members) : 0;
+                dst.Group_Total_Premium = src.Group_Total_Premium != null ? Convert.ToDouble(src.Group_Total_Premium) : 0 ;
+                dst.Discount = src.Discount != null ? Convert.ToInt32(src.Discount) : 0;
+                dst.Total_Premium = src.Total_Premium != null ? Convert.ToDouble(src.Total_Premium) : 0;
                 dst.Created_By = src.Created_By;
                 dst.Date_Created = src.Date_Created;
-                dst.Date_modified = (DateTime) src.Date_Modified;
+                dst.Date_modified = src.Date_Modified != null ? Convert.ToDateTime(src.Date_Modified) : DateTime.MinValue;
                 dst.Modified_By = src.Modified_By;
                 dst.Payment_Status = src.Payment_Status;
-                dst.Date_Cancellation = (DateTime) src.Date_Cancellation;
+                dst.Date_Cancellation = src.Date_Cancellation != null ? Convert.ToDateTime(src.Date_Cancellation) : DateTime.MinValue;
 
+
+            });
+
+            Mapper.CreateMap<aspnetuser, aspnetusers_log>().AfterMap((src, dst) =>
+            {
+                dst.Id = src.Id;
+                dst.User_ID = src.User_ID;
+                dst.FirstName = src.FirstName;
+                dst.LastName = src.LastName;
+                dst.EMBG = src.EMBG;
+                dst.Address = src.Address;
+                dst.Municipality = src.Municipality;
+                dst.InsuranceCompany = src.InsuranceCompany;
+                dst.ActivationCodeMail = src.ActivationCodeMail;
+                dst.ActivationCodeSMS = src.ActivationCodeSMS;
+                dst.GroupID = src.GroupID;
+                dst.Email = src.Email;
+                dst.EmailConfirmed = src.EmailConfirmed;
+                dst.PasswordHash = src.PasswordHash;
+                dst.SecurityStamp = src.SecurityStamp;
+                dst.PhoneNumber = src.PhoneNumber;
+                dst.PhoneNumberConfirmed = src.PhoneNumberConfirmed;
+                dst.TwoFactorEnabled = src.TwoFactorEnabled;
+                dst.LockoutEndDateUtc = src.LockoutEndDateUtc != null ? Convert.ToDateTime(src.LockoutEndDateUtc) : DateTime.MinValue;
+                dst.LockoutEnabled = src.LockoutEnabled;
+                dst.AccessFailedCount = src.AccessFailedCount;
+                dst.UserName = src.UserName;
+                dst.MobilePhoneNumber = src.MobilePhoneNumber;
+                dst.PostalCode = src.PostalCode;
+                dst.PassportNumber = src.PassportNumber;
+                dst.City = src.City;
+                dst.DateOfBirth = src.DateOfBirth != null ? Convert.ToDateTime(src.DateOfBirth) : DateTime.MinValue;
+                dst.Gender = src.Gender;
+                dst.Active = src.Active != null ? Convert.ToSByte(src.Active) : SByte.MinValue;
+                dst.CreatedOn = src.CreatedOn != null ? Convert.ToDateTime(src.CreatedOn) : DateTime.MinValue;
+                dst.CreatedBy = src.CreatedBy;
+                dst.ModifiedBy = src.ModifiedBy;
+                dst.Date_Modified = src.DateModified;
 
             });
            

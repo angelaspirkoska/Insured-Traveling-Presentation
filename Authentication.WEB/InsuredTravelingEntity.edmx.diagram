@@ -135,7 +135,6 @@
         <AssociationConnector Association="Entities.travel_policy_ibfk_1" />
         <EntityTypeShape EntityType="Entities.log_activities" Width="1.5" PointX="13.375" PointY="3.75" />
         <EntityTypeShape EntityType="Entities.elmah_error" Width="1.5" PointX="0.75" PointY="14.75" />
-        <EntityTypeShape EntityType="Entities.quote" Width="1.5" PointX="17.75" PointY="0.75" />
         <EntityTypeShape EntityType="Entities.excelconfig" Width="1.5" PointX="5.25" PointY="44.875" />
         <EntityTypeShape EntityType="Entities.kanbanboard" Width="1.5" PointX="17.125" PointY="35.375" />
         <EntityTypeShape EntityType="Entities.kanbancomponent" Width="1.5" PointX="19.375" PointY="18.125" />
@@ -171,6 +170,7 @@
         <AssociationConnector Association="Entities.insured_log_fk" />
         <EntityTypeShape EntityType="Entities.first_notice_of_loss_log" Width="1.5" PointX="13.5" PointY="71.875" />
         <AssociationConnector Association="Entities.first_notice_of_loss_log_ibfk_1" />
+        <EntityTypeShape EntityType="Entities.quote" Width="1.5" PointX="15.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

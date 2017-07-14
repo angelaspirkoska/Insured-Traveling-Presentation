@@ -86,7 +86,6 @@ namespace InsuredTraveling
         public virtual DbSet<insured> insureds { get; set; }
         public virtual DbSet<log_activities> log_activities { get; set; }
         public virtual DbSet<elmah_error> elmah_error { get; set; }
-        public virtual DbSet<quote> quotes { get; set; }
         public virtual DbSet<excelconfig> excelconfigs { get; set; }
         public virtual DbSet<kanbanboard> kanbanboards { get; set; }
         public virtual DbSet<kanbancomponent> kanbancomponents { get; set; }
@@ -104,6 +103,7 @@ namespace InsuredTraveling
         public virtual DbSet<travel_policy_log> travel_policy_log { get; set; }
         public virtual DbSet<insured_log> insured_log { get; set; }
         public virtual DbSet<first_notice_of_loss_log> first_notice_of_loss_log { get; set; }
+        public virtual DbSet<quote> quotes { get; set; }
     
         public virtual ObjectResult<elmah_GetErrorsXml_Result> elmah_GetErrorsXml(string app, Nullable<int> pageIndex, Nullable<int> pageSize, ObjectParameter totalCount)
         {
