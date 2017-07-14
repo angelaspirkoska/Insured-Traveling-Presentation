@@ -34,13 +34,13 @@ namespace InsuredTraveling
         public double Total_Premium { get; set; }
         public string Created_By { get; set; }
         public System.DateTime Date_Created { get; set; }
-        public bool Modified { get; set; }
         public string Modified_By { get; set; }
         public System.DateTime Date_modified { get; set; }
         public string IPaddress { get; set; }
-        public string OldValue { get; set; }
-        public string NewValue { get; set; }
         public System.DateTime Date_Cancellation { get; set; }
         public bool Payment_Status { get; set; }
+        public int Id_travel_policy { get; set; }
+    
+        public virtual travel_policy travel_policy { get; set; }
     }
 }

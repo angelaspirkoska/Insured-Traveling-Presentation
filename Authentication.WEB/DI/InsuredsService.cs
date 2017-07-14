@@ -11,7 +11,6 @@ namespace InsuredTraveling.DI
 
         public int AddInsured(insured Insured)
         {
-
             var InsuredData = _db.insureds.Where(x => x.SSN == Insured.SSN).FirstOrDefault();
             if (InsuredData != null)
             {

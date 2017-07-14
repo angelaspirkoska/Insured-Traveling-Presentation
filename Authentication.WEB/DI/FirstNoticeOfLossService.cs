@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,10 +17,11 @@ namespace InsuredTraveling.DI
 
         public int Add(first_notice_of_loss FirstNoticeOfLoss)
         {
-            _db.first_notice_of_loss.Add(FirstNoticeOfLoss);
-             _db.SaveChanges();
+                _db.first_notice_of_loss.Add(FirstNoticeOfLoss);
+                _db.SaveChanges();
             return FirstNoticeOfLoss.ID;
         }
+
         public bool IsHealthInsuranceByAdditionalInfoId(int id)
         {
             var healthAdditionalInfo = _db.health_insurance_info.SingleOrDefault(x => x.Additional_infoId == id);

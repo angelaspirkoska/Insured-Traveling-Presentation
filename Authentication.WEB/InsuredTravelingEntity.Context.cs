@@ -86,12 +86,24 @@ namespace InsuredTraveling
         public virtual DbSet<insured> insureds { get; set; }
         public virtual DbSet<log_activities> log_activities { get; set; }
         public virtual DbSet<elmah_error> elmah_error { get; set; }
-        public virtual DbSet<aspnetusers_log> aspnetusers_log { get; set; }
-        public virtual DbSet<first_notice_of_loss_log> first_notice_of_loss_log { get; set; }
         public virtual DbSet<quote> quotes { get; set; }
+        public virtual DbSet<excelconfig> excelconfigs { get; set; }
+        public virtual DbSet<kanbanboard> kanbanboards { get; set; }
+        public virtual DbSet<kanbancomponent> kanbancomponents { get; set; }
+        public virtual DbSet<kanbanpoollist> kanbanpoollists { get; set; }
+        public virtual DbSet<kanbanticket> kanbantickets { get; set; }
+        public virtual DbSet<kanbanticketassignedto> kanbanticketassignedtoes { get; set; }
+        public virtual DbSet<kanbanticketcomponent> kanbanticketcomponents { get; set; }
+        public virtual DbSet<kanbantickettype> kanbantickettypes { get; set; }
+        public virtual DbSet<kanbantickettypecomponent> kanbantickettypecomponents { get; set; }
+        public virtual DbSet<kanbanticketwatcher> kanbanticketwatchers { get; set; }
+        public virtual DbSet<notification> notifications { get; set; }
+        public virtual DbSet<notificationuser> notificationusers { get; set; }
+        public virtual DbSet<aspnetusers_log> aspnetusers_log { get; set; }
         public virtual DbSet<quotes_log> quotes_log { get; set; }
         public virtual DbSet<travel_policy_log> travel_policy_log { get; set; }
         public virtual DbSet<insured_log> insured_log { get; set; }
+        public virtual DbSet<first_notice_of_loss_log> first_notice_of_loss_log { get; set; }
     
         public virtual ObjectResult<elmah_GetErrorsXml_Result> elmah_GetErrorsXml(string app, Nullable<int> pageIndex, Nullable<int> pageSize, ObjectParameter totalCount)
         {

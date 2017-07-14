@@ -2095,6 +2095,9 @@
     <Compile Include="aspnetuserlogin.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="aspnetusers_log.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Authentication\AuthContext.cs" />
     <Compile Include="Authentication\AuthRepository.cs" />
     <Compile Include="bank.cs">
@@ -2197,6 +2200,7 @@
     <Compile Include="DI\IHealthInsuranceService.cs" />
     <Compile Include="DI\IInsuredsService.cs" />
     <Compile Include="DI\ILogActivityService.cs" />
+    <Compile Include="DI\ILogService.cs" />
     <Compile Include="DI\ILuggageInsuranceService.cs" />
     <Compile Include="DI\INewsService.cs" />
     <Compile Include="DI\InsuredsService.cs" />
@@ -2210,6 +2214,7 @@
     <Compile Include="DI\ITravelNumberService.cs" />
     <Compile Include="DI\IUserService.cs" />
     <Compile Include="DI\LogActivityService.cs" />
+    <Compile Include="DI\LogService.cs" />
     <Compile Include="DI\LuggageInsuranceService.cs" />
     <Compile Include="DI\NewsService.cs" />
     <Compile Include="DI\OkSetupService.cs" />
@@ -2265,6 +2270,9 @@
     <Compile Include="Errors\500.aspx.designer.cs">
       <DependentUpon>500.aspx</DependentUpon>
     </Compile>
+    <Compile Include="excelconfig.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="exchange_rate.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -2279,6 +2287,9 @@
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="first_notice_of_loss_archive.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="first_notice_of_loss_log.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="FormBuilder\ExcelReader.cs" />
@@ -2309,6 +2320,36 @@
     <Compile Include="insured.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="insured_log.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbanboard.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbancomponent.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbanpoollist.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbanticket.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbanticketassignedto.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbanticketcomponent.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbantickettype.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbantickettypecomponent.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="kanbanticketwatcher.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="log_activities.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
@@ -2321,7 +2362,19 @@
     <Compile Include="Models\ErrorLog.cs" />
     <Compile Include="Models\Ok_SetupModel.cs" />
     <Compile Include="Models\SearchRegisteredUser.cs" />
+    <Compile Include="notification.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="notificationuser.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="quote.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="quotes_log.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2459,6 +2512,9 @@
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="travel_policy.cs">
+      <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="travel_policy_log.cs">
       <DependentUpon>InsuredTravelingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="type_insured.cs">

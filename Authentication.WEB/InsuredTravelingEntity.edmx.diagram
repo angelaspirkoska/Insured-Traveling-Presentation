@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="98e5219c4ee54651afe193f34e768c8b" Name="Diagram1" ZoomLevel="68">
+      <Diagram DiagramId="98e5219c4ee54651afe193f34e768c8b" Name="Diagram1" ZoomLevel="57">
         <EntityTypeShape EntityType="Entities.additional_charge" Width="1.5" PointX="5.25" PointY="24.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.additional_info" Width="1.5" PointX="9" PointY="40" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.aspnetrole" Width="1.5" PointX="0.75" PointY="31.375" IsExpanded="true" />
@@ -135,12 +135,42 @@
         <AssociationConnector Association="Entities.travel_policy_ibfk_1" />
         <EntityTypeShape EntityType="Entities.log_activities" Width="1.5" PointX="13.375" PointY="3.75" />
         <EntityTypeShape EntityType="Entities.elmah_error" Width="1.5" PointX="0.75" PointY="14.75" />
-        <EntityTypeShape EntityType="Entities.aspnetusers_log" Width="1.5" PointX="3.75" PointY="14.75" />
-        <EntityTypeShape EntityType="Entities.first_notice_of_loss_log" Width="1.5" PointX="15.75" PointY="0.75" />
         <EntityTypeShape EntityType="Entities.quote" Width="1.5" PointX="17.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Entities.excelconfig" Width="1.5" PointX="5.25" PointY="44.875" />
+        <EntityTypeShape EntityType="Entities.kanbanboard" Width="1.5" PointX="17.125" PointY="35.375" />
+        <EntityTypeShape EntityType="Entities.kanbancomponent" Width="1.5" PointX="19.375" PointY="18.125" />
+        <EntityTypeShape EntityType="Entities.kanbanpoollist" Width="1.5" PointX="19.375" PointY="35.125" />
+        <EntityTypeShape EntityType="Entities.kanbanticket" Width="1.5" PointX="21.625" PointY="27.375" />
+        <EntityTypeShape EntityType="Entities.kanbanticketassignedto" Width="1.5" PointX="23.875" PointY="31.875" />
+        <EntityTypeShape EntityType="Entities.kanbanticketcomponent" Width="1.5" PointX="23.875" PointY="28.125" />
+        <EntityTypeShape EntityType="Entities.kanbantickettype" Width="1.5" PointX="19.375" PointY="21.125" />
+        <EntityTypeShape EntityType="Entities.kanbantickettypecomponent" Width="1.5" PointX="21.625" PointY="21.125" />
+        <EntityTypeShape EntityType="Entities.kanbanticketwatcher" Width="1.5" PointX="26.875" PointY="30.875" />
+        <EntityTypeShape EntityType="Entities.notification" Width="1.5" PointX="12" PointY="63" />
+        <EntityTypeShape EntityType="Entities.notificationuser" Width="1.5" PointX="14.25" PointY="28" />
+        <AssociationConnector Association="Entities.AssignedToFK" />
+        <AssociationConnector Association="Entities.CreatedByFK" />
+        <AssociationConnector Association="Entities.fk_createdby_aspnetusers" />
+        <AssociationConnector Association="Entities.UserFK" />
+        <AssociationConnector Association="Entities.WatcherFK" />
+        <AssociationConnector Association="Entities.KanbanBoardFK" />
+        <AssociationConnector Association="Entities.ComponentFK2" />
+        <AssociationConnector Association="Entities.ComponentId" />
+        <AssociationConnector Association="Entities.PoolListFK" />
+        <AssociationConnector Association="Entities.KanbanTicketFK" />
+        <AssociationConnector Association="Entities.KanbanTicketFK2" />
+        <AssociationConnector Association="Entities.TicketFK" />
+        <AssociationConnector Association="Entities.TicketTypeFK" />
+        <AssociationConnector Association="Entities.TicketTypeFK2" />
+        <AssociationConnector Association="Entities.NotificationFK" />
+        <EntityTypeShape EntityType="Entities.aspnetusers_log" Width="1.5" PointX="3.75" PointY="14.75" />
         <EntityTypeShape EntityType="Entities.quotes_log" Width="1.5" PointX="0.75" PointY="18.75" />
-        <EntityTypeShape EntityType="Entities.travel_policy_log" Width="1.5" PointX="18.75" PointY="7.75" />
-        <EntityTypeShape EntityType="Entities.insured_log" Width="1.5" PointX="15.75" PointY="7.75" />
+        <EntityTypeShape EntityType="Entities.travel_policy_log" Width="1.5" PointX="19.125" PointY="24.125" />
+        <AssociationConnector Association="Entities.travel_policy_log_fk" />
+        <EntityTypeShape EntityType="Entities.insured_log" Width="1.5" PointX="12.5" PointY="66" />
+        <AssociationConnector Association="Entities.insured_log_fk" />
+        <EntityTypeShape EntityType="Entities.first_notice_of_loss_log" Width="1.5" PointX="13.5" PointY="71.875" />
+        <AssociationConnector Association="Entities.first_notice_of_loss_log_ibfk_1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

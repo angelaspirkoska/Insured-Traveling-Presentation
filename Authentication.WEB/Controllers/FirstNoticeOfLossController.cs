@@ -32,6 +32,7 @@ namespace InsuredTraveling.Controllers
         private IHealthInsuranceService _his;
         private ILuggageInsuranceService _lis;
         private IFirstNoticeOfLossArchiveService _firstNoticeLossArchiveService;
+        private ILogService _logService;
         
         public FirstNoticeOfLossController(IUserService us, 
                                            IPolicyService ps, 
@@ -43,7 +44,8 @@ namespace InsuredTraveling.Controllers
                                            IAdditionalInfoService ais, 
                                            IHealthInsuranceService his,
                                            ILuggageInsuranceService lis,
-                                           IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService)
+                                           IFirstNoticeOfLossArchiveService firstNoticeLossArchiveService,
+                                           ILogService logService)
         {
             _us = us;
             _ps = ps;
@@ -56,6 +58,7 @@ namespace InsuredTraveling.Controllers
             _his = his;
             _lis = lis;
             _firstNoticeLossArchiveService = firstNoticeLossArchiveService;
+            _logService = logService;
         }
         [CustomActionFilter]
         [SessionExpire]
@@ -130,6 +133,9 @@ namespace InsuredTraveling.Controllers
                             _bas,  _pts, _ais, firstNoticeOfLossViewModel, invoices, documentsHealth, documentsLuggage);
                 if (result>0)
                 {
+                    var addedFNOL = _fis.GetById(result);
+                    var loggedFNOL = Mapper.Map<first_notice_of_loss, first_notice_of_loss_log>(addedFNOL);
+                    _logService.AddFNOL_log(loggedFNOL, HttpContext.Request.UserHostAddress, addedFNOL.ID);
                     ViewBag.Message = "Successfully reported!";
                     return RedirectToAction("View", new { id = result });
                 }
@@ -195,8 +201,16 @@ namespace InsuredTraveling.Controllers
             model.PolicyHolderBankAccountNumber = model.PolicyHolderBankAccountNumber.Trim();
             model.ClaimantBankAccountNumber = model.ClaimantBankAccountNumber.Trim();
             model.ModifiedBy = _us.GetUserIdByUsername(System.Web.HttpContext.Current.User.Identity.Name);
+            
+            var lastValue = _fis.GetById(model.Id); //vrednost pred update
 
             UpdateFirstNoticeOfLossHelper.UpdateFirstNoticeOfLoss(model, _fis, _bas, _ais,  _his,  _lis, _firstNoticeLossArchiveService, invoices, documentsHealth, documentsLuggage);
+
+            var loggedFNOL = Mapper.Map<first_notice_of_loss, first_notice_of_loss_log>(lastValue);
+            _logService.AddFNOL_log(loggedFNOL, HttpContext.Request.UserHostAddress, loggedFNOL.ID);
+
+            //var afteredit = _fis.GetById(model.Id); // se dodava poslednata promena vo log
+
             return RedirectToAction("View", new { id = model.Id });
         }
         [CustomActionFilter]

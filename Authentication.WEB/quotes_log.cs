@@ -36,10 +36,8 @@ namespace InsuredTraveling
         public System.DateTime Date_Cancellation { get; set; }
         public string Created_By { get; set; }
         public System.DateTime Date_Created { get; set; }
-        public bool Modified { get; set; }
         public string Modified_By { get; set; }
         public System.DateTime Date_Modified { get; set; }
-        public string OldValue { get; set; }
-        public string NewValue { get; set; }
+        public int Id_quotes { get; set; }
     }
 }

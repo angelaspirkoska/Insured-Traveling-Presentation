@@ -109,45 +109,42 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
         <EntityType Name="aspnetusers_log">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="User_ID" />
           </Key>
           <Property Name="Id" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
           <Property Name="FirstName" Type="longtext" Nullable="false" />
           <Property Name="LastName" Type="longtext" Nullable="false" />
-          <Property Name="EMBG" Type="longtext" Nullable="false" />
-          <Property Name="Address" Type="longtext" Nullable="false" />
-          <Property Name="Municipality" Type="longtext" Nullable="false" />
-          <Property Name="InsuranceCompany" Type="longtext" Nullable="false" />
-          <Property Name="ActivationCodeMail" Type="longtext" Nullable="false" />
-          <Property Name="ActivationCodeSMS" Type="longtext" Nullable="false" />
-          <Property Name="GroupID" Type="longtext" Nullable="false" />
-          <Property Name="Email" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="EMBG" Type="longtext" />
+          <Property Name="Address" Type="longtext" />
+          <Property Name="Municipality" Type="longtext" />
+          <Property Name="InsuranceCompany" Type="longtext" />
+          <Property Name="ActivationCodeMail" Type="longtext" />
+          <Property Name="ActivationCodeSMS" Type="longtext" />
+          <Property Name="GroupID" Type="longtext" />
+          <Property Name="Email" Type="varchar" MaxLength="256" />
           <Property Name="EmailConfirmed" Type="bool" Nullable="false" />
-          <Property Name="PasswordHash" Type="longtext" Nullable="false" />
-          <Property Name="SecurityStamp" Type="longtext" Nullable="false" />
-          <Property Name="PhoneNumber" Type="longtext" Nullable="false" />
+          <Property Name="PasswordHash" Type="longtext" />
+          <Property Name="SecurityStamp" Type="longtext" />
+          <Property Name="PhoneNumber" Type="longtext" />
           <Property Name="PhoneNumberConfirmed" Type="bool" Nullable="false" />
           <Property Name="TwoFactorEnabled" Type="bool" Nullable="false" />
-          <Property Name="LockoutEndDateUtc" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" Precision="0" />
           <Property Name="LockoutEnabled" Type="bool" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="MobilePhoneNumber" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="PostalCode" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="PassportNumber" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="City" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="256" />
+          <Property Name="PassportNumber" Type="varchar" MaxLength="256" />
+          <Property Name="City" Type="varchar" MaxLength="128" />
+          <Property Name="DateOfBirth" Type="date" />
           <Property Name="Gender" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Active" Type="tinyint" Nullable="false" />
-          <Property Name="CreatedOn" Type="date" Nullable="false" />
-          <Property Name="CreatedBy" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="Modified" Type="bool" Nullable="false" />
+          <Property Name="Active" Type="tinyint" />
+          <Property Name="CreatedOn" Type="date" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="128" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="Date_Modified" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="IPaddress" Type="varchar" MaxLength="1000" Nullable="false" />
-          <Property Name="OldValue" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="NewValue" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Id_aspnetusers" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="bank_account_info">
           <Key>
@@ -336,6 +333,16 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Sequence" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AllXml" Type="text" Nullable="false" />
         </EntityType>
+        <EntityType Name="excelconfig">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateCreated" Type="date" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="ValidDateStart" Type="date" />
+          <Property Name="ValidDateEnd" Type="date" />
+        </EntityType>
         <EntityType Name="exchange_rate">
           <Key>
             <PropertyRef Name="ID" />
@@ -431,27 +438,25 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PolicyId" Type="int" Nullable="false" />
           <Property Name="ClaimantId" Type="int" Nullable="false" />
-          <Property Name="Relation_claimant_policy_holder" Type="text" Nullable="false" />
-          <Property Name="Policy_holder_bank_accountID" Type="int" Nullable="false" />
-          <Property Name="Claimant_bank_accountID" Type="int" Nullable="false" />
+          <Property Name="Relation_claimant_policy_holder" Type="text" />
+          <Property Name="Policy_holder_bank_accountID" Type="int" />
+          <Property Name="Claimant_bank_accountID" Type="int" />
           <Property Name="Destination" Type="text" Nullable="false" />
           <Property Name="Depart_Date_Time" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Arrival_Date_Time" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Transport_means" Type="text" Nullable="false" />
           <Property Name="Additional_infoID" Type="int" Nullable="false" />
           <Property Name="Total_cost" Type="float" Nullable="false" />
-          <Property Name="Web/Mobile" Type="bool" Nullable="false" />
-          <Property Name="ChatId" Type="int" Nullable="false" />
-          <Property Name="Short/Detailed" Type="bool" Nullable="false" />
+          <Property Name="Web/Mobile" Type="bool" />
+          <Property Name="ChatId" Type="int" />
+          <Property Name="Short/Detailed" Type="bool" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="CreatedDateTime" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="Modified" Type="bool" Nullable="false" />
-          <Property Name="ModifiedBy" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="Modified_Datetime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="128" />
+          <Property Name="Modified_Datetime" Type="datetime" Precision="0" />
           <Property Name="FNOL_Number" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="IPaddress" Type="varchar" MaxLength="1000" Nullable="false" />
-          <Property Name="OldValue" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="NewValue" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Id_first_notice_of_loss" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="groups">
           <Key>
@@ -508,59 +513,123 @@ warning 6002: The table/view 'def.db_9eb138_travel.aspnetuserlogins' does not ha
           <Property Name="Date_Modified" Type="datetime" Precision="0" />
           <Property Name="Modified_By" Type="varchar" MaxLength="128" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'def.db_9eb138_travel.insured_log' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="insured_log">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="Lastname" />
-            <PropertyRef Name="SSN" />
-            <PropertyRef Name="DateBirth" />
-            <PropertyRef Name="Age" />
-            <PropertyRef Name="Email" />
-            <PropertyRef Name="Phone_Number" />
-            <PropertyRef Name="City" />
-            <PropertyRef Name="Postal_Code" />
-            <PropertyRef Name="Address" />
-            <PropertyRef Name="Passport_Number_IdNumber" />
-            <PropertyRef Name="Type_InsuredID" />
-            <PropertyRef Name="Date_Created" />
-            <PropertyRef Name="Created_By" />
-            <PropertyRef Name="Modified" />
-            <PropertyRef Name="Date_Modified" />
-            <PropertyRef Name="Modified_By" />
-            <PropertyRef Name="IPaddress" />
-            <PropertyRef Name="OldValue" />
-            <PropertyRef Name="NewValue" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="Lastname" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="SSN" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DateBirth" Type="date" Nullable="false" />
-          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="Age" Type="int" />
           <Property Name="Email" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="Phone_Number" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="City" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="Postal_Code" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="Passport_Number_IdNumber" Type="varchar" MaxLength="64" Nullable="false" />
-          <Property Name="Type_InsuredID" Type="int" Nullable="false" />
+          <Property Name="Type_InsuredID" Type="int" />
           <Property Name="Date_Created" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="Created_By" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="Modified" Type="bool" Nullable="false" />
-          <Property Name="Date_Modified" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="Modified_By" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Created_By" Type="varchar" MaxLength="128" />
+          <Property Name="Date_Modified" Type="datetime" Precision="0" />
+          <Property Name="Modified_By" Type="varchar" MaxLength="256" />
           <Property Name="IPaddress" Type="varchar" MaxLength="1000" Nullable="false" />
-          <Property Name="OldValue" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="NewValue" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Id_insured" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="invoices">
           <Key>
             <PropertyRef Name="DocumentID" />
           </Key>
           <Property Name="DocumentID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kanbanboard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="Color" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="kanbancomponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kanbanpoollist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="OrderBy" Type="float" Nullable="false" />
+          <Property Name="KanbanBoardId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kanbanticket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="TicketTypeId" Type="int" />
+          <Property Name="CreatedById" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeadlineDate" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderBy" Type="float" Nullable="false" />
+          <Property Name="KanbanPoolListId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kanbanticketassignedto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KanbanTicketId" Type="int" Nullable="false" />
+          <Property Name="AssignedToId" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="AssignedDateTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Active" Type="bool" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kanbanticketcomponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TicketId" Type="int" />
+          <Property Name="ComponentId" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kanbantickettype">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Color" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kanbantickettypecomponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TicketTypeId" Type="int" />
+          <Property Name="ComponentId" Type="int" />
+        </EntityType>
+        <EntityType Name="kanbanticketwatcher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KanbanTicketId" Type="int" Nullable="false" />
+          <Property Name="WatcherId" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="AssignedDateTime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Active" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="languages">
           <Key>
@@ -647,6 +716,25 @@ warning 6002: The table/view 'def.db_9eb138_travel.insured_log' does not have a 
           <Property Name="InsuranceCompany" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="GroupID" Type="text" />
           <Property Name="UserID" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Content" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="notificationuser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NotificationId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="IsOpened" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="ok_setup">
           <Key>
@@ -797,11 +885,9 @@ warning 6002: The table/view 'def.db_9eb138_travel.insured_log' does not have a 
           <Property Name="Date_Cancellation" Type="date" Nullable="false" />
           <Property Name="Created_By" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="Date_Created" Type="date" Nullable="false" />
-          <Property Name="Modified" Type="bool" Nullable="false" />
           <Property Name="Modified_By" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="Date_Modified" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="OldValue" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="NewValue" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Id_quotes" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="refreshtokens">
           <Key>
@@ -928,30 +1014,28 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <Property Name="Policy_Number" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="Policy_HolderID" Type="int" Nullable="false" />
           <Property Name="Exchange_RateID" Type="int" Nullable="false" />
-          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="CountryID" Type="int" />
           <Property Name="Policy_TypeID" Type="int" Nullable="false" />
-          <Property Name="Retaining_RiskID" Type="int" Nullable="false" />
-          <Property Name="Franchise_Age" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Retaining_RiskID" Type="int" />
+          <Property Name="Franchise_Age" Type="varchar" MaxLength="64" />
           <Property Name="Start_Date" Type="date" Nullable="false" />
           <Property Name="End_Date" Type="date" Nullable="false" />
           <Property Name="Valid_Days" Type="int" Nullable="false" />
-          <Property Name="Franchise_Days" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Franchise_Days" Type="varchar" MaxLength="128" />
           <Property Name="Travel_NumberID" Type="int" Nullable="false" />
           <Property Name="Travel_Insurance_TypeID" Type="int" Nullable="false" />
-          <Property Name="Group_Members" Type="int" Nullable="false" />
-          <Property Name="Group_Total_Premium" Type="double" Nullable="false" />
-          <Property Name="Discount" Type="int" Nullable="false" />
-          <Property Name="Total_Premium" Type="double" Nullable="false" />
-          <Property Name="Created_By" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Group_Members" Type="int" />
+          <Property Name="Group_Total_Premium" Type="double" />
+          <Property Name="Discount" Type="int" />
+          <Property Name="Total_Premium" Type="double" />
+          <Property Name="Created_By" Type="varchar" MaxLength="128" />
           <Property Name="Date_Created" Type="date" Nullable="false" />
-          <Property Name="Modified" Type="bool" Nullable="false" />
-          <Property Name="Modified_By" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="Date_modified" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Modified_By" Type="varchar" MaxLength="128" />
+          <Property Name="Date_modified" Type="datetime" Precision="0" />
           <Property Name="IPaddress" Type="varchar" MaxLength="1000" Nullable="false" />
-          <Property Name="OldValue" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="NewValue" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="Date_Cancellation" Type="date" Nullable="false" />
+          <Property Name="Date_Cancellation" Type="date" />
           <Property Name="Payment_Status" Type="bool" Nullable="false" />
+          <Property Name="Id_travel_policy" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="type_insured">
           <Key>
@@ -1002,6 +1086,23 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'aspnetusers_log_fk' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="aspnetusers_log_fk" />-->
+        <Association Name="AssignedToFK">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbanticketassignedto" Type="Self.kanbanticketassignedto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketassignedto">
+              <PropertyRef Name="AssignedToId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="bank_account_info_ibfk_1">
           <End Role="insured" Type="Self.insured" Multiplicity="1" />
           <End Role="bank_account_info" Type="Self.bank_account_info" Multiplicity="*" />
@@ -1026,6 +1127,30 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ComponentFK2">
+          <End Role="kanbancomponent" Type="Self.kanbancomponent" Multiplicity="0..1" />
+          <End Role="kanbanticketcomponent" Type="Self.kanbanticketcomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbancomponent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketcomponent">
+              <PropertyRef Name="ComponentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComponentId">
+          <End Role="kanbancomponent" Type="Self.kanbancomponent" Multiplicity="0..1" />
+          <End Role="kanbantickettypecomponent" Type="Self.kanbantickettypecomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbancomponent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbantickettypecomponent">
+              <PropertyRef Name="ComponentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="countries_name_ibfk_1">
           <End Role="countries" Type="Self.countries" Multiplicity="1" />
           <End Role="countries_name" Type="Self.countries_name" Multiplicity="*" />
@@ -1047,6 +1172,20 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Principal>
             <Dependent Role="countries_name">
               <PropertyRef Name="language_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CreatedByFK">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="CreatedById" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1302,6 +1441,18 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="first_notice_of_loss_log_ibfk_1">
+          <End Role="first_notice_of_loss" Type="Self.first_notice_of_loss" Multiplicity="1" />
+          <End Role="first_notice_of_loss_log" Type="Self.first_notice_of_loss_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="first_notice_of_loss">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_log">
+              <PropertyRef Name="Id_first_notice_of_loss" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_additional_charge_created_by">
           <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1" />
           <End Role="additional_charge" Type="Self.additional_charge" Multiplicity="*" />
@@ -1399,6 +1550,18 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Principal>
             <Dependent Role="discount_country">
               <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_createdby_aspnetusers">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1" />
+          <End Role="excelconfig" Type="Self.excelconfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="excelconfig">
+              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1786,6 +1949,60 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="insured_log_fk">
+          <End Role="insured" Type="Self.insured" Multiplicity="1" />
+          <End Role="insured_log" Type="Self.insured_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insured">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="insured_log">
+              <PropertyRef Name="Id_insured" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KanbanBoardFK">
+          <End Role="kanbanboard" Type="Self.kanbanboard" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbanpoollist" Type="Self.kanbanpoollist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanboard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanpoollist">
+              <PropertyRef Name="KanbanBoardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KanbanTicketFK">
+          <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbanticketassignedto" Type="Self.kanbanticketassignedto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanticket">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketassignedto">
+              <PropertyRef Name="KanbanTicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KanbanTicketFK2">
+          <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbanticketwatcher" Type="Self.kanbanticketwatcher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanticket">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketwatcher">
+              <PropertyRef Name="KanbanTicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="luggage_insurance_info_ibfk_1">
           <End Role="additional_info" Type="Self.additional_info" Multiplicity="1" />
           <End Role="luggage_insurance_info" Type="Self.luggage_insurance_info" Multiplicity="0..1" />
@@ -1810,6 +2027,20 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="NotificationFK">
+          <End Role="notification" Type="Self.notification" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="notificationuser" Type="Self.notificationuser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="notification">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="notificationuser">
+              <PropertyRef Name="NotificationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="policy_insured_ibfk_1">
           <End Role="insured" Type="Self.insured" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1821,6 +2052,20 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Principal>
             <Dependent Role="policy_insured">
               <PropertyRef Name="InsuredID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PoolListFK">
+          <End Role="kanbanpoollist" Type="Self.kanbanpoollist" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanpoollist">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="KanbanPoolListId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1848,6 +2093,42 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="TicketFK">
+          <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="0..1" />
+          <End Role="kanbanticketcomponent" Type="Self.kanbanticketcomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanticket">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketcomponent">
+              <PropertyRef Name="TicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TicketTypeFK">
+          <End Role="kanbantickettype" Type="Self.kanbantickettype" Multiplicity="0..1" />
+          <End Role="kanbanticket" Type="Self.kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbantickettype">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="TicketTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TicketTypeFK2">
+          <End Role="kanbantickettype" Type="Self.kanbantickettype" Multiplicity="0..1" />
+          <End Role="kanbantickettypecomponent" Type="Self.kanbantickettypecomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbantickettype">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="kanbantickettypecomponent">
+              <PropertyRef Name="TicketTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="travel_policy_ibfk_1">
           <End Role="insured" Type="Self.insured" Multiplicity="1" />
           <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="*" />
@@ -1857,6 +2138,46 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
             </Principal>
             <Dependent Role="travel_policy">
               <PropertyRef Name="Policy_HolderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="travel_policy_log_fk">
+          <End Role="travel_policy" Type="Self.travel_policy" Multiplicity="1" />
+          <End Role="travel_policy_log" Type="Self.travel_policy_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="travel_policy">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="travel_policy_log">
+              <PropertyRef Name="Id_travel_policy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserFK">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="notificationuser" Type="Self.notificationuser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="notificationuser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="WatcherFK">
+          <End Role="aspnetusers" Type="Self.aspnetusers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="kanbanticketwatcher" Type="Self.kanbanticketwatcher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetusers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketwatcher">
+              <PropertyRef Name="WatcherId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1909,6 +2230,7 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="documents" EntityType="Self.documents" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="documents_first_notice_of_loss" EntityType="Self.documents_first_notice_of_loss" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="elmah_error" EntityType="Self.elmah_error" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="excelconfig" EntityType="Self.excelconfig" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="exchange_rate" EntityType="Self.exchange_rate" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="first_notice_of_loss" EntityType="Self.first_notice_of_loss" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="first_notice_of_loss_archive" EntityType="Self.first_notice_of_loss_archive" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1917,7 +2239,17 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="health_insurance" EntityType="Self.health_insurance" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="health_insurance_info" EntityType="Self.health_insurance_info" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="insured" EntityType="Self.insured" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="insured_log" EntityType="Self.insured_log" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="invoices" EntityType="Self.invoices" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbanboard" EntityType="Self.kanbanboard" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbancomponent" EntityType="Self.kanbancomponent" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbanpoollist" EntityType="Self.kanbanpoollist" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbanticket" EntityType="Self.kanbanticket" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbanticketassignedto" EntityType="Self.kanbanticketassignedto" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbanticketcomponent" EntityType="Self.kanbanticketcomponent" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbantickettype" EntityType="Self.kanbantickettype" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbantickettypecomponent" EntityType="Self.kanbantickettypecomponent" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="kanbanticketwatcher" EntityType="Self.kanbanticketwatcher" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="languages" EntityType="Self.languages" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="log_activities" EntityType="Self.log_activities" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="luggage_insurance" EntityType="Self.luggage_insurance" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1925,6 +2257,8 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
           <EntitySet Name="message" EntityType="Self.message" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="min_premium" EntityType="Self.min_premium" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="news_all" EntityType="Self.news_all" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="notification" EntityType="Self.notification" Schema="db_9eb138_travel" store:Type="Tables" />
+          <EntitySet Name="notificationuser" EntityType="Self.notificationuser" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="ok_setup" EntityType="Self.ok_setup" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="p_referent" EntityType="Self.p_referent" Schema="db_9eb138_travel" store:Type="Tables" />
           <EntitySet Name="p_stapki" EntityType="Self.p_stapki" Schema="db_9eb138_travel" store:Type="Tables" />
@@ -1953,31 +2287,6 @@ warning 6002: The table/view 'def.db_9eb138_travel.transaction' does not have a 
 `aspnetuserlogins`.`UserId`
 FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="insured_log" EntityType="Self.insured_log" store:Type="Tables" store:Schema="db_9eb138_travel">
-            <DefiningQuery>SELECT
-`insured_log`.`ID`, 
-`insured_log`.`Name`, 
-`insured_log`.`Lastname`, 
-`insured_log`.`SSN`, 
-`insured_log`.`DateBirth`, 
-`insured_log`.`Age`, 
-`insured_log`.`Email`, 
-`insured_log`.`Phone_Number`, 
-`insured_log`.`City`, 
-`insured_log`.`Postal_Code`, 
-`insured_log`.`Address`, 
-`insured_log`.`Passport_Number_IdNumber`, 
-`insured_log`.`Type_InsuredID`, 
-`insured_log`.`Date_Created`, 
-`insured_log`.`Created_By`, 
-`insured_log`.`Modified`, 
-`insured_log`.`Date_Modified`, 
-`insured_log`.`Modified_By`, 
-`insured_log`.`IPaddress`, 
-`insured_log`.`OldValue`, 
-`insured_log`.`NewValue`
-FROM `insured_log` AS `insured_log`</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="transaction" EntityType="Self.transaction" store:Type="Tables" store:Schema="db_9eb138_travel">
             <DefiningQuery>SELECT
 `transaction`.`OrderID`, 
@@ -2005,6 +2314,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="additional_charge" EntitySet="additional_charge" />
             <End Role="additional_charge_name" EntitySet="additional_charge_name" />
           </AssociationSet>
+          <AssociationSet Name="AssignedToFK" Association="Self.AssignedToFK">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="kanbanticketassignedto" EntitySet="kanbanticketassignedto" />
+          </AssociationSet>
           <AssociationSet Name="bank_account_info_ibfk_1" Association="Self.bank_account_info_ibfk_1">
             <End Role="insured" EntitySet="insured" />
             <End Role="bank_account_info" EntitySet="bank_account_info" />
@@ -2013,6 +2326,14 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="banks" EntitySet="banks" />
             <End Role="bank_account_info" EntitySet="bank_account_info" />
           </AssociationSet>
+          <AssociationSet Name="ComponentFK2" Association="Self.ComponentFK2">
+            <End Role="kanbancomponent" EntitySet="kanbancomponent" />
+            <End Role="kanbanticketcomponent" EntitySet="kanbanticketcomponent" />
+          </AssociationSet>
+          <AssociationSet Name="ComponentId" Association="Self.ComponentId">
+            <End Role="kanbancomponent" EntitySet="kanbancomponent" />
+            <End Role="kanbantickettypecomponent" EntitySet="kanbantickettypecomponent" />
+          </AssociationSet>
           <AssociationSet Name="countries_name_ibfk_1" Association="Self.countries_name_ibfk_1">
             <End Role="countries" EntitySet="countries" />
             <End Role="countries_name" EntitySet="countries_name" />
@@ -2020,6 +2341,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="countries_name_ibfk_2" Association="Self.countries_name_ibfk_2">
             <End Role="languages" EntitySet="languages" />
             <End Role="countries_name" EntitySet="countries_name" />
+          </AssociationSet>
+          <AssociationSet Name="CreatedByFK" Association="Self.CreatedByFK">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="kanbanticket" EntitySet="kanbanticket" />
           </AssociationSet>
           <AssociationSet Name="discount_days_ibfk_1" Association="Self.discount_days_ibfk_1">
             <End Role="policy_type" EntitySet="policy_type" />
@@ -2105,6 +2430,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
           </AssociationSet>
+          <AssociationSet Name="first_notice_of_loss_log_ibfk_1" Association="Self.first_notice_of_loss_log_ibfk_1">
+            <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
+            <End Role="first_notice_of_loss_log" EntitySet="first_notice_of_loss_log" />
+          </AssociationSet>
           <AssociationSet Name="fk_additional_charge_created_by" Association="Self.fk_additional_charge_created_by">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
             <End Role="additional_charge" EntitySet="additional_charge" />
@@ -2136,6 +2465,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <AssociationSet Name="fk_country_id" Association="Self.fk_country_id">
             <End Role="countries" EntitySet="countries" />
             <End Role="discount_country" EntitySet="discount_country" />
+          </AssociationSet>
+          <AssociationSet Name="fk_createdby_aspnetusers" Association="Self.fk_createdby_aspnetusers">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="excelconfig" EntitySet="excelconfig" />
           </AssociationSet>
           <AssociationSet Name="fk_discount_age_Created_By" Association="Self.fk_discount_age_Created_By">
             <End Role="aspnetusers" EntitySet="aspnetusers" />
@@ -2261,6 +2594,22 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="additional_info" EntitySet="additional_info" />
             <End Role="health_insurance_info" EntitySet="health_insurance_info" />
           </AssociationSet>
+          <AssociationSet Name="insured_log_fk" Association="Self.insured_log_fk">
+            <End Role="insured" EntitySet="insured" />
+            <End Role="insured_log" EntitySet="insured_log" />
+          </AssociationSet>
+          <AssociationSet Name="KanbanBoardFK" Association="Self.KanbanBoardFK">
+            <End Role="kanbanboard" EntitySet="kanbanboard" />
+            <End Role="kanbanpoollist" EntitySet="kanbanpoollist" />
+          </AssociationSet>
+          <AssociationSet Name="KanbanTicketFK" Association="Self.KanbanTicketFK">
+            <End Role="kanbanticket" EntitySet="kanbanticket" />
+            <End Role="kanbanticketassignedto" EntitySet="kanbanticketassignedto" />
+          </AssociationSet>
+          <AssociationSet Name="KanbanTicketFK2" Association="Self.KanbanTicketFK2">
+            <End Role="kanbanticket" EntitySet="kanbanticket" />
+            <End Role="kanbanticketwatcher" EntitySet="kanbanticketwatcher" />
+          </AssociationSet>
           <AssociationSet Name="luggage_insurance_info_ibfk_1" Association="Self.luggage_insurance_info_ibfk_1">
             <End Role="additional_info" EntitySet="additional_info" />
             <End Role="luggage_insurance_info" EntitySet="luggage_insurance_info" />
@@ -2269,9 +2618,17 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="policy_type" EntitySet="policy_type" />
             <End Role="min_premium" EntitySet="min_premium" />
           </AssociationSet>
+          <AssociationSet Name="NotificationFK" Association="Self.NotificationFK">
+            <End Role="notification" EntitySet="notification" />
+            <End Role="notificationuser" EntitySet="notificationuser" />
+          </AssociationSet>
           <AssociationSet Name="policy_insured_ibfk_1" Association="Self.policy_insured_ibfk_1">
             <End Role="insured" EntitySet="insured" />
             <End Role="policy_insured" EntitySet="policy_insured" />
+          </AssociationSet>
+          <AssociationSet Name="PoolListFK" Association="Self.PoolListFK">
+            <End Role="kanbanpoollist" EntitySet="kanbanpoollist" />
+            <End Role="kanbanticket" EntitySet="kanbanticket" />
           </AssociationSet>
           <AssociationSet Name="retaining_risk_name_ibfk_1" Association="Self.retaining_risk_name_ibfk_1">
             <End Role="retaining_risk" EntitySet="retaining_risk" />
@@ -2281,9 +2638,33 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <End Role="languages" EntitySet="languages" />
             <End Role="retaining_risk_name" EntitySet="retaining_risk_name" />
           </AssociationSet>
+          <AssociationSet Name="TicketFK" Association="Self.TicketFK">
+            <End Role="kanbanticket" EntitySet="kanbanticket" />
+            <End Role="kanbanticketcomponent" EntitySet="kanbanticketcomponent" />
+          </AssociationSet>
+          <AssociationSet Name="TicketTypeFK" Association="Self.TicketTypeFK">
+            <End Role="kanbantickettype" EntitySet="kanbantickettype" />
+            <End Role="kanbanticket" EntitySet="kanbanticket" />
+          </AssociationSet>
+          <AssociationSet Name="TicketTypeFK2" Association="Self.TicketTypeFK2">
+            <End Role="kanbantickettype" EntitySet="kanbantickettype" />
+            <End Role="kanbantickettypecomponent" EntitySet="kanbantickettypecomponent" />
+          </AssociationSet>
           <AssociationSet Name="travel_policy_ibfk_1" Association="Self.travel_policy_ibfk_1">
             <End Role="insured" EntitySet="insured" />
             <End Role="travel_policy" EntitySet="travel_policy" />
+          </AssociationSet>
+          <AssociationSet Name="travel_policy_log_fk" Association="Self.travel_policy_log_fk">
+            <End Role="travel_policy" EntitySet="travel_policy" />
+            <End Role="travel_policy_log" EntitySet="travel_policy_log" />
+          </AssociationSet>
+          <AssociationSet Name="UserFK" Association="Self.UserFK">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="notificationuser" EntitySet="notificationuser" />
+          </AssociationSet>
+          <AssociationSet Name="WatcherFK" Association="Self.WatcherFK">
+            <End Role="aspnetusers" EntitySet="aspnetusers" />
+            <End Role="kanbanticketwatcher" EntitySet="kanbanticketwatcher" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -2542,6 +2923,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="aspnetuser" Relationship="Entities.first_notice_of_loss_ibfk_7" FromRole="first_notice_of_loss" ToRole="aspnetuser" />
           <NavigationProperty Name="travel_policy" Relationship="Entities.first_notice_of_loss_ibfk_6" FromRole="first_notice_of_loss" ToRole="travel_policy" />
           <NavigationProperty Name="insured" Relationship="Entities.first_notice_of_loss_ibfk_2" FromRole="first_notice_of_loss" ToRole="insured" />
+          <NavigationProperty Name="first_notice_of_loss_log" Relationship="Entities.first_notice_of_loss_log_ibfk_1" FromRole="first_notice_of_loss" ToRole="first_notice_of_loss_log" />
         </EntityType>
         <EntityType Name="group">
           <Key>
@@ -3469,12 +3851,96 @@ FROM `transaction` AS `transaction`</DefiningQuery>
             <Parameter Name="TimeUtc" Mode="In" Type="DateTime" />
           </FunctionImport>
           <EntitySet Name="elmah_error" EntityType="Entities.elmah_error" />
-          <EntitySet Name="aspnetusers_log" EntityType="Entities.aspnetusers_log" />
-          <EntitySet Name="first_notice_of_loss_log" EntityType="Entities.first_notice_of_loss_log" />
           <EntitySet Name="quotes" EntityType="Entities.quote" />
+          <EntitySet Name="excelconfigs" EntityType="Entities.excelconfig" />
+          <EntitySet Name="kanbanboards" EntityType="Entities.kanbanboard" />
+          <EntitySet Name="kanbancomponents" EntityType="Entities.kanbancomponent" />
+          <EntitySet Name="kanbanpoollists" EntityType="Entities.kanbanpoollist" />
+          <EntitySet Name="kanbantickets" EntityType="Entities.kanbanticket" />
+          <EntitySet Name="kanbanticketassignedtoes" EntityType="Entities.kanbanticketassignedto" />
+          <EntitySet Name="kanbanticketcomponents" EntityType="Entities.kanbanticketcomponent" />
+          <EntitySet Name="kanbantickettypes" EntityType="Entities.kanbantickettype" />
+          <EntitySet Name="kanbantickettypecomponents" EntityType="Entities.kanbantickettypecomponent" />
+          <EntitySet Name="kanbanticketwatchers" EntityType="Entities.kanbanticketwatcher" />
+          <EntitySet Name="notifications" EntityType="Entities.notification" />
+          <EntitySet Name="notificationusers" EntityType="Entities.notificationuser" />
+          <AssociationSet Name="AssignedToFK" Association="Entities.AssignedToFK">
+            <End Role="aspnetuser" EntitySet="aspnetusers" />
+            <End Role="kanbanticketassignedto" EntitySet="kanbanticketassignedtoes" />
+          </AssociationSet>
+          <AssociationSet Name="CreatedByFK" Association="Entities.CreatedByFK">
+            <End Role="aspnetuser" EntitySet="aspnetusers" />
+            <End Role="kanbanticket" EntitySet="kanbantickets" />
+          </AssociationSet>
+          <AssociationSet Name="fk_createdby_aspnetusers" Association="Entities.fk_createdby_aspnetusers">
+            <End Role="aspnetuser" EntitySet="aspnetusers" />
+            <End Role="excelconfig" EntitySet="excelconfigs" />
+          </AssociationSet>
+          <AssociationSet Name="UserFK" Association="Entities.UserFK">
+            <End Role="aspnetuser" EntitySet="aspnetusers" />
+            <End Role="notificationuser" EntitySet="notificationusers" />
+          </AssociationSet>
+          <AssociationSet Name="WatcherFK" Association="Entities.WatcherFK">
+            <End Role="aspnetuser" EntitySet="aspnetusers" />
+            <End Role="kanbanticketwatcher" EntitySet="kanbanticketwatchers" />
+          </AssociationSet>
+          <AssociationSet Name="KanbanBoardFK" Association="Entities.KanbanBoardFK">
+            <End Role="kanbanboard" EntitySet="kanbanboards" />
+            <End Role="kanbanpoollist" EntitySet="kanbanpoollists" />
+          </AssociationSet>
+          <AssociationSet Name="ComponentFK2" Association="Entities.ComponentFK2">
+            <End Role="kanbancomponent" EntitySet="kanbancomponents" />
+            <End Role="kanbanticketcomponent" EntitySet="kanbanticketcomponents" />
+          </AssociationSet>
+          <AssociationSet Name="ComponentId" Association="Entities.ComponentId">
+            <End Role="kanbancomponent" EntitySet="kanbancomponents" />
+            <End Role="kanbantickettypecomponent" EntitySet="kanbantickettypecomponents" />
+          </AssociationSet>
+          <AssociationSet Name="PoolListFK" Association="Entities.PoolListFK">
+            <End Role="kanbanpoollist" EntitySet="kanbanpoollists" />
+            <End Role="kanbanticket" EntitySet="kanbantickets" />
+          </AssociationSet>
+          <AssociationSet Name="KanbanTicketFK" Association="Entities.KanbanTicketFK">
+            <End Role="kanbanticket" EntitySet="kanbantickets" />
+            <End Role="kanbanticketassignedto" EntitySet="kanbanticketassignedtoes" />
+          </AssociationSet>
+          <AssociationSet Name="KanbanTicketFK2" Association="Entities.KanbanTicketFK2">
+            <End Role="kanbanticket" EntitySet="kanbantickets" />
+            <End Role="kanbanticketwatcher" EntitySet="kanbanticketwatchers" />
+          </AssociationSet>
+          <AssociationSet Name="TicketFK" Association="Entities.TicketFK">
+            <End Role="kanbanticket" EntitySet="kanbantickets" />
+            <End Role="kanbanticketcomponent" EntitySet="kanbanticketcomponents" />
+          </AssociationSet>
+          <AssociationSet Name="TicketTypeFK" Association="Entities.TicketTypeFK">
+            <End Role="kanbantickettype" EntitySet="kanbantickettypes" />
+            <End Role="kanbanticket" EntitySet="kanbantickets" />
+          </AssociationSet>
+          <AssociationSet Name="TicketTypeFK2" Association="Entities.TicketTypeFK2">
+            <End Role="kanbantickettype" EntitySet="kanbantickettypes" />
+            <End Role="kanbantickettypecomponent" EntitySet="kanbantickettypecomponents" />
+          </AssociationSet>
+          <AssociationSet Name="NotificationFK" Association="Entities.NotificationFK">
+            <End Role="notification" EntitySet="notifications" />
+            <End Role="notificationuser" EntitySet="notificationusers" />
+          </AssociationSet>
+          <EntitySet Name="aspnetusers_log" EntityType="Entities.aspnetusers_log" />
           <EntitySet Name="quotes_log" EntityType="Entities.quotes_log" />
           <EntitySet Name="travel_policy_log" EntityType="Entities.travel_policy_log" />
+          <AssociationSet Name="travel_policy_log_fk" Association="Entities.travel_policy_log_fk">
+            <End Role="travel_policy" EntitySet="travel_policy" />
+            <End Role="travel_policy_log" EntitySet="travel_policy_log" />
+          </AssociationSet>
           <EntitySet Name="insured_log" EntityType="Entities.insured_log" />
+          <AssociationSet Name="insured_log_fk" Association="Entities.insured_log_fk">
+            <End Role="insured" EntitySet="insureds" />
+            <End Role="insured_log" EntitySet="insured_log" />
+          </AssociationSet>
+          <EntitySet Name="first_notice_of_loss_log" EntityType="Entities.first_notice_of_loss_log" />
+          <AssociationSet Name="first_notice_of_loss_log_ibfk_1" Association="Entities.first_notice_of_loss_log_ibfk_1">
+            <End Role="first_notice_of_loss" EntitySet="first_notice_of_loss" />
+            <End Role="first_notice_of_loss_log" EntitySet="first_notice_of_loss_log" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="payment_status">
           <Key>
@@ -3810,6 +4276,11 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="travel_policy1" Relationship="Entities.fk_policy_modified_by" FromRole="aspnetuser" ToRole="travel_policy" />
           <NavigationProperty Name="insureds" Relationship="Entities.fk_insured_modifiedby" FromRole="aspnetuser" ToRole="insured" />
           <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="kanbanticketassignedtoes" Relationship="Entities.AssignedToFK" FromRole="aspnetuser" ToRole="kanbanticketassignedto" />
+          <NavigationProperty Name="kanbantickets" Relationship="Entities.CreatedByFK" FromRole="aspnetuser" ToRole="kanbanticket" />
+          <NavigationProperty Name="excelconfigs" Relationship="Entities.fk_createdby_aspnetusers" FromRole="aspnetuser" ToRole="excelconfig" />
+          <NavigationProperty Name="notificationusers" Relationship="Entities.UserFK" FromRole="aspnetuser" ToRole="notificationuser" />
+          <NavigationProperty Name="kanbanticketwatchers" Relationship="Entities.WatcherFK" FromRole="aspnetuser" ToRole="kanbanticketwatcher" />
           </EntityType>
         <Association Name="fk_additional_charge_created_by">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
@@ -4128,6 +4599,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="travel_insurance_type" Relationship="Entities.fk_policy_insurance_type" FromRole="travel_policy" ToRole="travel_insurance_type" />
           <NavigationProperty Name="travel_number" Relationship="Entities.fk_policy_travel_number" FromRole="travel_policy" ToRole="travel_number" />
           <NavigationProperty Name="insured" Relationship="Entities.travel_policy_ibfk_1" FromRole="travel_policy" ToRole="insured" />
+          <NavigationProperty Name="travel_policy_log" Relationship="Entities.travel_policy_log_fk" FromRole="travel_policy" ToRole="travel_policy_log" />
         </EntityType>
         <Association Name="fk_policy_created_by">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="0..1" />
@@ -4293,6 +4765,7 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <NavigationProperty Name="type_insured" Relationship="Entities.fk_insured_type" FromRole="insured" ToRole="type_insured" />
           <NavigationProperty Name="policy_insured" Relationship="Entities.policy_insured_ibfk_1" FromRole="insured" ToRole="policy_insured" />
           <NavigationProperty Name="travel_policy" Relationship="Entities.travel_policy_ibfk_1" FromRole="insured" ToRole="travel_policy" />
+          <NavigationProperty Name="insured_log" Relationship="Entities.insured_log_fk" FromRole="insured" ToRole="insured_log" />
         </EntityType>
         <Association Name="fk_insured_modifiedby">
           <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="0..1" />
@@ -4411,78 +4884,6 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Sequence" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AllXml" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="aspnetusers_log">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="User_ID" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="EMBG" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="Municipality" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="InsuranceCompany" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="ActivationCodeMail" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="ActivationCodeSMS" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="GroupID" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="SecurityStamp" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="LockoutEndDateUtc" Type="DateTime" Nullable="false" />
-          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="MobilePhoneNumber" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="PostalCode" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="PassportNumber" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" />
-          <Property Name="Gender" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Active" Type="SByte" Nullable="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Modified" Type="Boolean" Nullable="false" />
-          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="Date_Modified" Type="DateTime" Nullable="false" />
-          <Property Name="IPaddress" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="OldValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="NewValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="first_notice_of_loss_log">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PolicyId" Type="Int32" Nullable="false" />
-          <Property Name="ClaimantId" Type="Int32" Nullable="false" />
-          <Property Name="Relation_claimant_policy_holder" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Policy_holder_bank_accountID" Type="Int32" Nullable="false" />
-          <Property Name="Claimant_bank_accountID" Type="Int32" Nullable="false" />
-          <Property Name="Destination" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Depart_Date_Time" Type="DateTime" Nullable="false" />
-          <Property Name="Arrival_Date_Time" Type="DateTime" Nullable="false" />
-          <Property Name="Transport_means" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Additional_infoID" Type="Int32" Nullable="false" />
-          <Property Name="Total_cost" Type="Single" Nullable="false" />
-          <Property Name="Web_Mobile" Type="Boolean" Nullable="false" />
-          <Property Name="ChatId" Type="Int32" Nullable="false" />
-          <Property Name="Short_Detailed" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" />
-          <Property Name="Modified" Type="Boolean" Nullable="false" />
-          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Modified_Datetime" Type="DateTime" Nullable="false" />
-          <Property Name="FNOL_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="IPaddress" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="OldValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="NewValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="quote">
           <Key>
             <PropertyRef Name="ID" />
@@ -4512,6 +4913,386 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Payment_Status" Type="Boolean" Nullable="false" />
           <Property Name="Date_Cancellation" Type="DateTime" Nullable="false" />
         </EntityType>
+        <EntityType Name="excelconfig">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ValidDateStart" Type="DateTime" />
+          <Property Name="ValidDateEnd" Type="DateTime" />
+          <NavigationProperty Name="aspnetuser" Relationship="Entities.fk_createdby_aspnetusers" FromRole="excelconfig" ToRole="aspnetuser" />
+        </EntityType>
+        <EntityType Name="kanbanboard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="kanbanpoollists" Relationship="Entities.KanbanBoardFK" FromRole="kanbanboard" ToRole="kanbanpoollist" />
+        </EntityType>
+        <EntityType Name="kanbancomponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="kanbanticketcomponents" Relationship="Entities.ComponentFK2" FromRole="kanbancomponent" ToRole="kanbanticketcomponent" />
+          <NavigationProperty Name="kanbantickettypecomponents" Relationship="Entities.ComponentId" FromRole="kanbancomponent" ToRole="kanbantickettypecomponent" />
+        </EntityType>
+        <EntityType Name="kanbanpoollist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrderBy" Type="Single" Nullable="false" />
+          <Property Name="KanbanBoardId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="kanbanboard" Relationship="Entities.KanbanBoardFK" FromRole="kanbanpoollist" ToRole="kanbanboard" />
+          <NavigationProperty Name="kanbantickets" Relationship="Entities.PoolListFK" FromRole="kanbanpoollist" ToRole="kanbanticket" />
+        </EntityType>
+        <EntityType Name="kanbanticket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TicketTypeId" Type="Int32" />
+          <Property Name="CreatedById" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeadlineDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderBy" Type="Single" Nullable="false" />
+          <Property Name="KanbanPoolListId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Entities.CreatedByFK" FromRole="kanbanticket" ToRole="aspnetuser" />
+          <NavigationProperty Name="kanbanpoollist" Relationship="Entities.PoolListFK" FromRole="kanbanticket" ToRole="kanbanpoollist" />
+          <NavigationProperty Name="kanbanticketassignedtoes" Relationship="Entities.KanbanTicketFK" FromRole="kanbanticket" ToRole="kanbanticketassignedto" />
+          <NavigationProperty Name="kanbanticketwatchers" Relationship="Entities.KanbanTicketFK2" FromRole="kanbanticket" ToRole="kanbanticketwatcher" />
+          <NavigationProperty Name="kanbanticketcomponents" Relationship="Entities.TicketFK" FromRole="kanbanticket" ToRole="kanbanticketcomponent" />
+          <NavigationProperty Name="kanbantickettype" Relationship="Entities.TicketTypeFK" FromRole="kanbanticket" ToRole="kanbantickettype" />
+        </EntityType>
+        <EntityType Name="kanbanticketassignedto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KanbanTicketId" Type="Int32" Nullable="false" />
+          <Property Name="AssignedToId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="AssignedDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Entities.AssignedToFK" FromRole="kanbanticketassignedto" ToRole="aspnetuser" />
+          <NavigationProperty Name="kanbanticket" Relationship="Entities.KanbanTicketFK" FromRole="kanbanticketassignedto" ToRole="kanbanticket" />
+        </EntityType>
+        <EntityType Name="kanbanticketcomponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TicketId" Type="Int32" />
+          <Property Name="ComponentId" Type="Int32" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="kanbancomponent" Relationship="Entities.ComponentFK2" FromRole="kanbanticketcomponent" ToRole="kanbancomponent" />
+          <NavigationProperty Name="kanbanticket" Relationship="Entities.TicketFK" FromRole="kanbanticketcomponent" ToRole="kanbanticket" />
+        </EntityType>
+        <EntityType Name="kanbantickettype">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="kanbantickets" Relationship="Entities.TicketTypeFK" FromRole="kanbantickettype" ToRole="kanbanticket" />
+          <NavigationProperty Name="kanbantickettypecomponents" Relationship="Entities.TicketTypeFK2" FromRole="kanbantickettype" ToRole="kanbantickettypecomponent" />
+        </EntityType>
+        <EntityType Name="kanbantickettypecomponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TicketTypeId" Type="Int32" />
+          <Property Name="ComponentId" Type="Int32" />
+          <NavigationProperty Name="kanbancomponent" Relationship="Entities.ComponentId" FromRole="kanbantickettypecomponent" ToRole="kanbancomponent" />
+          <NavigationProperty Name="kanbantickettype" Relationship="Entities.TicketTypeFK2" FromRole="kanbantickettypecomponent" ToRole="kanbantickettype" />
+        </EntityType>
+        <EntityType Name="kanbanticketwatcher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KanbanTicketId" Type="Int32" Nullable="false" />
+          <Property Name="WatcherId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="AssignedDateTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Entities.WatcherFK" FromRole="kanbanticketwatcher" ToRole="aspnetuser" />
+          <NavigationProperty Name="kanbanticket" Relationship="Entities.KanbanTicketFK2" FromRole="kanbanticketwatcher" ToRole="kanbanticket" />
+        </EntityType>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="notificationusers" Relationship="Entities.NotificationFK" FromRole="notification" ToRole="notificationuser" />
+        </EntityType>
+        <EntityType Name="notificationuser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NotificationId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="IsOpened" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="aspnetuser" Relationship="Entities.UserFK" FromRole="notificationuser" ToRole="aspnetuser" />
+          <NavigationProperty Name="notification" Relationship="Entities.NotificationFK" FromRole="notificationuser" ToRole="notification" />
+        </EntityType>
+        <Association Name="AssignedToFK">
+          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbanticketassignedto" Role="kanbanticketassignedto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetuser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketassignedto">
+              <PropertyRef Name="AssignedToId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CreatedByFK">
+          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetuser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_createdby_aspnetusers">
+          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1" />
+          <End Type="Entities.excelconfig" Role="excelconfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetuser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="excelconfig">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserFK">
+          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.notificationuser" Role="notificationuser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetuser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="notificationuser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="WatcherFK">
+          <End Type="Entities.aspnetuser" Role="aspnetuser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbanticketwatcher" Role="kanbanticketwatcher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnetuser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketwatcher">
+              <PropertyRef Name="WatcherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KanbanBoardFK">
+          <End Type="Entities.kanbanboard" Role="kanbanboard" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbanpoollist" Role="kanbanpoollist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanboard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanpoollist">
+              <PropertyRef Name="KanbanBoardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComponentFK2">
+          <End Type="Entities.kanbancomponent" Role="kanbancomponent" Multiplicity="0..1" />
+          <End Type="Entities.kanbanticketcomponent" Role="kanbanticketcomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbancomponent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketcomponent">
+              <PropertyRef Name="ComponentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComponentId">
+          <End Type="Entities.kanbancomponent" Role="kanbancomponent" Multiplicity="0..1" />
+          <End Type="Entities.kanbantickettypecomponent" Role="kanbantickettypecomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbancomponent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbantickettypecomponent">
+              <PropertyRef Name="ComponentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PoolListFK">
+          <End Type="Entities.kanbanpoollist" Role="kanbanpoollist" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanpoollist">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="KanbanPoolListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KanbanTicketFK">
+          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbanticketassignedto" Role="kanbanticketassignedto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanticket">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketassignedto">
+              <PropertyRef Name="KanbanTicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KanbanTicketFK2">
+          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.kanbanticketwatcher" Role="kanbanticketwatcher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanticket">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketwatcher">
+              <PropertyRef Name="KanbanTicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TicketFK">
+          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="0..1" />
+          <End Type="Entities.kanbanticketcomponent" Role="kanbanticketcomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbanticket">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="kanbanticketcomponent">
+              <PropertyRef Name="TicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TicketTypeFK">
+          <End Type="Entities.kanbantickettype" Role="kanbantickettype" Multiplicity="0..1" />
+          <End Type="Entities.kanbanticket" Role="kanbanticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbantickettype">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="kanbanticket">
+              <PropertyRef Name="TicketTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TicketTypeFK2">
+          <End Type="Entities.kanbantickettype" Role="kanbantickettype" Multiplicity="0..1" />
+          <End Type="Entities.kanbantickettypecomponent" Role="kanbantickettypecomponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kanbantickettype">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="kanbantickettypecomponent">
+              <PropertyRef Name="TicketTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NotificationFK">
+          <End Type="Entities.notification" Role="notification" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.notificationuser" Role="notificationuser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="notification">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="notificationuser">
+              <PropertyRef Name="NotificationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="aspnetusers_log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="EMBG" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Municipality" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="InsuranceCompany" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="ActivationCodeMail" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="ActivationCodeSMS" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="GroupID" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="SecurityStamp" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Nullable="false" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="MobilePhoneNumber" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="PostalCode" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="PassportNumber" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="SByte" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Modified" Type="DateTime" Nullable="false" />
+          <Property Name="IPaddress" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Id_aspnetusers" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="quotes_log">
           <Key>
             <PropertyRef Name="ID" />
@@ -4538,11 +5319,9 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Date_Cancellation" Type="DateTime" Nullable="false" />
           <Property Name="Created_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Date_Created" Type="DateTime" Nullable="false" />
-          <Property Name="Modified" Type="Boolean" Nullable="false" />
           <Property Name="Modified_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Date_Modified" Type="DateTime" Nullable="false" />
-          <Property Name="OldValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="NewValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Id_quotes" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="travel_policy_log">
           <Key>
@@ -4568,38 +5347,29 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Total_Premium" Type="Double" Nullable="false" />
           <Property Name="Created_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Date_Created" Type="DateTime" Nullable="false" />
-          <Property Name="Modified" Type="Boolean" Nullable="false" />
           <Property Name="Modified_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Date_modified" Type="DateTime" Nullable="false" />
           <Property Name="IPaddress" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="OldValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="NewValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="Date_Cancellation" Type="DateTime" Nullable="false" />
           <Property Name="Payment_Status" Type="Boolean" Nullable="false" />
+          <Property Name="Id_travel_policy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="travel_policy" Relationship="Entities.travel_policy_log_fk" FromRole="travel_policy_log" ToRole="travel_policy" />
         </EntityType>
+        <Association Name="travel_policy_log_fk">
+          <End Type="Entities.travel_policy" Role="travel_policy" Multiplicity="1" />
+          <End Type="Entities.travel_policy_log" Role="travel_policy_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="travel_policy">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="travel_policy_log">
+              <PropertyRef Name="Id_travel_policy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="insured_log">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="Lastname" />
-            <PropertyRef Name="SSN" />
-            <PropertyRef Name="DateBirth" />
-            <PropertyRef Name="Age" />
-            <PropertyRef Name="Email" />
-            <PropertyRef Name="Phone_Number" />
-            <PropertyRef Name="City" />
-            <PropertyRef Name="Postal_Code" />
-            <PropertyRef Name="Address" />
-            <PropertyRef Name="Passport_Number_IdNumber" />
-            <PropertyRef Name="Type_InsuredID" />
-            <PropertyRef Name="Date_Created" />
-            <PropertyRef Name="Created_By" />
-            <PropertyRef Name="Modified" />
-            <PropertyRef Name="Date_Modified" />
-            <PropertyRef Name="Modified_By" />
-            <PropertyRef Name="IPaddress" />
-            <PropertyRef Name="OldValue" />
-            <PropertyRef Name="NewValue" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
@@ -4616,13 +5386,64 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <Property Name="Type_InsuredID" Type="Int32" Nullable="false" />
           <Property Name="Date_Created" Type="DateTime" Nullable="false" />
           <Property Name="Created_By" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Modified" Type="Boolean" Nullable="false" />
           <Property Name="Date_Modified" Type="DateTime" Nullable="false" />
           <Property Name="Modified_By" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="IPaddress" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="OldValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="NewValue" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Id_insured" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="insured" Relationship="Entities.insured_log_fk" FromRole="insured_log" ToRole="insured" />
         </EntityType>
+        <Association Name="insured_log_fk">
+          <End Type="Entities.insured" Role="insured" Multiplicity="1" />
+          <End Type="Entities.insured_log" Role="insured_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insured">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="insured_log">
+              <PropertyRef Name="Id_insured" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="first_notice_of_loss_log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PolicyId" Type="Int32" Nullable="false" />
+          <Property Name="ClaimantId" Type="Int32" Nullable="false" />
+          <Property Name="Relation_claimant_policy_holder" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Policy_holder_bank_accountID" Type="Int32" />
+          <Property Name="Claimant_bank_accountID" Type="Int32" />
+          <Property Name="Destination" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Depart_Date_Time" Type="DateTime" Nullable="false" />
+          <Property Name="Arrival_Date_Time" Type="DateTime" Nullable="false" />
+          <Property Name="Transport_means" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Additional_infoID" Type="Int32" Nullable="false" />
+          <Property Name="Total_cost" Type="Single" Nullable="false" />
+          <Property Name="Web_Mobile" Type="Boolean" />
+          <Property Name="ChatId" Type="Int32" />
+          <Property Name="Short_Detailed" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Modified_Datetime" Type="DateTime" />
+          <Property Name="FNOL_Number" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="IPaddress" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Id_first_notice_of_loss" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="first_notice_of_loss" Relationship="Entities.first_notice_of_loss_log_ibfk_1" FromRole="first_notice_of_loss_log" ToRole="first_notice_of_loss" />
+        </EntityType>
+        <Association Name="first_notice_of_loss_log_ibfk_1">
+          <End Type="Entities.first_notice_of_loss" Role="first_notice_of_loss" Multiplicity="1" />
+          <End Type="Entities.first_notice_of_loss_log" Role="first_notice_of_loss_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="first_notice_of_loss">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="first_notice_of_loss_log">
+              <PropertyRef Name="Id_first_notice_of_loss" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5433,15 +6254,172 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="quotes">
+            <EntityTypeMapping TypeName="Entities.quote">
+              <MappingFragment StoreEntitySet="quotes">
+                <ScalarProperty Name="Date_Cancellation" ColumnName="Date_Cancellation" />
+                <ScalarProperty Name="Payment_Status" ColumnName="Payment_Status" />
+                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
+                <ScalarProperty Name="Date_Modified" ColumnName="Date_Modified" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Total_Premium" ColumnName="Total_Premium" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Group_Total_Premium" ColumnName="Group_Total_Premium" />
+                <ScalarProperty Name="Group_Members" ColumnName="Group_Members" />
+                <ScalarProperty Name="Travel_Insurance_TypeID" ColumnName="Travel_Insurance_TypeID" />
+                <ScalarProperty Name="Travel_NumberID" ColumnName="Travel_NumberID" />
+                <ScalarProperty Name="Franchise_Days" ColumnName="Franchise_Days" />
+                <ScalarProperty Name="Valid_Days" ColumnName="Valid_Days" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="Franchise_Age" ColumnName="Franchise_Age" />
+                <ScalarProperty Name="Retaining_RiskID" ColumnName="Retaining_RiskID" />
+                <ScalarProperty Name="Policy_TypeID" ColumnName="Policy_TypeID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Exchange_RateID" ColumnName="Exchange_RateID" />
+                <ScalarProperty Name="Policy_HolderID" ColumnName="Policy_HolderID" />
+                <ScalarProperty Name="Policy_Number" ColumnName="Policy_Number" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="excelconfigs">
+            <EntityTypeMapping TypeName="Entities.excelconfig">
+              <MappingFragment StoreEntitySet="excelconfig">
+                <ScalarProperty Name="ValidDateEnd" ColumnName="ValidDateEnd" />
+                <ScalarProperty Name="ValidDateStart" ColumnName="ValidDateStart" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbanboards">
+            <EntityTypeMapping TypeName="Entities.kanbanboard">
+              <MappingFragment StoreEntitySet="kanbanboard">
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbancomponents">
+            <EntityTypeMapping TypeName="Entities.kanbancomponent">
+              <MappingFragment StoreEntitySet="kanbancomponent">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbanpoollists">
+            <EntityTypeMapping TypeName="Entities.kanbanpoollist">
+              <MappingFragment StoreEntitySet="kanbanpoollist">
+                <ScalarProperty Name="KanbanBoardId" ColumnName="KanbanBoardId" />
+                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbantickets">
+            <EntityTypeMapping TypeName="Entities.kanbanticket">
+              <MappingFragment StoreEntitySet="kanbanticket">
+                <ScalarProperty Name="KanbanPoolListId" ColumnName="KanbanPoolListId" />
+                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="DeadlineDate" ColumnName="DeadlineDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="TicketTypeId" ColumnName="TicketTypeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbanticketassignedtoes">
+            <EntityTypeMapping TypeName="Entities.kanbanticketassignedto">
+              <MappingFragment StoreEntitySet="kanbanticketassignedto">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="AssignedDateTime" ColumnName="AssignedDateTime" />
+                <ScalarProperty Name="AssignedToId" ColumnName="AssignedToId" />
+                <ScalarProperty Name="KanbanTicketId" ColumnName="KanbanTicketId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbanticketcomponents">
+            <EntityTypeMapping TypeName="Entities.kanbanticketcomponent">
+              <MappingFragment StoreEntitySet="kanbanticketcomponent">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
+                <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbantickettypes">
+            <EntityTypeMapping TypeName="Entities.kanbantickettype">
+              <MappingFragment StoreEntitySet="kanbantickettype">
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbantickettypecomponents">
+            <EntityTypeMapping TypeName="Entities.kanbantickettypecomponent">
+              <MappingFragment StoreEntitySet="kanbantickettypecomponent">
+                <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
+                <ScalarProperty Name="TicketTypeId" ColumnName="TicketTypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kanbanticketwatchers">
+            <EntityTypeMapping TypeName="Entities.kanbanticketwatcher">
+              <MappingFragment StoreEntitySet="kanbanticketwatcher">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="AssignedDateTime" ColumnName="AssignedDateTime" />
+                <ScalarProperty Name="WatcherId" ColumnName="WatcherId" />
+                <ScalarProperty Name="KanbanTicketId" ColumnName="KanbanTicketId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notifications">
+            <EntityTypeMapping TypeName="Entities.notification">
+              <MappingFragment StoreEntitySet="notification">
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notificationusers">
+            <EntityTypeMapping TypeName="Entities.notificationuser">
+              <MappingFragment StoreEntitySet="notificationuser">
+                <ScalarProperty Name="IsOpened" ColumnName="IsOpened" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="aspnetusers_log">
             <EntityTypeMapping TypeName="Entities.aspnetusers_log">
               <MappingFragment StoreEntitySet="aspnetusers_log">
-                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
-                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+                <ScalarProperty Name="Id_aspnetusers" ColumnName="Id_aspnetusers" />
                 <ScalarProperty Name="IPaddress" ColumnName="IPaddress" />
                 <ScalarProperty Name="Date_Modified" ColumnName="Date_Modified" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
@@ -5476,74 +6454,12 @@ FROM `transaction` AS `transaction`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="first_notice_of_loss_log">
-            <EntityTypeMapping TypeName="Entities.first_notice_of_loss_log">
-              <MappingFragment StoreEntitySet="first_notice_of_loss_log">
-                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
-                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
-                <ScalarProperty Name="IPaddress" ColumnName="IPaddress" />
-                <ScalarProperty Name="FNOL_Number" ColumnName="FNOL_Number" />
-                <ScalarProperty Name="Modified_Datetime" ColumnName="Modified_Datetime" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
-                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Short_Detailed" ColumnName="Short/Detailed" />
-                <ScalarProperty Name="ChatId" ColumnName="ChatId" />
-                <ScalarProperty Name="Web_Mobile" ColumnName="Web/Mobile" />
-                <ScalarProperty Name="Total_cost" ColumnName="Total_cost" />
-                <ScalarProperty Name="Additional_infoID" ColumnName="Additional_infoID" />
-                <ScalarProperty Name="Transport_means" ColumnName="Transport_means" />
-                <ScalarProperty Name="Arrival_Date_Time" ColumnName="Arrival_Date_Time" />
-                <ScalarProperty Name="Depart_Date_Time" ColumnName="Depart_Date_Time" />
-                <ScalarProperty Name="Destination" ColumnName="Destination" />
-                <ScalarProperty Name="Claimant_bank_accountID" ColumnName="Claimant_bank_accountID" />
-                <ScalarProperty Name="Policy_holder_bank_accountID" ColumnName="Policy_holder_bank_accountID" />
-                <ScalarProperty Name="Relation_claimant_policy_holder" ColumnName="Relation_claimant_policy_holder" />
-                <ScalarProperty Name="ClaimantId" ColumnName="ClaimantId" />
-                <ScalarProperty Name="PolicyId" ColumnName="PolicyId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="quotes">
-            <EntityTypeMapping TypeName="Entities.quote">
-              <MappingFragment StoreEntitySet="quotes">
-                <ScalarProperty Name="Date_Cancellation" ColumnName="Date_Cancellation" />
-                <ScalarProperty Name="Payment_Status" ColumnName="Payment_Status" />
-                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
-                <ScalarProperty Name="Date_Modified" ColumnName="Date_Modified" />
-                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Total_Premium" ColumnName="Total_Premium" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Group_Total_Premium" ColumnName="Group_Total_Premium" />
-                <ScalarProperty Name="Group_Members" ColumnName="Group_Members" />
-                <ScalarProperty Name="Travel_Insurance_TypeID" ColumnName="Travel_Insurance_TypeID" />
-                <ScalarProperty Name="Travel_NumberID" ColumnName="Travel_NumberID" />
-                <ScalarProperty Name="Franchise_Days" ColumnName="Franchise_Days" />
-                <ScalarProperty Name="Valid_Days" ColumnName="Valid_Days" />
-                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
-                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
-                <ScalarProperty Name="Franchise_Age" ColumnName="Franchise_Age" />
-                <ScalarProperty Name="Retaining_RiskID" ColumnName="Retaining_RiskID" />
-                <ScalarProperty Name="Policy_TypeID" ColumnName="Policy_TypeID" />
-                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
-                <ScalarProperty Name="Exchange_RateID" ColumnName="Exchange_RateID" />
-                <ScalarProperty Name="Policy_HolderID" ColumnName="Policy_HolderID" />
-                <ScalarProperty Name="Policy_Number" ColumnName="Policy_Number" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="quotes_log">
             <EntityTypeMapping TypeName="Entities.quotes_log">
               <MappingFragment StoreEntitySet="quotes_log">
-                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
-                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+                <ScalarProperty Name="Id_quotes" ColumnName="Id_quotes" />
                 <ScalarProperty Name="Date_Modified" ColumnName="Date_Modified" />
                 <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
                 <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="Date_Cancellation" ColumnName="Date_Cancellation" />
@@ -5572,14 +6488,12 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="travel_policy_log">
             <EntityTypeMapping TypeName="Entities.travel_policy_log">
               <MappingFragment StoreEntitySet="travel_policy_log">
+                <ScalarProperty Name="Id_travel_policy" ColumnName="Id_travel_policy" />
                 <ScalarProperty Name="Payment_Status" ColumnName="Payment_Status" />
                 <ScalarProperty Name="Date_Cancellation" ColumnName="Date_Cancellation" />
-                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
-                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
                 <ScalarProperty Name="IPaddress" ColumnName="IPaddress" />
                 <ScalarProperty Name="Date_modified" ColumnName="Date_modified" />
                 <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
                 <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="Total_Premium" ColumnName="Total_Premium" />
@@ -5606,12 +6520,10 @@ FROM `transaction` AS `transaction`</DefiningQuery>
           <EntitySetMapping Name="insured_log">
             <EntityTypeMapping TypeName="Entities.insured_log">
               <MappingFragment StoreEntitySet="insured_log">
-                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
-                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+                <ScalarProperty Name="Id_insured" ColumnName="Id_insured" />
                 <ScalarProperty Name="IPaddress" ColumnName="IPaddress" />
                 <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
                 <ScalarProperty Name="Date_Modified" ColumnName="Date_Modified" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
                 <ScalarProperty Name="Type_InsuredID" ColumnName="Type_InsuredID" />
@@ -5626,6 +6538,34 @@ FROM `transaction` AS `transaction`</DefiningQuery>
                 <ScalarProperty Name="SSN" ColumnName="SSN" />
                 <ScalarProperty Name="Lastname" ColumnName="Lastname" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="first_notice_of_loss_log">
+            <EntityTypeMapping TypeName="Entities.first_notice_of_loss_log">
+              <MappingFragment StoreEntitySet="first_notice_of_loss_log">
+                <ScalarProperty Name="Id_first_notice_of_loss" ColumnName="Id_first_notice_of_loss" />
+                <ScalarProperty Name="IPaddress" ColumnName="IPaddress" />
+                <ScalarProperty Name="FNOL_Number" ColumnName="FNOL_Number" />
+                <ScalarProperty Name="Modified_Datetime" ColumnName="Modified_Datetime" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Short_Detailed" ColumnName="Short/Detailed" />
+                <ScalarProperty Name="ChatId" ColumnName="ChatId" />
+                <ScalarProperty Name="Web_Mobile" ColumnName="Web/Mobile" />
+                <ScalarProperty Name="Total_cost" ColumnName="Total_cost" />
+                <ScalarProperty Name="Additional_infoID" ColumnName="Additional_infoID" />
+                <ScalarProperty Name="Transport_means" ColumnName="Transport_means" />
+                <ScalarProperty Name="Arrival_Date_Time" ColumnName="Arrival_Date_Time" />
+                <ScalarProperty Name="Depart_Date_Time" ColumnName="Depart_Date_Time" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="Claimant_bank_accountID" ColumnName="Claimant_bank_accountID" />
+                <ScalarProperty Name="Policy_holder_bank_accountID" ColumnName="Policy_holder_bank_accountID" />
+                <ScalarProperty Name="Relation_claimant_policy_holder" ColumnName="Relation_claimant_policy_holder" />
+                <ScalarProperty Name="ClaimantId" ColumnName="ClaimantId" />
+                <ScalarProperty Name="PolicyId" ColumnName="PolicyId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

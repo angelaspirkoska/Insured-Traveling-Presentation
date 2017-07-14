@@ -18,25 +18,25 @@ namespace InsuredTraveling
         public int PolicyId { get; set; }
         public int ClaimantId { get; set; }
         public string Relation_claimant_policy_holder { get; set; }
-        public int Policy_holder_bank_accountID { get; set; }
-        public int Claimant_bank_accountID { get; set; }
+        public Nullable<int> Policy_holder_bank_accountID { get; set; }
+        public Nullable<int> Claimant_bank_accountID { get; set; }
         public string Destination { get; set; }
         public System.DateTime Depart_Date_Time { get; set; }
         public System.DateTime Arrival_Date_Time { get; set; }
         public string Transport_means { get; set; }
         public int Additional_infoID { get; set; }
         public float Total_cost { get; set; }
-        public bool Web_Mobile { get; set; }
-        public int ChatId { get; set; }
-        public bool Short_Detailed { get; set; }
+        public Nullable<bool> Web_Mobile { get; set; }
+        public Nullable<int> ChatId { get; set; }
+        public Nullable<bool> Short_Detailed { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDateTime { get; set; }
-        public bool Modified { get; set; }
         public string ModifiedBy { get; set; }
-        public System.DateTime Modified_Datetime { get; set; }
+        public Nullable<System.DateTime> Modified_Datetime { get; set; }
         public string FNOL_Number { get; set; }
         public string IPaddress { get; set; }
-        public string OldValue { get; set; }
-        public string NewValue { get; set; }
+        public int Id_first_notice_of_loss { get; set; }
+    
+        public virtual first_notice_of_loss first_notice_of_loss { get; set; }
     }
 }

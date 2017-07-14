@@ -44,6 +44,7 @@ namespace InsuredTraveling
             builder.RegisterType<DiscountService>().As<IDiscountService>().InstancePerRequest();
             builder.RegisterType<LogActivityService>().As<ILogActivityService>().InstancePerRequest();
             builder.RegisterType<ErrorLogService>().As<IErrorLogService>().InstancePerRequest();
+            builder.RegisterType<LogService>().As<ILogService>().InstancePerRequest();
 
             base.Load(builder);
 

@@ -45,11 +45,9 @@ namespace InsuredTraveling
         public sbyte Active { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }
-        public bool Modified { get; set; }
         public string ModifiedBy { get; set; }
         public System.DateTime Date_Modified { get; set; }
         public string IPaddress { get; set; }
-        public string OldValue { get; set; }
-        public string NewValue { get; set; }
+        public int Id_aspnetusers { get; set; }
     }
 }

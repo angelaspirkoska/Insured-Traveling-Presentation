@@ -6,6 +6,7 @@ using Autofac;
 using InsuredTraveling.ViewModels;
 using System.Globalization;
 using System.Configuration;
+using System.Web;
 
 namespace InsuredTraveling.App_Start
 {
@@ -89,6 +90,83 @@ namespace InsuredTraveling.App_Start
                 dst.End_Date = src.End_Date;
            
             });
+            Mapper.CreateMap<first_notice_of_loss, first_notice_of_loss_log>().AfterMap((src, dst) =>
+            {
+                dst.ID = src.ID;
+                dst.PolicyId = src.PolicyId;
+                dst.ClaimantId = src.ClaimantId;
+                dst.Relation_claimant_policy_holder = src.Relation_claimant_policy_holder;
+                dst.Claimant_bank_accountID = src.Claimant_bank_accountID;
+                dst.Policy_holder_bank_accountID = src.Policy_holder_bank_accountID;
+                dst.Destination = src.Destination;
+                dst.Depart_Date_Time = src.Depart_Date_Time;
+                dst.Arrival_Date_Time = src.Arrival_Date_Time;
+                dst.Transport_means = src.Transport_means;
+                dst.Additional_infoID = src.Additional_infoID;
+                dst.Total_cost = src.Total_cost;
+                dst.Web_Mobile = src.Web_Mobile != null ? Convert.ToBoolean(src.Web_Mobile) : false;
+                dst.ChatId = src.ChatId != null ? Convert.ToInt32(src.ChatId) : 0;
+                dst.Short_Detailed = src.Short_Detailed !=null ? Convert.ToBoolean(src.Short_Detailed) : false;
+                dst.CreatedBy =  src.CreatedBy;
+                dst.CreatedDateTime = src.CreatedDateTime;
+                dst.ModifiedBy = src.ModifiedBy;
+                dst.Modified_Datetime = src.Modified_Datetime != null ? Convert.ToDateTime(src.Modified_Datetime) : DateTime.MinValue;
+                dst.FNOL_Number = src.FNOL_Number;
+                
+            });
+        
+            Mapper.CreateMap<insured,insured_log>().AfterMap((src, dst) =>
+            {
+                dst.ID = src.ID;
+                dst.Name = src.Name;
+                dst.Lastname = src.Lastname;
+                dst.SSN = src.SSN;
+                dst.DateBirth = src.DateBirth;
+                dst.Age = (int) src.Age;
+                dst.Email = src.Email;
+                dst.Phone_Number = src.Phone_Number;
+                dst.City = src.City;
+                dst.Postal_Code = src.Postal_Code;
+                dst.Address = src.Address;
+                dst.Passport_Number_IdNumber = src.Passport_Number_IdNumber;
+                dst.Type_InsuredID = (int) src.Type_InsuredID;
+                dst.Date_Created = src.Date_Created;
+                dst.Created_By = src.Created_By;
+                dst.Date_Modified = (DateTime) src.Date_Modified;
+                dst.Modified_By = src.Modified_By;
+
+            });
+           
+            Mapper.CreateMap<travel_policy,travel_policy_log>().AfterMap((src, dst) =>
+            {
+                dst.ID = src.ID;
+                dst.Policy_Number = src.Policy_Number;
+                dst.Policy_HolderID = src.Policy_HolderID;
+                dst.Exchange_RateID = src.Exchange_RateID;
+                dst.CountryID = (int) src.CountryID;
+                dst.Policy_TypeID = src.Policy_TypeID;
+                dst.Retaining_RiskID = (int) src.Retaining_RiskID;
+                dst.Franchise_Age = src.Franchise_Age;
+                dst.Start_Date = src.Start_Date;
+                dst.End_Date = src.End_Date;
+                dst.Valid_Days = src.Valid_Days;
+                dst.Franchise_Days = src.Franchise_Days;
+                dst.Travel_NumberID = src.Travel_NumberID;
+                dst.Travel_Insurance_TypeID = src.Travel_Insurance_TypeID;
+                dst.Group_Members = (int) src.Group_Members;
+                dst.Group_Total_Premium = (double) src.Group_Total_Premium;
+                dst.Discount = (int) src.Discount;
+                dst.Total_Premium = (double) src.Total_Premium;
+                dst.Created_By = src.Created_By;
+                dst.Date_Created = src.Date_Created;
+                dst.Date_modified = (DateTime) src.Date_Modified;
+                dst.Modified_By = src.Modified_By;
+                dst.Payment_Status = src.Payment_Status;
+                dst.Date_Cancellation = (DateTime) src.Date_Cancellation;
+
+
+            });
+           
             Mapper.CreateMap<first_notice_of_loss, FirstNoticeOfLossEditViewModel>().AfterMap((src, dst) =>
             {
                 var policy = src.travel_policy;

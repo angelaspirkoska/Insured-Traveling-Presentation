@@ -32,6 +32,11 @@ namespace InsuredTraveling
             this.travel_policy = new HashSet<travel_policy>();
             this.travel_policy1 = new HashSet<travel_policy>();
             this.insureds = new HashSet<insured>();
+            this.kanbanticketassignedtoes = new HashSet<kanbanticketassignedto>();
+            this.kanbantickets = new HashSet<kanbanticket>();
+            this.excelconfigs = new HashSet<excelconfig>();
+            this.notificationusers = new HashSet<notificationuser>();
+            this.kanbanticketwatchers = new HashSet<kanbanticketwatcher>();
         }
     
         public string Id { get; set; }
@@ -96,5 +101,15 @@ namespace InsuredTraveling
         public virtual ICollection<travel_policy> travel_policy1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<insured> insureds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<kanbanticketassignedto> kanbanticketassignedtoes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<kanbanticket> kanbantickets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<excelconfig> excelconfigs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<notificationuser> notificationusers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<kanbanticketwatcher> kanbanticketwatchers { get; set; }
     }
 }
