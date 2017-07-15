@@ -1,61 +1,70 @@
 ﻿@model List<kanbantickettypecomponent>
 
+<link href="~/Content/Kanban/_bootstrap-datetimepicker.less" rel="stylesheet" type="text/css" />
+
 @foreach (var item in Model)
 {
-    <div class="form-group" data-tickettypecomponentid="@item.Id">
-        <div class="col-sm-12">
-            <label for="@item.Name.Replace(" ", "_")">@item.Name</label>
-        </div>
-        <div class="col-sm-11">
-            @if (item.kanbancomponent.Type.ToLower() == "textarea")
-            {
-                <textarea class="form-control" id="@item.Name.Replace(" ", "_")" name="@item.Name.Replace(" ", "_")" rows="2"></textarea>
-            }
-            else if (item.kanbancomponent.Type.ToLower() == "text")
-            {
-                <input type="text" class="form-control" name="@item.Name.Replace(" ", "_")" id="@item.Name.Replace(" ", "_")">
-            }
-            else if (item.kanbancomponent.Type.ToLower() == "number")
-            {
-                <input type="number" name="@item.Name.Replace(" ", "_")" class="form-control" id="@item.Name.Replace(" ", "_")">
-            }
-            else if (item.kanbancomponent.Type.ToLower() == "policytype")
-            {
-                <div>
-                    <select name="@item.Name.Replace(" ", "_")" id="policyTypeSelect" class="form-control">
-                        @Html.Action("GetPolicyTypesDropdown", "Kanban")
-                    </select>
-                </div>
-            }
-            else if (item.kanbancomponent.Type.ToLower() == "client")
-            {
-                <select name="@item.Name.Replace(" ", "_")" id="@item.Name.Replace(" ", "_")" class="form-control">
-                    <option value="-1">Select a client</option>
-                    <option value="1">Петре Петров</option>
-                    <option value="2">Клиент 2</option>
-                    <option value="3">Климент Наумоски</option>
+    <div class="form-group has-feedback" data-tickettypecomponentid="@item.Id">
+        <label for="@item.Name.Replace(" ", "_")">@item.Name</label>
+        @if (item.kanbancomponent.Type.ToLower() == "textarea")
+        {
+            <textarea class="form-control" id="@item.Name.Replace(" ", "_")" name="@item.Name.Replace(" ", "_")" rows="2"></textarea>
+        }
+        else if (item.kanbancomponent.Type.ToLower() == "text")
+        {
+            <input type="text" class="form-control" name="@item.Name.Replace(" ", "_")" id="@item.Name.Replace(" ", "_")">
+        }
+        else if (item.kanbancomponent.Type.ToLower() == "number")
+        {
+            <input type="number" name="@item.Name.Replace(" ", "_")" class="form-control" id="@item.Name.Replace(" ", "_")">
+        }
+        else if (item.kanbancomponent.Type.ToLower() == "policytype")
+        {
+            <div>
+                <select name="@item.Name.Replace(" ", "_")" id="policyTypeSelect" class="form-control">
+                    @Html.Action("GetPolicyTypesDropdown", "Kanban")
                 </select>
-            }
-            else if (item.kanbancomponent.Type.ToLower() == "meetingresult")
-            {
-                <select name="@item.Name.Replace(" ", "_")" id="@item.Name.Replace(" ", "_")" class="form-control">
-                    <option value="-1">Select a type</option>
-                    <option value="1">Добиена понуда</option>
-                    <option value="2">Склучен договор</option>
-                    <option value="3">Подобра понуда</option>
-                </select>
-            }
-            else if (item.kanbancomponent.Type.ToLower() == "datetime")
-            {
-                <input name="@item.Name.Replace(" ", "_")" type="datetime-local" class="form-control dateComponent" id="@item.Name.Replace(" ", "_")">
-            }
-        </div>
+            </div>
+        }
+        else if (item.kanbancomponent.Type.ToLower() == "client")
+        {
+            <select name="@item.Name.Replace(" ", "_")" id="@item.Name.Replace(" ", "_")" class="form-control">
+                <option value="-1">Select a client</option>
+                <option value="1">Петре Петров</option>
+                <option value="2">Клиент 2</option>
+                <option value="3">Климент Наумоски</option>
+            </select>
+        }
+        else if (item.kanbancomponent.Type.ToLower() == "meetingresult")
+        {
+            <select name="@item.Name.Replace(" ", "_")" id="@item.Name.Replace(" ", "_")" class="form-control">
+                <option value="-1">Select a type</option>
+                <option value="1">Добиена понуда</option>
+                <option value="2">Склучен договор</option>
+                <option value="3">Подобра понуда</option>
+            </select>
+        }
+        else if (item.kanbancomponent.Type.ToLower() == "datetime")
+        {
+            <input name="@item.Name.Replace(" ", "_")" type="text" class="form-control dateComponent" id="@item.Name.Replace(" ", "_")">
+            <i class="glyphicon glyphicon-calendar form-control-feedback"></i>
+        }
+    </div>
 
-        <div>
-            @if (ViewBag.Editing == 1)
-            {
-                <button onclick="deleteTicketTypeComponent(@item.Id)" class="btn btn-sm btn-remove">x</button>
-            }
-        </div>
+    <div>
+        @if (ViewBag.Editing == 1)
+                {
+            <button onclick="deleteTicketTypeComponent(@item.Id)" class="btn btn-sm btn-remove">x</button>
+        }
     </div>
 }
+
+<script src="~/Scripts/Kanban/bootstrap-datetimepicker.js"></script>
+<script>
+    var date = new Date();
+
+    $(".dateComponent").datepicker({
+        format: "dd.MM.yyyy",
+        startDate: date
+    });
+</script>

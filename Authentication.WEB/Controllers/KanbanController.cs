@@ -1,4 +1,5 @@
 ﻿using InsuredTraveling.DI;
+using InsuredTraveling.Filters;
 using InsuredTraveling.Models;
 using InsuredTraveling.SignalR.Hubs;
 using Microsoft.AspNet.Identity;
@@ -13,6 +14,7 @@ using System.Web.Mvc;
 
 namespace InsuredTraveling.Controllers
 {
+    [SessionExpire]
     public class KanbanController : Controller
     {
         private IKanbanService _kanbanService;
@@ -89,6 +91,12 @@ namespace InsuredTraveling.Controllers
         {
             kanbanticket ticket = _kanbanService.GetTicketById(ticketId);
             return PartialView("_TicketDetails", ticket);
+        }
+
+        public ActionResult TicketEdit(int ticketId)
+        {
+            kanbanticket ticket = _kanbanService.GetTicketById(ticketId);
+            return PartialView("_EditTicket", ticket);
         }
 
         public void DeleteTicket(int ticketId)

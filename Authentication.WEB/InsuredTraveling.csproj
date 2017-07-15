@@ -392,6 +392,7 @@
     <Content Include="ExcelConfig\config_file - Copy %282%29.xlsx" />
     <Content Include="ExcelConfig\config_file - Copy.xlsx" />
     <Content Include="ExcelConfig\config_file.xlsx" />
+    <Content Include="Content\Kanban\_bootstrap-datetimepicker.less" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -419,6 +420,7 @@
     <Content Include="Scripts\jquery.tablesorter.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\Kanban\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\Kanban\bootstrap-select.min.js" />
     <Content Include="Scripts\Kanban\jquery-ui.js" />
     <Content Include="Scripts\Kanban\kanban.js" />

@@ -9,11 +9,18 @@
             <div style="border-bottom: 3px solid @Model.kanbantickettype.Color" class="list-item-card" data-ticketid="@Model.Id">
                 <div class="list-item-card-details">
                     <div class="row">
-                        <div onclick="ShowTicketDetails(@Model.Id)" class="col-sm-10">
+                        <div onclick="ShowTicketDetails(@Model.Id)" class="col-sm-9">
                             <a href="#" class="list-item-card-title">@Model.Name</a>
                         </div>
-                        <div class="col-sm-2">
-                            <button onclick="deleteTicket(@Model.Id)" class="btn btn-sm btn-remove">x</button>
+                        <div class="col-sm-1">
+                            <button onclick="editTicket(@Model.Id)" class="btn btn-sm btn-remove">
+                                <span style="font-size: 10px;" class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        </div>
+                        <div class="col-sm-1">
+                            <button onclick="deleteTicket(@Model.Id)" class="btn btn-sm btn-remove">
+                                <span style="font-size: 10px;" class="glyphicon glyphicon-remove"></span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -27,11 +34,18 @@ else
     <div style="border-bottom: 3px solid @Model.kanbantickettype.Color" class="list-item-card" data-ticketid="@Model.Id">
         <div class="list-item-card-details">
             <div class="row">
-                <div onclick="ShowTicketDetails(@Model.Id)" class="col-sm-10">
+                <div onclick="ShowTicketDetails(@Model.Id)" class="col-sm-9">
                     <a href="#" class="list-item-card-title">@Model.Name</a>
                 </div>
-                <div class="col-sm-2">
-                    <button onclick="deleteTicket(@Model.Id)" class="btn btn-sm btn-remove">x</button>
+                <div class="col-sm-1">
+                    <button onclick="editTicket(@Model.Id)" class="btn btn-sm btn-remove">
+                        <span style="font-size: 10px;" class="glyphicon glyphicon-edit"></span>
+                    </button>
+                </div>
+                <div class="col-sm-1">
+                    <button onclick="deleteTicket(@Model.Id)" class="btn btn-sm btn-remove">
+                        <span style="font-size: 10px;" class="glyphicon glyphicon-remove"></span>
+                    </button>
                 </div>
             </div>
         </div>

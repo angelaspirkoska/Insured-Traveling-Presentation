@@ -72,6 +72,13 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div id="ticketEditModal" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="ticketEditContainer">
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <div id="deleteTicketModal" class="modal fade" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -118,15 +125,15 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div id="addNewTicketModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="addNewTicketModal" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Add Ticket</h4>
             </div>
-            <form>
-                <div class="modal-body">
+            <div class="modal-body">
+                <form>
                     <input type="hidden" name="poolListId" id="addTicketPoolListId" value="-1" />
 
                     <div class="form-group">
@@ -145,9 +152,10 @@
                         <label>Add ticket watchers</label>
                         @Html.Action("GetUsersDropdown", new { role = "watchers" })
                     </div>
-                    <div class="form-group">
-                        <label for="deadline">Title</label>
-                        <input type="text" class="form-control" id="deadline" name="deadline" placeholder="Select ticket deadline">
+                    <div class="form-group has-feedback">
+                        <label for="deadline">Deadline</label>
+                        <input type="text" class="form-control" id="deadline" name="deadline" placeholder="Set ticket deadline">
+                        <i class="glyphicon glyphicon-calendar form-control-feedback"></i>
                     </div>
                     <div class="form-group">
                         <label>Ticket Type</label>
@@ -156,13 +164,13 @@
                     <div id="ticketTypeComponents">
 
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
             <div class="modal-footer">
-                <div class="col-sm-offset-4 col-sm-4">
-                    <button type="button" class="btn btn-block btn-add-new btn-danger" data-dismiss="modal">Close</button>
+                <div style="margin-top: 10px;" class="col-sm-offset-4 col-sm-4">
+                    <button type="button" class="btn btn-block btn-add-new btn-danger" data-dismiss="modal">Cancel</button>
                 </div>
-                <div class="col-sm-4">
+                <div style="margin-top: 10px;" class="col-sm-4">
                     <button onclick="AddNewTicket()" type="button" class="btn btn-block btn-add-new btn-success">Add</button>
                 </div>
             </div>
@@ -177,10 +185,22 @@
 
 <script>
     $(function () {
+
+        $('#addNewTicketModal').on('hidden.bs.modal', function () {
+            $("#addNewTicketModal input").val("");
+            $("#addNewTicketModal select").val(-1);
+            $("#addNewTicketModal textarea").val("");
+            $("#ticketTypeComponents").html("");
+            $('.selectpicker').selectpicker('deselectAll');
+        })
+
         $("body").css("background-color", "@Model.Color");
 
+        var date = new Date();
+
         $("#deadline").datepicker({
-            format: "dd.MM.yyyy"
+            format: "dd.MM.yyyy",
+            startDate: date
         });
 
         $("#ticketTypeSelect").change(function () {

@@ -84,6 +84,25 @@ function deleteTicket(ticketId) {
     $("#deleteTicketModal").modal("show");
 }
 
+function editTicket(ticketId) {
+    $("#loader").show();
+    $.ajax({
+        type: "post",
+        url: "/Kanban/TicketEdit",
+        data: {
+            ticketId: ticketId
+        },
+        success: function (result) {
+            $("#ticketEditContainer").html(result);
+            $("#ticketEditModal").modal("show");
+            $("#loader").hide();
+        },
+        error: function () {
+            $("#loader").hide();
+        }
+    });
+}
+
 function submitDeleteTicket() {
     var ticketId = $("#ticketForDeleteId").val();
     $("#loader").show();
