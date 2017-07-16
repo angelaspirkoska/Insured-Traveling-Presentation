@@ -38,6 +38,7 @@ namespace InsuredTraveling.DI
         string GetCompanyID(string PolicyNumber);
         string GetPolicyHolderEmailByPolicyId(int PolicyId);
         void UpdatePaymentStatus(string PolicyNumber);
+        bool UpdatePolicyPaymentStatusByPolicyId(int policyID);
         List<travel_policy> GetAllPolicies();
         List<travel_policy> GetAllPoliciesByPolicyNumber(string Prefix);
         IQueryable<SelectListItem> GetAll();

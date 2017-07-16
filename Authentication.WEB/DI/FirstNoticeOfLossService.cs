@@ -383,7 +383,7 @@ namespace InsuredTraveling.DI
 
         public string CreateFNOLNumber()
         {
-            return (Int64.Parse(_db.first_notice_of_loss.OrderByDescending(f => f.FNOL_Number).Select(r => r.FNOL_Number).FirstOrDefault()) + 1).ToString();
+            return (Int64.Parse(_db.first_notice_of_loss.OrderByDescending(p => p.ID).Select(r => r.FNOL_Number).FirstOrDefault()) + 1).ToString();
         }
 
         public int LastDocumentId()

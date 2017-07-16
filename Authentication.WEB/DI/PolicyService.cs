@@ -37,6 +37,19 @@ namespace InsuredTraveling.DI
             _db.SaveChanges();
         }
 
+        public bool UpdatePolicyPaymentStatusByPolicyId(int policyID)
+        {
+            var policy = _db.travel_policy.Where(x => x.ID == policyID).FirstOrDefault();
+            if (policy != null)
+            {
+                policy.Payment_Status = true;
+                _db.SaveChanges();
+                return true;
+            }
+            else
+                return false;
+        }
+
         public string CreatePolicyNumber()
         {
             return (Int64.Parse(_db.travel_policy.OrderByDescending(p => p.ID).Select(r => r.Policy_Number).FirstOrDefault()) + 1).ToString();

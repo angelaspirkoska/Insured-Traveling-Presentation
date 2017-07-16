@@ -554,23 +554,18 @@ namespace InsuredTraveling.Controllers.API
         }
 
         [HttpPost]
-        [Route("CreatePolicy")]
-        public IHttpActionResult CreatePolicy(Policy policy)
+        [Route("CreatePolicy/{id}")]
+        public IHttpActionResult CreatePolicy(int id)
         {
-            if (policy.Policy_Number == null || policy.Policy_Number == "")
+            if (id == null && id == 0)
             {
-                throw new Exception("Internal error: Empty Policy");
-            }
-            try
-            {
-                _ps.UpdatePaymentStatus(policy.Policy_Number);
-                return Ok();
-            }
-            catch
-            {
-                throw new Exception("Internal error: Payment status not changed");
+                throw new Exception("Internal error: quote number is not valid");
             }
 
+            if (_ps.UpdatePolicyPaymentStatusByPolicyId(id))
+                return Ok();
+            else
+                throw new Exception("Internal error: Payment status not changed");
         }
 
 
@@ -707,7 +702,7 @@ namespace InsuredTraveling.Controllers.API
                 {
                     riskObject.Add("NameMK", riskDataMK.name);
                 }
-                if(!(riskDataMK == null || riskDataEN == null))
+                if (!(riskDataMK == null || riskDataEN == null))
                     retainingRisks.Add(riskObject);
             }
             data.Add("retainingRisk", retainingRisks);
@@ -820,9 +815,9 @@ namespace InsuredTraveling.Controllers.API
                     {
                         string quoteNumber = _ps.GetPolicyNumberByPolicyId(paymentModel.OrderId.Value);
                         _ps.UpdatePaymentStatus(quoteNumber);
-                        HttpError myCustomError = new HttpError("File successfuly.") { { "Is3DSecure", false }, { "Response", "{'TRANID':'','PAResSyntaxOK':'false','islemtipi':'Auth','refreshtime':'10','lang':'mk','merchantID':'180000069','amount':'500','sID':'1','ACQBIN':'435742','Ecom_Payment_Card_ExpDate_Year':'20','MaskedPan':'429724***4937','clientIp':'88.85.116.22','iReqDetail':'','okUrl':'https://localhost:44375/api/HalkbankPayment/Handle','md':'429724:B1BFD1386EE5C99F997854210EFE15930334DF46EC90BC7994AB81564537D7CE:4274:##180000069','ProcReturnCode':'99','taksit':'','vendorCode':'','paresTxStatus':'-','Ecom_Payment_Card_ExpDate_Month':'02','storetype':'3D_PAY_HOSTING','iReqCode':'','veresEnrolledStatus':'N','Response':'Approved','mdErrorMsg':'N-status/Not enrolled from Directory Server: http://katmai:8080/mdpayacs/vereq','ErrMsg':'Нарачката е веќе платена','PAResVerified':'false','cavv':'','digest':'digest','failUrl':'https://localhost:44375/api/HalkbankPayment/Handle','cavvAlgorithm':'','xid':'C5BphugnaeXHj26RXrVOyR91QFA=','encoding':'UTF-8','currency':'807','oid':'23011','mdStatus':'2','dsId':'1','eci':'','version':'2.0','clientid':'180000069','txstatus':'N','HASH':'UAMehE7tsfURlS4d8udtWa3m+C4=','rnd':'SIUIAvmeELilibPLVdFW','HASHPARAMS':'clientid:oid:AuthCode:ProcReturnCode:Response:mdStatus:cavv:eci:md:rnd:','HASHPARAMSVAL':'1800000692301199Declined2429724:B1BFD1386EE5C99F997854210EFE15930334DF46EC90BC7994AB81564537D7CE:4274:##180000069SIUIAvmeELilibPLVdFW'}" } } ;
+                        HttpError myCustomError = new HttpError("File successfuly.") { { "Is3DSecure", false }, { "Response", "{'TRANID':'','PAResSyntaxOK':'false','islemtipi':'Auth','refreshtime':'10','lang':'mk','merchantID':'180000069','amount':'500','sID':'1','ACQBIN':'435742','Ecom_Payment_Card_ExpDate_Year':'20','MaskedPan':'429724***4937','clientIp':'88.85.116.22','iReqDetail':'','okUrl':'https://localhost:44375/api/HalkbankPayment/Handle','md':'429724:B1BFD1386EE5C99F997854210EFE15930334DF46EC90BC7994AB81564537D7CE:4274:##180000069','ProcReturnCode':'99','taksit':'','vendorCode':'','paresTxStatus':'-','Ecom_Payment_Card_ExpDate_Month':'02','storetype':'3D_PAY_HOSTING','iReqCode':'','veresEnrolledStatus':'N','Response':'Approved','mdErrorMsg':'N-status/Not enrolled from Directory Server: http://katmai:8080/mdpayacs/vereq','ErrMsg':'Нарачката е веќе платена','PAResVerified':'false','cavv':'','digest':'digest','failUrl':'https://localhost:44375/api/HalkbankPayment/Handle','cavvAlgorithm':'','xid':'C5BphugnaeXHj26RXrVOyR91QFA=','encoding':'UTF-8','currency':'807','oid':'23011','mdStatus':'2','dsId':'1','eci':'','version':'2.0','clientid':'180000069','txstatus':'N','HASH':'UAMehE7tsfURlS4d8udtWa3m+C4=','rnd':'SIUIAvmeELilibPLVdFW','HASHPARAMS':'clientid:oid:AuthCode:ProcReturnCode:Response:mdStatus:cavv:eci:md:rnd:','HASHPARAMSVAL':'1800000692301199Declined2429724:B1BFD1386EE5C99F997854210EFE15930334DF46EC90BC7994AB81564537D7CE:4274:##180000069SIUIAvmeELilibPLVdFW'}" } };
                         return Request.CreateErrorResponse(HttpStatusCode.OK, myCustomError);
-                       
+
                     }
                     catch
                     {
@@ -846,7 +841,7 @@ namespace InsuredTraveling.Controllers.API
                     throw new Exception("Internal error: Can`t access HalkBank Payment api");
                 }
             }
-            
+
 
             else
             {
@@ -857,7 +852,7 @@ namespace InsuredTraveling.Controllers.API
         public HttpResponseMessage HalkBankPayment(CreditCardInfoModel paymenyModel)
         {
 
-         
+
             Uri uri = new Uri(ConfigurationManager.AppSettings["webpage_apiurl"] + "/api/halkbankpayment/pay");
             HttpClient client = new HttpClient();
             client.BaseAddress = uri;
